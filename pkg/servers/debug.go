@@ -12,10 +12,11 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/Percona-Platform/platform/pkg/logger"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
+
+	"github.com/Percona-Platform/platform/pkg/logger"
 )
 
 type RunDebugServerOpts struct {
