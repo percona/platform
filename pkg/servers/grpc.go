@@ -23,11 +23,14 @@ type GetGRPCServerOpts struct {
 }
 
 func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, error) {
+	grpc.EnableTracing = true
+
 	if opts == nil {
 		opts = new(GetGRPCServerOpts)
 	}
 
 	serverOpts := []grpc.ServerOption{
+		grpc.ConnectionTimeout(5 * time.Second),
 		grpc.MaxRecvMsgSize(10 * 1024 * 1024), //nolint:gomnd
 
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
@@ -72,7 +75,7 @@ func RunGRPCServer(ctx context.Context, opts *RunGRPCServerOpts) {
 		l.Panic("No Server set.")
 	}
 	if opts.Addr == "" {
-		l.Panic("No Addr set,")
+		l.Panic("No Addr set.")
 	}
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
