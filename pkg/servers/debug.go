@@ -22,6 +22,8 @@ import (
 type RunDebugServerOpts struct {
 	Addr            string
 	ShutdownTimeout time.Duration
+	Healthz         func() error
+	Readyz          func() error
 }
 
 func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
@@ -37,15 +39,45 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
+	if opts.Healthz == nil {
+		opts.Healthz = func() error { return nil }
+	}
+	if opts.Readyz == nil {
+		opts.Readyz = func() error { return nil }
+	}
 
-	handler := promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{
+	healthzHandler := func(rw http.ResponseWriter, req *http.Request) {
+		if err := opts.Healthz(); err != nil {
+			l.Error("Healthz: %s.", err)
+			rw.WriteHeader(500)
+			return
+		}
+
+		rw.WriteHeader(200)
+	}
+	http.Handle("/debug/healthz", http.HandlerFunc(healthzHandler))
+
+	readyzHandler := func(rw http.ResponseWriter, req *http.Request) {
+		if err := opts.Readyz(); err != nil {
+			l.Warn("Readyz: %s.", err)
+			rw.WriteHeader(500)
+			return
+		}
+
+		rw.WriteHeader(200)
+	}
+	http.Handle("/debug/readyz", http.HandlerFunc(readyzHandler))
+
+	metricsHandler := promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{
 		ErrorLog:      &logger.PromHTTP{L: l},
 		ErrorHandling: promhttp.ContinueOnError,
 	})
-	http.Handle("/debug/metrics", promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, handler))
+	http.Handle("/debug/metrics", promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, metricsHandler))
 
 	handlers := []string{
-		"/debug/metrics",  // by http.Handle above
+		"/debug/healthz",  // by healthzHandler above
+		"/debug/readyz",   // by readyzHandler above
+		"/debug/metrics",  // by metricsHandler above
 		"/debug/vars",     // by expvar
 		"/debug/requests", // by golang.org/x/net/trace imported by google.golang.org/grpc
 		"/debug/events",   // by golang.org/x/net/trace imported by google.golang.org/grpc
@@ -77,7 +109,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 
 	server := &http.Server{
 		Addr:     opts.Addr,
-		ErrorLog: log.New(os.Stderr, "runDebugServer: ", 0),
+		ErrorLog: log.New(os.Stderr, "RunDebugServer: ", 0),
 	}
 	go func() {
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {
