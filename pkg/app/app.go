@@ -1,10 +1,9 @@
 package app
 
 import (
-	"fmt"
-	"log"
 	"runtime/debug"
 
+	"go.uber.org/zap"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -19,16 +18,35 @@ type Flags struct {
 
 func Setup(version string) *Flags {
 	if version == "" {
-		log.Print("app.Setup: building version information")
+		l := zap.L().With(zap.String("component", "platform/app/Setup")).Sugar()
+		l.Debug("Building version information.")
+
 		info, ok := debug.ReadBuildInfo()
 		if ok {
-			log.Print(info.Main)
-			log.Print(info.Main.Replace)
+			l.Debug(info.Main)
+			var platform *debug.Module
 			for _, d := range info.Deps {
-				log.Print(d)
+				if d.Path == "github.com/Percona-Platform/platform" {
+					platform = d
+					l.Debug(platform)
+					if d.Replace != nil {
+						platform = d.Replace
+						l.Debug("\treplaced by ", platform)
+					}
+					break
+				}
 			}
 
-			version = fmt.Sprintf("%s (%s)", info.Main.Version, info.Main.Sum)
+			version = info.Main.Version
+			if s := info.Main.Sum; s != "" {
+				version += "(" + s + ")"
+			}
+			if platform != nil && platform.Version != "" {
+				version += " / platform " + platform.Version
+				if s := platform.Sum; s != "" {
+					version += "(" + s + ")"
+				}
+			}
 		}
 	}
 
