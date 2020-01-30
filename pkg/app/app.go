@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"log"
 	"runtime/debug"
 
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -18,8 +19,15 @@ type Flags struct {
 
 func Setup(version string) *Flags {
 	if version == "" {
+		log.Print("app.Setup: building version information")
 		info, ok := debug.ReadBuildInfo()
 		if ok {
+			log.Print(info.Main)
+			log.Print(info.Main.Replace)
+			for _, d := range info.Deps {
+				log.Print(d)
+			}
+
 			version = fmt.Sprintf("%s (%s)", info.Main.Version, info.Main.Sum)
 		}
 	}
