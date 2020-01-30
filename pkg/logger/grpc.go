@@ -8,12 +8,12 @@ import (
 // GRPC is a compatibility wrapper between zap's sugared logger entry and gRPC logger interface.
 type GRPC struct {
 	*zap.SugaredLogger
+	Verbose bool
 }
 
 // V reports whether verbosity level l is at least the requested verbose level.
 func (g *GRPC) V(l int) bool {
-	// we don't need real implementation ATM
-	return true
+	return g.Verbose
 }
 
 func (g *GRPC) Infoln(args ...interface{})                  { g.Info(args...) }
