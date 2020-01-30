@@ -2,9 +2,12 @@ package servers
 
 import (
 	"context"
+	"crypto/tls"
 	"net"
+	"net/http"
 	"time"
 
+	"github.com/Percona-Platform/platform/pkg/ptls"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -19,10 +22,11 @@ import (
 type GetGRPCServerOpts struct {
 	CertFile     string
 	KeyFile      string
+	ACME         *ptls.GetACMEOpts
 	WarnDuration time.Duration
 }
 
-func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, error) {
+func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) {
 	grpc.EnableTracing = true
 
 	if opts == nil {
@@ -47,15 +51,35 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, error) {
 		)),
 	}
 
-	if opts.CertFile != "" && opts.KeyFile != "" {
-		creds, err := credentials.NewServerTLSFromFile("dev-cert.pem", "dev-key.pem")
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to load TLS files")
+	var creds credentials.TransportCredentials
+	var handler http.Handler
+	var err error
+	switch {
+	case opts.CertFile != "" && opts.KeyFile != "":
+		if opts.ACME != nil {
+			return nil, nil, errors.New("both CertFile/KeyFile and ACME are specified")
 		}
+
+		creds, err = credentials.NewServerTLSFromFile("dev-cert.pem", "dev-key.pem")
+		if err != nil {
+			return nil, nil, errors.Wrap(err, "failed to load TLS files")
+		}
+
+	case opts.ACME != nil:
+		var tlsConfig *tls.Config
+		tlsConfig, handler, err = ptls.GetACME(opts.ACME)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		creds = credentials.NewTLS(tlsConfig)
+	}
+
+	if creds != nil {
 		serverOpts = append(serverOpts, grpc.Creds(creds))
 	}
 
-	return grpc.NewServer(serverOpts...), nil
+	return grpc.NewServer(serverOpts...), handler, nil
 }
 
 type RunGRPCServerOpts struct {

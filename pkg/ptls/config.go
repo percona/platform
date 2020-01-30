@@ -1,11 +1,11 @@
-package tlsconfig
+package ptls
 
 import (
 	"crypto/tls"
 )
 
-// Get returns a new tls.Config instance configured according to Percona's security baseline.
-func Get() *tls.Config {
+// GetConfig returns a new tls.Config instance configured according to Percona's security baseline.
+func GetConfig() *tls.Config {
 	return &tls.Config{
 		MinVersion:               tls.VersionTLS12,
 		PreferServerCipherSuites: true,

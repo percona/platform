@@ -14,6 +14,8 @@ require (
 	github.com/prometheus/client_golang v1.3.0
 	github.com/uber/prototool v1.9.0
 	go.uber.org/zap v1.10.0
-	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135
+	golang.org/x/crypto v0.0.0-20200128174031-69ecbb4d6d5d
+	golang.org/x/tools v0.0.0-20200129045341-207d3de1faaf
 	google.golang.org/grpc v1.26.0
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
