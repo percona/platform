@@ -23,18 +23,18 @@ func GetACME(opts *GetACMEOpts) (*tls.Config, http.Handler, error) {
 	}
 
 	if opts.DirCache == "" {
-		return nil, nil, errors.New("no DirCache")
+		return nil, nil, errors.New("ACME: no DirCache")
 	}
 	if len(opts.Hosts) == 0 {
-		return nil, nil, errors.New("no Hosts")
+		return nil, nil, errors.New("ACME: no Hosts")
 	}
 	if opts.Email == "" {
-		return nil, nil, errors.New("no Email")
+		return nil, nil, errors.New("ACME: no Email")
 	}
 
 	directoryURL := acme.LetsEncryptURL
 	if opts.Staging {
-		directoryURL = acme.LetsEncryptURL
+		directoryURL = "https://acme-staging-v02.api.letsencrypt.org/directory"
 	}
 
 	certManager := &autocert.Manager{
