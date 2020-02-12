@@ -1,4 +1,4 @@
-// Package logger contains logging utilities.
+// Package logger provides common logging utilities for all SaaS components.
 package logger
 
 import (
@@ -19,7 +19,7 @@ func newLogger(requestID string) *zap.Logger {
 func Get(ctx context.Context) *zap.Logger {
 	v := ctx.Value(key)
 	if v == nil {
-		l := newLogger("")
+		l := newLogger("logger.Get")
 		l.DPanic("context logger not set")
 		return l
 	}

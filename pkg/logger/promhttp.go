@@ -5,7 +5,8 @@ import (
 	"go.uber.org/zap"
 )
 
-// PromHTTP is a compatibility wrapper between zap's sugared logger entry and Prometheus HTTP logger interface.
+// PromHTTP is a compatibility wrapper between zap's sugared logger entry
+// and Prometheus HTTP logger interface.
 type PromHTTP struct {
 	L *zap.SugaredLogger
 }

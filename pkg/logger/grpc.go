@@ -8,6 +8,8 @@ import (
 // GRPC is a compatibility wrapper between zap's sugared logger entry and gRPC logger interface.
 type GRPC struct {
 	*zap.SugaredLogger
+
+	// Set to true for very verbose gRPC logging.
 	Verbose bool
 }
 
