@@ -1,3 +1,4 @@
+// Package ptls provides common TLS utilities for all SaaS components.
 package ptls
 
 import (

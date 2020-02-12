@@ -17,6 +17,8 @@ type GetACMEOpts struct {
 	Staging  bool
 }
 
+// Package autocert provides automatic access to certificates from Let's Encrypt
+// and any other ACME-based CA.
 func GetACME(opts *GetACMEOpts) (*tls.Config, http.Handler, error) {
 	if opts == nil {
 		opts = new(GetACMEOpts)
