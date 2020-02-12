@@ -1,3 +1,4 @@
+// Package app provides common flags for all SaaS components.
 package app
 
 import (
@@ -59,22 +60,35 @@ func version() string {
 	return version
 }
 
-func Setup() *Flags {
+type SetupOpts struct {
+	WithGRPC bool
+	WithACME bool
+}
+
+func Setup(opts *SetupOpts) *Flags {
+	if opts == nil {
+		opts = new(SetupOpts)
+	}
+
 	kingpin.Version(version())
 
 	kingpin.HelpFlag.Short('h')
 
 	var flags Flags
 
-	kingpin.Flag("grpc.addr", "gRPC listen address").Default(":443").StringVar(&flags.GRPCAddr)
-	kingpin.Flag("grpc.tls.cert-file", "gRPC listen address").StringVar(&flags.GRPCTLSCertFile)
-	kingpin.Flag("grpc.tls.key-file", "gRPC listen address").StringVar(&flags.GRPCTLSKeyFile)
+	if opts.WithGRPC {
+		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":443").StringVar(&flags.GRPCAddr)
+		kingpin.Flag("grpc.tls.cert-file", "gRPC listen address").StringVar(&flags.GRPCTLSCertFile)
+		kingpin.Flag("grpc.tls.key-file", "gRPC listen address").StringVar(&flags.GRPCTLSKeyFile)
+	}
 
-	kingpin.Flag("acme.addr", "ACME listen address").Default(":80").StringVar(&flags.ACME.Addr)
-	kingpin.Flag("acme.dir-cache", "ACME directory cache").StringVar(&flags.ACME.DirCache)
-	kingpin.Flag("acme.hosts", "ACME whitelisted hosts").StringsVar(&flags.ACME.Hosts)
-	kingpin.Flag("acme.email", "ACME email").StringVar(&flags.ACME.Email)
-	kingpin.Flag("acme.staging", "Use Let's Encrypt staging environment").BoolVar(&flags.ACME.Staging)
+	if opts.WithACME {
+		kingpin.Flag("acme.addr", "ACME listen address").Default(":80").StringVar(&flags.ACME.Addr)
+		kingpin.Flag("acme.dir-cache", "ACME directory cache").StringVar(&flags.ACME.DirCache)
+		kingpin.Flag("acme.hosts", "ACME whitelisted hosts").StringsVar(&flags.ACME.Hosts)
+		kingpin.Flag("acme.email", "ACME email").StringVar(&flags.ACME.Email)
+		kingpin.Flag("acme.staging", "Use Let's Encrypt staging environment").BoolVar(&flags.ACME.Staging)
+	}
 
 	kingpin.Flag("debug.addr", "Debug listen address").Default("127.0.0.1:8080").StringVar(&flags.DebugAddr)
 
