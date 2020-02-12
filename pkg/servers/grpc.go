@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Percona-Platform/platform/pkg/ptls"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -17,6 +16,8 @@ import (
 	channelz "google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
+
+	"github.com/Percona-Platform/platform/pkg/ptls"
 )
 
 type GetGRPCServerOpts struct {
