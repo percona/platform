@@ -34,7 +34,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	l := zap.L().With(zap.String("component", "debug")).Sugar()
 
 	if opts.Addr == "" {
-		l.Panic("No Addr set,")
+		l.Panic("No Addr set.")
 	}
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
