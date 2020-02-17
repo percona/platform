@@ -1,3 +1,3 @@
 # platform
 
-Internal Percona Platform API definitions and common code.
+Percona Platform private API definitions and common code.

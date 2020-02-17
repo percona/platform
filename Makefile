@@ -6,25 +6,46 @@ help:                 ## Display this help message.
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 
-EXEC = docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' docker.pkg.github.com/percona-platform/platform/prototool:latest
+DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
+DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
+DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 
 
-all:                  ## Format, check, and generate using prototool Docker image.
+gen:                  ## Format, check, and generate using prototool Docker image.
 	rm -fr gen
 
 	# $(PROTOTOOL) break check api/events -f api/events/descriptor.bin
-	$(EXEC) prototool all api
-	$(EXEC) gofmt -w -s .
-	$(EXEC) goimports -local github.com/Percona-Platform/platform -l -w .
+	$(DOCKER_RUN_CMD) prototool all api
+	$(DOCKER_RUN_CMD) gofmt -w -s .
+	$(DOCKER_RUN_CMD) goimports -local github.com/Percona-Platform/platform -w .
+
+test:
+	go install ./...
+	go test ./...
 
 # descriptors:          ## Update files used for breaking changes detection.
 # 	$(PROTOTOOL) break descriptor-set api/events -o api/events/descriptor.bin
 # 	$(PROTOTOOL) break descriptor-set api/callhome -o api/callhome/descriptor.bin
 
-docker:               ## Build prototool Docker image.
-	docker build --pull --squash --tag percona-platform-prototool:dev -f Dockerfile .
-	docker tag percona-platform-prototool:dev docker.pkg.github.com/percona-platform/platform/prototool:latest
-	docker push docker.pkg.github.com/percona-platform/platform/prototool:latest
+docker-build:         ## Build prototool Docker dev image.
+	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
 
-exec:                 ## Run bash in prototool Docker image.
-	$(EXEC) /bin/bash
+docker-push:          ## Tag and push prototool Docker image.
+	docker tag $(DOCKER_DEV_IMAGE) $(DOCKER_RUN_IMAGE)
+	docker push $(DOCKER_RUN_IMAGE)
+
+run-dev:              ## Run bash in prototool Docker dev image.
+	# the same as DOCKER_RUN_CMD but with `-it` and dev image
+	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
+
+ci:
+	make docker-build
+	env DOCKER_RUN_IMAGE=percona-platform-prototool:dev make gen
+
+	go env
+	sudo chown -R runner:docker gen
+	make test
+	go mod tidy
+	git diff --exit-code
+
+.PHONY: gen

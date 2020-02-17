@@ -1,18 +1,20 @@
-FROM golang:1.13.7-buster
+FROM golang:1.13.8-buster
 
 RUN apt-get update
 RUN apt-get install -y aria2 unzip
 
 # must match version in prototool.yml files
-ENV PROTOBUF_VERSION=3.11.2
+ENV PROTOBUF_VERSION=3.11.4
+ENV PROTOBUF_CHECKSUM=82777f04d9600ec69c53044a06fec4d3e108c9c3797d643f3472eb558088963e02a153077e2f832db54d17921204d327ad6ba9f37db7d00bd46f4887229dc837
 
 # must match versions in go.mod
-ENV GRPC_GATEWAY_VERSION=1.12.1
+ENV GRPC_GATEWAY_VERSION=1.13.0
 ENV GO_PROTO_VALIDATORS_VERSION=0.3.0
 
 RUN mkdir /tmp/protoc
+RUN echo https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip
 RUN aria2c https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip \
-  --checksum=sha-512=50c639d8fed893acf28244f8119378b2d51918f7e24725d449c84d174ec5f6e71e939e58e42d60d86272e7bf638934855f5b03b03f7907b74b14225b924fd420 \
+  --checksum=sha-512=${PROTOBUF_CHECKSUM} \
   --dir=/tmp/protoc --out=protoc.zip
 RUN unzip /tmp/protoc/protoc.zip -d /tmp/protoc
 RUN mv -v /tmp/protoc/include/* /usr/local/include
@@ -21,7 +23,7 @@ RUN rm -frv /tmp/protoc
 
 RUN mkdir /tmp/go
 COPY go.mod go.sum tools.go /tmp/go/
-RUN cd /tmp/go && env GO111MODULE=on go install -v -mod=readonly \
+RUN cd /tmp/go && go install -v -mod=readonly \
   github.com/gogo/protobuf/protoc-gen-gofast \
   github.com/gogo/protobuf/protoc-gen-gogo \
   github.com/gogo/protobuf/protoc-gen-gogofast \
