@@ -1,0 +1,32 @@
+---
+name: Docker
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    name: Rebuild image
+
+    runs-on: ubuntu-latest
+
+    env:
+      GOPRIVATE: github.com/Percona-Platform
+      GOFLAGS: -v -mod=readonly
+
+    steps:
+    - name: Check out code into the Go module directory
+      uses: Percona-Platform/checkout@v2
+
+    - name: Enable experimental Docker features for --squash flag
+      run: sudo .github/workflows/enable-docker-experimental.sh
+
+    - name: Login in Docker registry
+      run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+
+    - name: Build Docker image
+      run: make docker-build
+
+    - name: Tag and push Docker image
+      run: make docker-push
