@@ -38,6 +38,11 @@ run-dev:              ## Run bash in prototool Docker dev image.
 	# the same as DOCKER_RUN_CMD but with `-it` and dev image
 	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
 
+saas:                 ## Extract public APIs into ../saas.
+	rm -fr ../saas/api
+	mkdir ../saas/api
+	cp -R api/telemetry ../saas/api
+
 ci:
 	make docker-build
 	env DOCKER_RUN_IMAGE=percona-platform-prototool:dev make gen
