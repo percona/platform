@@ -16,7 +16,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 
-	"github.com/Percona-Platform/platform/pkg/logger"
+	"github.com/percona-platform/platform/pkg/logger"
 )
 
 type RunDebugServerOpts struct {

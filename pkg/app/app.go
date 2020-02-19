@@ -35,7 +35,7 @@ func version() string {
 
 	var platform *debug.Module
 	for _, d := range info.Deps {
-		if d.Path == "github.com/Percona-Platform/platform" {
+		if d.Path == "github.com/percona-platform/platform" {
 			platform = d
 			l.Debug(platform)
 			if d.Replace != nil {

@@ -9,8 +9,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 
-	pmmv1beta1 "github.com/Percona-Platform/platform/gen/telemetry/events/pmm"
-	reporterv1beta1 "github.com/Percona-Platform/platform/gen/telemetry/reporter"
+	pmmv1beta1 "github.com/percona-platform/platform/gen/telemetry/events/pmm"
+	reporterv1beta1 "github.com/percona-platform/platform/gen/telemetry/reporter"
 )
 
 func TestValidators(t *testing.T) {
