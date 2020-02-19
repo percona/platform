@@ -89,7 +89,7 @@
         - RPCS_NO_STREAMING                                              # Verifies that all rpcs are unary.
         - RPC_NAMES_CAMEL_CASE                                           # Verifies that all RPC names are CamelCase.
         - RPC_NAMES_CAPITALIZED                                          # Verifies that all RPC names are Capitalized.
-        # - RPC_OPTIONS_NO_GOOGLE_API_HTTP                                 # Verifies that the RPC option "google.api.http" is not used.
+        - RPC_OPTIONS_NO_GOOGLE_API_HTTP                                 # Verifies that the RPC option "google.api.http" is not used.
         - SERVICES_HAVE_COMMENTS                                         # Verifies that all services have a comment of the form "// ServiceName ...".
         - SERVICES_HAVE_SENTENCE_COMMENTS                                # Verifies that all services have a comment that contains at least one complete sentence.
         - SERVICE_NAMES_API_SUFFIX                                       # Verifies that all service names end with "API".

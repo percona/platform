@@ -9,8 +9,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 
-	telemetryv1beta1 "github.com/Percona-Platform/platform/gen/telemetry"
 	pmmv1beta1 "github.com/Percona-Platform/platform/gen/telemetry/events/pmm"
+	reporterv1beta1 "github.com/Percona-Platform/platform/gen/telemetry/reporter"
 )
 
 func TestValidators(t *testing.T) {
@@ -28,11 +28,11 @@ func TestValidators(t *testing.T) {
 	require.NoError(t, err)
 
 	id = uuid.New()
-	req := &telemetryv1beta1.ReportRequest{
-		Events: []*telemetryv1beta1.Event{{
+	req := &reporterv1beta1.ReportRequest{
+		Events: []*reporterv1beta1.Event{{
 			Id:   id[:],
 			Time: ptypes.TimestampNow(),
-			Event: &telemetryv1beta1.AnyEvent{
+			Event: &reporterv1beta1.AnyEvent{
 				TypeUrl: proto.MessageName(event),
 				Binary:  eventB,
 			},
