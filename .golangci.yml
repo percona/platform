@@ -10,7 +10,7 @@ linters-settings:
         - github.com/gogo/protobuf/proto
 
   goimports:
-    local-prefixes: github.com/Percona-Platform/platform
+    local-prefixes: github.com/percona-platform/platform
 
   lll:
     line-length: 120

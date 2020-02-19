@@ -18,17 +18,17 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     env:
-      GOPRIVATE: github.com/Percona-Platform
+      GOPRIVATE: github.com/percona-platform
       GOFLAGS: -v -mod=readonly
 
     steps:
     - name: Set up Go ${{ matrix.go-version }}
-      uses: Percona-Platform/setup-go@v1
+      uses: percona-platform/setup-go@v1
       with:
         go-version: ${{ matrix.go-version }}
 
     - name: Check out code into the Go module directory
-      uses: Percona-Platform/checkout@v2
+      uses: percona-platform/checkout@v2
 
     - name: Enable experimental Docker features for --squash flag
       run: sudo .github/workflows/enable-docker-experimental.sh

@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/Percona-Platform/platform/pkg/logger"
+	"github.com/percona-platform/platform/pkg/logger"
 )
 
 func logRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {

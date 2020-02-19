@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/Percona-Platform/platform/pkg/ptls"
+	"github.com/percona-platform/platform/pkg/ptls"
 )
 
 type GetGRPCServerOpts struct {

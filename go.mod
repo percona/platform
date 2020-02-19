@@ -1,4 +1,4 @@
-module github.com/Percona-Platform/platform
+module github.com/percona-platform/platform
 
 go 1.13
 

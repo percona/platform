@@ -1,6 +1,6 @@
 // +build tools
 
-package pp // import "github.com/Percona-Platform/platform"
+package pp // import "github.com/percona-platform/platform"
 
 import (
 	_ "github.com/gogo/protobuf/protoc-gen-gofast"

@@ -17,7 +17,7 @@ gen:                  ## Format, check, and generate using prototool Docker imag
 	# $(PROTOTOOL) break check api/events -f api/events/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool all api
 	$(DOCKER_RUN_CMD) gofmt -w -s .
-	$(DOCKER_RUN_CMD) goimports -local github.com/Percona-Platform/platform -w .
+	$(DOCKER_RUN_CMD) goimports -local github.com/percona-platform/platform -w .
 
 test:
 	go install ./...
