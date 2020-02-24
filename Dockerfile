@@ -7,7 +7,7 @@ RUN apt-get install -y aria2 unzip
 ENV PROTOBUF_VERSION=3.11.4
 ENV PROTOBUF_CHECKSUM=82777f04d9600ec69c53044a06fec4d3e108c9c3797d643f3472eb558088963e02a153077e2f832db54d17921204d327ad6ba9f37db7d00bd46f4887229dc837
 
-# must match versions in go.mod
+# must match versions in tools/go.mod
 ENV GRPC_GATEWAY_VERSION=1.13.0
 ENV GO_PROTO_VALIDATORS_VERSION=0.3.0
 
@@ -22,13 +22,8 @@ RUN mv -v /tmp/protoc/bin/* /usr/local/bin
 RUN rm -frv /tmp/protoc
 
 RUN mkdir /tmp/go
-COPY go.mod go.sum tools.go /tmp/go/
+COPY tools/go.mod tools/go.sum tools/tools.go /tmp/go/
 RUN cd /tmp/go && go install -v -mod=readonly \
-  github.com/gogo/protobuf/protoc-gen-gofast \
-  github.com/gogo/protobuf/protoc-gen-gogo \
-  github.com/gogo/protobuf/protoc-gen-gogofast \
-  github.com/gogo/protobuf/protoc-gen-gogofaster \
-  github.com/gogo/protobuf/protoc-gen-gogoslick \
   github.com/golang/protobuf/protoc-gen-go \
   github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway \
   github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger \
