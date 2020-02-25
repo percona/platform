@@ -4,6 +4,7 @@ package app
 import (
 	"runtime/debug"
 
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
@@ -61,17 +62,23 @@ func version() string {
 }
 
 type SetupOpts struct {
+	Name     string
 	WithGRPC bool
 	WithACME bool
 }
 
-func Setup(opts *SetupOpts) *Flags {
+func Setup(opts *SetupOpts) (*Flags, error) {
 	if opts == nil {
 		opts = new(SetupOpts)
 	}
 
-	kingpin.Version(version())
+	if opts.Name == "" {
+		return nil, errors.New("app.Setup: no Name")
+	}
 
+	kingpin.CommandLine.Name = opts.Name
+	kingpin.CommandLine.DefaultEnvars()
+	kingpin.Version(version())
 	kingpin.HelpFlag.Short('h')
 
 	var flags Flags
@@ -92,5 +99,5 @@ func Setup(opts *SetupOpts) *Flags {
 
 	kingpin.Flag("debug.addr", "Debug listen address").Default("127.0.0.1:8080").StringVar(&flags.DebugAddr)
 
-	return &flags
+	return &flags, nil
 }
