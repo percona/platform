@@ -21,9 +21,14 @@ import (
 )
 
 type GetGRPCServerOpts struct {
-	CertFile     string
-	KeyFile      string
-	ACME         *ptls.GetACMEOpts
+	Cert string
+	Key  string
+
+	CertFile string
+	KeyFile  string
+
+	ACME *ptls.GetACMEOpts
+
 	WarnDuration time.Duration
 }
 
@@ -56,12 +61,27 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 	var handler http.Handler
 	var err error
 	switch {
+	case opts.Cert != "" && opts.Key != "":
+		if opts.CertFile != "" || opts.KeyFile != "" {
+			return nil, nil, errors.New("both Cert/Key and CertFile/KeyFile are specified")
+		}
+		if opts.ACME != nil {
+			return nil, nil, errors.New("both Cert/Key and ACME are specified")
+		}
+
+		cert, err := tls.X509KeyPair([]byte(opts.Cert), []byte(opts.Key))
+		if err != nil {
+			return nil, nil, errors.Wrap(err, "failed to parse TLS data")
+		}
+
+		creds = credentials.NewServerTLSFromCert(&cert)
+
 	case opts.CertFile != "" && opts.KeyFile != "":
 		if opts.ACME != nil {
 			return nil, nil, errors.New("both CertFile/KeyFile and ACME are specified")
 		}
 
-		creds, err = credentials.NewServerTLSFromFile("dev-cert.pem", "dev-key.pem")
+		creds, err = credentials.NewServerTLSFromFile(opts.CertFile, opts.KeyFile)
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "failed to load TLS files")
 		}

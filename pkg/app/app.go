@@ -18,11 +18,17 @@ type ACME struct {
 }
 
 type Flags struct {
-	GRPCAddr        string
+	GRPCAddr string
+
+	GRPCTLSCert string
+	GRPCTLSKey  string
+
 	GRPCTLSCertFile string
 	GRPCTLSKeyFile  string
-	ACME            ACME
-	DebugAddr       string
+
+	ACME ACME
+
+	DebugAddr string
 }
 
 func version() string {
@@ -85,8 +91,10 @@ func Setup(opts *SetupOpts) (*Flags, error) {
 
 	if opts.WithGRPC {
 		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":443").StringVar(&flags.GRPCAddr)
-		kingpin.Flag("grpc.tls.cert-file", "gRPC listen address").StringVar(&flags.GRPCTLSCertFile)
-		kingpin.Flag("grpc.tls.key-file", "gRPC listen address").StringVar(&flags.GRPCTLSKeyFile)
+		kingpin.Flag("grpc.tls.cert", "gRPC TLS certificate").StringVar(&flags.GRPCTLSCert)
+		kingpin.Flag("grpc.tls.key", "gRPC TLS private key").StringVar(&flags.GRPCTLSKey)
+		kingpin.Flag("grpc.tls.cert-file", "gRPC TLS certificate file").StringVar(&flags.GRPCTLSCertFile)
+		kingpin.Flag("grpc.tls.key-file", "gRPC TLS private key file").StringVar(&flags.GRPCTLSKeyFile)
 	}
 
 	if opts.WithACME {
