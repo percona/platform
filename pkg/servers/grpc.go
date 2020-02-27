@@ -44,16 +44,14 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 		grpc.MaxRecvMsgSize(10 * 1024 * 1024), //nolint:gomnd
 
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-			unary{
-				warnDuration: opts.WarnDuration,
-			}.intercept,
+			NewUnaryLoggingInterceptor(opts.WarnDuration),
 			grpc_validator.UnaryServerInterceptor(),
+			grpc_prometheus.UnaryServerInterceptor,
 		)),
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
-			stream{
-				warnDuration: opts.WarnDuration,
-			}.intercept,
+			NewStreamLoggingInterceptor(opts.WarnDuration),
 			grpc_validator.StreamServerInterceptor(),
+			grpc_prometheus.StreamServerInterceptor,
 		)),
 	}
 
