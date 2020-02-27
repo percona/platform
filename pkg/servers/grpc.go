@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"time"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -43,18 +41,12 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 		grpc.ConnectionTimeout(5 * time.Second),
 		grpc.MaxRecvMsgSize(10 * 1024 * 1024), //nolint:gomnd
 
-		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-			unary{
-				warnDuration: opts.WarnDuration,
-			}.intercept,
-			grpc_validator.UnaryServerInterceptor(),
-		)),
-		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
-			stream{
-				warnDuration: opts.WarnDuration,
-			}.intercept,
-			grpc_validator.StreamServerInterceptor(),
-		)),
+		grpc.UnaryInterceptor(unary{
+			warnDuration: opts.WarnDuration,
+		}.intercept),
+		grpc.StreamInterceptor(stream{
+			warnDuration: opts.WarnDuration,
+		}.intercept),
 	}
 
 	var creds credentials.TransportCredentials
