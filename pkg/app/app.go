@@ -105,7 +105,7 @@ func Setup(opts *SetupOpts) (*Flags, error) {
 		kingpin.Flag("acme.staging", "Use Let's Encrypt staging environment").BoolVar(&flags.ACME.Staging)
 	}
 
-	kingpin.Flag("debug.addr", "Debug listen address").Default("127.0.0.1:8080").StringVar(&flags.DebugAddr)
+	kingpin.Flag("debug.addr", "Debug listen address").Default(":8080").StringVar(&flags.DebugAddr)
 
 	return &flags, nil
 }
