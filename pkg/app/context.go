@@ -16,7 +16,7 @@ import (
 func Context() context.Context {
 	l := zap.L().With(zap.String("component", "app"))
 	ctx, cancel := context.WithCancel(context.Background())
-	logger.SetEntry(ctx, l)
+	ctx = logger.GetCtxWithLogger(ctx, l)
 
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, unix.SIGTERM, unix.SIGINT)
