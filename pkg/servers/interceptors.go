@@ -6,6 +6,7 @@ import (
 	"runtime/pprof"
 	"time"
 
+	"github.com/google/uuid"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/pkg/errors"
@@ -16,6 +17,19 @@ import (
 
 	"github.com/percona-platform/platform/pkg/logger"
 )
+
+// getCtxForRequest returns derived context with request-scoped logger set, and the logger itself.
+func getCtxForRequest(ctx context.Context) (context.Context, *zap.Logger) {
+	// UUID version 1: first 8 characters are time-based and lexicography sorted,
+	// which is a useful property there
+	u, err := uuid.NewUUID()
+	if err != nil {
+		panic(err)
+	}
+
+	l := zap.L().With(zap.String("request", u.String()))
+	return logger.GetCtxWithLogger(ctx, l), l
+}
 
 func logRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {
 	start := time.Now()
@@ -69,9 +83,9 @@ func (u unary) intercept(ctx context.Context, req interface{}, info *grpc.UnaryS
 	ctx = pprof.WithLabels(ctx, pprof.Labels("method", info.FullMethod))
 	pprof.SetGoroutineLabels(ctx)
 
-	// set logger
-	l := zap.L().With(zap.String("request", logger.MakeRequestID()))
-	ctx = logger.SetEntry(ctx, l)
+	// make context with logger
+	var l *zap.Logger
+	ctx, l = getCtxForRequest(ctx)
 
 	var res interface{}
 	err := logRequest(l, "RPC "+info.FullMethod, u.warnDuration, func() error {
@@ -96,9 +110,9 @@ func (s stream) intercept(srv interface{}, ss grpc.ServerStream, info *grpc.Stre
 	ctx = pprof.WithLabels(ctx, pprof.Labels("method", info.FullMethod))
 	pprof.SetGoroutineLabels(ctx)
 
-	// set logger
-	l := zap.L().With(zap.String("request", logger.MakeRequestID()))
-	ctx = logger.SetEntry(ctx, l)
+	// make context with logger
+	var l *zap.Logger
+	ctx, l = getCtxForRequest(ctx)
 
 	err := logRequest(l, "Stream "+info.FullMethod, s.warnDuration, func() error {
 		wrapped := grpc_middleware.WrapServerStream(ss)
