@@ -57,6 +57,7 @@ func version() string {
 	if s := info.Main.Sum; s != "" {
 		version += " (" + s + ")"
 	}
+
 	if platform != nil && platform.Version != "" {
 		version += " / platform " + platform.Version
 		if s := platform.Sum; s != "" {
