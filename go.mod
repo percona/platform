@@ -15,6 +15,7 @@ require (
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.14.0
 	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
+	golang.org/x/sys v0.0.0-20200122134326-e047566fdf82
 	google.golang.org/grpc v1.27.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
