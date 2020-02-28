@@ -30,6 +30,7 @@ func getCtxForRequest(ctx context.Context) (context.Context, *zap.Logger) {
 	return logger.GetCtxWithLogger(ctx, l), l
 }
 
+// logRequest wraps f invocation with logging and panic recovery.
 func logRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {
 	start := time.Now()
 	sl := l.Sugar()
@@ -71,6 +72,7 @@ func logRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() erro
 	return //nolint:nakedret
 }
 
+// unaryLoggingInterceptor returns a new unary server interceptor that logs incoming requests.
 func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		// add pprof labels for more useful profiles
@@ -96,6 +98,7 @@ func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterce
 	}
 }
 
+// streamLoggingInterceptor returns a new stream server interceptor that logs incoming messages.
 func streamLoggingInterceptor(warnDuration time.Duration) grpc.StreamServerInterceptor {
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()

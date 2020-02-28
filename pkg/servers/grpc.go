@@ -48,6 +48,7 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 			grpc_prometheus.UnaryServerInterceptor,
 			grpc_validator.UnaryServerInterceptor(),
 		)),
+
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
 			streamLoggingInterceptor(opts.WarnDuration),
 			grpc_prometheus.StreamServerInterceptor,
