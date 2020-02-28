@@ -47,23 +47,27 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	}
 
 	healthzHandler := func(rw http.ResponseWriter, req *http.Request) {
-		if err := opts.Healthz(); err != nil {
+		err := opts.Healthz()
+		if err != nil {
 			l.Error("Healthz: %s.", err)
 			rw.WriteHeader(500)
 			return
 		}
 
+		l.Debug("Healthz: %s.", err)
 		rw.WriteHeader(200)
 	}
 	http.Handle("/debug/healthz", http.HandlerFunc(healthzHandler))
 
 	readyzHandler := func(rw http.ResponseWriter, req *http.Request) {
-		if err := opts.Readyz(); err != nil {
+		err := opts.Readyz()
+		if err != nil {
 			l.Warn("Readyz: %s.", err)
 			rw.WriteHeader(500)
 			return
 		}
 
+		l.Debug("Readyz: %s.", err)
 		rw.WriteHeader(200)
 	}
 	http.Handle("/debug/readyz", http.HandlerFunc(readyzHandler))
