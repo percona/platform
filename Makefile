@@ -44,6 +44,8 @@ saas:                 ## Extract public APIs and generated files into ../saas.
 	cp -R api/telemetry ../saas/api
 	cp -R gen/telemetry ../saas/gen
 
+## Dummy
+
 ci:
 	make docker-build
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
