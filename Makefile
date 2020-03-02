@@ -46,12 +46,13 @@ saas:                 ## Extract public APIs and generated files into ../saas.
 
 ci:
 	make docker-build
-	env DOCKER_RUN_IMAGE=percona-platform-prototool:dev make gen
+	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 
 	go env
 	sudo chown -R runner:docker gen
+	go clean -testcache
 	make test
 	go mod tidy
 	git diff --exit-code
 
-.PHONY: gen
+.PHONY: help gen test docker-build docker-push run-dev saas ci
