@@ -4,10 +4,10 @@ linters-settings:
     list-type: blacklist
     include-go-root: true
     packages:
-        # use "github.com/pkg/errors" instead
-        - errors
-        # use "github.com/golang/protobuf/proto" instead
-        - github.com/gogo/protobuf/proto
+      # use "github.com/pkg/errors" instead
+      - errors
+      # use "github.com/golang/protobuf/proto" instead
+      - github.com/gogo/protobuf/proto
 
   goimports:
     local-prefixes: github.com/percona-platform/platform
@@ -25,8 +25,8 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - mnd  # too annoying
-    - wsl  # too annoying
+    - mnd # too annoying
+    - wsl # too annoying
 
 issues:
   exclude-use-default: false
