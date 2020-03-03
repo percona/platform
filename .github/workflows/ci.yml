@@ -32,11 +32,36 @@ jobs:
       with:
         lfs: true
 
+    # useful debug commands
+    # - run: env
+    # - run: go env
+    # - run: pwd
+
+    - name: Enable Go modules cache
+      uses: percona-platform/cache@v1
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ matrix.platform }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ matrix.platform }}-go-${{ matrix.go-version }}-modules-
+
+    - name: Enable Go build cache
+      uses: percona-platform/cache@v1
+      with:
+        path: ~/.cache/go-build
+        key: ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
+        restore-keys: |
+          ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
+          ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-
+
     - name: Enable experimental Docker features for --squash flag
       run: sudo .github/workflows/enable-docker-experimental.sh
 
     - name: Login in Docker registry
       run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+
+    - name: Download Go modules
+      run: go mod download
 
     - name: Run CI target
       run: make ci
