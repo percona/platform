@@ -6,10 +6,9 @@ ARG PROTOBUF_VERSION
 ARG PROTOBUF_CHECKSUM
 
 RUN apt-get update && apt-get install -y aria2 unzip
-RUN mkdir /tmp/protoc && \
-    aria2c https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip \
+RUN aria2c https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip \
         --checksum=sha-512=${PROTOBUF_CHECKSUM} --out=protoc.zip && \
-    unzip protoc.zip -d /tmp/protoc
+    unzip protoc.zip -d protoc
 
 COPY tools/go.mod tools/go.sum tools/tools.go ./
 RUN go mod download
@@ -22,7 +21,7 @@ RUN go install -v -mod=readonly \
         golang.org/x/tools/cmd/goimports
 
 
-FROM golang:1.13 as target
+FROM golang:1.13
 
 WORKDIR /work
 
@@ -32,7 +31,7 @@ ARG GO_PROTO_VALIDATORS_VERSION
 ENV PROTOTOOL_PROTOC_BIN_PATH=/usr/local/bin/protoc
 ENV PROTOTOOL_PROTOC_WKT_PATH=/usr/local/include
 
-COPY --from=build /go/bin /tmp/protoc/bin /usr/local/bin/
-COPY --from=build /tmp/protoc/include /usr/local/include
+COPY --from=build /go/bin /tmp/build/protoc/bin /usr/local/bin/
+COPY --from=build /tmp/build/protoc/include /usr/local/include
 COPY --from=build /go/pkg/mod/github.com/grpc-ecosystem/grpc-gateway@v${GRPC_GATEWAY_VERSION}/third_party/googleapis/google /usr/local/include/google
 COPY --from=build /go/pkg/mod/github.com/mwitkow/go-proto-validators@v${GO_PROTO_VALIDATORS_VERSION}/*.proto /usr/local/include/github.com/mwitkow/go-proto-validators/
