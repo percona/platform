@@ -52,7 +52,10 @@ ci:
 	sudo chown -R runner:docker gen
 	go clean -testcache
 	make test
+
+	# ignore go.sum changes (when old checksums are removed), but break CI on go.mod changes
 	go mod tidy
+	git checkout go.mod
 	git diff --exit-code
 
 .PHONY: help gen test docker-build docker-push run-dev saas ci
