@@ -52,7 +52,13 @@ ci:
 	sudo chown -R runner:docker gen
 	go clean -testcache
 	make test
+
+	# Break CI if any files were changed during its run (code generation, etc), except go.sum.
+	# `go mod tidy` could remove old checksums from that file, and that's okay on CI,
+	# and actually expected for PRs made by @dependabot.
+	# Checksums of actually used modules are checked by previous `go` subcommands.
 	go mod tidy
+	git checkout go.sum
 	git diff --exit-code
 
 .PHONY: help gen test docker-build docker-push run-dev saas ci
