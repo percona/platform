@@ -28,7 +28,15 @@ test:
 # 	$(PROTOTOOL) break descriptor-set api/callhome -o api/callhome/descriptor.bin
 
 docker-build:         ## Build prototool Docker dev image.
-	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
+	docker build \
+	--pull \
+	--squash \
+	--tag $(DOCKER_DEV_IMAGE) \
+	--build-arg PROTOBUF_VERSION=3.11.4 \
+	--build-arg PROTOBUF_CHECKSUM=82777f04d9600ec69c53044a06fec4d3e108c9c3797d643f3472eb558088963e02a153077e2f832db54d17921204d327ad6ba9f37db7d00bd46f4887229dc837 \
+	--build-arg GRPC_GATEWAY_VERSION=1.13.0 \
+	--build-arg GO_PROTO_VALIDATORS_VERSION=0.3.0 \
+	 -f Dockerfile .
 
 docker-push:          ## Tag and push prototool Docker image.
 	docker tag $(DOCKER_DEV_IMAGE) $(DOCKER_RUN_IMAGE)
