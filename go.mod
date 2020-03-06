@@ -5,17 +5,24 @@ go 1.13
 // some dependecies should be synced with Dockerfile
 
 require (
+	github.com/AlekSi/pointer v1.1.0 // indirect
+	github.com/denisenkom/go-mssqldb v0.0.0-20200206145737-bbfc9a55622e // indirect
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/golang/protobuf v1.3.4
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+	github.com/lib/pq v1.3.0 // indirect
+	github.com/mattn/go-sqlite3 v2.0.3+incompatible // indirect
 	github.com/mwitkow/go-proto-validators v0.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.5.0
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.14.0
-	golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
-	golang.org/x/sys v0.0.0-20200122134326-e047566fdf82
+	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
+	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527
 	google.golang.org/grpc v1.27.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
+	gopkg.in/reform.v1 v1.3.3
+	syreclabs.com/go/faker v1.2.0 // indirect
 )
