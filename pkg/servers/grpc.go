@@ -47,6 +47,14 @@ func (s *GRPCServer) RegisterGRPCServer(f func(s *grpc.Server)) {
 	f(s.grpc)
 }
 
+
+// GetUnderlyingServer returns underlying grpc.Server, use it for your server
+// implementation registration. Don't use any control method of returned grpc.Server,
+// use GRPCServer methods instead.
+func (s *GRPCServer) GetUnderlyingServer() *grpc.Server {
+	return s.grpc
+}
+
 func (s *GRPCServer) Serve(listener net.Listener) error {
 	if s.http != nil {
 		return s.http.ServeTLS(listener, "", "")
