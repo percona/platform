@@ -15,7 +15,6 @@ import (
 	"google.golang.org/grpc"
 	channelz "google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/reflection"
 
 	"github.com/percona-platform/platform/pkg/ptls"
 )
@@ -33,6 +32,8 @@ type GetGRPCServerOpts struct {
 }
 
 func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) {
+	l := zap.L().With(zap.String("component", "grpc")).Sugar()
+
 	grpc.EnableTracing = true
 
 	if opts == nil {
@@ -68,6 +69,8 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 			return nil, nil, errors.New("both Cert/Key and ACME are specified")
 		}
 
+		l.Info("Using given certificate and key for gRPC server.")
+
 		cert, err := tls.X509KeyPair([]byte(opts.Cert), []byte(opts.Key))
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "failed to parse TLS data")
@@ -80,12 +83,16 @@ func GetGRPCServer(opts *GetGRPCServerOpts) (*grpc.Server, http.Handler, error) 
 			return nil, nil, errors.New("both CertFile/KeyFile and ACME are specified")
 		}
 
+		l.Info("Using given certificate and key files for gRPC server.")
+
 		creds, err = credentials.NewServerTLSFromFile(opts.CertFile, opts.KeyFile)
 		if err != nil {
 			return nil, nil, errors.Wrap(err, "failed to load TLS files")
 		}
 
 	case opts.ACME != nil:
+		l.Infof("Using ACME (%v) for gRPC server.", opts.ACME.Hosts)
+
 		var tlsConfig *tls.Config
 		tlsConfig, handler, err = ptls.GetACME(opts.ACME)
 		if err != nil {
@@ -125,7 +132,8 @@ func RunGRPCServer(ctx context.Context, opts *RunGRPCServerOpts) {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
 
-	reflection.Register(opts.Server)
+	// reflection should not be enabled because we don't want to expose our private APIs
+	// reflection.Register(opts.Server)
 
 	channelz.RegisterChannelzServiceToServer(opts.Server)
 
