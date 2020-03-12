@@ -34,28 +34,27 @@ type GetGRPCServerOpts struct {
 	ShutdownTimeout time.Duration
 }
 
-type GRPCServer struct {
+type GRPCServer interface {
+	Start(ctx context.Context)
+
+	// GetUnderlyingServer returns underlying grpc.Server, use it for your server
+	// implementation registration. Don't use any control method of returned grpc.Server,
+	// use GRPCServer methods instead.
+	GetUnderlyingServer() *grpc.Server
+}
+
+type grpcServer struct {
 	grpc            *grpc.Server
 	http            *http.Server
 	addr            string
 	shutdownTimeout time.Duration
 }
 
-// RegisterGRPCServer allows to register GRPC server implementation in
-// underlying grpc.Server
-func (s *GRPCServer) RegisterGRPCServer(f func(s *grpc.Server)) {
-	f(s.grpc)
-}
-
-
-// GetUnderlyingServer returns underlying grpc.Server, use it for your server
-// implementation registration. Don't use any control method of returned grpc.Server,
-// use GRPCServer methods instead.
-func (s *GRPCServer) GetUnderlyingServer() *grpc.Server {
+func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
 	return s.grpc
 }
 
-func (s *GRPCServer) Serve(listener net.Listener) error {
+func (s *grpcServer) serve(listener net.Listener) error {
 	if s.http != nil {
 		return s.http.ServeTLS(listener, "", "")
 	}
@@ -63,7 +62,7 @@ func (s *GRPCServer) Serve(listener net.Listener) error {
 	return s.grpc.Serve(listener)
 }
 
-func (s *GRPCServer) Stop(listener net.Listener) {
+func (s *grpcServer) stop(listener net.Listener) {
 	if s.http != nil {
 		s.http.Close()
 	}
@@ -71,7 +70,7 @@ func (s *GRPCServer) Stop(listener net.Listener) {
 	s.grpc.Stop()
 }
 
-func (s *GRPCServer) GracefulStop(timeout time.Duration) {
+func (s *grpcServer) gracefulStop(timeout time.Duration) {
 	// try to stop server gracefully, then not
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
@@ -87,7 +86,7 @@ func (s *GRPCServer) GracefulStop(timeout time.Duration) {
 	s.grpc.GracefulStop()
 }
 
-func NewGRPCServer(opts *GetGRPCServerOpts) (*GRPCServer, error) {
+func NewGRPCServer(opts *GetGRPCServerOpts) (GRPCServer, error) {
 	l := zap.L().With(zap.String("component", "grpc")).Sugar()
 
 	grpc.EnableTracing = true
@@ -163,15 +162,15 @@ func NewGRPCServer(opts *GetGRPCServerOpts) (*GRPCServer, error) {
 		serverOpts = append(serverOpts, grpc.Creds(credentials.NewTLS(tlsConfig)))
 	}
 
-	grpcServer := grpc.NewServer(serverOpts...)
+	grpcSrv := grpc.NewServer(serverOpts...)
 
-	var httpServer *http.Server
+	var httpSrv *http.Server
 	if opts.Handler != nil {
-		httpServer = &http.Server{
+		httpSrv = &http.Server{
 			Handler: http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 				mediaType, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
 				if r.ProtoMajor == 2 && mediaType == "application/grpc" {
-					grpcServer.ServeHTTP(rw, r)
+					grpcSrv.ServeHTTP(rw, r)
 					return
 				}
 
@@ -180,18 +179,18 @@ func NewGRPCServer(opts *GetGRPCServerOpts) (*GRPCServer, error) {
 		}
 
 		if tlsConfig != nil {
-			httpServer.TLSConfig = tlsConfig
+			httpSrv.TLSConfig = tlsConfig
 		}
 	}
 
-	return &GRPCServer{
-		grpc: grpcServer,
-		http: httpServer,
+	return &grpcServer{
+		grpc: grpcSrv,
+		http: httpSrv,
 		addr: opts.Addr,
 	}, nil
 }
 
-func (s *GRPCServer) Start(ctx context.Context) {
+func (s *grpcServer) Start(ctx context.Context) {
 	l := zap.L().With(zap.String("component", "grpc")).Sugar()
 
 	// reflection should not be enabled because we don't want to expose our private APIs
@@ -211,7 +210,7 @@ func (s *GRPCServer) Start(ctx context.Context) {
 	go func() {
 		l.Info("Server started.")
 		for {
-			err = s.Serve(listener)
+			err = s.serve(listener)
 			if err == nil || err == grpc.ErrServerStopped || err == http.ErrServerClosed {
 				break
 			}
@@ -222,5 +221,5 @@ func (s *GRPCServer) Start(ctx context.Context) {
 
 	<-ctx.Done()
 
-	s.GracefulStop(s.shutdownTimeout)
+	s.gracefulStop(s.shutdownTimeout)
 }
