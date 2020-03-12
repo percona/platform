@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"io"
+	"strings"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc/grpclog"
@@ -20,22 +20,25 @@ func (g *GRPC) V(l int) bool {
 	return g.Verbose
 }
 
-func (g *GRPC) Warningf(format string, args ...interface{}) {
+func (g *GRPC) Warning(args ...interface{}) {
 	// Inhibit the very specific message that spams our logs due to AWS NLB configuration for bare-bones telemetry:
 	// https://github.com/grpc/grpc-go/blob/142182889d38b76209f1d9f1d8e91d7608aff542/server.go#L685
 	// Remove this hack once we have "normal" load balancer / ingress controller.
-	if format == "grpc: Server.Serve failed to complete security handshake from %q: %v" && len(args) == 2 && args[1] == io.EOF {
-		return
+	if len(args) == 1 {
+		s, _ := args[0].(string)
+		if strings.HasPrefix(s, "grpc: Server.Serve failed to complete security handshake from") && strings.HasSuffix(s, ": EOF") {
+			return
+		}
 	}
 
-	g.Warnf(format, args...)
+	g.Warn(args...)
 }
 
-func (g *GRPC) Infoln(args ...interface{})    { g.Info(args...) }
-func (g *GRPC) Warning(args ...interface{})   { g.Warn(args...) }
-func (g *GRPC) Warningln(args ...interface{}) { g.Warn(args...) }
-func (g *GRPC) Errorln(args ...interface{})   { g.Error(args...) }
-func (g *GRPC) Fatalln(args ...interface{})   { g.Fatal(args...) }
+func (g *GRPC) Infoln(args ...interface{})                  { g.Info(args...) }
+func (g *GRPC) Warningf(format string, args ...interface{}) { g.Warnf(format, args...) }
+func (g *GRPC) Warningln(args ...interface{})               { g.Warn(args...) }
+func (g *GRPC) Errorln(args ...interface{})                 { g.Error(args...) }
+func (g *GRPC) Fatalln(args ...interface{})                 { g.Fatal(args...) }
 
 // check interfaces
 var (
