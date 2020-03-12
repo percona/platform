@@ -15,7 +15,6 @@ import (
 	"google.golang.org/grpc"
 	channelz "google.golang.org/grpc/channelz/service"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/reflection"
 
 	"github.com/percona-platform/platform/pkg/ptls"
 )
@@ -133,7 +132,8 @@ func RunGRPCServer(ctx context.Context, opts *RunGRPCServerOpts) {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
 
-	reflection.Register(opts.Server)
+	// reflection should not be enabled because we don't want to expose our private APIs
+	// reflection.Register(opts.Server)
 
 	channelz.RegisterChannelzServiceToServer(opts.Server)
 
