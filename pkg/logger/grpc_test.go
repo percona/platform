@@ -2,7 +2,6 @@ package logger
 
 import (
 	"bytes"
-	"io"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -22,11 +21,11 @@ func TestHealthcheckWarning(t *testing.T) {
 		SugaredLogger: zap.New(zc, zap.ErrorOutput(zapcore.AddSync(&buf))).Sugar(),
 	}
 
-	l.Warningf("grpc: Server.Serve failed to complete security handshake from %q: %v", "10.0.0.115:48912", io.EOF)
+	l.Warning(`grpc: Server.Serve failed to complete security handshake from "10.0.0.115:48912": EOF`)
 	require.NoError(t, l.Sync())
 	assert.Empty(t, buf.String())
 
-	l.Warningf("grpc: Server.Serve failed to complete security handshake from lala")
+	l.Warning(`grpc: Server.Serve failed to complete security handshake from lala`)
 	require.NoError(t, l.Sync())
-	assert.Contains(t, buf.String(), "grpc: Server.Serve failed to complete security handshake from lala")
+	assert.Contains(t, buf.String(), `grpc: Server.Serve failed to complete security handshake from lala`)
 }
