@@ -25,8 +25,8 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - mnd # too annoying
-    - wsl # too annoying
+    - gomnd # too annoying
+    - wsl   # too annoying
 
 issues:
   exclude-use-default: false
