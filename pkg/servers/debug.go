@@ -116,7 +116,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 
 	server := &http.Server{
 		Addr:     opts.Addr,
-		ErrorLog: log.New(os.Stderr, "RunDebugServer: ", 0),
+		ErrorLog: log.New(os.Stderr, "debug/http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
 	}
 	go func() {
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {

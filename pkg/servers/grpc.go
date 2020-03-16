@@ -135,6 +135,8 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 
 		TLSConfig: opts.TLSConfig,
 
+		// TODO remove once we have Ingress Controller
+		// for now, we need some small values to prevent low and slow attacks
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 
