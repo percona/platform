@@ -2,11 +2,15 @@
 package app
 
 import (
+	"crypto/tls"
+	"net/http"
 	"runtime/debug"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"gopkg.in/alecthomas/kingpin.v2"
+
+	"github.com/percona-platform/platform/pkg/ptls"
 )
 
 type ACME struct {
@@ -108,4 +112,43 @@ func Setup(opts *SetupOpts) (*Flags, error) {
 	kingpin.Flag("debug.addr", "Debug listen address").Default(":8080").StringVar(&flags.DebugAddr)
 
 	return &flags, nil
+}
+
+// TLSConfig returns TLS configuration and optional ACME handler from flags.
+func (f *Flags) TLSConfig() (*tls.Config, http.Handler, error) {
+	l := zap.L().With(zap.String("component", "platform/app/TLSConfig")).Sugar()
+
+	switch {
+	case f.GRPCTLSCert != "" && f.GRPCTLSKey != "":
+		if f.GRPCTLSCertFile != "" || f.GRPCTLSKeyFile != "" {
+			return nil, nil, errors.New("both GRPCTLSCert/GRPCTLSKey and GRPCTLSCertFile/GRPCTLSKeyFile are specified")
+		}
+		if f.ACME.DirCache != "" {
+			return nil, nil, errors.New("both GRPCTLSCert/GRPCTLSKey and ACME are specified")
+		}
+
+		l.Info("Using given certificate and key for gRPC server.")
+		c, err := ptls.GetConfigWithCert([]byte(f.GRPCTLSCert), []byte(f.GRPCTLSKey))
+		return c, nil, err
+
+	case f.GRPCTLSCertFile != "" && f.GRPCTLSKeyFile != "":
+		if f.ACME.DirCache != "" {
+			return nil, nil, errors.New("both GRPCTLSCertFile/GRPCTLSKeyFile and ACME are specified")
+		}
+
+		l.Info("Using given certificate and key files for gRPC server.")
+		c, err := ptls.GetConfigWithCertFiles(f.GRPCTLSCertFile, f.GRPCTLSKeyFile)
+		return c, nil, err
+
+	case f.ACME.DirCache != "":
+		return ptls.GetACME(&ptls.GetACMEOpts{
+			DirCache: f.ACME.DirCache,
+			Hosts:    f.ACME.Hosts,
+			Email:    f.ACME.Email,
+			Staging:  f.ACME.Staging,
+		})
+
+	default:
+		return nil, nil, errors.New("no TLS configuration")
+	}
 }

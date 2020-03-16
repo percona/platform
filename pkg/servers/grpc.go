@@ -13,8 +13,6 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/percona-platform/platform/pkg/ptls"
-	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	channelz "google.golang.org/grpc/channelz/service"
@@ -72,12 +70,6 @@ func (s *grpcServer) stop() {
 type NewGRPCServerOpts struct {
 	Addr string
 
-	Cert string
-	Key  string
-
-	CertFile string
-	KeyFile  string
-
 	TLSConfig *tls.Config
 
 	// TODO remove once we can serve static page with Ingress Controller
@@ -99,46 +91,15 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
 	}
+	if opts.TLSConfig == nil {
+		l.Panic("No TLSConfig set.")
+	}
 	if opts.Handler == nil {
 		l.Panic("No Handler set.")
 	}
 
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
-	}
-
-	var tlsConfig *tls.Config
-	var err error
-	switch {
-	case opts.Cert != "" && opts.Key != "":
-		if opts.CertFile != "" || opts.KeyFile != "" {
-			return nil, errors.New("both Cert/Key and CertFile/KeyFile are specified")
-		}
-		if opts.TLSConfig != nil {
-			return nil, errors.New("both Cert/Key and TLSConfig are specified")
-		}
-
-		l.Info("Using given certificate and key for gRPC server.")
-		tlsConfig, err = ptls.GetConfigWithCert([]byte(opts.Cert), []byte(opts.Key))
-
-	case opts.CertFile != "" && opts.KeyFile != "":
-		if opts.TLSConfig != nil {
-			return nil, errors.New("both CertFile/KeyFile and TLSConfig are specified")
-		}
-
-		l.Info("Using given certificate and key files for gRPC server.")
-		tlsConfig, err = ptls.GetConfigWithCertFiles(opts.CertFile, opts.KeyFile)
-
-	case opts.TLSConfig != nil:
-		l.Info("Using given TLSConfig for gRPC server.")
-		tlsConfig = opts.TLSConfig
-
-	default:
-		l.Panic("No TLS configuration at all.")
-	}
-
-	if err != nil {
-		return nil, err
 	}
 
 	serverOpts := []grpc.ServerOption{
@@ -157,7 +118,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 			grpc_validator.StreamServerInterceptor(),
 		)),
 
-		grpc.Creds(credentials.NewTLS(tlsConfig)),
+		grpc.Creds(credentials.NewTLS(opts.TLSConfig)),
 	}
 	grpcSrv := grpc.NewServer(serverOpts...)
 
@@ -172,7 +133,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 			opts.Handler.ServeHTTP(rw, r)
 		}),
 
-		TLSConfig: tlsConfig,
+		TLSConfig: opts.TLSConfig,
 
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
