@@ -153,7 +153,9 @@ func init() {
 	proto.RegisterType((*CheckDoubleSHA1Response_Result)(nil), "percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result")
 }
 
-func init() { proto.RegisterFile("leaked/leaked_api.proto", fileDescriptor_cc6921d07712af2f) }
+func init() {
+	proto.RegisterFile("leaked/leaked_api.proto", fileDescriptor_cc6921d07712af2f)
+}
 
 var fileDescriptor_cc6921d07712af2f = []byte{
 	// 287 bytes of a gzipped FileDescriptorProto
