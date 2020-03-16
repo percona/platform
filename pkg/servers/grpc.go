@@ -3,14 +3,17 @@ package servers
 import (
 	"context"
 	"crypto/tls"
+	"log"
 	"mime"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/percona-platform/platform/pkg/ptls"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -18,7 +21,55 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-type GetGRPCServerOpts struct {
+type GRPCServer interface {
+	// Run runs the server until ctx is canceled.
+	Run(ctx context.Context)
+
+	// GetUnderlyingServer returns underlying grpc.Server, use it for your server
+	// implementation registration. Don't use any control method of returned grpc.Server;
+	// use GRPCServer.Run method only.
+	GetUnderlyingServer() *grpc.Server
+}
+
+type grpcServer struct {
+	// TODO remove once we can serve static page with Ingress Controller
+	http *http.Server
+
+	grpc *grpc.Server
+
+	addr            string
+	shutdownTimeout time.Duration
+	l               *zap.SugaredLogger
+}
+
+func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
+	return s.grpc
+}
+
+// stop stops the server.
+// It tries to stop the server gracefully until shutdownTimeout is passed, then forcefully.
+// Server is fully stopped once method exits.
+func (s *grpcServer) stop() {
+	// Shutdown returns once HTTP server is stopped, or ctx is canceled (and HTTP server is still running).
+	// After that, we forcefully close it anyway.
+	httpCtx, httpCancel := context.WithTimeout(context.Background(), s.shutdownTimeout)
+	go func() {
+		if err := s.http.Shutdown(httpCtx); err != nil {
+			s.l.Warnf("HTTP Shutdown: %v", err)
+		}
+		if err := s.http.Close(); err != nil {
+			s.l.Warnf("HTTP Close: %v", err)
+		}
+		httpCancel()
+	}()
+	<-httpCtx.Done()
+
+	// Since we never call s.grpc.Serve method, gRPC server should be fully stopped by now.
+	// Call Stop just to be sure.
+	s.grpc.Stop()
+}
+
+type NewGRPCServerOpts struct {
 	Addr string
 
 	Cert string
@@ -29,78 +80,65 @@ type GetGRPCServerOpts struct {
 
 	TLSConfig *tls.Config
 
-	Handler         http.Handler
+	// TODO remove once we can serve static page with Ingress Controller
+	Handler http.Handler
+
 	WarnDuration    time.Duration
 	ShutdownTimeout time.Duration
 }
 
-type GRPCServer interface {
-	Start(ctx context.Context)
-
-	// GetUnderlyingServer returns underlying grpc.Server, use it for your server
-	// implementation registration. Don't use any control method of returned grpc.Server,
-	// use GRPCServer methods instead.
-	GetUnderlyingServer() *grpc.Server
-}
-
-type grpcServer struct {
-	grpc            *grpc.Server
-	http            *http.Server
-	addr            string
-	shutdownTimeout time.Duration
-}
-
-func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
-	return s.grpc
-}
-
-func (s *grpcServer) serve(listener net.Listener) error {
-	if s.http != nil {
-		return s.http.ServeTLS(listener, "", "")
-	}
-
-	return s.grpc.Serve(listener)
-}
-
-func (s *grpcServer) stop(listener net.Listener) {
-	if s.http != nil {
-		s.http.Close()
-	}
-
-	s.grpc.Stop()
-}
-
-func (s *grpcServer) gracefulStop(timeout time.Duration) {
-	// try to stop server gracefully, then not
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
-
-	if s.http != nil {
-		s.http.Shutdown(ctx)
-	}
-
-	go func() {
-		<-ctx.Done()
-		s.grpc.Stop()
-	}()
-	s.grpc.GracefulStop()
-}
-
-func NewGRPCServer(opts *GetGRPCServerOpts) (GRPCServer, error) {
+func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 	l := zap.L().With(zap.String("component", "grpc")).Sugar()
 
 	grpc.EnableTracing = true
 
 	if opts == nil {
-		opts = new(GetGRPCServerOpts)
+		opts = new(NewGRPCServerOpts)
 	}
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
 	}
+	if opts.Handler == nil {
+		l.Panic("No Handler set.")
+	}
 
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
+	}
+
+	var tlsConfig *tls.Config
+	var err error
+	switch {
+	case opts.Cert != "" && opts.Key != "":
+		if opts.CertFile != "" || opts.KeyFile != "" {
+			return nil, errors.New("both Cert/Key and CertFile/KeyFile are specified")
+		}
+		if opts.TLSConfig != nil {
+			return nil, errors.New("both Cert/Key and TLSConfig are specified")
+		}
+
+		l.Info("Using given certificate and key for gRPC server.")
+		tlsConfig, err = ptls.GetConfigWithCert([]byte(opts.Cert), []byte(opts.Key))
+
+	case opts.CertFile != "" && opts.KeyFile != "":
+		if opts.TLSConfig != nil {
+			return nil, errors.New("both CertFile/KeyFile and TLSConfig are specified")
+		}
+
+		l.Info("Using given certificate and key files for gRPC server.")
+		tlsConfig, err = ptls.GetConfigWithCertFiles(opts.CertFile, opts.KeyFile)
+
+	case opts.TLSConfig != nil:
+		l.Info("Using given TLSConfig for gRPC server.")
+		tlsConfig = opts.TLSConfig
+
+	default:
+		l.Panic("No TLS configuration at all.")
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	serverOpts := []grpc.ServerOption{
@@ -118,81 +156,41 @@ func NewGRPCServer(opts *GetGRPCServerOpts) (GRPCServer, error) {
 			grpc_prometheus.StreamServerInterceptor,
 			grpc_validator.StreamServerInterceptor(),
 		)),
+
+		grpc.Creds(credentials.NewTLS(tlsConfig)),
 	}
-
-	var tlsConfig *tls.Config
-	switch {
-	case opts.Cert != "" && opts.Key != "":
-		if opts.CertFile != "" || opts.KeyFile != "" {
-			return nil, errors.New("both Cert/Key and CertFile/KeyFile are specified")
-		}
-		if opts.TLSConfig != nil {
-			return nil, errors.New("both Cert/Key and TLSConfig are specified")
-		}
-
-		l.Info("Using given certificate and key for gRPC server.")
-
-		cert, err := tls.X509KeyPair([]byte(opts.Cert), []byte(opts.Key))
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to parse TLS data")
-		}
-
-		tlsConfig = &tls.Config{Certificates: []tls.Certificate{cert}}
-
-	case opts.CertFile != "" && opts.KeyFile != "":
-		if opts.TLSConfig != nil {
-			return nil, errors.New("both CertFile/KeyFile and TLSConfig are specified")
-		}
-
-		l.Info("Using given certificate and key files for gRPC server.")
-
-		cert, err := tls.LoadX509KeyPair(opts.CertFile, opts.KeyFile)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to load TLS files")
-		}
-
-		tlsConfig = &tls.Config{Certificates: []tls.Certificate{cert}}
-
-	case opts.TLSConfig != nil:
-		l.Infof("Using TLSConfig for gRPC server.")
-		tlsConfig = opts.TLSConfig
-	}
-
-	if tlsConfig != nil {
-		serverOpts = append(serverOpts, grpc.Creds(credentials.NewTLS(tlsConfig)))
-	}
-
 	grpcSrv := grpc.NewServer(serverOpts...)
 
-	var httpSrv *http.Server
-	if opts.Handler != nil {
-		httpSrv = &http.Server{
-			Handler: http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-				mediaType, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
-				if r.ProtoMajor == 2 && mediaType == "application/grpc" {
-					grpcSrv.ServeHTTP(rw, r)
-					return
-				}
+	httpSrv := &http.Server{
+		Handler: http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+			mediaType, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
+			if r.ProtoMajor == 2 && mediaType == "application/grpc" {
+				grpcSrv.ServeHTTP(rw, r)
+				return
+			}
 
-				opts.Handler.ServeHTTP(rw, r)
-			}),
-		}
+			opts.Handler.ServeHTTP(rw, r)
+		}),
 
-		if tlsConfig != nil {
-			httpSrv.TLSConfig = tlsConfig
-		}
+		TLSConfig: tlsConfig,
+
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+
+		ErrorLog: log.New(os.Stderr, "grpc/http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
 	}
 
 	return &grpcServer{
-		grpc: grpcSrv,
-		http: httpSrv,
-		addr: opts.Addr,
+		grpc:            grpcSrv,
+		http:            httpSrv,
+		addr:            opts.Addr,
+		shutdownTimeout: opts.ShutdownTimeout,
+		l:               l,
 	}, nil
 }
 
-func (s *grpcServer) Start(ctx context.Context) {
-	l := zap.L().With(zap.String("component", "grpc")).Sugar()
-
+// Run runs the server until ctx is canceled.
+func (s *grpcServer) Run(ctx context.Context) {
 	// reflection should not be enabled because we don't want to expose our private APIs
 	// reflection.Register(opts.Server)
 
@@ -201,25 +199,27 @@ func (s *grpcServer) Start(ctx context.Context) {
 	grpc_prometheus.EnableHandlingTimeHistogram()
 	grpc_prometheus.Register(s.grpc)
 
-	// run server until it is stopped gracefully or not
-	l.Infof("Starting server on https://%s/ ...", s.addr)
+	s.l.Infof("Starting server on https://%s/ ...", s.addr)
 	listener, err := net.Listen("tcp", s.addr)
 	if err != nil {
-		panic(err)
+		s.l.Panic(err)
 	}
+
+	stopped := make(chan struct{})
 	go func() {
-		l.Info("Server started.")
-		for {
-			err = s.serve(listener)
-			if err == nil || err == grpc.ErrServerStopped || err == http.ErrServerClosed {
-				break
-			}
-			l.Errorf("Failed to serve: %s", err)
-		}
-		l.Info("Server stopped.")
+		<-ctx.Done()
+		s.stop()
+		close(stopped)
 	}()
 
-	<-ctx.Done()
+	err = s.http.ServeTLS(listener, "", "")
+	if err == http.ErrServerClosed {
+		s.l.Info("Server stopped.")
+	} else {
+		s.l.Warnf("Server stopped: %v.", err)
+	}
 
-	s.gracefulStop(s.shutdownTimeout)
+	<-stopped
+
+	s.l.Warnf("Listener Close: %v.", listener.Close())
 }
