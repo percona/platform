@@ -3,6 +3,8 @@ package ptls
 
 import (
 	"crypto/tls"
+
+	"github.com/pkg/errors"
 )
 
 // GetConfig returns a new tls.Config instance configured according to Percona's security baseline.
@@ -23,4 +25,28 @@ func GetConfig() *tls.Config {
 			tls.TLS_RSA_WITH_AES_128_CBC_SHA256,
 		},
 	}
+}
+
+// GetConfig returns a new tls.Config with given certificate and key in PEM format.
+func GetConfigWithCert(cert, key []byte) (*tls.Config, error) {
+	pair, err := tls.X509KeyPair(cert, key)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to parse TLS data")
+	}
+
+	tlsConfig := GetConfig()
+	tlsConfig.Certificates = []tls.Certificate{pair}
+	return tlsConfig, nil
+}
+
+// GetConfig returns a new tls.Config with given certificate and key files in PEM format.
+func GetConfigWithCertFiles(certFile, keyFile string) (*tls.Config, error) {
+	pair, err := tls.LoadX509KeyPair(certFile, keyFile)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to load TLS files")
+	}
+
+	tlsConfig := GetConfig()
+	tlsConfig.Certificates = []tls.Certificate{pair}
+	return tlsConfig, nil
 }
