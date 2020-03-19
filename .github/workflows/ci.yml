@@ -7,15 +7,15 @@ on:
   pull_request:
 
 jobs:
-  gen:
-    name: Generate
+  test:
+    name: Test
 
     strategy:
       matrix:
         go-version: [1.14.x]
-        platform: [ubuntu-latest]
+        os: [ubuntu-latest]
 
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
 
     env:
       GOPRIVATE: github.com/percona-platform
@@ -41,18 +41,18 @@ jobs:
         uses: percona-platform/cache@v1
         with:
           path: ~/go/pkg/mod
-          key: ${{ matrix.platform }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            ${{ matrix.platform }}-go-${{ matrix.go-version }}-modules-
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-
 
       - name: Enable Go build cache
         uses: percona-platform/cache@v1
         with:
           path: ~/.cache/go-build
-          key: ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
           restore-keys: |
-            ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
-            ${{ matrix.platform }}-go-${{ matrix.go-version }}-build-
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-
 
       - name: Enable experimental Docker features for --squash flag
         run: sudo .github/workflows/enable-docker-experimental.sh
@@ -63,13 +63,88 @@ jobs:
       - name: Download Go modules
         run: go mod download
 
-      - name: Run CI target
-        run: make ci
+      - name: Generate code using dev docker image
+        run: make gen-dev
+
+      - name: Run tests
+        run: make test-ci
+
+      - name: Check that there are no source code changes
+        run: make diff-ci
+
+  check:
+    name: Check
+    timeout-minutes: 5
+    if: github.event_name == 'pull_request'
+
+    strategy:
+      matrix:
+        go-version: [1.14.x]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      GOPRIVATE: github.com/percona-platform
+      GOFLAGS: -v -mod=readonly
+
+    steps:
+      - name: Configure git for private modules
+        env:
+          ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
+        run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
+
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: percona-platform/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Check out code into the Go module directory
+        uses: percona-platform/checkout@v2
+        with:
+          lfs: true
+
+      # useful debug commands
+      # - run: env
+      # - run: go env
+      # - run: pwd
+
+      - name: Enable Go modules cache
+        uses: percona-platform/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-
+
+      - name: Enable Go build cache
+        uses: percona-platform/cache@v1
+        with:
+          path: ~/.cache/go-build
+          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
+          restore-keys: |
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
+            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-
+
+      - name: Download Go modules
+        run: go mod download
+
+      - name: Install tools
+        run: make init
+
+      - name: Run checks/linters
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ROBOT_TOKEN:  ${{ secrets.ROBOT_TOKEN  }}
+        run: make check-ci
+
+      - name: Check that there are no source code changes
+        run: make diff-ci
 
   build:
     name: Build Docker image
     timeout-minutes: 5
-    needs: gen
+    needs: test
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
