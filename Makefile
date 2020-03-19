@@ -23,6 +23,7 @@ gen:                    ## Format, check, and generate using prototool Docker im
 
 gen-dev: docker-build   ## Same as `gen` but with DEV protocol Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
+	sudo chown -R runner:docker gen
 
 format:                 ## Format source code
 	gofmt -w -s .
