@@ -26,21 +26,27 @@ func NewReform(driver, dbName string, printf reform.Printf) *Reform {
 
 	return &Reform{
 		l: reform.NewPrintfLogger(printf),
-		mRequests: prometheus.NewCounterVec(prometheus.CounterOpts{
-			Namespace:   "go_sql",
-			Subsystem:   "reform",
-			Name:        "requests_total",
-			Help:        "Total number of queries started.",
-			ConstLabels: constLabels,
-		}, []string{"statement"}),
-		mResponses: prometheus.NewSummaryVec(prometheus.SummaryOpts{
-			Namespace:   "go_sql",
-			Subsystem:   "reform",
-			Name:        "response_seconds",
-			Help:        "Response durations in seconds.",
-			ConstLabels: constLabels,
-			Objectives:  map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001},
-		}, []string{"statement", "error"}),
+		mRequests: prometheus.NewCounterVec(
+			prometheus.CounterOpts{
+				Namespace:   "go_sql",
+				Subsystem:   "reform",
+				Name:        "requests_total",
+				Help:        "Total number of queries started.",
+				ConstLabels: constLabels,
+			},
+			[]string{"statement"},
+		),
+		mResponses: prometheus.NewSummaryVec(
+			prometheus.SummaryOpts{
+				Namespace:   "go_sql",
+				Subsystem:   "reform",
+				Name:        "response_seconds",
+				Help:        "Response durations in seconds.",
+				ConstLabels: constLabels,
+				Objectives:  map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001},
+			},
+			[]string{"statement", "error"},
+		),
 	}
 }
 
