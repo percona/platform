@@ -2,6 +2,11 @@ DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 
+.PHONY: help init gen gen-deb format test check descriptors docker-build docker-push run-dev saas \
+		test-ci check-ci diff-ci
+
+default: help
+
 help:                   ## Display this help message
 	@echo "Please use \`make <target>\` where <target> is one of:"
 	@grep '^[a-zA-Z]' $(MAKEFILE_LIST) | \
@@ -85,5 +90,3 @@ diff-ci:
 	go mod tidy
 	git checkout go.sum
 	git diff --exit-code
-
-.PHONY: help init gen gen-deb format test check descriptors docker-build docker-push run-dev saas test-ci check-ci diff-ci
