@@ -67,10 +67,17 @@ jobs:
         run: make gen-dev
 
       - name: Run tests
-        run: make test-ci
+        run: go clean -testcache && make test
 
       - name: Check that there are no source code changes
-        run: make diff-ci
+        run: |
+          # Break CI if any files were changed during its run (code generation, etc), except go.sum.
+          # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
+          # and actually expected for PRs made by @dependabot.
+          # Checksums of actually used modules are checked by previous `go` subcommands.
+          go mod tidy
+          git checkout go.sum
+          git diff --exit-code
 
   check:
     name: Check
@@ -133,13 +140,28 @@ jobs:
         run: make init
 
       - name: Run checks/linters
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ROBOT_TOKEN:  ${{ secrets.ROBOT_TOKEN  }}
-        run: make check-ci
+        run: |
+          # use GITHUB_TOKEN because only it has access to GitHub Checks API
+          bin/golangci-lint run -c=.golangci-required.yml --out-format=line-number |  env REVIEWDOG_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} bin/reviewdog -f=golangci-lint -level=error -reporter=github-pr-check -name='Required checks'
+
+          # use ROBOT_TOKEN for better reviewer's name
+          bin/golangci-lint run --out-format=line-number | env REVIEWDOG_GITHUB_API_TOKEN=${{ secrets.ROBOT_TOKEN  }}  bin/reviewdog -f=golangci-lint -level=error -reporter=github-pr-review -name='Linters'
+
+          # run it like that until some of those issues/PRs are resolved:
+          # * https://github.com/quasilyte/go-consistent/issues/33
+          # * https://github.com/golangci/golangci-lint/issues/288
+          # * https://github.com/reviewdog/errorformat/pull/47 (once it is atually used by reviewdog)
+          bin/go-consistent -pedantic ./...
 
       - name: Check that there are no source code changes
-        run: make diff-ci
+        run: |
+          # Break CI if any files were changed during its run (code generation, etc), except go.sum.
+          # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
+          # and actually expected for PRs made by @dependabot.
+          # Checksums of actually used modules are checked by previous `go` subcommands.
+          go mod tidy
+          git checkout go.sum
+          git diff --exit-code
 
   build:
     name: Build Docker image

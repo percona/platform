@@ -2,8 +2,7 @@ DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 
-.PHONY: help init gen gen-deb format test check descriptors docker-build docker-push run-dev saas \
-		test-ci check-ci diff-ci
+.PHONY: help init gen gen-deb format test check descriptors docker-build docker-push run-dev saas
 
 default: help
 
@@ -61,32 +60,3 @@ saas:                   ## Extract public APIs and generated files into ../saas
 	cp -R api/telemetry ../saas/api
 	cp -R gen/telemetry ../saas/gen
 	find ../saas -name '*.bin' -print -delete
-
-
-# CI targets
-
-test-ci:
-	go clean -testcache
-	make test
-
-check-ci:
-	# use GITHUB_TOKEN because only it has access to GitHub Checks API
-	bin/golangci-lint run -c=.golangci-required.yml --out-format=line-number |  env REVIEWDOG_GITHUB_API_TOKEN=$(GITHUB_TOKEN) bin/reviewdog -f=golangci-lint -level=error -reporter=github-pr-check -name='Required checks'
-
-	# use ROBOT_TOKEN for better reviewer's name
-	bin/golangci-lint run --out-format=line-number | env REVIEWDOG_GITHUB_API_TOKEN=$(ROBOT_TOKEN)  bin/reviewdog -f=golangci-lint -level=error -reporter=github-pr-review -name='Linters'
-
-	# run it like that until some of those issues/PRs are resolved:
-	# * https://github.com/quasilyte/go-consistent/issues/33
-	# * https://github.com/golangci/golangci-lint/issues/288
-	# * https://github.com/reviewdog/errorformat/pull/47 (once it is atually used by reviewdog)
-	bin/go-consistent -pedantic ./...
-
-diff-ci:
-	# Break CI if any files were changed during its run (code generation, etc), except go.sum.
-	# `go mod tidy` could remove old checksums from that file, and that's okay on CI,
-	# and actually expected for PRs made by @dependabot.
-	# Checksums of actually used modules are checked by previous `go` subcommands.
-	go mod tidy
-	git checkout go.sum
-	git diff --exit-code
