@@ -29,8 +29,6 @@ jobs:
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2
-        with:
-          lfs: false
 
       # useful debug commands
       # - run: env
@@ -80,8 +78,6 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2
-        with:
-          lfs: false
 
       - name: Enable experimental Docker features for --squash flag
         run: sudo .github/workflows/enable-docker-experimental.sh
