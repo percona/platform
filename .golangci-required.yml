@@ -12,7 +12,7 @@ linters-settings:
       - github.com/gogo/protobuf/proto
 
   goimports:
-    local-prefixes: github.com/percona-platform/telemetryd
+    local-prefixes: github.com/percona-platform/platform
 
 linters:
   disable-all: true
