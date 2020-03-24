@@ -2,8 +2,6 @@ DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 
-.PHONY: help init gen gen-deb format test check descriptors docker-build docker-push run-dev saas
-
 default: help
 
 help:                   ## Display this help message
