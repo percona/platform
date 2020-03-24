@@ -67,7 +67,9 @@ jobs:
         run: make gen-dev
 
       - name: Run tests
-        run: go clean -testcache && make test
+        run: |
+          go clean -testcache
+          make test
 
       - name: Check that there are no source code changes
         run: |
