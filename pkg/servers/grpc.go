@@ -95,7 +95,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 		l.Panic("No TLSConfig set.")
 	}
 	if opts.Handler == nil {
-		l.Panic("No Handler set.")
+		opts.Handler = http.HandlerFunc(http.NotFound)
 	}
 
 	if opts.ShutdownTimeout == 0 {
