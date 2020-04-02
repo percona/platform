@@ -74,6 +74,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_checked_2fchecked_5fapi_2eprot
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::checked::v1beta1::GetAllChecksResponse, file_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::checked::v1beta1::GetAllChecksResponse, signatures_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::checked::v1beta1::GetAllChecksRequest)},
@@ -88,12 +89,12 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_checked_2fchecked_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\031checked/checked_api.proto\022 percona.pla"
   "tform.checked.v1beta1\"\025\n\023GetAllChecksReq"
-  "uest\"$\n\024GetAllChecksResponse\022\014\n\004file\030\001 \001"
-  "(\t2\213\001\n\nCheckedAPI\022}\n\014GetAllChecks\0225.perc"
-  "ona.platform.checked.v1beta1.GetAllCheck"
-  "sRequest\0326.percona.platform.checked.v1be"
-  "ta1.GetAllChecksResponseB\020Z\016checkedv1bet"
-  "a1b\006proto3"
+  "uest\"8\n\024GetAllChecksResponse\022\014\n\004file\030\001 \001"
+  "(\t\022\022\n\nsignatures\030\002 \003(\t2\213\001\n\nCheckedAPI\022}\n"
+  "\014GetAllChecks\0225.percona.platform.checked"
+  ".v1beta1.GetAllChecksRequest\0326.percona.p"
+  "latform.checked.v1beta1.GetAllChecksResp"
+  "onseB\020Z\016checkedv1beta1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_checked_2fchecked_5fapi_2eproto_deps[1] = {
 };
@@ -104,7 +105,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_che
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_checked_2fchecked_5fapi_2eproto_once;
 static bool descriptor_table_checked_2fchecked_5fapi_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_checked_2fchecked_5fapi_2eproto = {
-  &descriptor_table_checked_2fchecked_5fapi_2eproto_initialized, descriptor_table_protodef_checked_2fchecked_5fapi_2eproto, "checked/checked_api.proto", 290,
+  &descriptor_table_checked_2fchecked_5fapi_2eproto_initialized, descriptor_table_protodef_checked_2fchecked_5fapi_2eproto, "checked/checked_api.proto", 310,
   &descriptor_table_checked_2fchecked_5fapi_2eproto_once, descriptor_table_checked_2fchecked_5fapi_2eproto_sccs, descriptor_table_checked_2fchecked_5fapi_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_checked_2fchecked_5fapi_2eproto::offsets,
   file_level_metadata_checked_2fchecked_5fapi_2eproto, 2, file_level_enum_descriptors_checked_2fchecked_5fapi_2eproto, file_level_service_descriptors_checked_2fchecked_5fapi_2eproto,
@@ -286,7 +287,8 @@ GetAllChecksResponse::GetAllChecksResponse()
 }
 GetAllChecksResponse::GetAllChecksResponse(const GetAllChecksResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
+      _internal_metadata_(nullptr),
+      signatures_(from.signatures_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_file().empty()) {
@@ -324,6 +326,7 @@ void GetAllChecksResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  signatures_.Clear();
   file_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
@@ -342,6 +345,20 @@ const char* GetAllChecksResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.checked.v1beta1.GetAllChecksResponse.file"));
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated string signatures = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signatures();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.checked.v1beta1.GetAllChecksResponse.signatures"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -380,6 +397,16 @@ failure:
         1, this->_internal_file(), target);
   }
 
+  // repeated string signatures = 2;
+  for (int i = 0, n = this->_internal_signatures_size(); i < n; i++) {
+    const auto& s = this->_internal_signatures(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.checked.v1beta1.GetAllChecksResponse.signatures");
+    target = stream->WriteString(2, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -395,6 +422,14 @@ size_t GetAllChecksResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated string signatures = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signatures_.size());
+  for (int i = 0, n = signatures_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signatures_.Get(i));
+  }
 
   // string file = 1;
   if (this->file().size() > 0) {
@@ -434,6 +469,7 @@ void GetAllChecksResponse::MergeFrom(const GetAllChecksResponse& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  signatures_.MergeFrom(from.signatures_);
   if (from.file().size() > 0) {
 
     file_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.file_);
@@ -461,6 +497,7 @@ bool GetAllChecksResponse::IsInitialized() const {
 void GetAllChecksResponse::InternalSwap(GetAllChecksResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  signatures_.InternalSwap(&other->signatures_);
   file_.Swap(&other->file_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }

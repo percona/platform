@@ -13,6 +13,8 @@ service CheckedAPI {
 message GetAllChecksRequest {}
 
 message GetAllChecksResponse {
-  // Yaml formatted checks.
+  // YAML formatted checks.
   string file = 1;
+  // Checks signatures.
+  repeated string signatures = 2;
 }

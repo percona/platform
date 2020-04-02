@@ -300,8 +300,33 @@ class GetAllChecksResponse :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kSignaturesFieldNumber = 2,
     kFileFieldNumber = 1,
   };
+  // repeated string signatures = 2;
+  int signatures_size() const;
+  private:
+  int _internal_signatures_size() const;
+  public:
+  void clear_signatures();
+  const std::string& signatures(int index) const;
+  std::string* mutable_signatures(int index);
+  void set_signatures(int index, const std::string& value);
+  void set_signatures(int index, std::string&& value);
+  void set_signatures(int index, const char* value);
+  void set_signatures(int index, const char* value, size_t size);
+  std::string* add_signatures();
+  void add_signatures(const std::string& value);
+  void add_signatures(std::string&& value);
+  void add_signatures(const char* value);
+  void add_signatures(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& signatures() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_signatures();
+  private:
+  const std::string& _internal_signatures(int index) const;
+  std::string* _internal_add_signatures();
+  public:
+
   // string file = 1;
   void clear_file();
   const std::string& file() const;
@@ -323,6 +348,7 @@ class GetAllChecksResponse :
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> signatures_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_checked_2fchecked_5fapi_2eproto;
@@ -400,6 +426,80 @@ inline void GetAllChecksResponse::set_allocated_file(std::string* file) {
   }
   file_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file);
   // @@protoc_insertion_point(field_set_allocated:percona.platform.checked.v1beta1.GetAllChecksResponse.file)
+}
+
+// repeated string signatures = 2;
+inline int GetAllChecksResponse::_internal_signatures_size() const {
+  return signatures_.size();
+}
+inline int GetAllChecksResponse::signatures_size() const {
+  return _internal_signatures_size();
+}
+inline void GetAllChecksResponse::clear_signatures() {
+  signatures_.Clear();
+}
+inline std::string* GetAllChecksResponse::add_signatures() {
+  // @@protoc_insertion_point(field_add_mutable:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  return _internal_add_signatures();
+}
+inline const std::string& GetAllChecksResponse::_internal_signatures(int index) const {
+  return signatures_.Get(index);
+}
+inline const std::string& GetAllChecksResponse::signatures(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  return _internal_signatures(index);
+}
+inline std::string* GetAllChecksResponse::mutable_signatures(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  return signatures_.Mutable(index);
+}
+inline void GetAllChecksResponse::set_signatures(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  signatures_.Mutable(index)->assign(value);
+}
+inline void GetAllChecksResponse::set_signatures(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  signatures_.Mutable(index)->assign(std::move(value));
+}
+inline void GetAllChecksResponse::set_signatures(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signatures_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline void GetAllChecksResponse::set_signatures(int index, const char* value, size_t size) {
+  signatures_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline std::string* GetAllChecksResponse::_internal_add_signatures() {
+  return signatures_.Add();
+}
+inline void GetAllChecksResponse::add_signatures(const std::string& value) {
+  signatures_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline void GetAllChecksResponse::add_signatures(std::string&& value) {
+  signatures_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline void GetAllChecksResponse::add_signatures(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  signatures_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline void GetAllChecksResponse::add_signatures(const char* value, size_t size) {
+  signatures_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+GetAllChecksResponse::signatures() const {
+  // @@protoc_insertion_point(field_list:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  return signatures_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+GetAllChecksResponse::mutable_signatures() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.checked.v1beta1.GetAllChecksResponse.signatures)
+  return &signatures_;
 }
 
 #ifdef __GNUC__
