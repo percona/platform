@@ -14,7 +14,7 @@ import (
 // Context returns main application context with set logger
 // that is canceled when SIGTERM or SIGINT is received.
 func Context() context.Context {
-	l := zap.L().With(zap.String("component", "app"))
+	l := zap.L().Named("platform.app")
 	ctx, cancel := context.WithCancel(context.Background())
 	ctx = logger.GetCtxWithLogger(ctx, l)
 

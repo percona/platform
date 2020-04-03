@@ -6,6 +6,7 @@ import (
 	_ "expvar" // register /debug/vars
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	_ "net/http/pprof" // register /debug/pprof
 	"os"
@@ -20,6 +21,7 @@ import (
 	"github.com/percona-platform/platform/pkg/logger"
 )
 
+// RunDebugServerOpts configure debug server.
 type RunDebugServerOpts struct {
 	Addr            string
 	ShutdownTimeout time.Duration
@@ -27,12 +29,13 @@ type RunDebugServerOpts struct {
 	Readyz          func() error
 }
 
+// RunDebugServer runs debug server with given options until ctx is canceled.
 func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	if opts == nil {
 		opts = new(RunDebugServerOpts)
 	}
 
-	l := zap.L().With(zap.String("component", "debug")).Sugar()
+	l := zap.L().Named("platform.servers.debug").Sugar()
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
@@ -116,7 +119,14 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 
 	server := &http.Server{
 		Addr:     opts.Addr,
-		ErrorLog: log.New(os.Stderr, "debug/http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
+		ErrorLog: log.New(os.Stderr, "platform.servers.debug.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
+		BaseContext: func(net.Listener) context.Context {
+			return ctx
+		},
+		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
+			c, _ := getCtxForRequest(connCtx)
+			return c
+		},
 	}
 	go func() {
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {
@@ -126,9 +136,10 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	}()
 
 	<-ctx.Done()
-	ctx, cancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(ctx); err != nil {
+
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
+	if err := server.Shutdown(shutdownCtx); err != nil {
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
-	cancel()
+	shutdownCancel()
 }

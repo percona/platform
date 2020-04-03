@@ -13,6 +13,7 @@ import (
 	"github.com/percona-platform/platform/pkg/ptls"
 )
 
+// TODO remove completely once we fully migrate to Traefik
 type ACME struct {
 	Addr     string
 	DirCache string
@@ -24,21 +25,19 @@ type ACME struct {
 type Flags struct {
 	GRPCAddr string
 
-	GRPCTLSCert string
-	GRPCTLSKey  string
-
+	// TODO remove completely once we fully migrate to Traefik
+	GRPCTLSDisable  bool
+	GRPCTLSCert     string
+	GRPCTLSKey      string
 	GRPCTLSCertFile string
 	GRPCTLSKeyFile  string
+	ACME            ACME
 
-	ACME ACME
-
+	HTTPAddr  string
 	DebugAddr string
 }
 
 func version() string {
-	l := zap.L().With(zap.String("component", "platform/app/version")).Sugar()
-	l.Debug("Building version information.")
-
 	info, ok := debug.ReadBuildInfo()
 	if !ok {
 		return "(unknown)"
@@ -48,10 +47,8 @@ func version() string {
 	for _, d := range info.Deps {
 		if d.Path == "github.com/percona-platform/platform" {
 			platform = d
-			l.Debug(platform)
 			if d.Replace != nil {
 				platform = d.Replace
-				l.Debug("\treplaced by ", platform)
 			}
 			break
 		}
@@ -74,6 +71,9 @@ func version() string {
 type SetupOpts struct {
 	Name     string
 	WithGRPC bool
+	WithHTTP bool
+
+	// TODO remove completely once we fully migrate to Traefik
 	WithACME bool
 }
 
@@ -94,31 +94,43 @@ func Setup(opts *SetupOpts) (*Flags, error) {
 	var flags Flags
 
 	if opts.WithGRPC {
-		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":443").StringVar(&flags.GRPCAddr)
+		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&flags.GRPCAddr)
+
+		// TODO remove completely once we fully migrate to Traefik
+		kingpin.Flag("grpc.tls.disable", "Use gRPC over plain HTTP/2 without TLS").BoolVar(&flags.GRPCTLSDisable)
 		kingpin.Flag("grpc.tls.cert", "gRPC TLS certificate").StringVar(&flags.GRPCTLSCert)
 		kingpin.Flag("grpc.tls.key", "gRPC TLS private key").StringVar(&flags.GRPCTLSKey)
 		kingpin.Flag("grpc.tls.cert-file", "gRPC TLS certificate file").StringVar(&flags.GRPCTLSCertFile)
 		kingpin.Flag("grpc.tls.key-file", "gRPC TLS private key file").StringVar(&flags.GRPCTLSKeyFile)
 	}
 
+	if opts.WithHTTP {
+		kingpin.Flag("http.addr", "HTTP listen address").Default(":20202").StringVar(&flags.HTTPAddr)
+	}
+
+	// TODO remove completely once we fully migrate to Traefik
 	if opts.WithACME {
-		kingpin.Flag("acme.addr", "ACME listen address").Default(":80").StringVar(&flags.ACME.Addr)
+		kingpin.Flag("acme.addr", "ACME listen address").Default(":20202").StringVar(&flags.ACME.Addr)
 		kingpin.Flag("acme.dir-cache", "ACME directory cache").StringVar(&flags.ACME.DirCache)
 		kingpin.Flag("acme.hosts", "ACME whitelisted hosts").StringsVar(&flags.ACME.Hosts)
 		kingpin.Flag("acme.email", "ACME email").StringVar(&flags.ACME.Email)
 		kingpin.Flag("acme.staging", "Use Let's Encrypt staging environment").BoolVar(&flags.ACME.Staging)
 	}
 
-	kingpin.Flag("debug.addr", "Debug listen address").Default(":8080").StringVar(&flags.DebugAddr)
+	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&flags.DebugAddr)
 
 	return &flags, nil
 }
 
 // TLSConfig returns TLS configuration and optional ACME handler from flags.
 func (f *Flags) TLSConfig() (*tls.Config, http.Handler, error) {
-	l := zap.L().With(zap.String("component", "platform/app/TLSConfig")).Sugar()
+	l := zap.L().Named("platform.app.TLSConfig").Sugar()
 
 	switch {
+	case f.GRPCTLSDisable:
+		l.Info("Using plain HTTP/2 without TLS for gRPC server.")
+		return nil, nil, nil
+
 	case f.GRPCTLSCert != "" && f.GRPCTLSKey != "":
 		if f.GRPCTLSCertFile != "" || f.GRPCTLSKeyFile != "" {
 			return nil, nil, errors.New("both GRPCTLSCert/GRPCTLSKey and GRPCTLSCertFile/GRPCTLSKeyFile are specified")
