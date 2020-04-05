@@ -1,3 +1,4 @@
+// Package servers provides common servers starting code for all SaaS components.
 package servers
 
 import (
