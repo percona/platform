@@ -27,7 +27,7 @@ func GetConfig() *tls.Config {
 	}
 }
 
-// GetConfig returns a new tls.Config with given certificate and key in PEM format.
+// GetConfigWithCert returns a new tls.Config with given certificate and key in PEM format.
 func GetConfigWithCert(cert, key []byte) (*tls.Config, error) {
 	pair, err := tls.X509KeyPair(cert, key)
 	if err != nil {
@@ -39,7 +39,7 @@ func GetConfigWithCert(cert, key []byte) (*tls.Config, error) {
 	return tlsConfig, nil
 }
 
-// GetConfig returns a new tls.Config with given certificate and key files in PEM format.
+// GetConfigWithCertFiles returns a new tls.Config with given certificate and key files in PEM format.
 func GetConfigWithCertFiles(certFile, keyFile string) (*tls.Config, error) {
 	pair, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {

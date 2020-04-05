@@ -8,7 +8,7 @@ import (
 	"log"
 	"net"
 	"net/http"
-	_ "net/http/pprof" // register /debug/pprof
+	_ "net/http/pprof" //nolint:gosec // register /debug/pprof
 	"os"
 	"strings"
 	"text/template"
@@ -136,6 +136,8 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 			c, _ := getCtxForRequest(connCtx)
 			return c
 		},
+
+		// Handler defaults to http.DefaultServeMux
 	}
 
 	stopped := make(chan struct{})
