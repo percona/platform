@@ -3,12 +3,12 @@ FROM golang:1.14
 RUN apt-get update
 RUN apt-get install -y aria2 unzip
 
-# must match version in prototool.yml files
+# must match version in prototool.yml file
 ENV PROTOBUF_VERSION=3.11.4
 ENV PROTOBUF_CHECKSUM=82777f04d9600ec69c53044a06fec4d3e108c9c3797d643f3472eb558088963e02a153077e2f832db54d17921204d327ad6ba9f37db7d00bd46f4887229dc837
 
 # must match versions in tools/go.mod
-ENV GRPC_GATEWAY_VERSION=1.13.0
+ENV GRPC_GATEWAY_VERSION=1.14.3
 ENV GO_PROTO_VALIDATORS_VERSION=0.3.0
 
 RUN mkdir /tmp/protoc
