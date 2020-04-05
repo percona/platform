@@ -49,7 +49,10 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 			return c
 		},
 	}
+
+	stopped := make(chan struct{})
 	go func() {
+		defer close(stopped)
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {
 			l.Panic(err)
 		}
@@ -63,4 +66,6 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()
+
+	<-stopped
 }

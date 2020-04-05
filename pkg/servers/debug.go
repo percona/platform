@@ -115,6 +115,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	http.HandleFunc("/debug", func(rw http.ResponseWriter, req *http.Request) {
 		rw.Write(buf.Bytes())
 	})
+
 	l.Infof("Starting server on http://%s/debug\nRegistered handlers:\n\t%s", opts.Addr, strings.Join(handlers, "\n\t"))
 
 	server := &http.Server{
@@ -128,7 +129,10 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 			return c
 		},
 	}
+
+	stopped := make(chan struct{})
 	go func() {
+		defer close(stopped)
 		if err := server.ListenAndServe(); err != http.ErrServerClosed {
 			l.Panic(err)
 		}
@@ -142,4 +146,6 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()
+
+	<-stopped
 }
