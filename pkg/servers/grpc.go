@@ -2,7 +2,6 @@ package servers
 
 import (
 	"context"
-	"crypto/tls"
 	"net"
 	"time"
 
@@ -12,7 +11,6 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	channelz "google.golang.org/grpc/channelz/service"
-	"google.golang.org/grpc/credentials"
 )
 
 type GRPCServer interface {
@@ -37,17 +35,15 @@ func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
 	return s.grpc
 }
 
+// NewGRPCServerOpts configure gRPC server.
 type NewGRPCServerOpts struct {
-	Addr string
-
-	// TODO remove once it is handled by Traefik
-	TLSConfig *tls.Config
-
+	Addr            string
 	WarnDuration    time.Duration
 	ShutdownTimeout time.Duration
 }
 
-func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
+// NewGRPCServer creates new gRPC server with given options.
+func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 	l := zap.L().Named("platform.servers.grpc").Sugar()
 
 	grpc.EnableTracing = true
@@ -80,16 +76,13 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 			grpc_validator.StreamServerInterceptor(),
 		)),
 	}
-	if opts.TLSConfig != nil {
-		serverOpts = append(serverOpts, grpc.Creds(credentials.NewTLS(opts.TLSConfig)))
-	}
 
 	return &grpcServer{
 		grpc:            grpc.NewServer(serverOpts...),
 		addr:            opts.Addr,
 		shutdownTimeout: opts.ShutdownTimeout,
 		l:               l,
-	}, nil
+	}
 }
 
 // Run runs the server until ctx is canceled.
