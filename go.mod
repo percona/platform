@@ -19,9 +19,9 @@ require (
 	github.com/prometheus/client_golang v1.5.1
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.14.1
-	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527
+	golang.org/x/sys v0.0.0-20200331124033-c3d80250170d
 	google.golang.org/grpc v1.28.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.3.3
-	syreclabs.com/go/faker v1.2.0 // indirect
+	syreclabs.com/go/faker v1.2.2 // indirect
 )

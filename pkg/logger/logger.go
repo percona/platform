@@ -23,11 +23,7 @@ func Get(ctx context.Context) *zap.Logger {
 }
 
 // GetCtxWithLogger returns derived context with given logger set.
+// If logger is already present, it will be shadowed.
 func GetCtxWithLogger(ctx context.Context, l *zap.Logger) context.Context {
-	if ctx.Value(key) != nil {
-		Get(ctx).DPanic("context logger already set")
-		return ctx
-	}
-
 	return context.WithValue(ctx, key, l)
 }

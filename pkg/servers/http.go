@@ -39,24 +39,32 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 	l.Infof("Starting server on http://%s/", opts.Addr)
 
 	server := &http.Server{
-		Addr:     opts.Addr,
-		ErrorLog: log.New(os.Stderr, "platform.servers.http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
+		Addr: opts.Addr,
+		ErrorLog: log.New(
+			os.Stderr,
+			"platform.servers.http.Server",
+			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
+		),
+
+		// propagate ctx cancelation signals to handlers
 		BaseContext: func(net.Listener) context.Context {
 			return ctx
 		},
+
+		// propagate ctx cancelation signals and pass logger to handlers
 		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
 			c, _ := getCtxForRequest(connCtx)
 			return c
 		},
+
+		Handler: opts.Handler,
 	}
 
 	stopped := make(chan struct{})
 	go func() {
 		defer close(stopped)
-		if err := server.ListenAndServe(); err != http.ErrServerClosed {
-			l.Panic(err)
-		}
-		l.Info("Server stopped.")
+		err := server.ListenAndServe()
+		l.Infof("Server stopped: %v.", err)
 	}()
 
 	<-ctx.Done()

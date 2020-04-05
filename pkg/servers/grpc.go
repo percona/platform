@@ -101,9 +101,11 @@ func (s *grpcServer) Run(ctx context.Context) {
 		s.l.Panic(err)
 	}
 
+	stopped := make(chan struct{})
 	go func() {
-		err = s.grpc.Serve(listener)
-		s.l.Infof("Serve done with %v.", err)
+		defer close(stopped)
+		err := s.grpc.Serve(listener)
+		s.l.Infof("Server stopped: %v.", err)
 	}()
 
 	<-ctx.Done()
@@ -120,5 +122,7 @@ func (s *grpcServer) Run(ctx context.Context) {
 	// listener is already closed there - Serve always closes it on exit,
 	// and we can be there only if Serve already exited.
 	// But we close it anyway in case gRPC breaks this contract.
-	s.l.Infof("Listener closed with %v.", listener.Close())
+	s.l.Infof("Listener closed: %v.", listener.Close())
+
+	<-stopped
 }
