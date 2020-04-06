@@ -19,6 +19,7 @@ type RunHTTPServerOpts struct {
 }
 
 // RunHTTPServer runs HTTP server with given options until ctx is canceled.
+// All errors cause panic.
 func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 	if opts == nil {
 		opts = new(RunHTTPServerOpts)
@@ -60,14 +61,17 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 		Handler: opts.Handler,
 	}
 
-	stopped := make(chan struct{})
+	stopped := make(chan error)
 	go func() {
-		defer close(stopped)
-		err := server.ListenAndServe()
-		l.Infof("Server stopped: %v.", err)
+		stopped <- server.ListenAndServe()
 	}()
 
-	<-ctx.Done()
+	// any ListenAndServe error before ctx is canceled is fatal
+	select {
+	case <-ctx.Done():
+	case err := <-stopped:
+		l.Panicf("Unexpected server stop: %v.", err)
+	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
 	if err := server.Shutdown(shutdownCtx); err != nil {
@@ -76,4 +80,5 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 	shutdownCancel()
 
 	<-stopped
+	l.Info("Server stopped.")
 }

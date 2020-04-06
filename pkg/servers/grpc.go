@@ -86,6 +86,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 }
 
 // Run runs the server until ctx is canceled.
+// All errors cause panic.
 func (s *grpcServer) Run(ctx context.Context) {
 	// reflection should not be enabled because we don't want to expose our private APIs
 	// reflection.Register(opts.Server)
