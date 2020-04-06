@@ -6,8 +6,9 @@ import (
 	_ "expvar" // register /debug/vars
 	"fmt"
 	"log"
+	"net"
 	"net/http"
-	_ "net/http/pprof" // register /debug/pprof
+	_ "net/http/pprof" //nolint:gosec // register /debug/pprof
 	"os"
 	"strings"
 	"text/template"
@@ -20,6 +21,7 @@ import (
 	"github.com/percona-platform/platform/pkg/logger"
 )
 
+// RunDebugServerOpts configure debug server.
 type RunDebugServerOpts struct {
 	Addr            string
 	ShutdownTimeout time.Duration
@@ -27,12 +29,14 @@ type RunDebugServerOpts struct {
 	Readyz          func() error
 }
 
+// RunDebugServer runs debug server with given options until ctx is canceled.
+// All errors cause panic.
 func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	if opts == nil {
 		opts = new(RunDebugServerOpts)
 	}
 
-	l := zap.L().With(zap.String("component", "debug")).Sugar()
+	l := zap.L().Named("platform.servers.debug").Sugar()
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
@@ -112,23 +116,49 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 	http.HandleFunc("/debug", func(rw http.ResponseWriter, req *http.Request) {
 		rw.Write(buf.Bytes())
 	})
+
 	l.Infof("Starting server on http://%s/debug\nRegistered handlers:\n\t%s", opts.Addr, strings.Join(handlers, "\n\t"))
 
 	server := &http.Server{
-		Addr:     opts.Addr,
-		ErrorLog: log.New(os.Stderr, "debug/http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
+		Addr: opts.Addr,
+		ErrorLog: log.New(
+			os.Stderr,
+			"platform.servers.debug.Server",
+			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
+		),
+
+		// propagate ctx cancellation signals to handlers
+		BaseContext: func(net.Listener) context.Context {
+			return ctx
+		},
+
+		// propagate ctx cancellation signals and pass logger to handlers
+		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
+			c, _ := getCtxForRequest(connCtx)
+			return c
+		},
+
+		// Handler defaults to http.DefaultServeMux
 	}
+
+	stopped := make(chan error)
 	go func() {
-		if err := server.ListenAndServe(); err != http.ErrServerClosed {
-			l.Panic(err)
-		}
-		l.Info("Server stopped.")
+		stopped <- server.ListenAndServe()
 	}()
 
-	<-ctx.Done()
-	ctx, cancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(ctx); err != nil {
+	// any ListenAndServe error before ctx is canceled is fatal
+	select {
+	case <-ctx.Done():
+	case err := <-stopped:
+		l.Panicf("Unexpected server stop: %v.", err)
+	}
+
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
+	if err := server.Shutdown(shutdownCtx); err != nil {
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
-	cancel()
+	shutdownCancel()
+
+	<-stopped
+	l.Info("Server stopped.")
 }

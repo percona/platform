@@ -2,12 +2,7 @@ package servers
 
 import (
 	"context"
-	"crypto/tls"
-	"log"
-	"mime"
 	"net"
-	"net/http"
-	"os"
 	"time"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -16,7 +11,6 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	channelz "google.golang.org/grpc/channelz/service"
-	"google.golang.org/grpc/credentials"
 )
 
 type GRPCServer interface {
@@ -30,9 +24,6 @@ type GRPCServer interface {
 }
 
 type grpcServer struct {
-	// TODO remove once we can serve static page with Ingress Controller
-	http *http.Server
-
 	grpc *grpc.Server
 
 	addr            string
@@ -44,43 +35,16 @@ func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
 	return s.grpc
 }
 
-// stop stops the server.
-// It tries to stop the server gracefully until shutdownTimeout is passed, then forcefully.
-// Server is fully stopped once method exits.
-func (s *grpcServer) stop() {
-	// Shutdown returns once HTTP server is stopped, or ctx is canceled (and HTTP server is still running).
-	// After that, we forcefully close it anyway.
-	httpCtx, httpCancel := context.WithTimeout(context.Background(), s.shutdownTimeout)
-	go func() {
-		if err := s.http.Shutdown(httpCtx); err != nil {
-			s.l.Warnf("HTTP Shutdown: %v", err)
-		}
-		if err := s.http.Close(); err != nil {
-			s.l.Warnf("HTTP Close: %v", err)
-		}
-		httpCancel()
-	}()
-	<-httpCtx.Done()
-
-	// Since we never call s.grpc.Serve method, gRPC server should be fully stopped by now.
-	// Call Stop just to be sure.
-	s.grpc.Stop()
-}
-
+// NewGRPCServerOpts configure gRPC server.
 type NewGRPCServerOpts struct {
-	Addr string
-
-	TLSConfig *tls.Config
-
-	// TODO remove once we can serve static page with Ingress Controller
-	Handler http.Handler
-
+	Addr            string
 	WarnDuration    time.Duration
 	ShutdownTimeout time.Duration
 }
 
-func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
-	l := zap.L().With(zap.String("component", "grpc")).Sugar()
+// NewGRPCServer creates new gRPC server with given options.
+func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
+	l := zap.L().Named("platform.servers.grpc").Sugar()
 
 	grpc.EnableTracing = true
 
@@ -90,12 +54,6 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
-	}
-	if opts.TLSConfig == nil {
-		l.Panic("No TLSConfig set.")
-	}
-	if opts.Handler == nil {
-		opts.Handler = http.HandlerFunc(http.NotFound)
 	}
 
 	if opts.ShutdownTimeout == 0 {
@@ -117,42 +75,18 @@ func NewGRPCServer(opts *NewGRPCServerOpts) (GRPCServer, error) {
 			grpc_prometheus.StreamServerInterceptor,
 			grpc_validator.StreamServerInterceptor(),
 		)),
-
-		grpc.Creds(credentials.NewTLS(opts.TLSConfig)),
-	}
-	grpcSrv := grpc.NewServer(serverOpts...)
-
-	httpSrv := &http.Server{
-		Handler: http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-			mediaType, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
-			if r.ProtoMajor == 2 && mediaType == "application/grpc" {
-				grpcSrv.ServeHTTP(rw, r)
-				return
-			}
-
-			opts.Handler.ServeHTTP(rw, r)
-		}),
-
-		TLSConfig: opts.TLSConfig,
-
-		// TODO remove once we have Ingress Controller
-		// for now, we need some small values to prevent low and slow attacks
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
-
-		ErrorLog: log.New(os.Stderr, "grpc/http.Server", log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix),
 	}
 
 	return &grpcServer{
-		grpc:            grpcSrv,
-		http:            httpSrv,
+		grpc:            grpc.NewServer(serverOpts...),
 		addr:            opts.Addr,
 		shutdownTimeout: opts.ShutdownTimeout,
 		l:               l,
-	}, nil
+	}
 }
 
 // Run runs the server until ctx is canceled.
+// All errors cause panic.
 func (s *grpcServer) Run(ctx context.Context) {
 	// reflection should not be enabled because we don't want to expose our private APIs
 	// reflection.Register(opts.Server)
@@ -170,19 +104,26 @@ func (s *grpcServer) Run(ctx context.Context) {
 
 	stopped := make(chan struct{})
 	go func() {
-		<-ctx.Done()
-		s.stop()
-		close(stopped)
+		defer close(stopped)
+		err := s.grpc.Serve(listener)
+		s.l.Infof("Server stopped: %v.", err)
 	}()
 
-	err = s.http.ServeTLS(listener, "", "")
-	if err == http.ErrServerClosed {
-		s.l.Info("Server stopped.")
-	} else {
-		s.l.Warnf("Server stopped: %v.", err)
-	}
+	<-ctx.Done()
+
+	// try to stop server gracefully, then not
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), s.shutdownTimeout)
+	go func() {
+		<-shutdownCtx.Done()
+		s.grpc.Stop()
+	}()
+	s.grpc.GracefulStop()
+	shutdownCancel()
+
+	// listener is already closed there - Serve always closes it on exit,
+	// and we can be there only if Serve already exited.
+	// But we close it anyway in case gRPC breaks this contract.
+	s.l.Infof("Listener closed: %v.", listener.Close())
 
 	<-stopped
-
-	s.l.Warnf("Listener Close: %v.", listener.Close())
 }

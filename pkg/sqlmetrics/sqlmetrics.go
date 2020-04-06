@@ -1,4 +1,4 @@
-// Package sqlmetrics provides Prometheus metrics for database/sql.
+// Package sqlmetrics provides common database/sql and reform Prometheus metrics for all SaaS components.
 package sqlmetrics
 
 import (

@@ -6,32 +6,16 @@ import (
 	"runtime/pprof"
 	"time"
 
-	"github.com/google/uuid"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	"github.com/percona-platform/platform/pkg/logger"
 )
 
-// getCtxForRequest returns derived context with request-scoped logger set, and the logger itself.
-func getCtxForRequest(ctx context.Context) (context.Context, *zap.Logger) {
-	// UUID version 1: first 8 characters are time-based and lexicography sorted,
-	// which is a useful property there
-	u, err := uuid.NewUUID()
-	if err != nil {
-		panic(err)
-	}
-
-	l := zap.L().With(zap.String("request", u.String()))
-	return logger.GetCtxWithLogger(ctx, l), l
-}
-
-// logRequest wraps f invocation with logging and panic recovery.
-func logRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {
+// logGRPCRequest wraps f (gRPC handler) invocation with logging and panic recovery.
+func logGRPCRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {
 	start := time.Now()
 	sl := l.Sugar()
 	sl.Infof("Starting %s ...", prefix)
@@ -85,7 +69,7 @@ func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterce
 		ctx, l = getCtxForRequest(ctx)
 
 		var res interface{}
-		err := logRequest(l, "RPC "+info.FullMethod, warnDuration, func() error {
+		err := logGRPCRequest(l, "RPC "+info.FullMethod, warnDuration, func() error {
 			var origErr error
 			res, origErr = handler(ctx, req)
 			return origErr
@@ -112,7 +96,7 @@ func streamLoggingInterceptor(warnDuration time.Duration) grpc.StreamServerInter
 		var l *zap.Logger
 		ctx, l = getCtxForRequest(ctx)
 
-		err := logRequest(l, "Stream "+info.FullMethod, warnDuration, func() error {
+		err := logGRPCRequest(l, "Stream "+info.FullMethod, warnDuration, func() error {
 			wrapped := grpc_middleware.WrapServerStream(ss)
 			wrapped.WrappedContext = ctx
 			return handler(srv, ss)
