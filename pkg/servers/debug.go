@@ -126,12 +126,12 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
 		),
 
-		// propagate ctx cancelation signals to handlers
+		// propagate ctx cancellation signals to handlers
 		BaseContext: func(net.Listener) context.Context {
 			return ctx
 		},
 
-		// propagate ctx cancelation signals and pass logger to handlers
+		// propagate ctx cancellation signals and pass logger to handlers
 		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
 			c, _ := getCtxForRequest(connCtx)
 			return c
