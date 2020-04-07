@@ -19,7 +19,7 @@ require (
 	github.com/prometheus/client_golang v1.5.1
 	github.com/stretchr/testify v1.5.1
 	go.uber.org/zap v1.14.1
-	golang.org/x/sys v0.0.0-20200331124033-c3d80250170d
+	golang.org/x/sys v0.0.0-20200406155108-e3b113bbe6a4
 	google.golang.org/grpc v1.28.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.3.3
