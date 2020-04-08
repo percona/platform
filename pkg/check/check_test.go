@@ -175,7 +175,7 @@ results:
 		assert.Equal(t, "something bad happened", cs[0].Message)
 
 		assert.Equal(t, "SUCCESS", cs[1].Status)
-		assert.Empty(t,  cs[1].Message)
+		assert.Empty(t, cs[1].Message)
 	})
 }
 
