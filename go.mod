@@ -6,7 +6,6 @@ go 1.14
 
 require (
 	github.com/AlekSi/pointer v1.1.0 // indirect
-	github.com/davecgh/go-spew v1.1.1
 	github.com/denisenkom/go-mssqldb v0.0.0-20200206145737-bbfc9a55622e // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/golang/protobuf v1.3.5
@@ -25,7 +24,6 @@ require (
 	google.golang.org/grpc v1.28.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.3.3
-	gopkg.in/yaml.v2 v2.2.5
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	syreclabs.com/go/faker v1.2.2 // indirect
 )
