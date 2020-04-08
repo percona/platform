@@ -1,3 +1,4 @@
+//nolint:lll,scopelint
 package check
 
 import (
