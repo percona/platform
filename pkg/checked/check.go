@@ -4,7 +4,6 @@ import (
 	"io"
 
 	"github.com/pkg/errors"
-	"go.starlark.net/starlark"
 	"gopkg.in/yaml.v3"
 )
 
@@ -23,8 +22,8 @@ func Parse(r io.Reader) ([]*Check, error) {
 
 	res := make([]*Check, 0)
 	for {
-		c := &checks{}
-		err := d.Decode(c)
+		var c checks
+		err := d.Decode(&c)
 		if err != nil {
 			if err != io.EOF {
 				return nil, errors.Wrap(err, "failed to parse checks")
@@ -47,17 +46,10 @@ func (c *Check) Validate() error {
 		return errors.New("check query is empty")
 	}
 
-	if err := c.validateScript(); err != nil {
-		return err
+	if c.Script == "" {
+		return errors.New("check script is empty")
 	}
 
-	return nil
-}
-
-func (c *Check) validateScript() error {
-	if _, _, err := starlark.SourceProgram("", c.Script, func(s string) bool { return false }); err != nil {
-		return errors.Wrap(err, "script is invalid")
-	}
 	return nil
 }
 
@@ -76,20 +68,4 @@ func (c *Check) validateType() error {
 	default:
 		return errors.Errorf("unknown check type: %s", c.Type)
 	}
-}
-
-func (c *Check) createFullQuery() string {
-	switch c.Type {
-	case "MYSQL_SHOW":
-		fallthrough
-	case "POSTGRESQL_SHOW":
-		return "SHOW " + c.Query
-
-	case "MYSQL_SELECT":
-		fallthrough
-	case "POSTGRESQL_SELECT":
-		return "SELECT " + c.Query
-	}
-
-	return ""
 }
