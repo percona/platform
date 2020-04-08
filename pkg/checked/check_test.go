@@ -62,6 +62,56 @@ def check(rows):
 	assert.Equal(t, cs[0].Script, expectedScript)
 }
 
+func TestCheck_validateScript(t *testing.T) {
+
+	t.Run("validScript", func(t *testing.T) {
+		c := Check{Script: `def helper(args):
+    pass
+
+def check(rows):
+    vars = {
+        "have_ssl":     "YES",
+        "have_openssl": "YES",
+    }
+
+    for row in rows:
+        name = row["Variable_name"]
+        actual = row["Value"]
+        expected = vars.get(name)
+        if expected and expected != actual:
+            return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
+
+    return {}`}
+
+		err := c.validateScript()
+		require.NoError(t, err)
+	})
+
+	t.Run("invalidScript", func(t *testing.T) {
+		c := Check{Script: `def helper(args):
+    pass
+
+def check(rows:   //<-- Invalid syntax added (missing bracket)
+    vars = {
+        "have_ssl":     "YES",
+        "have_openssl": "YES",
+    }
+
+    for row in rows:
+        name = row["Variable_name"]
+        actual = row["Value"]
+        expected = vars.get(name)
+        if expected and expected != actual:
+            return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
+
+    return {}`}
+
+		err := c.validateScript()
+		require.EqualError(t, err, "script is invalid: :4:16: got ':', want ')'")
+	})
+
+}
+
 func TestCheck_validateType(t *testing.T) {
 	tests := []struct {
 		name   string

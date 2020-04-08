@@ -14,12 +14,12 @@ type Check struct {
 	Script string `yaml:"script"`
 }
 
-type checks struct {
-	Checks []*Check `yaml:"checks"`
-}
-
 func Parse(r io.Reader) ([]*Check, error) {
 	d := yaml.NewDecoder(r)
+
+	type checks struct {
+		Checks []*Check `yaml:"checks"`
+	}
 
 	res := make([]*Check, 0)
 	for {
