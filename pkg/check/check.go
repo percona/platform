@@ -1,3 +1,4 @@
+// Package check implements checks parsing and validating.
 package check
 
 import (
@@ -44,7 +45,7 @@ func ParseCheck(b []byte) (*Check, error) {
 	return &c, nil
 }
 
-// Supported check types
+// Supported check types.
 const (
 	MySQLShow           = "MYSQL_SHOW"
 	MySQLSelect         = "MYSQL_SELECT"
@@ -53,7 +54,7 @@ const (
 	MongoDBGetParameter = "MONGODB_GETPARAMETER"
 )
 
-// Check represents security check structure
+// Check represents security check structure.
 type Check struct {
 	Type   string `yaml:"type"`
 	Query  string `yaml:"query"`
@@ -77,7 +78,7 @@ func (c *Check) Validate() error {
 	return nil
 }
 
-// validateType validates check type
+// validateType validates check type.
 func (c *Check) validateType() error {
 	switch c.Type {
 	case MySQLShow:
@@ -97,13 +98,13 @@ func (c *Check) validateType() error {
 	}
 }
 
-// Possible result statuses
+// Possible result statuses.
 const (
 	Success = "SUCCESS"
 	Fail    = "FAIL"
 )
 
-// Parse returns slice of results parsed form YAML passed via reader.
+// ParseResults returns slice of results parsed form YAML passed via reader.
 // Can handle multi-document YAMLs, in that case output will be
 // union of results presented in each file.
 func ParseResults(reader io.Reader) ([]*Result, error) {
@@ -160,7 +161,7 @@ func (r *Result) Validate() error {
 	return nil
 }
 
-// validateType validates check result status
+// validateType validates check result status.
 func (r *Result) validateStatus() error {
 	switch r.Status {
 	case Success:
