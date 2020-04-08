@@ -173,5 +173,4 @@ func (r *Result) validateStatus() error {
 	default:
 		return errors.Errorf("unknown result status: %s", r.Status)
 	}
-
 }
