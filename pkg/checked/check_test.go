@@ -8,58 +8,59 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var data = `---
+var singleFileData = `---
 checks:
   - type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
-        def helper(args):
+        def function1(args):
             pass
- 
-        def check(rows):
-            vars = {
-                "have_ssl":     "YES",
-                "have_openssl": "YES",
-            }
- 
-            for row in rows:
-                name = row["Variable_name"]
-                actual = row["Value"]
-                expected = vars.get(name)
-                if expected and expected != actual:
-                    return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
- 
-            return {}`
+`
+
+var multipleFilesData = `---
+checks:
+  - type: MYSQL_SHOW
+    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
+    script: |
+        def function1(args):
+            pass
+---
+checks:
+  - type: POSTGRESQL_SELECT
+    query: id, name FROM table WHERE id=123;
+    script: |
+        def function2(args):
+            pass
+`
 
 func TestCheck_Parse(t *testing.T) {
-	cs, err := Parse(bytes.NewReader([]byte(data)))
-	require.NoError(t, err)
 
-	require.NoError(t, err)
+	t.Run("singleFile", func(t *testing.T) {
+		cs, err := Parse(bytes.NewReader([]byte(singleFileData)))
+		require.NoError(t, err)
 
-	assert.Len(t, cs, 1)
-	assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
-	assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		assert.Len(t, cs, 1)
+		assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
+		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+	})
 
-	expectedScript := `def helper(args):
-    pass
 
-def check(rows):
-    vars = {
-        "have_ssl":     "YES",
-        "have_openssl": "YES",
-    }
+	t.Run("multipleFiles", func(t *testing.T) {
+		cs, err := Parse(bytes.NewReader([]byte(multipleFilesData)))
+		require.NoError(t, err)
 
-    for row in rows:
-        name = row["Variable_name"]
-        actual = row["Value"]
-        expected = vars.get(name)
-        if expected and expected != actual:
-            return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
+		assert.Len(t, cs, 2)
 
-    return {}`
+		assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
+		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 
-	assert.Equal(t, cs[0].Script, expectedScript)
+		assert.Equal(t, "POSTGRESQL_SELECT", cs[1].Type)
+		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
+		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass\n")
+	})
+
 }
 
 func TestCheck_validateType(t *testing.T) {
