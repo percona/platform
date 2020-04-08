@@ -1,4 +1,4 @@
-package checked
+package check
 
 import (
 	"io"
