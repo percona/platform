@@ -11,14 +11,14 @@ import (
 // ParseChecks returns slice of checks parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, in that case output will be
 // union of checks presented in each file.
-func ParseChecks(reader io.Reader) ([]*Check, error) {
+func ParseChecks(reader io.Reader) ([]Check, error) {
 	d := yaml.NewDecoder(reader)
 
 	type checks struct {
-		Checks []*Check `yaml:"checks"`
+		Checks []Check `yaml:"checks"`
 	}
 
-	var res []*Check
+	var res []Check
 	for {
 		var c checks
 		err := d.Decode(&c)
@@ -107,14 +107,14 @@ const (
 // ParseResults returns slice of results parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, in that case output will be
 // union of results presented in each file.
-func ParseResults(reader io.Reader) ([]*Result, error) {
+func ParseResults(reader io.Reader) ([]Result, error) {
 	d := yaml.NewDecoder(reader)
 
 	type results struct {
-		Results []*Result `yaml:"results"`
+		Results []Result `yaml:"results"`
 	}
 
-	var res []*Result
+	var res []Result
 	for {
 		var r results
 		err := d.Decode(&r)
