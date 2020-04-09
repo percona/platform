@@ -46,9 +46,10 @@ const (
 
 // Check represents security check structure.
 type Check struct {
-	Type   Type   `yaml:"type"`
-	Query  string `yaml:"query"`
-	Script string `yaml:"script"`
+	Version uint32 `yaml:"version"`
+	Type    Type   `yaml:"type"`
+	Query   string `yaml:"query"`
+	Script  string `yaml:"script"`
 }
 
 // Validate validates check for minimal correctness.

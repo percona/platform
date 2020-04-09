@@ -14,7 +14,8 @@ func TestCheck_Parse(t *testing.T) {
 		data := strings.TrimSpace(`
 ---
 checks:
-  - type: MYSQL_SHOW
+  - version: 1
+    type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
         def function1(args):
@@ -25,6 +26,7 @@ checks:
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 1)
+		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
@@ -34,14 +36,16 @@ checks:
 		data := strings.TrimSpace(`
 ---
 checks:
-  - type: MYSQL_SHOW
+  - version: 1
+    type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
         def function1(args):
             pass
 ---
 checks:
-  - type: POSTGRESQL_SELECT
+  - version: 2
+    type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
         def function2(args):
@@ -52,10 +56,12 @@ checks:
 
 		assert.Len(t, cs, 2)
 
+		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 
+		assert.Equal(t, uint32(2), cs[1].Version)
 		assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
 		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
