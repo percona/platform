@@ -1,4 +1,3 @@
-//nolint:lll,scopelint
 package check
 
 import (
@@ -133,6 +132,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			err := tt.check.Validate()
 
@@ -233,6 +233,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			err := tt.result.Validate()
 
