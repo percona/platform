@@ -32,18 +32,21 @@ func Parse(reader io.Reader) ([]Check, error) {
 	}
 }
 
+// Type represents check type.
+type Type string
+
 // Supported check types.
 const (
-	MySQLShow           = "MYSQL_SHOW"
-	MySQLSelect         = "MYSQL_SELECT"
-	PostgreSQLShow      = "POSTGRESQL_SHOW"
-	PostgreSQLSelect    = "POSTGRESQL_SELECT"
-	MongoDBGetParameter = "MONGODB_GETPARAMETER"
+	MySQLShow           = Type("MYSQL_SHOW")
+	MySQLSelect         = Type("MYSQL_SELECT")
+	PostgreSQLShow      = Type("POSTGRESQL_SHOW")
+	PostgreSQLSelect    = Type("POSTGRESQL_SELECT")
+	MongoDBGetParameter = Type("MONGODB_GETPARAMETER")
 )
 
 // Check represents security check structure.
 type Check struct {
-	Type   string `yaml:"type"`
+	Type   Type   `yaml:"type"`
 	Query  string `yaml:"query"`
 	Script string `yaml:"script"`
 }

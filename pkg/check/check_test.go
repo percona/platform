@@ -25,7 +25,7 @@ checks:
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 1)
-		assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
+		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
 	})
@@ -52,11 +52,11 @@ checks:
 
 		assert.Len(t, cs, 2)
 
-		assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
+		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 
-		assert.Equal(t, "POSTGRESQL_SELECT", cs[1].Type)
+		assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
 		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
 	})
@@ -70,27 +70,27 @@ func TestCheck_CheckValidate(t *testing.T) {
 	}{
 		{
 			name:   "mysql_show",
-			check:  &Check{Type: "MYSQL_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mysql_select",
-			check:  &Check{Type: "MYSQL_SELECT", Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Type: MySQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_show",
-			check:  &Check{Type: "POSTGRESQL_SHOW", Query: "", Script: "def func(args): pass"},
+			check:  &Check{Type: PostgreSQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_select",
-			check:  &Check{Type: "POSTGRESQL_SELECT", Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Type: PostgreSQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mongodb_get_parameter",
-			check:  &Check{Type: "MONGODB_GETPARAMETER", Query: "\"saslHostName\" : 1", Script: "def func(args): pass"},
+			check:  &Check{Type: MongoDBGetParameter, Query: "\"saslHostName\" : 1", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
@@ -105,17 +105,17 @@ func TestCheck_CheckValidate(t *testing.T) {
 		},
 		{
 			name:   "empty_query",
-			check:  &Check{Type: "MYSQL_SHOW", Query: "", Script: "def func(args): pass"},
+			check:  &Check{Type: MySQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "check query is empty",
 		},
 		{
 			name:   "non_empty_query_for_postgresql_show",
-			check:  &Check{Type: "POSTGRESQL_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
 		},
 		{
 			name:   "empty_script",
-			check:  &Check{Type: "MYSQL_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
+			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
 			errStr: "check script is empty",
 		},
 	}
