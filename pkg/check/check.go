@@ -18,7 +18,7 @@ func ParseChecks(reader io.Reader) ([]*Check, error) {
 		Checks []*Check `yaml:"checks"`
 	}
 
-	res := make([]*Check, 0)
+	var res []*Check
 	for {
 		var c checks
 		err := d.Decode(&c)
@@ -114,7 +114,7 @@ func ParseResults(reader io.Reader) ([]*Result, error) {
 		Results []*Result `yaml:"results"`
 	}
 
-	res := make([]*Result, 0)
+	var res []*Result
 	for {
 		var r results
 		err := d.Decode(&r)
