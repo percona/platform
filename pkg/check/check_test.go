@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCheck_ParseChecks(t *testing.T) {
+func TestCheck_Parse(t *testing.T) {
 	t.Run("singleDocument", func(t *testing.T) {
 		data := strings.TrimSpace(`
 ---
@@ -21,7 +21,7 @@ checks:
             pass
 `)
 
-		cs, err := ParseChecks(bytes.NewReader([]byte(data)))
+		cs, err := Parse(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 1)
@@ -47,7 +47,7 @@ checks:
         def function2(args):
             pass
 `)
-		cs, err := ParseChecks(bytes.NewReader([]byte(data)))
+		cs, err := Parse(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 2)
@@ -60,23 +60,6 @@ checks:
 		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
 		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
 	})
-}
-
-func TestCheck_ParseCheck(t *testing.T) {
-	data := strings.TrimSpace(`
-type: MYSQL_SHOW
-query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
-script: |
-    def function1(args):
-        pass
-`)
-
-	c, err := ParseCheck([]byte(data))
-	require.NoError(t, err)
-
-	assert.Equal(t, "MYSQL_SHOW", c.Type)
-	assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", c.Query)
-	assert.Equal(t, c.Script, "def function1(args):\n    pass")
 }
 
 func TestCheck_CheckValidate(t *testing.T) {

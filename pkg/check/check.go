@@ -8,10 +8,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// ParseChecks returns slice of checks parsed from YAML passed via reader.
+// Parse returns slice of checks parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, parsing result will be a single slice
 // that contains checks form every parsed document.
-func ParseChecks(reader io.Reader) ([]Check, error) {
+func Parse(reader io.Reader) ([]Check, error) {
 	d := yaml.NewDecoder(reader)
 
 	type checks struct {
