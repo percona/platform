@@ -23,5 +23,6 @@ require (
 	google.golang.org/grpc v1.28.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.3.3
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	syreclabs.com/go/faker v1.2.2 // indirect
 )
