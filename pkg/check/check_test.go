@@ -146,59 +146,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 	}
 }
 
-func TestCheck_ParseResults(t *testing.T) {
-	t.Run("singleFile", func(t *testing.T) {
-		data := strings.TrimSpace(`
----
-results:
-  - status: FAIL
-    message: something bad happened
-`)
-		cs, err := ParseResults(bytes.NewReader([]byte(data)))
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 1)
-		assert.Equal(t, "FAIL", cs[0].Status)
-		assert.Equal(t, "something bad happened", cs[0].Message)
-	})
-
-	t.Run("multipleFiles", func(t *testing.T) {
-		data := strings.TrimSpace(`
----
-results:
-  - status: FAIL
-    message: something bad happened
----
-results:
-  - status: SUCCESS
-    message: 
-`)
-		cs, err := ParseResults(bytes.NewReader([]byte(data)))
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 2)
-
-		assert.Equal(t, "FAIL", cs[0].Status)
-		assert.Equal(t, "something bad happened", cs[0].Message)
-
-		assert.Equal(t, "SUCCESS", cs[1].Status)
-		assert.Empty(t, cs[1].Message)
-	})
-}
-
-func TestCheck_ParseResult(t *testing.T) {
-	data := strings.TrimSpace(`
-status: FAIL
-message: something bad happened
-`)
-
-	r, err := ParseResult([]byte(data))
-	require.NoError(t, err)
-
-	assert.Equal(t, "FAIL", r.Status)
-	assert.Equal(t, "something bad happened", r.Message)
-}
-
 func TestCheck_ResultValidate(t *testing.T) {
 	tests := []struct {
 		name   string

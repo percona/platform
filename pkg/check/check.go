@@ -32,16 +32,6 @@ func ParseChecks(reader io.Reader) ([]Check, error) {
 	}
 }
 
-// ParseCheck returns single check parsed from YAML passed as byte slice.
-func ParseCheck(b []byte) (*Check, error) {
-	var c Check
-	if err := yaml.Unmarshal(b, &c); err != nil {
-		return nil, errors.Wrap(err, "failed to parse check")
-	}
-
-	return &c, nil
-}
-
 // Supported check types.
 const (
 	MySQLShow           = "MYSQL_SHOW"
@@ -101,45 +91,11 @@ const (
 	Fail    = "FAIL"
 )
 
-// ParseResults returns slice of results parsed from YAML passed via reader.
-// Can handle multi-document YAMLs, in that case output will be
-// union of results presented in each file.
-func ParseResults(reader io.Reader) ([]Result, error) {
-	d := yaml.NewDecoder(reader)
-
-	type results struct {
-		Results []Result `yaml:"results"`
-	}
-
-	var res []Result
-	for {
-		var r results
-		if err := d.Decode(&r); err != nil {
-			if err == io.EOF {
-				return res, nil
-			}
-			return nil, errors.Wrap(err, "failed to parse results")
-		}
-
-		res = append(res, r.Results...)
-	}
-}
-
-// ParseResult returns single Result parsed from YAML passed as byte slice.
-func ParseResult(b []byte) (*Result, error) {
-	var r Result
-	if err := yaml.Unmarshal(b, &r); err != nil {
-		return nil, errors.Wrap(err, "failed to parse result")
-	}
-
-	return &r, nil
-}
-
 // Result represents check result that has status and message.
 // In case of FAIL status, message should contain reason.
 type Result struct {
-	Status  string `yaml:"status"`
-	Message string `yaml:"message"`
+	Status  string
+	Message string
 }
 
 // Validate validates check result for minimal correctness.
