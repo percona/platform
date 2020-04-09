@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// ParseChecks returns slice of checks parsed form YAML passed via reader.
+// ParseChecks returns slice of checks parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, in that case output will be
 // union of checks presented in each file.
 func ParseChecks(reader io.Reader) ([]*Check, error) {
@@ -104,7 +104,7 @@ const (
 	Fail    = "FAIL"
 )
 
-// ParseResults returns slice of results parsed form YAML passed via reader.
+// ParseResults returns slice of results parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, in that case output will be
 // union of results presented in each file.
 func ParseResults(reader io.Reader) ([]*Result, error) {
