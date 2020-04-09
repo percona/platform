@@ -80,7 +80,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 		},
 		{
 			name:   "postgresql_show",
-			check:  &Check{Type: "POSTGRESQL_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Type: "POSTGRESQL_SHOW", Query: "", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
@@ -107,6 +107,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			name:   "empty_query",
 			check:  &Check{Type: "MYSQL_SHOW", Query: "", Script: "def func(args): pass"},
 			errStr: "check query is empty",
+		},
+		{
+			name:   "non_empty_query_for_postgresql_show",
+			check:  &Check{Type: "POSTGRESQL_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			errStr: "POSTGRESQL_SHOW check type should have empty query",
 		},
 		{
 			name:   "empty_script",

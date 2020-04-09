@@ -54,12 +54,27 @@ func (c *Check) Validate() error {
 		return err
 	}
 
-	if c.Query == "" {
-		return errors.New("check query is empty")
+	if err := c.validateQuery(); err != nil {
+		return err
 	}
 
 	if c.Script == "" {
 		return errors.New("check script is empty")
+	}
+
+	return nil
+}
+
+func (c *Check) validateQuery() error {
+	switch c.Type {
+	case PostgreSQLShow:
+		if c.Query != "" {
+			return errors.Errorf("%s check type should have empty query", PostgreSQLShow)
+		}
+	default:
+		if c.Query == "" {
+			return errors.New("check query is empty")
+		}
 	}
 
 	return nil
