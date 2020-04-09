@@ -9,8 +9,8 @@ import (
 )
 
 // ParseChecks returns slice of checks parsed from YAML passed via reader.
-// Can handle multi-document YAMLs, in that case output will be
-// union of checks presented in each file.
+// Can handle multi-document YAMLs, parsing result will be a single slice
+// that contains checks form every parsed document.
 func ParseChecks(reader io.Reader) ([]Check, error) {
 	d := yaml.NewDecoder(reader)
 
