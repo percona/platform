@@ -21,18 +21,15 @@ func ParseChecks(reader io.Reader) ([]Check, error) {
 	var res []Check
 	for {
 		var c checks
-		err := d.Decode(&c)
-		if err != nil {
-			if err != io.EOF {
-				return nil, errors.Wrap(err, "failed to parse checks")
+		if err := d.Decode(&c); err != nil {
+			if err == io.EOF {
+				return res, nil
 			}
-			break
+			return nil, errors.Wrap(err, "failed to parse checks")
 		}
 
 		res = append(res, c.Checks...)
 	}
-
-	return res, nil
 }
 
 // ParseCheck returns single check parsed from YAML passed as byte slice.
@@ -117,18 +114,15 @@ func ParseResults(reader io.Reader) ([]Result, error) {
 	var res []Result
 	for {
 		var r results
-		err := d.Decode(&r)
-		if err != nil {
-			if err != io.EOF {
-				return nil, errors.Wrap(err, "failed to parse results")
+		if err := d.Decode(&r); err != nil {
+			if err == io.EOF {
+				return res, nil
 			}
-			break
+			return nil, errors.Wrap(err, "failed to parse results")
 		}
 
 		res = append(res, r.Results...)
 	}
-
-	return res, nil
 }
 
 // ParseResult returns single Result parsed from YAML passed as byte slice.

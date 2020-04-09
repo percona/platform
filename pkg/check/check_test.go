@@ -3,6 +3,7 @@ package check
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,15 +11,16 @@ import (
 )
 
 func TestCheck_ParseChecks(t *testing.T) {
-	t.Run("singleFile", func(t *testing.T) {
-		var data = `---
+	t.Run("singleDocument", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
 checks:
   - type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
         def function1(args):
             pass
-`
+`)
 
 		cs, err := ParseChecks(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
@@ -26,11 +28,12 @@ checks:
 		assert.Len(t, cs, 1)
 		assert.Equal(t, "MYSQL_SHOW", cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
 	})
 
-	t.Run("multipleFiles", func(t *testing.T) {
-		var data = `---
+	t.Run("multipleDocuments", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
 checks:
   - type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -44,7 +47,7 @@ checks:
     script: |
         def function2(args):
             pass
-`
+`)
 		cs, err := ParseChecks(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
 
@@ -56,24 +59,25 @@ checks:
 
 		assert.Equal(t, "POSTGRESQL_SELECT", cs[1].Type)
 		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
-		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass\n")
+		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
 	})
 }
 
 func TestCheck_ParseCheck(t *testing.T) {
-	data := `type: MYSQL_SHOW
+	data := strings.TrimSpace(`
+type: MYSQL_SHOW
 query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
 script: |
     def function1(args):
         pass
-`
+`)
 
 	c, err := ParseCheck([]byte(data))
 	require.NoError(t, err)
 
 	assert.Equal(t, "MYSQL_SHOW", c.Type)
 	assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", c.Query)
-	assert.Equal(t, c.Script, "def function1(args):\n    pass\n")
+	assert.Equal(t, c.Script, "def function1(args):\n    pass")
 }
 
 func TestCheck_CheckValidate(t *testing.T) {
@@ -144,11 +148,12 @@ func TestCheck_CheckValidate(t *testing.T) {
 
 func TestCheck_ParseResults(t *testing.T) {
 	t.Run("singleFile", func(t *testing.T) {
-		var data = `---
+		data := strings.TrimSpace(`
+---
 results:
   - status: FAIL
     message: something bad happened
-`
+`)
 		cs, err := ParseResults(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
 
@@ -158,7 +163,8 @@ results:
 	})
 
 	t.Run("multipleFiles", func(t *testing.T) {
-		var data = `---
+		data := strings.TrimSpace(`
+---
 results:
   - status: FAIL
     message: something bad happened
@@ -166,7 +172,7 @@ results:
 results:
   - status: SUCCESS
     message: 
-`
+`)
 		cs, err := ParseResults(bytes.NewReader([]byte(data)))
 		require.NoError(t, err)
 
@@ -181,9 +187,10 @@ results:
 }
 
 func TestCheck_ParseResult(t *testing.T) {
-	data := `status: FAIL
+	data := strings.TrimSpace(`
+status: FAIL
 message: something bad happened
-`
+`)
 
 	r, err := ParseResult([]byte(data))
 	require.NoError(t, err)
