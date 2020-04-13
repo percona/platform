@@ -13,27 +13,25 @@ import (
 )
 
 func Verify(b []byte, key, sig string) (bool, error) {
-	kBin, err := base64.StdEncoding.DecodeString(key)
-	if err != nil || len(kBin) != 42 {
-		return false, errors.New("Invalid encoded public key")
-	}
-
 	lines := strings.SplitN(sig, "\n", 4)
 	if len(lines) < 4 {
-		return false, errors.New("Incomplete encoded signature")
+		return false, errors.New("Incomplete signature")
 	}
 
-	sig1, err := base64.StdEncoding.DecodeString(lines[1])
-	if err != nil || len(sig1) != 74 {
-		return false, errors.New("Invalid encoded signature")
+	sBin, err := base64.StdEncoding.DecodeString(lines[1])
+	if err != nil || len(sBin) != 74 {
+		return false, errors.New("Invalid signature")
 	}
-	sigTComment := lines[2]
-	sig2, err := base64.StdEncoding.DecodeString(lines[3])
-	if err != nil || len(sig2) != 64 {
-		return false, errors.New("Invalid encoded signature")
+	gBin, err := base64.StdEncoding.DecodeString(lines[3])
+	if err != nil || len(gBin) != 64 {
+		return false, errors.New("Invalid global signature")
+	}
+	kBin, err := base64.StdEncoding.DecodeString(key)
+	if err != nil || len(kBin) != 42 {
+		return false, errors.New("Invalid public key")
 	}
 
-	sAlg, sKeyID, sSig := sig1[0:2], sig1[2:10], sig1[10:74]
+	sAlg, sKeyID, sSig := sBin[0:2], sBin[2:10], sBin[10:74]
 	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42]
 
 	if bytes.Equal(kAlg, sAlg) {
@@ -45,13 +43,13 @@ func Verify(b []byte, key, sig string) (bool, error) {
 	if bytes.Equal(kKeyID, sKeyID) {
 		return false, errors.New("Incompatible key identifiers")
 	}
-	if !strings.HasPrefix(sigTComment, "trusted comment: ") {
+	if !strings.HasPrefix(lines[2], "trusted comment: ") {
 		return false, errors.New("Unexpected format for the trusted comment")
 	}
 	if !ed25519.Verify(ed25519.PublicKey(kKey), b, sSig) {
 		return false, errors.New("Invalid signature")
 	}
-	if !ed25519.Verify(ed25519.PublicKey(kKey), append(sSig[:], []byte(sigTComment)[17:]...), sig2) {
+	if !ed25519.Verify(ed25519.PublicKey(kKey), append(sSig, []byte(lines[2])[17:]...), gBin) {
 		return false, errors.New("Invalid global signature")
 	}
 	return true, nil
