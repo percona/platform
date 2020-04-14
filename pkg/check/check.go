@@ -12,7 +12,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func Verify(b []byte, key, sig string) (bool, error) {
+func Verify(data []byte, key, sig string) (bool, error) {
 	lines := strings.SplitN(sig, "\n", 4)
 	if len(lines) < 4 {
 		return false, errors.New("incomplete signature")
@@ -34,19 +34,19 @@ func Verify(b []byte, key, sig string) (bool, error) {
 	sAlg, sKeyID, sSig := sBin[0:2], sBin[2:10], sBin[10:74]
 	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42]
 
-	if bytes.Equal(kAlg, sAlg) {
+	if !bytes.Equal(kAlg, sAlg) {
 		return false, errors.New("incompatible signature algorithm")
 	}
 	if sAlg[0] != 0x45 || sAlg[1] != 0x64 {
 		return false, errors.New("unsupported signature algorithm")
 	}
-	if bytes.Equal(kKeyID, sKeyID) {
+	if !bytes.Equal(kKeyID, sKeyID) {
 		return false, errors.New("incompatible key identifiers")
 	}
 	if !strings.HasPrefix(lines[2], "trusted comment: ") {
 		return false, errors.New("unexpected format for the trusted comment")
 	}
-	if !ed25519.Verify(ed25519.PublicKey(kKey), b, sSig) {
+	if !ed25519.Verify(ed25519.PublicKey(kKey), data, sSig) {
 		return false, errors.New("invalid signature")
 	}
 	if !ed25519.Verify(ed25519.PublicKey(kKey), append(sSig, []byte(lines[2])[17:]...), gBin) {
