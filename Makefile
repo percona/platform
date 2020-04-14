@@ -14,6 +14,8 @@ init:                   ## Install development tools
 	go build -modfile=tools/go.mod -o bin/go-consistent github.com/quasilyte/go-consistent
 	go build -modfile=tools/go.mod -o bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
 	go build -modfile=tools/go.mod -o bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
+	go build -modfile=tools/go.mod -o bin/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz
+	go build -modfile=tools/go.mod -o bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
 
 gen:                    ## Format, check, and generate using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
@@ -58,5 +60,21 @@ saas:                   ## Extract public APIs and generated files into ../saas
 	cp -R api/telemetry ../saas/api
 	cp -R gen/telemetry ../saas/gen
 	find ../saas -name '*.bin' -print -delete
+
+pkg/check/check-fuzz.zip:
+	cd pkg/check && $(PWD)/bin/go-fuzz-build
+
+fuzz-data: pkg/check/check-fuzz.zip
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzData
+
+fuzz-signature: pkg/check/check-fuzz.zip
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzSign
+
+fuzz-pubkey: pkg/check/check-fuzz.zip
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzPublicKey
+
+fuzz-clean:
+	rm -rf pkg/check/fuzzdata
+	rm -r pkg/check/check-fuzz.zip
 
 .PHONY: gen

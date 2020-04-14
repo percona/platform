@@ -16,4 +16,5 @@ import (
 	_ "github.com/quasilyte/go-consistent"
 	_ "github.com/reviewdog/reviewdog/cmd/reviewdog"
 	_ "golang.org/x/tools/cmd/goimports"
+	_ "github.com/dvyukov/go-fuzz"
 )
