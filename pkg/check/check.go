@@ -12,6 +12,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// Verify checks signature of passed data with provided public key and
+// returns error in case of any problem.
 func Verify(data []byte, key, sig string) error {
 	lines := strings.SplitN(sig, "\n", 4)
 	if len(lines) < 4 {
