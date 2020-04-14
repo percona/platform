@@ -219,17 +219,17 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBafZOBWD2hXKFBCo5pKPSJiaVeI4G3
 		assert.EqualError(t, err, "invalid signature")
 	})
 
-	t.Run("emtpy data", func(t *testing.T) {
+	t.Run("empty data", func(t *testing.T) {
 		err := Verify(nil, publicKey, signature)
 		assert.EqualError(t, err, "invalid signature")
 	})
 
-	t.Run("emtpy signature", func(t *testing.T) {
+	t.Run("empty signature", func(t *testing.T) {
 		err := Verify([]byte(data), publicKey, "")
 		assert.EqualError(t, err, "incomplete signature")
 	})
 
-	t.Run("emtpy key", func(t *testing.T) {
+	t.Run("empty key", func(t *testing.T) {
 		err := Verify([]byte(data), "", signature)
 		assert.EqualError(t, err, "invalid public key")
 	})
