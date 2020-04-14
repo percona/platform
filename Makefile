@@ -62,19 +62,19 @@ saas:                                      ## Extract public APIs and generated 
 	find ../saas -name '*.bin' -print -delete
 
 pkg/check/check-fuzz.zip:
-	cd pkg/check && $(PWD)/bin/go-fuzz-build
+	bin/go-fuzz-build github.com/percona-platform/platform/pkg/check
 
-fuzz-data: pkg/check/check-fuzz.zip        ## Fuzz data tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzData
+fuzz-data: check-fuzz.zip                  ## Fuzz data tests
+	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzData
 
 fuzz-signature: pkg/check/check-fuzz.zip   ## Fuzz signature tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzSign
+	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzSign
 
 fuzz-pubkey: pkg/check/check-fuzz.zip      ## Fuzz public key tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzPublicKey
+	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzPublicKey
 
 fuzz-clean:                                ## Clean fuzz data
-	rm -rf pkg/check/fuzzdata
-	rm -r pkg/check/check-fuzz.zip
+	rm -rf fuzzdata
+	rm -r check-fuzz.zip
 
 .PHONY: gen
