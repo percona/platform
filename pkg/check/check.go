@@ -14,7 +14,7 @@ import (
 
 // Verify checks signature of passed data with provided public key and
 // returns error in case of any problem.
-func Verify(data []byte, key, sig string) error {
+func Verify(data []byte, publicKey, sig string) error {
 	lines := strings.SplitN(sig, "\n", 4)
 	if len(lines) < 4 {
 		return errors.New("incomplete signature")
@@ -28,7 +28,7 @@ func Verify(data []byte, key, sig string) error {
 	if err != nil || len(gBin) != 64 {
 		return errors.New("invalid global signature")
 	}
-	kBin, err := base64.StdEncoding.DecodeString(key)
+	kBin, err := base64.StdEncoding.DecodeString(publicKey)
 	if err != nil || len(kBin) != 42 {
 		return errors.New("invalid public key")
 	}
