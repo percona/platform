@@ -9,11 +9,11 @@ import (
 	"os/exec"
 )
 
-var dataG = `random data`
+const dataG = `random data`
 
-var publicKeyG = `RWRQmBOLeYzAeuR2L6L1GJN9qTR8ceQrawtijPTQkVbf3LJsrLeUjQcL`
+const publicKeyG = `RWRQmBOLeYzAeuR2L6L1GJN9qTR8ceQrawtijPTQkVbf3LJsrLeUjQcL`
 
-var signG = `untrusted comment: signature from minisign secret key
+const signG = `untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
 trusted comment: timestamp:1586854934	file:data
 WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==
