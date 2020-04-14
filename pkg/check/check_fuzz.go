@@ -22,7 +22,7 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 func fuzz(data []byte, publicKey, sign string) int {
 	minisignErr := VerifyWithMinisignBin(data, publicKey, sign)
 
-	_, err := Verify(data, publicKey, sign)
+	err := Verify(data, publicKey, sign)
 
 	if minisignErr == nil && err == nil {
 		return 1

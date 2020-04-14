@@ -200,43 +200,37 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 
 func TestCheck_Verify(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {
-		ok, err := Verify([]byte(data), publicKey, signature)
+		err := Verify([]byte(data), publicKey, signature)
 		require.NoError(t, err)
-		assert.True(t, ok)
 	})
 
 	t.Run("invalid signature", func(t *testing.T) {
-		ok, err := Verify([]byte(data), publicKey, strings.TrimSpace(`
+		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLncvdp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
 trusted comment: timestamp:1586854934	file:data
 WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBafZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
 
 		assert.EqualError(t, err, "invalid signature")
-		assert.False(t, ok)
 	})
 
 	t.Run("invalid public key", func(t *testing.T) {
-		ok, err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQkVif3LJsrLeUoVfC", signature)
+		err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQkVif3LJsrLeUoVfC", signature)
 		assert.EqualError(t, err, "invalid signature")
-		assert.False(t, ok)
 	})
 
 	t.Run("emtpy data", func(t *testing.T) {
-		ok, err := Verify(nil, publicKey, signature)
+		err := Verify(nil, publicKey, signature)
 		assert.EqualError(t, err, "invalid signature")
-		assert.False(t, ok)
 	})
 
 	t.Run("emtpy signature", func(t *testing.T) {
-		ok, err := Verify([]byte(data), publicKey, "")
+		err := Verify([]byte(data), publicKey, "")
 		assert.EqualError(t, err, "incomplete signature")
-		assert.False(t, ok)
 	})
 
 	t.Run("emtpy key", func(t *testing.T) {
-		ok, err := Verify([]byte(data), "", signature)
+		err := Verify([]byte(data), "", signature)
 		assert.EqualError(t, err, "invalid public key")
-		assert.False(t, ok)
 	})
 }
