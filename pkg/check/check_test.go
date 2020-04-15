@@ -207,7 +207,7 @@ func TestCheck_Verify(t *testing.T) {
 	t.Run("invalid signature", func(t *testing.T) {
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
-RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+f3fHZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
+RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+f3fHZa0kEB7ei+K9lW+W4hIf+INVALID+INVALID=
 trusted comment: timestamp:1586854934	file:data
 WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
 
@@ -219,7 +219,7 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
 trusted comment: timestamp:1586854934	file:data
-WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
+WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKP+INVALID+INVALID==`))
 		assert.EqualError(t, err, "invalid global signature")
 	})
 
@@ -227,13 +227,13 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
-trusted comment: timestamp:1586854934	file:fakedata
+trusted comment: timestamp:1586854934	file:INVALID COMMENT
 WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
 		assert.EqualError(t, err, "invalid global signature")
 	})
 
 	t.Run("invalid public key", func(t *testing.T) {
-		err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQkVif3LJsrLeUoVfC", signature)
+		err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQ+INVALID+INVALID", signature)
 		assert.EqualError(t, err, "invalid signature")
 	})
 
