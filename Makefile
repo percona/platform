@@ -61,16 +61,16 @@ saas:                                      ## Extract public APIs and generated 
 	cp -R gen/telemetry ../saas/gen
 	find ../saas -name '*.bin' -print -delete
 
-pkg/check/check-fuzz.zip:
+fuzz-build:                                ## Generate fuzz binary
 	bin/go-fuzz-build github.com/percona-platform/platform/pkg/check
 
-fuzz-data: check-fuzz.zip                  ## Fuzz data tests
+fuzz-data: fuzz-build                      ## Fuzz data tests
 	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzData
 
-fuzz-signature: pkg/check/check-fuzz.zip   ## Fuzz signature tests
+fuzz-signature: fuzz-build                 ## Fuzz signature tests
 	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzSign
 
-fuzz-pubkey: pkg/check/check-fuzz.zip      ## Fuzz public key tests
+fuzz-pubkey: fuzz-build                    ## Fuzz public key tests
 	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzPublicKey
 
 fuzz-clean:                                ## Clean fuzz data
