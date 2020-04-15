@@ -73,8 +73,4 @@ fuzz-signature: fuzz-build                 ## Fuzz signature tests
 fuzz-pubkey: fuzz-build                    ## Fuzz public key tests
 	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzPublicKey
 
-fuzz-clean:                                ## Clean fuzz data
-	rm -rf fuzzdata
-	rm -r check-fuzz.zip
-
 .PHONY: gen
