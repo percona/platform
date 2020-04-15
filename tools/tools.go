@@ -12,7 +12,8 @@ import (
 	_ "google.golang.org/grpc"
 
 	// other tools
-	_ "github.com/dvyukov/go-fuzz"
+	_ "github.com/dvyukov/go-fuzz/go-fuzz"
+	_ "github.com/dvyukov/go-fuzz/go-fuzz-build"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/quasilyte/go-consistent"
 	_ "github.com/reviewdog/reviewdog/cmd/reviewdog"
