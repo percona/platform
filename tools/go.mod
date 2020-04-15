@@ -5,7 +5,7 @@ go 1.14
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813 // indirect
+	github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813
 	github.com/elazarl/go-bindata-assetfs v1.0.0 // indirect
 	github.com/golang/protobuf v1.3.5
 	github.com/golangci/golangci-lint v1.24.0
