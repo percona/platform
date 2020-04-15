@@ -2,11 +2,60 @@
 package check
 
 import (
+	"bytes"
+	"crypto/ed25519"
+	"encoding/base64"
 	"io"
+	"strings"
 
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 )
+
+// Verify checks signature of passed data with provided public key and
+// returns error in case of any problem.
+func Verify(data []byte, publicKey, sig string) error {
+	lines := strings.SplitN(sig, "\n", 4)
+	if len(lines) < 4 {
+		return errors.New("incomplete signature")
+	}
+
+	sBin, err := base64.StdEncoding.DecodeString(lines[1])
+	if err != nil || len(sBin) != 74 {
+		return errors.New("invalid signature")
+	}
+	gBin, err := base64.StdEncoding.DecodeString(lines[3])
+	if err != nil || len(gBin) != 64 {
+		return errors.New("invalid global signature")
+	}
+	kBin, err := base64.StdEncoding.DecodeString(publicKey)
+	if err != nil || len(kBin) != 42 {
+		return errors.New("invalid public key")
+	}
+
+	sAlg, sKeyID, sSig := sBin[0:2], sBin[2:10], sBin[10:74]
+	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42]
+
+	if !bytes.Equal(kAlg, sAlg) {
+		return errors.New("incompatible signature algorithm")
+	}
+	if sAlg[0] != 0x45 || sAlg[1] != 0x64 {
+		return errors.New("unsupported signature algorithm")
+	}
+	if !bytes.Equal(kKeyID, sKeyID) {
+		return errors.New("incompatible key identifiers")
+	}
+	if !strings.HasPrefix(lines[2], "trusted comment: ") {
+		return errors.New("unexpected format for the trusted comment")
+	}
+	if !ed25519.Verify(ed25519.PublicKey(kKey), data, sSig) {
+		return errors.New("invalid signature")
+	}
+	if !ed25519.Verify(ed25519.PublicKey(kKey), append(sSig, []byte(lines[2])[17:]...), gBin) {
+		return errors.New("invalid global signature")
+	}
+	return nil
+}
 
 // Parse returns slice of checks parsed from YAML passed via reader.
 // Can handle multi-document YAMLs, parsing result will be a single slice
