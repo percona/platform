@@ -52,7 +52,7 @@ func TestRun(t *testing.T) {
 	t.Run("string only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataStr)
-		res := Run("float", script, "test", data)
+		res := Run("string", script, "test", data)
 
 		if res.Status != check.Success {
 			t.Error(res.Message)
@@ -64,7 +64,7 @@ func TestRun(t *testing.T) {
 		data = append(data, dataStr)
 		data = append(data, dataFloat)
 		data = append(data, dataInt)
-		res := Run("float", script, "test", data)
+		res := Run("mixed", script, "test", data)
 
 		if res.Status != check.Success {
 			t.Error(res.Message)
