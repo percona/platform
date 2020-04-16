@@ -2,9 +2,10 @@
 package starlark
 
 import (
-	"github.com/percona-platform/platform/pkg/check"
 	"go.starlark.net/resolve"
 	"go.starlark.net/starlark"
+
+	"github.com/percona-platform/platform/pkg/check"
 )
 
 // Function for execute starlark script
