@@ -17,21 +17,21 @@ func TestRun(t *testing.T) {
 
 	script := filepath.Join(p, "starlark_script.star")
 
-	data_int := make(map[string]interface{})
-	data_int["item1"] = 5
-	data_int["item2"] = 10
+	dataInt := make(map[string]interface{})
+	dataInt["item1"] = 5
+	dataInt["item2"] = 10
 
-	data_float := make(map[string]interface{})
-	data_float["item3"] = 5.444
-	data_float["item4"] = 10.111
+	dataFloat := make(map[string]interface{})
+	dataFloat["item3"] = 5.444
+	dataFloat["item4"] = 10.111
 
-	data_str := make(map[string]interface{})
-	data_str["item5"] = "B"
-	data_str["item6"] = "A"
+	dataStr := make(map[string]interface{})
+	dataStr["item5"] = "B"
+	dataStr["item6"] = "A"
 
 	t.Run("int only", func(t *testing.T) {
 		var data []map[string]interface{}
-		data = append(data, data_int)
+		data = append(data, dataInt)
 		res := Run("int", script, "test", data)
 
 		if res.Status != check.Success {
@@ -41,7 +41,7 @@ func TestRun(t *testing.T) {
 
 	t.Run("float only", func(t *testing.T) {
 		var data []map[string]interface{}
-		data = append(data, data_float)
+		data = append(data, dataFloat)
 		res := Run("float", script, "test", data)
 
 		if res.Status != check.Success {
@@ -51,7 +51,7 @@ func TestRun(t *testing.T) {
 
 	t.Run("string only", func(t *testing.T) {
 		var data []map[string]interface{}
-		data = append(data, data_str)
+		data = append(data, dataStr)
 		res := Run("float", script, "test", data)
 
 		if res.Status != check.Success {
@@ -61,9 +61,9 @@ func TestRun(t *testing.T) {
 
 	t.Run("mixed", func(t *testing.T) {
 		var data []map[string]interface{}
-		data = append(data, data_str)
-		data = append(data, data_float)
-		data = append(data, data_int)
+		data = append(data, dataStr)
+		data = append(data, dataFloat)
+		data = append(data, dataInt)
 		res := Run("float", script, "test", data)
 
 		if res.Status != check.Success {
