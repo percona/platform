@@ -55,10 +55,11 @@ run-dev:                                   ## Run bash in prototool Docker dev i
 	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
 
 saas:                                      ## Extract public APIs and generated files into ../saas
-	rm -rf ../saas/api ../saas/gen
-	mkdir ../saas/api ../saas/gen
+	rm -rf ../saas/api ../saas/gen ../saas/pkg
+	mkdir ../saas/api ../saas/gen ../saas/pkg
 	cp -R api/telemetry ../saas/api
 	cp -R gen/telemetry ../saas/gen
+	cp -R pkg/check ../saas/pkg
 	find ../saas -name '*.bin' -print -delete
 
 fuzz-build:                                ## Generate fuzz binary
