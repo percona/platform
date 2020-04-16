@@ -1,26 +1,18 @@
+// Package is executor for starklark
 package starlark
 
 import (
-	"fmt"
-	"reflect"
-
-	"github.com/pkg/errors"
+	"github.com/percona-platform/platform/pkg/check"
 	"go.starlark.net/resolve"
 	"go.starlark.net/starlark"
 )
 
-type Type string
-
-type Check struct {
-	Version uint32
-	Type    Type
-	Query   string
-	Script  string
-}
-
-func Run(name, source, funcName string, input []map[string]interface{}) (*Check, error) {
+func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result) {
+	res = new(check.Result)
 	if !isInputValid(input) {
-		return nil, errors.New("No valid input data")
+		res.Status = check.Fail
+		res.Message = "No valid input data"
+		return res
 	}
 
 	resolve.AllowFloat = true
@@ -30,23 +22,28 @@ func Run(name, source, funcName string, input []map[string]interface{}) (*Check,
 		Name: name,
 	}
 
-	globals, err := starlark.ExecFile(thread, source, nil, nil)
+	globals, err := starlark.ExecFile(thread, script, nil, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "ExecFile")
+		res.Status = check.Fail
+		res.Message = "ExecFile: " + err.Error()
+		return res
 	}
 
 	if globals[funcName] == nil {
-		return nil, errors.New("Function doesnt exists")
+		res.Status = check.Fail
+		res.Message = "Function doesnt exists"
+		return res
 	}
 
-	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{prepareRows(&input)}, nil)
+	_, err = starlark.Call(thread, globals[funcName], starlark.Tuple{prepareRows(&input)}, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "Call")
+		res.Status = check.Fail
+		res.Message = "Call: " + err.Error()
+		return res
 	}
 
-	fmt.Println("Return type:" + reflect.TypeOf(v).String())
-
-	return prepareResult(v)
+	res.Status = check.Success
+	return res
 }
 
 func isInputValid(input []map[string]interface{}) bool {
@@ -79,19 +76,4 @@ func prepareRows(input *[]map[string]interface{}) starlark.Tuple {
 	rows.Freeze()
 
 	return rows
-}
-
-func prepareResult(v starlark.Value) (*Check, error) {
-	sd, ok := v.(*starlark.Dict)
-	if !ok {
-		return nil, errors.Errorf("expected *starlark.Dict, got %T", v)
-	}
-
-	res := make(map[string]interface{}, sd.Len())
-	for _, tu := range sd.Items() {
-		k := tu[0].(starlark.String).GoString()
-		res[k] = starlarkToGo(tu[1])
-	}
-
-	return nil, nil
 }
