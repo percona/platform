@@ -1,4 +1,4 @@
-// Package is executor for starklark
+// Package starlark is executor for starklark
 package starlark
 
 import (
