@@ -8,7 +8,7 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-// Function for execute starlark script
+// Run for execute starlark script
 func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result) {
 	res = new(check.Result)
 	if !isInputValid(input) {
