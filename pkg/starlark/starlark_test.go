@@ -2,20 +2,13 @@
 package starlark
 
 import (
-	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/percona-platform/platform/pkg/check"
 )
 
 func TestRun(t *testing.T) {
-	p, err := os.Getwd()
-	if err != nil {
-		t.Error()
-	}
-
-	script := filepath.Join(p, "starlark_script.py")
+	script := "starlark_script.py"
 
 	dataInt := make(map[string]interface{})
 	dataInt["item1"] = 5
