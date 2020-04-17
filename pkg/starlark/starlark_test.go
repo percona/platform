@@ -1,4 +1,4 @@
-// Package starlark is executor for starklark
+// Package starlark is executor for starklark.
 package starlark
 
 import (
@@ -15,7 +15,7 @@ func TestRun(t *testing.T) {
 		t.Error()
 	}
 
-	script := filepath.Join(p, "starlark_script.star")
+	script := filepath.Join(p, "starlark_script.py")
 
 	dataInt := make(map[string]interface{})
 	dataInt["item1"] = 5
