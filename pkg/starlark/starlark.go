@@ -6,15 +6,16 @@ import (
 	"go.starlark.net/starlark"
 
 	"github.com/percona-platform/platform/pkg/check"
+	"github.com/pkg/errors"
 )
 
 // Run for execute starlark script.
-func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result) {
+func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result, err error) {
 	res = new(check.Result)
 	if !isInputValid(input) {
 		res.Status = check.Fail
 		res.Message = "No valid input data"
-		return res
+		return res, nil
 	}
 
 	resolve.AllowFloat = true
@@ -28,24 +29,44 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 	if err != nil {
 		res.Status = check.Fail
 		res.Message = "ExecFile: " + err.Error()
-		return res
+		return res, nil
 	}
 
 	if globals[funcName] == nil {
 		res.Status = check.Fail
 		res.Message = "Function doesnt exists"
-		return res
+		return res, nil
 	}
 
-	_, err = starlark.Call(thread, globals[funcName], starlark.Tuple{prepareRows(&input)}, nil)
+	rows, err := prepareRows(&input)
+	if err != nil {
+		res.Status = check.Fail
+		res.Message = err.Error()
+		return res, nil
+	}
+
+	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{rows}, nil)
 	if err != nil {
 		res.Status = check.Fail
 		res.Message = "Call: " + err.Error()
-		return res
+		return res, nil
+	}
+
+	switch v := v.(type) {
+	case *starlark.Dict:
+		for _, tu := range v.Items() {
+			k := tu[0].(starlark.String).GoString()
+			if k == "error" {
+				res.Status = check.Fail
+				res.Message = "Starlark script failed"
+
+				return res, errors.New(string(tu[1].(starlark.String)))
+			}
+		}
 	}
 
 	res.Status = check.Success
-	return res
+	return res, nil
 }
 
 func isInputValid(input []map[string]interface{}) bool {
@@ -63,19 +84,23 @@ func isInputValid(input []map[string]interface{}) bool {
 	return true
 }
 
-func prepareRows(input *[]map[string]interface{}) starlark.Tuple {
+func prepareRows(input *[]map[string]interface{}) (starlark.Tuple, error) {
 	rows := make(starlark.Tuple, len(*input))
 	for i, m := range *input {
 		sd := starlark.NewDict(len(m))
 		for k, v := range m {
-			sv := goToStarlark(v)
+			sv, err := goToStarlark(v)
+			if err != nil {
+				return nil, err
+			}
+
 			if err := sd.SetKey(starlark.String(k), sv); err != nil {
-				return rows
+				return nil, err
 			}
 		}
 		rows[i] = sd
 	}
 	rows.Freeze()
 
-	return rows
+	return rows, nil
 }

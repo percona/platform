@@ -1,22 +1,23 @@
 package starlark
 
 import (
-	"fmt"
+	"reflect"
 
+	"github.com/pkg/errors"
 	"go.starlark.net/starlark"
 )
 
-func goToStarlark(v interface{}) starlark.Value {
+func goToStarlark(v interface{}) (starlark.Value, error) {
 	switch v := v.(type) {
 	case int:
-		return starlark.MakeInt(v)
+		return starlark.MakeInt(v), nil
 	case string:
-		return starlark.String(v)
+		return starlark.String(v), nil
 	case float32:
-		return starlark.Float(v)
+		return starlark.Float(float64(v)), nil
 	case float64:
-		return starlark.Float(v)
+		return starlark.Float(v), nil
 	default:
-		panic(fmt.Sprintf("goToStarlark: unhandled %#[1]v (%[1]T)", v))
+		return nil, errors.New("goToStarlark: Unhandled type " + reflect.TypeOf(v).String())
 	}
 }
