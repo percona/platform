@@ -58,7 +58,9 @@ saas:                                      ## Extract public APIs and generated 
 	rm -rf ../saas/api ../saas/gen ../saas/pkg
 	mkdir ../saas/api ../saas/gen ../saas/pkg
 	cp -R api/telemetry ../saas/api
+	cp -R api/checked ../saas/api
 	cp -R gen/telemetry ../saas/gen
+	cp -R gen/checked ../saas/gen
 	cp -R pkg/check ../saas/pkg
 	find ../saas -name '*.bin' -print -delete
 
