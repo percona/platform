@@ -5,9 +5,11 @@ import (
 	"testing"
 
 	"github.com/percona-platform/platform/pkg/check"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRun(t *testing.T) {
+	assert := assert.New(t)
 	script := "starlark_script.py"
 
 	dataInt := make(map[string]interface{})
@@ -27,9 +29,7 @@ func TestRun(t *testing.T) {
 		data = append(data, dataInt)
 		res, _ := Run("int", script, "test", data)
 
-		if res.Status != check.Success {
-			t.Error(res.Message)
-		}
+		assert.Equal(res.Status, check.Success, res.Message)
 	})
 
 	t.Run("float only", func(t *testing.T) {
@@ -37,9 +37,7 @@ func TestRun(t *testing.T) {
 		data = append(data, dataFloat)
 		res, _ := Run("float", script, "test", data)
 
-		if res.Status != check.Success {
-			t.Error(res.Message)
-		}
+		assert.Equal(res.Status, check.Success, res.Message)
 	})
 
 	t.Run("string only", func(t *testing.T) {
@@ -47,9 +45,7 @@ func TestRun(t *testing.T) {
 		data = append(data, dataStr)
 		res, _ := Run("string", script, "test", data)
 
-		if res.Status != check.Success {
-			t.Error(res.Message)
-		}
+		assert.Equal(res.Status, check.Success, res.Message)
 	})
 
 	t.Run("mixed", func(t *testing.T) {
@@ -59,8 +55,6 @@ func TestRun(t *testing.T) {
 		data = append(data, dataInt)
 		res, _ := Run("mixed", script, "test", data)
 
-		if res.Status != check.Success {
-			t.Error(res.Message)
-		}
+		assert.Equal(res.Status, check.Success, res.Message)
 	})
 }
