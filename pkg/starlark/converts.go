@@ -32,10 +32,10 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		return bool(v), nil
 	case starlark.Int:
 		if i, ok := v.Int64(); ok {
-			return int64(i), nil
+			return i, nil
 		}
 		if u, ok := v.Uint64(); ok {
-			return uint64(u), nil
+			return u, nil
 		}
 		return nil, errors.New("starlarkToGo: Unhandled type " + reflect.TypeOf(v).String())
 	case starlark.Float:
