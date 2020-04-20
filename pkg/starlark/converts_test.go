@@ -12,13 +12,15 @@ func TestGoToStarlark(t *testing.T) {
 	data := make(map[string]interface{})
 	data["bool"] = true
 	data["string"] = "Test string"
-	data["int"] = int(number)
+	data["int"] = number
 	data["int8"] = int8(number)
 	data["int16"] = int16(number)
 	data["int32"] = int32(number)
 	data["int64"] = int64(number)
 
 	for k, v := range data {
+		k := k
+		v := v
 		t.Run(k, func(t *testing.T) {
 			sv, errIn := goToStarlark(v)
 			gv, errOut := starlarkToGo(sv)
