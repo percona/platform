@@ -58,7 +58,6 @@ func TestRun(t *testing.T) {
 		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 
-	script = "starlark_script2.py"
 	t.Run("check", func(t *testing.T) {
 		dataCheck := make(map[string]interface{})
 		dataCheck["Variable_name"] = "have_ssl"
