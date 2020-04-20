@@ -8,15 +8,13 @@ import (
 )
 
 func TestGoToStarlark(t *testing.T) {
-	number := 500
 	data := make(map[string]interface{})
 	data["bool"] = true
 	data["string"] = "Test string"
-	data["int"] = number
-	data["int8"] = int8(number)
-	data["int16"] = int16(number)
-	data["int32"] = int32(number)
-	data["int64"] = int64(number)
+	data["int64"] = int64(-500)
+	data["uint64"] = uint64(500)
+	data["float32"] = float32(5.5)
+	data["float64"] = float64(5.5)
 
 	for k, v := range data {
 		k := k
@@ -28,20 +26,20 @@ func TestGoToStarlark(t *testing.T) {
 			require.NoError(t, errOut)
 
 			var res interface{}
-			switch v := v.(type) {
-			case int8:
-				res = int(v)
-			case int16:
-				res = int(v)
-			case int32:
-				res = int(v)
+			switch v.(type) {
+			case float32:
+				res = float32(gv.(float64))
+			case float64:
+				res = float64(gv.(float64))
+			case uint64:
+				res = uint64(gv.(int64))
 			case int64:
-				res = int(v)
+				res = int64(gv.(int64))
 			default:
-				res = v
+				res = gv
 			}
 
-			assert.Equal(t, res, gv, "not equal ("+k+")")
+			assert.Equal(t, v, res, "not equal ("+k+")")
 		})
 	}
 }

@@ -11,21 +11,9 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 	switch v := v.(type) {
 	case uint:
 		return starlark.MakeInt(int(v)), nil
-	case uint8:
-		return starlark.MakeInt(int(v)), nil
-	case uint16:
-		return starlark.MakeInt(int(v)), nil
-	case uint32:
-		return starlark.MakeInt(int(v)), nil
-	case uint64:
-		return starlark.MakeInt(int(v)), nil
 	case int:
 		return starlark.MakeInt(v), nil
-	case int8:
-		return starlark.MakeInt(int(v)), nil
-	case int16:
-		return starlark.MakeInt(int(v)), nil
-	case int32:
+	case uint64:
 		return starlark.MakeInt(int(v)), nil
 	case int64:
 		return starlark.MakeInt(int(v)), nil
@@ -48,13 +36,14 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		return bool(v), nil
 	case starlark.Int:
 		if i, ok := v.Int64(); ok {
-			return int(i), nil
+			return int64(i), nil
 		}
 		if u, ok := v.Uint64(); ok {
-			return uint(u), nil
+			return uint64(u), nil
 		}
 		return nil, errors.New("starlarkToGo: Unhandled type " + reflect.TypeOf(v).String())
-
+	case starlark.Float:
+		return float64(v), nil
 	case starlark.String:
 		return string(v), nil
 
