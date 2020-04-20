@@ -17,6 +17,8 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 		return starlark.Float(float64(v)), nil
 	case float64:
 		return starlark.Float(v), nil
+	case bool:
+		return starlark.Bool(v), nil
 	default:
 		return nil, errors.New("goToStarlark: Unhandled type " + reflect.TypeOf(v).String())
 	}
