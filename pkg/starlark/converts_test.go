@@ -13,7 +13,6 @@ func TestGoToStarlark(t *testing.T) {
 	data["string"] = "Test string"
 	data["int64"] = int64(-500)
 	data["uint64"] = uint64(500)
-	data["float32"] = float32(5.5)
 	data["float64"] = float64(5.5)
 
 	for k, v := range data {
@@ -27,8 +26,6 @@ func TestGoToStarlark(t *testing.T) {
 
 			var res interface{}
 			switch v.(type) {
-			case float32:
-				res = float32(gv.(float64))
 			case uint64:
 				res = uint64(gv.(int64))
 			default:
