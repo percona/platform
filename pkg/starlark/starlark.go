@@ -63,6 +63,7 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 				return res, errors.New(string(tu[1].(starlark.String)))
 			}
 		}
+		res.Status = check.Success
 	default:
 		res.Status = check.Success
 	}
