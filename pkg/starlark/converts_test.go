@@ -29,12 +29,8 @@ func TestGoToStarlark(t *testing.T) {
 			switch v.(type) {
 			case float32:
 				res = float32(gv.(float64))
-			case float64:
-				res = float64(gv.(float64))
 			case uint64:
 				res = uint64(gv.(int64))
-			case int64:
-				res = int64(gv.(int64))
 			default:
 				res = gv
 			}

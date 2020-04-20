@@ -14,12 +14,12 @@ func TestRun(t *testing.T) {
 	script := "starlark_script.py"
 
 	dataInt := make(map[string]interface{})
-	dataInt["item1"] = 5
-	dataInt["item2"] = 10
+	dataInt["item1"] = int64(5)
+	dataInt["item2"] = int64(10)
 
 	dataFloat := make(map[string]interface{})
-	dataFloat["item3"] = 5.444
-	dataFloat["item4"] = 10.111
+	dataFloat["item3"] = float64(5.444)
+	dataFloat["item4"] = float64(10.111)
 
 	dataStr := make(map[string]interface{})
 	dataStr["item5"] = "B"

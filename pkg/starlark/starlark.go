@@ -75,7 +75,7 @@ func isInputValid(input []map[string]interface{}) bool {
 	for _, item := range input {
 		for _, v := range item {
 			switch v.(type) {
-			case int, float32, float64, string:
+			case int32, int64, float32, float64, string:
 				continue
 			default:
 				return false

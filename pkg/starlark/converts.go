@@ -9,10 +9,6 @@ import (
 
 func goToStarlark(v interface{}) (starlark.Value, error) {
 	switch v := v.(type) {
-	case uint:
-		return starlark.MakeInt(int(v)), nil
-	case int:
-		return starlark.MakeInt(v), nil
 	case uint64:
 		return starlark.MakeInt(int(v)), nil
 	case int64:
