@@ -2,6 +2,7 @@ package starlark
 
 import (
 	"reflect"
+	"time"
 
 	"github.com/pkg/errors"
 	"go.starlark.net/starlark"
@@ -9,6 +10,8 @@ import (
 
 func goToStarlark(v interface{}) (starlark.Value, error) {
 	switch v := v.(type) {
+	case time.Time:
+		return starlark.MakeInt(int(v.UnixNano())), nil
 	case uint64:
 		return starlark.MakeInt(int(v)), nil
 	case int64:
