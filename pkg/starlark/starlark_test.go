@@ -4,8 +4,9 @@ package starlark
 import (
 	"testing"
 
-	"github.com/percona-platform/platform/pkg/check"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/percona-platform/platform/pkg/check"
 )
 
 func TestRun(t *testing.T) {
