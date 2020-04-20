@@ -15,8 +15,7 @@ func TestGoToStarlark(t *testing.T) {
 	data["int64"] = int64(-500)
 	data["uint64"] = uint64(500)
 	data["float64"] = float64(5.5)
-	data["timestamp"] = new(time.Time)
-	data["timestamp"] = time.Now().Truncate(0)
+	data["timestamp"] = time.Now().UnixNano()
 
 	for k, v := range data {
 		k := k
@@ -29,8 +28,6 @@ func TestGoToStarlark(t *testing.T) {
 
 			var res interface{}
 			switch v.(type) {
-			case time.Time:
-				res = time.Unix(0, gv.(int64))
 			case uint64:
 				res = uint64(gv.(int64))
 			default:
