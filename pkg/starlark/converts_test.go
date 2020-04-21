@@ -19,6 +19,10 @@ func TestGoToStarlark(t *testing.T) {
 	data["bytes"] = make([]byte, len(data["string"].(string)))
 	data["bytes"] = []byte(data["string"].(string))
 	data["none"] = nil
+	data["map"] = make(map[string]interface{})
+	data["map"] = map[string]interface{}{"ka": "a", "kb": "b", "kc": "c", "kd": "d"}
+	data["array"] = make([]interface{}, 4)
+	data["array"] = []interface{}{int64(500), string("Test"), float64(30.555555555555)}
 
 	for k, v := range data {
 		k := k
