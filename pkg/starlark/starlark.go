@@ -89,7 +89,10 @@ func isInputValid(input []map[string]interface{}) bool {
 func prepareRows(input *[]map[string]interface{}) (starlark.Tuple, error) {
 	rows := make(starlark.Tuple, len(*input))
 	for i, v := range *input {
-		sv, _ := goToStarlark(v)
+		sv, err := goToStarlark(v)
+		if err != nil {
+			return nil, err
+		}
 		rows[i] = sv
 	}
 	rows.Freeze()
