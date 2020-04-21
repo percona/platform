@@ -12,11 +12,6 @@ import (
 // Run for execute starlark script.
 func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result, err error) {
 	res = new(check.Result)
-	if !isInputValid(input) {
-		res.Status = check.Fail
-		res.Message = "No valid input data"
-		return res, nil
-	}
 
 	resolve.AllowFloat = true
 	resolve.AllowSet = true
@@ -42,7 +37,7 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 	if err != nil {
 		res.Status = check.Fail
 		res.Message = err.Error()
-		return res, nil
+		return res, err
 	}
 
 	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{rows}, nil)
@@ -69,21 +64,6 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 	}
 
 	return res, nil
-}
-
-func isInputValid(input []map[string]interface{}) bool {
-	for _, item := range input {
-		for _, v := range item {
-			switch v.(type) {
-			case uint64, int64, float64, string:
-				continue
-			default:
-				return false
-			}
-		}
-	}
-
-	return true
 }
 
 func prepareRows(input *[]map[string]interface{}) (starlark.Tuple, error) {

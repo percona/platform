@@ -1,7 +1,7 @@
 package starlark
 
 import (
-	"reflect"
+	"time"
 
 	"github.com/pkg/errors"
 	"go.starlark.net/starlark"
@@ -31,7 +31,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 				return nil, err
 			}
 			if err := sd.SetKey(starlark.String(k), sv); err != nil {
-				return nil, err
+				return nil, errors.Wrap(err, "starlarkToGo: ")
 			}
 		}
 		return sd, nil
@@ -45,8 +45,10 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 			l = append(l, sv)
 		}
 		return starlark.NewList(l), nil
+	case time.Time:
+		return starlark.MakeInt64(v.UnixNano()), nil
 	default:
-		return nil, errors.New("goToStarlark: Unhandled type " + reflect.TypeOf(v).String())
+		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	}
 }
 
@@ -63,7 +65,7 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		if u, ok := v.Uint64(); ok {
 			return u, nil
 		}
-		return nil, errors.New("starlarkToGo: Unhandled type " + reflect.TypeOf(v).String())
+		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	case starlark.Float:
 		return float64(v), nil
 	case starlark.String:
@@ -87,6 +89,6 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		}
 		return res, nil
 	default:
-		return nil, errors.New("starlarkToGo: Unhandled type " + reflect.TypeOf(v).String())
+		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	}
 }
