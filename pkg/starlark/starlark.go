@@ -10,11 +10,11 @@ import (
 )
 
 // Execute for execute starlark script.
-func Execute(script string, input []map[string]interface{}) {
+func Execute(script string, input []map[string]interface{}) (*check.Result, error) {
 	name := "main"
 	funcName := "main"
 
-	run(name, script, funcName, input)
+	return run(name, script, funcName, input)
 }
 
 func run(name, script, funcName string, input []map[string]interface{}) (*check.Result, error) {
