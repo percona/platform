@@ -11,10 +11,7 @@ import (
 
 // Execute for execute starlark script.
 func Execute(script string, input []map[string]interface{}) (*check.Result, error) {
-	name := "main"
-	funcName := "main"
-
-	return run(name, script, funcName, input)
+	return run("main", script, "main", input)
 }
 
 func run(name, script, funcName string, input []map[string]interface{}) (*check.Result, error) {
