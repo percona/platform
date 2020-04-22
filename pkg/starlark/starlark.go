@@ -9,10 +9,16 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-// Run for execute starlark script.
-func Run(name, script, funcName string, input []map[string]interface{}) (res *check.Result, err error) {
-	res = new(check.Result)
+// Execute for execute starlark script.
+func Execute(script string, input []map[string]interface{}) {
+	name := "main"
+	funcName := "main"
 
+	run(name, script, funcName, input)
+}
+
+func run(name, script, funcName string, input []map[string]interface{}) (*check.Result, error) {
+	res := new(check.Result)
 	resolve.AllowFloat = true
 	resolve.AllowSet = true
 
@@ -24,13 +30,13 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 	if err != nil {
 		res.Status = check.Fail
 		res.Message = "ExecFile: " + err.Error()
-		return res, nil
+		return res, errors.Wrap(err, "ExecFile: ")
 	}
 
 	if globals[funcName] == nil {
 		res.Status = check.Fail
 		res.Message = "Function doesnt exists"
-		return res, nil
+		return res, errors.Errorf("Function %s doesnt exists", funcName)
 	}
 
 	rows, err := prepareRows(&input)
@@ -44,7 +50,7 @@ func Run(name, script, funcName string, input []map[string]interface{}) (res *ch
 	if err != nil {
 		res.Status = check.Fail
 		res.Message = "Call: " + err.Error()
-		return res, nil
+		return res, errors.Wrap(err, "Call: ")
 	}
 
 	switch v := v.(type) {

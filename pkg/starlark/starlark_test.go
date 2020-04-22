@@ -28,7 +28,7 @@ func TestRun(t *testing.T) {
 	t.Run("int only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataInt)
-		res, err := Run("int", script, "test", data)
+		res, err := run("int", script, "test", data)
 
 		require.NoError(t, err)
 		assert.Equal(t, check.Success, res.Status, res.Message)
@@ -37,7 +37,7 @@ func TestRun(t *testing.T) {
 	t.Run("float only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataFloat)
-		res, err := Run("float", script, "test", data)
+		res, err := run("float", script, "test", data)
 
 		require.NoError(t, err)
 		assert.Equal(t, check.Success, res.Status, res.Message)
@@ -46,7 +46,7 @@ func TestRun(t *testing.T) {
 	t.Run("string only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataStr)
-		res, err := Run("string", script, "test", data)
+		res, err := run("string", script, "test", data)
 
 		require.NoError(t, err)
 		assert.Equal(t, check.Success, res.Status, res.Message)
@@ -57,7 +57,7 @@ func TestRun(t *testing.T) {
 		data = append(data, dataStr)
 		data = append(data, dataFloat)
 		data = append(data, dataInt)
-		res, err := Run("mixed", script, "test", data)
+		res, err := run("mixed", script, "test", data)
 
 		require.NoError(t, err)
 		assert.Equal(t, check.Success, res.Status, res.Message)
@@ -70,7 +70,7 @@ func TestRun(t *testing.T) {
 
 		var data []map[string]interface{}
 		data = append(data, dataCheck)
-		res, err := Run("check", script, "check", data)
+		res, err := run("check", script, "check", data)
 
 		require.NoError(t, err)
 		assert.Equal(t, check.Success, res.Status, res.Message)
