@@ -9,45 +9,38 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
+func init() {
+	resolve.AllowFloat = true
+	resolve.AllowSet = true
+}
+
 // Execute for execute starlark script.
 func Execute(script string, input []map[string]interface{}) (*check.Result, error) {
-	return run("main", script, "main", input)
+	return run("check", script, "check", input)
 }
 
 func run(name, script, funcName string, input []map[string]interface{}) (*check.Result, error) {
-	res := new(check.Result)
-	resolve.AllowFloat = true
-	resolve.AllowSet = true
-
 	thread := &starlark.Thread{
 		Name: name,
 	}
 
 	globals, err := starlark.ExecFile(thread, script, nil, nil)
 	if err != nil {
-		res.Status = check.Fail
-		res.Message = "ExecFile: " + err.Error()
-		return res, errors.Wrap(err, "ExecFile: ")
+		return nil, errors.Wrap(err, "ExecFile: ")
 	}
 
 	if globals[funcName] == nil {
-		res.Status = check.Fail
-		res.Message = "Function doesnt exists"
-		return res, errors.Errorf("Function %s doesnt exists", funcName)
+		return nil, errors.Errorf("Function %s doesnt exists", funcName)
 	}
 
-	rows, err := prepareRows(&input)
+	rows, err := prepareRows(input)
 	if err != nil {
-		res.Status = check.Fail
-		res.Message = err.Error()
-		return res, err
+		return nil, err
 	}
 
 	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{rows}, nil)
 	if err != nil {
-		res.Status = check.Fail
-		res.Message = "Call: " + err.Error()
-		return res, errors.Wrap(err, "Call: ")
+		return nil, errors.Wrap(err, "Call: ")
 	}
 
 	switch v := v.(type) {
@@ -55,23 +48,18 @@ func run(name, script, funcName string, input []map[string]interface{}) (*check.
 		for _, tu := range v.Items() {
 			k := tu[0].(starlark.String).GoString()
 			if k == "error" {
-				res.Status = check.Fail
-				res.Message = "Starlark script failed"
-
-				return res, errors.New(string(tu[1].(starlark.String)))
+				return nil, errors.New(string(tu[1].(starlark.String)))
 			}
 		}
-		res.Status = check.Success
+		return nil, nil
 	default:
-		res.Status = check.Success
+		return nil, nil
 	}
-
-	return res, nil
 }
 
-func prepareRows(input *[]map[string]interface{}) (starlark.Tuple, error) {
-	rows := make(starlark.Tuple, len(*input))
-	for i, v := range *input {
+func prepareRows(input []map[string]interface{}) (starlark.Tuple, error) {
+	rows := make(starlark.Tuple, len(input))
+	for i, v := range input {
 		sv, err := goToStarlark(v)
 		if err != nil {
 			return nil, err

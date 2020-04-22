@@ -3,10 +3,7 @@ package starlark
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	"github.com/percona-platform/platform/pkg/check"
 )
 
 func TestRun(t *testing.T) {
@@ -27,28 +24,25 @@ func TestRun(t *testing.T) {
 	t.Run("int only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataInt)
-		res, err := run("int", script, "test", data)
+		_, err := run("int", script, "test", data)
 
 		require.NoError(t, err)
-		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 
 	t.Run("float only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataFloat)
-		res, err := run("float", script, "test", data)
+		_, err := run("float", script, "test", data)
 
 		require.NoError(t, err)
-		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 
 	t.Run("string only", func(t *testing.T) {
 		var data []map[string]interface{}
 		data = append(data, dataStr)
-		res, err := run("string", script, "test", data)
+		_, err := run("string", script, "test", data)
 
 		require.NoError(t, err)
-		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 
 	t.Run("mixed", func(t *testing.T) {
@@ -56,10 +50,9 @@ func TestRun(t *testing.T) {
 		data = append(data, dataStr)
 		data = append(data, dataFloat)
 		data = append(data, dataInt)
-		res, err := run("mixed", script, "test", data)
+		_, err := run("mixed", script, "test", data)
 
 		require.NoError(t, err)
-		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 
 	t.Run("check", func(t *testing.T) {
@@ -69,9 +62,8 @@ func TestRun(t *testing.T) {
 
 		var data []map[string]interface{}
 		data = append(data, dataCheck)
-		res, err := run("check", script, "check", data)
+		_, err := run("check", script, "check", data)
 
 		require.NoError(t, err)
-		assert.Equal(t, check.Success, res.Status, res.Message)
 	})
 }
