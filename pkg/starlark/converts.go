@@ -92,13 +92,13 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		}
 		return res, nil
 	case starlark.Tuple:
-		res := make(map[int]interface{}, v.Len())
-		for k, o := range v {
+		var res []interface{}
+		for _, o := range v {
 			no, err := starlarkToGo(o)
 			if err != nil {
 				return nil, err
 			}
-			res[k] = no
+			res = append(res, no)
 		}
 		return res, nil
 	}

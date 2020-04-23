@@ -52,11 +52,11 @@ func TestGoToStarlark(t *testing.T) {
 func TestStarlarkToGo(t *testing.T) {
 	t.Parallel()
 
-	input := map[int]interface{}{
-		0: string("Test"),
-		1: int64(-9045646465464654500),
-		2: uint64(18446744073709551615),
-		3: float64(5.555555555555),
+	input := []interface{}{
+		string("Test"),
+		int64(-9045646465464654500),
+		uint64(18446744073709551615),
+		float64(5.555555555555),
 	}
 
 	rows := make(starlark.Tuple, len(input))
