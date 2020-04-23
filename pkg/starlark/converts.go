@@ -91,6 +91,16 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 			}
 		}
 		return res, nil
+	case starlark.Tuple:
+		res := make(map[int]interface{}, v.Len())
+		for k, o := range v {
+			no, err := starlarkToGo(o)
+			if err != nil {
+				return nil, err
+			}
+			res[k] = no
+		}
+		return res, nil
 	default:
 		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	}
