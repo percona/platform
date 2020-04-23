@@ -21,11 +21,11 @@ func run(name, script, funcName string, input []map[string]interface{}) (*check.
 
 	globals, err := starlark.ExecFile(thread, script, nil, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "ExecFile: ")
+		return nil, errors.Wrap(err, "failed to execute starlark script")
 	}
 
 	if globals[funcName] == nil {
-		return nil, errors.Errorf("Function %s doesnt exists", funcName)
+		return nil, errors.Errorf("function %s doesnt exists", funcName)
 	}
 
 	rows, err := prepareRows(input)
@@ -35,7 +35,7 @@ func run(name, script, funcName string, input []map[string]interface{}) (*check.
 
 	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{rows}, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "Call: ")
+		return nil, errors.Wrap(err, "failed to execute starlark function")
 	}
 
 	switch v := v.(type) {

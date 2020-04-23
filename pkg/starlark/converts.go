@@ -43,7 +43,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 				return nil, err
 			}
 			if err := sd.SetKey(starlark.String(k), sv); err != nil {
-				return nil, errors.Wrap(err, "goToStarlark: ")
+				return nil, errors.Wrap(err, "goToStarlark")
 			}
 		}
 		return sd, nil
