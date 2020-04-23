@@ -13,10 +13,10 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 		return starlark.None, nil
 	case bool:
 		return starlark.Bool(v), nil
-	case uint64:
-		return starlark.MakeUint64(v), nil
 	case int64:
 		return starlark.MakeInt64(v), nil
+	case uint64:
+		return starlark.MakeUint64(v), nil
 	case float64:
 		return starlark.Float(v), nil
 	case string:
@@ -43,13 +43,13 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 				return nil, err
 			}
 			if err := sd.SetKey(starlark.String(k), sv); err != nil {
-				return nil, errors.Wrap(err, "starlarkToGo: ")
+				return nil, errors.Wrap(err, "goToStarlark: ")
 			}
 		}
 		return sd, nil
 	}
 
-	return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
+	return nil, errors.Errorf("goToStarlark: unhandled type %T", v)
 }
 
 func starlarkToGo(v starlark.Value) (interface{}, error) {
@@ -65,7 +65,7 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		if u, ok := v.Uint64(); ok {
 			return u, nil
 		}
-		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
+		return nil, errors.Errorf("starlarkToGo: unhandled type %T", v)
 	case starlark.Float:
 		return float64(v), nil
 	case starlark.String:
@@ -103,5 +103,5 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		return res, nil
 	}
 
-	return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
+	return nil, errors.Errorf("starlarkToGo: unhandled type %T", v)
 }
