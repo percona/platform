@@ -47,9 +47,9 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 			}
 		}
 		return sd, nil
-	default:
-		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	}
+
+	return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 }
 
 func starlarkToGo(v starlark.Value) (interface{}, error) {
@@ -101,7 +101,7 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 			res[k] = no
 		}
 		return res, nil
-	default:
-		return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 	}
+
+	return nil, errors.Errorf("starlarkToGo: Unhandled type %T", v)
 }
