@@ -9,11 +9,6 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-func init() {
-	resolve.AllowFloat = true
-	resolve.AllowSet = true
-}
-
 // Execute for execute starlark script.
 func Execute(script string, input []map[string]interface{}) (*check.Result, error) {
 	return run("check", script, "check", input)
@@ -69,4 +64,11 @@ func prepareRows(input []map[string]interface{}) (starlark.Tuple, error) {
 	rows.Freeze()
 
 	return rows, nil
+}
+
+// modify unavoidable global state once on package initialization to avoid race conditions
+//nolint:gochecknoinits
+func init() {
+	resolve.AllowFloat = true
+	resolve.AllowSet = true
 }

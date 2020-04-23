@@ -38,7 +38,7 @@ check:                                     ## Run checks/linters for the whole p
 	bin/golangci-lint run
 
 test:                                      ## Run tests
-	go test ./...
+	go test -race ./...
 
 descriptors:                               ## Update files used for breaking changes detection
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin

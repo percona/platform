@@ -22,6 +22,8 @@ func TestRun(t *testing.T) {
 	dataStr["item6"] = "A"
 
 	t.Run("int only", func(t *testing.T) {
+		t.Parallel()
+
 		var data []map[string]interface{}
 		data = append(data, dataInt)
 		_, err := run("int", script, "test", data)
@@ -30,6 +32,8 @@ func TestRun(t *testing.T) {
 	})
 
 	t.Run("float only", func(t *testing.T) {
+		t.Parallel()
+
 		var data []map[string]interface{}
 		data = append(data, dataFloat)
 		_, err := run("float", script, "test", data)
@@ -38,6 +42,8 @@ func TestRun(t *testing.T) {
 	})
 
 	t.Run("string only", func(t *testing.T) {
+		t.Parallel()
+
 		var data []map[string]interface{}
 		data = append(data, dataStr)
 		_, err := run("string", script, "test", data)
@@ -46,6 +52,8 @@ func TestRun(t *testing.T) {
 	})
 
 	t.Run("mixed", func(t *testing.T) {
+		t.Parallel()
+
 		var data []map[string]interface{}
 		data = append(data, dataStr)
 		data = append(data, dataFloat)
@@ -56,6 +64,8 @@ func TestRun(t *testing.T) {
 	})
 
 	t.Run("check", func(t *testing.T) {
+		t.Parallel()
+
 		dataCheck := make(map[string]interface{})
 		dataCheck["Variable_name"] = "have_ssl"
 		dataCheck["Value"] = "YES"

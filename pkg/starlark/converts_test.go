@@ -27,6 +27,8 @@ func TestGoToStarlark(t *testing.T) {
 	for k, v := range data {
 		k, v := k, v
 		t.Run(k, func(t *testing.T) {
+			t.Parallel()
+
 			sv, errIn := goToStarlark(v)
 			require.NoError(t, errIn)
 			gv, errOut := starlarkToGo(sv)
@@ -48,6 +50,8 @@ func TestGoToStarlark(t *testing.T) {
 }
 
 func TestStarlarkToGo(t *testing.T) {
+	t.Parallel()
+
 	input := map[int]interface{}{
 		0: string("Test"),
 		1: int64(-9045646465464654500),
