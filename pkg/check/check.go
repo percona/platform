@@ -170,6 +170,20 @@ func (c *Check) validateType() error {
 	}
 }
 
+type Severity string
+
+// Severity levels
+const (
+	Emergency = Severity("emergency")
+	Alert     = Severity("alert")
+	Critical  = Severity("critical")
+	Error     = Severity("error")
+	Warning   = Severity("warning")
+	Notice    = Severity("notice")
+	Info      = Severity("info")
+	Debug     = Severity("debug")
+)
+
 // Possible result statuses.
 const (
 	Success = "SUCCESS"
@@ -179,13 +193,21 @@ const (
 // Result represents check result that has status and message.
 // In case of FAIL status, message should contain reason.
 type Result struct {
-	Status  string
-	Message string
+	Status      string
+	Message     string
+	Summary     string
+	Description string
+	Severity    Severity
+	Labels      map[string]string
 }
 
 // Validate validates check result for minimal correctness.
 func (r *Result) Validate() error {
 	if err := r.validateStatus(); err != nil {
+		return err
+	}
+
+	if err := r.validateSeverity(); err != nil {
 		return err
 	}
 
@@ -207,5 +229,31 @@ func (r *Result) validateStatus() error {
 		return errors.New("result status is empty")
 	default:
 		return errors.Errorf("unknown result status: %s", r.Status)
+	}
+}
+
+// validateSeverity validates check result severity level.
+func (r *Result) validateSeverity() error {
+	switch r.Severity {
+	case Emergency:
+		fallthrough
+	case Alert:
+		fallthrough
+	case Critical:
+		fallthrough
+	case Error:
+		fallthrough
+	case Warning:
+		fallthrough
+	case Notice:
+		fallthrough
+	case Info:
+		fallthrough
+	case Debug:
+		return nil
+	case "":
+		return errors.New("result severity is empty")
+	default:
+		return errors.Errorf("unknown result severity: %s", r.Severity)
 	}
 }

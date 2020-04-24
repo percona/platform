@@ -185,28 +185,33 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}{
 		{
 			name:   "success_result_without_message",
-			result: &Result{Status: Success, Message: ""},
+			result: &Result{Severity: Info, Status: Success, Message: ""},
 			errStr: "",
 		},
 		{
 			name:   "success_result_with_message",
-			result: &Result{Status: Success, Message: "everything is fine!"},
+			result: &Result{Severity: Info, Status: Success, Message: "everything is fine!"},
 			errStr: "",
 		},
 		{
 			name:   "failed_result_with_message",
-			result: &Result{Status: Fail, Message: "something bad happened!"},
+			result: &Result{Severity: Info, Status: Fail, Message: "something bad happened!"},
 			errStr: "",
 		},
 		{
 			name:   "failed_result_without_message",
-			result: &Result{Status: Fail, Message: ""},
+			result: &Result{Severity: Info, Status: Fail, Message: ""},
 			errStr: "failed check result should have message",
 		},
 		{
 			name:   "empty_status",
 			result: &Result{Status: "", Message: ""},
 			errStr: "result status is empty",
+		},
+		{
+			name:   "empty_severity",
+			result: &Result{Status: Fail, Message: "something bad happened!"},
+			errStr: "result severity is empty",
 		},
 	}
 
