@@ -6,7 +6,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.starlark.net/starlark"
 )
 
 func TestGoToStarlark(t *testing.T) {
@@ -59,15 +58,11 @@ func TestStarlarkToGo(t *testing.T) {
 		float64(5.555555555555),
 	}
 
-	rows := make(starlark.Tuple, len(input))
-	for i, v := range input {
-		sv, err := goToStarlark(v)
-		require.NoError(t, err)
-		rows[i] = sv
-	}
-	rows.Freeze()
+	rows, errIn := goToStarlark(input)
+	require.NoError(t, errIn)
 
-	gr, err := starlarkToGo(rows)
-	require.NoError(t, err)
+	gr, errOut := starlarkToGo(rows)
+	require.NoError(t, errOut)
+
 	assert.Equal(t, input, gr, "not equal")
 }
