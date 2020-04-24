@@ -34,7 +34,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 			}
 			l = append(l, sv)
 		}
-		return starlark.NewList(l), nil
+		return starlark.Tuple(l), nil
 	case map[string]interface{}:
 		sd := starlark.NewDict(len(v))
 		for k, o := range v {
@@ -80,6 +80,16 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 			res = append(res, gv)
 		}
 		return res, nil
+	case starlark.Tuple:
+		var res []interface{}
+		for _, o := range v {
+			no, err := starlarkToGo(o)
+			if err != nil {
+				return nil, err
+			}
+			res = append(res, no)
+		}
+		return res, nil
 	case *starlark.Dict:
 		res := make(map[string]interface{}, v.Len())
 		for _, tu := range v.Items() {
@@ -89,16 +99,6 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 			if err != nil {
 				return nil, err
 			}
-		}
-		return res, nil
-	case starlark.Tuple:
-		var res []interface{}
-		for _, o := range v {
-			no, err := starlarkToGo(o)
-			if err != nil {
-				return nil, err
-			}
-			res = append(res, no)
 		}
 		return res, nil
 	}
