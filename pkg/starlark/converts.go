@@ -159,31 +159,49 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 			if _, ok := x.(starlark.Int).Int64(); ok {
 				nres := make(map[int64]struct{}, v.Len())
 				for k := range res {
-					nres[k.(int64)] = struct{}{}
+					switch k := k.(type) {
+					case int64:
+						nres[k] = struct{}{}
+					default:
+						return nil, errors.Errorf("starlarkToGo: More types in starlark.Set")
+					}
 				}
-
 				return nres, nil
 			}
 
 			if _, ok := x.(starlark.Int).Uint64(); ok {
 				nres := make(map[uint64]struct{}, v.Len())
 				for k := range res {
-					nres[k.(uint64)] = struct{}{}
+					switch k := k.(type) {
+					case uint64:
+						nres[k] = struct{}{}
+					default:
+						return nil, errors.Errorf("starlarkToGo: More types in starlark.Set")
+					}
 				}
-
 				return nres, nil
 			}
 			return nil, errors.Errorf("starlarkToGo: unhandled type %s in starklark.Set switch", x.Type())
 		case "float":
 			nres := make(map[float64]struct{}, v.Len())
 			for k := range res {
-				nres[k.(float64)] = struct{}{}
+				switch k := k.(type) {
+				case float64:
+					nres[k] = struct{}{}
+				default:
+					return nil, errors.Errorf("starlarkToGo: More types in starlark.Set")
+				}
 			}
 			return nres, nil
 		case "string":
 			nres := make(map[string]struct{}, v.Len())
 			for k := range res {
-				nres[k.(string)] = struct{}{}
+				switch k := k.(type) {
+				case string:
+					nres[k] = struct{}{}
+				default:
+					return nil, errors.Errorf("starlarkToGo: More types in starlark.Set")
+				}
 			}
 			return nres, nil
 		default:
