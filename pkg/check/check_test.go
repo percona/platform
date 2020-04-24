@@ -113,6 +113,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			errStr: "",
 		},
 		{
+			name:   "mongodb_build_info",
+			check:  &Check{Type: MongoDBBuildInfo, Script: "def func(args): pass"},
+			errStr: "",
+		},
+		{
 			name:   "clickhouse_show",
 			check:  &Check{Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
@@ -131,6 +136,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			name:   "non_empty_query_for_postgresql_show",
 			check:  &Check{Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
+		},
+		{
+			name:   "non_empty_query_for_mongodb_build_info",
+			check:  &Check{Type: MongoDBBuildInfo, Query:"some query", Script: "def func(args): pass"},
+			errStr: "MONGODB_BUILDINFO check type should have empty query",
 		},
 		{
 			name:   "empty_script",
