@@ -23,11 +23,11 @@ func TestGoToStarlark(t *testing.T) {
 	data["array"] = make([]interface{}, 3)
 	data["array"] = []interface{}{int64(500), "Test", float64(30.555555555555)}
 	data["structStr"] = make(map[string]struct{})
-	data["structStr"] = map[string]struct{}{"test": struct{}{}, "test2": struct{}{}}
+	data["structStr"] = map[string]struct{}{"test": {}, "test2": {}}
 	data["structInt"] = make(map[string]struct{})
-	data["structInt"] = map[int64]struct{}{50: struct{}{}, 20: struct{}{}}
+	data["structInt"] = map[int64]struct{}{50: {}, 20: {}}
 	data["structFloat"] = make(map[string]struct{})
-	data["structFloat"] = map[float64]struct{}{50.55555: struct{}{}, 10.2456789: struct{}{}}
+	data["structFloat"] = map[float64]struct{}{50.55555: {}, 10.2456789: {}}
 
 	for k, v := range data {
 		k, v := k, v
