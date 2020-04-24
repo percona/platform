@@ -18,9 +18,9 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.5.1
 	github.com/stretchr/testify v1.5.1
-	go.uber.org/zap v1.14.1
-	golang.org/x/sys v0.0.0-20200406155108-e3b113bbe6a4
-	google.golang.org/grpc v1.29.0
+	go.uber.org/zap v1.15.0
+	golang.org/x/sys v0.0.0-20200420163511-1957bb5e6d1f
+	google.golang.org/grpc v1.29.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.3.3
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
