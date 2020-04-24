@@ -128,6 +128,8 @@ func (c *Check) validateQuery() error {
 	switch c.Type {
 	case PostgreSQLShow:
 		fallthrough
+	case MongoDBGetParameter:
+		fallthrough
 	case MongoDBBuildInfo:
 		if c.Query != "" {
 			return errors.Errorf("%s check type should have empty query", c.Type)
