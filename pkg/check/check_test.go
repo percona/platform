@@ -139,7 +139,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 		},
 		{
 			name:   "non_empty_query_for_mongodb_build_info",
-			check:  &Check{Type: MongoDBBuildInfo, Query:"some query", Script: "def func(args): pass"},
+			check:  &Check{Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
 		},
 		{
