@@ -101,6 +101,7 @@ const (
 
 // Check represents security check structure.
 type Check struct {
+	Name    string `yaml:"name"`
 	Version uint32 `yaml:"version"`
 	Type    Type   `yaml:"type"`
 	Query   string `yaml:"query"`
@@ -109,6 +110,10 @@ type Check struct {
 
 // validate validates check for minimal correctness.
 func (c *Check) validate() error {
+	if c.Name == "" {
+		return errors.New("check name is empty")
+	}
+
 	if err := c.validateType(); err != nil {
 		return err
 	}

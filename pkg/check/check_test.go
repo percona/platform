@@ -15,6 +15,7 @@ func TestCheck_Parse(t *testing.T) {
 ---
 checks:
   - version: 1
+    name: MySQL check
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -22,6 +23,7 @@ checks:
             pass
 
   - version: 2
+    name: PostgreSQL check
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -50,6 +52,7 @@ checks:
 ---
 checks:
   - version: 1
+    name: MySQL check
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -58,6 +61,7 @@ checks:
 ---
 checks:
   - version: 2
+    name: PostgreSQL check
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -89,67 +93,72 @@ func TestCheck_CheckValidate(t *testing.T) {
 	}{
 		{
 			name:   "mysql_show",
-			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mysql_select",
-			check:  &Check{Type: MySQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MySQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_show",
-			check:  &Check{Type: PostgreSQLShow, Query: "", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: PostgreSQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_select",
-			check:  &Check{Type: PostgreSQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: PostgreSQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mongodb_get_parameter",
-			check:  &Check{Type: MongoDBGetParameter, Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MongoDBGetParameter, Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mongodb_build_info",
-			check:  &Check{Type: MongoDBBuildInfo, Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MongoDBBuildInfo, Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "clickhouse_show",
-			check:  &Check{Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
 		},
 		{
+			name:   "empty_name",
+			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			errStr: "check name is empty",
+		},
+		{
 			name:   "empty_type",
-			check:  &Check{Type: "", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: "", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "check type is empty",
 		},
 		{
 			name:   "empty_query",
-			check:  &Check{Type: MySQLShow, Query: "", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MySQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "check query is empty",
 		},
 		{
 			name:   "non_empty_query_for_postgresql_show",
-			check:  &Check{Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
 		},
 		{
 			name:   "non_empty_query_for_mongodb_get_parameter",
-			check:  &Check{Type: MongoDBGetParameter, Query: "some query", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MongoDBGetParameter, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_GETPARAMETER check type should have empty query",
 		},
 		{
 			name:   "non_empty_query_for_mongodb_build_info",
-			check:  &Check{Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
+			check:  &Check{Name: "test check", Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
 		},
 		{
 			name:   "empty_script",
-			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
+			check:  &Check{Name: "test check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
 			errStr: "check script is empty",
 		},
 	}
