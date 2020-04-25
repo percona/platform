@@ -47,6 +47,15 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 			}
 		}
 		return sd, nil
+	case map[bool]struct{}:
+		ss := starlark.NewSet(len(v))
+		for k := range v {
+			err := ss.Insert(starlark.Bool(k))
+			if err != nil {
+				return nil, errors.Wrap(err, "goToStarlark")
+			}
+		}
+		return ss, nil
 	case map[int64]struct{}:
 		ss := starlark.NewSet(len(v))
 		for k := range v {
@@ -153,6 +162,16 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 	defer iter.Done()
 
 	switch tp {
+	case "bool":
+		res := make(map[bool]struct{}, v.Len())
+		for iter.Next(&x) {
+			nv, err := starlarkToGo(x.(starlark.Bool))
+			if err != nil {
+				return nil, err
+			}
+			res[nv.(bool)] = struct{}{}
+		}
+		return res, nil
 	case "int":
 		vl := x.(starlark.Int)
 		if _, ok := vl.Int64(); ok {

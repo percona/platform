@@ -28,6 +28,8 @@ func TestGoToStarlark(t *testing.T) {
 	data["structInt"] = map[int64]struct{}{50: {}, 20: {}}
 	data["structFloat"] = make(map[string]struct{})
 	data["structFloat"] = map[float64]struct{}{50.55555: {}, 10.2456789: {}}
+	data["structBool"] = make(map[bool]struct{})
+	data["structBool"] = map[bool]struct{}{true: {}, false: {}}
 
 	for k, v := range data {
 		k, v := k, v
