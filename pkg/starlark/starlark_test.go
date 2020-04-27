@@ -40,7 +40,7 @@ def check(rows):
 		require.NoError(t, err)
 		expected := &check.Result{
 			Severity: check.Info,
-			Summary: "summary",
+			Summary:  "summary",
 		}
 		assert.Equal(t, expected, res)
 	})
@@ -57,7 +57,7 @@ def check(rows):
 		require.NoError(t, err)
 		expected := &check.Result{
 			Severity: check.Info,
-			Summary: "summary",
+			Summary:  "summary",
 		}
 		assert.Equal(t, expected, res)
 	})

@@ -170,7 +170,7 @@ func (c *Check) validateType() error {
 	}
 }
 
-// Represents severity level.
+// Severity represents severity level.
 type Severity int
 
 // Supported severity levels.
