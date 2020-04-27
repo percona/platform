@@ -40,7 +40,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 	case map[string]struct{}:
 		return goToStarlarkSetString(v)
 	default:
-		return nil, errors.Errorf("goToStarlark: unhandled type %T", v)
+		return nil, errors.Errorf("unhandled type %T", v)
 	}
 }
 
@@ -64,7 +64,7 @@ func goToStarlarkDict(v map[string]interface{}) (starlark.Value, error) {
 			return nil, err
 		}
 		if err := sd.SetKey(starlark.String(k), sv); err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to set key in dict")
 		}
 	}
 	return sd, nil
@@ -75,7 +75,7 @@ func goToStarlarkSetBool(v map[bool]struct{}) (starlark.Value, error) {
 	for k := range v {
 		err := ss.Insert(starlark.Bool(k))
 		if err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
 	return ss, nil
@@ -86,7 +86,7 @@ func goToStarlarkSetInt(v map[int64]struct{}) (starlark.Value, error) {
 	for k := range v {
 		err := ss.Insert(starlark.MakeInt64(k))
 		if err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
 	return ss, nil
@@ -97,7 +97,7 @@ func goToStarlarkSetUint(v map[uint64]struct{}) (starlark.Value, error) {
 	for k := range v {
 		err := ss.Insert(starlark.MakeUint64(k))
 		if err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
 	return ss, nil
@@ -108,7 +108,7 @@ func goToStarlarkSetFloat(v map[float64]struct{}) (starlark.Value, error) {
 	for k := range v {
 		err := ss.Insert(starlark.Float(k))
 		if err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
 	return ss, nil
@@ -119,7 +119,7 @@ func goToStarlarkSetString(v map[string]struct{}) (starlark.Value, error) {
 	for k := range v {
 		err := ss.Insert(starlark.String(k))
 		if err != nil {
-			return nil, errors.Wrap(err, "goToStarlark")
+			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
 	return ss, nil
@@ -138,7 +138,7 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 		if u, ok := v.Uint64(); ok {
 			return u, nil
 		}
-		return nil, errors.Errorf("starlarkToGo: unhandled type %T", v)
+		return nil, errors.Errorf("unhandled type %T", v)
 	case starlark.Float:
 		return float64(v), nil
 	case starlark.String:
@@ -167,7 +167,7 @@ func starlarkToGo(v starlark.Value) (interface{}, error) {
 	case *starlark.Set:
 		return starlarkSetToGo(v)
 	default:
-		return nil, errors.Errorf("starlarkToGo: unhandled type %T", v)
+		return nil, errors.Errorf("unhandled type %T", v)
 	}
 }
 
@@ -184,7 +184,7 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 		tp = x.Type()
 	}
 	if notValid {
-		return nil, errors.New("starlarkSetToGo: More types in starlark.Set")
+		return nil, errors.New("more types in starlark.Set")
 	}
 	iter = v.Iterate()
 	defer iter.Done()
@@ -200,7 +200,7 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 		if _, ok := vl.Uint64(); ok {
 			return starlarkSetUintToGo(v, iter, x)
 		}
-		return nil, errors.Errorf("starlarkSetToGo: unhandled type %s", tp)
+		return nil, errors.Errorf("unhandled type %s", tp)
 	case "float":
 		return starlarkSetFloatToGo(v, iter, x)
 	case "string":
@@ -210,7 +210,7 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 		}
 		return res, nil
 	default:
-		return nil, errors.Errorf("starlarkSetToGo: unhandled type %s", tp)
+		return nil, errors.Errorf("unhandled type %s", tp)
 	}
 }
 
