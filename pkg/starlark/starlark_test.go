@@ -39,8 +39,8 @@ def check(rows):
 		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
 		expected := &check.Result{
-			Status:  "status",
-			Message: "message",
+			Severity: check.Info,
+			Summary: "summary",
 		}
 		assert.Equal(t, expected, res)
 	})
@@ -56,8 +56,8 @@ def check(rows):
 		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
 		expected := &check.Result{
-			Status:  "status",
-			Message: "message",
+			Severity: check.Info,
+			Summary: "summary",
 		}
 		assert.Equal(t, expected, res)
 	})

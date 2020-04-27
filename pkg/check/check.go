@@ -203,17 +203,9 @@ func (s Severity) String() string {
 	return names[s]
 }
 
-// Possible result statuses.
-const (
-	Success = "SUCCESS"
-	Fail    = "FAIL"
-)
-
 // Result represents check result that has status and message.
 // In case of FAIL status, message should contain reason.
 type Result struct {
-	Status      string
-	Message     string
 	Summary     string
 	Description string
 	Severity    Severity
@@ -222,16 +214,8 @@ type Result struct {
 
 // Validate validates check result for minimal correctness.
 func (r *Result) Validate() error {
-	if err := r.validateStatus(); err != nil {
-		return err
-	}
-
 	if err := r.validateSeverity(); err != nil {
 		return err
-	}
-
-	if r.Status == Fail && r.Message == "" {
-		return errors.New("failed check result should have message")
 	}
 
 	if r.Summary == "" {
@@ -239,20 +223,6 @@ func (r *Result) Validate() error {
 	}
 
 	return nil
-}
-
-// validateType validates check result status.
-func (r *Result) validateStatus() error {
-	switch r.Status {
-	case Success:
-		fallthrough
-	case Fail:
-		return nil
-	case "":
-		return errors.New("result status is empty")
-	default:
-		return errors.Errorf("unknown result status: %s", r.Status)
-	}
 }
 
 // validateSeverity validates check result severity level.

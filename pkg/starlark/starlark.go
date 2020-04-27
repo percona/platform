@@ -39,8 +39,8 @@ func Run(name, script string, input []map[string]interface{}) (*check.Result, er
 	case *starlark.Dict:
 		// TODO https://jira.percona.com/browse/SAAS-84
 		return &check.Result{
-			Status:  "status",
-			Message: "message",
+			Severity: check.Info,
+			Summary: "summary",
 		}, nil
 	default:
 		return nil, errors.Errorf("unhandled result type %T", v)
