@@ -26,75 +26,103 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 	case time.Time:
 		return starlark.MakeInt64(v.UnixNano()), nil
 	case []interface{}:
-		var l []starlark.Value
-		for _, o := range v {
-			sv, err := goToStarlark(o)
-			if err != nil {
-				return nil, err
-			}
-			l = append(l, sv)
-		}
-		return starlark.Tuple(l), nil
+		return goToStarlarkSlice(v)
 	case map[string]interface{}:
-		sd := starlark.NewDict(len(v))
-		for k, o := range v {
-			sv, err := goToStarlark(o)
-			if err != nil {
-				return nil, err
-			}
-			if err := sd.SetKey(starlark.String(k), sv); err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return sd, nil
+		return goToStarlarkDict(v)
 	case map[bool]struct{}:
-		ss := starlark.NewSet(len(v))
-		for k := range v {
-			err := ss.Insert(starlark.Bool(k))
-			if err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return ss, nil
+		return goToStarlarkSetBool(v)
 	case map[int64]struct{}:
-		ss := starlark.NewSet(len(v))
-		for k := range v {
-			err := ss.Insert(starlark.MakeInt64(k))
-			if err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return ss, nil
+		return goToStarlarkSetInt(v)
 	case map[uint64]struct{}:
-		ss := starlark.NewSet(len(v))
-		for k := range v {
-			err := ss.Insert(starlark.MakeUint64(k))
-			if err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return ss, nil
+		return goToStarlarkSetUint(v)
 	case map[float64]struct{}:
-		ss := starlark.NewSet(len(v))
-		for k := range v {
-			err := ss.Insert(starlark.Float(k))
-			if err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return ss, nil
+		return goToStarlarkSetFloat(v)
 	case map[string]struct{}:
-		ss := starlark.NewSet(len(v))
-		for k := range v {
-			err := ss.Insert(starlark.String(k))
-			if err != nil {
-				return nil, errors.Wrap(err, "goToStarlark")
-			}
-		}
-		return ss, nil
+		return goToStarlarkSetString(v)
 	default:
 		return nil, errors.Errorf("goToStarlark: unhandled type %T", v)
 	}
+}
+
+func goToStarlarkSlice(v []interface{}) (starlark.Value, error) {
+	l := make([]starlark.Value, len(v))
+	for i, o := range v {
+		sv, err := goToStarlark(o)
+		if err != nil {
+			return nil, err
+		}
+		l[i] = sv
+	}
+	return starlark.Tuple(l), nil
+}
+
+func goToStarlarkDict(v map[string]interface{}) (starlark.Value, error) {
+	sd := starlark.NewDict(len(v))
+	for k, o := range v {
+		sv, err := goToStarlark(o)
+		if err != nil {
+			return nil, err
+		}
+		if err := sd.SetKey(starlark.String(k), sv); err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return sd, nil
+}
+
+func goToStarlarkSetBool(v map[bool]struct{}) (starlark.Value, error) {
+	ss := starlark.NewSet(len(v))
+	for k := range v {
+		err := ss.Insert(starlark.Bool(k))
+		if err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return ss, nil
+}
+
+func goToStarlarkSetInt(v map[int64]struct{}) (starlark.Value, error) {
+	ss := starlark.NewSet(len(v))
+	for k := range v {
+		err := ss.Insert(starlark.MakeInt64(k))
+		if err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return ss, nil
+}
+
+func goToStarlarkSetUint(v map[uint64]struct{}) (starlark.Value, error) {
+	ss := starlark.NewSet(len(v))
+	for k := range v {
+		err := ss.Insert(starlark.MakeUint64(k))
+		if err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return ss, nil
+}
+
+func goToStarlarkSetFloat(v map[float64]struct{}) (starlark.Value, error) {
+	ss := starlark.NewSet(len(v))
+	for k := range v {
+		err := ss.Insert(starlark.Float(k))
+		if err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return ss, nil
+}
+
+func goToStarlarkSetString(v map[string]struct{}) (starlark.Value, error) {
+	ss := starlark.NewSet(len(v))
+	for k := range v {
+		err := ss.Insert(starlark.String(k))
+		if err != nil {
+			return nil, errors.Wrap(err, "goToStarlark")
+		}
+	}
+	return ss, nil
 }
 
 func starlarkToGo(v starlark.Value) (interface{}, error) {
@@ -163,50 +191,18 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 
 	switch tp {
 	case "bool":
-		res := make(map[bool]struct{}, v.Len())
-		for iter.Next(&x) {
-			nv, err := starlarkToGo(x.(starlark.Bool))
-			if err != nil {
-				return nil, err
-			}
-			res[nv.(bool)] = struct{}{}
-		}
-		return res, nil
+		return starlarkSetBoolToGo(v, iter, x)
 	case "int":
 		vl := x.(starlark.Int)
 		if _, ok := vl.Int64(); ok {
-			res := make(map[int64]struct{}, v.Len())
-			for iter.Next(&x) {
-				nv, err := starlarkToGo(x.(starlark.Int))
-				if err != nil {
-					return nil, err
-				}
-				res[nv.(int64)] = struct{}{}
-			}
-			return res, nil
+			return starlarkSetIntToGo(v, iter, x)
 		}
 		if _, ok := vl.Uint64(); ok {
-			res := make(map[uint64]struct{}, v.Len())
-			for iter.Next(&x) {
-				nv, err := starlarkToGo(x.(starlark.Int))
-				if err != nil {
-					return nil, err
-				}
-				res[nv.(uint64)] = struct{}{}
-			}
-			return res, nil
+			return starlarkSetUintToGo(v, iter, x)
 		}
 		return nil, errors.Errorf("starlarkSetToGo: unhandled type %s", tp)
 	case "float":
-		res := make(map[float64]struct{}, v.Len())
-		for iter.Next(&x) {
-			nv, err := starlarkToGo(x.(starlark.Float))
-			if err != nil {
-				return nil, err
-			}
-			res[nv.(float64)] = struct{}{}
-		}
-		return res, nil
+		return starlarkSetFloatToGo(v, iter, x)
 	case "string":
 		res := make(map[string]struct{}, v.Len())
 		for iter.Next(&x) {
@@ -216,4 +212,53 @@ func starlarkSetToGo(v *starlark.Set) (interface{}, error) {
 	default:
 		return nil, errors.Errorf("starlarkSetToGo: unhandled type %s", tp)
 	}
+}
+
+func starlarkSetBoolToGo(v *starlark.Set, iter starlark.Iterator, x starlark.Value) (map[bool]struct{}, error) {
+	res := make(map[bool]struct{}, v.Len())
+	for iter.Next(&x) {
+		nv, err := starlarkToGo(x.(starlark.Bool))
+		if err != nil {
+			return nil, err
+		}
+		res[nv.(bool)] = struct{}{}
+	}
+
+	return res, nil
+}
+
+func starlarkSetIntToGo(v *starlark.Set, iter starlark.Iterator, x starlark.Value) (map[int64]struct{}, error) {
+	res := make(map[int64]struct{}, v.Len())
+	for iter.Next(&x) {
+		nv, err := starlarkToGo(x.(starlark.Int))
+		if err != nil {
+			return nil, err
+		}
+		res[nv.(int64)] = struct{}{}
+	}
+	return res, nil
+}
+
+func starlarkSetUintToGo(v *starlark.Set, iter starlark.Iterator, x starlark.Value) (map[uint64]struct{}, error) {
+	res := make(map[uint64]struct{}, v.Len())
+	for iter.Next(&x) {
+		nv, err := starlarkToGo(x.(starlark.Int))
+		if err != nil {
+			return nil, err
+		}
+		res[nv.(uint64)] = struct{}{}
+	}
+	return res, nil
+}
+
+func starlarkSetFloatToGo(v *starlark.Set, iter starlark.Iterator, x starlark.Value) (map[float64]struct{}, error) {
+	res := make(map[float64]struct{}, v.Len())
+	for iter.Next(&x) {
+		nv, err := starlarkToGo(x.(starlark.Float))
+		if err != nil {
+			return nil, err
+		}
+		res[nv.(float64)] = struct{}{}
+	}
+	return res, nil
 }
