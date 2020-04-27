@@ -234,6 +234,10 @@ func (r *Result) Validate() error {
 		return errors.New("failed check result should have message")
 	}
 
+	if r.Summary == "" {
+		return errors.New("summary is empty")
+	}
+
 	return nil
 }
 
