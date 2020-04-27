@@ -170,19 +170,38 @@ func (c *Check) validateType() error {
 	}
 }
 
-type Severity string
+type Severity int
 
 // Severity levels
 const (
-	Emergency = Severity("emergency")
-	Alert     = Severity("alert")
-	Critical  = Severity("critical")
-	Error     = Severity("error")
-	Warning   = Severity("warning")
-	Notice    = Severity("notice")
-	Info      = Severity("info")
-	Debug     = Severity("debug")
+	Emergency Severity = iota
+	Alert
+	Critical
+	Error
+	Warning
+	Notice
+	Info
+	Debug
 )
+
+func (s Severity) String() string {
+	names := [...]string{
+		"Emergency",
+		"Alert",
+		"Critical",
+		"Error",
+		"Warning",
+		"Notice",
+		"Info",
+		"Debug",
+	}
+
+	if s < Emergency || s > Debug {
+		return "Unknown"
+	}
+
+	return names[s]
+}
 
 // Possible result statuses.
 const (
@@ -234,26 +253,9 @@ func (r *Result) validateStatus() error {
 
 // validateSeverity validates check result severity level.
 func (r *Result) validateSeverity() error {
-	switch r.Severity {
-	case Emergency:
-		fallthrough
-	case Alert:
-		fallthrough
-	case Critical:
-		fallthrough
-	case Error:
-		fallthrough
-	case Warning:
-		fallthrough
-	case Notice:
-		fallthrough
-	case Info:
-		fallthrough
-	case Debug:
-		return nil
-	case "":
-		return errors.New("result severity is empty")
-	default:
+	if r.Severity < Emergency || r.Severity > Debug {
 		return errors.Errorf("unknown result severity: %s", r.Severity)
 	}
+
+	return nil
 }

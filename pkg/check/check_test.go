@@ -209,9 +209,9 @@ func TestCheck_ResultValidate(t *testing.T) {
 			errStr: "result status is empty",
 		},
 		{
-			name:   "empty_severity",
-			result: &Result{Status: Fail, Message: "something bad happened!"},
-			errStr: "result severity is empty",
+			name:   "unknown_severity",
+			result: &Result{Severity: Severity(123), Status: Fail, Message: "something bad happened!"},
+			errStr: "unknown result severity: Unknown",
 		},
 	}
 
