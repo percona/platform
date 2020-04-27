@@ -170,9 +170,10 @@ func (c *Check) validateType() error {
 	}
 }
 
+// Represents severity level.
 type Severity int
 
-// Severity levels
+// Supported severity levels.
 const (
 	Emergency Severity = iota
 	Alert
@@ -184,6 +185,7 @@ const (
 	Debug
 )
 
+// String returns name of severity level.
 func (s Severity) String() string {
 	names := [...]string{
 		"Emergency",
