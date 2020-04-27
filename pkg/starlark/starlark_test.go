@@ -1,79 +1,72 @@
 package starlark
 
 import (
+	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/percona-platform/platform/pkg/check"
 )
 
 func TestRun(t *testing.T) {
-	script := "starlark_script.py"
+	script := strings.TrimSpace(`
+def check(rows):
+    vars = {
+        "have_ssl":     "YES",
+        "have_openssl": "YES",
+    }
 
-	dataInt := make(map[string]interface{})
-	dataInt["item1"] = int64(5)
-	dataInt["item2"] = int64(10)
+    for row in rows:
+        name = row["Variable_name"]
+        actual = row["Value"]
+        expected = vars.get(name)
+        if expected and expected != actual:
+            return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
 
-	dataFloat := make(map[string]interface{})
-	dataFloat["item3"] = float64(5.444)
-	dataFloat["item4"] = float64(10.111)
+	return {}
+	`) + "\n"
 
-	dataStr := make(map[string]interface{})
-	dataStr["item5"] = "B"
-	dataStr["item6"] = "A"
-
-	t.Run("int only", func(t *testing.T) {
+	t.Run("Success", func(t *testing.T) {
 		t.Parallel()
 
-		var data []map[string]interface{}
-		data = append(data, dataInt)
-		_, err := run("int", script, "test", data)
+		input := []map[string]interface{}{
+			{"Variable_name": "have_ssl", "Value": "YES"},
+			{"Variable_name": "have_openssl", "Value": "YES"},
+		}
 
+		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
+		expected := &check.Result{
+			Status:  "status",
+			Message: "message",
+		}
+		assert.Equal(t, expected, res)
 	})
 
-	t.Run("float only", func(t *testing.T) {
+	t.Run("Fail", func(t *testing.T) {
 		t.Parallel()
 
-		var data []map[string]interface{}
-		data = append(data, dataFloat)
-		_, err := run("float", script, "test", data)
+		input := []map[string]interface{}{
+			{"Variable_name": "have_ssl", "Value": "NO"},
+			{"Variable_name": "have_openssl", "Value": "NO"},
+		}
 
+		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
+		expected := &check.Result{
+			Status:  "status",
+			Message: "message",
+		}
+		assert.Equal(t, expected, res)
 	})
 
-	t.Run("string only", func(t *testing.T) {
+	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		var data []map[string]interface{}
-		data = append(data, dataStr)
-		_, err := run("string", script, "test", data)
-
-		require.NoError(t, err)
-	})
-
-	t.Run("mixed", func(t *testing.T) {
-		t.Parallel()
-
-		var data []map[string]interface{}
-		data = append(data, dataStr)
-		data = append(data, dataFloat)
-		data = append(data, dataInt)
-		_, err := run("mixed", script, "test", data)
-
-		require.NoError(t, err)
-	})
-
-	t.Run("check", func(t *testing.T) {
-		t.Parallel()
-
-		dataCheck := make(map[string]interface{})
-		dataCheck["Variable_name"] = "have_ssl"
-		dataCheck["Value"] = "YES"
-
-		var data []map[string]interface{}
-		data = append(data, dataCheck)
-		_, err := run("check", script, "check", data)
-
-		require.NoError(t, err)
+		res, err := Run(t.Name(), script, nil)
+		assert.EqualError(t, err, "unhandled result type starlark.NoneType")
+		assert.Nil(t, res)
 	})
 }

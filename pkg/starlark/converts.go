@@ -19,9 +19,9 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 		return starlark.MakeUint64(v), nil
 	case float64:
 		return starlark.Float(v), nil
-	case string:
-		return starlark.String(v), nil
 	case []byte:
+		return starlark.String(v), nil
+	case string:
 		return starlark.String(v), nil
 	case time.Time:
 		return starlark.MakeInt64(v.UnixNano()), nil

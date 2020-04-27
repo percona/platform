@@ -9,23 +9,10 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-// Execute for execute starlark script.
-func Execute(script string, input []map[string]interface{}) (*check.Result, error) {
-	return run("check", script, "check", input)
-}
-
-func run(name, script, funcName string, input []map[string]interface{}) (*check.Result, error) {
+// Run executes the script with given name and input data.
+func Run(name, script string, input []map[string]interface{}) (*check.Result, error) {
 	thread := &starlark.Thread{
 		Name: name,
-	}
-
-	globals, err := starlark.ExecFile(thread, script, nil, nil)
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to execute starlark script")
-	}
-
-	if globals[funcName] == nil {
-		return nil, errors.Errorf("function %s doesnt exists", funcName)
 	}
 
 	rows, err := prepareRows(input)
@@ -33,22 +20,30 @@ func run(name, script, funcName string, input []map[string]interface{}) (*check.
 		return nil, err
 	}
 
-	v, err := starlark.Call(thread, globals[funcName], starlark.Tuple{rows}, nil)
+	globals, err := starlark.ExecFile(thread, script, []byte(script), nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to execute starlark function")
+		return nil, errors.Wrap(err, "failed to execute starlark script")
+	}
+
+	f := globals["check"]
+	if f == nil {
+		return nil, errors.New("check function is not defined")
+	}
+
+	v, err := starlark.Call(thread, f, starlark.Tuple{rows}, nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to execute check function")
 	}
 
 	switch v := v.(type) {
 	case *starlark.Dict:
-		for _, tu := range v.Items() {
-			k := tu[0].(starlark.String).GoString()
-			if k == "error" {
-				return nil, errors.New(string(tu[1].(starlark.String)))
-			}
-		}
-		return nil, nil
+		// TODO https://jira.percona.com/browse/SAAS-84
+		return &check.Result{
+			Status:  "status",
+			Message: "message",
+		}, nil
 	default:
-		return nil, nil
+		return nil, errors.Errorf("unhandled result type %T", v)
 	}
 }
 
