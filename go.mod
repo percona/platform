@@ -18,6 +18,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.5.1
 	github.com/stretchr/testify v1.5.1
+	go.starlark.net v0.0.0-20200330013621-be5394c419b6
 	go.uber.org/zap v1.15.0
 	golang.org/x/sys v0.0.0-20200420163511-1957bb5e6d1f
 	google.golang.org/grpc v1.29.1
