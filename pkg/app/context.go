@@ -25,7 +25,7 @@ func Context() context.Context {
 	go func() {
 		s := <-signals
 		signal.Stop(signals)
-		l.Sugar().Warnf("Got %s, shutting down...", s.(syscall.Signal).String())
+		l.Sugar().Warnf("Got %s, shutting down...", s)
 		cancel()
 	}()
 
