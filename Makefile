@@ -57,12 +57,20 @@ run-dev:                                   ## Run bash in prototool Docker dev i
 saas:                                      ## Extract public APIs and generated files into ../saas
 	rm -rf ../saas/api ../saas/gen ../saas/pkg
 	mkdir ../saas/api ../saas/gen ../saas/pkg
-	cp -R api/telemetry ../saas/api
+
 	cp -R api/checked ../saas/api
-	cp -R gen/telemetry ../saas/gen
+	cp -R api/telemetry ../saas/api
+
 	cp -R gen/checked ../saas/gen
+	cp -R gen/telemetry ../saas/gen
+
 	cp -R pkg/check ../saas/pkg
+	cp -R pkg/starlark ../saas/pkg
+
+	gofmt -s -w -r '"github.com/percona-platform/platform/pkg/check" -> "github.com/percona-platform/saas/pkg/check"' ../saas/pkg
+
 	find ../saas -name '*.bin' -print -delete
+	find ../saas -name '*_test.go' -print -delete
 
 fuzz-build:                                ## Generate fuzz binary
 	bin/go-fuzz-build github.com/percona-platform/platform/pkg/check
