@@ -10,7 +10,9 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-func TestRun(t *testing.T) {
+func TestRunValidScript(t *testing.T) {
+	t.Parallel()
+
 	script := strings.TrimSpace(`
 def check(rows):
     vars = {
@@ -22,11 +24,16 @@ def check(rows):
         name = row["Variable_name"]
         actual = row["Value"]
         expected = vars.get(name)
+        print(name, actual, expected)
         if expected and expected != actual:
             return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
 
 	return {}
 	`) + "\n"
+
+	env, err := NewEnv(t.Name(), script)
+	require.NoError(t, err)
+	env.Print = func(msg string) { t.Log(msg) }
 
 	t.Run("Success", func(t *testing.T) {
 		t.Parallel()
@@ -36,7 +43,7 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "YES"},
 		}
 
-		res, err := Run(t.Name(), script, input)
+		res, err := env.Run(input)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -53,7 +60,7 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
-		res, err := Run(t.Name(), script, input)
+		res, err := env.Run(input)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -65,7 +72,7 @@ def check(rows):
 	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		res, err := Run(t.Name(), script, nil)
+		res, err := env.Run(nil)
 		assert.EqualError(t, err, "unhandled result type starlark.NoneType")
 		assert.Nil(t, res)
 	})

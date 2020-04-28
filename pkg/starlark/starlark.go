@@ -9,30 +9,76 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-// Run executes the script with given name and input data.
-func Run(name, script string, input []map[string]interface{}) (*check.Result, error) {
-	thread := &starlark.Thread{
-		Name: name,
+// Env represents Starlark execution environment.
+type Env struct {
+	// Print is the client-supplied implementation of the Starlark 'print' function.
+	Print func(msg string)
+
+	p *starlark.Program
+}
+
+// NewEnv creates a new Starlark execution environment.
+func NewEnv(name, script string) (*Env, error) {
+	predeclared := starlark.StringDict{}
+	predeclared.Freeze()
+	_, p, err := starlark.SourceProgram(name, script, predeclared.Has)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to parse script")
 	}
 
-	rows, err := prepareRows(input)
+	return &Env{
+		p: p,
+	}, nil
+}
+
+// noopPrint is a no-op 'print' implementation.
+// It is a global function for a minor optimization (inlining, avoiding a closure).
+func noopPrint(*starlark.Thread, string) {}
+
+// print is a 'print' implementation that calls env.Print.
+// It is a method for a minor optimization (avoiding a closure).
+func (env *Env) print(t *starlark.Thread, msg string) {
+	env.Print(msg)
+}
+
+func (env *Env) run(funcName string, args starlark.Tuple) (starlark.Value, error) {
+	thread := &starlark.Thread{
+		Name:  "thread_name",
+		Print: noopPrint,
+	}
+	if env.Print != nil {
+		thread.Print = env.print
+	}
+
+	globals, err := env.p.Init(thread, nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to init script")
+	}
+	globals.Freeze()
+
+	fn := globals[funcName]
+	if fn == nil {
+		return nil, errors.Wrapf(err, "function %s is not defined", funcName)
+	}
+
+	v, err := starlark.Call(thread, fn, args, nil)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to execute function %s", funcName)
+	}
+
+	v.Freeze()
+	return v, nil
+}
+
+func (env *Env) Run(input []map[string]interface{}) (*check.Result, error) {
+	rows, err := prepareInput(input)
 	if err != nil {
 		return nil, err
 	}
 
-	globals, err := starlark.ExecFile(thread, script, []byte(script), nil)
+	v, err := env.run("check", starlark.Tuple{rows})
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to execute starlark script")
-	}
-
-	f := globals["check"]
-	if f == nil {
-		return nil, errors.New("check function is not defined")
-	}
-
-	v, err := starlark.Call(thread, f, starlark.Tuple{rows}, nil)
-	if err != nil {
-		return nil, errors.Wrap(err, "failed to execute check function")
+		return nil, err
 	}
 
 	switch v := v.(type) {
@@ -47,18 +93,19 @@ func Run(name, script string, input []map[string]interface{}) (*check.Result, er
 	}
 }
 
-func prepareRows(input []map[string]interface{}) (starlark.Tuple, error) {
-	rows := make(starlark.Tuple, len(input))
+func prepareInput(input []map[string]interface{}) (*starlark.List, error) {
+	values := make([]starlark.Value, len(input))
 	for i, v := range input {
 		sv, err := goToStarlark(v)
 		if err != nil {
 			return nil, err
 		}
-		rows[i] = sv
+		values[i] = sv
 	}
-	rows.Freeze()
 
-	return rows, nil
+	l := starlark.NewList(values)
+	l.Freeze()
+	return l, nil
 }
 
 // modify unavoidable global state once on package initialization to avoid race conditions
