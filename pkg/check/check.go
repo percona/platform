@@ -175,7 +175,8 @@ type Severity int
 
 // Supported severity levels.
 const (
-	Emergency Severity = iota
+	Unknown Severity = iota
+	Emergency
 	Alert
 	Critical
 	Error
@@ -187,22 +188,49 @@ const (
 
 // String returns name of severity level.
 func (s Severity) String() string {
-	names := [...]string{
-		"Emergency",
-		"Alert",
-		"Critical",
-		"Error",
-		"Warning",
-		"Notice",
-		"Info",
-		"Debug",
-	}
-
-	if s < Emergency || s > Debug {
+	switch s {
+	case Emergency:
+		return "Emergency"
+	case Alert:
+		return "Alert"
+	case Critical:
+		return "Critical"
+	case Error:
+		return "Error"
+	case Warning:
+		return "Warning"
+	case Notice:
+		return "Notice"
+	case Info:
+		return "Info"
+	case Debug:
+		return "Debug"
+	default:
 		return "Unknown"
 	}
+}
 
-	return names[s]
+func StrToSeverity(s string) Severity {
+	switch strings.TrimSpace(strings.ToLower(s)) {
+	case "emergency":
+		return Emergency
+	case "alert":
+		return Alert
+	case "critical":
+		return Critical
+	case "error":
+		return Error
+	case "warning":
+		return Warning
+	case "notice":
+		return Notice
+	case "info":
+		return Info
+	case "debug":
+		return Debug
+	default:
+		return Unknown
+	}
 }
 
 // Result represents check result that has status and message.
