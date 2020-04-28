@@ -1,5 +1,3 @@
-// +build windows
-
 package app
 
 import (
@@ -20,7 +18,6 @@ func Context() context.Context {
 	ctx, cancel := context.WithCancel(context.Background())
 	ctx = logger.GetCtxWithLogger(ctx, l)
 
-	_ = cancel
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, syscall.SIGTERM, syscall.SIGINT)
 	go func() {
