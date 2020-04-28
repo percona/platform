@@ -1,14 +1,12 @@
-// +build !windows
-
 package app
 
 import (
 	"context"
 	"os"
 	"os/signal"
+	"syscall"
 
 	"go.uber.org/zap"
-	"golang.org/x/sys/unix"
 
 	"github.com/percona-platform/platform/pkg/logger"
 )
@@ -21,13 +19,24 @@ func Context() context.Context {
 	ctx = logger.GetCtxWithLogger(ctx, l)
 
 	signals := make(chan os.Signal, 1)
-	signal.Notify(signals, unix.SIGTERM, unix.SIGINT)
+	signal.Notify(signals, syscall.SIGTERM, syscall.SIGINT)
 	go func() {
 		s := <-signals
 		signal.Stop(signals)
-		l.Sugar().Warnf("Got %s, shutting down...", unix.SignalName(s.(unix.Signal)))
+		l.Sugar().Warnf("Got %s, shutting down...", signalName(s))
 		cancel()
 	}()
 
 	return ctx
+}
+
+func signalName(s os.Signal) string {
+	switch s {
+	case syscall.Signal(0x2):
+		return "SIGINT"
+	case syscall.Signal(0xf):
+		return "SIGTERM"
+	default:
+		return ""
+	}
 }
