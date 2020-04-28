@@ -73,8 +73,7 @@ func goToStarlarkDict(v map[string]interface{}) (*starlark.Dict, error) {
 func goToStarlarkSetBool(v map[bool]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
-		err := ss.Insert(starlark.Bool(k))
-		if err != nil {
+		if err := ss.Insert(starlark.Bool(k)); err != nil {
 			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
@@ -84,8 +83,7 @@ func goToStarlarkSetBool(v map[bool]struct{}) (*starlark.Set, error) {
 func goToStarlarkSetInt(v map[int64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
-		err := ss.Insert(starlark.MakeInt64(k))
-		if err != nil {
+		if err := ss.Insert(starlark.MakeInt64(k)); err != nil {
 			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
@@ -95,8 +93,7 @@ func goToStarlarkSetInt(v map[int64]struct{}) (*starlark.Set, error) {
 func goToStarlarkSetUint(v map[uint64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
-		err := ss.Insert(starlark.MakeUint64(k))
-		if err != nil {
+		if err := ss.Insert(starlark.MakeUint64(k)); err != nil {
 			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
@@ -106,8 +103,7 @@ func goToStarlarkSetUint(v map[uint64]struct{}) (*starlark.Set, error) {
 func goToStarlarkSetFloat(v map[float64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
-		err := ss.Insert(starlark.Float(k))
-		if err != nil {
+		if err := ss.Insert(starlark.Float(k)); err != nil {
 			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}
@@ -117,8 +113,7 @@ func goToStarlarkSetFloat(v map[float64]struct{}) (*starlark.Set, error) {
 func goToStarlarkSetString(v map[string]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
-		err := ss.Insert(starlark.String(k))
-		if err != nil {
+		if err := ss.Insert(starlark.String(k)); err != nil {
 			return nil, errors.Wrap(err, "failed to insert into set")
 		}
 	}

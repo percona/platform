@@ -2,6 +2,8 @@
 package starlark
 
 import (
+	"fmt"
+
 	"github.com/pkg/errors"
 	"go.starlark.net/resolve"
 	"go.starlark.net/starlark"
@@ -12,6 +14,7 @@ import (
 // Env represents Starlark execution environment.
 type Env struct {
 	// Print is the client-supplied implementation of the Starlark 'print' function.
+	// https://github.com/google/starlark-go/blob/master/doc/spec.md#print
 	Print func(msg string)
 
 	p *starlark.Program
@@ -21,6 +24,7 @@ type Env struct {
 func NewEnv(name, script string) (*Env, error) {
 	predeclared := starlark.StringDict{}
 	predeclared.Freeze()
+
 	_, p, err := starlark.SourceProgram(name, script, predeclared.Has)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to parse script")
@@ -38,12 +42,15 @@ func noopPrint(*starlark.Thread, string) {}
 // print is a 'print' implementation that calls env.Print.
 // It is a method for a minor optimization (avoiding a closure).
 func (env *Env) print(t *starlark.Thread, msg string) {
-	env.Print(msg)
+	f := t.CallFrame(1)
+	env.Print(fmt.Sprintf("%s %s %s: %s\n", t.Name, f.Pos.String(), f.Name, msg))
 }
 
-func (env *Env) run(funcName string, args starlark.Tuple) (starlark.Value, error) {
+// run executes function with a given name with given arguments and returns result and fatal error.
+// threadName is used only for debugging.
+func (env *Env) run(threadName, funcName string, args starlark.Tuple) (starlark.Value, error) {
 	thread := &starlark.Thread{
-		Name:  "thread_name",
+		Name:  threadName,
 		Print: noopPrint,
 	}
 	if env.Print != nil {
@@ -58,7 +65,7 @@ func (env *Env) run(funcName string, args starlark.Tuple) (starlark.Value, error
 
 	fn := globals[funcName]
 	if fn == nil {
-		return nil, errors.Wrapf(err, "function %s is not defined", funcName)
+		return nil, errors.Errorf("function %s is not defined", funcName)
 	}
 
 	v, err := starlark.Call(thread, fn, args, nil)
@@ -70,13 +77,15 @@ func (env *Env) run(funcName string, args starlark.Tuple) (starlark.Value, error
 	return v, nil
 }
 
-func (env *Env) Run(input []map[string]interface{}) (*check.Result, error) {
+// Run executes function 'check' with given query results.
+// Id is used to separate that execution from other and used only for debugging.
+func (env *Env) Run(id string, input []map[string]interface{}) (*check.Result, error) {
 	rows, err := prepareInput(input)
 	if err != nil {
 		return nil, err
 	}
 
-	v, err := env.run("check", starlark.Tuple{rows})
+	v, err := env.run(id, "check", starlark.Tuple{rows})
 	if err != nil {
 		return nil, err
 	}

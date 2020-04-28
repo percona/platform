@@ -1,11 +1,13 @@
 package starlark
 
 import (
+	"bytes"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.starlark.net/starlark"
 
 	"github.com/percona-platform/platform/pkg/check"
 )
@@ -43,7 +45,7 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "YES"},
 		}
 
-		res, err := env.Run(input)
+		res, err := env.Run(t.Name(), input)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -60,7 +62,7 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
-		res, err := env.Run(input)
+		res, err := env.Run(t.Name(), input)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -72,8 +74,39 @@ def check(rows):
 	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		res, err := env.Run(nil)
+		res, err := env.Run(t.Name(), nil)
 		assert.EqualError(t, err, "unhandled result type starlark.NoneType")
 		assert.Nil(t, res)
 	})
+}
+
+func TestPrint(t *testing.T) {
+	t.Parallel()
+
+	script := strings.TrimSpace(`
+def test2():
+    print("hello from test2")
+
+def test1():
+    print("hello from test1")
+    test2()
+
+print("hello from main")
+	`) + "\n"
+
+	env, err := NewEnv(t.Name(), script)
+	require.NoError(t, err)
+
+	var buf bytes.Buffer
+	env.Print = func(msg string) { _, _ = buf.WriteString(msg) }
+
+	res, err := env.run("id", "test1", nil)
+	require.NoError(t, err)
+	assert.Equal(t, starlark.None, res)
+	expected := strings.TrimSpace(`
+id TestPrint:8:6 <toplevel>: hello from main
+id TestPrint:5:10 test1: hello from test1
+id TestPrint:2:10 test2: hello from test2
+	`) + "\n"
+	assert.Equal(t, expected, buf.String())
 }
