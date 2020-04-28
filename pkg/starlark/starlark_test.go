@@ -49,18 +49,13 @@ def check(rows):
 		t.Parallel()
 
 		input := []map[string]interface{}{
-			{"Variable_name": "have_ssl", "Value": "NO"},
+			{"Variable_name": "have_ssl", "Value": "YES"},
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
 		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
 		expected := []check.Result{
-			{
-				Severity:    check.Warning,
-				Description: "description text",
-				Summary:     "expected have_ssl to be YES, got NO",
-			},
 			{
 				Severity:    check.Warning,
 				Description: "description text",
