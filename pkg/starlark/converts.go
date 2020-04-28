@@ -44,7 +44,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) {
 	}
 }
 
-func goToStarlarkList(v []interface{}) (starlark.Value, error) {
+func goToStarlarkList(v []interface{}) (*starlark.List, error) {
 	l := make([]starlark.Value, len(v))
 	for i, o := range v {
 		sv, err := goToStarlark(o)
@@ -56,7 +56,7 @@ func goToStarlarkList(v []interface{}) (starlark.Value, error) {
 	return starlark.NewList(l), nil
 }
 
-func goToStarlarkDict(v map[string]interface{}) (starlark.Value, error) {
+func goToStarlarkDict(v map[string]interface{}) (*starlark.Dict, error) {
 	sd := starlark.NewDict(len(v))
 	for k, o := range v {
 		sv, err := goToStarlark(o)
@@ -70,7 +70,7 @@ func goToStarlarkDict(v map[string]interface{}) (starlark.Value, error) {
 	return sd, nil
 }
 
-func goToStarlarkSetBool(v map[bool]struct{}) (starlark.Value, error) {
+func goToStarlarkSetBool(v map[bool]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
 		err := ss.Insert(starlark.Bool(k))
@@ -81,7 +81,7 @@ func goToStarlarkSetBool(v map[bool]struct{}) (starlark.Value, error) {
 	return ss, nil
 }
 
-func goToStarlarkSetInt(v map[int64]struct{}) (starlark.Value, error) {
+func goToStarlarkSetInt(v map[int64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
 		err := ss.Insert(starlark.MakeInt64(k))
@@ -92,7 +92,7 @@ func goToStarlarkSetInt(v map[int64]struct{}) (starlark.Value, error) {
 	return ss, nil
 }
 
-func goToStarlarkSetUint(v map[uint64]struct{}) (starlark.Value, error) {
+func goToStarlarkSetUint(v map[uint64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
 		err := ss.Insert(starlark.MakeUint64(k))
@@ -103,7 +103,7 @@ func goToStarlarkSetUint(v map[uint64]struct{}) (starlark.Value, error) {
 	return ss, nil
 }
 
-func goToStarlarkSetFloat(v map[float64]struct{}) (starlark.Value, error) {
+func goToStarlarkSetFloat(v map[float64]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
 		err := ss.Insert(starlark.Float(k))
@@ -114,7 +114,7 @@ func goToStarlarkSetFloat(v map[float64]struct{}) (starlark.Value, error) {
 	return ss, nil
 }
 
-func goToStarlarkSetString(v map[string]struct{}) (starlark.Value, error) {
+func goToStarlarkSetString(v map[string]struct{}) (*starlark.Set, error) {
 	ss := starlark.NewSet(len(v))
 	for k := range v {
 		err := ss.Insert(starlark.String(k))
