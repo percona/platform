@@ -4,6 +4,9 @@ package app
 
 import (
 	"context"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"go.uber.org/zap"
 
@@ -18,15 +21,25 @@ func Context() context.Context {
 	ctx = logger.GetCtxWithLogger(ctx, l)
 
 	_ = cancel
-	// TODO
-	// signals := make(chan os.Signal, 1)
-	// signal.Notify(signals, unix.SIGTERM, unix.SIGINT)
-	// go func() {
-	// 	s := <-signals
-	// 	signal.Stop(signals)
-	// 	l.Sugar().Warnf("Got %s, shutting down...", unix.SignalName(s.(unix.Signal)))
-	// 	cancel()
-	// }()
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGTERM, syscall.SIGINT)
+	go func() {
+		s := <-signals
+		signal.Stop(signals)
+		l.Sugar().Warnf("Got %s, shutting down...", signalName(s))
+		cancel()
+	}()
 
 	return ctx
+}
+
+func signalName(s os.Signal) string {
+	switch s {
+	case syscall.Signal(0x2):
+		return "SIGINT"
+	case syscall.Signal(0xf):
+		return "SIGTERM"
+	default:
+		return ""
+	}
 }
