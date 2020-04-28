@@ -210,6 +210,7 @@ func (s Severity) String() string {
 	}
 }
 
+// StrToSeverity casts string to Severity.
 func StrToSeverity(s string) Severity {
 	switch strings.TrimSpace(strings.ToLower(s)) {
 	case "emergency":

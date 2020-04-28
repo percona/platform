@@ -35,47 +35,44 @@ func Run(name, script string, input []map[string]interface{}) ([]check.Result, e
 		return nil, errors.Wrap(err, "failed to execute check function")
 	}
 
+	return parseScriptOutput(v)
+}
+
+// parseScriptOutput parses and validates script output and returns slice of Results.
+func parseScriptOutput(v starlark.Value) ([]check.Result, error) {
 	switch v := v.(type) {
 	case starlark.Tuple:
-		res, errMsg, err := parseScriptOutput(v)
+		if v.Len() != 2 {
+			return nil, errors.New("script has invalid output")
+		}
+
+		errMsg, err := parseErrorMessage(v.Index(1))
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "failed to parse error message")
 		}
 
 		if errMsg != "" {
 			return nil, errors.Errorf("script error: %s", errMsg)
 		}
 
-		return res, nil
+		results, err := parseResults(v.Index(0))
+		if err != nil {
+			return nil, errors.Wrap(err, "failed to parse results list")
+		}
+
+		for _, result := range results {
+			if err = result.Validate(); err != nil {
+				return nil, err
+			}
+		}
+
+		return results, nil
 	default:
 		return nil, errors.Errorf("unhandled result type %T", v)
 	}
 }
 
-func parseScriptOutput(v starlark.Tuple) ([]check.Result, string, error) {
-	if v.Len() != 2 {
-		return nil, "", errors.New("script has invalid output")
-	}
-
-	errMsg, err := parseErrorMessage(v.Index(1))
-	if err != nil {
-		return nil, "", errors.Wrap(err, "failed to parse error message")
-	}
-
-	results, err := parseResults(v.Index(0))
-	if err != nil {
-		return nil, "", errors.Wrap(err, "failed to parse results list")
-	}
-
-	for _, result := range results {
-		if err = result.Validate(); err != nil {
-			return nil, "", err
-		}
-	}
-
-	return results, errMsg, nil
-}
-
+// parseResults returns slice of results parsed from starlark value.
 func parseResults(v starlark.Value) ([]check.Result, error) {
 	var results []check.Result
 
@@ -125,6 +122,7 @@ func parseResults(v starlark.Value) ([]check.Result, error) {
 	return results, nil
 }
 
+// parseErrorMessage returns error message parsed from starlark value.
 func parseErrorMessage(v starlark.Value) (string, error) {
 	val, err := starlarkToGo(v)
 	if err != nil {
