@@ -122,8 +122,20 @@ func (c *Check) validate() error {
 		return err
 	}
 
+	if err := c.validateScript(); err != nil {
+		return err
+	}
+
 	if c.Script == "" {
 		return errors.New("check script is empty")
+	}
+
+	return nil
+}
+
+func (c *Check) validateScript() error {
+	if strings.ContainsRune(c.Script, '\t') {
+		return errors.New("script should use spaces for indentation, not tabs")
 	}
 
 	return nil

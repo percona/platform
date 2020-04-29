@@ -161,6 +161,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check:  &Check{Name: "test check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
 			errStr: "check script is empty",
 		},
+		{
+			name:   "script_with_tabs",
+			check:  &Check{Name: "test check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args):\tpass"},
+			errStr: "script should use spaces for indentation, not tabs",
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
