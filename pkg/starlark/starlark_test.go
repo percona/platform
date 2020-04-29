@@ -180,7 +180,7 @@ Traceback (most recent call last):
 	t.Run("Hang", func(t *testing.T) {
 		t.Parallel()
 
-		script := `[7]*714748364`
+		script := `def foo(): return [1] * (1 << 30-1)` // one less that maxAlloc in starlark
 		addToFuzzCorpus(t.Name(), script, nil)
 		env, err := NewEnv(t.Name(), script)
 		require.NoError(t, err)
