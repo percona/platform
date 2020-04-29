@@ -75,6 +75,7 @@ jobs:
           # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
           # and actually expected for PRs made by @dependabot.
           # Checksums of actually used modules are checked by previous `go` subcommands.
+          make gen-code
           go mod tidy
           git checkout go.sum
           git diff --exit-code
@@ -157,6 +158,7 @@ jobs:
           # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
           # and actually expected for PRs made by @dependabot.
           # Checksums of actually used modules are checked by previous `go` subcommands.
+          make gen-code
           go mod tidy
           git checkout go.sum
           git diff --exit-code
