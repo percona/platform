@@ -98,6 +98,21 @@ func TestRunInvalidScript(t *testing.T) {
 		assert.EqualError(t, err, expected)
 	})
 
+	t.Run("Init", func(t *testing.T) {
+		t.Parallel()
+
+		script := `""[1]`
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
+		require.NoError(t, err)
+
+		res, err := env.run("bar", nil, "id", t.Log)
+		assert.Nil(t, res)
+
+		expected := "[id] failed to init script: index 1 out of range: empty string"
+		assert.EqualError(t, err, expected)
+	})
+
 	t.Run("Undefined", func(t *testing.T) {
 		t.Parallel()
 

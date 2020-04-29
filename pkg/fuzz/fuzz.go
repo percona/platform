@@ -38,7 +38,7 @@ func AddToCorpus(prefix string, b []byte) {
 	}
 
 	path := filepath.Join(dir, file)
-	if err := ioutil.WriteFile(path, b, 0640); err != nil {
+	if err := ioutil.WriteFile(path, b, 0640); err != nil { //nolint:gosec
 		panic(err)
 	}
 }
