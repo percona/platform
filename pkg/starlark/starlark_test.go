@@ -34,9 +34,9 @@ def check(rows):
 	return {}
 	`) + "\n"
 
+	addToFuzzCorpus(t.Name(), script, nil)
 	env, err := NewEnv(t.Name(), script)
 	require.NoError(t, err)
-	env.Print = func(msg string) { t.Log(msg) }
 
 	t.Run("Success", func(t *testing.T) {
 		t.Parallel()
@@ -46,7 +46,8 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "YES"},
 		}
 
-		res, err := env.Run(t.Name(), input)
+		addToFuzzCorpus(t.Name(), script, input)
+		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -63,7 +64,8 @@ def check(rows):
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
-		res, err := env.Run(t.Name(), input)
+		addToFuzzCorpus(t.Name(), script, input)
+		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
 		expected := &check.Result{
 			Status:  "status",
@@ -75,7 +77,7 @@ def check(rows):
 	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		res, err := env.Run(t.Name(), nil)
+		res, err := env.Run(t.Name(), nil, t.Log)
 		assert.EqualError(t, err, "unhandled result type starlark.NoneType")
 		assert.Nil(t, res)
 	})
@@ -87,53 +89,63 @@ func TestRunInvalidScript(t *testing.T) {
 	t.Run("Parse", func(t *testing.T) {
 		t.Parallel()
 
-		env, err := NewEnv(t.Name(), `foo`)
+		script := `def foo(): bar()`
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
 		assert.Nil(t, env)
 
-		expected := "failed to parse script: TestRunInvalidScript/Parse:1:1: undefined: foo"
+		expected := "failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: bar"
 		assert.EqualError(t, err, expected)
 	})
 
 	t.Run("Undefined", func(t *testing.T) {
 		t.Parallel()
 
-		env, err := NewEnv(t.Name(), `def foo(): pass`)
+		script := `def foo(): pass`
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
 		require.NoError(t, err)
 
-		res, err := env.run("id", "bar", nil)
+		res, err := env.run("bar", nil, "id", t.Log)
 		assert.Nil(t, res)
 
-		expected := "id: function bar is not defined"
+		expected := "[id] function bar is not defined"
 		assert.EqualError(t, err, expected)
-
-		expected = "id: function bar is not defined"
-		assert.Equal(t, expected, fmt.Sprintf("%+v", err))
 	})
 
 	t.Run("Execute", func(t *testing.T) {
 		t.Parallel()
 
-		env, err := NewEnv(t.Name(), `def foo(): 0/0`)
+		script := `def foo(): 0/0`
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
 		require.NoError(t, err)
 
-		res, err := env.run("id", "foo", nil)
+		res, err := env.run("foo", nil, "id", t.Log)
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-id: failed to execute function foo
+[id] failed to execute function foo
 Traceback (most recent call last):
   TestRunInvalidScript/Execute:1:13: in foo
 : real division by zero
 		`)
 		assert.EqualError(t, err, expected)
+	})
 
-		expected = strings.TrimSpace(`
-id: failed to execute function foo
-Traceback (most recent call last):
-  TestRunInvalidScript/Execute:1:13: in foo
-: real division by zero
-		`)
-		assert.Equal(t, expected, fmt.Sprintf("%+v", err))
+	t.Run("Hang", func(t *testing.T) {
+		t.Parallel()
+
+		script := `[7]*714748364`
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
+		require.NoError(t, err)
+
+		_ = env
+		t.Skip("https://jira.percona.com/browse/SAAS-63")
+
+		_, err = env.run("foo", nil, "id", t.Log)
+		assert.EqualError(t, err, "context timeout or something")
 	})
 }
 
@@ -151,20 +163,23 @@ def test1():
 print("hello from main")
 	`) + "\n"
 
+	addToFuzzCorpus(t.Name(), script, nil)
 	env, err := NewEnv(t.Name(), script)
 	require.NoError(t, err)
 
 	var buf bytes.Buffer
-	env.Print = func(msg string) { _, _ = buf.WriteString(msg) }
+	print := func(args ...interface{}) {
+		_, _ = buf.WriteString(fmt.Sprintln(args...))
+	}
 
-	res, err := env.run("id", "test1", nil)
+	res, err := env.run("test1", nil, "id", print)
 	require.NoError(t, err)
 	assert.Equal(t, starlark.None, res)
 
 	expected := strings.TrimSpace(`
-id TestPrint:8:6 <toplevel>: hello from main
-id TestPrint:5:10 test1: hello from test1
-id TestPrint:2:10 test2: hello from test2
+[id] TestPrint:8:6: in <toplevel>: hello from main
+[id] TestPrint:5:10: in test1: hello from test1
+[id] TestPrint:2:10: in test2: hello from test2
 	`) + "\n"
 	assert.Equal(t, expected, buf.String())
 }
