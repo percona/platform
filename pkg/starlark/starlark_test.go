@@ -89,12 +89,12 @@ func TestRunInvalidScript(t *testing.T) {
 	t.Run("Parse", func(t *testing.T) {
 		t.Parallel()
 
-		script := `def foo(): bar()`
+		script := `def foo(): parse_version("2.6.0")`
 		addToFuzzCorpus(t.Name(), script, nil)
 		env, err := NewEnv(t.Name(), script)
 		assert.Nil(t, env)
 
-		expected := "failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: bar"
+		expected := "failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version"
 		assert.EqualError(t, err, expected)
 	})
 

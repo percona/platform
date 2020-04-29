@@ -54,7 +54,10 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 		}
 	}
 
-	globals, err := env.p.Init(thread, nil)
+	predeclared := starlark.StringDict{}
+	predeclared.Freeze()
+
+	globals, err := env.p.Init(thread, predeclared)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
 			// tweak message, but keep original type, callstack, and cause
