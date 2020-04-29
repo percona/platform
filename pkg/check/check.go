@@ -224,8 +224,7 @@ func StrToSeverity(s string) Severity {
 	}
 }
 
-// Result represents check result that has status and message.
-// In case of FAIL status, message should contain reason.
+// Result represents a single check script result that is used to generate alert.
 type Result struct {
 	Summary     string
 	Description string
