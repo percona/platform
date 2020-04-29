@@ -15,6 +15,7 @@ func TestCheck_Parse(t *testing.T) {
 ---
 checks:
   - version: 1
+    name: mysql_check
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -22,6 +23,7 @@ checks:
             pass
 
   - version: 2
+    name: postgresql_check
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -50,6 +52,7 @@ checks:
 ---
 checks:
   - version: 1
+    name: mysql_check
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -58,6 +61,7 @@ checks:
 ---
 checks:
   - version: 2
+    name: postgresql_check
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -89,68 +93,83 @@ func TestCheck_CheckValidate(t *testing.T) {
 	}{
 		{
 			name:   "mysql_show",
-			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mysql_select",
-			check:  &Check{Type: MySQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MySQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_show",
-			check:  &Check{Type: PostgreSQLShow, Query: "", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: PostgreSQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "postgresql_select",
-			check:  &Check{Type: PostgreSQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: PostgreSQLSelect, Query: "id, name FROM table WHERE id=123;", Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mongodb_get_parameter",
-			check:  &Check{Type: MongoDBGetParameter, Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MongoDBGetParameter, Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "mongodb_build_info",
-			check:  &Check{Type: MongoDBBuildInfo, Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MongoDBBuildInfo, Script: "def func(args): pass"},
 			errStr: "",
 		},
 		{
 			name:   "clickhouse_show",
-			check:  &Check{Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
 		},
 		{
+			name:   "empty_name",
+			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			errStr: "invalid check name",
+		},
+		{
+			name:   "invalid_name",
+			check:  &Check{Name: "test check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			errStr: "invalid check name",
+		},
+		{
 			name:   "empty_type",
-			check:  &Check{Type: "", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: "", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "check type is empty",
 		},
 		{
 			name:   "empty_query",
-			check:  &Check{Type: MySQLShow, Query: "", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MySQLShow, Query: "", Script: "def func(args): pass"},
 			errStr: "check query is empty",
 		},
 		{
 			name:   "non_empty_query_for_postgresql_show",
-			check:  &Check{Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: PostgreSQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
 		},
 		{
 			name:   "non_empty_query_for_mongodb_get_parameter",
-			check:  &Check{Type: MongoDBGetParameter, Query: "some query", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MongoDBGetParameter, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_GETPARAMETER check type should have empty query",
 		},
 		{
 			name:   "non_empty_query_for_mongodb_build_info",
-			check:  &Check{Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
+			check:  &Check{Name: "test_check", Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
 		},
 		{
 			name:   "empty_script",
-			check:  &Check{Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
+			check:  &Check{Name: "test_check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: ""},
 			errStr: "check script is empty",
+		},
+		{
+			name:   "script_with_tabs",
+			check:  &Check{Name: "test_check", Type: MySQLShow, Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args):\tpass"},
+			errStr: "script should use spaces for indentation, not tabs",
 		},
 	}
 	for _, tt := range tests {
@@ -175,29 +194,19 @@ func TestCheck_ResultValidate(t *testing.T) {
 		errStr string
 	}{
 		{
-			name:   "success_result_without_message",
-			result: &Result{Status: Success, Message: ""},
+			name:   "normal",
+			result: &Result{Severity: Info, Summary: "some text"},
 			errStr: "",
 		},
 		{
-			name:   "success_result_with_message",
-			result: &Result{Status: Success, Message: "everything is fine!"},
-			errStr: "",
+			name:   "unknown_severity",
+			result: &Result{Severity: Severity(123), Summary: "some text"},
+			errStr: "unknown result severity: Severity(123)",
 		},
 		{
-			name:   "failed_result_with_message",
-			result: &Result{Status: Fail, Message: "something bad happened!"},
-			errStr: "",
-		},
-		{
-			name:   "failed_result_without_message",
-			result: &Result{Status: Fail, Message: ""},
-			errStr: "failed check result should have message",
-		},
-		{
-			name:   "empty_status",
-			result: &Result{Status: "", Message: ""},
-			errStr: "result status is empty",
+			name:   "empty_summary",
+			result: &Result{Severity: Info},
+			errStr: "summary is empty",
 		},
 	}
 
@@ -212,6 +221,36 @@ func TestCheck_ResultValidate(t *testing.T) {
 			}
 
 			assert.NoError(t, err)
+		})
+	}
+}
+
+func TestCheck_StrToSeverity(t *testing.T) {
+	tests := []struct {
+		name     string
+		str      string
+		severity Severity
+	}{
+		{name: "normal", str: "Emergency", severity: Emergency},
+		{name: "first lowercase ", str: "alert", severity: Alert},
+		{name: "first space", str: " critical", severity: Critical},
+		{name: "last tabs", str: "Error		", severity: Error},
+		{name: "all capital", str: "WARNING", severity: Warning},
+		{name: "normal", str: "notice", severity: Notice},
+		{name: "normal", str: "Info", severity: Info},
+		{name: "normal", str: "Debug", severity: Debug},
+		{name: "normal", str: "Unknown", severity: Unknown},
+		{name: "empty string", str: "", severity: Unknown},
+		{name: "spaces", str: "     ", severity: Unknown},
+		{name: "unknown", str: "awesome", severity: Unknown},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			actual := StrToSeverity(tt.str)
+
+			assert.Equal(t, tt.severity, actual)
 		})
 	}
 }
