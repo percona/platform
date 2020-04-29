@@ -59,18 +59,21 @@ func (env *Env) run(threadName, funcName string, args starlark.Tuple) (starlark.
 
 	globals, err := env.p.Init(thread, nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to init script")
+		return nil, errors.Wrapf(err, "%s: failed to init script", threadName)
 	}
 	globals.Freeze()
 
 	fn := globals[funcName]
 	if fn == nil {
-		return nil, errors.Errorf("function %s is not defined", funcName)
+		return nil, errors.Errorf("%s: function %s is not defined", threadName, funcName)
 	}
 
 	v, err := starlark.Call(thread, fn, args, nil)
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to execute function %s", funcName)
+		if ee, ok := err.(*starlark.EvalError); ok {
+			return nil, errors.Wrapf(err, "%s: failed to execute function %s\n%s", threadName, funcName, ee.CallStack.String())
+		}
+		return nil, errors.Wrapf(err, "%s: failed to execute function %s", threadName, funcName)
 	}
 
 	v.Freeze()
