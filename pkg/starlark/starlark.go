@@ -54,6 +54,9 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 
 	globals, err := env.p.Init(thread, nil)
 	if err != nil {
+		if ee, ok := err.(*starlark.EvalError); ok {
+			return nil, errors.Wrapf(err, "[%s] failed to init script\n%s", threadName, ee.CallStack)
+		}
 		return nil, errors.Wrapf(err, "[%s] failed to init script", threadName)
 	}
 	globals.Freeze()
@@ -66,7 +69,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	v, err := starlark.Call(thread, fn, args, nil)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
-			return nil, errors.Wrapf(err, "[%s] failed to execute function %s\n%s", threadName, funcName, ee.CallStack.String())
+			return nil, errors.Wrapf(err, "[%s] failed to execute function %s\n%s", threadName, funcName, ee.CallStack)
 		}
 		return nil, errors.Wrapf(err, "[%s]: failed to execute function %s", threadName, funcName)
 	}

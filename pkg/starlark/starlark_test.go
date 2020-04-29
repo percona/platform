@@ -109,7 +109,12 @@ func TestRunInvalidScript(t *testing.T) {
 		res, err := env.run("bar", nil, "id", t.Log)
 		assert.Nil(t, res)
 
-		expected := "[id] failed to init script: index 1 out of range: empty string"
+		expected := strings.TrimSpace(`
+[id] failed to init script
+Traceback (most recent call last):
+  TestRunInvalidScript/Init:1:3: in <toplevel>
+: index 1 out of range: empty string
+		`)
 		assert.EqualError(t, err, expected)
 	})
 
