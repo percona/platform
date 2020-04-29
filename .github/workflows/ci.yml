@@ -61,6 +61,9 @@ jobs:
       - name: Download Go modules
         run: go mod download
 
+      - name: Install tools
+        run: make init
+
       - name: Generate code using dev docker image
         run: make gen-dev
 
