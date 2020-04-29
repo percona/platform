@@ -110,11 +110,10 @@ func TestRunInvalidScript(t *testing.T) {
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-[id] failed to init script
+[id] failed to init script: index 1 out of range: empty string
 Traceback (most recent call last):
   TestRunInvalidScript/Init:1:3: in <toplevel>
-: index 1 out of range: empty string
-		`)
+		`) + "\n"
 		assert.EqualError(t, err, expected)
 	})
 
@@ -145,11 +144,10 @@ Traceback (most recent call last):
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-[id] failed to execute function foo
+[id] failed to execute function foo: real division by zero
 Traceback (most recent call last):
   TestRunInvalidScript/Execute:1:13: in foo
-: real division by zero
-		`)
+		`) + "\n"
 		assert.EqualError(t, err, expected)
 	})
 

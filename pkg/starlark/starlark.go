@@ -2,6 +2,8 @@
 package starlark
 
 import (
+	"fmt"
+
 	"github.com/pkg/errors"
 	"go.starlark.net/resolve"
 	"go.starlark.net/starlark"
@@ -55,7 +57,10 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	globals, err := env.p.Init(thread, nil)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
-			return nil, errors.Wrapf(err, "[%s] failed to init script\n%s", threadName, ee.CallStack)
+			// tweak message, but keep original type, callstack, and cause
+			ee.Msg = fmt.Sprintf("[%s] failed to init script: %s\n%s",
+				threadName, ee.Msg, ee.CallStack)
+			return nil, ee
 		}
 		return nil, errors.Wrapf(err, "[%s] failed to init script", threadName)
 	}
@@ -69,7 +74,10 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	v, err := starlark.Call(thread, fn, args, nil)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
-			return nil, errors.Wrapf(err, "[%s] failed to execute function %s\n%s", threadName, funcName, ee.CallStack)
+			// tweak message, but keep original type, callstack, and cause
+			ee.Msg = fmt.Sprintf("[%s] failed to execute function %s: %s\n%s",
+				threadName, funcName, ee.Msg, ee.CallStack)
+			return nil, ee
 		}
 		return nil, errors.Wrapf(err, "[%s]: failed to execute function %s", threadName, funcName)
 	}
