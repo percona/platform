@@ -170,7 +170,7 @@ func (c *Check) validateType() error {
 	}
 }
 
-//go:generate stringer -type=Severity -linecomment
+//go:generate ../../bin/stringer -type=Severity -linecomment
 
 // Severity represents severity level.
 type Severity int
