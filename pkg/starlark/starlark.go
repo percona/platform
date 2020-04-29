@@ -92,7 +92,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check' with given query results.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) (*check.Result, error) {
+func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) ([]check.Result, error) {
 	rows, err := prepareInput(input)
 	if err != nil {
 		return nil, err
@@ -103,16 +103,7 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) 
 		return nil, err
 	}
 
-	switch v := v.(type) {
-	case *starlark.Dict:
-		// TODO https://jira.percona.com/browse/SAAS-84
-		return &check.Result{
-			Status:  "status",
-			Message: "message",
-		}, nil
-	default:
-		return nil, errors.Errorf("unhandled result type %T", v)
-	}
+	return parseScriptOutput(v)
 }
 
 func prepareInput(input []map[string]interface{}) (*starlark.List, error) {
