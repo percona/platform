@@ -6,6 +6,7 @@ import (
 	"crypto/ed25519"
 	"encoding/base64"
 	"io"
+	"regexp"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -108,10 +109,14 @@ type Check struct {
 	Script  string `yaml:"script"`
 }
 
+// the same as Prometheus label format
+//nolint:gochecknoglobals
+var nameRE = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
+
 // validate validates check for minimal correctness.
 func (c *Check) validate() error {
-	if c.Name == "" {
-		return errors.New("check name is empty")
+	if !nameRE.MatchString(c.Name) {
+		return errors.New("invalid check name")
 	}
 
 	if err := c.validateType(); err != nil {
