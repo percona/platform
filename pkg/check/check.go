@@ -170,45 +170,23 @@ func (c *Check) validateType() error {
 	}
 }
 
+//go:generate stringer -type=Severity -linecomment
+
 // Severity represents severity level.
 type Severity int
 
 // Supported severity levels.
 const (
-	Unknown Severity = iota
-	Emergency
-	Alert
-	Critical
-	Error
-	Warning
-	Notice
-	Info
-	Debug
+	Unknown   Severity = iota // unknown
+	Emergency                 // emergency
+	Alert                     // alert
+	Critical                  // critical
+	Error                     // error
+	Warning                   // warning
+	Notice                    // notice
+	Info                      // info
+	Debug                     // debug
 )
-
-// String returns name of severity level.
-func (s Severity) String() string {
-	switch s {
-	case Emergency:
-		return "Emergency"
-	case Alert:
-		return "Alert"
-	case Critical:
-		return "Critical"
-	case Error:
-		return "Error"
-	case Warning:
-		return "Warning"
-	case Notice:
-		return "Notice"
-	case Info:
-		return "Info"
-	case Debug:
-		return "Debug"
-	default:
-		return "Unknown"
-	}
-}
 
 // StrToSeverity casts string to Severity.
 func StrToSeverity(s string) Severity {

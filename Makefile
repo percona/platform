@@ -30,6 +30,9 @@ gen-dev: docker-build                      ## Same as `gen` but with DEV protoco
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 	sudo chown -R runner:docker gen
 
+gen-code:                                 ## Generate code
+	go generate ./...
+
 format:                                    ## Format source code
 	gofmt -w -s .
 	bin/goimports -local github.com/percona-platform/platform -l -w .

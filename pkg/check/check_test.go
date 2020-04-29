@@ -191,7 +191,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 		{
 			name:   "unknown_severity",
 			result: &Result{Severity: Severity(123), Summary: "some text"},
-			errStr: "unknown result severity: Unknown",
+			errStr: "unknown result severity: Severity(123)",
 		},
 		{
 			name:   "empty_summary",
