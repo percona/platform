@@ -11,6 +11,12 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
+// Recover from panics in production code (we don't want all PMMs to crash after SaaS update),
+// but crash in tests and during fuzzing.
+// TODO Remove completely once Starlark is running in a separete process: https://jira.percona.com/browse/SAAS-63
+//nolint:gochecknoglobals
+var doRecover = true
+
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.
 type PrintFunc func(args ...interface{})
 
@@ -20,18 +26,29 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string) (*Env, error) {
+func NewEnv(name, script string) (env *Env, err error) {
+	if doRecover {
+		defer func() {
+			if r := recover(); r != nil {
+				err = errors.Errorf("%v", r)
+			}
+		}()
+	}
+
 	predeclared := starlark.StringDict{}
 	predeclared.Freeze()
 
-	_, p, err := starlark.SourceProgram(name, script, predeclared.Has)
+	var p *starlark.Program
+	_, p, err = starlark.SourceProgram(name, script, predeclared.Has)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to parse script")
+		err = errors.Wrap(err, "failed to parse script")
+		return
 	}
 
-	return &Env{
+	env = &Env{
 		p: p,
-	}, nil
+	}
+	return
 }
 
 // noopPrint is a no-op 'print' implementation.
@@ -90,18 +107,29 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check' with given query results.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) ([]check.Result, error) {
-	rows, err := prepareInput(input)
-	if err != nil {
-		return nil, err
+func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) (res []check.Result, err error) {
+	if doRecover {
+		defer func() {
+			if r := recover(); r != nil {
+				err = errors.Errorf("%v", r)
+			}
+		}()
 	}
 
-	v, err := env.run("check", starlark.Tuple{rows}, id, print)
+	var rows *starlark.List
+	rows, err = prepareInput(input)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	return parseScriptOutput(v)
+	var output starlark.Value
+	output, err = env.run("check", starlark.Tuple{rows}, id, print)
+	if err != nil {
+		return
+	}
+
+	res, err = parseScriptOutput(output)
+	return
 }
 
 func prepareInput(input []map[string]interface{}) (*starlark.List, error) {

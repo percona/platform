@@ -10,6 +10,11 @@ import (
 	"go.starlark.net/starlark"
 )
 
+//nolint:gochecknoinits
+func init() {
+	doRecover = false
+}
+
 func TestConvert(t *testing.T) {
 	t.Parallel()
 

@@ -13,6 +13,11 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
+//nolint:gochecknoinits
+func init() {
+	doRecover = false
+}
+
 func TestRunValidScript(t *testing.T) {
 	t.Parallel()
 
