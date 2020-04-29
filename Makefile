@@ -19,7 +19,7 @@ init:                                      ## Install development tools
 
 gen:                                       ## Format, check, and generate using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break check api/check -f api/check/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
 
 	rm -rf gen
 	$(DOCKER_RUN_CMD) prototool all api
@@ -46,7 +46,7 @@ test:                                      ## Run tests
 
 descriptors:                               ## Update files used for breaking changes detection
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check -o api/check/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check/retrieval -o api/check/retrieval/descriptor.bin
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
@@ -63,10 +63,10 @@ saas:                                      ## Extract public APIs and generated 
 	rm -rf ../saas/api ../saas/gen ../saas/pkg
 	mkdir ../saas/api ../saas/gen ../saas/pkg
 
-	cp -R api/checked ../saas/api
+	cp -R api/check/retrieval ../saas/api
 	cp -R api/telemetry ../saas/api
 
-	cp -R gen/checked ../saas/gen
+	cp -R gen/check/retrieval ../saas/gen
 	cp -R gen/telemetry ../saas/gen
 
 	cp -R pkg/check ../saas/pkg
