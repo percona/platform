@@ -195,7 +195,10 @@ func parseResults(v starlark.Value) ([]check.Result, error) {
 
 	results := make([]check.Result, len(rs))
 	for i, r := range rs {
-		m := r.(map[string]interface{})
+		m, ok := r.(map[string]interface{})
+		if !ok {
+			return nil, errors.Errorf("result %d has wrong type: %T", i, r)
+		}
 		var sum, desc string
 		var sev check.Severity
 

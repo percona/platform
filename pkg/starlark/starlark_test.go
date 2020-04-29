@@ -191,6 +191,28 @@ Traceback (most recent call last):
 		_, err = env.run("foo", nil, "id", t.Log)
 		assert.EqualError(t, err, "context timeout or something")
 	})
+
+	t.Run("InvalidResult", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return ([1], "")
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script)
+		require.NoError(t, err)
+
+		input := []map[string]interface{}{
+			{"Variable_name": "have_openssl", "Value": "YES"},
+			{"Variable_name": "have_ssl", "Value": "YES"},
+		}
+
+		addToFuzzCorpus(t.Name(), script, input)
+		_, err = env.Run(t.Name(), input, t.Log)
+		assert.EqualError(t, err, "failed to parse results list: result 0 has wrong type: int64")
+	})
 }
 
 func TestPrint(t *testing.T) {
