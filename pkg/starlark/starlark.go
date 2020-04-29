@@ -74,8 +74,6 @@ func parseScriptOutput(v starlark.Value) ([]check.Result, error) {
 
 // parseResults returns slice of results parsed from starlark value.
 func parseResults(v starlark.Value) ([]check.Result, error) {
-	var results []check.Result
-
 	val, err := starlarkToGo(v)
 	if err != nil {
 		return nil, err
@@ -86,7 +84,8 @@ func parseResults(v starlark.Value) ([]check.Result, error) {
 		return nil, errors.Errorf("results list has wrong type: %T", val)
 	}
 
-	for _, r := range rs {
+	results := make([]check.Result, len(rs))
+	for i, r := range rs {
 		m := r.(map[string]interface{})
 		var sum, desc string
 		var sev check.Severity
@@ -112,11 +111,11 @@ func parseResults(v starlark.Value) ([]check.Result, error) {
 			sev = check.StrToSeverity(sevS)
 		}
 
-		results = append(results, check.Result{
+		results[i] = check.Result{
 			Summary:     sum,
 			Description: desc,
 			Severity:    sev,
-		})
+		}
 	}
 
 	return results, nil
