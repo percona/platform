@@ -64,10 +64,10 @@ saas:                                      ## Extract public APIs and generated 
 	rm -rf ../saas/api ../saas/gen ../saas/pkg
 	mkdir ../saas/api ../saas/gen ../saas/pkg
 
-	cp -R api/check/retrieval ../saas/api
+	cp -R api/check ../saas/api
 	cp -R api/telemetry ../saas/api
 
-	cp -R gen/check/retrieval ../saas/gen
+	cp -R gen/check ../saas/gen
 	cp -R gen/telemetry ../saas/gen
 
 	cp -R pkg/check ../saas/pkg
