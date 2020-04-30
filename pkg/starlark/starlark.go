@@ -13,20 +13,24 @@ import (
 
 // Recover from panics in production code (we don't want all PMMs to crash after SaaS update),
 // but crash in tests and during fuzzing.
-// TODO Remove completely once Starlark is running in a separete process: https://jira.percona.com/browse/SAAS-63
+// TODO Remove completely once Starlark is running in a separate process: https://jira.percona.com/browse/SAAS-63
 //nolint:gochecknoglobals
 var doRecover = true
 
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.
 type PrintFunc func(args ...interface{})
 
+// GoFunc represent a Go function that can be registered in Starlark environment.
+type GoFunc func(args ...interface{}) (interface{}, error)
+
 // Env represents Starlark execution environment.
 type Env struct {
-	p *starlark.Program
+	p           *starlark.Program
+	predeclared starlark.StringDict
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string) (env *Env, err error) {
+func NewEnv(name, script string, goFuncs map[string]GoFunc) (env *Env, err error) {
 	if doRecover {
 		defer func() {
 			if r := recover(); r != nil {
@@ -35,7 +39,9 @@ func NewEnv(name, script string) (env *Env, err error) {
 		}()
 	}
 
-	predeclared := starlark.StringDict{}
+	predeclared := make(starlark.StringDict, len(goFuncs))
+	// TODO register goFuncs
+	// https://github.com/google/starlark-go/blob/be5394c419b6941c14d194a98925a71512f8f979/starlark/example_test.go#L31
 	predeclared.Freeze()
 
 	var p *starlark.Program
@@ -46,7 +52,8 @@ func NewEnv(name, script string) (env *Env, err error) {
 	}
 
 	env = &Env{
-		p: p,
+		p:           p,
+		predeclared: predeclared,
 	}
 	return
 }
@@ -71,10 +78,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 		}
 	}
 
-	predeclared := starlark.StringDict{}
-	predeclared.Freeze()
-
-	globals, err := env.p.Init(thread, predeclared)
+	globals, err := env.p.Init(thread, env.predeclared)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
 			// tweak message, but keep original type, callstack, and cause
@@ -128,7 +132,7 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) 
 		return
 	}
 
-	res, err = parseScriptOutput(output)
+	res, err = parseOutput(output)
 	return
 }
 
@@ -148,104 +152,96 @@ func prepareInput(input []map[string]interface{}) (*starlark.List, error) {
 }
 
 // parseScriptOutput parses and validates script output and returns slice of Results.
-func parseScriptOutput(v starlark.Value) ([]check.Result, error) {
-	switch v := v.(type) {
-	case starlark.Tuple:
-		if v.Len() != 2 {
-			return nil, errors.New("script has invalid output")
-		}
-
-		errMsg, err := parseErrorMessage(v.Index(1))
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to parse error message")
-		}
-
-		if errMsg != "" {
-			return nil, errors.Errorf("script error: %s", errMsg)
-		}
-
-		results, err := parseResults(v.Index(0))
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to parse results list")
-		}
-
-		for _, result := range results {
-			if err = result.Validate(); err != nil {
-				return nil, err
-			}
-		}
-
-		return results, nil
-	default:
-		return nil, errors.Errorf("unhandled result type %T", v)
-	}
-}
-
-// parseResults returns slice of results parsed from starlark value.
-func parseResults(v starlark.Value) ([]check.Result, error) {
-	val, err := starlarkToGo(v)
+func parseOutput(v starlark.Value) ([]check.Result, error) {
+	gv, err := starlarkToGo(v)
 	if err != nil {
 		return nil, err
 	}
 
-	rs, ok := val.([]interface{})
-	if !ok {
-		return nil, errors.Errorf("results list has wrong type: %T", val)
-	}
-
-	results := make([]check.Result, len(rs))
-	for i, r := range rs {
-		m, ok := r.(map[string]interface{})
-		if !ok {
-			return nil, errors.Errorf("result %d has wrong type: %T", i, r)
-		}
-		var sum, desc string
-		var sev check.Severity
-
-		if v, ok := m["summary"]; ok {
-			if sum, ok = v.(string); !ok {
-				return nil, errors.Errorf("summary field has wrong type: %T", v)
-			}
-		}
-
-		if v, ok := m["description"]; ok {
-			if desc, ok = v.(string); !ok {
-				return nil, errors.Errorf("description field has wrong type: %T", v)
-			}
-		}
-
-		if v, ok := m["severity"]; ok {
-			sevS, ok := v.(string)
+	switch gv := gv.(type) {
+	case []interface{}:
+		res := make([]check.Result, len(gv))
+		for i, el := range gv {
+			m, ok := el.(map[string]interface{})
 			if !ok {
-				return nil, errors.Errorf("severity field has wrong type: %T", v)
+				return nil, errors.Errorf("failed to parse script output: result %d has wrong type: %T", i, el)
 			}
 
-			sev = check.StrToSeverity(sevS)
+			r, err := convertResult(m)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to parse script output")
+			}
+			res[i] = *r
 		}
 
-		results[i] = check.Result{
-			Summary:     sum,
-			Description: desc,
-			Severity:    sev,
-		}
+		return res, nil
+
+	case string:
+		return nil, errors.Errorf("script failed: %s", gv)
+
+	default:
+		return nil, errors.Errorf("unhandled script output: %[1]v (%[1]T)", gv)
 	}
-
-	return results, nil
 }
 
-// parseErrorMessage returns error message parsed from starlark value.
-func parseErrorMessage(v starlark.Value) (string, error) {
-	val, err := starlarkToGo(v)
-	if err != nil {
-		return "", err
-	}
-
-	str, ok := val.(string)
+// getField returns m[key] if it is present and a string, empty string if absent, or error otherwise.
+func getField(m map[string]interface{}, key string) (string, error) {
+	v, ok := m[key]
 	if !ok {
-		return "", errors.Errorf("error message has wrong type: %T", val)
+		return "", nil
 	}
 
-	return str, nil
+	s, ok := v.(string)
+	if !ok {
+		return "", errors.Errorf("%[1]q has wrong type: %[2]T (%[2]v)", key, v)
+	}
+
+	return s, nil
+}
+
+func convertResult(m map[string]interface{}) (*check.Result, error) {
+	summary, err := getField(m, "summary")
+	if err != nil {
+		return nil, err
+	}
+	description, err := getField(m, "description")
+	if err != nil {
+		return nil, err
+	}
+	severity, err := getField(m, "severity")
+	if err != nil {
+		return nil, err
+	}
+
+	var labels map[string]string
+	l, ok := m["labels"]
+	if ok {
+		lm, ok := l.(map[string]interface{})
+		if !ok {
+			return nil, errors.Errorf("labels field has wrong type: %[1]T (%[1]v)", l)
+		}
+
+		labels = make(map[string]string, len(lm))
+		for lk := range lm {
+			lv, err := getField(lm, lk)
+			if err != nil {
+				return nil, err
+			}
+			labels[lk] = lv
+		}
+	}
+
+	res := &check.Result{
+		Summary:     summary,
+		Description: description,
+		Severity:    check.StrToSeverity(severity),
+		Labels:      labels,
+	}
+	if err = res.Validate(); err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
 
 // modify unavoidable global state once on package initialization to avoid race conditions

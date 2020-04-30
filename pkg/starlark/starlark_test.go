@@ -40,11 +40,11 @@ def check(rows):
                       "severity": "warning",
             })
 
-    return results, ""
+    return results
 	`) + "\n"
 
 	addToFuzzCorpus(t.Name(), script, nil)
-	env, err := NewEnv(t.Name(), script)
+	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 
 	t.Run("Success", func(t *testing.T) {
@@ -72,13 +72,11 @@ def check(rows):
 		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
-		expected := []check.Result{
-			{
-				Severity:    check.Warning,
-				Description: "description text",
-				Summary:     "expected have_openssl to be YES, got NO",
-			},
-		}
+		expected := []check.Result{{
+			Severity:    check.Warning,
+			Description: "description text",
+			Summary:     "expected have_openssl to be YES, got NO",
+		}}
 		assert.Equal(t, expected, res)
 	})
 
@@ -93,18 +91,15 @@ def check(rows):
 		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
-		expected := []check.Result{
-			{
-				Severity:    check.Warning,
-				Description: "description text",
-				Summary:     "expected have_ssl to be YES, got NO",
-			},
-			{
-				Severity:    check.Warning,
-				Description: "description text",
-				Summary:     "expected have_openssl to be YES, got NO",
-			},
-		}
+		expected := []check.Result{{
+			Severity:    check.Warning,
+			Description: "description text",
+			Summary:     "expected have_ssl to be YES, got NO",
+		}, {
+			Severity:    check.Warning,
+			Description: "description text",
+			Summary:     "expected have_openssl to be YES, got NO",
+		}}
 		assert.Equal(t, expected, res)
 	})
 }
@@ -117,7 +112,7 @@ func TestRunInvalidScript(t *testing.T) {
 
 		script := `def foo(): parse_version("2.6.0")`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		assert.Nil(t, env)
 
 		expected := "failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version"
@@ -129,7 +124,7 @@ func TestRunInvalidScript(t *testing.T) {
 
 		script := `""[1]`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
@@ -148,7 +143,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): pass`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
@@ -163,7 +158,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): 0/0`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("foo", nil, "id", t.Log)
@@ -182,7 +177,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): return [1] * (1 << 30-1)` // one less that maxAlloc in starlark
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
 		_ = env
@@ -197,11 +192,11 @@ Traceback (most recent call last):
 
 		script := strings.TrimSpace(`
 def check(rows):
-    return ([1], "")
+    return [1]
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script)
+		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
 		input := []map[string]interface{}{
@@ -211,7 +206,7 @@ def check(rows):
 
 		addToFuzzCorpus(t.Name(), script, input)
 		_, err = env.Run(t.Name(), input, t.Log)
-		assert.EqualError(t, err, "failed to parse results list: result 0 has wrong type: int64")
+		assert.EqualError(t, err, "failed to parse script output: result 0 has wrong type: int64")
 	})
 }
 
@@ -230,7 +225,7 @@ print("hello from main")
 	`) + "\n"
 
 	addToFuzzCorpus(t.Name(), script, nil)
-	env, err := NewEnv(t.Name(), script)
+	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 
 	var buf bytes.Buffer
