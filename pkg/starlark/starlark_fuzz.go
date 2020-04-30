@@ -15,7 +15,7 @@ func Fuzz(b []byte) int {
 		return 0
 	}
 
-	env, err := NewEnv("fuzz", string(data.Script))
+	env, err := NewEnv("fuzz", string(data.Script), nil)
 	if err != nil {
 		return 0
 	}

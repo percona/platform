@@ -23,6 +23,9 @@ func TestRunValidScript(t *testing.T) {
 
 	script := strings.TrimSpace(`
 def check(rows):
+    if not rows:
+        return "no rows in result"
+
     vars = {
         "have_ssl":     "YES",
         "have_openssl": "YES",
@@ -35,9 +38,12 @@ def check(rows):
         print(name, actual, expected)
         if expected and expected != actual:
             results.append({
-                      "summary": "expected %s to be %s, got %s" % (name, expected, actual),
-                      "description": "description text",
-                      "severity": "warning",
+                "summary": "MySQL is not secured",
+                "description": "expected {} to be {}, got {}".format(name, expected, actual),
+                "severity": "warning",
+                "labels": {
+                    name: actual,
+                },
             })
 
     return results
@@ -47,7 +53,7 @@ def check(rows):
 	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 
-	t.Run("Success", func(t *testing.T) {
+	t.Run("NoResults", func(t *testing.T) {
 		t.Parallel()
 
 		input := []map[string]interface{}{
@@ -61,7 +67,7 @@ def check(rows):
 		assert.Empty(t, res)
 	})
 
-	t.Run("Single check result", func(t *testing.T) {
+	t.Run("SingleResult", func(t *testing.T) {
 		t.Parallel()
 
 		input := []map[string]interface{}{
@@ -73,14 +79,15 @@ def check(rows):
 		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
+			Summary:     "MySQL is not secured",
+			Description: "expected have_openssl to be YES, got NO",
 			Severity:    check.Warning,
-			Description: "description text",
-			Summary:     "expected have_openssl to be YES, got NO",
+			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
 		assert.Equal(t, expected, res)
 	})
 
-	t.Run("Multiple check results", func(t *testing.T) {
+	t.Run("MultipleResults", func(t *testing.T) {
 		t.Parallel()
 
 		input := []map[string]interface{}{
@@ -92,15 +99,24 @@ def check(rows):
 		res, err := env.Run(t.Name(), input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
+			Summary:     "MySQL is not secured",
+			Description: "expected have_ssl to be YES, got NO",
 			Severity:    check.Warning,
-			Description: "description text",
-			Summary:     "expected have_ssl to be YES, got NO",
+			Labels:      map[string]string{"have_ssl": "NO"},
 		}, {
+			Summary:     "MySQL is not secured",
+			Description: "expected have_openssl to be YES, got NO",
 			Severity:    check.Warning,
-			Description: "description text",
-			Summary:     "expected have_openssl to be YES, got NO",
+			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
 		assert.Equal(t, expected, res)
+	})
+
+	t.Run("Error", func(t *testing.T) {
+		t.Parallel()
+
+		_, err := env.Run(t.Name(), nil, t.Log)
+		require.EqualError(t, err, "script returned error: no rows in result")
 	})
 }
 
@@ -115,7 +131,7 @@ func TestRunInvalidScript(t *testing.T) {
 		env, err := NewEnv(t.Name(), script, nil)
 		assert.Nil(t, env)
 
-		expected := "failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version"
+		expected := `failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version`
 		assert.EqualError(t, err, expected)
 	})
 
@@ -149,7 +165,7 @@ Traceback (most recent call last):
 		res, err := env.run("bar", nil, "id", t.Log)
 		assert.Nil(t, res)
 
-		expected := "[id] function bar is not defined"
+		expected := `[id] function bar is not defined`
 		assert.EqualError(t, err, expected)
 	})
 
@@ -184,10 +200,42 @@ Traceback (most recent call last):
 		t.Skip("https://jira.percona.com/browse/SAAS-63")
 
 		_, err = env.run("foo", nil, "id", t.Log)
-		assert.EqualError(t, err, "context timeout or something")
+		assert.EqualError(t, err, `context timeout or something`)
 	})
 
-	t.Run("InvalidResult", func(t *testing.T) {
+	t.Run("InvalidOutputValue", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return set()
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: unhandled type *starlark.Set`)
+	})
+
+	t.Run("InvalidOutputNotList", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return {"summary": "foo"}
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: map[summary:foo] (map[string]interface {})`)
+	})
+
+	t.Run("InvalidOutputNotDict", func(t *testing.T) {
 		t.Parallel()
 
 		script := strings.TrimSpace(`
@@ -199,14 +247,72 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		input := []map[string]interface{}{
-			{"Variable_name": "have_openssl", "Value": "YES"},
-			{"Variable_name": "have_ssl", "Value": "YES"},
-		}
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: result 0 has wrong type: int64`)
+	})
 
-		addToFuzzCorpus(t.Name(), script, input)
-		_, err = env.Run(t.Name(), input, t.Log)
-		assert.EqualError(t, err, "failed to parse script output: result 0 has wrong type: int64")
+	t.Run("InvalidOutputNotString", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"summary": 1}]
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: "summary" has wrong type: int64 (1)`)
+	})
+
+	t.Run("InvalidResult", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{}]
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: summary is empty`)
+	})
+
+	t.Run("InvalidLabels", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"labels": 1}]
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: labels field has wrong type: int64 (1)`)
+	})
+
+	t.Run("InvalidLabel", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"labels": {"foo": 1}}]
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil)
+		require.NoError(t, err)
+
+		_, err = env.Run(t.Name(), nil, t.Log)
+		assert.EqualError(t, err, `failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
 	})
 }
 

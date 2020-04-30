@@ -155,7 +155,7 @@ func prepareInput(input []map[string]interface{}) (*starlark.List, error) {
 func parseOutput(v starlark.Value) ([]check.Result, error) {
 	gv, err := starlarkToGo(v)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to parse script output")
 	}
 
 	switch gv := gv.(type) {
@@ -177,10 +177,10 @@ func parseOutput(v starlark.Value) ([]check.Result, error) {
 		return res, nil
 
 	case string:
-		return nil, errors.Errorf("script failed: %s", gv)
+		return nil, errors.Errorf("script returned error: %s", gv)
 
 	default:
-		return nil, errors.Errorf("unhandled script output: %[1]v (%[1]T)", gv)
+		return nil, errors.Errorf("failed to parse script output: %[1]v (%[1]T)", gv)
 	}
 }
 
@@ -225,7 +225,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 		for lk := range lm {
 			lv, err := getField(lm, lk)
 			if err != nil {
-				return nil, err
+				return nil, errors.Wrap(err, "labels")
 			}
 			labels[lk] = lv
 		}
@@ -234,7 +234,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	res := &check.Result{
 		Summary:     summary,
 		Description: description,
-		Severity:    check.StrToSeverity(severity),
+		Severity:    check.ParseSeverity(severity),
 		Labels:      labels,
 	}
 	if err = res.Validate(); err != nil {

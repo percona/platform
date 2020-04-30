@@ -24,8 +24,8 @@ const (
 	Debug                     // debug
 )
 
-// StrToSeverity casts string to Severity.
-func StrToSeverity(s string) Severity {
+// ParseSeverity casts string to Severity.
+func ParseSeverity(s string) Severity {
 	switch strings.TrimSpace(strings.ToLower(s)) {
 	case "emergency":
 		return Emergency
@@ -50,27 +50,18 @@ func StrToSeverity(s string) Severity {
 
 // Result represents a single check script result that is used to generate alert.
 type Result struct {
-	Summary     string
-	Description string
-	Severity    Severity
-	Labels      map[string]string
+	Summary     string            // required
+	Description string            // optional
+	Severity    Severity          // required
+	Labels      map[string]string // optional
 }
 
 // Validate validates check result for minimal correctness.
 func (r *Result) Validate() error {
-	if err := r.validateSeverity(); err != nil {
-		return err
-	}
-
 	if r.Summary == "" {
 		return errors.New("summary is empty")
 	}
 
-	return nil
-}
-
-// validateSeverity validates check result severity level.
-func (r *Result) validateSeverity() error {
 	if r.Severity < Emergency || r.Severity > Debug {
 		return errors.Errorf("unknown result severity: %s", r.Severity)
 	}
