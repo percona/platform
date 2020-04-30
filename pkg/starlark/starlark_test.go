@@ -62,7 +62,7 @@ def check(rows):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run(t.Name(), input, t.Log)
+		res, err := env.Run("id", input, t.Log)
 		require.NoError(t, err)
 		assert.Empty(t, res)
 	})
@@ -76,7 +76,7 @@ def check(rows):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run(t.Name(), input, t.Log)
+		res, err := env.Run("id", input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
@@ -96,7 +96,7 @@ def check(rows):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run(t.Name(), input, t.Log)
+		res, err := env.Run("id", input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
@@ -115,8 +115,8 @@ def check(rows):
 	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := env.Run(t.Name(), nil, t.Log)
-		require.EqualError(t, err, "script returned error: no rows in result")
+		_, err := env.Run("id", nil, t.Log)
+		require.EqualError(t, err, "thread id: script returned error: no rows in result")
 	})
 }
 
@@ -147,7 +147,7 @@ func TestRunInvalidScript(t *testing.T) {
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-[id] failed to init script: index 1 out of range: empty string
+thread id: failed to init script: index 1 out of range: empty string
 Traceback (most recent call last):
   TestRunInvalidScript/Init:1:3: in <toplevel>
 		`) + "\n"
@@ -165,7 +165,7 @@ Traceback (most recent call last):
 		res, err := env.run("bar", nil, "id", t.Log)
 		assert.Nil(t, res)
 
-		expected := `[id] function bar is not defined`
+		expected := `thread id: function bar is not defined`
 		assert.EqualError(t, err, expected)
 	})
 
@@ -181,7 +181,7 @@ Traceback (most recent call last):
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-[id] failed to execute function foo: real division by zero
+thread id: failed to execute function foo: real division by zero
 Traceback (most recent call last):
   TestRunInvalidScript/Execute:1:13: in foo
 		`) + "\n"
@@ -215,8 +215,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: unhandled type *starlark.Set`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: unhandled type *starlark.Set`)
 	})
 
 	t.Run("InvalidOutputNotList", func(t *testing.T) {
@@ -231,8 +231,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: map[summary:foo] (map[string]interface {})`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: map[summary:foo] (map[string]interface {})`)
 	})
 
 	t.Run("InvalidOutputNotDict", func(t *testing.T) {
@@ -247,8 +247,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: result 0 has wrong type: int64`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: result 0 has wrong type: int64`)
 	})
 
 	t.Run("InvalidOutputNotString", func(t *testing.T) {
@@ -263,8 +263,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: "summary" has wrong type: int64 (1)`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: "summary" has wrong type: int64 (1)`)
 	})
 
 	t.Run("InvalidResult", func(t *testing.T) {
@@ -279,8 +279,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: summary is empty`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: summary is empty`)
 	})
 
 	t.Run("InvalidLabels", func(t *testing.T) {
@@ -295,8 +295,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: labels field has wrong type: int64 (1)`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: labels field has wrong type: int64 (1)`)
 	})
 
 	t.Run("InvalidLabel", func(t *testing.T) {
@@ -311,8 +311,8 @@ def check(rows):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run(t.Name(), nil, t.Log)
-		assert.EqualError(t, err, `failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
+		_, err = env.Run("id", nil, t.Log)
+		assert.EqualError(t, err, `thread id: failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
 	})
 }
 
@@ -344,9 +344,103 @@ print("hello from main")
 	assert.Equal(t, starlark.None, res)
 
 	expected := strings.TrimSpace(`
-[id] TestPrint:8:6: in <toplevel>: hello from main
-[id] TestPrint:5:10: in test1: hello from test1
-[id] TestPrint:2:10: in test2: hello from test2
+thread id: TestPrint:8:6: in <toplevel>: hello from main
+thread id: TestPrint:5:10: in test1: hello from test1
+thread id: TestPrint:2:10: in test2: hello from test2
 	`) + "\n"
 	assert.Equal(t, expected, buf.String())
+}
+
+func TestRegisterFunc(t *testing.T) {
+	t.Parallel()
+
+	pairs := func(args ...interface{}) (interface{}, error) {
+		t.Logf("args = %#v (%d)", args, len(args))
+
+		l := len(args)
+		switch {
+		case l == 0:
+			return nil, fmt.Errorf("zero arguments")
+		case l%2 == 1:
+			return nil, fmt.Errorf("odd number of arguments")
+		}
+
+		res := make([]interface{}, l/2)
+		for i := 0; i < l; i += 2 {
+			res[i/2] = []interface{}{args[i], args[i+1]}
+		}
+		return res, nil
+	}
+
+	t.Run("Valid", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
+		`) + "\n"
+
+		input := []map[string]interface{}{
+			{"foo": "bar"},
+			{"foo": "baz"},
+		}
+
+		addToFuzzCorpus(t.Name(), script, input)
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		require.NoError(t, err)
+
+		res, err := env.Run("id", input, t.Log)
+		require.NoError(t, err)
+		expected := []check.Result{{
+			Summary:  `[[{"foo": "bar"}, {"foo": "baz"}]]`,
+			Severity: check.Notice,
+		}}
+		assert.Equal(t, expected, res)
+	})
+
+	t.Run("Error", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
+		`) + "\n"
+
+		input := []map[string]interface{}{}
+
+		addToFuzzCorpus(t.Name(), script, input)
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		require.NoError(t, err)
+
+		_, err = env.Run("id", input, t.Log)
+		expected := strings.TrimSpace(`
+thread id: failed to execute function check: pairs: zero arguments
+Traceback (most recent call last):
+  TestRegisterFunc/Error:2:35: in check
+  <builtin>: in pairs
+		`) + "\n"
+		assert.EqualError(t, err, expected)
+	})
+
+	t.Run("Kwargs", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+    return [{"summary": repr(pairs(rows=rows)), "severity": "notice"}]
+		`) + "\n"
+
+		addToFuzzCorpus(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		require.NoError(t, err)
+
+		_, err = env.Run("id", nil, t.Log)
+		expected := strings.TrimSpace(`
+thread id: failed to execute function check: pairs: kwargs are not supported
+Traceback (most recent call last):
+  TestRegisterFunc/Kwargs:2:35: in check
+  <builtin>: in pairs
+		`) + "\n"
+		assert.EqualError(t, err, expected)
+	})
 }

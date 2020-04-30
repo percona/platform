@@ -30,7 +30,7 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string, goFuncs map[string]GoFunc) (env *Env, err error) {
+func NewEnv(name, script string, funcs map[string]GoFunc) (env *Env, err error) {
 	if doRecover {
 		defer func() {
 			if r := recover(); r != nil {
@@ -39,9 +39,10 @@ func NewEnv(name, script string, goFuncs map[string]GoFunc) (env *Env, err error
 		}()
 	}
 
-	predeclared := make(starlark.StringDict, len(goFuncs))
-	// TODO register goFuncs
-	// https://github.com/google/starlark-go/blob/be5394c419b6941c14d194a98925a71512f8f979/starlark/example_test.go#L31
+	predeclared := make(starlark.StringDict, len(funcs))
+	for n, f := range funcs {
+		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
+	}
 	predeclared.Freeze()
 
 	var p *starlark.Program
@@ -56,6 +57,38 @@ func NewEnv(name, script string, goFuncs map[string]GoFunc) (env *Env, err error
 		predeclared: predeclared,
 	}
 	return
+}
+
+// starlarkFunc represent a Starlark builtin_function_or_method.
+type starlarkFunc func(*starlark.Thread, *starlark.Builtin, starlark.Tuple, []starlark.Tuple) (starlark.Value, error)
+
+// makeFunc converts GoFunc to starlarkFunc.
+func makeFunc(f GoFunc) starlarkFunc {
+	return func(_ *starlark.Thread, fn *starlark.Builtin, args starlark.Tuple, kwargs []starlark.Tuple) (starlark.Value, error) { //nolint:lll
+		if len(kwargs) != 0 {
+			return nil, errors.Errorf("%s: kwargs are not supported", fn.Name())
+		}
+
+		fargs := make([]interface{}, len(args))
+		for i, arg := range args {
+			farg, err := starlarkToGo(arg)
+			if err != nil {
+				return nil, errors.Wrap(err, fn.Name())
+			}
+			fargs[i] = farg
+		}
+
+		res, err := f(fargs...)
+		if err != nil {
+			return nil, errors.Wrap(err, fn.Name())
+		}
+
+		v, err := goToStarlark(res)
+		if err != nil {
+			return nil, errors.Wrap(err, fn.Name())
+		}
+		return v, nil
+	}
 }
 
 // noopPrint is a no-op 'print' implementation.
@@ -74,7 +107,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 		thread.Print = func(t *starlark.Thread, msg string) {
 			// make it look similar to starlark.CallStack.String
 			fr := t.CallFrame(1)
-			print("["+t.Name+"]", fr.Pos.String()+":", "in", fr.Name+":", msg)
+			print("thread "+t.Name+":", fr.Pos.String()+":", "in", fr.Name+":", msg)
 		}
 	}
 
@@ -82,26 +115,26 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
 			// tweak message, but keep original type, callstack, and cause
-			ee.Msg = fmt.Sprintf("[%s] failed to init script: %s\n%s", threadName, ee.Msg, ee.CallStack)
+			ee.Msg = fmt.Sprintf("thread %s: failed to init script: %s\n%s", threadName, ee.Msg, ee.CallStack)
 			return nil, ee
 		}
-		return nil, errors.Wrapf(err, "[%s] failed to init script", threadName)
+		return nil, errors.Wrapf(err, "thread %s: failed to init script", threadName)
 	}
 	globals.Freeze()
 
 	fn := globals[funcName]
 	if fn == nil {
-		return nil, errors.Errorf("[%s] function %s is not defined", threadName, funcName)
+		return nil, errors.Errorf("thread %s: function %s is not defined", threadName, funcName)
 	}
 
 	v, err := starlark.Call(thread, fn, args, nil)
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
 			// tweak message, but keep original type, callstack, and cause
-			ee.Msg = fmt.Sprintf("[%s] failed to execute function %s: %s\n%s", threadName, funcName, ee.Msg, ee.CallStack)
+			ee.Msg = fmt.Sprintf("thread %s: failed to execute function %s: %s\n%s", threadName, funcName, ee.Msg, ee.CallStack)
 			return nil, ee
 		}
-		return nil, errors.Wrapf(err, "[%s]: failed to execute function %s", threadName, funcName)
+		return nil, errors.Wrapf(err, "thread %s: failed to execute function %s", threadName, funcName)
 	}
 
 	v.Freeze()
@@ -123,16 +156,23 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) 
 	var rows *starlark.List
 	rows, err = prepareInput(input)
 	if err != nil {
+		err = errors.Wrapf(err, "thread %s", id)
 		return
 	}
 
 	var output starlark.Value
 	output, err = env.run("check", starlark.Tuple{rows}, id, print)
 	if err != nil {
+		// thread id is already present
 		return
 	}
 
 	res, err = parseOutput(output)
+	if err != nil {
+		err = errors.Wrapf(err, "thread %s", id)
+		return
+	}
+
 	return
 }
 
