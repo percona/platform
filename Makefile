@@ -78,16 +78,21 @@ saas:                                      ## Extract public APIs and generated 
 	find ../saas -name '*.bin' -print -delete
 	find ../saas -name '*_test.go' -print -delete
 
-fuzz-build:                                ## Generate fuzz binary
-	bin/go-fuzz-build github.com/percona-platform/platform/pkg/check
+fuzz-check-build:
+	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check
 
-fuzz-data: fuzz-build                      ## Fuzz data tests
-	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzData
+fuzz-check-data: fuzz-check-build          ## Fuzz data tests
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzData
 
-fuzz-signature: fuzz-build                 ## Fuzz signature tests
-	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzSign
+fuzz-check-signature: fuzz-check-build     ## Fuzz signature tests
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzSign
 
-fuzz-pubkey: fuzz-build                    ## Fuzz public key tests
-	bin/go-fuzz -workdir fuzzdata -bin check-fuzz.zip -func FuzzPublicKey
+fuzz-check-pubkey: fuzz-check-build        ## Fuzz public key tests
+	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzPublicKey
+
+fuzz-starlark:                             ## Fuzz starlark package
+	go test -count=1 github.com/percona-platform/platform/pkg/starlark
+	bin/go-fuzz-build -o pkg/starlark/starlark-fuzz.zip github.com/percona-platform/platform/pkg/starlark
+	bin/go-fuzz -workdir pkg/starlark/fuzzdata -bin pkg/starlark/starlark-fuzz.zip
 
 .PHONY: gen
