@@ -195,7 +195,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}{
 		{
 			name:   "normal",
-			result: &Result{Severity: Info, Summary: "some text"},
+			result: &Result{Severity: Notice, Summary: "some text"},
 			errStr: "",
 		},
 		{
@@ -204,8 +204,13 @@ func TestCheck_ResultValidate(t *testing.T) {
 			errStr: "unknown result severity: Severity(123)",
 		},
 		{
+			name:   "unhandled_severity",
+			result: &Result{Severity: Info, Summary: "some text"},
+			errStr: "unhandled result severity: info",
+		},
+		{
 			name:   "empty_summary",
-			result: &Result{Severity: Info},
+			result: &Result{Severity: Notice},
 			errStr: "summary is empty",
 		},
 	}
