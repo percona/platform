@@ -131,7 +131,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	if err != nil {
 		if ee, ok := err.(*starlark.EvalError); ok {
 			// tweak message, but keep original type, callstack, and cause
-			ee.Msg = fmt.Sprintf("thread %s: failed to execute function %s: %s\n%s", threadName, funcName, ee.Msg, ee.CallStack)
+			ee.Msg = fmt.Sprintf("thread %s: failed to execute function %s: %s\n%s", threadName, funcName, ee.Msg, ee.CallStack) //nolint:lll
 			return nil, ee
 		}
 		return nil, errors.Wrapf(err, "thread %s: failed to execute function %s", threadName, funcName)
