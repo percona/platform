@@ -10,6 +10,11 @@ import (
 	"go.starlark.net/starlark"
 )
 
+//nolint:gochecknoinits
+func init() {
+	doRecover = false
+}
+
 func TestConvert(t *testing.T) {
 	t.Parallel()
 
@@ -23,10 +28,6 @@ func TestConvert(t *testing.T) {
 			"Test",
 			[]interface{}{int64(500), "Test", float64(30.555555555555)},
 			map[string]interface{}{"ka": "a", "kb": "b", "kc": "c", "kd": "d"},
-			map[bool]struct{}{true: {}, false: {}},
-			map[int64]struct{}{50: {}, 20: {}},
-			map[float64]struct{}{50.55555: {}, 10.2456789: {}},
-			map[string]struct{}{"test": {}, "test2": {}},
 		} {
 			v := v
 			t.Run(fmt.Sprint(v), func(t *testing.T) {
@@ -41,10 +42,6 @@ func TestConvert(t *testing.T) {
 		}
 	})
 
-	uint64Set := starlark.NewSet(0)
-	require.NoError(t, uint64Set.Insert(starlark.MakeUint64(50)))
-	require.NoError(t, uint64Set.Insert(starlark.MakeUint64(20)))
-
 	t.Run("goToStarlark", func(t *testing.T) {
 		type pair struct {
 			gv interface{}
@@ -54,7 +51,6 @@ func TestConvert(t *testing.T) {
 		for _, p := range []pair{
 			{time.Date(2020, 4, 28, 13, 48, 42, 0, time.UTC), starlark.MakeInt64(1588081722000000000)},
 			{[]byte("Test"), starlark.String("Test")},
-			{map[uint64]struct{}{50: {}, 20: {}}, uint64Set},
 		} {
 			v, expected := p.gv, p.sv
 			t.Run(fmt.Sprint(v), func(t *testing.T) {
@@ -76,7 +72,6 @@ func TestConvert(t *testing.T) {
 		for _, p := range []pair{
 			{starlark.MakeInt64(1588081722000000000), int64(1588081722000000000)},
 			{starlark.String("Test"), "Test"},
-			{uint64Set, map[int64]struct{}{50: {}, 20: {}}},
 			{starlark.Tuple{starlark.MakeInt(50), starlark.MakeInt(20)}, []interface{}{int64(50), int64(20)}},
 		} {
 			v, expected := p.sv, p.gv
@@ -88,5 +83,13 @@ func TestConvert(t *testing.T) {
 				assert.Equal(t, expected, gv)
 			})
 		}
+
+		t.Run("intDict", func(t *testing.T) {
+			dict := starlark.NewDict(1)
+			err := dict.SetKey(starlark.MakeInt(1), starlark.MakeInt(2))
+			require.NoError(t, err)
+			_, err = starlarkToGo(dict)
+			assert.EqualError(t, err, "unhandled dict key type starlark.Int (1)")
+		})
 	})
 }
