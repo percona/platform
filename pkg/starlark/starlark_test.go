@@ -18,34 +18,54 @@ def check(rows):
         "have_openssl": "YES",
     }
 
+    results = []
     for row in rows:
-        name = row["Variable_name"]
-        actual = row["Value"]
+        name, value = row["Variable_name"], row["Value"]
         expected = vars.get(name)
-        if expected and expected != actual:
-            return {"error": "expected %s to be %s, got %s" % (name, expected, actual)}
+        if expected and expected != value:
+            results.append({
+                      "summary": "expected %s to be %s, got %s" % (name, expected, value),
+                      "description": "description text",
+                      "severity": "warning",
+            })
 
-	return {}
+    return results, ""
 	`) + "\n"
 
 	t.Run("Success", func(t *testing.T) {
 		t.Parallel()
 
 		input := []map[string]interface{}{
-			{"Variable_name": "have_ssl", "Value": "YES"},
 			{"Variable_name": "have_openssl", "Value": "YES"},
+			{"Variable_name": "have_ssl", "Value": "YES"},
 		}
 
 		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
-		expected := &check.Result{
-			Status:  "status",
-			Message: "message",
+		assert.Empty(t, res)
+	})
+
+	t.Run("Single check result", func(t *testing.T) {
+		t.Parallel()
+
+		input := []map[string]interface{}{
+			{"Variable_name": "have_ssl", "Value": "YES"},
+			{"Variable_name": "have_openssl", "Value": "NO"},
+		}
+
+		res, err := Run(t.Name(), script, input)
+		require.NoError(t, err)
+		expected := []check.Result{
+			{
+				Severity:    check.Warning,
+				Description: "description text",
+				Summary:     "expected have_openssl to be YES, got NO",
+			},
 		}
 		assert.Equal(t, expected, res)
 	})
 
-	t.Run("Fail", func(t *testing.T) {
+	t.Run("Multiple check results", func(t *testing.T) {
 		t.Parallel()
 
 		input := []map[string]interface{}{
@@ -55,18 +75,18 @@ def check(rows):
 
 		res, err := Run(t.Name(), script, input)
 		require.NoError(t, err)
-		expected := &check.Result{
-			Status:  "status",
-			Message: "message",
+		expected := []check.Result{
+			{
+				Severity:    check.Warning,
+				Description: "description text",
+				Summary:     "expected have_ssl to be YES, got NO",
+			},
+			{
+				Severity:    check.Warning,
+				Description: "description text",
+				Summary:     "expected have_openssl to be YES, got NO",
+			},
 		}
 		assert.Equal(t, expected, res)
-	})
-
-	t.Run("Error", func(t *testing.T) {
-		t.Parallel()
-
-		res, err := Run(t.Name(), script, nil)
-		assert.EqualError(t, err, "unhandled result type starlark.NoneType")
-		assert.Nil(t, res)
 	})
 }

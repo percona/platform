@@ -11,6 +11,7 @@ help:                                      ## Display this help message
 
 init:                                      ## Install development tools
 	go build -modfile=tools/go.mod -o bin/goimports golang.org/x/tools/cmd/goimports
+	go build -modfile=tools/go.mod -o bin/stringer golang.org/x/tools/cmd/stringer
 	go build -modfile=tools/go.mod -o bin/go-consistent github.com/quasilyte/go-consistent
 	go build -modfile=tools/go.mod -o bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
 	go build -modfile=tools/go.mod -o bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
@@ -19,6 +20,7 @@ init:                                      ## Install development tools
 
 gen:                                       ## Format, check, and generate using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
 
 	rm -rf gen
 	$(DOCKER_RUN_CMD) prototool all api
@@ -28,6 +30,9 @@ gen:                                       ## Format, check, and generate using 
 gen-dev: docker-build                      ## Same as `gen` but with DEV protocol Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 	sudo chown -R runner:docker gen
+
+gen-code:                                 ## Generate code
+	go generate ./...
 
 format:                                    ## Format source code
 	gofmt -w -s .
@@ -42,6 +47,7 @@ test:                                      ## Run tests
 
 descriptors:                               ## Update files used for breaking changes detection
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check/retrieval -o api/check/retrieval/descriptor.bin
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
@@ -58,10 +64,10 @@ saas:                                      ## Extract public APIs and generated 
 	rm -rf ../saas/api ../saas/gen ../saas/pkg
 	mkdir ../saas/api ../saas/gen ../saas/pkg
 
-	cp -R api/checked ../saas/api
+	cp -R api/check ../saas/api
 	cp -R api/telemetry ../saas/api
 
-	cp -R gen/checked ../saas/gen
+	cp -R gen/check ../saas/gen
 	cp -R gen/telemetry ../saas/gen
 
 	cp -R pkg/check ../saas/pkg
