@@ -61,22 +61,7 @@ run-dev:                                   ## Run bash in prototool Docker dev i
 	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
 
 saas:                                      ## Extract public APIs and generated files into ../saas
-	rm -rf ../saas/api ../saas/gen ../saas/pkg
-	mkdir ../saas/api ../saas/gen ../saas/pkg
-
-	cp -R api/check ../saas/api
-	cp -R api/telemetry ../saas/api
-
-	cp -R gen/check ../saas/gen
-	cp -R gen/telemetry ../saas/gen
-
-	cp -R pkg/check ../saas/pkg
-	cp -R pkg/starlark ../saas/pkg
-
-	gofmt -s -w -r '"github.com/percona-platform/platform/pkg/check" -> "github.com/percona-platform/saas/pkg/check"' ../saas/pkg
-
-	find ../saas -name '*.bin' -print -delete
-	find ../saas -name '*_test.go' -print -delete
+	go run saas.go
 
 fuzz-check-build:
 	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check
