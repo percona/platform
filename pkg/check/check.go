@@ -58,11 +58,21 @@ func Verify(data []byte, publicKey, sig string) error {
 	return nil
 }
 
+// ParseParams represents optional Parse function parameters.
+type ParseParams struct {
+	DisallowUnknownFields bool // if true, return errors for unexpected YAML fields
+}
+
 // Parse returns a slice of validated checks parsed from YAML passed via a reader.
 // It can handle multi-document YAMLs: parsing result will be a single slice
 // that contains checks form every parsed document.
-func Parse(reader io.Reader) ([]Check, error) {
+func Parse(reader io.Reader, params *ParseParams) ([]Check, error) {
+	if params == nil {
+		params = new(ParseParams)
+	}
+
 	d := yaml.NewDecoder(reader)
+	d.KnownFields(params.DisallowUnknownFields)
 
 	type checks struct {
 		Checks []Check `yaml:"checks"`

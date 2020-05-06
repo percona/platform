@@ -31,7 +31,10 @@ checks:
             pass
 `)
 
-		cs, err := Parse(bytes.NewReader([]byte(data)))
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+		}
+		cs, err := Parse(bytes.NewReader([]byte(data)), params)
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 2)
@@ -68,7 +71,11 @@ checks:
         def function2(args):
             pass
 `)
-		cs, err := Parse(bytes.NewReader([]byte(data)))
+
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+		}
+		cs, err := Parse(bytes.NewReader([]byte(data)), params)
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 2)
