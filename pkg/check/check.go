@@ -112,8 +112,8 @@ const (
 
 // Check represents security check structure.
 type Check struct {
-	Name    string `yaml:"name"`
 	Version uint32 `yaml:"version"`
+	Name    string `yaml:"name"`
 	Type    Type   `yaml:"type"`
 	Query   string `yaml:"query"`
 	Script  string `yaml:"script"`
@@ -125,6 +125,10 @@ var nameRE = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
 
 // validate validates check for minimal correctness.
 func (c *Check) validate() error {
+	if c.Version != 1 {
+		return errors.Errorf("unexpected version %d", c.Version)
+	}
+
 	if !nameRE.MatchString(c.Name) {
 		return errors.New("invalid check name")
 	}
