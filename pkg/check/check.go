@@ -121,7 +121,7 @@ type Check struct {
 	Version uint32 `yaml:"version"`
 	Name    string `yaml:"name"`
 	Type    Type   `yaml:"type"`
-	Query   string `yaml:"query"`
+	Query   string `yaml:"query,omitempty"`
 	Script  string `yaml:"script"`
 }
 
