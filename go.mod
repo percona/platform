@@ -17,7 +17,7 @@ require (
 	github.com/mwitkow/go-proto-validators v0.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.5.1
-	github.com/stretchr/testify v1.5.1
+	github.com/stretchr/testify v1.6.0
 	go.starlark.net v0.0.0-20200330013621-be5394c419b6
 	go.uber.org/zap v1.15.0
 	golang.org/x/sys v0.0.0-20200501145240-bc7a7d42d5c3
