@@ -161,6 +161,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			errStr: "",
 		},
 		{
+			name:   "mongodb_get_cmd_line_opts",
+			check:  &Check{Version: 1, Name: "test_check", Type: MongoDBGetCmdLineOpts, Script: "def func(args): pass"},
+			errStr: "",
+		},
+		{
 			name:   "clickhouse_show",
 			check:  &Check{Version: 1, Name: "test_check", Type: "CLICKHOUSE_SHOW", Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", Script: "def func(args): pass"},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
@@ -204,6 +209,11 @@ func TestCheck_CheckValidate(t *testing.T) {
 			name:   "non_empty_query_for_mongodb_build_info",
 			check:  &Check{Version: 1, Name: "test_check", Type: MongoDBBuildInfo, Query: "some query", Script: "def func(args): pass"},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
+		},
+		{
+			name:   "non_empty_query_for_mongodb_get_cmd_line_opts",
+			check:  &Check{Version: 1, Name: "test_check", Type: MongoDBGetCmdLineOpts, Query: "some query", Script: "def func(args): pass"},
+			errStr: "MONGODB_GETCMDLINEOPTS check type should have empty query",
 		},
 		{
 			name:   "empty_script",
