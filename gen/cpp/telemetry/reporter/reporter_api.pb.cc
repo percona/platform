@@ -111,16 +111,15 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_tel
   &scc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once;
-static bool descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto = {
-  &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_initialized, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 432,
+  false, false, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 432,
   &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_sccs, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2freporter_5fapi_2eproto::offsets,
   file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, 2, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_telemetry_2freporter_2freporter_5fapi_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto), true);
+static bool dynamic_init_dummy_telemetry_2freporter_2freporter_5fapi_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace telemetry {
@@ -138,16 +137,17 @@ class ReportRequest::_Internal {
 void ReportRequest::clear_events() {
   events_.Clear();
 }
-ReportRequest::ReportRequest()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+ReportRequest::ReportRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  events_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.telemetry.reporter.v1.ReportRequest)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.reporter.v1.ReportRequest)
 }
 ReportRequest::ReportRequest(const ReportRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr),
       events_(from.events_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.ReportRequest)
 }
 
@@ -158,11 +158,19 @@ void ReportRequest::SharedCtor() {
 ReportRequest::~ReportRequest() {
   // @@protoc_insertion_point(destructor:percona.platform.telemetry.reporter.v1.ReportRequest)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void ReportRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
+void ReportRequest::ArenaDtor(void* object) {
+  ReportRequest* _this = reinterpret_cast< ReportRequest* >(object);
+  (void)_this;
+}
+void ReportRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void ReportRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -179,11 +187,12 @@ void ReportRequest::Clear() {
   (void) cached_has_bits;
 
   events_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* ReportRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -207,7 +216,9 @@ const char* ReportRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -237,7 +248,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.telemetry.reporter.v1.ReportRequest)
   return target;
@@ -285,7 +296,7 @@ void ReportRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 void ReportRequest::MergeFrom(const ReportRequest& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.telemetry.reporter.v1.ReportRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -312,7 +323,7 @@ bool ReportRequest::IsInitialized() const {
 
 void ReportRequest::InternalSwap(ReportRequest* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   events_.InternalSwap(&other->events_);
 }
 
@@ -329,15 +340,15 @@ class ReportResponse::_Internal {
  public:
 };
 
-ReportResponse::ReportResponse()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+ReportResponse::ReportResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.telemetry.reporter.v1.ReportResponse)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.reporter.v1.ReportResponse)
 }
 ReportResponse::ReportResponse(const ReportResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.ReportResponse)
 }
 
@@ -347,11 +358,19 @@ void ReportResponse::SharedCtor() {
 ReportResponse::~ReportResponse() {
   // @@protoc_insertion_point(destructor:percona.platform.telemetry.reporter.v1.ReportResponse)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void ReportResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
+void ReportResponse::ArenaDtor(void* object) {
+  ReportResponse* _this = reinterpret_cast< ReportResponse* >(object);
+  (void)_this;
+}
+void ReportResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void ReportResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -367,11 +386,12 @@ void ReportResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* ReportResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -380,7 +400,9 @@ const char* ReportResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
   }  // while
@@ -400,7 +422,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.telemetry.reporter.v1.ReportResponse)
   return target;
@@ -441,7 +463,7 @@ void ReportResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 void ReportResponse::MergeFrom(const ReportResponse& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.telemetry.reporter.v1.ReportResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -467,7 +489,7 @@ bool ReportResponse::IsInitialized() const {
 
 void ReportResponse::InternalSwap(ReportResponse* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportResponse::GetMetadata() const {
@@ -483,10 +505,10 @@ void ReportResponse::InternalSwap(ReportResponse* other) {
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::ReportRequest* Arena::CreateMaybeMessage< ::percona::platform::telemetry::reporter::v1::ReportRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::telemetry::reporter::v1::ReportRequest >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::telemetry::reporter::v1::ReportRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::ReportResponse* Arena::CreateMaybeMessage< ::percona::platform::telemetry::reporter::v1::ReportResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::telemetry::reporter::v1::ReportResponse >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::telemetry::reporter::v1::ReportResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
