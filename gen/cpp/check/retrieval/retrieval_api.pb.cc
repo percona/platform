@@ -106,16 +106,15 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_che
   &scc_info_GetAllChecksResponse_check_2fretrieval_2fretrieval_5fapi_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
-static bool descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_initialized, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 329,
+  false, false, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 329,
   &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
   file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, 2, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_check_2fretrieval_2fretrieval_5fapi_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto), true);
+static bool dynamic_init_dummy_check_2fretrieval_2fretrieval_5fapi_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace check {
@@ -130,15 +129,15 @@ class GetAllChecksRequest::_Internal {
  public:
 };
 
-GetAllChecksRequest::GetAllChecksRequest()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+GetAllChecksRequest::GetAllChecksRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.check.retrieval.v1.GetAllChecksRequest)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.check.retrieval.v1.GetAllChecksRequest)
 }
 GetAllChecksRequest::GetAllChecksRequest(const GetAllChecksRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:percona.platform.check.retrieval.v1.GetAllChecksRequest)
 }
 
@@ -148,11 +147,19 @@ void GetAllChecksRequest::SharedCtor() {
 GetAllChecksRequest::~GetAllChecksRequest() {
   // @@protoc_insertion_point(destructor:percona.platform.check.retrieval.v1.GetAllChecksRequest)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void GetAllChecksRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
+void GetAllChecksRequest::ArenaDtor(void* object) {
+  GetAllChecksRequest* _this = reinterpret_cast< GetAllChecksRequest* >(object);
+  (void)_this;
+}
+void GetAllChecksRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void GetAllChecksRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -168,11 +175,12 @@ void GetAllChecksRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* GetAllChecksRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -181,7 +189,9 @@ const char* GetAllChecksRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAME
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
   }  // while
@@ -201,7 +211,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.check.retrieval.v1.GetAllChecksRequest)
   return target;
@@ -242,7 +252,7 @@ void GetAllChecksRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from
 void GetAllChecksRequest::MergeFrom(const GetAllChecksRequest& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.check.retrieval.v1.GetAllChecksRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -268,7 +278,7 @@ bool GetAllChecksRequest::IsInitialized() const {
 
 void GetAllChecksRequest::InternalSwap(GetAllChecksRequest* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllChecksRequest::GetMetadata() const {
@@ -284,19 +294,21 @@ class GetAllChecksResponse::_Internal {
  public:
 };
 
-GetAllChecksResponse::GetAllChecksResponse()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+GetAllChecksResponse::GetAllChecksResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  signatures_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.check.retrieval.v1.GetAllChecksResponse)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.check.retrieval.v1.GetAllChecksResponse)
 }
 GetAllChecksResponse::GetAllChecksResponse(const GetAllChecksResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr),
       signatures_(from.signatures_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_file().empty()) {
-    file_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.file_);
+    file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.check.retrieval.v1.GetAllChecksResponse)
 }
@@ -309,12 +321,20 @@ void GetAllChecksResponse::SharedCtor() {
 GetAllChecksResponse::~GetAllChecksResponse() {
   // @@protoc_insertion_point(destructor:percona.platform.check.retrieval.v1.GetAllChecksResponse)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void GetAllChecksResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   file_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void GetAllChecksResponse::ArenaDtor(void* object) {
+  GetAllChecksResponse* _this = reinterpret_cast< GetAllChecksResponse* >(object);
+  (void)_this;
+}
+void GetAllChecksResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void GetAllChecksResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -331,12 +351,13 @@ void GetAllChecksResponse::Clear() {
   (void) cached_has_bits;
 
   signatures_.Clear();
-  file_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _internal_metadata_.Clear();
+  file_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* GetAllChecksResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -371,7 +392,9 @@ const char* GetAllChecksResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -413,7 +436,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.check.retrieval.v1.GetAllChecksResponse)
   return target;
@@ -469,14 +492,13 @@ void GetAllChecksResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& fro
 void GetAllChecksResponse::MergeFrom(const GetAllChecksResponse& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.check.retrieval.v1.GetAllChecksResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   signatures_.MergeFrom(from.signatures_);
   if (from.file().size() > 0) {
-
-    file_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.file_);
+    _internal_set_file(from._internal_file());
   }
 }
 
@@ -500,10 +522,9 @@ bool GetAllChecksResponse::IsInitialized() const {
 
 void GetAllChecksResponse::InternalSwap(GetAllChecksResponse* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   signatures_.InternalSwap(&other->signatures_);
-  file_.Swap(&other->file_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  file_.Swap(&other->file_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllChecksResponse::GetMetadata() const {
@@ -519,10 +540,10 @@ void GetAllChecksResponse::InternalSwap(GetAllChecksResponse* other) {
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllChecksRequest* Arena::CreateMaybeMessage< ::percona::platform::check::retrieval::v1::GetAllChecksRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::check::retrieval::v1::GetAllChecksRequest >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::check::retrieval::v1::GetAllChecksRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllChecksResponse* Arena::CreateMaybeMessage< ::percona::platform::check::retrieval::v1::GetAllChecksResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::check::retrieval::v1::GetAllChecksResponse >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::check::retrieval::v1::GetAllChecksResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -92,16 +92,15 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_tel
   &scc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once;
-static bool descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = {
-  &descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_initialized, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 504,
+  false, false, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 504,
   &descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_sccs, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_deps, 1, 2,
   schemas, file_default_instances, TableStruct_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto::offsets,
   file_level_metadata_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, 1, file_level_enum_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_service_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto), true);
+static bool dynamic_init_dummy_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace telemetry {
@@ -141,27 +140,29 @@ ServerUptimeEvent::_Internal::up_duration(const ServerUptimeEvent* msg) {
   return *msg->up_duration_;
 }
 void ServerUptimeEvent::clear_up_duration() {
-  if (GetArenaNoVirtual() == nullptr && up_duration_ != nullptr) {
+  if (GetArena() == nullptr && up_duration_ != nullptr) {
     delete up_duration_;
   }
   up_duration_ = nullptr;
 }
-ServerUptimeEvent::ServerUptimeEvent()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+ServerUptimeEvent::ServerUptimeEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
 }
 ServerUptimeEvent::ServerUptimeEvent(const ServerUptimeEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_id().empty()) {
-    id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
+    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_id(),
+      GetArena());
   }
   version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_version().empty()) {
-    version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.version_);
+    version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_version(),
+      GetArena());
   }
   if (from._internal_has_up_duration()) {
     up_duration_ = new PROTOBUF_NAMESPACE_ID::Duration(*from.up_duration_);
@@ -184,14 +185,22 @@ void ServerUptimeEvent::SharedCtor() {
 ServerUptimeEvent::~ServerUptimeEvent() {
   // @@protoc_insertion_point(destructor:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void ServerUptimeEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete up_duration_;
 }
 
+void ServerUptimeEvent::ArenaDtor(void* object) {
+  ServerUptimeEvent* _this = reinterpret_cast< ServerUptimeEvent* >(object);
+  (void)_this;
+}
+void ServerUptimeEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void ServerUptimeEvent::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -207,18 +216,19 @@ void ServerUptimeEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  version_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == nullptr && up_duration_ != nullptr) {
+  id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  version_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && up_duration_ != nullptr) {
     delete up_duration_;
   }
   up_duration_ = nullptr;
   distribution_method_ = 0;
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* ServerUptimeEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -251,7 +261,7 @@ const char* ServerUptimeEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       // .percona.platform.telemetry.events.pmm.v1.DistributionMethod distribution_method = 4 [(.validator.field) = {
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_distribution_method(static_cast<::percona::platform::telemetry::events::pmm::v1::DistributionMethod>(val));
         } else goto handle_unusual;
@@ -262,7 +272,9 @@ const char* ServerUptimeEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -315,7 +327,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
   return target;
@@ -383,17 +395,15 @@ void ServerUptimeEvent::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) 
 void ServerUptimeEvent::MergeFrom(const ServerUptimeEvent& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.id().size() > 0) {
-
-    id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
+    _internal_set_id(from._internal_id());
   }
   if (from.version().size() > 0) {
-
-    version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.version_);
+    _internal_set_version(from._internal_version());
   }
   if (from.has_up_duration()) {
     _internal_mutable_up_duration()->PROTOBUF_NAMESPACE_ID::Duration::MergeFrom(from._internal_up_duration());
@@ -423,13 +433,15 @@ bool ServerUptimeEvent::IsInitialized() const {
 
 void ServerUptimeEvent::InternalSwap(ServerUptimeEvent* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  version_.Swap(&other->version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(up_duration_, other->up_duration_);
-  swap(distribution_method_, other->distribution_method_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  version_.Swap(&other->version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ServerUptimeEvent, distribution_method_)
+      + sizeof(ServerUptimeEvent::distribution_method_)
+      - PROTOBUF_FIELD_OFFSET(ServerUptimeEvent, up_duration_)>(
+          reinterpret_cast<char*>(&up_duration_),
+          reinterpret_cast<char*>(&other->up_duration_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ServerUptimeEvent::GetMetadata() const {
@@ -446,7 +458,7 @@ void ServerUptimeEvent::InternalSwap(ServerUptimeEvent* other) {
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent* Arena::CreateMaybeMessage< ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

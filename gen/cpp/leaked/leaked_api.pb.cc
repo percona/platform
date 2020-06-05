@@ -138,16 +138,15 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_lea
   &scc_info_CheckDoubleSHA1Response_Result_leaked_2fleaked_5fapi_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_leaked_2fleaked_5fapi_2eproto_once;
-static bool descriptor_table_leaked_2fleaked_5fapi_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_leaked_2fleaked_5fapi_2eproto = {
-  &descriptor_table_leaked_2fleaked_5fapi_2eproto_initialized, descriptor_table_protodef_leaked_2fleaked_5fapi_2eproto, "leaked/leaked_api.proto", 487,
+  false, false, descriptor_table_protodef_leaked_2fleaked_5fapi_2eproto, "leaked/leaked_api.proto", 487,
   &descriptor_table_leaked_2fleaked_5fapi_2eproto_once, descriptor_table_leaked_2fleaked_5fapi_2eproto_sccs, descriptor_table_leaked_2fleaked_5fapi_2eproto_deps, 3, 1,
   schemas, file_default_instances, TableStruct_leaked_2fleaked_5fapi_2eproto::offsets,
   file_level_metadata_leaked_2fleaked_5fapi_2eproto, 3, file_level_enum_descriptors_leaked_2fleaked_5fapi_2eproto, file_level_service_descriptors_leaked_2fleaked_5fapi_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_leaked_2fleaked_5fapi_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_leaked_2fleaked_5fapi_2eproto), true);
+static bool dynamic_init_dummy_leaked_2fleaked_5fapi_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_leaked_2fleaked_5fapi_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace leaked {
@@ -161,18 +160,19 @@ class CheckDoubleSHA1Request::_Internal {
  public:
 };
 
-CheckDoubleSHA1Request::CheckDoubleSHA1Request()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+CheckDoubleSHA1Request::CheckDoubleSHA1Request(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
 }
 CheckDoubleSHA1Request::CheckDoubleSHA1Request(const CheckDoubleSHA1Request& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   hash_prefix_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_hash_prefix().empty()) {
-    hash_prefix_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.hash_prefix_);
+    hash_prefix_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_hash_prefix(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
 }
@@ -185,12 +185,20 @@ void CheckDoubleSHA1Request::SharedCtor() {
 CheckDoubleSHA1Request::~CheckDoubleSHA1Request() {
   // @@protoc_insertion_point(destructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void CheckDoubleSHA1Request::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   hash_prefix_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void CheckDoubleSHA1Request::ArenaDtor(void* object) {
+  CheckDoubleSHA1Request* _this = reinterpret_cast< CheckDoubleSHA1Request* >(object);
+  (void)_this;
+}
+void CheckDoubleSHA1Request::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void CheckDoubleSHA1Request::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -206,12 +214,13 @@ void CheckDoubleSHA1Request::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hash_prefix_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _internal_metadata_.Clear();
+  hash_prefix_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CheckDoubleSHA1Request::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -231,7 +240,9 @@ const char* CheckDoubleSHA1Request::_InternalParse(const char* ptr, ::PROTOBUF_N
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -259,7 +270,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
   return target;
@@ -307,13 +318,12 @@ void CheckDoubleSHA1Request::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& f
 void CheckDoubleSHA1Request::MergeFrom(const CheckDoubleSHA1Request& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.leaked.v1beta1.CheckDoubleSHA1Request)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.hash_prefix().size() > 0) {
-
-    hash_prefix_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.hash_prefix_);
+    _internal_set_hash_prefix(from._internal_hash_prefix());
   }
 }
 
@@ -337,9 +347,8 @@ bool CheckDoubleSHA1Request::IsInitialized() const {
 
 void CheckDoubleSHA1Request::InternalSwap(CheckDoubleSHA1Request* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  hash_prefix_.Swap(&other->hash_prefix_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  hash_prefix_.Swap(&other->hash_prefix_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CheckDoubleSHA1Request::GetMetadata() const {
@@ -355,18 +364,19 @@ class CheckDoubleSHA1Response_Result::_Internal {
  public:
 };
 
-CheckDoubleSHA1Response_Result::CheckDoubleSHA1Response_Result()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+CheckDoubleSHA1Response_Result::CheckDoubleSHA1Response_Result(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
 }
 CheckDoubleSHA1Response_Result::CheckDoubleSHA1Response_Result(const CheckDoubleSHA1Response_Result& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   hash_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_hash().empty()) {
-    hash_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.hash_);
+    hash_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_hash(),
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
 }
@@ -379,12 +389,20 @@ void CheckDoubleSHA1Response_Result::SharedCtor() {
 CheckDoubleSHA1Response_Result::~CheckDoubleSHA1Response_Result() {
   // @@protoc_insertion_point(destructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void CheckDoubleSHA1Response_Result::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
   hash_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void CheckDoubleSHA1Response_Result::ArenaDtor(void* object) {
+  CheckDoubleSHA1Response_Result* _this = reinterpret_cast< CheckDoubleSHA1Response_Result* >(object);
+  (void)_this;
+}
+void CheckDoubleSHA1Response_Result::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void CheckDoubleSHA1Response_Result::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -400,12 +418,13 @@ void CheckDoubleSHA1Response_Result::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  hash_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _internal_metadata_.Clear();
+  hash_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CheckDoubleSHA1Response_Result::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -425,7 +444,9 @@ const char* CheckDoubleSHA1Response_Result::_InternalParse(const char* ptr, ::PR
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -453,7 +474,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
   return target;
@@ -501,13 +522,12 @@ void CheckDoubleSHA1Response_Result::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Me
 void CheckDoubleSHA1Response_Result::MergeFrom(const CheckDoubleSHA1Response_Result& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from.hash().size() > 0) {
-
-    hash_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.hash_);
+    _internal_set_hash(from._internal_hash());
   }
 }
 
@@ -531,9 +551,8 @@ bool CheckDoubleSHA1Response_Result::IsInitialized() const {
 
 void CheckDoubleSHA1Response_Result::InternalSwap(CheckDoubleSHA1Response_Result* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  hash_.Swap(&other->hash_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  hash_.Swap(&other->hash_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CheckDoubleSHA1Response_Result::GetMetadata() const {
@@ -549,16 +568,17 @@ class CheckDoubleSHA1Response::_Internal {
  public:
 };
 
-CheckDoubleSHA1Response::CheckDoubleSHA1Response()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+CheckDoubleSHA1Response::CheckDoubleSHA1Response(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  results_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
 }
 CheckDoubleSHA1Response::CheckDoubleSHA1Response(const CheckDoubleSHA1Response& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr),
       results_(from.results_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
 }
 
@@ -569,11 +589,19 @@ void CheckDoubleSHA1Response::SharedCtor() {
 CheckDoubleSHA1Response::~CheckDoubleSHA1Response() {
   // @@protoc_insertion_point(destructor:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void CheckDoubleSHA1Response::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
+void CheckDoubleSHA1Response::ArenaDtor(void* object) {
+  CheckDoubleSHA1Response* _this = reinterpret_cast< CheckDoubleSHA1Response* >(object);
+  (void)_this;
+}
+void CheckDoubleSHA1Response::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void CheckDoubleSHA1Response::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
@@ -590,11 +618,12 @@ void CheckDoubleSHA1Response::Clear() {
   (void) cached_has_bits;
 
   results_.Clear();
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CheckDoubleSHA1Response::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -618,7 +647,9 @@ const char* CheckDoubleSHA1Response::_InternalParse(const char* ptr, ::PROTOBUF_
           ctx->SetLastTag(tag);
           goto success;
         }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
       }
@@ -648,7 +679,7 @@ failure:
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
   return target;
@@ -696,7 +727,7 @@ void CheckDoubleSHA1Response::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& 
 void CheckDoubleSHA1Response::MergeFrom(const CheckDoubleSHA1Response& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.leaked.v1beta1.CheckDoubleSHA1Response)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -723,7 +754,7 @@ bool CheckDoubleSHA1Response::IsInitialized() const {
 
 void CheckDoubleSHA1Response::InternalSwap(CheckDoubleSHA1Response* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   results_.InternalSwap(&other->results_);
 }
 
@@ -739,13 +770,13 @@ void CheckDoubleSHA1Response::InternalSwap(CheckDoubleSHA1Response* other) {
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Request* Arena::CreateMaybeMessage< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Request >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Request >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Request >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response_Result* Arena::CreateMaybeMessage< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response_Result >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response_Result >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response_Result >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response* Arena::CreateMaybeMessage< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response >(Arena* arena) {
-  return Arena::CreateInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response >(arena);
+  return Arena::CreateMessageInternal< ::percona::platform::leaked::v1beta1::CheckDoubleSHA1Response >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
