@@ -91,7 +91,7 @@ const char descriptor_table_protodef_auth_2fauth_5fapi_2eproto[] PROTOBUF_SECTIO
   "auth.v1\0326github.com/mwitkow/go-proto-val"
   "idators/validator.proto\"@\n\rSignUpRequest"
   "\022\025\n\005login\030\001 \001(\tB\006\342\337\037\002p\004\022\030\n\010password\030\002 \001("
-  "\tB\006\342\337\037\002p\004\"\020\n\016SignUpResponse2f\n\007AuthAPI\022["
+  "\tB\006\342\337\037\002p\010\"\020\n\016SignUpResponse2f\n\007AuthAPI\022["
   "\n\006SignUp\022\'.percona.platform.auth.v1.Sign"
   "UpRequest\032(.percona.platform.auth.v1.Sig"
   "nUpResponseB\010Z\006authv1b\006proto3"

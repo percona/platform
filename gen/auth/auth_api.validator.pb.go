@@ -21,8 +21,8 @@ func (this *SignUpRequest) Validate() error {
 	if !(len(this.Login) > 4) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Login", fmt.Errorf(`value '%v' must have a length greater than '4'`, this.Login))
 	}
-	if !(len(this.Password) > 4) {
-		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must have a length greater than '4'`, this.Password))
+	if !(len(this.Password) > 8) {
+		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must have a length greater than '8'`, this.Password))
 	}
 	return nil
 }
