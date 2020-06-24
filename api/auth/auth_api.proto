@@ -6,7 +6,7 @@ option go_package = "authv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 
-// AuthAPI provides API for authentication and authorization for Percona services..
+// AuthAPI provides API for authentication and authorization for Percona services.
 service AuthAPI {
   // SignUp creates new user with given login and password.
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
@@ -19,7 +19,7 @@ message SignUpRequest {
       length_gt: 4
     }
   ];
-  //User password.
+  // User password.
   string password = 2 [
     (validator.field) = {
       length_gt: 8

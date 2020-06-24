@@ -29,7 +29,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type SignUpRequest struct {
 	// User login.
 	Login string `protobuf:"bytes,1,opt,name=login,proto3" json:"login,omitempty"`
-	//User password.
+	// User password.
 	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
