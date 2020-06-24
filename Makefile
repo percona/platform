@@ -19,8 +19,9 @@ init:                                      ## Install development tools
 	go build -modfile=tools/go.mod -o bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
 
 gen:                                       ## Format, check, and generate using prototool Docker image
-	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break check api/auth/external -f api/auth/external/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
 
 	rm -rf gen
 	$(DOCKER_RUN_CMD) prototool all api
@@ -46,8 +47,9 @@ test:                                      ## Run tests
 	go test -race ./...
 
 descriptors:                               ## Update files used for breaking changes detection
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break descriptor-set api/auth/external -o api/auth/external/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check/retrieval -o api/check/retrieval/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .

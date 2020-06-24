@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package percona.platform.auth.external.v1beta1;
+
+option go_package = "externalv1beta1";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+// AuthAPI provides API for authentication and authorization for Percona services.
+service AuthAPI {
+  // SignUp creates new user with given login and password.
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+}
+
+message SignUpRequest {
+  // User login.
+  string login = 1 [
+    (validator.field) = {
+      length_gt: 0
+    }
+  ];
+  // User password.
+  string password = 2 [
+    (validator.field) = {
+      length_gt: 0
+    }
+  ];
+}
+
+message SignUpResponse {}
