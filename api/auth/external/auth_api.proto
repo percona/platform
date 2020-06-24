@@ -16,13 +16,13 @@ message SignUpRequest {
   // User login.
   string login = 1 [
     (validator.field) = {
-      length_gt: 4
+      length_gt: 0
     }
   ];
   // User password.
   string password = 2 [
     (validator.field) = {
-      length_gt: 8
+      length_gt: 0
     }
   ];
 }

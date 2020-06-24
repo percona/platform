@@ -93,7 +93,7 @@ const char descriptor_table_protodef_auth_2fexternal_2fauth_5fapi_2eproto[] PROT
   "platform.auth.external.v1beta1\0326github.c"
   "om/mwitkow/go-proto-validators/validator"
   ".proto\"@\n\rSignUpRequest\022\025\n\005login\030\001 \001(\tB\006"
-  "\342\337\037\002p\004\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002p\010\"\020\n\016Sign"
+  "\342\337\037\002p\000\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002p\000\"\020\n\016Sign"
   "UpResponse2\202\001\n\007AuthAPI\022w\n\006SignUp\0225.perco"
   "na.platform.auth.external.v1beta1.SignUp"
   "Request\0326.percona.platform.auth.external"
