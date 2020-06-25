@@ -70,7 +70,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fexternal_2fauth_5fapi_2
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, login_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, email_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, password_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpResponse, _internal_metadata_),
@@ -92,8 +92,8 @@ const char descriptor_table_protodef_auth_2fexternal_2fauth_5fapi_2eproto[] PROT
   "\n\034auth/external/auth_api.proto\022&percona."
   "platform.auth.external.v1beta1\0326github.c"
   "om/mwitkow/go-proto-validators/validator"
-  ".proto\"@\n\rSignUpRequest\022\025\n\005login\030\001 \001(\tB\006"
-  "\342\337\037\002p\000\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002p\000\"\020\n\016Sign"
+  ".proto\"@\n\rSignUpRequest\022\025\n\005email\030\001 \001(\tB\006"
+  "\342\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"\020\n\016Sign"
   "UpResponse2\202\001\n\007AuthAPI\022w\n\006SignUp\0225.perco"
   "na.platform.auth.external.v1beta1.SignUp"
   "Request\0326.percona.platform.auth.external"
@@ -140,9 +140,9 @@ SignUpRequest::SignUpRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 SignUpRequest::SignUpRequest(const SignUpRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  login_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_login().empty()) {
-    login_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_login(),
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_email().empty()) {
+    email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_email(),
       GetArena());
   }
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -155,7 +155,7 @@ SignUpRequest::SignUpRequest(const SignUpRequest& from)
 
 void SignUpRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SignUpRequest_auth_2fexternal_2fauth_5fapi_2eproto.base);
-  login_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -167,7 +167,7 @@ SignUpRequest::~SignUpRequest() {
 
 void SignUpRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  login_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -192,7 +192,7 @@ void SignUpRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  login_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   password_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -205,12 +205,12 @@ const char* SignUpRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string login = 1 [(.validator.field) = {
+      // string email = 1 [(.validator.field) = {
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_login();
+          auto str = _internal_mutable_email();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignUpRequest.login"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignUpRequest.email"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -251,14 +251,14 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string login = 1 [(.validator.field) = {
-  if (this->login().size() > 0) {
+  // string email = 1 [(.validator.field) = {
+  if (this->email().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_login().data(), static_cast<int>(this->_internal_login().length()),
+      this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignUpRequest.login");
+      "percona.platform.auth.external.v1beta1.SignUpRequest.email");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_login(), target);
+        1, this->_internal_email(), target);
   }
 
   // string password = 2 [(.validator.field) = {
@@ -287,11 +287,11 @@ size_t SignUpRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string login = 1 [(.validator.field) = {
-  if (this->login().size() > 0) {
+  // string email = 1 [(.validator.field) = {
+  if (this->email().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_login());
+        this->_internal_email());
   }
 
   // string password = 2 [(.validator.field) = {
@@ -332,8 +332,8 @@ void SignUpRequest::MergeFrom(const SignUpRequest& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.login().size() > 0) {
-    _internal_set_login(from._internal_login());
+  if (from.email().size() > 0) {
+    _internal_set_email(from._internal_email());
   }
   if (from.password().size() > 0) {
     _internal_set_password(from._internal_password());
@@ -361,7 +361,7 @@ bool SignUpRequest::IsInitialized() const {
 void SignUpRequest::InternalSwap(SignUpRequest* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  login_.Swap(&other->login_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  email_.Swap(&other->email_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 

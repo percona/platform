@@ -18,11 +18,11 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (this *SignUpRequest) Validate() error {
-	if !(len(this.Login) > 0) {
-		return github_com_mwitkow_go_proto_validators.FieldError("Login", fmt.Errorf(`value '%v' must have a length greater than '0'`, this.Login))
+	if this.Email == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
 	}
-	if !(len(this.Password) > 0) {
-		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must have a length greater than '0'`, this.Password))
+	if this.Password == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must not be an empty string`, this.Password))
 	}
 	return nil
 }
