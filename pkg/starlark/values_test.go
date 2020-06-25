@@ -49,7 +49,6 @@ func TestConvert(t *testing.T) {
 		}
 
 		for _, p := range []pair{
-			{time.Date(2020, 4, 28, 13, 48, 42, 0, time.UTC), starlark.MakeInt64(1588081722000000000)},
 			{[]byte("Test"), starlark.String("Test")},
 		} {
 			v, expected := p.gv, p.sv
@@ -61,6 +60,13 @@ func TestConvert(t *testing.T) {
 				assert.Equal(t, expected, sv)
 			})
 		}
+
+		// special case
+		sv, err := goToStarlark(time.Date(2020, 4, 28, 13, 48, 42, 0, time.UTC))
+		require.NoError(t, err)
+		expected := starlark.MakeInt64(1588081722000000000).BigInt()
+		actual := sv.(starlark.Int).BigInt()
+		assert.Equal(t, expected, actual)
 	})
 
 	t.Run("starlarkToGo", func(t *testing.T) {
