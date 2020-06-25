@@ -18,8 +18,8 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (this *SignUpRequest) Validate() error {
-	if this.Login == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Login", fmt.Errorf(`value '%v' must not be an empty string`, this.Login))
+	if this.Email == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
 	}
 	if this.Password == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must not be an empty string`, this.Password))
