@@ -89,6 +89,7 @@ jobs:
           env
           go env
           pwd
+          git status
 
   check:
     name: Check
@@ -103,7 +104,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      GOFLAGS: -v -mod=readonly
+      # no `-mod=readonly` to test PRs made by @dependabot;
+      # `git diff --exit-code` step below still checks what we need
+      GOFLAGS: -v
       GOPRIVATE: github.com/percona-platform
 
     steps:
@@ -173,6 +176,7 @@ jobs:
           env
           go env
           pwd
+          git status
 
   build:
     name: Build Docker image
