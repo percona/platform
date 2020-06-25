@@ -9,7 +9,7 @@ require (
 	github.com/brianvoe/gofakeit v3.18.0+incompatible // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20200620013148-b91950f658ec // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
-	github.com/golang/protobuf v1.3.5
+	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
