@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Test
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     strategy:
       matrix:
@@ -180,7 +180,7 @@ jobs:
 
   build:
     name: Build Docker image
-    timeout-minutes: 5
+    timeout-minutes: 10
     needs: test
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
