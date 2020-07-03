@@ -243,7 +243,7 @@ const _ = grpc.SupportPackageIsVersion6
 type AuthAPIClient interface {
 	// SignUp creates new user with given email and password.
 	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResponse, error)
-	// SignIn creates session for user and returns session ID.
+	// SignIn checks user authentication, creates session and returns session ID.
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
 }
 
@@ -277,7 +277,7 @@ func (c *authAPIClient) SignIn(ctx context.Context, in *SignInRequest, opts ...g
 type AuthAPIServer interface {
 	// SignUp creates new user with given email and password.
 	SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error)
-	// SignIn creates session for user and returns session ID.
+	// SignIn checks user authentication, creates session and returns session ID.
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
 }
 
