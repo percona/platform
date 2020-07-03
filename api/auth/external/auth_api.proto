@@ -10,6 +10,8 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 service AuthAPI {
   // SignUp creates new user with given email and password.
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  // SignIn creates session for user and returns session ID.
+  rpc SignIn(SignInRequest) returns (SignInResponse);
 }
 
 message SignUpRequest {
@@ -28,3 +30,23 @@ message SignUpRequest {
 }
 
 message SignUpResponse {}
+
+message SignInRequest {
+  // User email.
+  string email = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User password.
+  string password = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SignInResponse {
+  // Session ID.
+  string session_id = 1;
+}
