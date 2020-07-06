@@ -29,3 +29,15 @@ func (this *SignUpRequest) Validate() error {
 func (this *SignUpResponse) Validate() error {
 	return nil
 }
+func (this *SignInRequest) Validate() error {
+	if this.Email == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
+	}
+	if this.Password == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must not be an empty string`, this.Password))
+	}
+	return nil
+}
+func (this *SignInResponse) Validate() error {
+	return nil
+}
