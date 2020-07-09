@@ -28,7 +28,7 @@ gen:                                       ## Format, check, and generate using 
 	$(DOCKER_RUN_CMD) gofmt -w -s .
 	$(DOCKER_RUN_CMD) goimports -local github.com/percona-platform/platform -w .
 
-gen-dev: docker-build                      ## Same as `gen` but with DEV protocol Docker image
+gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 	sudo chown -R runner:docker gen
 
