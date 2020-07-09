@@ -56,10 +56,7 @@ message SignInResponse {
   google.protobuf.Timestamp expire_time = 2;
 }
 
-message RefreshSessionRequest {
-  // Session ID.
-  string session_id = 1;
-}
+message RefreshSessionRequest {}
 
 message RefreshSessionResponse {
   // Session expiration time.

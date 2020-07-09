@@ -869,34 +869,6 @@ class RefreshSessionRequest PROTOBUF_FINAL :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSessionIdFieldNumber = 1,
-  };
-  // string session_id = 1;
-  void clear_session_id();
-  const std::string& session_id() const;
-  void set_session_id(const std::string& value);
-  void set_session_id(std::string&& value);
-  void set_session_id(const char* value);
-  void set_session_id(const char* value, size_t size);
-  std::string* mutable_session_id();
-  std::string* release_session_id();
-  void set_allocated_session_id(std::string* session_id);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_session_id();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_session_id(
-      std::string* session_id);
-  private:
-  const std::string& _internal_session_id() const;
-  void _internal_set_session_id(const std::string& value);
-  std::string* _internal_mutable_session_id();
-  public:
-
   // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
  private:
   class _Internal;
@@ -904,7 +876,6 @@ class RefreshSessionRequest PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
 };
@@ -1560,87 +1531,6 @@ inline void SignInResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Tim
 // -------------------------------------------------------------------
 
 // RefreshSessionRequest
-
-// string session_id = 1;
-inline void RefreshSessionRequest::clear_session_id() {
-  session_id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& RefreshSessionRequest::session_id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-  return _internal_session_id();
-}
-inline void RefreshSessionRequest::set_session_id(const std::string& value) {
-  _internal_set_session_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
-inline std::string* RefreshSessionRequest::mutable_session_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-  return _internal_mutable_session_id();
-}
-inline const std::string& RefreshSessionRequest::_internal_session_id() const {
-  return session_id_.Get();
-}
-inline void RefreshSessionRequest::_internal_set_session_id(const std::string& value) {
-  
-  session_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void RefreshSessionRequest::set_session_id(std::string&& value) {
-  
-  session_id_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
-inline void RefreshSessionRequest::set_session_id(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  session_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
-inline void RefreshSessionRequest::set_session_id(const char* value,
-    size_t size) {
-  
-  session_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
-inline std::string* RefreshSessionRequest::_internal_mutable_session_id() {
-  
-  return session_id_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* RefreshSessionRequest::release_session_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-  return session_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void RefreshSessionRequest::set_allocated_session_id(std::string* session_id) {
-  if (session_id != nullptr) {
-    
-  } else {
-    
-  }
-  session_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), session_id,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
-inline std::string* RefreshSessionRequest::unsafe_arena_release_session_id() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return session_id_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void RefreshSessionRequest::unsafe_arena_set_allocated_session_id(
-    std::string* session_id) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (session_id != nullptr) {
-    
-  } else {
-    
-  }
-  session_id_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      session_id, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.external.v1beta1.RefreshSessionRequest.session_id)
-}
 
 // -------------------------------------------------------------------
 
