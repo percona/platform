@@ -37,9 +37,11 @@ func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
 
 // NewGRPCServerOpts configure gRPC server.
 type NewGRPCServerOpts struct {
-	Addr            string
-	WarnDuration    time.Duration
-	ShutdownTimeout time.Duration
+	Addr               string
+	WarnDuration       time.Duration
+	ShutdownTimeout    time.Duration
+	UnaryInterceptors  []grpc.UnaryServerInterceptor
+	StreamInterceptors []grpc.StreamServerInterceptor
 }
 
 // NewGRPCServer creates new gRPC server with given options.
@@ -60,21 +62,25 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
 
+	unaryInterceptors := []grpc.UnaryServerInterceptor{
+		unaryLoggingInterceptor(opts.WarnDuration),
+		grpc_prometheus.UnaryServerInterceptor,
+		grpc_validator.UnaryServerInterceptor(),
+	}
+	unaryInterceptors = append(unaryInterceptors, opts.UnaryInterceptors...)
+
+	streamInterceptors := []grpc.StreamServerInterceptor{
+		streamLoggingInterceptor(opts.WarnDuration),
+		grpc_prometheus.StreamServerInterceptor,
+		grpc_validator.StreamServerInterceptor(),
+	}
+	streamInterceptors = append(streamInterceptors, opts.StreamInterceptors...)
+
 	serverOpts := []grpc.ServerOption{
 		grpc.ConnectionTimeout(5 * time.Second),
 		grpc.MaxRecvMsgSize(10 * 1024 * 1024), //nolint:gomnd
-
-		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
-			unaryLoggingInterceptor(opts.WarnDuration),
-			grpc_prometheus.UnaryServerInterceptor,
-			grpc_validator.UnaryServerInterceptor(),
-		)),
-
-		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
-			streamLoggingInterceptor(opts.WarnDuration),
-			grpc_prometheus.StreamServerInterceptor,
-			grpc_validator.StreamServerInterceptor(),
-		)),
+		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(unaryInterceptors...)),
+		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(streamInterceptors...)),
 	}
 
 	return &grpcServer{
