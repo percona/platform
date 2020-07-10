@@ -37,11 +37,14 @@ func (s *grpcServer) GetUnderlyingServer() *grpc.Server {
 
 // NewGRPCServerOpts configure gRPC server.
 type NewGRPCServerOpts struct {
-	Addr               string
-	WarnDuration       time.Duration
-	ShutdownTimeout    time.Duration
-	UnaryInterceptors  []grpc.UnaryServerInterceptor
-	StreamInterceptors []grpc.StreamServerInterceptor
+	Addr            string
+	WarnDuration    time.Duration
+	ShutdownTimeout time.Duration
+
+	// Additional unary and stream interceptors for gRPC server. They will be added at the end of
+	// interceptors chain in same order as in this slices. Optional, can be empty.
+	ExtraUnaryInterceptors  []grpc.UnaryServerInterceptor
+	ExtraStreamInterceptors []grpc.StreamServerInterceptor
 }
 
 // NewGRPCServer creates new gRPC server with given options.
@@ -67,14 +70,14 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
 	}
-	unaryInterceptors = append(unaryInterceptors, opts.UnaryInterceptors...)
+	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
 	streamInterceptors := []grpc.StreamServerInterceptor{
 		streamLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
 	}
-	streamInterceptors = append(streamInterceptors, opts.StreamInterceptors...)
+	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 
 	serverOpts := []grpc.ServerOption{
 		grpc.ConnectionTimeout(5 * time.Second),
