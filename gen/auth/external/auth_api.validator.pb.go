@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
@@ -39,5 +40,21 @@ func (this *SignInRequest) Validate() error {
 	return nil
 }
 func (this *SignInResponse) Validate() error {
+	if this.ExpireTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ExpireTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ExpireTime", err)
+		}
+	}
+	return nil
+}
+func (this *RefreshSessionRequest) Validate() error {
+	return nil
+}
+func (this *RefreshSessionResponse) Validate() error {
+	if this.ExpireTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ExpireTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ExpireTime", err)
+		}
+	}
 	return nil
 }

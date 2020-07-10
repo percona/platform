@@ -5,6 +5,7 @@ package percona.platform.auth.external.v1beta1;
 option go_package = "externalv1beta1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/protobuf/timestamp.proto";
 
 // AuthAPI provides API for authentication and authorization for Percona services.
 service AuthAPI {
@@ -12,6 +13,8 @@ service AuthAPI {
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
   // SignIn checks user authentication, creates session and returns session ID.
   rpc SignIn(SignInRequest) returns (SignInResponse);
+  // RefreshSession refreshes session timeout.
+  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse);
 }
 
 message SignUpRequest {
@@ -49,4 +52,13 @@ message SignInRequest {
 message SignInResponse {
   // Session ID.
   string session_id = 1;
+  // Session expiration time.
+  google.protobuf.Timestamp expire_time = 2;
+}
+
+message RefreshSessionRequest {}
+
+message RefreshSessionResponse {
+  // Session expiration time.
+  google.protobuf.Timestamp expire_time = 1;
 }

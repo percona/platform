@@ -33,6 +33,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
 #include "github.com/mwitkow/go-proto-validators/validator.pb.h"
+#include <google/protobuf/timestamp.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_auth_2fexternal_2fauth_5fapi_2eproto
@@ -48,7 +49,7 @@ struct TableStruct_auth_2fexternal_2fauth_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,6 +61,12 @@ namespace platform {
 namespace auth {
 namespace external {
 namespace v1beta1 {
+class RefreshSessionRequest;
+class RefreshSessionRequestDefaultTypeInternal;
+extern RefreshSessionRequestDefaultTypeInternal _RefreshSessionRequest_default_instance_;
+class RefreshSessionResponse;
+class RefreshSessionResponseDefaultTypeInternal;
+extern RefreshSessionResponseDefaultTypeInternal _RefreshSessionResponse_default_instance_;
 class SignInRequest;
 class SignInRequestDefaultTypeInternal;
 extern SignInRequestDefaultTypeInternal _SignInRequest_default_instance_;
@@ -78,6 +85,8 @@ extern SignUpResponseDefaultTypeInternal _SignUpResponse_default_instance_;
 }  // namespace platform
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
+template<> ::percona::platform::auth::external::v1beta1::RefreshSessionRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::RefreshSessionRequest>(Arena*);
+template<> ::percona::platform::auth::external::v1beta1::RefreshSessionResponse* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::RefreshSessionResponse>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignInRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignInRequest>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignInResponse* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignInResponse>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignUpRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignUpRequest>(Arena*);
@@ -689,6 +698,7 @@ class SignInResponse PROTOBUF_FINAL :
 
   enum : int {
     kSessionIdFieldNumber = 1,
+    kExpireTimeFieldNumber = 2,
   };
   // string session_id = 1;
   void clear_session_id();
@@ -715,6 +725,24 @@ class SignInResponse PROTOBUF_FINAL :
   std::string* _internal_mutable_session_id();
   public:
 
+  // .google.protobuf.Timestamp expire_time = 2;
+  bool has_expire_time() const;
+  private:
+  bool _internal_has_expire_time() const;
+  public:
+  void clear_expire_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& expire_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_expire_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_expire_time();
+  void set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Timestamp* expire_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_expire_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_expire_time();
+  public:
+  void unsafe_arena_set_allocated_expire_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* expire_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_expire_time();
+
   // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.SignInResponse)
  private:
   class _Internal;
@@ -723,6 +751,277 @@ class SignInResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_id_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* expire_time_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RefreshSessionRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.external.v1beta1.RefreshSessionRequest) */ {
+ public:
+  inline RefreshSessionRequest() : RefreshSessionRequest(nullptr) {};
+  virtual ~RefreshSessionRequest();
+
+  RefreshSessionRequest(const RefreshSessionRequest& from);
+  RefreshSessionRequest(RefreshSessionRequest&& from) noexcept
+    : RefreshSessionRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline RefreshSessionRequest& operator=(const RefreshSessionRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RefreshSessionRequest& operator=(RefreshSessionRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RefreshSessionRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RefreshSessionRequest* internal_default_instance() {
+    return reinterpret_cast<const RefreshSessionRequest*>(
+               &_RefreshSessionRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(RefreshSessionRequest& a, RefreshSessionRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RefreshSessionRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RefreshSessionRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RefreshSessionRequest* New() const final {
+    return CreateMaybeMessage<RefreshSessionRequest>(nullptr);
+  }
+
+  RefreshSessionRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RefreshSessionRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RefreshSessionRequest& from);
+  void MergeFrom(const RefreshSessionRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RefreshSessionRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.external.v1beta1.RefreshSessionRequest";
+  }
+  protected:
+  explicit RefreshSessionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RefreshSessionResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.external.v1beta1.RefreshSessionResponse) */ {
+ public:
+  inline RefreshSessionResponse() : RefreshSessionResponse(nullptr) {};
+  virtual ~RefreshSessionResponse();
+
+  RefreshSessionResponse(const RefreshSessionResponse& from);
+  RefreshSessionResponse(RefreshSessionResponse&& from) noexcept
+    : RefreshSessionResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline RefreshSessionResponse& operator=(const RefreshSessionResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RefreshSessionResponse& operator=(RefreshSessionResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RefreshSessionResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RefreshSessionResponse* internal_default_instance() {
+    return reinterpret_cast<const RefreshSessionResponse*>(
+               &_RefreshSessionResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(RefreshSessionResponse& a, RefreshSessionResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RefreshSessionResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RefreshSessionResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RefreshSessionResponse* New() const final {
+    return CreateMaybeMessage<RefreshSessionResponse>(nullptr);
+  }
+
+  RefreshSessionResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RefreshSessionResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RefreshSessionResponse& from);
+  void MergeFrom(const RefreshSessionResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RefreshSessionResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.external.v1beta1.RefreshSessionResponse";
+  }
+  protected:
+  explicit RefreshSessionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kExpireTimeFieldNumber = 1,
+  };
+  // .google.protobuf.Timestamp expire_time = 1;
+  bool has_expire_time() const;
+  private:
+  bool _internal_has_expire_time() const;
+  public:
+  void clear_expire_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& expire_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_expire_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_expire_time();
+  void set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Timestamp* expire_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_expire_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_expire_time();
+  public:
+  void unsafe_arena_set_allocated_expire_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* expire_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_expire_time();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* expire_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
 };
@@ -1154,9 +1453,171 @@ inline void SignInResponse::unsafe_arena_set_allocated_session_id(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.external.v1beta1.SignInResponse.session_id)
 }
 
+// .google.protobuf.Timestamp expire_time = 2;
+inline bool SignInResponse::_internal_has_expire_time() const {
+  return this != internal_default_instance() && expire_time_ != nullptr;
+}
+inline bool SignInResponse::has_expire_time() const {
+  return _internal_has_expire_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& SignInResponse::_internal_expire_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = expire_time_;
+  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(
+      &PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& SignInResponse::expire_time() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.external.v1beta1.SignInResponse.expire_time)
+  return _internal_expire_time();
+}
+inline void SignInResponse::unsafe_arena_set_allocated_expire_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* expire_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time_);
+  }
+  expire_time_ = expire_time;
+  if (expire_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.external.v1beta1.SignInResponse.expire_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* SignInResponse::release_expire_time() {
+  auto temp = unsafe_arena_release_expire_time();
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* SignInResponse::unsafe_arena_release_expire_time() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.external.v1beta1.SignInResponse.expire_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = expire_time_;
+  expire_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* SignInResponse::_internal_mutable_expire_time() {
+  
+  if (expire_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    expire_time_ = p;
+  }
+  return expire_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* SignInResponse::mutable_expire_time() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.external.v1beta1.SignInResponse.expire_time)
+  return _internal_mutable_expire_time();
+}
+inline void SignInResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Timestamp* expire_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time_);
+  }
+  if (expire_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      expire_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, expire_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  expire_time_ = expire_time;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.external.v1beta1.SignInResponse.expire_time)
+}
+
+// -------------------------------------------------------------------
+
+// RefreshSessionRequest
+
+// -------------------------------------------------------------------
+
+// RefreshSessionResponse
+
+// .google.protobuf.Timestamp expire_time = 1;
+inline bool RefreshSessionResponse::_internal_has_expire_time() const {
+  return this != internal_default_instance() && expire_time_ != nullptr;
+}
+inline bool RefreshSessionResponse::has_expire_time() const {
+  return _internal_has_expire_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& RefreshSessionResponse::_internal_expire_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = expire_time_;
+  return p != nullptr ? *p : *reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp*>(
+      &PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& RefreshSessionResponse::expire_time() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
+  return _internal_expire_time();
+}
+inline void RefreshSessionResponse::unsafe_arena_set_allocated_expire_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* expire_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time_);
+  }
+  expire_time_ = expire_time;
+  if (expire_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* RefreshSessionResponse::release_expire_time() {
+  auto temp = unsafe_arena_release_expire_time();
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* RefreshSessionResponse::unsafe_arena_release_expire_time() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = expire_time_;
+  expire_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* RefreshSessionResponse::_internal_mutable_expire_time() {
+  
+  if (expire_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    expire_time_ = p;
+  }
+  return expire_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* RefreshSessionResponse::mutable_expire_time() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
+  return _internal_mutable_expire_time();
+}
+inline void RefreshSessionResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Timestamp* expire_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time_);
+  }
+  if (expire_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(expire_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      expire_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, expire_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  expire_time_ = expire_time;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
