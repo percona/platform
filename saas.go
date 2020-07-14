@@ -66,7 +66,8 @@ func main() {
 	// copy and patch files
 	for _, src := range []string{
 		"api/check", "api/telemetry",
-		"gen/check", "gen/telemetry",
+		"api/auth", "gen/check",
+		"gen/telemetry", "gen/auth",
 		"pkg/check", "pkg/starlark",
 	} {
 		err := filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
