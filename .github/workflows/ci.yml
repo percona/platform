@@ -63,7 +63,9 @@ jobs:
         run: make init
 
       - name: Generate API code using dev docker image
-        run: make gen-dev
+        run: |
+          make gen-dev
+          sudo chown -R runner:docker gen
 
       - name: Generate Go code
         run: make gen-code

@@ -30,10 +30,10 @@ gen:                                       ## Format, check, and generate using 
 
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
-	sudo chown -R runner:docker gen
 
-gen-code:                                 ## Generate code
+gen-code:                                  ## Generate code
 	go generate ./...
+	go install ./...
 
 format:                                    ## Format source code
 	gofmt -w -s .
