@@ -67,7 +67,7 @@ func main() {
 	for _, src := range []string{
 		"api/auth", "api/check", "api/telemetry",
 		"gen/auth", "gen/check", "gen/telemetry",
-		"pkg/check", "pkg/starlark",
+		"pkg/check", "pkg/logger", "pkg/starlark",
 	} {
 		err := filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
