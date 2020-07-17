@@ -58,3 +58,9 @@ func (this *RefreshSessionResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ResetPasswordRequest) Validate() error {
+	return nil
+}
+func (this *ResetPasswordResponse) Validate() error {
+	return nil
+}
