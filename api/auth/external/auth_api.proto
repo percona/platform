@@ -65,6 +65,13 @@ message RefreshSessionResponse {
   google.protobuf.Timestamp expire_time = 1;
 }
 
-message ResetPasswordRequest {}
+message ResetPasswordRequest {
+  // User email.
+  string email = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
 
 message ResetPasswordResponse {}
