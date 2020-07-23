@@ -15,7 +15,7 @@ service AuthAPI {
   rpc SignIn(SignInRequest) returns (SignInResponse);
   // RefreshSession refreshes session timeout.
   rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse);
-  // ResetPassword initiates users password reset procedure.
+  // ResetPassword initiates user's password reset procedure.
   rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
 }
 
