@@ -411,7 +411,7 @@ type AuthAPIClient interface {
 	SignIn(ctx context.Context, in *SignInRequest, opts ...grpc.CallOption) (*SignInResponse, error)
 	// RefreshSession refreshes session timeout.
 	RefreshSession(ctx context.Context, in *RefreshSessionRequest, opts ...grpc.CallOption) (*RefreshSessionResponse, error)
-	// ResetPassword initiates users password reset procedure.
+	// ResetPassword initiates user's password reset procedure.
 	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ResetPasswordResponse, error)
 }
 
@@ -467,7 +467,7 @@ type AuthAPIServer interface {
 	SignIn(context.Context, *SignInRequest) (*SignInResponse, error)
 	// RefreshSession refreshes session timeout.
 	RefreshSession(context.Context, *RefreshSessionRequest) (*RefreshSessionResponse, error)
-	// ResetPassword initiates users password reset procedure.
+	// ResetPassword initiates user's password reset procedure.
 	ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
 }
 
