@@ -10,8 +10,7 @@ import (
 )
 
 func TestCheck_Parse(t *testing.T) {
-	t.Run("singleDocument", func(t *testing.T) {
-		data := strings.TrimSpace(`
+	singleDocument := strings.TrimSpace(`
 ---
 checks:
   - version: 1
@@ -31,28 +30,7 @@ checks:
             pass
 `)
 
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 2)
-
-		assert.Equal(t, uint32(1), cs[0].Version)
-		assert.Equal(t, MySQLShow, cs[0].Type)
-		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
-
-		assert.Equal(t, uint32(1), cs[1].Version)
-		assert.Equal(t, PostgreSQLSelect, cs[1].Type)
-		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
-		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
-	})
-
-	t.Run("multipleDocuments", func(t *testing.T) {
-		data := strings.TrimSpace(`
+	multiDocument := strings.TrimSpace(`
 ---
 checks:
   - version: 1
@@ -73,11 +51,13 @@ checks:
             pass
 `)
 
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
+	params := &ParseParams{
+		DisallowUnknownFields: true,
+		DisallowInvalidChecks: true,
+	}
+
+	for _, document := range []string{singleDocument, multiDocument} {
+		cs, err := Parse(bytes.NewReader([]byte(document)), params)
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 2)
@@ -91,7 +71,7 @@ checks:
 		assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 		assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
 		assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
-	})
+	}
 
 	t.Run("skipInvalid", func(t *testing.T) {
 		data := strings.TrimSpace(`

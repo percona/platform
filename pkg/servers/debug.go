@@ -31,7 +31,7 @@ type RunDebugServerOpts struct {
 
 // RunDebugServer runs debug server with given options until ctx is canceled.
 // All errors cause panic.
-func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
+func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen
 	if opts == nil {
 		opts = new(RunDebugServerOpts)
 	}
@@ -114,7 +114,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) {
 		l.Panic(err)
 	}
 	http.HandleFunc("/debug", func(rw http.ResponseWriter, req *http.Request) {
-		rw.Write(buf.Bytes())
+		rw.Write(buf.Bytes()) //nolint:errcheck,gosec
 	})
 
 	l.Infof("Starting server on http://%s/debug\nRegistered handlers:\n\t%s", opts.Addr, strings.Join(handlers, "\n\t"))

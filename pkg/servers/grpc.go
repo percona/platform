@@ -13,6 +13,7 @@ import (
 	channelz "google.golang.org/grpc/channelz/service"
 )
 
+// GRPCServer describes common grpc server interface for Percona Platform applications.
 type GRPCServer interface {
 	// Run runs the server until ctx is canceled.
 	Run(ctx context.Context)

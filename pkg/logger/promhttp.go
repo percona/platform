@@ -11,9 +11,10 @@ type PromHTTP struct {
 	L *zap.SugaredLogger
 }
 
+// Println prints log message with info level.
 func (p *PromHTTP) Println(args ...interface{}) { p.L.Info(args...) }
 
-// check interfaces
 var (
+	// check interfaces
 	_ promhttp.Logger = (*PromHTTP)(nil)
 )

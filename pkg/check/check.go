@@ -168,7 +168,7 @@ func (c *Check) validateScript() error {
 }
 
 func (c *Check) validateQuery() error {
-	switch c.Type {
+	switch c.Type { //nolint:exhaustive
 	case PostgreSQLShow:
 		fallthrough
 	case MongoDBGetParameter:
