@@ -8,7 +8,7 @@ require (
 	github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813
 	github.com/elazarl/go-bindata-assetfs v1.0.0 // indirect
 	github.com/golang/protobuf v1.3.5
-	github.com/golangci/golangci-lint v1.28.1
+	github.com/golangci/golangci-lint v1.29.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/mwitkow/go-proto-validators v0.3.0
 	github.com/quasilyte/go-consistent v0.0.0-20200404105227-766526bf1e96
@@ -16,5 +16,5 @@ require (
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
 	google.golang.org/grpc v1.30.0
-	mvdan.cc/gofumpt v0.0.0-20200513141252-abc0db2c416a
+	mvdan.cc/gofumpt v0.0.0-20200709182408-4fd085cb6d5f
 )
