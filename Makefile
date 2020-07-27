@@ -10,13 +10,13 @@ help:                                      ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                                      ## Install development tools
-	go build -modfile=tools/go.mod -o bin/goimports golang.org/x/tools/cmd/goimports
 	go build -modfile=tools/go.mod -o bin/stringer golang.org/x/tools/cmd/stringer
 	go build -modfile=tools/go.mod -o bin/go-consistent github.com/quasilyte/go-consistent
 	go build -modfile=tools/go.mod -o bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
 	go build -modfile=tools/go.mod -o bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
 	go build -modfile=tools/go.mod -o bin/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz
 	go build -modfile=tools/go.mod -o bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
+	go build -modfile=tools/go.mod -o bin/gofumports mvdan.cc/gofumpt/gofumports
 
 gen:                                       ## Format, check, and generate using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/auth/external -f api/auth/external/descriptor.bin
@@ -25,8 +25,7 @@ gen:                                       ## Format, check, and generate using 
 
 	rm -rf gen
 	$(DOCKER_RUN_CMD) prototool all api
-	$(DOCKER_RUN_CMD) gofmt -w -s .
-	$(DOCKER_RUN_CMD) goimports -local github.com/percona-platform/platform -w .
+	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
@@ -36,8 +35,7 @@ gen-code:                                  ## Generate code
 	go install ./...
 
 format:                                    ## Format source code
-	gofmt -w -s .
-	bin/goimports -local github.com/percona-platform/platform -l -w .
+	bin/gofumports -local github.com/percona-platform/platform -l -w .
 
 check:                                     ## Run checks/linters for the whole project
 	bin/go-consistent -pedantic ./...

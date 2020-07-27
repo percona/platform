@@ -36,7 +36,5 @@ func (g *GRPC) Errorln(args ...interface{}) { g.Error(args...) }
 // Fatalln prints log message and exit program.
 func (g *GRPC) Fatalln(args ...interface{}) { g.Fatal(args...) }
 
-var (
-	// check interfaces
-	_ grpclog.LoggerV2 = (*GRPC)(nil)
-)
+// check interfaces
+var _ grpclog.LoggerV2 = (*GRPC)(nil)

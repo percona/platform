@@ -13,9 +13,11 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+var (
+	_ = proto.Marshal
+	_ = fmt.Errorf
+	_ = math.Inf
+)
 
 func (this *CheckDoubleSHA1Request) Validate() error {
 	if !(len(this.HashPrefix) == 3) {
@@ -23,6 +25,7 @@ func (this *CheckDoubleSHA1Request) Validate() error {
 	}
 	return nil
 }
+
 func (this *CheckDoubleSHA1Response) Validate() error {
 	for _, item := range this.Results {
 		if item != nil {
@@ -33,6 +36,7 @@ func (this *CheckDoubleSHA1Response) Validate() error {
 	}
 	return nil
 }
+
 func (this *CheckDoubleSHA1Response_Result) Validate() error {
 	if !(len(this.Hash) == 20) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Hash", fmt.Errorf(`value '%v' must have a length equal to '20'`, this.Hash))

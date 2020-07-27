@@ -17,9 +17,11 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+var (
+	_ = proto.Marshal
+	_ = fmt.Errorf
+	_ = math.Inf
+)
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
@@ -47,15 +49,19 @@ func (*SignUpRequest) Descriptor() ([]byte, []int) {
 func (m *SignUpRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignUpRequest.Unmarshal(m, b)
 }
+
 func (m *SignUpRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignUpRequest.Marshal(b, m, deterministic)
 }
+
 func (m *SignUpRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignUpRequest.Merge(m, src)
 }
+
 func (m *SignUpRequest) XXX_Size() int {
 	return xxx_messageInfo_SignUpRequest.Size(m)
 }
+
 func (m *SignUpRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignUpRequest.DiscardUnknown(m)
 }
@@ -92,15 +98,19 @@ func (*SignUpResponse) Descriptor() ([]byte, []int) {
 func (m *SignUpResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignUpResponse.Unmarshal(m, b)
 }
+
 func (m *SignUpResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignUpResponse.Marshal(b, m, deterministic)
 }
+
 func (m *SignUpResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignUpResponse.Merge(m, src)
 }
+
 func (m *SignUpResponse) XXX_Size() int {
 	return xxx_messageInfo_SignUpResponse.Size(m)
 }
+
 func (m *SignUpResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignUpResponse.DiscardUnknown(m)
 }
@@ -127,15 +137,19 @@ func (*SignInRequest) Descriptor() ([]byte, []int) {
 func (m *SignInRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignInRequest.Unmarshal(m, b)
 }
+
 func (m *SignInRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignInRequest.Marshal(b, m, deterministic)
 }
+
 func (m *SignInRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignInRequest.Merge(m, src)
 }
+
 func (m *SignInRequest) XXX_Size() int {
 	return xxx_messageInfo_SignInRequest.Size(m)
 }
+
 func (m *SignInRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignInRequest.DiscardUnknown(m)
 }
@@ -176,15 +190,19 @@ func (*SignInResponse) Descriptor() ([]byte, []int) {
 func (m *SignInResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignInResponse.Unmarshal(m, b)
 }
+
 func (m *SignInResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignInResponse.Marshal(b, m, deterministic)
 }
+
 func (m *SignInResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignInResponse.Merge(m, src)
 }
+
 func (m *SignInResponse) XXX_Size() int {
 	return xxx_messageInfo_SignInResponse.Size(m)
 }
+
 func (m *SignInResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignInResponse.DiscardUnknown(m)
 }
@@ -221,15 +239,19 @@ func (*RefreshSessionRequest) Descriptor() ([]byte, []int) {
 func (m *RefreshSessionRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RefreshSessionRequest.Unmarshal(m, b)
 }
+
 func (m *RefreshSessionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RefreshSessionRequest.Marshal(b, m, deterministic)
 }
+
 func (m *RefreshSessionRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RefreshSessionRequest.Merge(m, src)
 }
+
 func (m *RefreshSessionRequest) XXX_Size() int {
 	return xxx_messageInfo_RefreshSessionRequest.Size(m)
 }
+
 func (m *RefreshSessionRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_RefreshSessionRequest.DiscardUnknown(m)
 }
@@ -254,15 +276,19 @@ func (*RefreshSessionResponse) Descriptor() ([]byte, []int) {
 func (m *RefreshSessionResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RefreshSessionResponse.Unmarshal(m, b)
 }
+
 func (m *RefreshSessionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RefreshSessionResponse.Marshal(b, m, deterministic)
 }
+
 func (m *RefreshSessionResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RefreshSessionResponse.Merge(m, src)
 }
+
 func (m *RefreshSessionResponse) XXX_Size() int {
 	return xxx_messageInfo_RefreshSessionResponse.Size(m)
 }
+
 func (m *RefreshSessionResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_RefreshSessionResponse.DiscardUnknown(m)
 }
@@ -294,15 +320,19 @@ func (*ResetPasswordRequest) Descriptor() ([]byte, []int) {
 func (m *ResetPasswordRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ResetPasswordRequest.Unmarshal(m, b)
 }
+
 func (m *ResetPasswordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ResetPasswordRequest.Marshal(b, m, deterministic)
 }
+
 func (m *ResetPasswordRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_ResetPasswordRequest.Merge(m, src)
 }
+
 func (m *ResetPasswordRequest) XXX_Size() int {
 	return xxx_messageInfo_ResetPasswordRequest.Size(m)
 }
+
 func (m *ResetPasswordRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_ResetPasswordRequest.DiscardUnknown(m)
 }
@@ -332,15 +362,19 @@ func (*ResetPasswordResponse) Descriptor() ([]byte, []int) {
 func (m *ResetPasswordResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ResetPasswordResponse.Unmarshal(m, b)
 }
+
 func (m *ResetPasswordResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ResetPasswordResponse.Marshal(b, m, deterministic)
 }
+
 func (m *ResetPasswordResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_ResetPasswordResponse.Merge(m, src)
 }
+
 func (m *ResetPasswordResponse) XXX_Size() int {
 	return xxx_messageInfo_ResetPasswordResponse.Size(m)
 }
+
 func (m *ResetPasswordResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_ResetPasswordResponse.DiscardUnknown(m)
 }
@@ -394,8 +428,10 @@ var fileDescriptor_7e0315b5819ba925 = []byte{
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConnInterface
+var (
+	_ context.Context
+	_ grpc.ClientConnInterface
+)
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
@@ -478,12 +514,15 @@ type UnimplementedAuthAPIServer struct {
 func (*UnimplementedAuthAPIServer) SignUp(ctx context.Context, req *SignUpRequest) (*SignUpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
 }
+
 func (*UnimplementedAuthAPIServer) SignIn(ctx context.Context, req *SignInRequest) (*SignInResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignIn not implemented")
 }
+
 func (*UnimplementedAuthAPIServer) RefreshSession(ctx context.Context, req *RefreshSessionRequest) (*RefreshSessionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshSession not implemented")
 }
+
 func (*UnimplementedAuthAPIServer) ResetPassword(ctx context.Context, req *ResetPasswordRequest) (*ResetPasswordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
 }

@@ -14,7 +14,5 @@ type PromHTTP struct {
 // Println prints log message with info level.
 func (p *PromHTTP) Println(args ...interface{}) { p.L.Info(args...) }
 
-var (
-	// check interfaces
-	_ promhttp.Logger = (*PromHTTP)(nil)
-)
+// check interfaces
+var _ promhttp.Logger = (*PromHTTP)(nil)
