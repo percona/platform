@@ -68,17 +68,17 @@ func Setup(opts *SetupOpts) (*Config, error) {
 	kingpin.Version(version())
 	kingpin.HelpFlag.Short('h')
 
-	var flags Config
+	var config Config
 
 	if opts.WithGRPC {
-		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&flags.GRPCAddr)
+		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&config.GRPCAddr)
 	}
 
 	if opts.WithHTTP {
-		kingpin.Flag("http.addr", "HTTP listen address").Default(":20202").StringVar(&flags.HTTPAddr)
+		kingpin.Flag("http.addr", "HTTP listen address").Default(":20202").StringVar(&config.HTTPAddr)
 	}
 
-	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&flags.DebugAddr)
+	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&config.DebugAddr)
 
-	return &flags, nil
+	return &config, nil
 }
