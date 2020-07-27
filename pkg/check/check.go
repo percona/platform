@@ -168,7 +168,7 @@ func (c *Check) validateScript() error {
 }
 
 func (c *Check) validateQuery() error {
-	switch c.Type { //nolint:exhaustive
+	switch c.Type {
 	case PostgreSQLShow:
 		fallthrough
 	case MongoDBGetParameter:
@@ -179,7 +179,11 @@ func (c *Check) validateQuery() error {
 		if c.Query != "" {
 			return errors.Errorf("%s check type should have empty query", c.Type)
 		}
-	default:
+	case PostgreSQLSelect:
+		fallthrough
+	case MySQLShow:
+		fallthrough
+	case MySQLSelect:
 		if c.Query == "" {
 			return errors.New("check query is empty")
 		}
