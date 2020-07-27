@@ -33,7 +33,6 @@ linters:
     - gomnd     # too annoying
     - lll       # gRPC types are long
     - wsl       # too annoying
-    - gofumpt   # we use standard formatting
 
 issues:
   exclude-use-default: false

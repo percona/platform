@@ -104,8 +104,8 @@ func (r *Reform) Reset() {
 	r.mResponses.Reset()
 }
 
+// check interfaces.
 var (
-	// check interfaces
 	_ reform.Logger        = (*Reform)(nil)
 	_ prometheus.Collector = (*Reform)(nil)
 )

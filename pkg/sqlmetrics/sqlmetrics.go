@@ -140,5 +140,5 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	)
 }
 
-// check interfaces
+// check interfaces.
 var _ prometheus.Collector = (*Collector)(nil)
