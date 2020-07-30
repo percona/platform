@@ -76,7 +76,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fsession_2fsession_5fapi
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::session::v1beta1::CheckSessionResponse, email_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::auth::session::v1beta1::CheckSessionRequest)},
@@ -93,12 +92,12 @@ const char descriptor_table_protodef_auth_2fsession_2fsession_5fapi_2eproto[] PR
   "a.platform.auth.session.v1beta1\0326github."
   "com/mwitkow/go-proto-validators/validato"
   "r.proto\"1\n\023CheckSessionRequest\022\032\n\nsessio"
-  "n_id\030\001 \001(\tB\006\342\337\037\002X\001\"%\n\024CheckSessionRespon"
-  "se\022\r\n\005email\030\001 \001(\t2\226\001\n\nSessionAPI\022\207\001\n\014Che"
-  "ckSession\022:.percona.platform.auth.sessio"
-  "n.v1beta1.CheckSessionRequest\032;.percona."
-  "platform.auth.session.v1beta1.CheckSessi"
-  "onResponseB\020Z\016sessionv1beta1b\006proto3"
+  "n_id\030\001 \001(\tB\006\342\337\037\002X\001\"\026\n\024CheckSessionRespon"
+  "se2\226\001\n\nSessionAPI\022\207\001\n\014CheckSession\022:.per"
+  "cona.platform.auth.session.v1beta1.Check"
+  "SessionRequest\032;.percona.platform.auth.s"
+  "ession.v1beta1.CheckSessionResponseB\020Z\016s"
+  "essionv1beta1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fsession_2fsession_5fapi_2eproto_deps[1] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -109,7 +108,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_aut
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fsession_2fsession_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fsession_2fsession_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_auth_2fsession_2fsession_5fapi_2eproto, "auth/session/session_api.proto", 396,
+  false, false, descriptor_table_protodef_auth_2fsession_2fsession_5fapi_2eproto, "auth/session/session_api.proto", 381,
   &descriptor_table_auth_2fsession_2fsession_5fapi_2eproto_once, descriptor_table_auth_2fsession_2fsession_5fapi_2eproto_sccs, descriptor_table_auth_2fsession_2fsession_5fapi_2eproto_deps, 2, 1,
   schemas, file_default_instances, TableStruct_auth_2fsession_2fsession_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fsession_2fsession_5fapi_2eproto, 2, file_level_enum_descriptors_auth_2fsession_2fsession_5fapi_2eproto, file_level_service_descriptors_auth_2fsession_2fsession_5fapi_2eproto,
@@ -349,17 +348,10 @@ CheckSessionResponse::CheckSessionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena
 CheckSessionResponse::CheckSessionResponse(const CheckSessionResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_email().empty()) {
-    email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_email(),
-      GetArena());
-  }
   // @@protoc_insertion_point(copy_constructor:percona.platform.auth.session.v1beta1.CheckSessionResponse)
 }
 
 void CheckSessionResponse::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CheckSessionResponse_auth_2fsession_2fsession_5fapi_2eproto.base);
-  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 CheckSessionResponse::~CheckSessionResponse() {
@@ -370,7 +362,6 @@ CheckSessionResponse::~CheckSessionResponse() {
 
 void CheckSessionResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CheckSessionResponse::ArenaDtor(void* object) {
@@ -394,7 +385,6 @@ void CheckSessionResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -405,18 +395,6 @@ const char* CheckSessionResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // string email = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_email();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.session.v1beta1.CheckSessionResponse.email"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -426,8 +404,6 @@ const char* CheckSessionResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
             ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -442,16 +418,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.session.v1beta1.CheckSessionResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // string email = 1;
-  if (this->email().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.session.v1beta1.CheckSessionResponse.email");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_email(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -468,13 +434,6 @@ size_t CheckSessionResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // string email = 1;
-  if (this->email().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_email());
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -507,9 +466,6 @@ void CheckSessionResponse::MergeFrom(const CheckSessionResponse& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.email().size() > 0) {
-    _internal_set_email(from._internal_email());
-  }
 }
 
 void CheckSessionResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -533,7 +489,6 @@ bool CheckSessionResponse::IsInitialized() const {
 void CheckSessionResponse::InternalSwap(CheckSessionResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  email_.Swap(&other->email_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CheckSessionResponse::GetMetadata() const {

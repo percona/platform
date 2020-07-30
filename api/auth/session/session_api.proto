@@ -21,7 +21,4 @@ message CheckSessionRequest {
   ];
 }
 
-message CheckSessionResponse {
-  // User email.
-  string email = 1;
-}
+message CheckSessionResponse {}

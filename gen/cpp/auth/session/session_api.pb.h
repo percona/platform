@@ -348,34 +348,6 @@ class CheckSessionResponse PROTOBUF_FINAL :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kEmailFieldNumber = 1,
-  };
-  // string email = 1;
-  void clear_email();
-  const std::string& email() const;
-  void set_email(const std::string& value);
-  void set_email(std::string&& value);
-  void set_email(const char* value);
-  void set_email(const char* value, size_t size);
-  std::string* mutable_email();
-  std::string* release_email();
-  void set_allocated_email(std::string* email);
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  std::string* unsafe_arena_release_email();
-  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
-  "    string fields are deprecated and will be removed in a"
-  "    future release.")
-  void unsafe_arena_set_allocated_email(
-      std::string* email);
-  private:
-  const std::string& _internal_email() const;
-  void _internal_set_email(const std::string& value);
-  std::string* _internal_mutable_email();
-  public:
-
   // @@protoc_insertion_point(class_scope:percona.platform.auth.session.v1beta1.CheckSessionResponse)
  private:
   class _Internal;
@@ -383,7 +355,6 @@ class CheckSessionResponse PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fsession_2fsession_5fapi_2eproto;
 };
@@ -482,87 +453,6 @@ inline void CheckSessionRequest::unsafe_arena_set_allocated_session_id(
 // -------------------------------------------------------------------
 
 // CheckSessionResponse
-
-// string email = 1;
-inline void CheckSessionResponse::clear_email() {
-  email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline const std::string& CheckSessionResponse::email() const {
-  // @@protoc_insertion_point(field_get:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-  return _internal_email();
-}
-inline void CheckSessionResponse::set_email(const std::string& value) {
-  _internal_set_email(value);
-  // @@protoc_insertion_point(field_set:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
-inline std::string* CheckSessionResponse::mutable_email() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-  return _internal_mutable_email();
-}
-inline const std::string& CheckSessionResponse::_internal_email() const {
-  return email_.Get();
-}
-inline void CheckSessionResponse::_internal_set_email(const std::string& value) {
-  
-  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void CheckSessionResponse::set_email(std::string&& value) {
-  
-  email_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
-inline void CheckSessionResponse::set_email(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
-inline void CheckSessionResponse::set_email(const char* value,
-    size_t size) {
-  
-  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
-inline std::string* CheckSessionResponse::_internal_mutable_email() {
-  
-  return email_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* CheckSessionResponse::release_email() {
-  // @@protoc_insertion_point(field_release:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-  return email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void CheckSessionResponse::set_allocated_email(std::string* email) {
-  if (email != nullptr) {
-    
-  } else {
-    
-  }
-  email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
-inline std::string* CheckSessionResponse::unsafe_arena_release_email() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  
-  return email_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      GetArena());
-}
-inline void CheckSessionResponse::unsafe_arena_set_allocated_email(
-    std::string* email) {
-  GOOGLE_DCHECK(GetArena() != nullptr);
-  if (email != nullptr) {
-    
-  } else {
-    
-  }
-  email_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      email, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.session.v1beta1.CheckSessionResponse.email)
-}
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
