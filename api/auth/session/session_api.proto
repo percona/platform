@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package percona.platform.auth.session.v1beta1;
+
+option go_package = "sessionv1beta1";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+// SessionAPI provides API for session validation.
+service SessionAPI {
+  // CheckSession checks provided session ID and returns user email if session exists and valid.
+  rpc CheckSession(CheckSessionRequest) returns (CheckSessionResponse);
+}
+
+message CheckSessionRequest {
+  // Session ID.
+  string session_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message CheckSessionResponse {
+  // User email.
+  string email = 1;
+}
