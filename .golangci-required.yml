@@ -20,9 +20,10 @@ linters:
   disable-all: true
   enable:
     - depguard
+    - exhaustive
     - goimports
-    - ineffassign
     - govet
+    - ineffassign
     - staticcheck
 
 issues:

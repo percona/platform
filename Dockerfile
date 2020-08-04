@@ -29,7 +29,7 @@ RUN cd /tmp/go && go install -v -mod=readonly \
   github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger \
   github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
   github.com/uber/prototool/cmd/prototool \
-  golang.org/x/tools/cmd/goimports
+  mvdan.cc/gofumpt/gofumports
 RUN mv -v /go/bin/* /usr/local/bin
 RUN mv -v /go/pkg/mod/github.com/grpc-ecosystem/grpc-gateway@v${GRPC_GATEWAY_VERSION}/third_party/googleapis/google/* /usr/local/include/google
 RUN mkdir -p /usr/local/include/github.com/mwitkow/go-proto-validators

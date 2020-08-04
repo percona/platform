@@ -30,15 +30,15 @@ func copyAndPatchFile(src, dst string) error {
 
 	b = bytes.Replace(b, []byte(from), []byte(to), -1)
 
-	if err = os.MkdirAll(filepath.Dir(dst), 0755); err != nil { //nolint:gosec
+	if err = os.MkdirAll(filepath.Dir(dst), 0o755); err != nil { //nolint:gosec
 		return err
 	}
 
-	return ioutil.WriteFile(dst, b, 0644)
+	return ioutil.WriteFile(dst, b, 0o644)
 }
 
 // runInDir runs command name with args in dir and returns stdout.
-func runInDir(dir string, name string, args ...string) ([]byte, error) {
+func runInDir(dir, name string, args ...string) ([]byte, error) {
 	cmd := exec.Command(name, args...) //nolint:gosec
 	cmd.Dir = dir
 	cmd.Stderr = os.Stderr
