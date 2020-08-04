@@ -78,6 +78,7 @@ func NewCollector(driver, dbName string, db *sql.DB) *Collector {
 	}
 }
 
+// Describe implements prometheus.Collector interface.
 func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.maxOpenConnections
 
@@ -91,6 +92,7 @@ func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- c.maxLifetimeClosed
 }
 
+// Collect implements prometheus.Collector interface.
 func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	stats := c.db.Stats()
 
@@ -138,7 +140,5 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	)
 }
 
-// check interfaces
-var (
-	_ prometheus.Collector = (*Collector)(nil)
-)
+// Check interfaces.
+var _ prometheus.Collector = (*Collector)(nil)

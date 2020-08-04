@@ -25,7 +25,7 @@ func AddToCorpus(prefix string, b []byte) {
 		panic("runtime.Caller failed")
 	}
 	dir := filepath.Join(filepath.Dir(file), "fuzzdata", "corpus")
-	if err := os.MkdirAll(dir, 0750); err != nil {
+	if err := os.MkdirAll(dir, 0o750); err != nil {
 		panic(err)
 	}
 
@@ -38,7 +38,7 @@ func AddToCorpus(prefix string, b []byte) {
 	}
 
 	path := filepath.Join(dir, file)
-	if err := ioutil.WriteFile(path, b, 0640); err != nil { //nolint:gosec
+	if err := ioutil.WriteFile(path, b, 0o640); err != nil { //nolint:gosec
 		panic(err)
 	}
 }

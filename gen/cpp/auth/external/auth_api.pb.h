@@ -49,7 +49,7 @@ struct TableStruct_auth_2fexternal_2fauth_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -67,6 +67,12 @@ extern RefreshSessionRequestDefaultTypeInternal _RefreshSessionRequest_default_i
 class RefreshSessionResponse;
 class RefreshSessionResponseDefaultTypeInternal;
 extern RefreshSessionResponseDefaultTypeInternal _RefreshSessionResponse_default_instance_;
+class ResetPasswordRequest;
+class ResetPasswordRequestDefaultTypeInternal;
+extern ResetPasswordRequestDefaultTypeInternal _ResetPasswordRequest_default_instance_;
+class ResetPasswordResponse;
+class ResetPasswordResponseDefaultTypeInternal;
+extern ResetPasswordResponseDefaultTypeInternal _ResetPasswordResponse_default_instance_;
 class SignInRequest;
 class SignInRequestDefaultTypeInternal;
 extern SignInRequestDefaultTypeInternal _SignInRequest_default_instance_;
@@ -87,6 +93,8 @@ extern SignUpResponseDefaultTypeInternal _SignUpResponse_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::percona::platform::auth::external::v1beta1::RefreshSessionRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::RefreshSessionRequest>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::RefreshSessionResponse* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::RefreshSessionResponse>(Arena*);
+template<> ::percona::platform::auth::external::v1beta1::ResetPasswordRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::ResetPasswordRequest>(Arena*);
+template<> ::percona::platform::auth::external::v1beta1::ResetPasswordResponse* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::ResetPasswordResponse>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignInRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignInRequest>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignInResponse* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignInResponse>(Arena*);
 template<> ::percona::platform::auth::external::v1beta1::SignUpRequest* Arena::CreateMaybeMessage<::percona::platform::auth::external::v1beta1::SignUpRequest>(Arena*);
@@ -1025,6 +1033,283 @@ class RefreshSessionResponse PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ResetPasswordRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.external.v1beta1.ResetPasswordRequest) */ {
+ public:
+  inline ResetPasswordRequest() : ResetPasswordRequest(nullptr) {};
+  virtual ~ResetPasswordRequest();
+
+  ResetPasswordRequest(const ResetPasswordRequest& from);
+  ResetPasswordRequest(ResetPasswordRequest&& from) noexcept
+    : ResetPasswordRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ResetPasswordRequest& operator=(const ResetPasswordRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ResetPasswordRequest& operator=(ResetPasswordRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ResetPasswordRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ResetPasswordRequest* internal_default_instance() {
+    return reinterpret_cast<const ResetPasswordRequest*>(
+               &_ResetPasswordRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(ResetPasswordRequest& a, ResetPasswordRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ResetPasswordRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ResetPasswordRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ResetPasswordRequest* New() const final {
+    return CreateMaybeMessage<ResetPasswordRequest>(nullptr);
+  }
+
+  ResetPasswordRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ResetPasswordRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ResetPasswordRequest& from);
+  void MergeFrom(const ResetPasswordRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ResetPasswordRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.external.v1beta1.ResetPasswordRequest";
+  }
+  protected:
+  explicit ResetPasswordRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEmailFieldNumber = 1,
+  };
+  // string email = 1 [(.validator.field) = {
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_email();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_email(
+      std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ResetPasswordResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.external.v1beta1.ResetPasswordResponse) */ {
+ public:
+  inline ResetPasswordResponse() : ResetPasswordResponse(nullptr) {};
+  virtual ~ResetPasswordResponse();
+
+  ResetPasswordResponse(const ResetPasswordResponse& from);
+  ResetPasswordResponse(ResetPasswordResponse&& from) noexcept
+    : ResetPasswordResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ResetPasswordResponse& operator=(const ResetPasswordResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ResetPasswordResponse& operator=(ResetPasswordResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ResetPasswordResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ResetPasswordResponse* internal_default_instance() {
+    return reinterpret_cast<const ResetPasswordResponse*>(
+               &_ResetPasswordResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(ResetPasswordResponse& a, ResetPasswordResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ResetPasswordResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ResetPasswordResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ResetPasswordResponse* New() const final {
+    return CreateMaybeMessage<ResetPasswordResponse>(nullptr);
+  }
+
+  ResetPasswordResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ResetPasswordResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ResetPasswordResponse& from);
+  void MergeFrom(const ResetPasswordResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ResetPasswordResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.external.v1beta1.ResetPasswordResponse";
+  }
+  protected:
+  explicit ResetPasswordResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fexternal_2fauth_5fapi_2eproto;
+};
 // ===================================================================
 
 
@@ -1611,9 +1896,102 @@ inline void RefreshSessionResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.external.v1beta1.RefreshSessionResponse.expire_time)
 }
 
+// -------------------------------------------------------------------
+
+// ResetPasswordRequest
+
+// string email = 1 [(.validator.field) = {
+inline void ResetPasswordRequest::clear_email() {
+  email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& ResetPasswordRequest::email() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+  return _internal_email();
+}
+inline void ResetPasswordRequest::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+inline std::string* ResetPasswordRequest::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+  return _internal_mutable_email();
+}
+inline const std::string& ResetPasswordRequest::_internal_email() const {
+  return email_.Get();
+}
+inline void ResetPasswordRequest::_internal_set_email(const std::string& value) {
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void ResetPasswordRequest::set_email(std::string&& value) {
+  
+  email_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+inline void ResetPasswordRequest::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+inline void ResetPasswordRequest::set_email(const char* value,
+    size_t size) {
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+inline std::string* ResetPasswordRequest::_internal_mutable_email() {
+  
+  return email_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* ResetPasswordRequest::release_email() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+  return email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ResetPasswordRequest::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+inline std::string* ResetPasswordRequest::unsafe_arena_release_email() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return email_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void ResetPasswordRequest::unsafe_arena_set_allocated_email(
+    std::string* email) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      email, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.auth.external.v1beta1.ResetPasswordRequest.email)
+}
+
+// -------------------------------------------------------------------
+
+// ResetPasswordResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

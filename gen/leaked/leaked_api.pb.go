@@ -16,9 +16,11 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+var (
+	_ = proto.Marshal
+	_ = fmt.Errorf
+	_ = math.Inf
+)
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
@@ -44,15 +46,19 @@ func (*CheckDoubleSHA1Request) Descriptor() ([]byte, []int) {
 func (m *CheckDoubleSHA1Request) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckDoubleSHA1Request.Unmarshal(m, b)
 }
+
 func (m *CheckDoubleSHA1Request) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CheckDoubleSHA1Request.Marshal(b, m, deterministic)
 }
+
 func (m *CheckDoubleSHA1Request) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CheckDoubleSHA1Request.Merge(m, src)
 }
+
 func (m *CheckDoubleSHA1Request) XXX_Size() int {
 	return xxx_messageInfo_CheckDoubleSHA1Request.Size(m)
 }
+
 func (m *CheckDoubleSHA1Request) XXX_DiscardUnknown() {
 	xxx_messageInfo_CheckDoubleSHA1Request.DiscardUnknown(m)
 }
@@ -84,15 +90,19 @@ func (*CheckDoubleSHA1Response) Descriptor() ([]byte, []int) {
 func (m *CheckDoubleSHA1Response) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckDoubleSHA1Response.Unmarshal(m, b)
 }
+
 func (m *CheckDoubleSHA1Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CheckDoubleSHA1Response.Marshal(b, m, deterministic)
 }
+
 func (m *CheckDoubleSHA1Response) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CheckDoubleSHA1Response.Merge(m, src)
 }
+
 func (m *CheckDoubleSHA1Response) XXX_Size() int {
 	return xxx_messageInfo_CheckDoubleSHA1Response.Size(m)
 }
+
 func (m *CheckDoubleSHA1Response) XXX_DiscardUnknown() {
 	xxx_messageInfo_CheckDoubleSHA1Response.DiscardUnknown(m)
 }
@@ -125,15 +135,19 @@ func (*CheckDoubleSHA1Response_Result) Descriptor() ([]byte, []int) {
 func (m *CheckDoubleSHA1Response_Result) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckDoubleSHA1Response_Result.Unmarshal(m, b)
 }
+
 func (m *CheckDoubleSHA1Response_Result) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CheckDoubleSHA1Response_Result.Marshal(b, m, deterministic)
 }
+
 func (m *CheckDoubleSHA1Response_Result) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CheckDoubleSHA1Response_Result.Merge(m, src)
 }
+
 func (m *CheckDoubleSHA1Response_Result) XXX_Size() int {
 	return xxx_messageInfo_CheckDoubleSHA1Response_Result.Size(m)
 }
+
 func (m *CheckDoubleSHA1Response_Result) XXX_DiscardUnknown() {
 	xxx_messageInfo_CheckDoubleSHA1Response_Result.DiscardUnknown(m)
 }
@@ -180,8 +194,10 @@ var fileDescriptor_cc6921d07712af2f = []byte{
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConnInterface
+var (
+	_ context.Context
+	_ grpc.ClientConnInterface
+)
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.

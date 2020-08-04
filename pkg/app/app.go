@@ -8,7 +8,8 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-type Flags struct {
+// Config is basic Percona Platform application configuration.
+type Config struct {
 	GRPCAddr  string
 	HTTPAddr  string
 	DebugAddr string
@@ -45,13 +46,15 @@ func version() string {
 	return version
 }
 
+// SetupOpts contains application requirements.
 type SetupOpts struct {
 	Name     string
 	WithGRPC bool
 	WithHTTP bool
 }
 
-func Setup(opts *SetupOpts) (*Flags, error) {
+// Setup returns application Config according to setup options.
+func Setup(opts *SetupOpts) (*Config, error) {
 	if opts == nil {
 		opts = new(SetupOpts)
 	}
@@ -65,17 +68,17 @@ func Setup(opts *SetupOpts) (*Flags, error) {
 	kingpin.Version(version())
 	kingpin.HelpFlag.Short('h')
 
-	var flags Flags
+	var config Config
 
 	if opts.WithGRPC {
-		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&flags.GRPCAddr)
+		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&config.GRPCAddr)
 	}
 
 	if opts.WithHTTP {
-		kingpin.Flag("http.addr", "HTTP listen address").Default(":20202").StringVar(&flags.HTTPAddr)
+		kingpin.Flag("http.addr", "HTTP listen address").Default(":20202").StringVar(&config.HTTPAddr)
 	}
 
-	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&flags.DebugAddr)
+	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&config.DebugAddr)
 
-	return &flags, nil
+	return &config, nil
 }
