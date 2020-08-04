@@ -12,6 +12,10 @@ type SetupGlobalOpts struct {
 
 // SetupGlobal setups global zap logger.
 func SetupGlobal(opts *SetupGlobalOpts) {
+	if opts == nil {
+		opts = new(SetupGlobalOpts)
+	}
+
 	cfg := &zap.Config{
 		Level:            zap.NewAtomicLevelAt(zap.InfoLevel),
 		Development:      false,
