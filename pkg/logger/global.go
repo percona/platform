@@ -4,8 +4,14 @@ import (
 	"go.uber.org/zap"
 )
 
+// SetupGlobalOpts contains logger options.
+type SetupGlobalOpts struct {
+	LogDebug   bool // enable debug level logging
+	LogDevMode bool // enable development mode logging: text instead of JSON, DPanic panics instead of logging errors
+}
+
 // SetupGlobal setups global zap logger.
-func SetupGlobal(logDebug, logDevMode bool) {
+func SetupGlobal(opts *SetupGlobalOpts) {
 	cfg := &zap.Config{
 		Level:            zap.NewAtomicLevelAt(zap.InfoLevel),
 		Development:      false,
@@ -14,10 +20,10 @@ func SetupGlobal(logDebug, logDevMode bool) {
 		OutputPaths:      []string{"stderr"},
 		ErrorOutputPaths: []string{"stderr"},
 	}
-	if logDebug {
+	if opts.LogDebug {
 		cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 	}
-	if logDevMode {
+	if opts.LogDevMode {
 		cfg.Development = true
 		cfg.Encoding = "console"
 		cfg.EncoderConfig = zap.NewDevelopmentEncoderConfig()
