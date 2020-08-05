@@ -46,6 +46,8 @@ type NewGRPCServerOpts struct {
 	// interceptors chain in same order as in this slices. Optional, can be empty.
 	ExtraUnaryInterceptors  []grpc.UnaryServerInterceptor
 	ExtraStreamInterceptors []grpc.StreamServerInterceptor
+
+	NoAuthMethods []string
 }
 
 // NewGRPCServer creates new gRPC server with given options.
@@ -70,6 +72,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		unaryLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
+		unaryAuthInterceptor(opts.NoAuthMethods),
 	}
 	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
@@ -77,6 +80,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		streamLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
+		streamAuthInterceptor(opts.NoAuthMethods),
 	}
 	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 
