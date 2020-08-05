@@ -2,17 +2,23 @@
 package app
 
 import (
+	"os"
 	"runtime/debug"
+	"strconv"
 
 	"github.com/pkg/errors"
 	"gopkg.in/alecthomas/kingpin.v2"
+
+	"github.com/percona-platform/platform/pkg/logger"
 )
 
 // Config is basic Percona Platform application configuration.
 type Config struct {
-	GRPCAddr  string
-	HTTPAddr  string
-	DebugAddr string
+	GRPCAddr  string // gRPC Server address
+	HTTPAddr  string // HTTP Server address
+	DebugAddr string // debug Server address
+
+	LoggerOpts logger.SetupGlobalOpts
 }
 
 func version() string {
@@ -79,6 +85,17 @@ func Setup(opts *SetupOpts) (*Config, error) {
 	}
 
 	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&config.DebugAddr)
+
+	// use global environment variables PLATFORM_LOG_XXX for defaults values,
+	// but allow to set flags via normal APP_PLATFORM_LOG_XXX environment variables
+	b, _ := strconv.ParseBool(os.Getenv("PLATFORM_LOG_DEBUG"))
+	logDebugDefault := strconv.FormatBool(b)
+	kingpin.Flag("log.debug", "Enable debug level logging").
+		Default(logDebugDefault).BoolVar(&config.LoggerOpts.LogDebug)
+	b, _ = strconv.ParseBool(os.Getenv("PLATFORM_LOG_DEVMODE"))
+	logDevMode := strconv.FormatBool(b)
+	kingpin.Flag("log.devmode", "Enable development mode loging: text instead of JSON, DPanic panics instead of logging errors").
+		Default(logDevMode).BoolVar(&config.LoggerOpts.LogDevMode)
 
 	return &config, nil
 }
