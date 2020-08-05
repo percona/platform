@@ -47,6 +47,7 @@ type NewGRPCServerOpts struct {
 	ExtraUnaryInterceptors  []grpc.UnaryServerInterceptor
 	ExtraStreamInterceptors []grpc.StreamServerInterceptor
 
+	// gRPC server methods that don't require authorization.
 	NoAuthMethods []string
 }
 
