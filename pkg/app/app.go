@@ -87,7 +87,7 @@ func Setup(opts *SetupOpts) (*Config, error) {
 	kingpin.Flag("debug.addr", "Debug listen address").Default(":20203").StringVar(&config.DebugAddr)
 
 	// use global environment variables PLATFORM_LOG_XXX for defaults values,
-	// but allow to set flags via normval APP_PLATFORM_LOG_XXX environment variables
+	// but allow to set flags via normal APP_PLATFORM_LOG_XXX environment variables
 	b, _ := strconv.ParseBool(os.Getenv("PLATFORM_LOG_DEBUG"))
 	logDebugDefault := strconv.FormatBool(b)
 	kingpin.Flag("log.debug", "Enable debug level logging").
