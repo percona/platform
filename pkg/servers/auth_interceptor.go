@@ -42,7 +42,7 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return nil, errInvalidCredentials
 		}
 
-		if err := checkAuthStatus(md, l); err != nil {
+		if err := getAuthStatus(md, l); err != nil {
 			return nil, err
 		}
 
@@ -50,7 +50,7 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return handler(ctx, req)
 		}
 
-		email, sessionID, err := checkAuthUser(md, l)
+		email, sessionID, err := getAuthData(md, l)
 		if err != nil {
 			return nil, err
 		}
@@ -73,7 +73,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return errInvalidCredentials
 		}
 
-		if err := checkAuthStatus(md, l); err != nil {
+		if err := getAuthStatus(md, l); err != nil {
 			return err
 		}
 
@@ -81,7 +81,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return handler(ctx, ss)
 		}
 
-		email, sessionID, err := checkAuthUser(md, l)
+		email, sessionID, err := getAuthData(md, l)
 		if err != nil {
 			return err
 		}
@@ -90,7 +90,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 	}
 }
 
-func checkAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
+func getAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
 	authStatus, err := getAuthStatusFormMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth status form request metadata, reason: %+v", err)
@@ -108,7 +108,7 @@ func checkAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
 	return nil
 }
 
-func checkAuthUser(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
+func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 	authEmail, err := getAuthEmailFromMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth email form request metadata, reason: %+v", err)
