@@ -109,23 +109,23 @@ func getAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
 }
 
 func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
-	authEmail, err := getAuthEmailFromMetadata(md)
+	email, err := getAuthEmailFromMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth email form request metadata, reason: %+v", err)
 		return "", "", errAuthenticationFail
 	}
 
-	if authEmail == "" {
+	if email == "" {
 		return "", "", errInvalidCredentials
 	}
 
-	sessionID, err := getAuthSessionFromMetadata(md)
+	sessionID, err := getAuthSessionIDFromMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth session id form request metadata, reason: %+v", err)
 		return "", "", errAuthenticationFail
 	}
 
-	return authEmail, sessionID, nil
+	return email, sessionID, nil
 }
 
 func getAuthStatusFormMetadata(md metadata.MD) (codes.Code, error) {
@@ -164,7 +164,7 @@ func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
-func getAuthSessionFromMetadata(md metadata.MD) (string, error) {
+func getAuthSessionIDFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthSessionHeader)
 	if len(header) > 1 {
 		return "", fmt.Errorf("expect one or nauth error header, got: %d", len(header))
