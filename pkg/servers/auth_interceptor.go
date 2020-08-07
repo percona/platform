@@ -100,7 +100,7 @@ func getAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
 	if authStatus != codes.OK {
 		authError, err := getAuthErrorFormMetadata(md)
 		if err != nil {
-			l.Error(authError)
+			l.Error(err)
 		}
 		return status.Error(authStatus, authError)
 	}
