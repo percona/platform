@@ -25,7 +25,7 @@ const (
 
 var (
 	errInvalidCredentials = status.Error(codes.Unauthenticated, "Invalid credentials.")
-	errAuthenticationFail = status.Error(codes.Unknown, "Authentication fail.")
+	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
