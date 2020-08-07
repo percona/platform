@@ -17,10 +17,10 @@ import (
 
 // Headers set by proxy.
 const (
-	AuthSessionHeader = "X-Auth-Session"
-	AuthEmailHeader   = "X-Auth-Email"
-	AuthStatusHeader  = "X-Auth-Status"
-	AuthErrorHeader   = "X-Auth-Error"
+	AuthSessionHeader = "Auth-Session"
+	AuthEmailHeader   = "Auth-Email"
+	AuthStatusHeader  = "Auth-Status"
+	AuthErrorHeader   = "Auth-Error"
 )
 
 var (
