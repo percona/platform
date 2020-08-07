@@ -42,7 +42,7 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return nil, errInvalidCredentials
 		}
 
-		if err := getAuthStatus(md, l); err != nil {
+		if err := handleAuthProxyError(md, l); err != nil {
 			return nil, err
 		}
 
@@ -73,7 +73,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return errInvalidCredentials
 		}
 
-		if err := getAuthStatus(md, l); err != nil {
+		if err := handleAuthProxyError(md, l); err != nil {
 			return err
 		}
 
@@ -90,7 +90,9 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 	}
 }
 
-func getAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
+// handleAuthProxyError checks authentication status and message forwarded from proxy
+// and returns proper response to user in case on any problem.
+func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 	authStatus, err := getAuthStatusFormMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth status form request metadata, reason: %+v", err)
@@ -108,6 +110,7 @@ func getAuthStatus(md metadata.MD, l *zap.SugaredLogger) error {
 	return nil
 }
 
+// getAuthData extracts user email and session id from request metadata.
 func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 	email, err := getAuthEmailFromMetadata(md)
 	if err != nil {
@@ -128,10 +131,11 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 	return email, sessionID, nil
 }
 
+// getAuthStatusFormMetadata extracts auth status set by proxy form metadata.
 func getAuthStatusFormMetadata(md metadata.MD) (codes.Code, error) {
 	header := md.Get(AuthStatusHeader)
 	if len(header) != 1 {
-		return 0, fmt.Errorf("expect one auth status header, got: %d", len(header))
+		return 0, fmt.Errorf("expect exactly one auth status header, got: %d", len(header))
 	}
 
 	var code codes.Code
@@ -142,19 +146,21 @@ func getAuthStatusFormMetadata(md metadata.MD) (codes.Code, error) {
 	return code, nil
 }
 
+// getAuthErrorFormMetadata extracts auth error message set by proxy form metadata.
 func getAuthErrorFormMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthErrorHeader)
 	if len(header) != 1 {
-		return "", fmt.Errorf("expect one or nauth error header, got: %d", len(header))
+		return "", fmt.Errorf("expect exactly one auth error header, got: %d", len(header))
 	}
 
 	return header[0], nil
 }
 
+// getAuthEmailFromMetadata extracts user email set by proxy form metadata.
 func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthEmailHeader)
 	if len(header) > 1 {
-		return "", fmt.Errorf("expect one or nauth error header, got: %d", len(header))
+		return "", fmt.Errorf("expect at most one auth email header, got: %d", len(header))
 	}
 
 	if len(header) == 0 {
@@ -164,10 +170,11 @@ func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
+// getAuthSessionIDFromMetadata extracts user session id set by proxy form metadata.
 func getAuthSessionIDFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthSessionHeader)
 	if len(header) > 1 {
-		return "", fmt.Errorf("expect one or nauth error header, got: %d", len(header))
+		return "", fmt.Errorf("expect at most one auth session header, got: %d", len(header))
 	}
 
 	if len(header) == 0 {
