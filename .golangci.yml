@@ -16,10 +16,6 @@ linters-settings:
   goimports:
     local-prefixes: github.com/percona-platform/platform
 
-  lll:
-    line-length: 120
-    tab-width: 4
-
   unused:
     check-exported: false
 
