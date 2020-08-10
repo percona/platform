@@ -19,7 +19,7 @@ namespace percona {
 namespace platform {
 namespace auth {
 namespace external {
-namespace v1beta1 {
+namespace v1 {
 class SignUpRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SignUpRequest> _instance;
@@ -52,7 +52,7 @@ class ResetPasswordResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ResetPasswordResponse> _instance;
 } _ResetPasswordResponse_default_instance_;
-}  // namespace v1beta1
+}  // namespace v1
 }  // namespace external
 }  // namespace auth
 }  // namespace platform
@@ -61,11 +61,11 @@ static void InitDefaultsscc_info_RefreshSessionRequest_auth_2fexternal_2fauth_5f
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_RefreshSessionRequest_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::RefreshSessionRequest();
+    void* ptr = &::percona::platform::auth::external::v1::_RefreshSessionRequest_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::RefreshSessionRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::RefreshSessionRequest::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::RefreshSessionRequest::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RefreshSessionRequest_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -75,11 +75,11 @@ static void InitDefaultsscc_info_RefreshSessionResponse_auth_2fexternal_2fauth_5
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_RefreshSessionResponse_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::RefreshSessionResponse();
+    void* ptr = &::percona::platform::auth::external::v1::_RefreshSessionResponse_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::RefreshSessionResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::RefreshSessionResponse::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::RefreshSessionResponse::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_RefreshSessionResponse_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -90,11 +90,11 @@ static void InitDefaultsscc_info_ResetPasswordRequest_auth_2fexternal_2fauth_5fa
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_ResetPasswordRequest_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::ResetPasswordRequest();
+    void* ptr = &::percona::platform::auth::external::v1::_ResetPasswordRequest_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::ResetPasswordRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::ResetPasswordRequest::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::ResetPasswordRequest::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ResetPasswordRequest_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -104,11 +104,11 @@ static void InitDefaultsscc_info_ResetPasswordResponse_auth_2fexternal_2fauth_5f
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_ResetPasswordResponse_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::ResetPasswordResponse();
+    void* ptr = &::percona::platform::auth::external::v1::_ResetPasswordResponse_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::ResetPasswordResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::ResetPasswordResponse::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::ResetPasswordResponse::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ResetPasswordResponse_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -118,11 +118,11 @@ static void InitDefaultsscc_info_SignInRequest_auth_2fexternal_2fauth_5fapi_2epr
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_SignInRequest_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::SignInRequest();
+    void* ptr = &::percona::platform::auth::external::v1::_SignInRequest_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::SignInRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::SignInRequest::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::SignInRequest::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SignInRequest_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -132,11 +132,11 @@ static void InitDefaultsscc_info_SignInResponse_auth_2fexternal_2fauth_5fapi_2ep
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_SignInResponse_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::SignInResponse();
+    void* ptr = &::percona::platform::auth::external::v1::_SignInResponse_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::SignInResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::SignInResponse::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::SignInResponse::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SignInResponse_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -147,11 +147,11 @@ static void InitDefaultsscc_info_SignUpRequest_auth_2fexternal_2fauth_5fapi_2epr
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_SignUpRequest_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::SignUpRequest();
+    void* ptr = &::percona::platform::auth::external::v1::_SignUpRequest_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::SignUpRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::SignUpRequest::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::SignUpRequest::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SignUpRequest_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -161,11 +161,11 @@ static void InitDefaultsscc_info_SignUpResponse_auth_2fexternal_2fauth_5fapi_2ep
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::percona::platform::auth::external::v1beta1::_SignUpResponse_default_instance_;
-    new (ptr) ::percona::platform::auth::external::v1beta1::SignUpResponse();
+    void* ptr = &::percona::platform::auth::external::v1::_SignUpResponse_default_instance_;
+    new (ptr) ::percona::platform::auth::external::v1::SignUpResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::percona::platform::auth::external::v1beta1::SignUpResponse::InitAsDefaultInstance();
+  ::percona::platform::auth::external::v1::SignUpResponse::InitAsDefaultInstance();
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SignUpResponse_auth_2fexternal_2fauth_5fapi_2eproto =
@@ -177,106 +177,105 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fexternal_2fauth_5fapi_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignUpRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, email_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpRequest, password_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignUpRequest, email_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignUpRequest, password_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignUpResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInRequest, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInRequest, email_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInRequest, password_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInResponse, session_id_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::SignInResponse, expire_time_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::RefreshSessionRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignUpResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::RefreshSessionResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::RefreshSessionResponse, expire_time_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInRequest, email_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInRequest, password_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::ResetPasswordRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::ResetPasswordRequest, email_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInResponse, session_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::SignInResponse, expire_time_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1beta1::ResetPasswordResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::RefreshSessionRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::RefreshSessionResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::RefreshSessionResponse, expire_time_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::ResetPasswordRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::ResetPasswordRequest, email_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::external::v1::ResetPasswordResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::percona::platform::auth::external::v1beta1::SignUpRequest)},
-  { 7, -1, sizeof(::percona::platform::auth::external::v1beta1::SignUpResponse)},
-  { 12, -1, sizeof(::percona::platform::auth::external::v1beta1::SignInRequest)},
-  { 19, -1, sizeof(::percona::platform::auth::external::v1beta1::SignInResponse)},
-  { 26, -1, sizeof(::percona::platform::auth::external::v1beta1::RefreshSessionRequest)},
-  { 31, -1, sizeof(::percona::platform::auth::external::v1beta1::RefreshSessionResponse)},
-  { 37, -1, sizeof(::percona::platform::auth::external::v1beta1::ResetPasswordRequest)},
-  { 43, -1, sizeof(::percona::platform::auth::external::v1beta1::ResetPasswordResponse)},
+  { 0, -1, sizeof(::percona::platform::auth::external::v1::SignUpRequest)},
+  { 7, -1, sizeof(::percona::platform::auth::external::v1::SignUpResponse)},
+  { 12, -1, sizeof(::percona::platform::auth::external::v1::SignInRequest)},
+  { 19, -1, sizeof(::percona::platform::auth::external::v1::SignInResponse)},
+  { 26, -1, sizeof(::percona::platform::auth::external::v1::RefreshSessionRequest)},
+  { 31, -1, sizeof(::percona::platform::auth::external::v1::RefreshSessionResponse)},
+  { 37, -1, sizeof(::percona::platform::auth::external::v1::ResetPasswordRequest)},
+  { 43, -1, sizeof(::percona::platform::auth::external::v1::ResetPasswordResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_SignUpRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_SignUpResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_SignInRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_SignInResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_RefreshSessionRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_RefreshSessionResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_ResetPasswordRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1beta1::_ResetPasswordResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_SignUpRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_SignUpResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_SignInRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_SignInResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_RefreshSessionRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_RefreshSessionResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_ResetPasswordRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::auth::external::v1::_ResetPasswordResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_auth_2fexternal_2fauth_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\034auth/external/auth_api.proto\022&percona."
-  "platform.auth.external.v1beta1\0326github.c"
-  "om/mwitkow/go-proto-validators/validator"
-  ".proto\032\037google/protobuf/timestamp.proto\""
-  "@\n\rSignUpRequest\022\025\n\005email\030\001 \001(\tB\006\342\337\037\002X\001\022"
-  "\030\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"\020\n\016SignUpRespo"
-  "nse\"@\n\rSignInRequest\022\025\n\005email\030\001 \001(\tB\006\342\337\037"
-  "\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"U\n\016SignInR"
-  "esponse\022\022\n\nsession_id\030\001 \001(\t\022/\n\013expire_ti"
-  "me\030\002 \001(\0132\032.google.protobuf.Timestamp\"\027\n\025"
-  "RefreshSessionRequest\"I\n\026RefreshSessionR"
-  "esponse\022/\n\013expire_time\030\001 \001(\0132\032.google.pr"
-  "otobuf.Timestamp\"-\n\024ResetPasswordRequest"
-  "\022\025\n\005email\030\001 \001(\tB\006\342\337\037\002X\001\"\027\n\025ResetPassword"
-  "Response2\234\004\n\007AuthAPI\022w\n\006SignUp\0225.percona"
-  ".platform.auth.external.v1beta1.SignUpRe"
-  "quest\0326.percona.platform.auth.external.v"
-  "1beta1.SignUpResponse\022w\n\006SignIn\0225.percon"
-  "a.platform.auth.external.v1beta1.SignInR"
-  "equest\0326.percona.platform.auth.external."
-  "v1beta1.SignInResponse\022\217\001\n\016RefreshSessio"
-  "n\022=.percona.platform.auth.external.v1bet"
-  "a1.RefreshSessionRequest\032>.percona.platf"
-  "orm.auth.external.v1beta1.RefreshSession"
-  "Response\022\214\001\n\rResetPassword\022<.percona.pla"
-  "tform.auth.external.v1beta1.ResetPasswor"
-  "dRequest\032=.percona.platform.auth.externa"
-  "l.v1beta1.ResetPasswordResponseB\021Z\017exter"
-  "nalv1beta1b\006proto3"
+  "\n\034auth/external/auth_api.proto\022!percona."
+  "platform.auth.external.v1\0326github.com/mw"
+  "itkow/go-proto-validators/validator.prot"
+  "o\032\037google/protobuf/timestamp.proto\"@\n\rSi"
+  "gnUpRequest\022\025\n\005email\030\001 \001(\tB\006\342\337\037\002X\001\022\030\n\010pa"
+  "ssword\030\002 \001(\tB\006\342\337\037\002X\001\"\020\n\016SignUpResponse\"@"
+  "\n\rSignInRequest\022\025\n\005email\030\001 \001(\tB\006\342\337\037\002X\001\022\030"
+  "\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"U\n\016SignInRespon"
+  "se\022\022\n\nsession_id\030\001 \001(\t\022/\n\013expire_time\030\002 "
+  "\001(\0132\032.google.protobuf.Timestamp\"\027\n\025Refre"
+  "shSessionRequest\"I\n\026RefreshSessionRespon"
+  "se\022/\n\013expire_time\030\001 \001(\0132\032.google.protobu"
+  "f.Timestamp\"-\n\024ResetPasswordRequest\022\025\n\005e"
+  "mail\030\001 \001(\tB\006\342\337\037\002X\001\"\027\n\025ResetPasswordRespo"
+  "nse2\364\003\n\007AuthAPI\022m\n\006SignUp\0220.percona.plat"
+  "form.auth.external.v1.SignUpRequest\0321.pe"
+  "rcona.platform.auth.external.v1.SignUpRe"
+  "sponse\022m\n\006SignIn\0220.percona.platform.auth"
+  ".external.v1.SignInRequest\0321.percona.pla"
+  "tform.auth.external.v1.SignInResponse\022\205\001"
+  "\n\016RefreshSession\0228.percona.platform.auth"
+  ".external.v1.RefreshSessionRequest\0329.per"
+  "cona.platform.auth.external.v1.RefreshSe"
+  "ssionResponse\022\202\001\n\rResetPassword\0227.percon"
+  "a.platform.auth.external.v1.ResetPasswor"
+  "dRequest\0328.percona.platform.auth.externa"
+  "l.v1.ResetPasswordResponseB\014Z\nexternalv1"
+  "b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto_deps[2] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -294,7 +293,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_aut
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_auth_2fexternal_2fauth_5fapi_2eproto, "auth/external/auth_api.proto", 1138,
+  false, false, descriptor_table_protodef_auth_2fexternal_2fauth_5fapi_2eproto, "auth/external/auth_api.proto", 1088,
   &descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto_once, descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto_sccs, descriptor_table_auth_2fexternal_2fauth_5fapi_2eproto_deps, 8, 2,
   schemas, file_default_instances, TableStruct_auth_2fexternal_2fauth_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fexternal_2fauth_5fapi_2eproto, 8, file_level_enum_descriptors_auth_2fexternal_2fauth_5fapi_2eproto, file_level_service_descriptors_auth_2fexternal_2fauth_5fapi_2eproto,
@@ -306,7 +305,7 @@ namespace percona {
 namespace platform {
 namespace auth {
 namespace external {
-namespace v1beta1 {
+namespace v1 {
 
 // ===================================================================
 
@@ -320,7 +319,7 @@ SignUpRequest::SignUpRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.SignUpRequest)
 }
 SignUpRequest::SignUpRequest(const SignUpRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -335,7 +334,7 @@ SignUpRequest::SignUpRequest(const SignUpRequest& from)
     password_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_password(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.SignUpRequest)
 }
 
 void SignUpRequest::SharedCtor() {
@@ -345,7 +344,7 @@ void SignUpRequest::SharedCtor() {
 }
 
 SignUpRequest::~SignUpRequest() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.SignUpRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -372,7 +371,7 @@ const SignUpRequest& SignUpRequest::default_instance() {
 
 
 void SignUpRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.SignUpRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -395,7 +394,7 @@ const char* SignUpRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_email();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignUpRequest.email"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.SignUpRequest.email"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -404,7 +403,7 @@ const char* SignUpRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_password();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignUpRequest.password"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.SignUpRequest.password"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -432,7 +431,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* SignUpRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.SignUpRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -441,7 +440,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignUpRequest.email");
+      "percona.platform.auth.external.v1.SignUpRequest.email");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_email(), target);
   }
@@ -451,7 +450,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignUpRequest.password");
+      "percona.platform.auth.external.v1.SignUpRequest.password");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_password(), target);
   }
@@ -460,12 +459,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.SignUpRequest)
   return target;
 }
 
 size_t SignUpRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.SignUpRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -496,22 +495,22 @@ size_t SignUpRequest::ByteSizeLong() const {
 }
 
 void SignUpRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.SignUpRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const SignUpRequest* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SignUpRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.SignUpRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.SignUpRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.SignUpRequest)
     MergeFrom(*source);
   }
 }
 
 void SignUpRequest::MergeFrom(const SignUpRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.SignUpRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -526,14 +525,14 @@ void SignUpRequest::MergeFrom(const SignUpRequest& from) {
 }
 
 void SignUpRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.SignUpRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SignUpRequest::CopyFrom(const SignUpRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.SignUpRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.SignUpRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -567,19 +566,19 @@ SignUpResponse::SignUpResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.SignUpResponse)
 }
 SignUpResponse::SignUpResponse(const SignUpResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.SignUpResponse)
 }
 
 void SignUpResponse::SharedCtor() {
 }
 
 SignUpResponse::~SignUpResponse() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.SignUpResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -604,7 +603,7 @@ const SignUpResponse& SignUpResponse::default_instance() {
 
 
 void SignUpResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.SignUpResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -639,7 +638,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* SignUpResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.SignUpResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -647,12 +646,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.SignUpResponse)
   return target;
 }
 
 size_t SignUpResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.SignUpResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -669,22 +668,22 @@ size_t SignUpResponse::ByteSizeLong() const {
 }
 
 void SignUpResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.SignUpResponse)
   GOOGLE_DCHECK_NE(&from, this);
   const SignUpResponse* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SignUpResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.SignUpResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.SignUpResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.SignUpResponse)
     MergeFrom(*source);
   }
 }
 
 void SignUpResponse::MergeFrom(const SignUpResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.SignUpResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -693,14 +692,14 @@ void SignUpResponse::MergeFrom(const SignUpResponse& from) {
 }
 
 void SignUpResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.SignUpResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SignUpResponse::CopyFrom(const SignUpResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.SignUpResponse)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.SignUpResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -732,7 +731,7 @@ SignInRequest::SignInRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.SignInRequest)
 }
 SignInRequest::SignInRequest(const SignInRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -747,7 +746,7 @@ SignInRequest::SignInRequest(const SignInRequest& from)
     password_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_password(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.SignInRequest)
 }
 
 void SignInRequest::SharedCtor() {
@@ -757,7 +756,7 @@ void SignInRequest::SharedCtor() {
 }
 
 SignInRequest::~SignInRequest() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.SignInRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -784,7 +783,7 @@ const SignInRequest& SignInRequest::default_instance() {
 
 
 void SignInRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.SignInRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -807,7 +806,7 @@ const char* SignInRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_email();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignInRequest.email"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.SignInRequest.email"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -816,7 +815,7 @@ const char* SignInRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_password();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignInRequest.password"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.SignInRequest.password"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -844,7 +843,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* SignInRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.SignInRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -853,7 +852,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignInRequest.email");
+      "percona.platform.auth.external.v1.SignInRequest.email");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_email(), target);
   }
@@ -863,7 +862,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignInRequest.password");
+      "percona.platform.auth.external.v1.SignInRequest.password");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_password(), target);
   }
@@ -872,12 +871,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.SignInRequest)
   return target;
 }
 
 size_t SignInRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.SignInRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -908,22 +907,22 @@ size_t SignInRequest::ByteSizeLong() const {
 }
 
 void SignInRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.SignInRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const SignInRequest* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SignInRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.SignInRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.SignInRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.SignInRequest)
     MergeFrom(*source);
   }
 }
 
 void SignInRequest::MergeFrom(const SignInRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.SignInRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -938,14 +937,14 @@ void SignInRequest::MergeFrom(const SignInRequest& from) {
 }
 
 void SignInRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.SignInRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SignInRequest::CopyFrom(const SignInRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.SignInRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.SignInRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -970,7 +969,7 @@ void SignInRequest::InternalSwap(SignInRequest* other) {
 // ===================================================================
 
 void SignInResponse::InitAsDefaultInstance() {
-  ::percona::platform::auth::external::v1beta1::_SignInResponse_default_instance_._instance.get_mutable()->expire_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
+  ::percona::platform::auth::external::v1::_SignInResponse_default_instance_._instance.get_mutable()->expire_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
       PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
 class SignInResponse::_Internal {
@@ -992,7 +991,7 @@ SignInResponse::SignInResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.SignInResponse)
 }
 SignInResponse::SignInResponse(const SignInResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -1007,7 +1006,7 @@ SignInResponse::SignInResponse(const SignInResponse& from)
   } else {
     expire_time_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.SignInResponse)
 }
 
 void SignInResponse::SharedCtor() {
@@ -1017,7 +1016,7 @@ void SignInResponse::SharedCtor() {
 }
 
 SignInResponse::~SignInResponse() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.SignInResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1044,7 +1043,7 @@ const SignInResponse& SignInResponse::default_instance() {
 
 
 void SignInResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.SignInResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1070,7 +1069,7 @@ const char* SignInResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_session_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.SignInResponse.session_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.SignInResponse.session_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1105,7 +1104,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* SignInResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.SignInResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1114,7 +1113,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_session_id().data(), static_cast<int>(this->_internal_session_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.SignInResponse.session_id");
+      "percona.platform.auth.external.v1.SignInResponse.session_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_session_id(), target);
   }
@@ -1131,12 +1130,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.SignInResponse)
   return target;
 }
 
 size_t SignInResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.SignInResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1167,22 +1166,22 @@ size_t SignInResponse::ByteSizeLong() const {
 }
 
 void SignInResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.SignInResponse)
   GOOGLE_DCHECK_NE(&from, this);
   const SignInResponse* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SignInResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.SignInResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.SignInResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.SignInResponse)
     MergeFrom(*source);
   }
 }
 
 void SignInResponse::MergeFrom(const SignInResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.SignInResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1197,14 +1196,14 @@ void SignInResponse::MergeFrom(const SignInResponse& from) {
 }
 
 void SignInResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.SignInResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SignInResponse::CopyFrom(const SignInResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.SignInResponse)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.SignInResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1238,19 +1237,19 @@ RefreshSessionRequest::RefreshSessionRequest(::PROTOBUF_NAMESPACE_ID::Arena* are
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.RefreshSessionRequest)
 }
 RefreshSessionRequest::RefreshSessionRequest(const RefreshSessionRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.RefreshSessionRequest)
 }
 
 void RefreshSessionRequest::SharedCtor() {
 }
 
 RefreshSessionRequest::~RefreshSessionRequest() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.RefreshSessionRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1275,7 +1274,7 @@ const RefreshSessionRequest& RefreshSessionRequest::default_instance() {
 
 
 void RefreshSessionRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1310,7 +1309,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* RefreshSessionRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1318,12 +1317,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.RefreshSessionRequest)
   return target;
 }
 
 size_t RefreshSessionRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1340,22 +1339,22 @@ size_t RefreshSessionRequest::ByteSizeLong() const {
 }
 
 void RefreshSessionRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const RefreshSessionRequest* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RefreshSessionRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.RefreshSessionRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.RefreshSessionRequest)
     MergeFrom(*source);
   }
 }
 
 void RefreshSessionRequest::MergeFrom(const RefreshSessionRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1364,14 +1363,14 @@ void RefreshSessionRequest::MergeFrom(const RefreshSessionRequest& from) {
 }
 
 void RefreshSessionRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RefreshSessionRequest::CopyFrom(const RefreshSessionRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.RefreshSessionRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.RefreshSessionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1394,7 +1393,7 @@ void RefreshSessionRequest::InternalSwap(RefreshSessionRequest* other) {
 // ===================================================================
 
 void RefreshSessionResponse::InitAsDefaultInstance() {
-  ::percona::platform::auth::external::v1beta1::_RefreshSessionResponse_default_instance_._instance.get_mutable()->expire_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
+  ::percona::platform::auth::external::v1::_RefreshSessionResponse_default_instance_._instance.get_mutable()->expire_time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
       PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
 }
 class RefreshSessionResponse::_Internal {
@@ -1416,7 +1415,7 @@ RefreshSessionResponse::RefreshSessionResponse(::PROTOBUF_NAMESPACE_ID::Arena* a
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.RefreshSessionResponse)
 }
 RefreshSessionResponse::RefreshSessionResponse(const RefreshSessionResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -1426,7 +1425,7 @@ RefreshSessionResponse::RefreshSessionResponse(const RefreshSessionResponse& fro
   } else {
     expire_time_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.RefreshSessionResponse)
 }
 
 void RefreshSessionResponse::SharedCtor() {
@@ -1435,7 +1434,7 @@ void RefreshSessionResponse::SharedCtor() {
 }
 
 RefreshSessionResponse::~RefreshSessionResponse() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.RefreshSessionResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1461,7 +1460,7 @@ const RefreshSessionResponse& RefreshSessionResponse::default_instance() {
 
 
 void RefreshSessionResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1512,7 +1511,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* RefreshSessionResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1528,12 +1527,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.RefreshSessionResponse)
   return target;
 }
 
 size_t RefreshSessionResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1557,22 +1556,22 @@ size_t RefreshSessionResponse::ByteSizeLong() const {
 }
 
 void RefreshSessionResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   GOOGLE_DCHECK_NE(&from, this);
   const RefreshSessionResponse* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RefreshSessionResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.RefreshSessionResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.RefreshSessionResponse)
     MergeFrom(*source);
   }
 }
 
 void RefreshSessionResponse::MergeFrom(const RefreshSessionResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1584,14 +1583,14 @@ void RefreshSessionResponse::MergeFrom(const RefreshSessionResponse& from) {
 }
 
 void RefreshSessionResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RefreshSessionResponse::CopyFrom(const RefreshSessionResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.RefreshSessionResponse)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.RefreshSessionResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1624,7 +1623,7 @@ ResetPasswordRequest::ResetPasswordRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.ResetPasswordRequest)
 }
 ResetPasswordRequest::ResetPasswordRequest(const ResetPasswordRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -1634,7 +1633,7 @@ ResetPasswordRequest::ResetPasswordRequest(const ResetPasswordRequest& from)
     email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_email(),
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.ResetPasswordRequest)
 }
 
 void ResetPasswordRequest::SharedCtor() {
@@ -1643,7 +1642,7 @@ void ResetPasswordRequest::SharedCtor() {
 }
 
 ResetPasswordRequest::~ResetPasswordRequest() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.ResetPasswordRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1669,7 +1668,7 @@ const ResetPasswordRequest& ResetPasswordRequest::default_instance() {
 
 
 void ResetPasswordRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1691,7 +1690,7 @@ const char* ResetPasswordRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAM
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_email();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1beta1.ResetPasswordRequest.email"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.external.v1.ResetPasswordRequest.email"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1719,7 +1718,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* ResetPasswordRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1728,7 +1727,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.auth.external.v1beta1.ResetPasswordRequest.email");
+      "percona.platform.auth.external.v1.ResetPasswordRequest.email");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_email(), target);
   }
@@ -1737,12 +1736,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.ResetPasswordRequest)
   return target;
 }
 
 size_t ResetPasswordRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1766,22 +1765,22 @@ size_t ResetPasswordRequest::ByteSizeLong() const {
 }
 
 void ResetPasswordRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   GOOGLE_DCHECK_NE(&from, this);
   const ResetPasswordRequest* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ResetPasswordRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.ResetPasswordRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.ResetPasswordRequest)
     MergeFrom(*source);
   }
 }
 
 void ResetPasswordRequest::MergeFrom(const ResetPasswordRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1793,14 +1792,14 @@ void ResetPasswordRequest::MergeFrom(const ResetPasswordRequest& from) {
 }
 
 void ResetPasswordRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ResetPasswordRequest::CopyFrom(const ResetPasswordRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.ResetPasswordRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.ResetPasswordRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1833,19 +1832,19 @@ ResetPasswordResponse::ResetPasswordResponse(::PROTOBUF_NAMESPACE_ID::Arena* are
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.auth.external.v1.ResetPasswordResponse)
 }
 ResetPasswordResponse::ResetPasswordResponse(const ResetPasswordResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.auth.external.v1.ResetPasswordResponse)
 }
 
 void ResetPasswordResponse::SharedCtor() {
 }
 
 ResetPasswordResponse::~ResetPasswordResponse() {
-  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(destructor:percona.platform.auth.external.v1.ResetPasswordResponse)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1870,7 +1869,7 @@ const ResetPasswordResponse& ResetPasswordResponse::default_instance() {
 
 
 void ResetPasswordResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(message_clear_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1905,7 +1904,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* ResetPasswordResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1913,12 +1912,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.auth.external.v1.ResetPasswordResponse)
   return target;
 }
 
 size_t ResetPasswordResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1935,22 +1934,22 @@ size_t ResetPasswordResponse::ByteSizeLong() const {
 }
 
 void ResetPasswordResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   GOOGLE_DCHECK_NE(&from, this);
   const ResetPasswordResponse* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ResetPasswordResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.auth.external.v1.ResetPasswordResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.auth.external.v1.ResetPasswordResponse)
     MergeFrom(*source);
   }
 }
 
 void ResetPasswordResponse::MergeFrom(const ResetPasswordResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1959,14 +1958,14 @@ void ResetPasswordResponse::MergeFrom(const ResetPasswordResponse& from) {
 }
 
 void ResetPasswordResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void ResetPasswordResponse::CopyFrom(const ResetPasswordResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1beta1.ResetPasswordResponse)
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.auth.external.v1.ResetPasswordResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1987,35 +1986,35 @@ void ResetPasswordResponse::InternalSwap(ResetPasswordResponse* other) {
 
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace v1beta1
+}  // namespace v1
 }  // namespace external
 }  // namespace auth
 }  // namespace platform
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::SignUpRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::SignUpRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::SignUpRequest >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::SignUpRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::SignUpRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::SignUpRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::SignUpResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::SignUpResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::SignUpResponse >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::SignUpResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::SignUpResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::SignUpResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::SignInRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::SignInRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::SignInRequest >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::SignInRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::SignInRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::SignInRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::SignInResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::SignInResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::SignInResponse >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::SignInResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::SignInResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::SignInResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::RefreshSessionRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::RefreshSessionRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::RefreshSessionRequest >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::RefreshSessionRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::RefreshSessionRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::RefreshSessionRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::RefreshSessionResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::RefreshSessionResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::RefreshSessionResponse >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::RefreshSessionResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::RefreshSessionResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::RefreshSessionResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::ResetPasswordRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::ResetPasswordRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::ResetPasswordRequest >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::ResetPasswordRequest* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::ResetPasswordRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::ResetPasswordRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1beta1::ResetPasswordResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1beta1::ResetPasswordResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1beta1::ResetPasswordResponse >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::auth::external::v1::ResetPasswordResponse* Arena::CreateMaybeMessage< ::percona::platform::auth::external::v1::ResetPasswordResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::auth::external::v1::ResetPasswordResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
