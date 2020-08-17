@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package percona.platform.auth.external.v1;
+package percona.platform.auth.v1;
 
-option go_package = "externalv1";
+option go_package = "authv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/protobuf/timestamp.proto";
