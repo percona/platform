@@ -78,7 +78,7 @@ lint:
       - PACKAGE_LOWER_CASE # Verifies that the package name only contains characters in the range a-z0-9 and periods.
       - PACKAGE_LOWER_SNAKE_CASE # Verifies that the package is lower_snake.case.
       - PACKAGE_MAJOR_BETA_VERSIONED # Verifies that the package is of the form "package.vMAJORVERSION" or "package.vMAJORVERSIONbetaBETAVERSION" with versions >=1.
-      - PACKAGE_NO_KEYWORDS # Verifies that no packages contain one of the keywords "internal,public,private,protected,std" as part of the name when split on '.'.
+      # - PACKAGE_NO_KEYWORDS # Verifies that no packages contain one of the keywords "internal,public,private,protected,std" as part of the name when split on '.'.
       - REQUEST_RESPONSE_NAMES_MATCH_RPC # Verifies that all request names are RpcNameRequest and all response names are RpcNameResponse.
       - REQUEST_RESPONSE_TYPES_AFTER_SERVICE # Verifies that request and response types are defined after any services and the response type is defined after the request type.
       - REQUEST_RESPONSE_TYPES_IN_SAME_FILE # Verifies that all request and response types are in the same file as their corresponding service and are not nested messages.
