@@ -9,6 +9,7 @@ import (
 //
 // TODO Can we do that better, without an exported global variable, dependency cycle,
 // and too much complexity of mutex-protected getters/setters?
+// https://jira.percona.com/browse/SAAS-275
 var FlagsParsed bool //nolint:gochecknoglobals
 
 // SetupGlobalOpts contains logger options.
