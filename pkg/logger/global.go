@@ -6,7 +6,10 @@ import (
 
 // FlagsParsed is used to catch the common service initialization problem.
 // Do not set the value directly in the service code.
-var FlagsParsed bool
+//
+// TODO Can we do that better, without an exported global variable, dependency cycle,
+// and too much complexity of mutex-protected getters/setters?
+var FlagsParsed bool //nolint:gochecknoglobals
 
 // SetupGlobalOpts contains logger options.
 type SetupGlobalOpts struct {
