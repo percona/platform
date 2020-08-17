@@ -97,5 +97,10 @@ func Setup(opts *SetupOpts) (*Config, error) {
 	kingpin.Flag("log.devmode", "Enable development mode loging: text instead of JSON, DPanic panics instead of logging errors").
 		Default(logDevMode).BoolVar(&config.LoggerOpts.LogDevMode)
 
+	kingpin.CommandLine.Action(func(*kingpin.ParseContext) error {
+		logger.FlagsParsed = true
+		return nil
+	})
+
 	return &config, nil
 }
