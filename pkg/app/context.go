@@ -16,6 +16,11 @@ import (
 // Context returns main application context with set logger
 // that is canceled when SIGTERM or SIGINT is received.
 func Context() context.Context {
+	// catch the common service initialization problem
+	if !logger.FlagsParsed {
+		panic("app.Context should be called after app.Setup and kingpin.Parse")
+	}
+
 	l := zap.L().Named("platform.app")
 	ctx, cancel := context.WithCancel(context.Background())
 	ctx = logger.GetCtxWithLogger(ctx, l)
