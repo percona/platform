@@ -16,7 +16,7 @@ require (
 	go.starlark.net v0.0.0-20200619143648-50ca820fafb9
 	go.uber.org/zap v1.15.0
 	golang.org/x/sys v0.0.0-20200622214017-ed371f2e16b4
-	google.golang.org/grpc v1.30.0
+	google.golang.org/grpc v1.31.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.4.0
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
