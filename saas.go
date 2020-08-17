@@ -76,6 +76,9 @@ func main() {
 
 			var copy bool
 			for _, s := range []string{".go", ".proto"} {
+				if strings.Contains(path, "internal") {
+					panic("internal packages should not be copied to saas repo") // TODO: Improve internal packages handling
+				}
 				if strings.HasSuffix(path, s) {
 					copy = true
 				}
