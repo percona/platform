@@ -65,6 +65,12 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		l.Panic("No Addr set.")
 	}
 
+	if len(opts.NoAuthMethods) == 0 {
+		// TODO: Remove that check once all services migrate to new platform version.
+		// TODO: It's just reminder that prevents us from deploying misconfigured services.
+		l.Panic("No NoAuthMethods set.")
+	}
+
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
