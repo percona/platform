@@ -65,9 +65,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		l.Panic("No Addr set.")
 	}
 
-	if len(opts.NoAuthMethods) == 0 {
-		// TODO: Remove that check once all services migrate to new platform version.
-		// TODO: It's just reminder that prevents us from deploying misconfigured services.
+	if opts.NoAuthMethods == nil {
 		l.Panic("No NoAuthMethods set.")
 	}
 
@@ -79,7 +77,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		unaryLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
-		unaryAuthInterceptor(opts.NoAuthMethods),
+		unaryAuthInterceptor(l, opts.NoAuthMethods),
 	}
 	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
@@ -87,7 +85,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		streamLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
-		streamAuthInterceptor(opts.NoAuthMethods),
+		streamAuthInterceptor(l, opts.NoAuthMethods),
 	}
 	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 
