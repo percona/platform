@@ -20,8 +20,8 @@ func AddToContext(ctx context.Context, sessionID, userEmail string) context.Cont
 	return context.WithValue(ctx, requestDataKey{}, &RequestData{SessionID: sessionID, UserEmail: userEmail})
 }
 
-// GetFormContext extracts request data from request context.
-func GetFormContext(ctx context.Context) (*RequestData, error) {
+// GetFromContext extracts request data from request context.
+func GetFromContext(ctx context.Context) (*RequestData, error) {
 	v := ctx.Value(requestDataKey{})
 	if v != nil {
 		if d, ok := v.(*RequestData); ok {
