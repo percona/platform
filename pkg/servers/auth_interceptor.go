@@ -3,6 +3,7 @@ package servers
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -17,10 +18,10 @@ import (
 
 // Headers set by proxy.
 const (
-	AuthSessionHeader = "Auth-Session"
-	AuthEmailHeader   = "Auth-Email"
-	AuthStatusHeader  = "Auth-Status"
-	AuthErrorHeader   = "Auth-Error"
+	AuthSessionHeader = "Auth-Session" // Okta authentication session ID
+	AuthEmailHeader   = "Auth-Email"   // user's email
+	AuthStatusHeader  = "Auth-Status"  // gRPC status code (codes.Code)
+	AuthErrorHeader   = "Auth-Error"   // gRPC error message, if code is not codes.OK
 )
 
 var (
@@ -29,9 +30,9 @@ var (
 )
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
-	m := make(map[string]struct{}, len(noAuthMethods))
-	for _, method := range noAuthMethods {
-		m[method] = struct{}{}
+	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
+	for _, m := range noAuthMethods {
+		noAuthMethodsSet[m] = struct{}{}
 	}
 
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
@@ -39,14 +40,19 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
-			return nil, errInvalidCredentials
+			l.Error("No metadata in incoming request.")
+			return nil, errAuthenticationFail
 		}
+		l.Debugf("Received metadata: %+v", md)
 
+		// Check authentication error before checking if methods requires authentication at all:
+		// * if Authorization header is absent, Auth Service returns OK;
+		// * but if Authorization header is present, it should be valid.
 		if err := handleAuthProxyError(md, l); err != nil {
 			return nil, err
 		}
 
-		if _, ok := m[info.FullMethod]; ok {
+		if _, ok := noAuthMethodsSet[info.FullMethod]; ok {
 			return handler(ctx, req)
 		}
 
@@ -60,24 +66,30 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 }
 
 func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor {
-	m := make(map[string]struct{}, len(noAuthMethods))
-	for _, method := range noAuthMethods {
-		m[method] = struct{}{}
+	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
+	for _, m := range noAuthMethods {
+		noAuthMethodsSet[m] = struct{}{}
 	}
 
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()
 		l := logger.Get(ctx).Sugar()
+
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
-			return errInvalidCredentials
+			l.Error("No metadata in incoming request.")
+			return errAuthenticationFail
 		}
+		l.Debugf("Received metadata: %+v", md)
 
+		// Check authentication error before checking if methods requires authentication at all:
+		// * if Authorization header is absent, Auth Service returns OK;
+		// * but if Authorization header is present, it should be valid.
 		if err := handleAuthProxyError(md, l); err != nil {
 			return err
 		}
 
-		if _, ok := m[info.FullMethod]; ok {
+		if _, ok := noAuthMethodsSet[info.FullMethod]; ok {
 			return handler(ctx, ss)
 		}
 
@@ -93,14 +105,14 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 // handleAuthProxyError checks authentication status and message forwarded from proxy
 // and returns proper response to user in case on any problem.
 func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
-	authStatus, err := getAuthStatusFormMetadata(md)
+	authStatus, err := getAuthStatusFromMetadata(md)
 	if err != nil {
 		l.Errorf("failed to get auth status form request metadata, reason: %+v", err)
 		return errAuthenticationFail
 	}
 
 	if authStatus != codes.OK {
-		authError, err := getAuthErrorFormMetadata(md)
+		authError, err := getAuthErrorFromMetadata(md)
 		if err != nil {
 			l.Error(err)
 		}
@@ -109,6 +121,9 @@ func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 
 	return nil
 }
+
+// TODO Merge five functions below and some code above into function that parses incoming headers/metadata
+// and returns struct with four fields.
 
 // getAuthData extracts user email and session id from request metadata.
 func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
@@ -132,22 +147,22 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 }
 
 // getAuthStatusFormMetadata extracts auth status set by proxy form metadata.
-func getAuthStatusFormMetadata(md metadata.MD) (codes.Code, error) {
+func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 	header := md.Get(AuthStatusHeader)
 	if len(header) != 1 {
 		return 0, fmt.Errorf("expect exactly one auth status header, got: %d", len(header))
 	}
 
-	var code codes.Code
-	if err := code.UnmarshalJSON([]byte(header[0])); err != nil {
+	c, err := strconv.Atoi(header[0])
+	if err != nil {
 		return 0, errors.Wrap(err, "failed to parse auth status code")
 	}
 
-	return code, nil
+	return codes.Code(c), nil
 }
 
 // getAuthErrorFormMetadata extracts auth error message set by proxy form metadata.
-func getAuthErrorFormMetadata(md metadata.MD) (string, error) {
+func getAuthErrorFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthErrorHeader)
 	if len(header) != 1 {
 		return "", fmt.Errorf("expect exactly one auth error header, got: %d", len(header))
@@ -156,7 +171,7 @@ func getAuthErrorFormMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
-// getAuthEmailFromMetadata extracts user email set by proxy form metadata.
+// getAuthEmailFromMetadata extracts user email set by proxy from metadata.
 func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthEmailHeader)
 	if len(header) > 1 {
@@ -170,7 +185,7 @@ func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
-// getAuthSessionIDFromMetadata extracts user session id set by proxy form metadata.
+// getAuthSessionIDFromMetadata extracts user session id set by proxy from metadata.
 func getAuthSessionIDFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthSessionHeader)
 	if len(header) > 1 {
