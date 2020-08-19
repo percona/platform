@@ -107,7 +107,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 	authStatus, err := getAuthStatusFromMetadata(md)
 	if err != nil {
-		l.Errorf("failed to get auth status form request metadata, reason: %+v", err)
+		l.Errorf("failed to get auth status from request metadata, reason: %+v", err)
 		return errAuthenticationFail
 	}
 
@@ -129,7 +129,7 @@ func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 	email, err := getAuthEmailFromMetadata(md)
 	if err != nil {
-		l.Errorf("failed to get auth email form request metadata, reason: %+v", err)
+		l.Errorf("failed to get auth email from request metadata, reason: %+v", err)
 		return "", "", errAuthenticationFail
 	}
 
@@ -139,14 +139,14 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 
 	sessionID, err := getAuthSessionIDFromMetadata(md)
 	if err != nil {
-		l.Errorf("failed to get auth session id form request metadata, reason: %+v", err)
+		l.Errorf("failed to get auth session id from request metadata, reason: %+v", err)
 		return "", "", errAuthenticationFail
 	}
 
 	return email, sessionID, nil
 }
 
-// getAuthStatusFromMetadata extracts auth status set by proxy form metadata.
+// getAuthStatusFromMetadata extracts auth status set by proxy from metadata.
 func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 	header := md.Get(AuthStatusHeader)
 	if len(header) != 1 {
@@ -161,7 +161,7 @@ func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 	return codes.Code(c), nil
 }
 
-// getAuthErrorFromMetadata extracts auth error message set by proxy form metadata.
+// getAuthErrorFromMetadata extracts auth error message set by proxy from metadata.
 func getAuthErrorFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthErrorHeader)
 	if len(header) != 1 {
