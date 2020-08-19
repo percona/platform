@@ -28,10 +28,9 @@ var (
 	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
 
-func unaryAuthInterceptor(l *zap.SugaredLogger, noAuthMethods []string) grpc.UnaryServerInterceptor {
+func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 	m := make(map[string]struct{}, len(noAuthMethods))
 	for _, method := range noAuthMethods {
-		l.Infof("Disable unary authentication for API method %s.", method)
 		m[method] = struct{}{}
 	}
 
@@ -60,10 +59,9 @@ func unaryAuthInterceptor(l *zap.SugaredLogger, noAuthMethods []string) grpc.Una
 	}
 }
 
-func streamAuthInterceptor(l *zap.SugaredLogger, noAuthMethods []string) grpc.StreamServerInterceptor {
+func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor {
 	m := make(map[string]struct{}, len(noAuthMethods))
 	for _, method := range noAuthMethods {
-		l.Infof("Disable stream authentication for API method %s.", method)
 		m[method] = struct{}{}
 	}
 
