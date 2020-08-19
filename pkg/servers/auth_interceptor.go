@@ -146,7 +146,7 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
 	return email, sessionID, nil
 }
 
-// getAuthStatusFormMetadata extracts auth status set by proxy form metadata.
+// getAuthStatusFromMetadata extracts auth status set by proxy form metadata.
 func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 	header := md.Get(AuthStatusHeader)
 	if len(header) != 1 {
@@ -161,7 +161,7 @@ func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 	return codes.Code(c), nil
 }
 
-// getAuthErrorFormMetadata extracts auth error message set by proxy form metadata.
+// getAuthErrorFromMetadata extracts auth error message set by proxy form metadata.
 func getAuthErrorFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthErrorHeader)
 	if len(header) != 1 {
