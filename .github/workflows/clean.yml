@@ -56,15 +56,6 @@ jobs:
           echo "::set-env name=GOROOT::$HOME/gotip"
           echo "::add-path::$HOME/gotip/bin"
 
-      - name: Set GO_VERSION environment variable
-        env:
-          # to avoid "go version: flags can only be used with arguments" error
-          # because `go version` accepts -v flag since 1.15
-          GOFLAGS: ""
-        run: |
-          go version
-          echo "::set-env name=GO_VERSION::$(go version)"
-
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2.3.1
 
