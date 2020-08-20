@@ -38,6 +38,9 @@ jobs:
 
       - name: Set up Go release
         if: matrix.go-version != 'tip'
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
@@ -53,8 +56,7 @@ jobs:
 
       - name: Set GO_VERSION environment variable
         env:
-          # to avoid "go version: flags can only be used with arguments" error
-          # because `go version` accepts -v flag since 1.15
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
           GOFLAGS: ""
         run: |
           go version
@@ -160,6 +162,9 @@ jobs:
 
       - name: Set up Go release
         if: matrix.go-version != 'tip'
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
@@ -175,8 +180,7 @@ jobs:
 
       - name: Set GO_VERSION environment variable
         env:
-          # to avoid "go version: flags can only be used with arguments" error
-          # because `go version` accepts -v flag since 1.15
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
           GOFLAGS: ""
         run: |
           go version
