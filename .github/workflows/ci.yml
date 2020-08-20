@@ -13,7 +13,10 @@ jobs:
 
     strategy:
       matrix:
-        go-version: [1.14.x]
+        go-version:
+          - 1.14.x
+          - 1.15.x
+          - tip
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
@@ -25,10 +28,34 @@ jobs:
       GOPRIVATE: github.com/percona-platform
 
     steps:
-      - name: Set up Go ${{ matrix.go-version }}
+      - name: Configure git for private modules
+        env:
+          ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
+        run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
+
+      - name: Set up Go release
+        if: matrix.go-version != 'tip'
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
+
+      - name: Set up Go tip
+        if: matrix.go-version == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "::set-env name=GOROOT::$HOME/gotip"
+          echo "::add-path::$HOME/gotip/bin"
+
+      - name: Set GO_VERSION environment variable
+        env:
+          # to avoid "go version: flags can only be used with arguments" error
+          # because `go version` accepts -v flag since 1.15
+          GOFLAGS: ""
+        run: |
+          go version
+          echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2.3.1
@@ -73,7 +100,16 @@ jobs:
       - name: Run tests
         run: |
           go clean -testcache
-          make test
+          make test-crosscover
+
+      - name: Upload coverage results
+        uses: percona-platform/codecov-action@v1.0.12
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: crosscover.out
+          flags: crosscover
+          env_vars: GO_VERSION
+          fail_ci_if_error: false
 
       - name: Check that there are no source code changes
         run: |
@@ -89,18 +125,20 @@ jobs:
         if: ${{ failure() }}
         run: |
           env
+          go version
           go env
           pwd
           git status
 
   check:
     name: Check
-    timeout-minutes: 5
+    timeout-minutes: 10
     if: github.event_name == 'pull_request'
 
     strategy:
       matrix:
-        go-version: [1.14.x]
+        go-version:
+          - 1.14.x
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
@@ -117,10 +155,29 @@ jobs:
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
         run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
 
-      - name: Set up Go ${{ matrix.go-version }}
+      - name: Set up Go release
+        if: matrix.go-version != 'tip'
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
+
+      - name: Set up Go tip
+        if: matrix.go-version == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "::set-env name=GOROOT::$HOME/gotip"
+          echo "::add-path::$HOME/gotip/bin"
+
+      - name: Set GO_VERSION environment variable
+        env:
+          # to avoid "go version: flags can only be used with arguments" error
+          # because `go version` accepts -v flag since 1.15
+          GOFLAGS: ""
+        run: |
+          go version
+          echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2.3.1
@@ -176,6 +233,7 @@ jobs:
         if: ${{ failure() }}
         run: |
           env
+          go version
           go env
           pwd
           git status
