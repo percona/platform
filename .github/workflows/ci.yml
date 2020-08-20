@@ -15,13 +15,18 @@ jobs:
     timeout-minutes: 10
 
     strategy:
+      fail-fast: false
       matrix:
         go-version:
           - 1.14.x
           - 1.15.x
-          - tip
         os: [ubuntu-latest]
+        may-fail: [false]
+        include:
+          - go-version: tip
+            may-fail: true
 
+    continue-on-error: ${{ matrix.may-fail }}
     runs-on: ${{ matrix.os }}
 
     env:
@@ -141,11 +146,14 @@ jobs:
     if: github.event_name == 'pull_request'
 
     strategy:
+      fail-fast: false
       matrix:
         go-version:
           - 1.14.x
         os: [ubuntu-latest]
+        may-fail: [false]
 
+    continue-on-error: ${{ matrix.may-fail }}
     runs-on: ${{ matrix.os }}
 
     env:
