@@ -254,7 +254,7 @@ jobs:
           pwd
           git status
 
-  build:
+  docker:
     name: Build Docker image
     timeout-minutes: 10
     needs: test
