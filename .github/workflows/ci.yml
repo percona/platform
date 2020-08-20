@@ -24,6 +24,7 @@ jobs:
         may-fail: [false]
         include:
           - go-version: tip
+            os: ubuntu-latest
             may-fail: true
 
     continue-on-error: ${{ matrix.may-fail }}
