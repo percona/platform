@@ -1,6 +1,9 @@
 ---
 name: CI
 on:
+  schedule:
+    # run every Sunday to re-populate caches after they are cleaned on Saturday
+    - cron: "0 12 * * 0"
   push:
     branches:
       - main
@@ -12,10 +15,19 @@ jobs:
     timeout-minutes: 10
 
     strategy:
+      fail-fast: false
       matrix:
-        go-version: [1.14.x]
+        go-version:
+          - 1.14.x
+          - 1.15.x
         os: [ubuntu-latest]
+        may-fail: [false]
+        include:
+          - go-version: tip
+            os: ubuntu-latest
+            may-fail: true
 
+    continue-on-error: ${{ matrix.may-fail }}
     runs-on: ${{ matrix.os }}
 
     env:
@@ -25,10 +37,36 @@ jobs:
       GOPRIVATE: github.com/percona-platform
 
     steps:
-      - name: Set up Go ${{ matrix.go-version }}
+      - name: Configure git for private modules
+        env:
+          ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
+        run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
+
+      - name: Set up Go release
+        if: matrix.go-version != 'tip'
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
+
+      - name: Set up Go tip
+        if: matrix.go-version == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "::set-env name=GOROOT::$HOME/gotip"
+          echo "::add-path::$HOME/gotip/bin"
+
+      - name: Set GO_VERSION environment variable
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
+        run: |
+          go version
+          echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2.3.1
@@ -62,6 +100,9 @@ jobs:
       - name: Install tools
         run: make init
 
+      - name: Initialize CI environment
+        run: make ci-init
+
       - name: Generate API code using dev docker image
         run: |
           make gen-dev
@@ -73,7 +114,16 @@ jobs:
       - name: Run tests
         run: |
           go clean -testcache
-          make test
+          make test-crosscover
+
+      - name: Upload coverage results
+        uses: percona-platform/codecov-action@v1.0.12
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: crosscover.out
+          flags: crosscover
+          env_vars: GO_VERSION
+          fail_ci_if_error: false
 
       - name: Check that there are no source code changes
         run: |
@@ -89,20 +139,25 @@ jobs:
         if: ${{ failure() }}
         run: |
           env
+          go version
           go env
           pwd
           git status
 
   check:
     name: Check
-    timeout-minutes: 5
+    timeout-minutes: 10
     if: github.event_name == 'pull_request'
 
     strategy:
+      fail-fast: false
       matrix:
-        go-version: [1.14.x]
+        go-version:
+          - 1.14.x
         os: [ubuntu-latest]
+        may-fail: [false]
 
+    continue-on-error: ${{ matrix.may-fail }}
     runs-on: ${{ matrix.os }}
 
     env:
@@ -117,10 +172,31 @@ jobs:
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
         run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
 
-      - name: Set up Go ${{ matrix.go-version }}
+      - name: Set up Go release
+        if: matrix.go-version != 'tip'
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
         uses: percona-platform/setup-go@v2.1.1
         with:
           go-version: ${{ matrix.go-version }}
+
+      - name: Set up Go tip
+        if: matrix.go-version == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "::set-env name=GOROOT::$HOME/gotip"
+          echo "::add-path::$HOME/gotip/bin"
+
+      - name: Set GO_VERSION environment variable
+        env:
+          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
+          GOFLAGS: ""
+        run: |
+          go version
+          echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2.3.1
@@ -176,11 +252,12 @@ jobs:
         if: ${{ failure() }}
         run: |
           env
+          go version
           go env
           pwd
           git status
 
-  build:
+  docker:
     name: Build Docker image
     timeout-minutes: 10
     needs: test
