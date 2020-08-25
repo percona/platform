@@ -18,6 +18,9 @@ init:                                      ## Install development tools
 	go build -modfile=tools/go.mod -o bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
 	go build -modfile=tools/go.mod -o bin/gofumports mvdan.cc/gofumpt/gofumports
 
+ci-init:                                   ## Initialize CI environment
+	# nothing there yet
+
 gen:                                       ## Format, check, and generate using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/auth -f api/auth/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
@@ -43,6 +46,12 @@ check:                                     ## Run checks/linters for the whole p
 
 test:                                      ## Run tests
 	go test -race ./...
+
+test-cover:                                ## Run tests and collect per-package coverage information
+	go test -race -timeout=10m -count=1 -coverprofile=cover.out -covermode=atomic ./...
+
+test-crosscover:                           ## Run tests and collect cross-package coverage information
+	go test -race -timeout=10m -count=1 -coverprofile=crosscover.out -covermode=atomic -p=1 -coverpkg=./... ./...
 
 descriptors:                               ## Update files used for breaking changes detection
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/auth -o api/auth/descriptor.bin

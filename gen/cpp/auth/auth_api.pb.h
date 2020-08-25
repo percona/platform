@@ -49,7 +49,7 @@ struct TableStruct_auth_2fauth_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[10]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -78,6 +78,12 @@ extern SignInRequestDefaultTypeInternal _SignInRequest_default_instance_;
 class SignInResponse;
 class SignInResponseDefaultTypeInternal;
 extern SignInResponseDefaultTypeInternal _SignInResponse_default_instance_;
+class SignOutRequest;
+class SignOutRequestDefaultTypeInternal;
+extern SignOutRequestDefaultTypeInternal _SignOutRequest_default_instance_;
+class SignOutResponse;
+class SignOutResponseDefaultTypeInternal;
+extern SignOutResponseDefaultTypeInternal _SignOutResponse_default_instance_;
 class SignUpRequest;
 class SignUpRequestDefaultTypeInternal;
 extern SignUpRequestDefaultTypeInternal _SignUpRequest_default_instance_;
@@ -95,6 +101,8 @@ template<> ::percona::platform::auth::v1::ResetPasswordRequest* Arena::CreateMay
 template<> ::percona::platform::auth::v1::ResetPasswordResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::ResetPasswordResponse>(Arena*);
 template<> ::percona::platform::auth::v1::SignInRequest* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignInRequest>(Arena*);
 template<> ::percona::platform::auth::v1::SignInResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignInResponse>(Arena*);
+template<> ::percona::platform::auth::v1::SignOutRequest* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignOutRequest>(Arena*);
+template<> ::percona::platform::auth::v1::SignOutResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignOutResponse>(Arena*);
 template<> ::percona::platform::auth::v1::SignUpRequest* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignUpRequest>(Arena*);
 template<> ::percona::platform::auth::v1::SignUpResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignUpResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -762,6 +770,254 @@ class SignInResponse PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class SignOutRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.v1.SignOutRequest) */ {
+ public:
+  inline SignOutRequest() : SignOutRequest(nullptr) {};
+  virtual ~SignOutRequest();
+
+  SignOutRequest(const SignOutRequest& from);
+  SignOutRequest(SignOutRequest&& from) noexcept
+    : SignOutRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SignOutRequest& operator=(const SignOutRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SignOutRequest& operator=(SignOutRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SignOutRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SignOutRequest* internal_default_instance() {
+    return reinterpret_cast<const SignOutRequest*>(
+               &_SignOutRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(SignOutRequest& a, SignOutRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SignOutRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SignOutRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SignOutRequest* New() const final {
+    return CreateMaybeMessage<SignOutRequest>(nullptr);
+  }
+
+  SignOutRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SignOutRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SignOutRequest& from);
+  void MergeFrom(const SignOutRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SignOutRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.v1.SignOutRequest";
+  }
+  protected:
+  explicit SignOutRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.SignOutRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SignOutResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.v1.SignOutResponse) */ {
+ public:
+  inline SignOutResponse() : SignOutResponse(nullptr) {};
+  virtual ~SignOutResponse();
+
+  SignOutResponse(const SignOutResponse& from);
+  SignOutResponse(SignOutResponse&& from) noexcept
+    : SignOutResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SignOutResponse& operator=(const SignOutResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SignOutResponse& operator=(SignOutResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SignOutResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SignOutResponse* internal_default_instance() {
+    return reinterpret_cast<const SignOutResponse*>(
+               &_SignOutResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(SignOutResponse& a, SignOutResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SignOutResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SignOutResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SignOutResponse* New() const final {
+    return CreateMaybeMessage<SignOutResponse>(nullptr);
+  }
+
+  SignOutResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SignOutResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SignOutResponse& from);
+  void MergeFrom(const SignOutResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SignOutResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.v1.SignOutResponse";
+  }
+  protected:
+  explicit SignOutResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_auth_2fauth_5fapi_2eproto);
+    return ::descriptor_table_auth_2fauth_5fapi_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.SignOutResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
 class RefreshSessionRequest PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.v1.RefreshSessionRequest) */ {
  public:
@@ -804,7 +1060,7 @@ class RefreshSessionRequest PROTOBUF_FINAL :
                &_RefreshSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(RefreshSessionRequest& a, RefreshSessionRequest& b) {
     a.Swap(&b);
@@ -928,7 +1184,7 @@ class RefreshSessionResponse PROTOBUF_FINAL :
                &_RefreshSessionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(RefreshSessionResponse& a, RefreshSessionResponse& b) {
     a.Swap(&b);
@@ -1074,7 +1330,7 @@ class ResetPasswordRequest PROTOBUF_FINAL :
                &_ResetPasswordRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(ResetPasswordRequest& a, ResetPasswordRequest& b) {
     a.Swap(&b);
@@ -1227,7 +1483,7 @@ class ResetPasswordResponse PROTOBUF_FINAL :
                &_ResetPasswordResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(ResetPasswordResponse& a, ResetPasswordResponse& b) {
     a.Swap(&b);
@@ -1812,6 +2068,14 @@ inline void SignInResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Tim
 
 // -------------------------------------------------------------------
 
+// SignOutRequest
+
+// -------------------------------------------------------------------
+
+// SignOutResponse
+
+// -------------------------------------------------------------------
+
 // RefreshSessionRequest
 
 // -------------------------------------------------------------------
@@ -1985,6 +2249,10 @@ inline void ResetPasswordRequest::unsafe_arena_set_allocated_email(
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
