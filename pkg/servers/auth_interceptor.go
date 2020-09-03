@@ -123,7 +123,7 @@ func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 }
 
 // TODO Merge five functions below and some code above into function that parses incoming headers/metadata
-// and returns struct with four fields.
+// and returns struct with four fields. Use rdata package there?
 
 // getAuthData extracts user email and session id from request metadata.
 func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
