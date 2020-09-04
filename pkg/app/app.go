@@ -14,9 +14,10 @@ import (
 
 // Config is basic Percona Platform application configuration.
 type Config struct {
-	GRPCAddr  string // gRPC Server address
-	HTTPAddr  string // HTTP Server address
-	DebugAddr string // debug Server address
+	GRPCAddr    string // gRPC Server address
+	GRPCWebAddr string // gRPC-Web Server address
+	HTTPAddr    string // HTTP Server address
+	DebugAddr   string // debug Server address
 
 	LoggerOpts logger.SetupGlobalOpts
 }
@@ -54,9 +55,10 @@ func version() string {
 
 // SetupOpts contains application requirements.
 type SetupOpts struct {
-	Name     string
-	WithGRPC bool
-	WithHTTP bool
+	Name        string
+	WithGRPC    bool
+	WithGRPCWeb bool
+	WithHTTP    bool
 }
 
 // Setup returns application Config according to setup options.
@@ -78,6 +80,10 @@ func Setup(opts *SetupOpts) (*Config, error) {
 
 	if opts.WithGRPC {
 		kingpin.Flag("grpc.addr", "gRPC listen address").Default(":20201").StringVar(&config.GRPCAddr)
+	}
+
+	if opts.WithGRPCWeb {
+		kingpin.Flag("grpc-web.addr", "gRPC-Web listen address").Default(":20204").StringVar(&config.GRPCWebAddr)
 	}
 
 	if opts.WithHTTP {
