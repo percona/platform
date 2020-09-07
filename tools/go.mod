@@ -5,7 +5,7 @@ go 1.14
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813
+	github.com/dvyukov/go-fuzz v0.0.0-20200826052050-32ce4e791247
 	github.com/elazarl/go-bindata-assetfs v1.0.0 // indirect
 	github.com/golang/protobuf v1.3.5
 	github.com/golangci/golangci-lint v1.29.0
@@ -16,5 +16,5 @@ require (
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
 	google.golang.org/grpc v1.31.1
-	mvdan.cc/gofumpt v0.0.0-20200709182408-4fd085cb6d5f
+	mvdan.cc/gofumpt v0.0.0-20200802201014-ab5a8192947d
 )
