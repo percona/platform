@@ -100,7 +100,8 @@ const char descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2epro
   "porterAPI\022w\n\006Report\0225.percona.platform.t"
   "elemetry.reporter.v1.ReportRequest\0326.per"
   "cona.platform.telemetry.reporter.v1.Repo"
-  "rtResponseB\014Z\nreporterv1b\006proto3"
+  "rtResponseB\037Z\035telemetry/reporter;reporte"
+  "rv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps[2] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -112,7 +113,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_tel
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 432,
+  false, false, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 451,
   &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_sccs, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2freporter_5fapi_2eproto::offsets,
   file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, 2, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,

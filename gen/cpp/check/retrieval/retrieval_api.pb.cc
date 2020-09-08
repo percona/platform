@@ -96,8 +96,8 @@ const char descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto
   "RetrievalAPI\022\203\001\n\014GetAllChecks\0228.percona."
   "platform.check.retrieval.v1.GetAllChecks"
   "Request\0329.percona.platform.check.retriev"
-  "al.v1.GetAllChecksResponseB\rZ\013retrievalv"
-  "1b\006proto3"
+  "al.v1.GetAllChecksResponseB\035Z\033check/retr"
+  "ieval;retrievalv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps[1] = {
 };
@@ -107,7 +107,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_che
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 329,
+  false, false, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 345,
   &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
   file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, 2, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
