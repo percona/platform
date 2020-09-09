@@ -41,7 +41,7 @@ format:                                    ## Format source code
 	bin/gofumports -local github.com/percona-platform/platform -l -w .
 
 check:                                     ## Run checks/linters for the whole project
-	bin/go-consistent -pedantic ./...
+	bin/go-consistent -exclude=tools -pedantic ./...
 	bin/golangci-lint run
 
 test:                                      ## Run tests
