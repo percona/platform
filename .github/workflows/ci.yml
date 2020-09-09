@@ -18,7 +18,6 @@ jobs:
       fail-fast: false
       matrix:
         go-version:
-          - 1.14.x
           - 1.15.x
         os: [ubuntu-latest]
         may-fail: [false]
@@ -153,7 +152,7 @@ jobs:
       fail-fast: false
       matrix:
         go-version:
-          - 1.14.x
+          - 1.15.x
         os: [ubuntu-latest]
         may-fail: [false]
 
