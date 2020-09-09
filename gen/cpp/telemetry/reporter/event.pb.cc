@@ -108,7 +108,8 @@ const char descriptor_table_protodef_telemetry_2freporter_2fevent_2eproto[] PROT
   "\004time\030\002 \001(\0132\032.google.protobuf.TimestampB"
   "\006\342\337\037\002 \001\022G\n\005event\030\003 \001(\01320.percona.platfor"
   "m.telemetry.reporter.v1.AnyEventB\006\342\337\037\002 \001"
-  "B\014Z\nreporterv1b\006proto3"
+  "B\037Z\035telemetry/reporter;reporterv1b\006proto"
+  "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2freporter_2fevent_2eproto_deps[2] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -120,7 +121,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_tel
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2fevent_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2fevent_2eproto = {
-  false, false, descriptor_table_protodef_telemetry_2freporter_2fevent_2eproto, "telemetry/reporter/event.proto", 462,
+  false, false, descriptor_table_protodef_telemetry_2freporter_2fevent_2eproto, "telemetry/reporter/event.proto", 481,
   &descriptor_table_telemetry_2freporter_2fevent_2eproto_once, descriptor_table_telemetry_2freporter_2fevent_2eproto_sccs, descriptor_table_telemetry_2freporter_2fevent_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2fevent_2eproto::offsets,
   file_level_metadata_telemetry_2freporter_2fevent_2eproto, 2, file_level_enum_descriptors_telemetry_2freporter_2fevent_2eproto, file_level_service_descriptors_telemetry_2freporter_2fevent_2eproto,

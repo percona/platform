@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package percona.platform.leaked.v1beta1;
 
-option go_package = "leakedv1beta1";
+option go_package = "leaked;leakedv1beta1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 

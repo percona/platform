@@ -126,8 +126,8 @@ const char descriptor_table_protodef_leaked_2fleaked_5fapi_2eproto[] PROTOBUF_SE
   "akedAPI\022\204\001\n\017CheckDoubleSHA1\0227.percona.pl"
   "atform.leaked.v1beta1.CheckDoubleSHA1Req"
   "uest\0328.percona.platform.leaked.v1beta1.C"
-  "heckDoubleSHA1ResponseB\017Z\rleakedv1beta1b"
-  "\006proto3"
+  "heckDoubleSHA1ResponseB\026Z\024leaked;leakedv"
+  "1beta1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_leaked_2fleaked_5fapi_2eproto_deps[1] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -139,7 +139,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_lea
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_leaked_2fleaked_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_leaked_2fleaked_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_leaked_2fleaked_5fapi_2eproto, "leaked/leaked_api.proto", 487,
+  false, false, descriptor_table_protodef_leaked_2fleaked_5fapi_2eproto, "leaked/leaked_api.proto", 494,
   &descriptor_table_leaked_2fleaked_5fapi_2eproto_once, descriptor_table_leaked_2fleaked_5fapi_2eproto_sccs, descriptor_table_leaked_2fleaked_5fapi_2eproto_deps, 3, 1,
   schemas, file_default_instances, TableStruct_leaked_2fleaked_5fapi_2eproto::offsets,
   file_level_metadata_leaked_2fleaked_5fapi_2eproto, 3, file_level_enum_descriptors_leaked_2fleaked_5fapi_2eproto, file_level_service_descriptors_leaked_2fleaked_5fapi_2eproto,
