@@ -230,7 +230,7 @@ func (c *Check) validateType() error {
 }
 
 func (c *Check) validateTiers() error {
-	if len(c.Tiers) == 0 {
+	if c.Tiers == nil {
 		return errors.New("empty check tiers")
 	}
 

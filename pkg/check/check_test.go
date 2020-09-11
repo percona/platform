@@ -119,6 +119,90 @@ checks:
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 	})
+
+	t.Run("missing tiers", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
+checks:
+  - version: 1
+    name: mysql_check
+    type: MYSQL_SHOW
+    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
+    script: |
+        def function1(args):
+            pass
+
+  - version: 2
+`)
+
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+			DisallowInvalidChecks: false,
+		}
+		cs, err := Parse(bytes.NewReader([]byte(data)), params)
+		require.NoError(t, err)
+
+		assert.Len(t, cs, 0)
+	})
+
+	t.Run("null tiers", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
+checks:
+  - version: 1
+    name: mysql_check
+    tiers: null
+    type: MYSQL_SHOW
+    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
+    script: |
+        def function1(args):
+            pass
+
+  - version: 2
+`)
+
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+			DisallowInvalidChecks: false,
+		}
+		cs, err := Parse(bytes.NewReader([]byte(data)), params)
+		require.NoError(t, err)
+
+		assert.Len(t, cs, 0)
+	})
+
+	t.Run("zero tiers", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
+checks:
+  - version: 1
+    name: mysql_check
+    tiers: []
+    type: MYSQL_SHOW
+    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
+    script: |
+        def function1(args):
+            pass
+
+  - version: 2
+`)
+
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+			DisallowInvalidChecks: false,
+		}
+		cs, err := Parse(bytes.NewReader([]byte(data)), params)
+		require.NoError(t, err)
+
+		assert.Len(t, cs, 1)
+
+		assert.Equal(t, "mysql_check", cs[0].Name)
+		assert.Len(t, cs[0].Tiers, 0)
+		assert.Equal(t, uint32(1), cs[0].Version)
+		assert.Equal(t, MySQLShow, cs[0].Type)
+		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+	})
 }
 
 func TestCheck_CheckValidate(t *testing.T) {
