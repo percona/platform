@@ -136,16 +136,14 @@ checks:
     script: |
         def function1(args):
             pass
-
-  - version: 2
 `)
 
 		params := &ParseParams{
 			DisallowUnknownFields: true,
-			DisallowInvalidChecks: false,
+			DisallowInvalidChecks: true,
 		}
 		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
+		require.EqualError(t, err, "empty check tiers")
 
 		assert.Len(t, cs, 0)
 	})
@@ -162,16 +160,14 @@ checks:
     script: |
         def function1(args):
             pass
-
-  - version: 2
 `)
 
 		params := &ParseParams{
 			DisallowUnknownFields: true,
-			DisallowInvalidChecks: false,
+			DisallowInvalidChecks: true,
 		}
 		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
+		require.EqualError(t, err, "empty check tiers")
 
 		assert.Len(t, cs, 0)
 	})
@@ -188,13 +184,11 @@ checks:
     script: |
         def function1(args):
             pass
-
-  - version: 2
 `)
 
 		params := &ParseParams{
 			DisallowUnknownFields: true,
-			DisallowInvalidChecks: false,
+			DisallowInvalidChecks: true,
 		}
 		cs, err := Parse(bytes.NewReader([]byte(data)), params)
 		require.NoError(t, err)
@@ -206,7 +200,29 @@ checks:
 		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
+	})
+
+	t.Run("duplicate tiers", func(t *testing.T) {
+		data := strings.TrimSpace(`
+---
+checks:
+  - version: 1
+    name: mysql_check
+    tiers: [anonymous, anonymous]
+    type: MYSQL_SHOW
+    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
+    script: |
+        def function1(args):
+            pass
+`)
+
+		params := &ParseParams{
+			DisallowUnknownFields: true,
+			DisallowInvalidChecks: true,
+		}
+		_, err := Parse(bytes.NewReader([]byte(data)), params)
+		require.EqualError(t, err, "duplicate tier: anonymous")
 	})
 }
 
