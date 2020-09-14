@@ -222,7 +222,7 @@ checks:
 			DisallowInvalidChecks: true,
 		}
 		_, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.EqualError(t, err, "duplicate tier: anonymous")
+		require.EqualError(t, err, "duplicate tier: \"anonymous\"")
 	})
 }
 
@@ -379,7 +379,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
 			},
-			errStr: "unknown check tier: invalid",
+			errStr: "unknown check tier: \"invalid\"",
 		},
 		{
 			name: "empty_type",

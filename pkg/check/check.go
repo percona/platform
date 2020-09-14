@@ -236,14 +236,14 @@ func (c *Check) validateTiers() error {
 
 	m := make(map[Tier]struct{}, len(c.Tiers))
 	for _, tier := range c.Tiers {
-		if _, ok := m[tier]; ok{
-			return errors.Errorf("duplicate tier: %s", tier)
+		if _, ok := m[tier]; ok {
+			return errors.Errorf("duplicate tier: %q", tier)
 		}
 
 		switch tier {
 		case Anonymous:
 		default:
-			return errors.Errorf("unknown check tier: %s", tier)
+			return errors.Errorf("unknown check tier: %q", tier)
 		}
 
 		m[tier] = struct{}{}
