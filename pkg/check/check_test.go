@@ -69,16 +69,14 @@ checks:
 			assert.Len(t, cs, 2)
 
 			assert.Equal(t, "mysql_check", cs[0].Name)
-			assert.Len(t, cs[0].Tiers, 1)
-			assert.Equal(t, Anonymous, cs[0].Tiers[0])
+			assert.Equal(t, []Tier{Anonymous}, cs[0].Tiers)
 			assert.Equal(t, uint32(1), cs[0].Version)
 			assert.Equal(t, MySQLShow, cs[0].Type)
 			assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 			assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 
 			assert.Equal(t, "postgresql_check", cs[1].Name)
-			assert.Len(t, cs[1].Tiers, 1)
-			assert.Equal(t, Anonymous, cs[1].Tiers[0])
+			assert.Equal(t, []Tier{Anonymous}, cs[0].Tiers)
 			assert.Equal(t, uint32(1), cs[1].Version)
 			assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 			assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
@@ -112,8 +110,7 @@ checks:
 		assert.Len(t, cs, 1)
 
 		assert.Equal(t, "mysql_check", cs[0].Name)
-		assert.Len(t, cs[0].Tiers, 1)
-		assert.Equal(t, Anonymous, cs[0].Tiers[0])
+		assert.Equal(t, []Tier{Anonymous}, cs[0].Tiers)
 		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
