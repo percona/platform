@@ -129,7 +129,7 @@ const (
 type Check struct {
 	Version uint32 `yaml:"version"`
 	Name    string `yaml:"name"`
-	Tiers   []Tier `yaml:"tiers"`
+	Tiers   []Tier `yaml:"tiers,flow"`
 	Type    Type   `yaml:"type"`
 	Query   string `yaml:"query,omitempty"`
 	Script  string `yaml:"script"`
