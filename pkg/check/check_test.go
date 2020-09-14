@@ -15,8 +15,7 @@ func TestCheck_Parse(t *testing.T) {
 checks:
   - version: 1
     name: mysql_check
-    tiers:
-        - anonymous
+    tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -25,8 +24,7 @@ checks:
 
   - version: 1
     name: postgresql_check
-    tiers:
-        - anonymous
+    tiers: [anonymous]
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -39,8 +37,7 @@ checks:
 checks:
   - version: 1
     name: mysql_check
-    tiers:
-        - anonymous
+    tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -50,8 +47,7 @@ checks:
 checks:
   - version: 1
     name: postgresql_check
-    tiers:
-        - anonymous
+    tiers: [anonymous]
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -96,8 +92,7 @@ checks:
 checks:
   - version: 1
     name: mysql_check
-    tiers:
-        - anonymous
+    tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
