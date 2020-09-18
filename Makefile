@@ -75,6 +75,9 @@ run-dev:                                   ## Run bash in prototool Docker dev i
 saas:                                      ## Extract public APIs and generated files into ../saas
 	go run saas.go
 
+saas-ui:                                   ## Extract generated JS/TS files into ../saas-ui
+	go run saas-ui.go
+
 fuzz-check-build:
 	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check
 
