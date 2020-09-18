@@ -31,7 +31,7 @@ gen:                                       ## Format, check, and generate using 
 	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
 	## Remove golang specific dependency form javascript generated code.
-	$(DOCKER_RUN_CMD) find ./gen/js -type f -exec sed -i '/github.com\/mwitkow\/go-proto-validators/d' {} \;
+	$(DOCKER_RUN_CMD) find ./gen/web -type f -exec sed -i '/github.com\/mwitkow\/go-proto-validators/d' {} \;
 
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
