@@ -1,6 +1,5 @@
 import * as jspb from 'google-protobuf'
 
-import * as github_com_mwitkow_go$proto$validators_validator_pb from '../../../github.com/mwitkow/go-proto-validators/validator_pb';
 import * as google_protobuf_duration_pb from 'google-protobuf/google/protobuf/duration_pb';
 
 

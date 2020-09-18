@@ -1,6 +1,5 @@
 import * as jspb from 'google-protobuf'
 
-import * as github_com_mwitkow_go$proto$validators_validator_pb from '../github.com/mwitkow/go-proto-validators/validator_pb';
 
 
 export class CheckDoubleSHA1Request extends jspb.Message {
