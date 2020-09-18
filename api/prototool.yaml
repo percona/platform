@@ -119,12 +119,12 @@ generate:
 
     - name: js
       flags: import_style=commonjs,binary
-      output: ../gen
+      output: ../gen/js
 
     - name: grpc-web
       flags: import_style=typescript,mode=grpcwebtext
       path: protoc-gen-grpc-web
-      output: ../gen
+      output: ../gen/js
 
     # - name: grpc-gateway
     #   type: go
