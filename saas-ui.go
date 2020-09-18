@@ -45,7 +45,7 @@ func main() {
 	}
 
 	// remove directories
-	for _, d := range []string{"gen",} {
+	for _, d := range []string{"gen"} {
 		path := filepath.Join(targetDir, d)
 		log.Printf("Removing %s ...", path)
 		if err := os.RemoveAll(path); err != nil {
@@ -68,7 +68,6 @@ func main() {
 					copy = true
 				}
 			}
-
 
 			if !copy {
 				return nil
