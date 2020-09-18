@@ -38,6 +38,16 @@ RUN go clean -cache
 RUN go clean -modcache
 RUN rm -frv /go
 
+ENV GRPC_WEB_VERSION=1.2.1
+RUN curl -sSL \
+  https://github.com/grpc/grpc-web/releases/download/${GRPC_WEB_VERSION}/protoc-gen-grpc-web-${GRPC_WEB_VERSION}-linux-x86_64 \
+  -o /usr/local/bin/protoc-gen-grpc-web && \
+  chmod +x /usr/local/bin/protoc-gen-grpc-web
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install --global --unsafe-perm --production grpc-tools
+
 ENV PROTOTOOL_PROTOC_BIN_PATH=/usr/local/bin/protoc
 ENV PROTOTOOL_PROTOC_WKT_PATH=/usr/local/include
 
