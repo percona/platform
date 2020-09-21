@@ -5,8 +5,6 @@ package tools // import "github.com/percona-platform/platform/tools"
 import (
 	// code generators plus their dependencies (to make them direct in go.mod)
 	_ "github.com/golang/protobuf/protoc-gen-go"
-	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway"
-	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger"
 	_ "github.com/mwitkow/go-proto-validators/protoc-gen-govalidators"
 	_ "github.com/uber/prototool/cmd/prototool"
 	_ "google.golang.org/grpc"
