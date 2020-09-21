@@ -12,6 +12,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var github_com_mwitkow_go$proto$validators_validator_pb = require('../../../github.com/mwitkow/go-proto-validators/validator_pb.js');
+goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
 goog.object.extend(proto, google_protobuf_duration_pb);
 goog.exportSymbol('proto.percona.platform.telemetry.events.pmm.v1.DistributionMethod', null, global);

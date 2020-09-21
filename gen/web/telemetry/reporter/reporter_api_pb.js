@@ -12,6 +12,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var github_com_mwitkow_go$proto$validators_validator_pb = require('../../github.com/mwitkow/go-proto-validators/validator_pb.js');
+goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 var telemetry_reporter_event_pb = require('../../telemetry/reporter/event_pb.js');
 goog.object.extend(proto, telemetry_reporter_event_pb);
 goog.exportSymbol('proto.percona.platform.telemetry.reporter.v1.ReportRequest', null, global);
