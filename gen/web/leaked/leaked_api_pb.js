@@ -12,7 +12,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 goog.exportSymbol('proto.percona.platform.leaked.v1beta1.CheckDoubleSHA1Request', null, global);
 goog.exportSymbol('proto.percona.platform.leaked.v1beta1.CheckDoubleSHA1Response', null, global);
 goog.exportSymbol('proto.percona.platform.leaked.v1beta1.CheckDoubleSHA1Response.Result', null, global);
