@@ -30,9 +30,6 @@ gen:                                       ## Format, check, and generate using 
 	$(DOCKER_RUN_CMD) prototool all api
 	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
-	## Remove golang specific dependency form javascript generated code.
-	$(DOCKER_RUN_CMD) find ./gen/web -type f -exec sed -i '/github_com_mwitkow/d' {} \;
-
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 

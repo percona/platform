@@ -9,13 +9,24 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
 // copyFile copies files src to dst,
-func copyFile(src, dst string) error {
-	b, err := ioutil.ReadFile(src) //nolint:gosec
+func patchAndCopyFile(src, dst string) error {
+	content, err := ioutil.ReadFile(src) //nolint:gosec
 	if err != nil {
+		return err
+	}
+
+	// remove Go imports from JavaScript/TypeScript code
+	const pattern = `(?mi)[\n]^.*github_com_mwitkow.*$`
+	re := regexp.MustCompile(pattern)
+	newContentStr := re.ReplaceAllString(string(content), "")
+	newContent := []byte(newContentStr)
+
+	if err = ioutil.WriteFile(src, newContent, 0o644); err != nil {
 		return err
 	}
 
@@ -23,7 +34,7 @@ func copyFile(src, dst string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(dst, b, 0o644)
+	return ioutil.WriteFile(dst, newContent, 0o644)
 }
 
 // runInDir runs command name with args in dir and returns stdout.
@@ -75,7 +86,7 @@ func main() {
 
 			dst := filepath.Join(targetDir, path)
 			log.Printf("%s -> %s", path, dst)
-			return copyFile(path, dst)
+			return patchAndCopyFile(path, dst)
 		})
 		if err != nil {
 			log.Fatal(err)
