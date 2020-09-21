@@ -27,6 +27,14 @@ class GetAllChecksResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetAllChecksResponse> _instance;
 } _GetAllChecksResponse_default_instance_;
+class GetAllRulesRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetAllRulesRequest> _instance;
+} _GetAllRulesRequest_default_instance_;
+class GetAllRulesResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetAllRulesResponse> _instance;
+} _GetAllRulesResponse_default_instance_;
 }  // namespace v1
 }  // namespace retrieval
 }  // namespace check
@@ -60,7 +68,35 @@ static void InitDefaultsscc_info_GetAllChecksResponse_check_2fretrieval_2fretrie
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_GetAllChecksResponse_check_2fretrieval_2fretrieval_5fapi_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_GetAllChecksResponse_check_2fretrieval_2fretrieval_5fapi_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto[2];
+static void InitDefaultsscc_info_GetAllRulesRequest_check_2fretrieval_2fretrieval_5fapi_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::percona::platform::check::retrieval::v1::_GetAllRulesRequest_default_instance_;
+    new (ptr) ::percona::platform::check::retrieval::v1::GetAllRulesRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::percona::platform::check::retrieval::v1::GetAllRulesRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_GetAllRulesRequest_check_2fretrieval_2fretrieval_5fapi_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_GetAllRulesRequest_check_2fretrieval_2fretrieval_5fapi_2eproto}, {}};
+
+static void InitDefaultsscc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::percona::platform::check::retrieval::v1::_GetAllRulesResponse_default_instance_;
+    new (ptr) ::percona::platform::check::retrieval::v1::GetAllRulesResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::percona::platform::check::retrieval::v1::GetAllRulesResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto = nullptr;
 
@@ -77,40 +113,63 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_check_2fretrieval_2fretrieval_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllChecksResponse, file_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllChecksResponse, signatures_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllRulesRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllRulesResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllRulesResponse, file_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::check::retrieval::v1::GetAllRulesResponse, signatures_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::check::retrieval::v1::GetAllChecksRequest)},
   { 5, -1, sizeof(::percona::platform::check::retrieval::v1::GetAllChecksResponse)},
+  { 12, -1, sizeof(::percona::platform::check::retrieval::v1::GetAllRulesRequest)},
+  { 17, -1, sizeof(::percona::platform::check::retrieval::v1::GetAllRulesResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::check::retrieval::v1::_GetAllChecksRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::check::retrieval::v1::_GetAllChecksResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::check::retrieval::v1::_GetAllRulesRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::check::retrieval::v1::_GetAllRulesResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n#check/retrieval/retrieval_api.proto\022#p"
   "ercona.platform.check.retrieval.v1\"\025\n\023Ge"
   "tAllChecksRequest\"8\n\024GetAllChecksRespons"
-  "e\022\014\n\004file\030\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t2\224\001\n\014"
-  "RetrievalAPI\022\203\001\n\014GetAllChecks\0228.percona."
-  "platform.check.retrieval.v1.GetAllChecks"
-  "Request\0329.percona.platform.check.retriev"
-  "al.v1.GetAllChecksResponseB\035Z\033check/retr"
-  "ieval;retrievalv1b\006proto3"
+  "e\022\014\n\004file\030\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t\"\024\n\022G"
+  "etAllRulesRequest\"7\n\023GetAllRulesResponse"
+  "\022\014\n\004file\030\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t2\227\002\n\014R"
+  "etrievalAPI\022\203\001\n\014GetAllChecks\0228.percona.p"
+  "latform.check.retrieval.v1.GetAllChecksR"
+  "equest\0329.percona.platform.check.retrieva"
+  "l.v1.GetAllChecksResponse\022\200\001\n\013GetAllRule"
+  "s\0227.percona.platform.check.retrieval.v1."
+  "GetAllRulesRequest\0328.percona.platform.ch"
+  "eck.retrieval.v1.GetAllRulesResponseB\035Z\033"
+  "check/retrieval;retrievalv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs[2] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs[4] = {
   &scc_info_GetAllChecksRequest_check_2fretrieval_2fretrieval_5fapi_2eproto.base,
   &scc_info_GetAllChecksResponse_check_2fretrieval_2fretrieval_5fapi_2eproto.base,
+  &scc_info_GetAllRulesRequest_check_2fretrieval_2fretrieval_5fapi_2eproto.base,
+  &scc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 345,
-  &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 2, 0,
+  false, false, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 555,
+  &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_sccs, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
-  file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, 2, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
+  file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, 4, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -532,6 +591,417 @@ void GetAllChecksResponse::InternalSwap(GetAllChecksResponse* other) {
 }
 
 
+// ===================================================================
+
+void GetAllRulesRequest::InitAsDefaultInstance() {
+}
+class GetAllRulesRequest::_Internal {
+ public:
+};
+
+GetAllRulesRequest::GetAllRulesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+}
+GetAllRulesRequest::GetAllRulesRequest(const GetAllRulesRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+}
+
+void GetAllRulesRequest::SharedCtor() {
+}
+
+GetAllRulesRequest::~GetAllRulesRequest() {
+  // @@protoc_insertion_point(destructor:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void GetAllRulesRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void GetAllRulesRequest::ArenaDtor(void* object) {
+  GetAllRulesRequest* _this = reinterpret_cast< GetAllRulesRequest* >(object);
+  (void)_this;
+}
+void GetAllRulesRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetAllRulesRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const GetAllRulesRequest& GetAllRulesRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_GetAllRulesRequest_check_2fretrieval_2fretrieval_5fapi_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void GetAllRulesRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetAllRulesRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetAllRulesRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  return target;
+}
+
+size_t GetAllRulesRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetAllRulesRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetAllRulesRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetAllRulesRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+    MergeFrom(*source);
+  }
+}
+
+void GetAllRulesRequest::MergeFrom(const GetAllRulesRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void GetAllRulesRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetAllRulesRequest::CopyFrom(const GetAllRulesRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetAllRulesRequest::IsInitialized() const {
+  return true;
+}
+
+void GetAllRulesRequest::InternalSwap(GetAllRulesRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetAllRulesRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void GetAllRulesResponse::InitAsDefaultInstance() {
+}
+class GetAllRulesResponse::_Internal {
+ public:
+};
+
+GetAllRulesResponse::GetAllRulesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  signatures_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+}
+GetAllRulesResponse::GetAllRulesResponse(const GetAllRulesResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      signatures_(from.signatures_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_file().empty()) {
+    file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_file(),
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+}
+
+void GetAllRulesResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto.base);
+  file_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+GetAllRulesResponse::~GetAllRulesResponse() {
+  // @@protoc_insertion_point(destructor:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void GetAllRulesResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  file_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetAllRulesResponse::ArenaDtor(void* object) {
+  GetAllRulesResponse* _this = reinterpret_cast< GetAllRulesResponse* >(object);
+  (void)_this;
+}
+void GetAllRulesResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetAllRulesResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const GetAllRulesResponse& GetAllRulesResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_GetAllRulesResponse_check_2fretrieval_2fretrieval_5fapi_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void GetAllRulesResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  signatures_.Clear();
+  file_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetAllRulesResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string file = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_file();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.check.retrieval.v1.GetAllRulesResponse.file"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated string signatures = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_signatures();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures"));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetAllRulesResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string file = 1;
+  if (this->file().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file().data(), static_cast<int>(this->_internal_file().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.check.retrieval.v1.GetAllRulesResponse.file");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_file(), target);
+  }
+
+  // repeated string signatures = 2;
+  for (int i = 0, n = this->_internal_signatures_size(); i < n; i++) {
+    const auto& s = this->_internal_signatures(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures");
+    target = stream->WriteString(2, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  return target;
+}
+
+size_t GetAllRulesResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string signatures = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(signatures_.size());
+  for (int i = 0, n = signatures_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      signatures_.Get(i));
+  }
+
+  // string file = 1;
+  if (this->file().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetAllRulesResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetAllRulesResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetAllRulesResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+    MergeFrom(*source);
+  }
+}
+
+void GetAllRulesResponse::MergeFrom(const GetAllRulesResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  signatures_.MergeFrom(from.signatures_);
+  if (from.file().size() > 0) {
+    _internal_set_file(from._internal_file());
+  }
+}
+
+void GetAllRulesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetAllRulesResponse::CopyFrom(const GetAllRulesResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetAllRulesResponse::IsInitialized() const {
+  return true;
+}
+
+void GetAllRulesResponse::InternalSwap(GetAllRulesResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  signatures_.InternalSwap(&other->signatures_);
+  file_.Swap(&other->file_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetAllRulesResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace v1
 }  // namespace retrieval
@@ -544,6 +1014,12 @@ template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllCh
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllChecksResponse* Arena::CreateMaybeMessage< ::percona::platform::check::retrieval::v1::GetAllChecksResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::check::retrieval::v1::GetAllChecksResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllRulesRequest* Arena::CreateMaybeMessage< ::percona::platform::check::retrieval::v1::GetAllRulesRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::check::retrieval::v1::GetAllRulesRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::check::retrieval::v1::GetAllRulesResponse* Arena::CreateMaybeMessage< ::percona::platform::check::retrieval::v1::GetAllRulesResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::check::retrieval::v1::GetAllRulesResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
