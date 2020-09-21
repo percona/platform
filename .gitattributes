@@ -1,2 +1,2 @@
-*.bin binary
-gen/  linguist-generated=true
+*.bin    binary
+/gen/**  linguist-generated=true
