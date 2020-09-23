@@ -21,7 +21,7 @@ init:                                      ## Install development tools
 ci-init:                                   ## Initialize CI environment
 	# nothing there yet
 
-gen:                                       ## Format, check, and generate using prototool Docker image
+gen:                                       ## Format, check, and generate code using prototool Docker image
 	$(DOCKER_RUN_CMD) prototool break check api/auth -f api/auth/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
