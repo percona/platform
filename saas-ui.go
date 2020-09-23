@@ -23,8 +23,7 @@ func patchAndCopyFile(src, dst string) error {
 	// remove Go imports from JavaScript/TypeScript code
 	const pattern = `(?mi)[\n]^.*github_com_mwitkow.*$`
 	re := regexp.MustCompile(pattern)
-	newContentStr := re.ReplaceAllString(string(content), "")
-	newContent := []byte(newContentStr)
+	newContent := []byte(re.ReplaceAllString(string(content), ""))
 
 	if err = ioutil.WriteFile(src, newContent, 0o644); err != nil {
 		return err
