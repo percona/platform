@@ -55,12 +55,10 @@ func main() {
 	}
 
 	// remove directories
-	for _, d := range []string{"gen"} {
-		path := filepath.Join(targetDir, d)
-		log.Printf("Removing %s ...", path)
-		if err := os.RemoveAll(path); err != nil {
-			log.Fatal(err)
-		}
+	path := filepath.Join(targetDir, "gen")
+	log.Printf("Removing %s ...", path)
+	if err := os.RemoveAll(path); err != nil {
+		log.Fatal(err)
 	}
 
 	// copy and patch files
