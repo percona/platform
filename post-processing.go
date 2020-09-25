@@ -105,12 +105,13 @@ func makeProcessDirsFunc(root string, copyFunc func(string, string) error, inclu
 		}
 
 		dst := filepath.Join(root, path)
-		log.Printf("Copying and patching %s -> %s", path, dst)
+		log.Printf(" %s -> %s", path, dst)
 		return copyFunc(path, dst)
 	}
 }
 
 func walk(directories []string, processDirsFunc func(string, os.FileInfo, error) error) {
+	log.Print("Copying and patching files:")
 	for _, src := range directories {
 		err := filepath.Walk(src, processDirsFunc)
 		if err != nil {
