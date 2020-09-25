@@ -30,6 +30,8 @@ gen:                                       ## Format, check, and generate code u
 	$(DOCKER_RUN_CMD) prototool all api
 	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
+	$(DOCKER_RUN_CMD) go run post-processing.go -patch-ui
+
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
 
@@ -70,10 +72,10 @@ run-dev:                                   ## Run bash in prototool Docker dev i
 	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
 
 saas:                                      ## Extract public APIs and generated files into ../saas
-	go run saas.go
+	go run post-processing.go -project saas
 
 saas-ui:                                   ## Extract generated JS/TS files into ../saas-ui
-	go run saas-ui.go
+	go run post-processing.go -project saas-ui
 
 fuzz-check-build:
 	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check
