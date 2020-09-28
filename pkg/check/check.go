@@ -122,7 +122,8 @@ type Tier string
 
 // Supported check tiers.
 const (
-	Anonymous = Tier("anonymous")
+	Anonymous  = Tier("anonymous")
+	Registered = Tier("registered")
 )
 
 // Check represents security check structure.
@@ -238,6 +239,7 @@ func (c *Check) validateTiers() error {
 	for _, tier := range c.Tiers {
 		switch tier {
 		case Anonymous:
+		case Registered:
 		default:
 			return errors.Errorf("unknown check tier: %q", tier)
 		}
