@@ -102,7 +102,7 @@ func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFile
 	}
 }
 
-func walk(directories []string, processDirsFunc func(string, os.FileInfo, error) error) {
+func walk(processDirsFunc func(string, os.FileInfo, error) error, directories ...string) {
 	log.Print("Copying and patching files:")
 	for _, src := range directories {
 		err := filepath.Walk(src, processDirsFunc)
@@ -121,11 +121,11 @@ func processSaas() {
 
 	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"}, true)
 
-	walk([]string{
+	walk(processDirsFunc,
 		"api/auth", "api/check", "api/telemetry",
 		"gen/auth", "gen/check", "gen/telemetry",
 		"pkg/check", "pkg/logger", "pkg/starlark",
-	}, processDirsFunc)
+	)
 
 	// install and tidy to check if we have anything
 	_, err := runInDir(saasRoot, "go", "install", "-v", "./...")
@@ -173,13 +173,13 @@ func processSaasUi() {
 
 	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil, false)
 
-	walk([]string{"gen/web/auth"}, processDirsFunc)
+	walk(processDirsFunc, "gen/web/auth")
 }
 
 func processUiFilesLocally() {
 	processDirsFunc := makeProcessDirsFunc("./", saasUiFilePatch, []string{".js", ".ts"}, nil, false)
 
-	walk([]string{"gen/web/auth"}, processDirsFunc)
+	walk(processDirsFunc, "gen/web/auth")
 }
 
 func main() {
