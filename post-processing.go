@@ -50,14 +50,6 @@ func copyAndPatchFile(src, dst string, patchFunc func([]byte) []byte) error {
 	return ioutil.WriteFile(dst, b, 0o644)
 }
 
-func copyAndPatchSaasFile(src, dst string) error {
-	return copyAndPatchFile(src, dst, saasFilePatch)
-}
-
-func copyAndPatchSaasUiFile(src, dst string) error {
-	return copyAndPatchFile(src, dst, saasUiFilePatch)
-}
-
 // runInDir runs command name with args in dir and returns stdout.
 func runInDir(dir, name string, args ...string) ([]byte, error) {
 	cmd := exec.Command(name, args...) //nolint:gosec
@@ -78,7 +70,7 @@ func removeDirs(root string, directories []string) {
 }
 
 // closure which returns a fuction to be passed to filepath.Walk
-func makeProcessDirsFunc(root string, copyFunc func(string, string) error, includeFiles []string, excludeFiles []string, panicOnInternal bool) func(string, os.FileInfo, error) error {
+func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFiles []string, excludeFiles []string, panicOnInternal bool) func(string, os.FileInfo, error) error {
 	return func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -106,7 +98,7 @@ func makeProcessDirsFunc(root string, copyFunc func(string, string) error, inclu
 
 		dst := filepath.Join(root, path)
 		log.Printf(" %s -> %s", path, dst)
-		return copyFunc(path, dst)
+		return copyAndPatchFile(path, dst, patchFunc)
 	}
 }
 
@@ -127,7 +119,7 @@ func processSaas() {
 
 	removeDirs(saasRoot, []string{"api", "gen", "pkg"})
 
-	processDirsFunc := makeProcessDirsFunc(saasRoot, copyAndPatchSaasFile, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"}, true)
+	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"}, true)
 
 	walk([]string{
 		"api/auth", "api/check", "api/telemetry",
@@ -179,13 +171,13 @@ func processSaasUi() {
 
 	removeDirs(saasUiRoot, []string{"gen"})
 
-	processDirsFunc := makeProcessDirsFunc(saasUiRoot, copyAndPatchSaasUiFile, []string{".js", ".ts"}, nil, false)
+	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil, false)
 
 	walk([]string{"gen/web/auth"}, processDirsFunc)
 }
 
 func processUiFilesLocally() {
-	processDirsFunc := makeProcessDirsFunc("./", copyAndPatchSaasUiFile, []string{".js", ".ts"}, nil, false)
+	processDirsFunc := makeProcessDirsFunc("./", saasUiFilePatch, []string{".js", ".ts"}, nil, false)
 
 	walk([]string{"gen/web/auth"}, processDirsFunc)
 }
