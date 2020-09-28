@@ -59,7 +59,7 @@ func runInDir(dir, name string, args ...string) ([]byte, error) {
 	return cmd.Output()
 }
 
-func removeDirs(root string, directories []string) {
+func removeDirs(root string, directories ...string) {
 	for _, d := range directories {
 		path := filepath.Join(root, d)
 		log.Printf("Removing %s ...", path)
@@ -117,7 +117,7 @@ func processSaas() {
 		log.Fatal(err)
 	}
 
-	removeDirs(saasRoot, []string{"api", "gen", "pkg"})
+	removeDirs(saasRoot, "api", "gen", "pkg")
 
 	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"}, true)
 
@@ -169,7 +169,7 @@ func processSaasUi() {
 		log.Fatal(err)
 	}
 
-	removeDirs(saasUiRoot, []string{"gen"})
+	removeDirs(saasUiRoot, "gen")
 
 	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil, false)
 
