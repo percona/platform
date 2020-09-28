@@ -52,13 +52,11 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return nil, err
 		}
 
-		if _, ok := noAuthMethodsSet[info.FullMethod]; ok {
-			return handler(ctx, req)
-		}
-
 		email, sessionID, err := getAuthData(md, l)
 		if err != nil {
-			return nil, err
+			if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+				return nil, err
+			}
 		}
 
 		return handler(rdata.AddToContext(ctx, sessionID, email), req)
