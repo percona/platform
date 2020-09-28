@@ -126,6 +126,18 @@ const (
 	Registered = Tier("registered")
 )
 
+// Validate validates tier value.
+func (t *Tier) Validate() error {
+	switch *t {
+	case Anonymous:
+	case Registered:
+	default:
+		return errors.Errorf("unknown check tier: %q", *t)
+	}
+
+	return nil
+}
+
 // Check represents security check structure.
 type Check struct {
 	Version uint32 `yaml:"version"`
@@ -237,11 +249,8 @@ func (c *Check) validateTiers() error {
 
 	m := make(map[Tier]struct{}, len(c.Tiers))
 	for _, tier := range c.Tiers {
-		switch tier {
-		case Anonymous:
-		case Registered:
-		default:
-			return errors.Errorf("unknown check tier: %q", tier)
+		if err := tier.Validate(); err != nil {
+			return err
 		}
 
 		if _, ok := m[tier]; ok {
