@@ -69,7 +69,7 @@ func removeDirs(root string, directories ...string) {
 	}
 }
 
-// closure which returns a fuction to be passed to filepath.Walk
+// makeProcessDirsFunc returns a function that applies patch function to included files and copies them to the root directory.
 func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFiles []string, excludeFiles []string, panicOnInternal bool) func(string, os.FileInfo, error) error {
 	return func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -218,7 +218,7 @@ func main() {
 			processSaasUi()
 		default:
 			flag.PrintDefaults()
-			log.Fatal("Provide at least one project")
+			log.Fatal("Provide the target project name")
 		}
 	}
 }
