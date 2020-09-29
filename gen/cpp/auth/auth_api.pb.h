@@ -1210,8 +1210,25 @@ class RefreshSessionResponse PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kEmailFieldNumber = 2,
     kExpireTimeFieldNumber = 1,
   };
+  // string email = 2;
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
   // .google.protobuf.Timestamp expire_time = 1;
   bool has_expire_time() const;
   private:
@@ -1237,6 +1254,7 @@ class RefreshSessionResponse PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
   PROTOBUF_NAMESPACE_ID::Timestamp* expire_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
@@ -2010,6 +2028,68 @@ inline void RefreshSessionResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE
   }
   expire_time_ = expire_time;
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.RefreshSessionResponse.expire_time)
+}
+
+// string email = 2;
+inline void RefreshSessionResponse::clear_email() {
+  email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& RefreshSessionResponse::email() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.RefreshSessionResponse.email)
+  return _internal_email();
+}
+inline void RefreshSessionResponse::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.RefreshSessionResponse.email)
+}
+inline std::string* RefreshSessionResponse::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.RefreshSessionResponse.email)
+  return _internal_mutable_email();
+}
+inline const std::string& RefreshSessionResponse::_internal_email() const {
+  return email_.Get();
+}
+inline void RefreshSessionResponse::_internal_set_email(const std::string& value) {
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void RefreshSessionResponse::set_email(std::string&& value) {
+  
+  email_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.RefreshSessionResponse.email)
+}
+inline void RefreshSessionResponse::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.RefreshSessionResponse.email)
+}
+inline void RefreshSessionResponse::set_email(const char* value,
+    size_t size) {
+  
+  email_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.RefreshSessionResponse.email)
+}
+inline std::string* RefreshSessionResponse::_internal_mutable_email() {
+  
+  return email_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* RefreshSessionResponse::release_email() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.RefreshSessionResponse.email)
+  return email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RefreshSessionResponse::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.RefreshSessionResponse.email)
 }
 
 // -------------------------------------------------------------------
