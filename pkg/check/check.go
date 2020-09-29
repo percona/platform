@@ -127,12 +127,12 @@ const (
 )
 
 // Validate validates tier value.
-func (t *Tier) Validate() error {
-	switch *t {
+func (t Tier) Validate() error {
+	switch t {
 	case Anonymous:
 	case Registered:
 	default:
-		return errors.Errorf("unknown check tier: %q", *t)
+		return errors.Errorf("unknown check tier: %q", t)
 	}
 
 	return nil
