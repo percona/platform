@@ -15,12 +15,12 @@ func Fuzz(b []byte) int {
 		return 0
 	}
 
-	env, err := NewEnv("fuzz", string(data.Script), nil)
+	env, err := NewEnv("fuzz", string(data.Script), nil, nil)
 	if err != nil {
 		return 0
 	}
 
-	if _, err := env.Run("id", data.Input, nil); err != nil {
+	if _, err := env.Run("id", data.Input, nil, nil); err != nil {
 		return 0
 	}
 

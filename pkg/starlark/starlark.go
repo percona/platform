@@ -11,6 +11,9 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
+//nolint:gochecknoglobals
+var errInvalidContext = errors.New("context type not supported")
+
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.
 type PrintFunc func(args ...interface{})
 
@@ -24,10 +27,28 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string, funcs map[string]GoFunc) (env *Env, err error) {
+func NewEnv(name, script string, funcs map[string]GoFunc, contextMap map[string]interface{}) (env *Env, err error) {
 	predeclared := make(starlark.StringDict, len(funcs))
 	for n, f := range funcs {
 		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
+	}
+
+	// add additional context to the starlark env
+	for n, context := range contextMap {
+		switch c := context.(type) {
+		case int:
+			predeclared[n] = starlark.MakeInt(c)
+		case float32:
+			predeclared[n] = starlark.Float(c)
+		case string:
+			predeclared[n] = starlark.String(c)
+		case bool:
+			predeclared[n] = starlark.Bool(c)
+		case GoFunc:
+			predeclared[n] = starlark.NewBuiltin(n, makeFunc(c))
+		default:
+			return nil, errInvalidContext
+		}
 	}
 	predeclared.Freeze()
 

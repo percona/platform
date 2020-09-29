@@ -45,7 +45,7 @@ def check(rows):
 	`) + "\n"
 
 	addToFuzzCorpus(t.Name(), script, nil)
-	env, err := NewEnv(t.Name(), script, nil)
+	env, err := NewEnv(t.Name(), script, nil, nil)
 	require.NoError(t, err)
 
 	t.Run("NoResults", func(t *testing.T) {
@@ -123,7 +123,7 @@ func TestRunInvalidScript(t *testing.T) {
 
 		script := `def foo(): parse_version("2.6.0")`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		assert.Nil(t, env)
 
 		expected := `failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version`
@@ -135,7 +135,7 @@ func TestRunInvalidScript(t *testing.T) {
 
 		script := `""[1]`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
@@ -154,7 +154,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): pass`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
@@ -169,7 +169,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): 0/0`
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		res, err := env.run("foo", nil, "id", t.Log)
@@ -188,7 +188,7 @@ Traceback (most recent call last):
 
 		script := `def foo(): return [1] * (1 << 30-1)` // one less that maxAlloc in starlark
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_ = env
@@ -207,7 +207,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -223,7 +223,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -239,7 +239,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -255,7 +255,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -271,7 +271,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -287,7 +287,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -303,7 +303,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, nil)
+		env, err := NewEnv(t.Name(), script, nil, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -326,7 +326,7 @@ print("hello from main")
 	`) + "\n"
 
 	addToFuzzCorpus(t.Name(), script, nil)
-	env, err := NewEnv(t.Name(), script, nil)
+	env, err := NewEnv(t.Name(), script, nil, nil)
 	require.NoError(t, err)
 
 	var buf bytes.Buffer
@@ -381,7 +381,7 @@ def check(rows):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs}, nil)
 		require.NoError(t, err)
 
 		res, err := env.Run("id", input, t.Log)
@@ -404,7 +404,7 @@ def check(rows):
 		input := []map[string]interface{}{}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs}, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", input, t.Log)
@@ -426,7 +426,7 @@ def check(rows):
 		`) + "\n"
 
 		addToFuzzCorpus(t.Name(), script, nil)
-		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
+		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs}, nil)
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, t.Log)
@@ -437,5 +437,110 @@ Traceback (most recent call last):
   <builtin>: in pairs
 		`) + "\n"
 		assert.EqualError(t, err, expected)
+	})
+}
+
+func TestRegisterAdditionalContext(t *testing.T) {
+	t.Parallel()
+
+	// function and constants for additional context
+	pairs := func(args ...interface{}) (interface{}, error) {
+		t.Logf("args = %#v (%d)", args, len(args))
+
+		l := len(args)
+		switch {
+		case l == 0:
+			return nil, fmt.Errorf("zero arguments")
+		case l%2 == 1:
+			return nil, fmt.Errorf("odd number of arguments")
+		}
+
+		res := make([]interface{}, l/2)
+		for i := 0; i < l; i += 2 {
+			res[i/2] = []interface{}{args[i], args[i+1]}
+		}
+		return res, nil
+	}
+	const intConst = 1
+	const floatConst = float32(1.0)
+	const strConst = "notice"
+	const boolConst = true
+
+	t.Run("Valid Context", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+	context = {"pairs": pairs, "int": int_const, "float": float_const, "str": str_const, "bool": bool_const}
+	return check_context(rows, context)
+	
+def check_context(rows, context):
+	pairs = context.get("pairs", fail)
+	severity = context.get("str", fail)
+	int_const = context.get("int", fail)
+	float_const = context.get("float", fail)	
+	bool_const = context.get("bool", fail)
+
+	desc = str(int_const) + str(float_const)
+	
+	if bool_const:
+		return [{"summary": repr(pairs(*rows)), "description": desc , "severity": str_const}]
+	else:
+		return [{"summary": repr(pairs(*rows)), "description": "bool_const is false" , "severity": str_const}]
+		`) + "\n"
+
+		input := []map[string]interface{}{
+			{"foo": "bar"},
+			{"foo": "baz"},
+		}
+
+		addToFuzzCorpus(t.Name(), script, input)
+		env, err := NewEnv(t.Name(), script, nil, map[string]interface{}{
+			"pairs":       GoFunc(pairs),
+			"int_const":   intConst,
+			"float_const": floatConst,
+			"str_const":   strConst,
+			"bool_const":  boolConst,
+		})
+		require.NoError(t, err)
+
+		res, err := env.Run("id", input, t.Log)
+		require.NoError(t, err)
+		expected := []check.Result{{
+			Summary:     `[[{"foo": "bar"}, {"foo": "baz"}]]`,
+			Description: "11",
+			Severity:    check.Notice,
+		}}
+		assert.Equal(t, expected, res)
+	})
+
+	invalidFunc := func(args ...interface{}) {
+		fmt.Println("invalid func")
+	}
+
+	t.Run("Invalid Context", func(t *testing.T) {
+		t.Parallel()
+
+		script := strings.TrimSpace(`
+def check(rows):
+	context = {"func": invalid_func}
+	return check_context(rows, context)
+	
+def check_context(rows, context):
+	func = context.get("func", fail)
+	return [{"summary": repr(func(*rows)), "severity": "notice"}]
+		`) + "\n"
+
+		input := []map[string]interface{}{
+			{"foo": "bar"},
+			{"foo": "baz"},
+		}
+
+		addToFuzzCorpus(t.Name(), script, input)
+		_, err := NewEnv(t.Name(), script, nil, map[string]interface{}{
+			"invalid_func": invalidFunc,
+		})
+		require.Error(t, err)
+		assert.EqualError(t, err, errInvalidContext.Error())
 	})
 }
