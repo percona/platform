@@ -87,13 +87,11 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return err
 		}
 
-		if _, ok := noAuthMethodsSet[info.FullMethod]; ok {
-			return handler(ctx, ss)
-		}
-
 		email, sessionID, err := getAuthData(md, l)
 		if err != nil {
-			return err
+			if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+				return err
+			}
 		}
 
 		return handler(rdata.AddToContext(ctx, sessionID, email), ss)
