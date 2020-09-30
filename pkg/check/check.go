@@ -142,7 +142,7 @@ func (t Tier) Validate() error {
 type Check struct {
 	Version uint32 `yaml:"version"`
 	Name    string `yaml:"name"`
-	Tiers   []Tier `yaml:"tiers,flow"`
+	Tiers   []Tier `yaml:"tiers,flow,omitempty"`
 	Type    Type   `yaml:"type"`
 	Query   string `yaml:"query,omitempty"`
 	Script  string `yaml:"script"`
@@ -243,10 +243,6 @@ func (c *Check) validateType() error {
 }
 
 func (c *Check) validateTiers() error {
-	if c.Tiers == nil {
-		return errors.New("empty check tiers")
-	}
-
 	m := make(map[Tier]struct{}, len(c.Tiers))
 	for _, tier := range c.Tiers {
 		if err := tier.Validate(); err != nil {
