@@ -117,5 +117,19 @@ generate:
       flags: gogoimport=false
       output: ../gen
 
+    - name: js
+      flags: import_style=commonjs,binary
+      output: ../gen/web
+
+    - name: grpc-web
+      flags: import_style=typescript,mode=grpcwebtext
+      path: protoc-gen-grpc-web
+      output: ../gen/web
+
+    # - name: ts
+    #   path: protoc-gen-ts
+    #   output: ../gen
+    #   include_imports: true
+
     - name: cpp
       output: ../gen/cpp
