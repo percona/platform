@@ -24,14 +24,14 @@ const (
 	saasUiRoot   = "../saas-ui/packages/platform-ui/src/core"
 )
 
+var generatedImportRe = regexp.MustCompile(`(?mi)[\n]^.*github_com_mwitkow.*$`)
+
 func saasFilePatch(content []byte) []byte {
 	return bytes.Replace(content, []byte(platformRepo), []byte(saasRepo), -1)
 }
 
 func saasUiFilePatch(content []byte) []byte {
-	const pattern = `(?mi)[\n]^.*github_com_mwitkow.*$`
-	re := regexp.MustCompile(pattern)
-	return []byte(re.ReplaceAllString(string(content), ""))
+	return generatedImportRe.ReplaceAll(content, []byte(""))
 }
 
 // copyAndPatchFile copies a file src to dst, applying a specified patch function
