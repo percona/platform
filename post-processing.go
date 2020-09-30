@@ -70,7 +70,7 @@ func removeDirs(root string, directories ...string) {
 }
 
 // makeProcessDirsFunc returns a function that applies patch function to included files and copies them to the root directory.
-func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFiles []string, excludeFiles []string, panicOnInternal bool) func(string, os.FileInfo, error) error {
+func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFiles []string, excludeFiles []string) func(string, os.FileInfo, error) error {
 	return func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -78,7 +78,7 @@ func makeProcessDirsFunc(root string, patchFunc func([]byte) []byte, includeFile
 
 		var copy bool
 		for _, s := range includeFiles {
-			if panicOnInternal && strings.Contains(path, "internal") {
+			if strings.Contains(path, "internal") {
 				// TODO: Improve internal packages handling
 				panic("internal packages should not be copied to saas repo")
 			}
@@ -119,7 +119,7 @@ func processSaas() {
 
 	removeDirs(saasRoot, "api", "gen", "pkg")
 
-	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"}, true)
+	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"})
 
 	walk(processDirsFunc,
 		"api/auth", "api/check", "api/telemetry",
@@ -171,13 +171,13 @@ func processSaasUi() {
 
 	removeDirs(saasUiRoot, "gen")
 
-	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil, false)
+	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil)
 
 	walk(processDirsFunc, "gen/web/auth")
 }
 
 func processUiFilesLocally() {
-	processDirsFunc := makeProcessDirsFunc("./", saasUiFilePatch, []string{".js", ".ts"}, nil, false)
+	processDirsFunc := makeProcessDirsFunc("./", saasUiFilePatch, []string{".js", ".ts"}, nil)
 
 	walk(processDirsFunc, "gen/web/auth")
 }
