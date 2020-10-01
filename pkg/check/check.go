@@ -242,6 +242,7 @@ func (c *Check) validateType() error {
 	}
 }
 
+// validateTiers validates tiers field if it's present.
 func (c *Check) validateTiers() error {
 	m := make(map[Tier]struct{}, len(c.Tiers))
 	for _, tier := range c.Tiers {
