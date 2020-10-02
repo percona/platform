@@ -27,25 +27,25 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string, funcs map[string]GoFunc, contextMap map[string]interface{}) (env *Env, err error) {
-	predeclared := make(starlark.StringDict, len(funcs))
+func NewEnv(name, script string, funcs map[string]GoFunc, additionalContext map[string]interface{}) (env *Env, err error) {
+	predeclared := make(starlark.StringDict, len(funcs)+len(additionalContext))
 	for n, f := range funcs {
 		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
 	}
 
 	// add additional context to the starlark env
-	for n, context := range contextMap {
-		switch c := context.(type) {
+	for n, c := range additionalContext {
+		switch t := c.(type) {
 		case int:
-			predeclared[n] = starlark.MakeInt(c)
+			predeclared[n] = starlark.MakeInt(t)
 		case float32:
-			predeclared[n] = starlark.Float(c)
+			predeclared[n] = starlark.Float(t)
 		case string:
-			predeclared[n] = starlark.String(c)
+			predeclared[n] = starlark.String(t)
 		case bool:
-			predeclared[n] = starlark.Bool(c)
+			predeclared[n] = starlark.Bool(t)
 		case GoFunc:
-			predeclared[n] = starlark.NewBuiltin(n, makeFunc(c))
+			predeclared[n] = starlark.NewBuiltin(n, makeFunc(t))
 		default:
 			return nil, errInvalidContext
 		}
