@@ -443,21 +443,19 @@ Traceback (most recent call last):
 func TestRegisterAdditionalContext(t *testing.T) {
 	t.Parallel()
 
-	// function and constants for additional context
-	pairs := func(args ...interface{}) (interface{}, error) {
-		t.Logf("args = %#v (%d)", args, len(args))
-
+	concat := func(args ...interface{}) (interface{}, error) {
 		l := len(args)
 		switch {
 		case l == 0:
 			return nil, fmt.Errorf("zero arguments")
-		case l%2 == 1:
-			return nil, fmt.Errorf("odd number of arguments")
 		}
 
-		res := make([]interface{}, l/2)
-		for i := 0; i < l; i += 2 {
-			res[i/2] = []interface{}{args[i], args[i+1]}
+		res := ""
+		for i := 0; i < l; i++ {
+			row := args[i].(map[string]interface{})
+			for k, v := range row {
+				res += fmt.Sprintf("%s:%s", k, v)
+			}
 		}
 		return res, nil
 	}
@@ -471,11 +469,11 @@ func TestRegisterAdditionalContext(t *testing.T) {
 
 		script := strings.TrimSpace(`
 def check(rows):
-	context = {"pairs": pairs, "int": int_const, "float": float_const, "str": str_const, "bool": bool_const}
+	context = {"concat": concat_rows, "int": int_const, "float": float_const, "str": str_const, "bool": bool_const}
 	return check_context(rows, context)
 	
 def check_context(rows, context):
-	pairs = context.get("pairs", fail)
+	concat = context.get("concat", fail)
 	severity = context.get("str", fail)
 	int_const = context.get("int", fail)
 	float_const = context.get("float", fail)	
@@ -484,9 +482,9 @@ def check_context(rows, context):
 	desc = str(int_const) + str(float_const)
 	
 	if bool_const:
-		return [{"summary": repr(pairs(*rows)), "description": desc , "severity": str_const}]
+		return [{"summary": concat(*rows), "description": desc , "severity": str_const}]
 	else:
-		return [{"summary": repr(pairs(*rows)), "description": "bool_const is false" , "severity": str_const}]
+		return [{"summary": concat(*rows), "description": "bool_const is false" , "severity": str_const}]
 		`) + "\n"
 
 		input := []map[string]interface{}{
@@ -496,7 +494,7 @@ def check_context(rows, context):
 
 		addToFuzzCorpus(t.Name(), script, input)
 		env, err := NewEnv(t.Name(), script, nil, map[string]interface{}{
-			"pairs":       GoFunc(pairs),
+			"concat_rows": GoFunc(concat),
 			"int_const":   intConst,
 			"float_const": floatConst,
 			"str_const":   strConst,
@@ -507,7 +505,7 @@ def check_context(rows, context):
 		res, err := env.Run("id", input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
-			Summary:     `[[{"foo": "bar"}, {"foo": "baz"}]]`,
+			Summary:     `foo:barfoo:baz`,
 			Description: "12",
 			Severity:    check.Notice,
 		}}
