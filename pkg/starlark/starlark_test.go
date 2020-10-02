@@ -445,8 +445,7 @@ func TestRegisterAdditionalContext(t *testing.T) {
 
 	concat := func(args ...interface{}) (interface{}, error) {
 		l := len(args)
-		switch {
-		case l == 0:
+		if l == 0 {
 			return nil, fmt.Errorf("zero arguments")
 		}
 
