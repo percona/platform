@@ -462,7 +462,7 @@ func TestRegisterAdditionalContext(t *testing.T) {
 		return res, nil
 	}
 	const intConst = 1
-	const floatConst = float32(1.0)
+	const floatConst = float32(2.0)
 	const strConst = "notice"
 	const boolConst = true
 
@@ -508,7 +508,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:     `[[{"foo": "bar"}, {"foo": "baz"}]]`,
-			Description: "11",
+			Description: "12",
 			Severity:    check.Notice,
 		}}
 		assert.Equal(t, expected, res)
