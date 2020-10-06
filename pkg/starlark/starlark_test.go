@@ -468,22 +468,12 @@ func TestRegisterAdditionalContext(t *testing.T) {
 
 		script := strings.TrimSpace(`
 def check(rows):
-	context = {"concat": concat_rows, "int": int_const, "float": float_const, "str": str_const, "bool": bool_const}
+	context = {"concat": concat_rows}
 	return check_context(rows, context)
 	
 def check_context(rows, context):
 	concat = context.get("concat", fail)
-	severity = context.get("str", fail)
-	int_const = context.get("int", fail)
-	float_const = context.get("float", fail)	
-	bool_const = context.get("bool", fail)
-
-	desc = str(int_const) + str(float_const)
-	
-	if bool_const:
-		return [{"summary": concat(*rows), "description": desc , "severity": str_const}]
-	else:
-		return [{"summary": concat(*rows), "description": "bool_const is false" , "severity": str_const}]
+	return [{"summary": concat(*rows), "severity": "notice"}]
 		`) + "\n"
 
 		input := []map[string]interface{}{
@@ -492,52 +482,17 @@ def check_context(rows, context):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		env, err := NewEnv(t.Name(), script, nil, map[string]interface{}{
+		env, err := NewEnv(t.Name(), script, nil, map[string]GoFunc{
 			"concat_rows": GoFunc(concat),
-			"int_const":   intConst,
-			"float_const": floatConst,
-			"str_const":   strConst,
-			"bool_const":  boolConst,
 		})
 		require.NoError(t, err)
 
 		res, err := env.Run("id", input, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
-			Summary:     `foo:barfoo:baz`,
-			Description: "12",
-			Severity:    check.Notice,
+			Summary:  `foo:barfoo:baz`,
+			Severity: check.Notice,
 		}}
 		assert.Equal(t, expected, res)
-	})
-
-	invalidFunc := func(args ...interface{}) {
-		fmt.Println("invalid func")
-	}
-
-	t.Run("Invalid Context", func(t *testing.T) {
-		t.Parallel()
-
-		script := strings.TrimSpace(`
-def check(rows):
-	context = {"func": invalid_func}
-	return check_context(rows, context)
-	
-def check_context(rows, context):
-	func = context.get("func", fail)
-	return [{"summary": repr(func(*rows)), "severity": "notice"}]
-		`) + "\n"
-
-		input := []map[string]interface{}{
-			{"foo": "bar"},
-			{"foo": "baz"},
-		}
-
-		addToFuzzCorpus(t.Name(), script, input)
-		_, err := NewEnv(t.Name(), script, nil, map[string]interface{}{
-			"invalid_func": invalidFunc,
-		})
-		require.Error(t, err)
-		assert.EqualError(t, err, errInvalidContext.Error())
 	})
 }
