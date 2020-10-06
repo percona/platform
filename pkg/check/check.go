@@ -122,14 +122,27 @@ type Tier string
 
 // Supported check tiers.
 const (
-	Anonymous = Tier("anonymous")
+	Anonymous  = Tier("anonymous")
+	Registered = Tier("registered")
 )
+
+// Validate validates tier value.
+func (t Tier) Validate() error {
+	switch t {
+	case Anonymous:
+	case Registered:
+	default:
+		return errors.Errorf("unknown check tier: %q", t)
+	}
+
+	return nil
+}
 
 // Check represents security check structure.
 type Check struct {
 	Version uint32 `yaml:"version"`
 	Name    string `yaml:"name"`
-	Tiers   []Tier `yaml:"tiers,flow"`
+	Tiers   []Tier `yaml:"tiers,flow,omitempty"`
 	Type    Type   `yaml:"type"`
 	Query   string `yaml:"query,omitempty"`
 	Script  string `yaml:"script"`
@@ -229,17 +242,12 @@ func (c *Check) validateType() error {
 	}
 }
 
+// validateTiers validates tiers field if it's present.
 func (c *Check) validateTiers() error {
-	if c.Tiers == nil {
-		return errors.New("empty check tiers")
-	}
-
 	m := make(map[Tier]struct{}, len(c.Tiers))
 	for _, tier := range c.Tiers {
-		switch tier {
-		case Anonymous:
-		default:
-			return errors.Errorf("unknown check tier: %q", tier)
+		if err := tier.Validate(); err != nil {
+			return err
 		}
 
 		if _, ok := m[tier]; ok {
