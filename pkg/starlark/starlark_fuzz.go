@@ -4,11 +4,6 @@ package starlark
 
 import "encoding/json"
 
-//nolint:gochecknoinits
-func init() {
-	doRecover = false
-}
-
 func Fuzz(b []byte) int {
 	var data fuzzData
 	if json.Unmarshal(b, &data) != nil {
