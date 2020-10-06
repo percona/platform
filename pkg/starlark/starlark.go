@@ -11,9 +11,6 @@ import (
 	"github.com/percona-platform/platform/pkg/check"
 )
 
-//nolint:gochecknoglobals
-var errInvalidContext = errors.New("context type not supported")
-
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.
 type PrintFunc func(args ...interface{})
 
