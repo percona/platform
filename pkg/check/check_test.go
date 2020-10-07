@@ -135,9 +135,10 @@ checks:
 			DisallowInvalidChecks: true,
 		}
 		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.EqualError(t, err, "empty check tiers")
+		require.NoError(t, err)
 
-		assert.Len(t, cs, 0)
+		assert.Len(t, cs, 1)
+		assert.Nil(t, cs[0].Tiers)
 	})
 
 	t.Run("null tiers", func(t *testing.T) {
@@ -159,9 +160,16 @@ checks:
 			DisallowInvalidChecks: true,
 		}
 		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.EqualError(t, err, "empty check tiers")
+		require.NoError(t, err)
 
-		assert.Len(t, cs, 0)
+		assert.Len(t, cs, 1)
+
+		assert.Equal(t, "mysql_check", cs[0].Name)
+		assert.Len(t, cs[0].Tiers, 0)
+		assert.Equal(t, uint32(1), cs[0].Version)
+		assert.Equal(t, MySQLShow, cs[0].Type)
+		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
 	})
 
 	t.Run("zero tiers", func(t *testing.T) {
@@ -359,7 +367,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
 			},
-			errStr: "empty check tiers",
+			errStr: "",
 		},
 		{
 			name: "invalid_tier",
