@@ -127,7 +127,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	return v, nil
 }
 
-// Run executes function 'check' with given query results.
+// Run executes function 'check_context' with given query results and additional funcs known as 'context'.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
 func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc, contextFuncs map[string]GoFunc) (res []check.Result, err error) {
