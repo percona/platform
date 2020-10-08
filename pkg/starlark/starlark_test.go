@@ -491,10 +491,6 @@ func TestRegisterAdditionalContext(t *testing.T) {
 		}
 		return res, nil
 	}
-	const intConst = 1
-	const floatConst = float32(2.0)
-	const strConst = "notice"
-	const boolConst = true
 
 	t.Run("Valid Context", func(t *testing.T) {
 		t.Parallel()
