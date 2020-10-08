@@ -134,16 +134,14 @@ func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[
 	var rows *starlark.List
 	rows, err := prepareInput(input)
 	if err != nil {
-		err = errors.Wrapf(err, "thread %s", id)
-		return nil, err
+		return nil, errors.Wrapf(err, "thread %s", id)
 	}
 
 	context := starlark.NewDict(len(contextFuncs))
 	for n, f := range contextFuncs {
 		err = context.SetKey(starlark.String(n), starlark.NewBuiltin(n, makeFunc(f)))
 		if err != nil {
-			err = errors.Wrapf(err, "thread %s", id)
-			return nil, err
+			return nil, errors.Wrapf(err, "thread %s", id)
 		}
 	}
 	context.Freeze()
@@ -157,8 +155,7 @@ func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[
 
 	res, err := parseOutput(output)
 	if err != nil {
-		err = errors.Wrapf(err, "thread %s", id)
-		return nil, err
+		return nil, errors.Wrapf(err, "thread %s", id)
 	}
 
 	return res, nil
