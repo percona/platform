@@ -140,7 +140,11 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc, 
 
 	context := starlark.NewDict(len(contextFuncs))
 	for n, f := range contextFuncs {
-		context.SetKey(starlark.String(n), starlark.NewBuiltin(n, makeFunc(f)))
+		err = context.SetKey(starlark.String(n), starlark.NewBuiltin(n, makeFunc(f)))
+		if err != nil {
+			err = errors.Wrapf(err, "thread %s", id)
+			return
+		}
 	}
 
 	var output starlark.Value
