@@ -130,12 +130,12 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check_context' with given query results and additional funcs known as 'context'.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc, contextFuncs map[string]GoFunc) (res []check.Result, err error) {
+func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[string]GoFunc, print PrintFunc) (res []check.Result, err error) {
 	var rows *starlark.List
 	rows, err = prepareInput(input)
 	if err != nil {
 		err = errors.Wrapf(err, "thread %s", id)
-		return
+		return nil, err
 	}
 
 	context := starlark.NewDict(len(contextFuncs))
@@ -143,24 +143,25 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc, 
 		err = context.SetKey(starlark.String(n), starlark.NewBuiltin(n, makeFunc(f)))
 		if err != nil {
 			err = errors.Wrapf(err, "thread %s", id)
-			return
+			return nil, err
 		}
 	}
+	context.Freeze()
 
 	var output starlark.Value
 	output, err = env.run("check_context", starlark.Tuple{rows, context}, id, print)
 	if err != nil {
 		// thread id is already present
-		return
+		return nil, err
 	}
 
 	res, err = parseOutput(output)
 	if err != nil {
 		err = errors.Wrapf(err, "thread %s", id)
-		return
+		return nil, err
 	}
 
-	return
+	return res, nil
 }
 
 func prepareInput(input []map[string]interface{}) (*starlark.List, error) {

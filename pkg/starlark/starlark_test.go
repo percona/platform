@@ -60,7 +60,7 @@ def check_context(rows, context):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run("id", input, t.Log, nil)
+		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		assert.Empty(t, res)
 	})
@@ -74,7 +74,7 @@ def check_context(rows, context):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run("id", input, t.Log, nil)
+		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
@@ -94,7 +94,7 @@ def check_context(rows, context):
 		}
 
 		addToFuzzCorpus(t.Name(), script, input)
-		res, err := env.Run("id", input, t.Log, nil)
+		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
@@ -113,7 +113,7 @@ def check_context(rows, context):
 	t.Run("Error", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := env.Run("id", nil, t.Log, nil)
+		_, err := env.Run("id", nil, nil, t.Log)
 		require.EqualError(t, err, "thread id: script returned error: no rows in result")
 	})
 }
@@ -216,7 +216,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: unhandled type *starlark.Set`)
 	})
 
@@ -235,7 +235,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: map[summary:foo] (map[string]interface {})`)
 	})
 
@@ -254,7 +254,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: result 0 has wrong type: int64`)
 	})
 
@@ -273,7 +273,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: "summary" has wrong type: int64 (1)`)
 	})
 
@@ -292,7 +292,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: summary is empty`)
 	})
 
@@ -311,7 +311,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: labels field has wrong type: int64 (1)`)
 	})
 
@@ -330,7 +330,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, nil)
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		assert.EqualError(t, err, `thread id: failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
 	})
 }
@@ -411,7 +411,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
-		res, err := env.Run("id", input, t.Log, nil)
+		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:  `[[{"foo": "bar"}, {"foo": "baz"}]]`,
@@ -437,7 +437,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
-		_, err = env.Run("id", input, t.Log, nil)
+		_, err = env.Run("id", input, nil, t.Log)
 		expected := strings.TrimSpace(`
 thread id: failed to execute function check_context: pairs: zero arguments
 Traceback (most recent call last):
@@ -462,7 +462,7 @@ def check_context(rows, context):
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
-		_, err = env.Run("id", nil, t.Log, nil)
+		_, err = env.Run("id", nil, nil, t.Log)
 		expected := strings.TrimSpace(`
 thread id: failed to execute function check_context: pairs: kwargs are not supported
 Traceback (most recent call last):
@@ -507,9 +507,9 @@ def check_context(rows, context):
 	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 
-	res, err := env.Run("id", input, t.Log, map[string]GoFunc{
+	res, err := env.Run("id", input, map[string]GoFunc{
 		"concat_rows": GoFunc(concat),
-	})
+	}, t.Log)
 	require.NoError(t, err)
 	expected := []check.Result{{
 		Summary:  `foo:barfoo:baz`,
