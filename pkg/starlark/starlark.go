@@ -130,9 +130,9 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check_context' with given query results and additional funcs known as 'context'.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[string]GoFunc, print PrintFunc) (res []check.Result, err error) {
+func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[string]GoFunc, print PrintFunc) ([]check.Result, error) {
 	var rows *starlark.List
-	rows, err = prepareInput(input)
+	rows, err := prepareInput(input)
 	if err != nil {
 		err = errors.Wrapf(err, "thread %s", id)
 		return nil, err
@@ -155,7 +155,7 @@ func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[
 		return nil, err
 	}
 
-	res, err = parseOutput(output)
+	res, err := parseOutput(output)
 	if err != nil {
 		err = errors.Wrapf(err, "thread %s", id)
 		return nil, err
