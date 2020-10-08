@@ -492,32 +492,28 @@ func TestRegisterAdditionalContext(t *testing.T) {
 		return res, nil
 	}
 
-	t.Run("Valid Context", func(t *testing.T) {
-		t.Parallel()
-
-		script := strings.TrimSpace(`
+	script := strings.TrimSpace(`
 def check_context(rows, context):
 	concat = context.get("concat_rows", fail)
 	return [{"summary": concat(*rows), "severity": "notice"}]
 		`) + "\n"
 
-		input := []map[string]interface{}{
-			{"foo": "bar"},
-			{"foo": "baz"},
-		}
+	input := []map[string]interface{}{
+		{"foo": "bar"},
+		{"foo": "baz"},
+	}
 
-		addToFuzzCorpus(t.Name(), script, input)
-		env, err := NewEnv(t.Name(), script, nil)
-		require.NoError(t, err)
+	addToFuzzCorpus(t.Name(), script, input)
+	env, err := NewEnv(t.Name(), script, nil)
+	require.NoError(t, err)
 
-		res, err := env.Run("id", input, t.Log, map[string]GoFunc{
-			"concat_rows": GoFunc(concat),
-		})
-		require.NoError(t, err)
-		expected := []check.Result{{
-			Summary:  `foo:barfoo:baz`,
-			Severity: check.Notice,
-		}}
-		assert.Equal(t, expected, res)
+	res, err := env.Run("id", input, t.Log, map[string]GoFunc{
+		"concat_rows": GoFunc(concat),
 	})
+	require.NoError(t, err)
+	expected := []check.Result{{
+		Summary:  `foo:barfoo:baz`,
+		Severity: check.Notice,
+	}}
+	assert.Equal(t, expected, res)
 }
