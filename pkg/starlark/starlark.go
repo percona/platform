@@ -24,13 +24,9 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string, funcs map[string]GoFunc, additionalContext map[string]GoFunc) (env *Env, err error) {
-	predeclared := make(starlark.StringDict, len(funcs)+len(additionalContext))
-	for n, f := range funcs {
-		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
-	}
-
-	for n, f := range additionalContext {
+func NewEnv(name, script string, predeclaredFuncs map[string]GoFunc) (env *Env, err error) {
+	predeclared := make(starlark.StringDict, len(predeclaredFuncs))
+	for n, f := range predeclaredFuncs {
 		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
 	}
 	predeclared.Freeze()
@@ -134,7 +130,7 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check' with given query results.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) (res []check.Result, err error) {
+func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc, contextFuncs map[string]GoFunc) (res []check.Result, err error) {
 	var rows *starlark.List
 	rows, err = prepareInput(input)
 	if err != nil {
@@ -142,8 +138,13 @@ func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) 
 		return
 	}
 
+	context := starlark.NewDict(len(contextFuncs))
+	for n, f := range contextFuncs {
+		context.SetKey(starlark.String(n), starlark.NewBuiltin(n, makeFunc(f)))
+	}
+
 	var output starlark.Value
-	output, err = env.run("check", starlark.Tuple{rows}, id, print)
+	output, err = env.run("check_context", starlark.Tuple{rows, context}, id, print)
 	if err != nil {
 		// thread id is already present
 		return
