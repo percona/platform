@@ -507,9 +507,10 @@ def check_context(rows, context):
 	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 
-	res, err := env.Run("id", input, map[string]GoFunc{
+	contextFuncs := map[string]GoFunc{
 		"concat_rows": GoFunc(concat),
-	}, t.Log)
+	}
+	res, err := env.Run("id", input, contextFuncs, t.Log)
 	require.NoError(t, err)
 	expected := []check.Result{{
 		Summary:  `foo:barfoo:baz`,
