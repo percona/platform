@@ -32,7 +32,6 @@ jobs:
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
       # `git diff --exit-code` step below still checks what we need
-      GOFLAGS: -v
       GOPRIVATE: github.com/percona-platform
 
     steps:
@@ -43,10 +42,7 @@ jobs:
 
       - name: Set up Go release
         if: matrix.go-version != 'tip'
-        env:
-          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
-          GOFLAGS: ""
-        uses: percona-platform/setup-go@v2.1.2
+        uses: percona-platform/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
 
@@ -60,15 +56,12 @@ jobs:
           echo "::add-path::$HOME/gotip/bin"
 
       - name: Set GO_VERSION environment variable
-        env:
-          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
-          GOFLAGS: ""
         run: |
           go version
           echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
       - name: Enable Go modules cache
         uses: percona-platform/cache@v2
@@ -116,7 +109,7 @@ jobs:
           make test-crosscover
 
       - name: Upload coverage results
-        uses: percona-platform/codecov-action@v1.0.13
+        uses: percona-platform/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: crosscover.out
@@ -130,8 +123,8 @@ jobs:
           # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
           # and actually expected for PRs made by @dependabot.
           # Checksums of actually used modules are checked by previous `go` subcommands.
-          pushd tools && go mod tidy && git checkout go.sum
-          popd        && go mod tidy && git checkout go.sum
+          pushd tools && go mod tidy -v && git checkout go.sum
+          popd        && go mod tidy -v && git checkout go.sum
           git diff --exit-code
 
       - name: Run debug commands on failure
@@ -162,7 +155,6 @@ jobs:
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
       # `git diff --exit-code` step below still checks what we need
-      GOFLAGS: -v
       GOPRIVATE: github.com/percona-platform
 
     steps:
@@ -173,10 +165,7 @@ jobs:
 
       - name: Set up Go release
         if: matrix.go-version != 'tip'
-        env:
-          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
-          GOFLAGS: ""
-        uses: percona-platform/setup-go@v2.1.2
+        uses: percona-platform/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
 
@@ -190,15 +179,12 @@ jobs:
           echo "::add-path::$HOME/gotip/bin"
 
       - name: Set GO_VERSION environment variable
-        env:
-          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
-          GOFLAGS: ""
         run: |
           go version
           echo "::set-env name=GO_VERSION::$(go version)"
 
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
       - name: Enable Go modules cache
         uses: percona-platform/cache@v2
@@ -243,8 +229,8 @@ jobs:
           # `go mod tidy` could remove old checksums from that file, and that's okay on CI,
           # and actually expected for PRs made by @dependabot.
           # Checksums of actually used modules are checked by previous `go` subcommands.
-          pushd tools && go mod tidy && git checkout go.sum
-          popd        && go mod tidy && git checkout go.sum
+          pushd tools && go mod tidy -v && git checkout go.sum
+          popd        && go mod tidy -v && git checkout go.sum
           git diff --exit-code
 
       - name: Run debug commands on failure
@@ -264,12 +250,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GOFLAGS: -v -mod=readonly
+      GOFLAGS: -mod=readonly
       GOPRIVATE: github.com/percona-platform
 
     steps:
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
       - name: Enable experimental Docker features for --squash flag
         run: sudo .github/workflows/enable-docker-experimental.sh

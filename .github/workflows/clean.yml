@@ -26,7 +26,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      GOFLAGS: -v -mod=readonly
+      GOFLAGS: -mod=readonly
       GOPRIVATE: github.com/percona-platform
 
     steps:
@@ -37,10 +37,7 @@ jobs:
 
       - name: Set up Go release
         if: matrix.go-version != 'tip'
-        env:
-          # to avoid error due to `go version` accepting -v flag with an argument since 1.15
-          GOFLAGS: ""
-        uses: percona-platform/setup-go@v2.1.2
+        uses: percona-platform/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
 
@@ -54,7 +51,7 @@ jobs:
           echo "::add-path::$HOME/gotip/bin"
 
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
       - name: Enable Go modules cache
         uses: percona-platform/cache@v2
