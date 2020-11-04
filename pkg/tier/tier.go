@@ -1,3 +1,4 @@
+// Package tier contains type for platform user tiers and validation functions.
 package tier
 
 import "github.com/pkg/errors"

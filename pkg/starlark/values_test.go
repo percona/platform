@@ -14,6 +14,8 @@ func TestConvert(t *testing.T) {
 	t.Parallel()
 
 	t.Run("BothWays", func(t *testing.T) {
+		t.Parallel()
+
 		for _, v := range []interface{}{
 			nil,
 			true,
@@ -38,6 +40,8 @@ func TestConvert(t *testing.T) {
 	})
 
 	t.Run("goToStarlark", func(t *testing.T) {
+		t.Parallel()
+
 		type pair struct {
 			gv interface{}
 			sv starlark.Value
@@ -65,6 +69,8 @@ func TestConvert(t *testing.T) {
 	})
 
 	t.Run("starlarkToGo", func(t *testing.T) {
+		t.Parallel()
+
 		type pair struct {
 			sv starlark.Value
 			gv interface{}

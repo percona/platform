@@ -1,4 +1,4 @@
-// Package check implements checks parsing and validating.
+// Package check implements checks parsing and validation.
 package check
 
 import (

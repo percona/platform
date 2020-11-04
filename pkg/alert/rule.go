@@ -1,3 +1,4 @@
+// Package alert implements alert rules parsing and validation.
 package alert
 
 import (
@@ -55,6 +56,7 @@ func Parse(reader io.Reader, params *ParseParams) ([]Rule, error) {
 	}
 }
 
+// Rule represents alert manager alerting rule.
 type Rule struct {
 	Name        string            `yaml:"name"`                 // required
 	Version     uint32            `yaml:"version"`              // required
@@ -62,12 +64,13 @@ type Rule struct {
 	Tiers       []tier.Tier       `yaml:"tiers,flow,omitempty"` // optional
 	Expr        string            `yaml:"expr"`                 // required
 	Params      []Parameter       `yaml:"params"`               // optional
-	For         time.Duration     `yaml:"for"`                  // required // TODO or prometheus duration?
+	For         time.Duration     `yaml:"for"`                  // required // TODO or promconfig.Duration? What format we want here?
 	Severity    Severity          `yaml:"severity"`             // required
 	Labels      map[string]string `yaml:"labels"`               // optional
 	Annotations map[string]string `yaml:"annotations"`          // optional
 }
 
+// Validate validates rule.
 func (r *Rule) Validate() error {
 	var err error
 	if r.Version != 1 {
@@ -108,6 +111,7 @@ func (r *Rule) validateParams() error {
 	return nil
 }
 
+// Parameter represents alerting rule parameter.
 type Parameter struct {
 	Name  string        `yaml:"name"`  // required
 	Help  string        `yaml:"help"`  // required
@@ -117,6 +121,7 @@ type Parameter struct {
 	Value interface{}   `yaml:"value"` // required
 }
 
+// Validate validates parameter.
 func (p *Parameter) Validate() error {
 	if p.Name == "" {
 		return errors.New("parameter name is empty")
