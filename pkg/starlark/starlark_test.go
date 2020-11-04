@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.starlark.net/starlark"
 
+	"github.com/percona-platform/platform/pkg/alert"
 	"github.com/percona-platform/platform/pkg/check"
 )
 
@@ -79,7 +80,7 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
-			Severity:    check.Warning,
+			Severity:    alert.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
 		assert.Equal(t, expected, res)
@@ -99,12 +100,12 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_ssl to be YES, got NO",
-			Severity:    check.Warning,
+			Severity:    alert.Warning,
 			Labels:      map[string]string{"have_ssl": "NO"},
 		}, {
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
-			Severity:    check.Warning,
+			Severity:    alert.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
 		assert.Equal(t, expected, res)
@@ -415,7 +416,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 		expected := []check.Result{{
 			Summary:  `[[{"foo": "bar"}, {"foo": "baz"}]]`,
-			Severity: check.Notice,
+			Severity: alert.Notice,
 		}}
 		assert.Equal(t, expected, res)
 	})
@@ -514,7 +515,7 @@ def check_context(rows, context):
 	require.NoError(t, err)
 	expected := []check.Result{{
 		Summary:  `foo:barfoo:baz`,
-		Severity: check.Notice,
+		Severity: alert.Notice,
 	}}
 	assert.Equal(t, expected, res)
 }
