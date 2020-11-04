@@ -1,0 +1,140 @@
+package alert
+
+import (
+	"io"
+	"time"
+
+	"github.com/pkg/errors"
+	"gopkg.in/yaml.v3"
+
+	"github.com/percona-platform/platform/pkg/tier"
+)
+
+// ParseParams represents optional Parse function parameters.
+type ParseParams struct {
+	DisallowUnknownFields bool // if true, return errors for unexpected YAML fields
+	DisallowInvalidRules  bool // if true, return errors for invalid rules instead of skipping them
+}
+
+// Parse returns a slice of validated rules parsed from YAML passed via a reader.
+// It can handle multi-document YAMLs: parsing result will be a single slice
+// that contains rules form every parsed document.
+func Parse(reader io.Reader, params *ParseParams) ([]Rule, error) {
+	if params == nil {
+		params = new(ParseParams)
+	}
+
+	d := yaml.NewDecoder(reader)
+	d.KnownFields(params.DisallowUnknownFields)
+
+	type rules struct {
+		Rules []Rule `yaml:"rules"`
+	}
+
+	var res []Rule
+	for {
+		var c rules
+		if err := d.Decode(&c); err != nil {
+			if err == io.EOF {
+				return res, nil
+			}
+			return nil, errors.Wrap(err, "failed to parse rules")
+		}
+
+		for _, rule := range c.Rules {
+			if err := rule.Validate(); err != nil {
+				if params.DisallowInvalidRules {
+					return nil, err
+				}
+
+				continue // skip invalid rule
+			}
+
+			res = append(res, rule)
+		}
+	}
+}
+
+type Rule struct {
+	Name        string            `yaml:"name"`                 // required
+	Version     uint32            `yaml:"version"`              // required
+	Help        string            `yaml:"help"`                 // required
+	Tiers       []tier.Tier       `yaml:"tiers,flow,omitempty"` // optional
+	Expr        string            `yaml:"expr"`                 // required
+	Params      []Parameter       `yaml:"params"`               // optional
+	For         time.Duration     `yaml:"for"`                  // required // TODO or prometheus duration?
+	Severity    Severity          `yaml:"severity"`             // required
+	Labels      map[string]string `yaml:"labels"`               // optional
+	Annotations map[string]string `yaml:"annotations"`          // optional
+}
+
+func (r *Rule) Validate() error {
+	var err error
+	if r.Version != 1 {
+		return errors.Errorf("unexpected version %d", r.Version)
+	}
+
+	if r.Name == "" {
+		return errors.New("rule name is empty")
+	}
+
+	if r.Help == "" {
+		return errors.New("rule help is empty")
+	}
+
+	if err = tier.ValidateTiers(r.Tiers); err != nil {
+		return err
+	}
+
+	if r.Expr == "" {
+		return errors.New("rule expression is empty")
+	}
+
+	if err = r.validateParams(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *Rule) validateParams() error {
+	var err error
+	for _, param := range r.Params {
+		if err = param.Validate(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+type Parameter struct {
+	Name  string        `yaml:"name"`  // required
+	Help  string        `yaml:"help"`  // required
+	Unit  string        `yaml:"unit"`  // required
+	Type  string        `yaml:"type"`  // required
+	Range []interface{} `yaml:"range"` // required
+	Value interface{}   `yaml:"value"` // required
+}
+
+func (p *Parameter) Validate() error {
+	if p.Name == "" {
+		return errors.New("parameter name is empty")
+	}
+
+	if p.Help == "" {
+		return errors.New("parameter help is empty")
+	}
+
+	if p.Unit == "" {
+		return errors.New("parameter unit is empty")
+	}
+
+	if p.Type == "" {
+		return errors.New("parameter type is empty")
+	}
+
+	// TODO: what types will be supported? float, int what else?
+
+	return nil
+}
