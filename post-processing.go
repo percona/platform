@@ -125,6 +125,7 @@ func processSaas() {
 		"api/auth", "api/check", "api/telemetry",
 		"gen/auth", "gen/check", "gen/telemetry",
 		"pkg/check", "pkg/logger", "pkg/starlark",
+		"pkg/alert", "pkg/tier",
 	)
 
 	// install and tidy to check if we have anything
