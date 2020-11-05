@@ -1,6 +1,10 @@
 package alert
 
-import "github.com/pkg/errors"
+import (
+	"strconv"
+
+	"github.com/pkg/errors"
+)
 
 // Parameter represents alerting rule parameter.
 type Parameter struct {
@@ -94,4 +98,27 @@ func (p *Parameter) validateRange() error {
 	}
 
 	return nil
+}
+
+func castValueToFloat64(v interface{}) (float64, error) {
+	switch i := v.(type) {
+	case float32:
+		return float64(i), nil
+	case float64:
+		return i, nil
+	case int:
+		return float64(i), nil
+	case int8:
+		return float64(i), nil
+	case int16:
+		return float64(i), nil
+	case int32:
+		return float64(i), nil
+	case int64:
+		return float64(i), nil
+	case string:
+		return strconv.ParseFloat(i, 64)
+	default:
+		return 0, errors.Errorf("value is of incompatible type %T", v)
+	}
 }
