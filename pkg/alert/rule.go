@@ -3,8 +3,9 @@ package alert
 
 import (
 	"io"
-	"time"
+	"strconv"
 
+	"github.com/percona/promconfig"
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 
@@ -58,16 +59,16 @@ func Parse(reader io.Reader, params *ParseParams) ([]Rule, error) {
 
 // Rule represents alert manager alerting rule.
 type Rule struct {
-	Name        string            `yaml:"name"`                 // required
-	Version     uint32            `yaml:"version"`              // required
-	Help        string            `yaml:"help"`                 // required
-	Tiers       []tier.Tier       `yaml:"tiers,flow,omitempty"` // optional
-	Expr        string            `yaml:"expr"`                 // required
-	Params      []Parameter       `yaml:"params"`               // optional
-	For         time.Duration     `yaml:"for"`                  // required // TODO or promconfig.Duration? What format we want here?
-	Severity    Severity          `yaml:"severity"`             // required
-	Labels      map[string]string `yaml:"labels"`               // optional
-	Annotations map[string]string `yaml:"annotations"`          // optional
+	Name        string              `yaml:"name"`                 // required
+	Version     uint32              `yaml:"version"`              // required
+	Help        string              `yaml:"help"`                 // required
+	Tiers       []tier.Tier         `yaml:"tiers,flow,omitempty"` // optional
+	Expr        string              `yaml:"expr"`                 // required
+	Params      []Parameter         `yaml:"params"`               // optional
+	For         promconfig.Duration `yaml:"for"`                  // required
+	Severity    Severity            `yaml:"severity"`             // required
+	Labels      map[string]string   `yaml:"labels"`               // optional
+	Annotations map[string]string   `yaml:"annotations"`          // optional
 }
 
 // Validate validates rule.
@@ -97,6 +98,10 @@ func (r *Rule) Validate() error {
 		return err
 	}
 
+	if err = r.Severity.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -111,35 +116,25 @@ func (r *Rule) validateParams() error {
 	return nil
 }
 
-// Parameter represents alerting rule parameter.
-type Parameter struct {
-	Name  string        `yaml:"name"`  // required
-	Help  string        `yaml:"help"`  // required
-	Unit  string        `yaml:"unit"`  // required
-	Type  string        `yaml:"type"`  // required
-	Range []interface{} `yaml:"range"` // required
-	Value interface{}   `yaml:"value"` // required
-}
-
-// Validate validates parameter.
-func (p *Parameter) Validate() error {
-	if p.Name == "" {
-		return errors.New("parameter name is empty")
+func castValueToFloat64(v interface{}) (float64, error) {
+	switch i := v.(type) {
+	case float32:
+		return float64(i), nil
+	case float64:
+		return i, nil
+	case int:
+		return float64(i), nil
+	case int8:
+		return float64(i), nil
+	case int16:
+		return float64(i), nil
+	case int32:
+		return float64(i), nil
+	case int64:
+		return float64(i), nil
+	case string:
+		return strconv.ParseFloat(i, 64)
+	default:
+		return 0, errors.Errorf("value is of incompatible type %T", v)
 	}
-
-	if p.Help == "" {
-		return errors.New("parameter help is empty")
-	}
-
-	if p.Unit == "" {
-		return errors.New("parameter unit is empty")
-	}
-
-	if p.Type == "" {
-		return errors.New("parameter type is empty")
-	}
-
-	// TODO: what types will be supported? float, int what else?
-
-	return nil
 }

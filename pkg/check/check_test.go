@@ -13,6 +13,7 @@ import (
 )
 
 func TestCheck_Parse(t *testing.T) {
+	t.Parallel()
 	monoDocument := strings.TrimSpace(`
 ---
 checks:
@@ -66,6 +67,7 @@ checks:
 	for name, document := range map[string]string{"mono-document": monoDocument, "multi-document": multiDocument} {
 		name, document := name, document
 		t.Run(name, func(t *testing.T) {
+			t.Parallel()
 			cs, err := Parse(bytes.NewReader([]byte(document)), params)
 			require.NoError(t, err)
 
@@ -88,6 +90,7 @@ checks:
 	}
 
 	t.Run("skipInvalid", func(t *testing.T) {
+		t.Parallel()
 		data := strings.TrimSpace(`
 ---
 checks:
@@ -121,6 +124,7 @@ checks:
 	})
 
 	t.Run("missing tiers", func(t *testing.T) {
+		t.Parallel()
 		data := strings.TrimSpace(`
 ---
 checks:
@@ -145,6 +149,7 @@ checks:
 	})
 
 	t.Run("null tiers", func(t *testing.T) {
+		t.Parallel()
 		data := strings.TrimSpace(`
 ---
 checks:
@@ -176,6 +181,7 @@ checks:
 	})
 
 	t.Run("zero tiers", func(t *testing.T) {
+		t.Parallel()
 		data := strings.TrimSpace(`
 ---
 checks:
@@ -207,6 +213,7 @@ checks:
 	})
 
 	t.Run("duplicate tiers", func(t *testing.T) {
+		t.Parallel()
 		data := strings.TrimSpace(`
 ---
 checks:
@@ -230,6 +237,8 @@ checks:
 }
 
 func TestCheck_CheckValidate(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name   string
 		check  *Check
@@ -484,6 +493,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			err := tt.check.Validate()
 
 			if tt.errStr != "" {
@@ -497,6 +507,8 @@ func TestCheck_CheckValidate(t *testing.T) {
 }
 
 func TestCheck_ResultValidate(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name   string
 		result *Result
@@ -510,7 +522,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 		{
 			name:   "unknown_severity",
 			result: &Result{Severity: alert.Severity(123), Summary: "some text"},
-			errStr: "unknown result severity: Severity(123)",
+			errStr: "unknown severity level: Severity(123)",
 		},
 		{
 			name:   "unhandled_severity",
@@ -527,6 +539,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			err := tt.result.Validate()
 
 			if tt.errStr != "" {

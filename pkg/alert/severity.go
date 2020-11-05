@@ -1,6 +1,10 @@
 package alert
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/pkg/errors"
+)
 
 //go:generate ../../bin/stringer -type=Severity -linecomment
 
@@ -42,4 +46,28 @@ func ParseSeverity(s string) Severity {
 	default:
 		return Unknown
 	}
+}
+
+// Validate returns error in case of invalid severity value.
+func (s Severity) Validate() error {
+	if s < Emergency || s > Debug {
+		return errors.Errorf("unknown severity level: %s", s)
+	}
+
+	return nil
+}
+
+// MarshalYAML implements the yaml.Marshaler interface.
+func (s Severity) MarshalYAML() (interface{}, error) {
+	return s.String(), nil
+}
+
+// UnmarshalYAML implements the yaml.Unmarshaler interface.
+func (s *Severity) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var str string
+	if err := unmarshal(&str); err != nil {
+		return err
+	}
+	*s = ParseSeverity(str)
+	return nil
 }

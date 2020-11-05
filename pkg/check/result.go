@@ -20,8 +20,8 @@ func (r *Result) Validate() error {
 		return errors.New("summary is empty")
 	}
 
-	if r.Severity < alert.Emergency || r.Severity > alert.Debug {
-		return errors.Errorf("unknown result severity: %s", r.Severity)
+	if err := r.Severity.Validate(); err != nil {
+		return err
 	}
 
 	if r.Severity < alert.Error || r.Severity > alert.Notice {
