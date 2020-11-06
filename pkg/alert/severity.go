@@ -69,7 +69,7 @@ func (s *Severity) UnmarshalYAML(value *yaml.Node) error {
 	return nil
 }
 
-// check interfaces
+// Check interfaces.
 var (
 	_ yaml.Marshaler   = (*Severity)(nil)
 	_ yaml.Unmarshaler = (*Severity)(nil)
