@@ -119,6 +119,6 @@ func castValueToFloat64(v interface{}) (float64, error) {
 	case string:
 		return strconv.ParseFloat(i, 64)
 	default:
-		return 0, errors.Errorf("value is of incompatible type %T", v)
+		return 0, errors.Errorf("value has unhandled type %T", v)
 	}
 }
