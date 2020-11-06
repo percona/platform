@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"gopkg.in/yaml.v3"
 )
 
 //go:generate ../../bin/stringer -type=Severity -linecomment
@@ -58,16 +59,18 @@ func (s Severity) Validate() error {
 }
 
 // MarshalYAML implements the yaml.Marshaler interface.
-func (s Severity) MarshalYAML() (interface{}, error) {
+func (s *Severity) MarshalYAML() (interface{}, error) {
 	return s.String(), nil
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.
-func (s *Severity) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var str string
-	if err := unmarshal(&str); err != nil {
-		return err
-	}
-	*s = ParseSeverity(str)
+func (s *Severity) UnmarshalYAML(value *yaml.Node) error {
+	*s = ParseSeverity(value.Value)
 	return nil
 }
+
+// check interfaces
+var (
+	_ yaml.Marshaler   = (*Severity)(nil)
+	_ yaml.Unmarshaler = (*Severity)(nil)
+)
