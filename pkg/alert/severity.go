@@ -59,7 +59,7 @@ func (s Severity) Validate() error {
 }
 
 // MarshalYAML implements the yaml.Marshaler interface.
-func (s *Severity) MarshalYAML() (interface{}, error) {
+func (s Severity) MarshalYAML() (interface{}, error) {
 	return s.String(), nil
 }
 
