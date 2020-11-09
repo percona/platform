@@ -12,7 +12,7 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 
-	"github.com/percona-platform/platform/pkg/tier"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 // Verify checks signature of passed data with provided public key and
@@ -145,12 +145,12 @@ func (t Type) Validate() error {
 
 // Check represents security check structure.
 type Check struct {
-	Version uint32      `yaml:"version"`
-	Name    string      `yaml:"name"`
-	Tiers   []tier.Tier `yaml:"tiers,flow,omitempty"`
-	Type    Type        `yaml:"type"`
-	Query   string      `yaml:"query,omitempty"`
-	Script  string      `yaml:"script"`
+	Version uint32        `yaml:"version"`
+	Name    string        `yaml:"name"`
+	Tiers   []common.Tier `yaml:"tiers,flow,omitempty"`
+	Type    Type          `yaml:"type"`
+	Query   string        `yaml:"query,omitempty"`
+	Script  string        `yaml:"script"`
 }
 
 // the same as Prometheus label format
@@ -168,7 +168,7 @@ func (c *Check) Validate() error {
 		return errors.New("invalid check name")
 	}
 
-	if err = tier.ValidateTiers(c.Tiers); err != nil {
+	if err = common.ValidateTiers(c.Tiers); err != nil {
 		return err
 	}
 

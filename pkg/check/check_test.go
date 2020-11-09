@@ -8,8 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/percona-platform/platform/pkg/alert"
-	"github.com/percona-platform/platform/pkg/tier"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 func TestCheck_Parse(t *testing.T) {
@@ -74,14 +73,14 @@ checks:
 			assert.Len(t, cs, 2)
 
 			assert.Equal(t, "mysql_check", cs[0].Name)
-			assert.Equal(t, []tier.Tier{tier.Anonymous}, cs[0].Tiers)
+			assert.Equal(t, []common.Tier{common.Anonymous}, cs[0].Tiers)
 			assert.Equal(t, uint32(1), cs[0].Version)
 			assert.Equal(t, MySQLShow, cs[0].Type)
 			assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 			assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
 
 			assert.Equal(t, "postgresql_check", cs[1].Name)
-			assert.Equal(t, []tier.Tier{tier.Anonymous}, cs[0].Tiers)
+			assert.Equal(t, []common.Tier{common.Anonymous}, cs[0].Tiers)
 			assert.Equal(t, uint32(1), cs[1].Version)
 			assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 			assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
@@ -116,7 +115,7 @@ checks:
 		assert.Len(t, cs, 1)
 
 		assert.Equal(t, "mysql_check", cs[0].Name)
-		assert.Equal(t, []tier.Tier{tier.Anonymous}, cs[0].Tiers)
+		assert.Equal(t, []common.Tier{common.Anonymous}, cs[0].Tiers)
 		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
@@ -249,7 +248,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -261,7 +260,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLSelect,
 				Query:   "id, name FROM table WHERE id=123;",
 				Script:  "def func(args): pass",
@@ -273,7 +272,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    PostgreSQLShow,
 				Query:   "",
 				Script:  "def func(args): pass",
@@ -285,7 +284,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    PostgreSQLSelect,
 				Query:   "id, name FROM table WHERE id=123;",
 				Script:  "def func(args): pass",
@@ -297,7 +296,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBGetParameter,
 				Script:  "def func(args): pass",
 			},
@@ -308,7 +307,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBBuildInfo,
 				Script:  "def func(args): pass",
 			},
@@ -319,7 +318,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBGetCmdLineOpts,
 				Script:  "def func(args): pass",
 			},
@@ -330,7 +329,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    "CLICKHOUSE_SHOW",
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -340,7 +339,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 		{
 			name: "empty_version",
 			check: &Check{
-				Tiers:  []tier.Tier{tier.Anonymous},
+				Tiers:  []common.Tier{common.Anonymous},
 				Type:   MySQLShow,
 				Query:  "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script: "def func(args): pass",
@@ -351,7 +350,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			name: "empty_name",
 			check: &Check{
 				Version: 1,
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -363,7 +362,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -386,7 +385,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{"invalid"},
+				Tiers:   []common.Tier{"invalid"},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -398,7 +397,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    "",
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -410,7 +409,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "",
 				Script:  "def func(args): pass",
@@ -422,7 +421,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    PostgreSQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args): pass",
@@ -434,7 +433,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBGetParameter,
 				Query:   "some query",
 				Script:  "def func(args): pass",
@@ -446,7 +445,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBBuildInfo,
 				Query:   "some query",
 				Script:  "def func(args): pass",
@@ -458,7 +457,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MongoDBGetCmdLineOpts,
 				Query:   "some query",
 				Script:  "def func(args): pass",
@@ -470,7 +469,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "",
@@ -482,7 +481,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version: 1,
 				Name:    "test_check",
-				Tiers:   []tier.Tier{tier.Anonymous},
+				Tiers:   []common.Tier{common.Anonymous},
 				Type:    MySQLShow,
 				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:  "def func(args):\tpass",
@@ -516,22 +515,22 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}{
 		{
 			name:   "normal",
-			result: &Result{Severity: alert.Notice, Summary: "some text"},
+			result: &Result{Severity: common.Notice, Summary: "some text"},
 			errStr: "",
 		},
 		{
 			name:   "unknown_severity",
-			result: &Result{Severity: alert.Severity(123), Summary: "some text"},
+			result: &Result{Severity: common.Severity(123), Summary: "some text"},
 			errStr: "unknown severity level: Severity(123)",
 		},
 		{
 			name:   "unhandled_severity",
-			result: &Result{Severity: alert.Info, Summary: "some text"},
+			result: &Result{Severity: common.Info, Summary: "some text"},
 			errStr: "unhandled result severity: info",
 		},
 		{
 			name:   "empty_summary",
-			result: &Result{Severity: alert.Notice},
+			result: &Result{Severity: common.Notice},
 			errStr: "summary is empty",
 		},
 	}

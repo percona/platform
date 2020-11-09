@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/percona-platform/platform/pkg/tier"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 func TestRule_Parse(t *testing.T) {
@@ -60,8 +60,8 @@ rules:
 	r := rs[0]
 	assert.Equal(t, "mysql_too_many_connections", r.Name)
 	assert.Equal(t, uint32(1), r.Version)
-	assert.Equal(t, []tier.Tier{tier.Anonymous, tier.Registered}, r.Tiers)
-	assert.Equal(t, Warning, r.Severity)
+	assert.Equal(t, []common.Tier{common.Anonymous, common.Registered}, r.Tiers)
+	assert.Equal(t, common.Warning, r.Severity)
 	assert.Equal(t, "MySQL connections in use", r.Help)
 	assert.Equal(t, "max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)\nmysql_global_variables_max_connections\n* 100\n> [[ .threshold ]]", r.Expr)
 	assert.Equal(t, map[string]string{"foo": "bar"}, r.Labels)
@@ -99,7 +99,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -110,7 +110,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -121,7 +121,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -132,7 +132,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -143,7 +143,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 0,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -154,7 +154,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -165,7 +165,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -176,7 +176,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -187,7 +187,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous, "invalid"},
+			Tiers:   []common.Tier{common.Anonymous, "invalid"},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -198,7 +198,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -209,7 +209,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous, tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous, common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -220,7 +220,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -231,7 +231,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "",
 			Params: []Parameter{{
 				Name:  "param",
@@ -242,7 +242,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Warning,
+			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
@@ -253,7 +253,7 @@ func TestRule_Validate(t *testing.T) {
 			Name:    "some_name",
 			Version: 1,
 			Help:    "Some help message",
-			Tiers:   []tier.Tier{tier.Anonymous},
+			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
 				Name:  "param",
@@ -264,7 +264,7 @@ func TestRule_Validate(t *testing.T) {
 				Value: 50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
-			Severity:    Severity(256),
+			Severity:    common.Severity(256),
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},

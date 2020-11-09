@@ -1,5 +1,5 @@
-// Package tier contains type for platform user tiers and validation functions.
-package tier
+// Package common contains common type definitions and functions.
+package common
 
 import "github.com/pkg/errors"
 

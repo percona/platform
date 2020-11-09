@@ -3,14 +3,14 @@ package check
 import (
 	"github.com/pkg/errors"
 
-	"github.com/percona-platform/platform/pkg/alert"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 // Result represents a single check script result that is used to generate alert.
 type Result struct {
 	Summary     string            `json:"summary"`     // required
 	Description string            `json:"description"` // optional
-	Severity    alert.Severity    `json:"severity"`    // required
+	Severity    common.Severity   `json:"severity"`    // required
 	Labels      map[string]string `json:"labels"`      // optional
 }
 
@@ -24,7 +24,7 @@ func (r *Result) Validate() error {
 		return err
 	}
 
-	if r.Severity < alert.Error || r.Severity > alert.Notice {
+	if r.Severity < common.Error || r.Severity > common.Notice {
 		// until UI is ready to support more severities
 		return errors.Errorf("unhandled result severity: %s", r.Severity)
 	}

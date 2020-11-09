@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v3"
 
-	"github.com/percona-platform/platform/pkg/tier"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 // ParseParams represents optional Parse function parameters.
@@ -61,11 +61,11 @@ type Rule struct {
 	Name        string              `yaml:"name"`                 // required
 	Version     uint32              `yaml:"version"`              // required
 	Help        string              `yaml:"help"`                 // required
-	Tiers       []tier.Tier         `yaml:"tiers,flow,omitempty"` // optional
+	Tiers       []common.Tier       `yaml:"tiers,flow,omitempty"` // optional
 	Expr        string              `yaml:"expr"`                 // required
 	Params      []Parameter         `yaml:"params"`               // optional
 	For         promconfig.Duration `yaml:"for"`                  // required
-	Severity    Severity            `yaml:"severity"`             // required
+	Severity    common.Severity     `yaml:"severity"`             // required
 	Labels      map[string]string   `yaml:"labels"`               // optional
 	Annotations map[string]string   `yaml:"annotations"`          // optional
 }
@@ -85,7 +85,7 @@ func (r *Rule) Validate() error {
 		return errors.New("rule help is empty")
 	}
 
-	if err = tier.ValidateTiers(r.Tiers); err != nil {
+	if err = common.ValidateTiers(r.Tiers); err != nil {
 		return err
 	}
 
