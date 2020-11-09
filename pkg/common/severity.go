@@ -64,13 +64,18 @@ func (s Severity) MarshalYAML() (interface{}, error) {
 }
 
 // UnmarshalYAML implements the yaml.Unmarshaler interface.
-func (s *Severity) UnmarshalYAML(value *yaml.Node) error {
-	*s = ParseSeverity(value.Value)
+func (s *Severity) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var str string
+	if err := unmarshal(&str); err != nil {
+		return err
+	}
+	*s = ParseSeverity(str)
+
 	return nil
 }
 
 // Check interfaces.
 var (
-	_ yaml.Marshaler   = (*Severity)(nil)
-	_ yaml.Unmarshaler = (*Severity)(nil)
+	_ yaml.Marshaler = (*Severity)(nil)
+	// _ yaml.Unmarshaler = (*Severity)(nil) // TODO migrate to yaml.v3
 )
