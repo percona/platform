@@ -14,8 +14,8 @@ require (
 	github.com/reviewdog/reviewdog v0.11.0
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
-	golang.org/x/tools v0.0.0-20201104193857-22bd85271a8b
-	google.golang.org/grpc v1.33.1
+	golang.org/x/tools v0.0.0-20201105220310-78b158585360
+	google.golang.org/grpc v1.33.2
 	google.golang.org/protobuf v1.25.0
-	mvdan.cc/gofumpt v0.0.0-20201027171050-85d5401eb0f6
+	mvdan.cc/gofumpt v0.0.0-20201107090320-a024667a00f1
 )
