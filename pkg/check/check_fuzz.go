@@ -38,7 +38,7 @@ func fuzz(data []byte, publicKey, sign string) int {
 }
 
 func FuzzPublicKey(publicKey []byte) int {
-	return fuzz(publicKey, dataG, signG)
+	return fuzz([]byte(dataG), string(publicKey), signG)
 }
 
 func FuzzData(data []byte) int {
