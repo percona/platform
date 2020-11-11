@@ -40,3 +40,41 @@ export namespace GetAllChecksResponse {
   }
 }
 
+export class GetAllRulesRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAllRulesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAllRulesRequest): GetAllRulesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetAllRulesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAllRulesRequest;
+  static deserializeBinaryFromReader(message: GetAllRulesRequest, reader: jspb.BinaryReader): GetAllRulesRequest;
+}
+
+export namespace GetAllRulesRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetAllRulesResponse extends jspb.Message {
+  getFile(): string;
+  setFile(value: string): GetAllRulesResponse;
+
+  getSignaturesList(): Array<string>;
+  setSignaturesList(value: Array<string>): GetAllRulesResponse;
+  clearSignaturesList(): GetAllRulesResponse;
+  addSignatures(value: string, index?: number): GetAllRulesResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAllRulesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAllRulesResponse): GetAllRulesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetAllRulesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAllRulesResponse;
+  static deserializeBinaryFromReader(message: GetAllRulesResponse, reader: jspb.BinaryReader): GetAllRulesResponse;
+}
+
+export namespace GetAllRulesResponse {
+  export type AsObject = {
+    file: string,
+    signaturesList: Array<string>,
+  }
+}
+

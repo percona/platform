@@ -75,5 +75,45 @@ export class RetrievalAPIClient {
     this.methodInfoGetAllChecks);
   }
 
+  methodInfoGetAllRules = new grpcWeb.AbstractClientBase.MethodInfo(
+    check_retrieval_retrieval_api_pb.GetAllRulesResponse,
+    (request: check_retrieval_retrieval_api_pb.GetAllRulesRequest) => {
+      return request.serializeBinary();
+    },
+    check_retrieval_retrieval_api_pb.GetAllRulesResponse.deserializeBinary
+  );
+
+  getAllRules(
+    request: check_retrieval_retrieval_api_pb.GetAllRulesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<check_retrieval_retrieval_api_pb.GetAllRulesResponse>;
+
+  getAllRules(
+    request: check_retrieval_retrieval_api_pb.GetAllRulesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: check_retrieval_retrieval_api_pb.GetAllRulesResponse) => void): grpcWeb.ClientReadableStream<check_retrieval_retrieval_api_pb.GetAllRulesResponse>;
+
+  getAllRules(
+    request: check_retrieval_retrieval_api_pb.GetAllRulesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: check_retrieval_retrieval_api_pb.GetAllRulesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllRules',
+        request,
+        metadata || {},
+        this.methodInfoGetAllRules,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllRules',
+    request,
+    metadata || {},
+    this.methodInfoGetAllRules);
+  }
+
 }
 
