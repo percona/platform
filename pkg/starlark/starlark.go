@@ -9,6 +9,7 @@ import (
 	"go.starlark.net/starlark"
 
 	"github.com/percona-platform/platform/pkg/check"
+	"github.com/percona-platform/platform/pkg/common"
 )
 
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.
@@ -24,10 +25,10 @@ type Env struct {
 }
 
 // NewEnv creates a new Starlark execution environment.
-func NewEnv(name, script string, funcs map[string]GoFunc) (env *Env, err error) {
-	predeclared := make(starlark.StringDict, len(funcs))
-	for n, f := range funcs {
-		predeclared[n] = starlark.NewBuiltin(n, makeFunc(f))
+func NewEnv(name, script string, predeclaredFuncs map[string]GoFunc) (env *Env, err error) {
+	predeclared := make(starlark.StringDict, len(predeclaredFuncs))
+	for n, f := range predeclaredFuncs {
+		predeclared[n] = starlark.NewBuiltin(n, MakeFunc(f))
 	}
 	predeclared.Freeze()
 
@@ -48,8 +49,8 @@ func NewEnv(name, script string, funcs map[string]GoFunc) (env *Env, err error) 
 // starlarkFunc represent a Starlark builtin_function_or_method.
 type starlarkFunc func(*starlark.Thread, *starlark.Builtin, starlark.Tuple, []starlark.Tuple) (starlark.Value, error)
 
-// makeFunc converts GoFunc to starlarkFunc.
-func makeFunc(f GoFunc) starlarkFunc {
+// MakeFunc converts GoFunc to starlarkFunc.
+func MakeFunc(f GoFunc) starlarkFunc {
 	return func(_ *starlark.Thread, fn *starlark.Builtin, args starlark.Tuple, kwargs []starlark.Tuple) (starlark.Value, error) { //nolint:lll
 		if len(kwargs) != 0 {
 			return nil, errors.Errorf("%s: kwargs are not supported", fn.Name())
@@ -127,31 +128,38 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 	return v, nil
 }
 
-// Run executes function 'check' with given query results.
+// Run executes function 'check_context' with given query results and additional funcs known as 'context'.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input []map[string]interface{}, print PrintFunc) (res []check.Result, err error) {
+func (env *Env) Run(id string, input []map[string]interface{}, contextFuncs map[string]GoFunc, print PrintFunc) ([]check.Result, error) {
 	var rows *starlark.List
-	rows, err = prepareInput(input)
+	rows, err := prepareInput(input)
 	if err != nil {
-		err = errors.Wrapf(err, "thread %s", id)
-		return
+		return nil, errors.Wrapf(err, "thread %s", id)
 	}
+
+	context := starlark.NewDict(len(contextFuncs))
+	for n, f := range contextFuncs {
+		err = context.SetKey(starlark.String(n), starlark.NewBuiltin(n, MakeFunc(f)))
+		if err != nil {
+			return nil, errors.Wrapf(err, "thread %s", id)
+		}
+	}
+	context.Freeze()
 
 	var output starlark.Value
-	output, err = env.run("check", starlark.Tuple{rows}, id, print)
+	output, err = env.run("check_context", starlark.Tuple{rows, context}, id, print)
 	if err != nil {
 		// thread id is already present
-		return
+		return nil, err
 	}
 
-	res, err = parseOutput(output)
+	res, err := parseOutput(output)
 	if err != nil {
-		err = errors.Wrapf(err, "thread %s", id)
-		return
+		return nil, errors.Wrapf(err, "thread %s", id)
 	}
 
-	return
+	return res, nil
 }
 
 func prepareInput(input []map[string]interface{}) (*starlark.List, error) {
@@ -252,7 +260,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	res := &check.Result{
 		Summary:     summary,
 		Description: description,
-		Severity:    check.ParseSeverity(severity),
+		Severity:    common.ParseSeverity(severity),
 		Labels:      labels,
 	}
 	if err = res.Validate(); err != nil {

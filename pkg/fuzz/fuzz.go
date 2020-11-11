@@ -32,8 +32,8 @@ func AddToCorpus(prefix string, b []byte) {
 	// go-fuzz uses SHA1 for non-cryptographic hashing
 	file = fmt.Sprintf("%040x", sha1.Sum(b)) //nolint:gosec
 	if prefix != "" {
-		prefix = strings.Replace(prefix, " ", "_", -1)
-		prefix = strings.Replace(prefix, "/", "_", -1)
+		prefix = strings.ReplaceAll(prefix, " ", "_")
+		prefix = strings.ReplaceAll(prefix, "/", "_")
 		file = prefix + "-" + file
 	}
 

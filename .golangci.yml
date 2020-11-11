@@ -25,11 +25,14 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - goerr113    # we use pkg/errors for stack traces
-    - gomnd       # too annoying
-    - interfacer  # useless
-    - lll         # gRPC types are long
-    - wsl         # too annoying
+    - exhaustivestruct # useless
+    - goerr113         # we use pkg/errors for stack traces
+    - gomnd            # too annoying
+    - interfacer       # useless
+    - lll              # gRPC types are long
+    - nlreturn         # conflicts with formatter
+    - wrapcheck        # forces to wrap errors everywhere
+    - wsl              # too annoying
 
 issues:
   exclude-use-default: false

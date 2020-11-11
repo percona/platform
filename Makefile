@@ -10,13 +10,7 @@ help:                                      ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                                      ## Install development tools
-	go build -modfile=tools/go.mod -o bin/stringer golang.org/x/tools/cmd/stringer
-	go build -modfile=tools/go.mod -o bin/go-consistent github.com/quasilyte/go-consistent
-	go build -modfile=tools/go.mod -o bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
-	go build -modfile=tools/go.mod -o bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
-	go build -modfile=tools/go.mod -o bin/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz
-	go build -modfile=tools/go.mod -o bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
-	go build -modfile=tools/go.mod -o bin/gofumports mvdan.cc/gofumpt/gofumports
+	cd tools && go generate -x -tags=tools
 
 ci-init:                                   ## Initialize CI environment
 	# nothing there yet
