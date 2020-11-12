@@ -9,8 +9,8 @@ option go_package = "check/retrieval;retrievalv1";
 service RetrievalAPI {
   // GetAllChecks returns all available STT checks.
   rpc GetAllChecks(GetAllChecksRequest) returns (GetAllChecksResponse);
-  // GetAllRules returns all available IA rules.
-  rpc GetAllRules(GetAllRulesRequest) returns (GetAllRulesResponse);
+  // GetAllAlertRuleTemplates returns all available IA rule templates.
+  rpc GetAllAlertRuleTemplates(GetAllAlertRuleTemplatesRequest) returns (GetAllAlertRuleTemplatesResponse);
 }
 
 message GetAllChecksRequest {}
@@ -22,9 +22,9 @@ message GetAllChecksResponse {
   repeated string signatures = 2;
 }
 
-message GetAllRulesRequest {}
+message GetAllAlertRuleTemplatesRequest {}
 
-message GetAllRulesResponse {
+message GetAllAlertRuleTemplatesResponse {
   // YAML formatted rules.
   string file = 1;
   // Rules signatures.

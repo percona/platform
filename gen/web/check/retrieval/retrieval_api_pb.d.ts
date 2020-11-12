@@ -40,38 +40,38 @@ export namespace GetAllChecksResponse {
   }
 }
 
-export class GetAllRulesRequest extends jspb.Message {
+export class GetAllAlertRuleTemplatesRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetAllRulesRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetAllRulesRequest): GetAllRulesRequest.AsObject;
-  static serializeBinaryToWriter(message: GetAllRulesRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetAllRulesRequest;
-  static deserializeBinaryFromReader(message: GetAllRulesRequest, reader: jspb.BinaryReader): GetAllRulesRequest;
+  toObject(includeInstance?: boolean): GetAllAlertRuleTemplatesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAllAlertRuleTemplatesRequest): GetAllAlertRuleTemplatesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetAllAlertRuleTemplatesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAllAlertRuleTemplatesRequest;
+  static deserializeBinaryFromReader(message: GetAllAlertRuleTemplatesRequest, reader: jspb.BinaryReader): GetAllAlertRuleTemplatesRequest;
 }
 
-export namespace GetAllRulesRequest {
+export namespace GetAllAlertRuleTemplatesRequest {
   export type AsObject = {
   }
 }
 
-export class GetAllRulesResponse extends jspb.Message {
+export class GetAllAlertRuleTemplatesResponse extends jspb.Message {
   getFile(): string;
-  setFile(value: string): GetAllRulesResponse;
+  setFile(value: string): GetAllAlertRuleTemplatesResponse;
 
   getSignaturesList(): Array<string>;
-  setSignaturesList(value: Array<string>): GetAllRulesResponse;
-  clearSignaturesList(): GetAllRulesResponse;
-  addSignatures(value: string, index?: number): GetAllRulesResponse;
+  setSignaturesList(value: Array<string>): GetAllAlertRuleTemplatesResponse;
+  clearSignaturesList(): GetAllAlertRuleTemplatesResponse;
+  addSignatures(value: string, index?: number): GetAllAlertRuleTemplatesResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetAllRulesResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetAllRulesResponse): GetAllRulesResponse.AsObject;
-  static serializeBinaryToWriter(message: GetAllRulesResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetAllRulesResponse;
-  static deserializeBinaryFromReader(message: GetAllRulesResponse, reader: jspb.BinaryReader): GetAllRulesResponse;
+  toObject(includeInstance?: boolean): GetAllAlertRuleTemplatesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAllAlertRuleTemplatesResponse): GetAllAlertRuleTemplatesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetAllAlertRuleTemplatesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAllAlertRuleTemplatesResponse;
+  static deserializeBinaryFromReader(message: GetAllAlertRuleTemplatesResponse, reader: jspb.BinaryReader): GetAllAlertRuleTemplatesResponse;
 }
 
-export namespace GetAllRulesResponse {
+export namespace GetAllAlertRuleTemplatesResponse {
   export type AsObject = {
     file: string,
     signaturesList: Array<string>,

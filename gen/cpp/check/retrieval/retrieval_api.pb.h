@@ -59,28 +59,28 @@ namespace platform {
 namespace check {
 namespace retrieval {
 namespace v1 {
+class GetAllAlertRuleTemplatesRequest;
+class GetAllAlertRuleTemplatesRequestDefaultTypeInternal;
+extern GetAllAlertRuleTemplatesRequestDefaultTypeInternal _GetAllAlertRuleTemplatesRequest_default_instance_;
+class GetAllAlertRuleTemplatesResponse;
+class GetAllAlertRuleTemplatesResponseDefaultTypeInternal;
+extern GetAllAlertRuleTemplatesResponseDefaultTypeInternal _GetAllAlertRuleTemplatesResponse_default_instance_;
 class GetAllChecksRequest;
 class GetAllChecksRequestDefaultTypeInternal;
 extern GetAllChecksRequestDefaultTypeInternal _GetAllChecksRequest_default_instance_;
 class GetAllChecksResponse;
 class GetAllChecksResponseDefaultTypeInternal;
 extern GetAllChecksResponseDefaultTypeInternal _GetAllChecksResponse_default_instance_;
-class GetAllRulesRequest;
-class GetAllRulesRequestDefaultTypeInternal;
-extern GetAllRulesRequestDefaultTypeInternal _GetAllRulesRequest_default_instance_;
-class GetAllRulesResponse;
-class GetAllRulesResponseDefaultTypeInternal;
-extern GetAllRulesResponseDefaultTypeInternal _GetAllRulesResponse_default_instance_;
 }  // namespace v1
 }  // namespace retrieval
 }  // namespace check
 }  // namespace platform
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
+template<> ::percona::platform::check::retrieval::v1::GetAllAlertRuleTemplatesRequest* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllAlertRuleTemplatesRequest>(Arena*);
+template<> ::percona::platform::check::retrieval::v1::GetAllAlertRuleTemplatesResponse* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllAlertRuleTemplatesResponse>(Arena*);
 template<> ::percona::platform::check::retrieval::v1::GetAllChecksRequest* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllChecksRequest>(Arena*);
 template<> ::percona::platform::check::retrieval::v1::GetAllChecksResponse* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllChecksResponse>(Arena*);
-template<> ::percona::platform::check::retrieval::v1::GetAllRulesRequest* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllRulesRequest>(Arena*);
-template<> ::percona::platform::check::retrieval::v1::GetAllRulesResponse* Arena::CreateMaybeMessage<::percona::platform::check::retrieval::v1::GetAllRulesResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace percona {
 namespace platform {
@@ -384,23 +384,23 @@ class GetAllChecksResponse PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class GetAllRulesRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.check.retrieval.v1.GetAllRulesRequest) */ {
+class GetAllAlertRuleTemplatesRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest) */ {
  public:
-  inline GetAllRulesRequest() : GetAllRulesRequest(nullptr) {}
-  virtual ~GetAllRulesRequest();
+  inline GetAllAlertRuleTemplatesRequest() : GetAllAlertRuleTemplatesRequest(nullptr) {}
+  virtual ~GetAllAlertRuleTemplatesRequest();
 
-  GetAllRulesRequest(const GetAllRulesRequest& from);
-  GetAllRulesRequest(GetAllRulesRequest&& from) noexcept
-    : GetAllRulesRequest() {
+  GetAllAlertRuleTemplatesRequest(const GetAllAlertRuleTemplatesRequest& from);
+  GetAllAlertRuleTemplatesRequest(GetAllAlertRuleTemplatesRequest&& from) noexcept
+    : GetAllAlertRuleTemplatesRequest() {
     *this = ::std::move(from);
   }
 
-  inline GetAllRulesRequest& operator=(const GetAllRulesRequest& from) {
+  inline GetAllAlertRuleTemplatesRequest& operator=(const GetAllAlertRuleTemplatesRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GetAllRulesRequest& operator=(GetAllRulesRequest&& from) noexcept {
+  inline GetAllAlertRuleTemplatesRequest& operator=(GetAllAlertRuleTemplatesRequest&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -418,20 +418,20 @@ class GetAllRulesRequest PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const GetAllRulesRequest& default_instance();
+  static const GetAllAlertRuleTemplatesRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const GetAllRulesRequest* internal_default_instance() {
-    return reinterpret_cast<const GetAllRulesRequest*>(
-               &_GetAllRulesRequest_default_instance_);
+  static inline const GetAllAlertRuleTemplatesRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAllAlertRuleTemplatesRequest*>(
+               &_GetAllAlertRuleTemplatesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(GetAllRulesRequest& a, GetAllRulesRequest& b) {
+  friend void swap(GetAllAlertRuleTemplatesRequest& a, GetAllAlertRuleTemplatesRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetAllRulesRequest* other) {
+  inline void Swap(GetAllAlertRuleTemplatesRequest* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -439,7 +439,7 @@ class GetAllRulesRequest PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GetAllRulesRequest* other) {
+  void UnsafeArenaSwap(GetAllAlertRuleTemplatesRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -447,17 +447,17 @@ class GetAllRulesRequest PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline GetAllRulesRequest* New() const final {
-    return CreateMaybeMessage<GetAllRulesRequest>(nullptr);
+  inline GetAllAlertRuleTemplatesRequest* New() const final {
+    return CreateMaybeMessage<GetAllAlertRuleTemplatesRequest>(nullptr);
   }
 
-  GetAllRulesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<GetAllRulesRequest>(arena);
+  GetAllAlertRuleTemplatesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAllAlertRuleTemplatesRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const GetAllRulesRequest& from);
-  void MergeFrom(const GetAllRulesRequest& from);
+  void CopyFrom(const GetAllAlertRuleTemplatesRequest& from);
+  void MergeFrom(const GetAllAlertRuleTemplatesRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -471,13 +471,13 @@ class GetAllRulesRequest PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(GetAllRulesRequest* other);
+  void InternalSwap(GetAllAlertRuleTemplatesRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "percona.platform.check.retrieval.v1.GetAllRulesRequest";
+    return "percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest";
   }
   protected:
-  explicit GetAllRulesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit GetAllAlertRuleTemplatesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -496,7 +496,7 @@ class GetAllRulesRequest PROTOBUF_FINAL :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:percona.platform.check.retrieval.v1.GetAllRulesRequest)
+  // @@protoc_insertion_point(class_scope:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest)
  private:
   class _Internal;
 
@@ -508,23 +508,23 @@ class GetAllRulesRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class GetAllRulesResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.check.retrieval.v1.GetAllRulesResponse) */ {
+class GetAllAlertRuleTemplatesResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse) */ {
  public:
-  inline GetAllRulesResponse() : GetAllRulesResponse(nullptr) {}
-  virtual ~GetAllRulesResponse();
+  inline GetAllAlertRuleTemplatesResponse() : GetAllAlertRuleTemplatesResponse(nullptr) {}
+  virtual ~GetAllAlertRuleTemplatesResponse();
 
-  GetAllRulesResponse(const GetAllRulesResponse& from);
-  GetAllRulesResponse(GetAllRulesResponse&& from) noexcept
-    : GetAllRulesResponse() {
+  GetAllAlertRuleTemplatesResponse(const GetAllAlertRuleTemplatesResponse& from);
+  GetAllAlertRuleTemplatesResponse(GetAllAlertRuleTemplatesResponse&& from) noexcept
+    : GetAllAlertRuleTemplatesResponse() {
     *this = ::std::move(from);
   }
 
-  inline GetAllRulesResponse& operator=(const GetAllRulesResponse& from) {
+  inline GetAllAlertRuleTemplatesResponse& operator=(const GetAllAlertRuleTemplatesResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GetAllRulesResponse& operator=(GetAllRulesResponse&& from) noexcept {
+  inline GetAllAlertRuleTemplatesResponse& operator=(GetAllAlertRuleTemplatesResponse&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -542,20 +542,20 @@ class GetAllRulesResponse PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const GetAllRulesResponse& default_instance();
+  static const GetAllAlertRuleTemplatesResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const GetAllRulesResponse* internal_default_instance() {
-    return reinterpret_cast<const GetAllRulesResponse*>(
-               &_GetAllRulesResponse_default_instance_);
+  static inline const GetAllAlertRuleTemplatesResponse* internal_default_instance() {
+    return reinterpret_cast<const GetAllAlertRuleTemplatesResponse*>(
+               &_GetAllAlertRuleTemplatesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(GetAllRulesResponse& a, GetAllRulesResponse& b) {
+  friend void swap(GetAllAlertRuleTemplatesResponse& a, GetAllAlertRuleTemplatesResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetAllRulesResponse* other) {
+  inline void Swap(GetAllAlertRuleTemplatesResponse* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -563,7 +563,7 @@ class GetAllRulesResponse PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GetAllRulesResponse* other) {
+  void UnsafeArenaSwap(GetAllAlertRuleTemplatesResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -571,17 +571,17 @@ class GetAllRulesResponse PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline GetAllRulesResponse* New() const final {
-    return CreateMaybeMessage<GetAllRulesResponse>(nullptr);
+  inline GetAllAlertRuleTemplatesResponse* New() const final {
+    return CreateMaybeMessage<GetAllAlertRuleTemplatesResponse>(nullptr);
   }
 
-  GetAllRulesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<GetAllRulesResponse>(arena);
+  GetAllAlertRuleTemplatesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAllAlertRuleTemplatesResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const GetAllRulesResponse& from);
-  void MergeFrom(const GetAllRulesResponse& from);
+  void CopyFrom(const GetAllAlertRuleTemplatesResponse& from);
+  void MergeFrom(const GetAllAlertRuleTemplatesResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -595,13 +595,13 @@ class GetAllRulesResponse PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(GetAllRulesResponse* other);
+  void InternalSwap(GetAllAlertRuleTemplatesResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "percona.platform.check.retrieval.v1.GetAllRulesResponse";
+    return "percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse";
   }
   protected:
-  explicit GetAllRulesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit GetAllAlertRuleTemplatesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -664,7 +664,7 @@ class GetAllRulesResponse PROTOBUF_FINAL :
   std::string* _internal_mutable_file();
   public:
 
-  // @@protoc_insertion_point(class_scope:percona.platform.check.retrieval.v1.GetAllRulesResponse)
+  // @@protoc_insertion_point(class_scope:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse)
  private:
   class _Internal;
 
@@ -829,64 +829,64 @@ GetAllChecksResponse::mutable_signatures() {
 
 // -------------------------------------------------------------------
 
-// GetAllRulesRequest
+// GetAllAlertRuleTemplatesRequest
 
 // -------------------------------------------------------------------
 
-// GetAllRulesResponse
+// GetAllAlertRuleTemplatesResponse
 
 // string file = 1;
-inline void GetAllRulesResponse::clear_file() {
+inline void GetAllAlertRuleTemplatesResponse::clear_file() {
   file_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& GetAllRulesResponse::file() const {
-  // @@protoc_insertion_point(field_get:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+inline const std::string& GetAllAlertRuleTemplatesResponse::file() const {
+  // @@protoc_insertion_point(field_get:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
   return _internal_file();
 }
-inline void GetAllRulesResponse::set_file(const std::string& value) {
+inline void GetAllAlertRuleTemplatesResponse::set_file(const std::string& value) {
   _internal_set_file(value);
-  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
 }
-inline std::string* GetAllRulesResponse::mutable_file() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+inline std::string* GetAllAlertRuleTemplatesResponse::mutable_file() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
   return _internal_mutable_file();
 }
-inline const std::string& GetAllRulesResponse::_internal_file() const {
+inline const std::string& GetAllAlertRuleTemplatesResponse::_internal_file() const {
   return file_.Get();
 }
-inline void GetAllRulesResponse::_internal_set_file(const std::string& value) {
+inline void GetAllAlertRuleTemplatesResponse::_internal_set_file(const std::string& value) {
   
   file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void GetAllRulesResponse::set_file(std::string&& value) {
+inline void GetAllAlertRuleTemplatesResponse::set_file(std::string&& value) {
   
   file_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
 }
-inline void GetAllRulesResponse::set_file(const char* value) {
+inline void GetAllAlertRuleTemplatesResponse::set_file(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+  // @@protoc_insertion_point(field_set_char:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
 }
-inline void GetAllRulesResponse::set_file(const char* value,
+inline void GetAllAlertRuleTemplatesResponse::set_file(const char* value,
     size_t size) {
   
   file_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
 }
-inline std::string* GetAllRulesResponse::_internal_mutable_file() {
+inline std::string* GetAllAlertRuleTemplatesResponse::_internal_mutable_file() {
   
   return file_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* GetAllRulesResponse::release_file() {
-  // @@protoc_insertion_point(field_release:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+inline std::string* GetAllAlertRuleTemplatesResponse::release_file() {
+  // @@protoc_insertion_point(field_release:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
   return file_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void GetAllRulesResponse::set_allocated_file(std::string* file) {
+inline void GetAllAlertRuleTemplatesResponse::set_allocated_file(std::string* file) {
   if (file != nullptr) {
     
   } else {
@@ -894,80 +894,80 @@ inline void GetAllRulesResponse::set_allocated_file(std::string* file) {
   }
   file_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.check.retrieval.v1.GetAllRulesResponse.file)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.file)
 }
 
 // repeated string signatures = 2;
-inline int GetAllRulesResponse::_internal_signatures_size() const {
+inline int GetAllAlertRuleTemplatesResponse::_internal_signatures_size() const {
   return signatures_.size();
 }
-inline int GetAllRulesResponse::signatures_size() const {
+inline int GetAllAlertRuleTemplatesResponse::signatures_size() const {
   return _internal_signatures_size();
 }
-inline void GetAllRulesResponse::clear_signatures() {
+inline void GetAllAlertRuleTemplatesResponse::clear_signatures() {
   signatures_.Clear();
 }
-inline std::string* GetAllRulesResponse::add_signatures() {
-  // @@protoc_insertion_point(field_add_mutable:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+inline std::string* GetAllAlertRuleTemplatesResponse::add_signatures() {
+  // @@protoc_insertion_point(field_add_mutable:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   return _internal_add_signatures();
 }
-inline const std::string& GetAllRulesResponse::_internal_signatures(int index) const {
+inline const std::string& GetAllAlertRuleTemplatesResponse::_internal_signatures(int index) const {
   return signatures_.Get(index);
 }
-inline const std::string& GetAllRulesResponse::signatures(int index) const {
-  // @@protoc_insertion_point(field_get:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+inline const std::string& GetAllAlertRuleTemplatesResponse::signatures(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   return _internal_signatures(index);
 }
-inline std::string* GetAllRulesResponse::mutable_signatures(int index) {
-  // @@protoc_insertion_point(field_mutable:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+inline std::string* GetAllAlertRuleTemplatesResponse::mutable_signatures(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   return signatures_.Mutable(index);
 }
-inline void GetAllRulesResponse::set_signatures(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+inline void GetAllAlertRuleTemplatesResponse::set_signatures(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   signatures_.Mutable(index)->assign(value);
 }
-inline void GetAllRulesResponse::set_signatures(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+inline void GetAllAlertRuleTemplatesResponse::set_signatures(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   signatures_.Mutable(index)->assign(std::move(value));
 }
-inline void GetAllRulesResponse::set_signatures(int index, const char* value) {
+inline void GetAllAlertRuleTemplatesResponse::set_signatures(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   signatures_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_set_char:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
-inline void GetAllRulesResponse::set_signatures(int index, const char* value, size_t size) {
+inline void GetAllAlertRuleTemplatesResponse::set_signatures(int index, const char* value, size_t size) {
   signatures_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
-inline std::string* GetAllRulesResponse::_internal_add_signatures() {
+inline std::string* GetAllAlertRuleTemplatesResponse::_internal_add_signatures() {
   return signatures_.Add();
 }
-inline void GetAllRulesResponse::add_signatures(const std::string& value) {
+inline void GetAllAlertRuleTemplatesResponse::add_signatures(const std::string& value) {
   signatures_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_add:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
-inline void GetAllRulesResponse::add_signatures(std::string&& value) {
+inline void GetAllAlertRuleTemplatesResponse::add_signatures(std::string&& value) {
   signatures_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_add:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
-inline void GetAllRulesResponse::add_signatures(const char* value) {
+inline void GetAllAlertRuleTemplatesResponse::add_signatures(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   signatures_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_add_char:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
-inline void GetAllRulesResponse::add_signatures(const char* value, size_t size) {
+inline void GetAllAlertRuleTemplatesResponse::add_signatures(const char* value, size_t size) {
   signatures_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+  // @@protoc_insertion_point(field_add_pointer:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-GetAllRulesResponse::signatures() const {
-  // @@protoc_insertion_point(field_list:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+GetAllAlertRuleTemplatesResponse::signatures() const {
+  // @@protoc_insertion_point(field_list:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   return signatures_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-GetAllRulesResponse::mutable_signatures() {
-  // @@protoc_insertion_point(field_mutable_list:percona.platform.check.retrieval.v1.GetAllRulesResponse.signatures)
+GetAllAlertRuleTemplatesResponse::mutable_signatures() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse.signatures)
   return &signatures_;
 }
 

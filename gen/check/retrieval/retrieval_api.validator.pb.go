@@ -25,10 +25,10 @@ func (this *GetAllChecksResponse) Validate() error {
 	return nil
 }
 
-func (this *GetAllRulesRequest) Validate() error {
+func (this *GetAllAlertRuleTemplatesRequest) Validate() error {
 	return nil
 }
 
-func (this *GetAllRulesResponse) Validate() error {
+func (this *GetAllAlertRuleTemplatesResponse) Validate() error {
 	return nil
 }
