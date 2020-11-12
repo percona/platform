@@ -5,11 +5,13 @@ import (
 	"bytes"
 	"crypto/ed25519"
 	"encoding/base64"
+	"fmt"
 	"io"
 	"regexp"
 	"strings"
 
 	"github.com/pkg/errors"
+	"go.starlark.net/starlark"
 	"gopkg.in/yaml.v3"
 
 	"github.com/percona-platform/platform/pkg/common"
@@ -145,17 +147,42 @@ func (t Type) Validate() error {
 
 // Check represents security check structure.
 type Check struct {
-	Version uint32        `yaml:"version"`
-	Name    string        `yaml:"name"`
-	Tiers   []common.Tier `yaml:"tiers,flow,omitempty"`
-	Type    Type          `yaml:"type"`
-	Query   string        `yaml:"query,omitempty"`
-	Script  string        `yaml:"script"`
+	Version     uint32        `yaml:"version"`
+	Name        string        `yaml:"name"`
+	Summary     string        `yaml:"summary"`
+	Description string        `yaml:"description"`
+	Tiers       []common.Tier `yaml:"tiers,flow,omitempty"`
+	Type        Type          `yaml:"type"`
+	Query       string        `yaml:"query,omitempty"`
+	Script      string        `yaml:"script"`
 }
 
 // the same as Prometheus label format
 //nolint:gochecknoglobals
 var nameRE = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
+
+// GetDocstring validates globals in a starlark script and returns the docstring.
+func (c *Check) GetDocstring(predeclared starlark.StringDict) (string, error) {
+	var thread starlark.Thread
+	globals, err := starlark.ExecFile(&thread, "", c.Script, predeclared)
+	if err != nil {
+		return "", err
+	}
+
+	_, ok := globals["check"].(*starlark.Function)
+	if !ok {
+		return "", fmt.Errorf("%s: no `check` function found", c.Name)
+	}
+	fun, ok := globals["check_context"].(*starlark.Function)
+	if !ok {
+		return "", fmt.Errorf("%s: no `check_context` function found", c.Name)
+	}
+	doc := strings.TrimSpace(fun.Doc())
+	if doc == "" {
+		return "", fmt.Errorf("%s: `check_context` function should have docstring", c.Name)
+	}
+	return doc, nil
+}
 
 // Validate validates check for minimal correctness.
 func (c *Check) Validate() error {
@@ -186,6 +213,14 @@ func (c *Check) Validate() error {
 
 	if c.Script == "" {
 		return errors.New("check script is empty")
+	}
+
+	if c.Summary == "" {
+		return errors.New("summary is empty")
+	}
+
+	if c.Description == "" {
+		return errors.New("description is empty")
 	}
 
 	return nil
