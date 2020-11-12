@@ -258,10 +258,9 @@ func TestCheck_GetDocstring(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name      string
-		check     *Check
-		docstring string
-		errStr    string
+		name   string
+		check  *Check
+		errStr string
 	}{
 		{
 			name: "invalid script",
@@ -275,8 +274,7 @@ func TestCheck_GetDocstring(t *testing.T) {
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "return 1",
 			},
-			docstring: "",
-			errStr:    ":1:1: return statement not within a function",
+			errStr: ":1:1: return statement not within a function",
 		},
 		{
 			name: "missing check function",
@@ -294,8 +292,7 @@ def check_context(rows, context):
     pass
                 `),
 			},
-			docstring: "",
-			errStr:    "test_check: no `check` function found",
+			errStr: "test_check: no `check` function found",
 		},
 		{
 			name: "missing check_context function",
@@ -312,29 +309,7 @@ def check(rows):
     pass
                 `),
 			},
-			docstring: "",
-			errStr:    "test_check: no `check_context` function found",
-		},
-		{
-			name: "missing docstring",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script: strings.TrimSpace(`
-def check(rows):
-    return check_context(rows, {})
-           
-def check_context(rows, context):
-    pass
-                `),
-			},
-			docstring: "",
-			errStr:    "test_check: `check_context` function should have docstring",
+			errStr: "test_check: no `check_context` function found",
 		},
 		{
 			name: "valid script",
@@ -355,8 +330,7 @@ def check_context(rows, context):
     pass
                 `),
 			},
-			docstring: "Check Description",
-			errStr:    "",
+			errStr: "",
 		},
 	}
 
@@ -364,9 +338,7 @@ def check_context(rows, context):
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			doc, err := tt.check.GetDocstring(starlark.StringDict{})
-			assert.Equal(t, tt.docstring, doc)
-
+			err := tt.check.CheckGlobals(starlark.StringDict{})
 			if tt.errStr != "" {
 				assert.EqualError(t, err, tt.errStr)
 				return

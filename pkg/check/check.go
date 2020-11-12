@@ -161,27 +161,23 @@ type Check struct {
 //nolint:gochecknoglobals
 var nameRE = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
 
-// GetDocstring validates globals in a starlark script and returns the docstring.
-func (c *Check) GetDocstring(predeclared starlark.StringDict) (string, error) {
+// CheckGlobals checks for the presence of `check` and `check_context` functions.
+func (c *Check) CheckGlobals(predeclared starlark.StringDict) error {
 	var thread starlark.Thread
 	globals, err := starlark.ExecFile(&thread, "", c.Script, predeclared)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	_, ok := globals["check"].(*starlark.Function)
 	if !ok {
-		return "", fmt.Errorf("%s: no `check` function found", c.Name)
+		return fmt.Errorf("%s: no `check` function found", c.Name)
 	}
-	fun, ok := globals["check_context"].(*starlark.Function)
+	_, ok = globals["check_context"].(*starlark.Function)
 	if !ok {
-		return "", fmt.Errorf("%s: no `check_context` function found", c.Name)
+		return fmt.Errorf("%s: no `check_context` function found", c.Name)
 	}
-	doc := strings.TrimSpace(fun.Doc())
-	if doc == "" {
-		return "", fmt.Errorf("%s: `check_context` function should have docstring", c.Name)
-	}
-	return doc, nil
+	return nil
 }
 
 // Validate validates check for minimal correctness.
