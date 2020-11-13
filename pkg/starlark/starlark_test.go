@@ -519,3 +519,98 @@ def check_context(rows, context):
 	}}
 	assert.Equal(t, expected, res)
 }
+
+func TestCheckGlobals(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name   string
+		check  *check.Check
+		errStr string
+	}{
+		{
+			name: "invalid script",
+			check: &check.Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        check.MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "return 1",
+			},
+			errStr: ":1:1: return statement not within a function",
+		},
+		{
+			name: "missing check function",
+			check: &check.Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        check.MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script: strings.TrimSpace(`
+def check_context(rows, context):
+    """Check Description"""
+    pass
+                `),
+			},
+			errStr: "test_check: no `check` function found",
+		},
+		{
+			name: "missing check_context function",
+			check: &check.Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        check.MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script: strings.TrimSpace(`
+def check(rows):
+    pass
+                `),
+			},
+			errStr: "test_check: no `check_context` function found",
+		},
+		{
+			name: "valid script",
+			check: &check.Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        check.MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script: strings.TrimSpace(`
+def check(rows):
+    return check_context(rows, {})
+
+def check_context(rows, context):
+    """Check Description"""
+    pass
+                `),
+			},
+			errStr: "",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			err := CheckGlobals(tt.check, starlark.StringDict{})
+			if tt.errStr != "" {
+				assert.EqualError(t, err, tt.errStr)
+				return
+			}
+
+			assert.NoError(t, err)
+		})
+	}
+}

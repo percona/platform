@@ -5,13 +5,11 @@ import (
 	"bytes"
 	"crypto/ed25519"
 	"encoding/base64"
-	"fmt"
 	"io"
 	"regexp"
 	"strings"
 
 	"github.com/pkg/errors"
-	"go.starlark.net/starlark"
 	"gopkg.in/yaml.v3"
 
 	"github.com/percona-platform/platform/pkg/common"
@@ -160,25 +158,6 @@ type Check struct {
 // the same as Prometheus label format
 //nolint:gochecknoglobals
 var nameRE = regexp.MustCompile(`^[a-zA-Z_][a-zA-Z0-9_]*$`)
-
-// CheckGlobals checks for the presence of `check` and `check_context` functions.
-func (c *Check) CheckGlobals(predeclared starlark.StringDict) error {
-	var thread starlark.Thread
-	globals, err := starlark.ExecFile(&thread, "", c.Script, predeclared)
-	if err != nil {
-		return err
-	}
-
-	_, ok := globals["check"].(*starlark.Function)
-	if !ok {
-		return fmt.Errorf("%s: no `check` function found", c.Name)
-	}
-	_, ok = globals["check_context"].(*starlark.Function)
-	if !ok {
-		return fmt.Errorf("%s: no `check_context` function found", c.Name)
-	}
-	return nil
-}
 
 // Validate validates check for minimal correctness.
 func (c *Check) Validate() error {

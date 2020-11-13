@@ -7,7 +7,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.starlark.net/starlark"
 
 	"github.com/percona-platform/platform/pkg/common"
 )
@@ -252,101 +251,6 @@ checks:
 		_, err := Parse(bytes.NewReader([]byte(data)), params)
 		require.EqualError(t, err, "duplicate tier: \"anonymous\"")
 	})
-}
-
-func TestCheck_GetDocstring(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct {
-		name   string
-		check  *Check
-		errStr string
-	}{
-		{
-			name: "invalid script",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:      "return 1",
-			},
-			errStr: ":1:1: return statement not within a function",
-		},
-		{
-			name: "missing check function",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script: strings.TrimSpace(`
-def check_context(rows, context):
-    """Check Description"""
-    pass
-                `),
-			},
-			errStr: "test_check: no `check` function found",
-		},
-		{
-			name: "missing check_context function",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script: strings.TrimSpace(`
-def check(rows):
-    pass
-                `),
-			},
-			errStr: "test_check: no `check_context` function found",
-		},
-		{
-			name: "valid script",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script: strings.TrimSpace(`
-def check(rows):
-    return check_context(rows, {})
-
-def check_context(rows, context):
-    """Check Description"""
-    pass
-                `),
-			},
-			errStr: "",
-		},
-	}
-
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			err := tt.check.CheckGlobals(starlark.StringDict{})
-			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
-				return
-			}
-
-			assert.NoError(t, err)
-		})
-	}
 }
 
 func TestCheck_CheckValidate(t *testing.T) {
