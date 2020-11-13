@@ -604,7 +604,7 @@ def check_context(rows, context):
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			err := CheckGlobals(tt.check, starlark.StringDict{})
+			err := CheckGlobals(tt.check, nil)
 			if tt.errStr != "" {
 				assert.EqualError(t, err, tt.errStr)
 				return

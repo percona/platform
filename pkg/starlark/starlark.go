@@ -271,7 +271,13 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 }
 
 // CheckGlobals checks for the presence of `check` and `check_context` functions.
-func CheckGlobals(c *check.Check, predeclared starlark.StringDict) error {
+func CheckGlobals(c *check.Check, predeclaredFuncs map[string]GoFunc) error {
+	predeclared := make(starlark.StringDict, len(predeclaredFuncs))
+	for n, f := range predeclaredFuncs {
+		predeclared[n] = starlark.NewBuiltin(n, MakeFunc(f))
+	}
+	predeclared.Freeze()
+
 	var thread starlark.Thread
 	globals, err := starlark.ExecFile(&thread, "", c.Script, predeclared)
 	if err != nil {
