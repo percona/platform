@@ -18,6 +18,8 @@ func TestCheck_Parse(t *testing.T) {
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -27,6 +29,8 @@ checks:
 
   - version: 1
     name: postgresql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: [anonymous]
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
@@ -40,6 +44,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -50,6 +56,8 @@ checks:
 checks:
   - version: 1
     name: postgresql_check
+    summary: PostgreSQL Check
+    description: Description of check.
     tiers: [anonymous]
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
@@ -95,6 +103,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: [anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -129,6 +139,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -154,6 +166,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: null
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -186,6 +200,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: []
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -218,6 +234,8 @@ checks:
 checks:
   - version: 1
     name: mysql_check
+    summary: MYSQL Check
+    description: Description of check.
     tiers: [anonymous, anonymous]
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -246,245 +264,315 @@ func TestCheck_CheckValidate(t *testing.T) {
 		{
 			name: "mysql_show",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "mysql_select",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLSelect,
-				Query:   "id, name FROM table WHERE id=123;",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLSelect,
+				Query:       "id, name FROM table WHERE id=123;",
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "postgresql_show",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    PostgreSQLShow,
-				Query:   "",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        PostgreSQLShow,
+				Query:       "",
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "postgresql_select",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    PostgreSQLSelect,
-				Query:   "id, name FROM table WHERE id=123;",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        PostgreSQLSelect,
+				Query:       "id, name FROM table WHERE id=123;",
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "mongodb_get_parameter",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBGetParameter,
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetParameter,
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "mongodb_build_info",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBBuildInfo,
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBBuildInfo,
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "mongodb_get_cmd_line_opts",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBGetCmdLineOpts,
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetCmdLineOpts,
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "clickhouse_show",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    "CLICKHOUSE_SHOW",
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        "CLICKHOUSE_SHOW",
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
 		},
 		{
 			name: "empty_version",
 			check: &Check{
-				Tiers:  []common.Tier{common.Anonymous},
-				Type:   MySQLShow,
-				Query:  "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script: "def func(args): pass",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "unexpected version 0",
 		},
 		{
 			name: "empty_name",
 			check: &Check{
-				Version: 1,
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "invalid check name",
 		},
 		{
 			name: "invalid_name",
 			check: &Check{
-				Version: 1,
-				Name:    "test check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "invalid check name",
 		},
 		{
 			name: "empty_tier",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "",
 		},
 		{
 			name: "invalid_tier",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{"invalid"},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{"invalid"},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "unknown check tier: \"invalid\"",
 		},
 		{
 			name: "empty_type",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    "",
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        "",
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "check type is empty",
 		},
 		{
 			name: "empty_query",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "",
+				Script:      "def func(args): pass",
 			},
 			errStr: "check query is empty",
 		},
 		{
 			name: "non_empty_query_for_postgresql_show",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    PostgreSQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        PostgreSQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
 			},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
 		},
 		{
 			name: "non_empty_query_for_mongodb_get_parameter",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBGetParameter,
-				Query:   "some query",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetParameter,
+				Query:       "some query",
+				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_GETPARAMETER check type should have empty query",
 		},
 		{
 			name: "non_empty_query_for_mongodb_build_info",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBBuildInfo,
-				Query:   "some query",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBBuildInfo,
+				Query:       "some query",
+				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
 		},
 		{
 			name: "non_empty_query_for_mongodb_get_cmd_line_opts",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MongoDBGetCmdLineOpts,
-				Query:   "some query",
-				Script:  "def func(args): pass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetCmdLineOpts,
+				Query:       "some query",
+				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_GETCMDLINEOPTS check type should have empty query",
 		},
 		{
 			name: "empty_script",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "",
 			},
 			errStr: "check script is empty",
 		},
 		{
+			name: "empty_summary",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "summary is empty",
+		},
+		{
+			name: "empty_summary",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "description is empty",
+		},
+		{
 			name: "script_with_tabs",
 			check: &Check{
-				Version: 1,
-				Name:    "test_check",
-				Tiers:   []common.Tier{common.Anonymous},
-				Type:    MySQLShow,
-				Query:   "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:  "def func(args):\tpass",
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args):\tpass",
 			},
 			errStr: "script should use spaces for indentation, not tabs",
 		},
