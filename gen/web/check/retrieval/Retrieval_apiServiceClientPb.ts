@@ -75,5 +75,45 @@ export class RetrievalAPIClient {
     this.methodInfoGetAllChecks);
   }
 
+  methodInfoGetAllAlertRuleTemplates = new grpcWeb.AbstractClientBase.MethodInfo(
+    check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse,
+    (request: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesRequest) => {
+      return request.serializeBinary();
+    },
+    check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse.deserializeBinary
+  );
+
+  getAllAlertRuleTemplates(
+    request: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse>;
+
+  getAllAlertRuleTemplates(
+    request: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse) => void): grpcWeb.ClientReadableStream<check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse>;
+
+  getAllAlertRuleTemplates(
+    request: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: check_retrieval_retrieval_api_pb.GetAllAlertRuleTemplatesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates',
+        request,
+        metadata || {},
+        this.methodInfoGetAllAlertRuleTemplates,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates',
+    request,
+    metadata || {},
+    this.methodInfoGetAllAlertRuleTemplates);
+  }
+
 }
 
