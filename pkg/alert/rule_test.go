@@ -22,7 +22,7 @@ rules:
   # adopted from https://awesome-prometheus-alerts.grep.to/rules#mysql 1.2
   - version: 1
     name: mysql_too_many_connections
-    help: MySQL connections in use
+    summary: MySQL connections in use
     tiers: [anonymous, registered]
     expr: |-
       max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)
@@ -31,7 +31,7 @@ rules:
       > [[ .threshold ]]
     params:
       - name: threshold
-        help: A percentage from configured maximum
+        summary: A percentage from configured maximum
         unit: "%"
         type: float
         range: [0, 100]
@@ -62,7 +62,7 @@ rules:
 	assert.Equal(t, uint32(1), r.Version)
 	assert.Equal(t, []common.Tier{common.Anonymous, common.Registered}, r.Tiers)
 	assert.Equal(t, common.Warning, r.Severity)
-	assert.Equal(t, "MySQL connections in use", r.Help)
+	assert.Equal(t, "MySQL connections in use", r.Summary)
 	assert.Equal(t, "max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)\nmysql_global_variables_max_connections\n* 100\n> [[ .threshold ]]", r.Expr)
 	assert.Equal(t, map[string]string{"foo": "bar"}, r.Labels)
 	assert.Len(t, r.Annotations, 2)
@@ -72,7 +72,7 @@ rules:
 
 	param := r.Params[0]
 	assert.Equal(t, "threshold", param.Name)
-	assert.Equal(t, "A percentage from configured maximum", param.Help)
+	assert.Equal(t, "A percentage from configured maximum", param.Summary)
 	assert.Equal(t, "%", param.Unit)
 	assert.Equal(t, Float, param.Type)
 
@@ -98,16 +98,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -120,16 +120,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -142,16 +142,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "some_name",
 			Version: 0,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -160,42 +160,42 @@ func TestRule_Validate(t *testing.T) {
 		},
 		"unexpected version 0",
 	}, {
-		"empty help",
+		"empty summary",
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "",
+			Summary: "",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
-		"rule help is empty",
+		"rule summary is empty",
 	}, {
 		"invalid tier",
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous, "invalid"},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -208,16 +208,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous, common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -230,16 +230,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Warning,
@@ -252,16 +252,16 @@ func TestRule_Validate(t *testing.T) {
 		Rule{
 			Name:    "some_name",
 			Version: 1,
-			Help:    "Some help message",
+			Summary: "Some summary message",
 			Tiers:   []common.Tier{common.Anonymous},
 			Expr:    "some_expression[5m]",
 			Params: []Parameter{{
-				Name:  "param",
-				Help:  "Some expression parameter",
-				Unit:  "$",
-				Type:  "float",
-				Range: []interface{}{10, 90},
-				Value: 50,
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
 			}},
 			For:         promconfig.Duration(10 * time.Minute),
 			Severity:    common.Severity(256),
