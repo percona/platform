@@ -14,15 +14,18 @@ type Severity int
 
 // Supported severity levels.
 const (
-	Unknown   Severity = iota // unknown
-	Emergency                 // emergency
-	Alert                     // alert
-	Critical                  // critical
-	Error                     // error
-	Warning                   // warning
-	Notice                    // notice
-	Info                      // info
-	Debug                     // debug
+	// Use the same values as PMM API: https://github.com/percona/pmm/blob/PMM-2.0/api/managementpb/severity.proto
+	// That allows direct conversions without custom conversion function.
+
+	Unknown   Severity = 0
+	Emergency Severity = 1
+	Alert     Severity = 2
+	Critical  Severity = 3
+	Error     Severity = 4
+	Warning   Severity = 5
+	Notice    Severity = 6
+	Info      Severity = 7
+	Debug     Severity = 8
 )
 
 // ParseSeverity casts string to Severity.
