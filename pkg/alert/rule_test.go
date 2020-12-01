@@ -116,6 +116,27 @@ func TestRule_Validate(t *testing.T) {
 		},
 		"",
 	}, {
+		"no range",
+		Rule{
+			Name:    "some name",
+			Version: 1,
+			Summary: "Some summary message",
+			Tiers:   []common.Tier{common.Anonymous},
+			Expr:    "some_expression[5m]",
+			Params: []Parameter{{
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    "$",
+				Type:    "float",
+				Value:   50,
+			}},
+			For:         promconfig.Duration(10 * time.Minute),
+			Severity:    common.Warning,
+			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
+			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
+		},
+		"",
+	}, {
 		"empty name",
 		Rule{
 			Name:    "",
