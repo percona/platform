@@ -13,12 +13,12 @@ import (
 	"github.com/percona-platform/platform/pkg/common"
 )
 
-func TestRule_Parse(t *testing.T) {
+func TestTemplate_Parse(t *testing.T) {
 	t.Parallel()
 
 	document := strings.TrimSpace(`
 ---
-rules:
+templates:
   # adopted from https://awesome-prometheus-alerts.grep.to/rules#mysql 1.2
   - version: 1
     name: mysql_too_many_connections
@@ -49,8 +49,8 @@ rules:
 `)
 
 	params := &ParseParams{
-		DisallowUnknownFields: true,
-		DisallowInvalidRules:  true,
+		DisallowUnknownFields:    true,
+		DisallowInvalidTemplates: true,
 	}
 
 	rs, err := Parse(bytes.NewReader([]byte(document)), params)
@@ -86,16 +86,16 @@ rules:
 	assert.Equal(t, float64(80), value)
 }
 
-func TestRule_Validate(t *testing.T) {
+func TestTemplate_Validate(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name   string
-		rule   Rule
-		errStr string
+		name     string
+		template Template
+		errStr   string
 	}{{
 		"normal",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -117,7 +117,7 @@ func TestRule_Validate(t *testing.T) {
 		"",
 	}, {
 		"no range",
-		Rule{
+		Template{
 			Name:    "some name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -138,7 +138,7 @@ func TestRule_Validate(t *testing.T) {
 		"",
 	}, {
 		"empty name",
-		Rule{
+		Template{
 			Name:    "",
 			Version: 1,
 			Summary: "Some summary message",
@@ -157,10 +157,10 @@ func TestRule_Validate(t *testing.T) {
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
-		"rule name is empty",
+		"template name is empty",
 	}, {
 		"invalid version",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 0,
 			Summary: "Some summary message",
@@ -182,7 +182,7 @@ func TestRule_Validate(t *testing.T) {
 		"unexpected version 0",
 	}, {
 		"empty summary",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "",
@@ -201,10 +201,10 @@ func TestRule_Validate(t *testing.T) {
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
-		"rule summary is empty",
+		"template summary is empty",
 	}, {
 		"invalid tier",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -226,7 +226,7 @@ func TestRule_Validate(t *testing.T) {
 		"unknown check tier: \"invalid\"",
 	}, {
 		"duplicate tier",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -248,7 +248,7 @@ func TestRule_Validate(t *testing.T) {
 		"duplicate tier: \"anonymous\"",
 	}, {
 		"normal",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -267,10 +267,10 @@ func TestRule_Validate(t *testing.T) {
 			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
-		"rule expression is empty",
+		"template expression is empty",
 	}, {
 		"invalid severity",
-		Rule{
+		Template{
 			Name:    "some_name",
 			Version: 1,
 			Summary: "Some summary message",
@@ -296,7 +296,7 @@ func TestRule_Validate(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			err := tt.rule.Validate()
+			err := tt.template.Validate()
 
 			if tt.errStr != "" {
 				assert.EqualError(t, err, tt.errStr)
