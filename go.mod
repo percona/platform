@@ -17,7 +17,7 @@ require (
 	go.starlark.net v0.0.0-20201014215153-dff0ae5b4820
 	go.uber.org/zap v1.16.0
 	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418
-	google.golang.org/grpc v1.33.2
+	google.golang.org/grpc v1.34.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.4.1
