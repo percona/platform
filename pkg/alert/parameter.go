@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Parameter represents alerting rule parameter.
+// Parameter represents alerting template or rule parameter.
 type Parameter struct {
 	Name    string        `yaml:"name"`       // required
 	Summary string        `yaml:"summary"`    // required
