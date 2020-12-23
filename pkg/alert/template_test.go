@@ -36,6 +36,16 @@ templates:
         type: float
         range: [0, 100]
         value: 80
+      - name: boolean
+        summary: A boolean parameter for testing
+        unit: some
+        type: bool
+        value: false
+      - name: string
+        summary: A string parameter for testing
+        unit: some
+        type: string
+        value: foo
     for: 5m
     severity: warning
     labels:
@@ -68,7 +78,7 @@ templates:
 	assert.Len(t, r.Annotations, 2)
 	assert.Equal(t, "MySQL too many connections (instance {{ $labels.instance }})", r.Annotations["summary"])
 	assert.Equal(t, "More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}\nVALUE = {{ $value }}\nLABELS: {{ $labels }}", r.Annotations["description"])
-	assert.Len(t, r.Params, 1)
+	assert.Len(t, r.Params, 3)
 
 	param := r.Params[0]
 	assert.Equal(t, "threshold", param.Name)
@@ -81,9 +91,29 @@ templates:
 	assert.Equal(t, float64(0), lower)
 	assert.Equal(t, float64(100), higher)
 
-	value, err := param.GetValueForFloat()
+	fv, err := param.GetValueForFloat()
 	require.NoError(t, err)
-	assert.Equal(t, float64(80), value)
+	assert.Equal(t, float64(80), fv)
+
+	param = r.Params[1]
+	assert.Equal(t, "boolean", param.Name)
+	assert.Equal(t, "A boolean parameter for testing", param.Summary)
+	assert.Equal(t, "some", param.Unit)
+	assert.Equal(t, Bool, param.Type)
+
+	bv, err := param.GetValueForBool()
+	require.NoError(t, err)
+	assert.Equal(t, false, bv)
+
+	param = r.Params[2]
+	assert.Equal(t, "string", param.Name)
+	assert.Equal(t, "A string parameter for testing", param.Summary)
+	assert.Equal(t, "some", param.Unit)
+	assert.Equal(t, String, param.Type)
+
+	sv, err := param.GetValueForString()
+	require.NoError(t, err)
+	assert.Equal(t, "foo", sv)
 }
 
 func TestTemplate_Validate(t *testing.T) {
