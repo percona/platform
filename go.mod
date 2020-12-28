@@ -10,7 +10,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/percona/promconfig v0.2.0
+	github.com/percona/promconfig v0.2.1
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.9.0
 	github.com/stretchr/testify v1.6.1
