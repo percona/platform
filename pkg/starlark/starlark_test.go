@@ -180,7 +180,7 @@ Traceback (most recent call last):
 		assert.Nil(t, res)
 
 		expected := strings.TrimSpace(`
-thread id: failed to execute function foo: real division by zero
+thread id: failed to execute function foo: floating-point division by zero
 Traceback (most recent call last):
   TestRunInvalidScript/Execute:1:13: in foo
 		`) + "\n"
@@ -208,7 +208,7 @@ Traceback (most recent call last):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return set()
 		`) + "\n"
@@ -227,7 +227,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return {"summary": "foo"}
 		`) + "\n"
@@ -246,7 +246,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [1]
 		`) + "\n"
@@ -265,7 +265,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"summary": 1}]
 		`) + "\n"
@@ -284,7 +284,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{}]
 		`) + "\n"
@@ -303,7 +303,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"labels": 1}]
 		`) + "\n"
@@ -322,7 +322,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"labels": {"foo": 1}}]
 		`) + "\n"
@@ -398,7 +398,7 @@ func TestRegisterFunc(t *testing.T) {
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
 		`) + "\n"
@@ -427,7 +427,7 @@ def check_context(rows, context):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
 		`) + "\n"
@@ -454,7 +454,7 @@ Traceback (most recent call last):
 		script := strings.TrimSpace(`
 def check(rows):
 	return check_context(rows, {})
-	
+
 def check_context(rows, context):
     return [{"summary": repr(pairs(rows=rows)), "severity": "notice"}]
 		`) + "\n"
