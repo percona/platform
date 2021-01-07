@@ -10,7 +10,7 @@ import (
 type Parameter struct {
 	Name    string        `yaml:"name"`       // required
 	Summary string        `yaml:"summary"`    // required
-	Unit    string        `yaml:"unit"`       // required FIXME should be optional
+	Unit    Unit          `yaml:"unit"`       // optional
 	Type    Type          `yaml:"type"`       // required
 	Range   []interface{} `yaml:"range,flow"` // required FIXME should be optional
 	Value   interface{}   `yaml:"value"`      // required FIXME should be optional in template - then it is required in the rule
@@ -93,8 +93,8 @@ func (p *Parameter) Validate() error {
 		return errors.New("parameter summary is empty")
 	}
 
-	if p.Unit == "" {
-		return errors.New("parameter unit is empty")
+	if err = p.Unit.Validate(); err != nil {
+		return err
 	}
 
 	if err = p.Type.Validate(); err != nil {
