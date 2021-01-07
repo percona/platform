@@ -89,6 +89,7 @@ templates:
 	assert.Equal(t, Percentage, param.Unit)
 	assert.Equal(t, Float, param.Type)
 
+	assert.NotEmpty(t, param.Range)
 	lower, higher, err := param.GetRangeForFloat()
 	require.NoError(t, err)
 	assert.Equal(t, float64(0), lower)
@@ -103,12 +104,14 @@ templates:
 	assert.Equal(t, "A duration parameter for testing", param.Summary)
 	assert.Equal(t, Seconds, param.Unit)
 	assert.Equal(t, Float, param.Type)
+	assert.Empty(t, param.Range)
 
 	param = r.Params[2]
 	assert.Equal(t, "boolean", param.Name)
 	assert.Equal(t, "A boolean parameter for testing", param.Summary)
 	assert.Empty(t, param.Unit)
 	assert.Equal(t, Bool, param.Type)
+	assert.Empty(t, param.Range)
 
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
@@ -119,6 +122,7 @@ templates:
 	assert.Equal(t, "A string parameter for testing", param.Summary)
 	assert.Empty(t, param.Unit)
 	assert.Equal(t, String, param.Type)
+	assert.Empty(t, param.Range)
 
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)

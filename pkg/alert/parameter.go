@@ -8,12 +8,12 @@ import (
 
 // Parameter represents alerting template or rule parameter.
 type Parameter struct {
-	Name    string        `yaml:"name"`       // required
-	Summary string        `yaml:"summary"`    // required
-	Unit    Unit          `yaml:"unit"`       // optional
-	Type    Type          `yaml:"type"`       // required
-	Range   []interface{} `yaml:"range,flow"` // required FIXME should be optional
-	Value   interface{}   `yaml:"value"`      // required FIXME should be optional in template - then it is required in the rule
+	Name    string        `yaml:"name"`                 // required
+	Summary string        `yaml:"summary"`              // required
+	Unit    Unit          `yaml:"unit,omitempty"`       // optional
+	Type    Type          `yaml:"type"`                 // required
+	Range   []interface{} `yaml:"range,flow,omitempty"` // optional
+	Value   interface{}   `yaml:"value"`                // required FIXME should be optional in template - then it is required in the rule
 }
 
 // GetValueForBool casts parameter value to the bool.
@@ -38,7 +38,8 @@ func (p *Parameter) GetValueForBool() (bool, error) {
 	}
 }
 
-// GetValueForFloat casts parameter value to the float64.
+// GetValueForFloat casts parameter value to the float64. Before invocation of this method you should check that
+// range is present (slice is not empty), as it's optional.
 func (p *Parameter) GetValueForFloat() (float64, error) {
 	if p.Type != Float {
 		return 0, errors.Errorf("parameter type is %s, not float", p.Type)
@@ -138,13 +139,13 @@ func (p *Parameter) validateRange() error {
 	switch p.Type {
 	case Bool:
 		if len(p.Range) != 0 {
-			return errors.Errorf("range should have only zero elements, but has %d", len(p.Range))
+			return errors.Errorf("range should be empty, but has %d elements", len(p.Range))
 		}
 		return nil
 
 	case Float:
 		if len(p.Range) != 2 {
-			return errors.Errorf("range should have only two elements, but has %d", len(p.Range))
+			return errors.Errorf("range should be empty or have two elements, but has %d", len(p.Range))
 		}
 		if _, err := castValueToFloat64(p.Range[0]); err != nil {
 			return errors.Wrapf(err, "invalid lower element of range")
@@ -156,7 +157,7 @@ func (p *Parameter) validateRange() error {
 
 	case String:
 		if len(p.Range) != 0 {
-			return errors.Errorf("range should have only zero elements, but has %d", len(p.Range))
+			return errors.Errorf("range should be empty, but has %d elements", len(p.Range))
 		}
 		return nil
 	}

@@ -11,6 +11,7 @@ const (
 // Unit represent Integrated Alerting parameter unit.
 type Unit string
 
+// Validate returns error in case of invalid unit.
 func (u Unit) Validate() error {
 	switch u {
 	case "": // can be empty
