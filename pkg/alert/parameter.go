@@ -13,7 +13,7 @@ type Parameter struct {
 	Unit    Unit          `yaml:"unit,omitempty"`       // optional
 	Type    Type          `yaml:"type"`                 // required
 	Range   []interface{} `yaml:"range,flow,omitempty"` // optional
-	Value   interface{}   `yaml:"value"`                // required FIXME should be optional in template - then it is required in the rule
+	Value   interface{}   `yaml:"value,omitempty"`      // optional
 }
 
 // GetValueForBool casts parameter value to the bool.
@@ -39,7 +39,7 @@ func (p *Parameter) GetValueForBool() (bool, error) {
 }
 
 // GetValueForFloat casts parameter value to the float64. Before invocation of this method you should check that
-// range is present (slice is not empty), as it's optional.
+// value is present (not nil), as it's optional.
 func (p *Parameter) GetValueForFloat() (float64, error) {
 	if p.Type != Float {
 		return 0, errors.Errorf("parameter type is %s, not float", p.Type)
@@ -48,7 +48,8 @@ func (p *Parameter) GetValueForFloat() (float64, error) {
 	return castValueToFloat64(p.Value)
 }
 
-// GetRangeForFloat casts range parameters to the float64.
+// GetRangeForFloat casts range parameters to the float64. Before invocation of this method you should check that
+// range is present (slice is not empty), as it's optional.
 func (p *Parameter) GetRangeForFloat() (float64, float64, error) {
 	if p.Type != Float {
 		return 0, 0, errors.Errorf("parameter type is %s, not float", p.Type)
@@ -114,6 +115,10 @@ func (p *Parameter) Validate() error {
 }
 
 func (p *Parameter) validateValue() error {
+	if p.Value == nil {
+		return nil
+	}
+
 	switch p.Type {
 	case Bool:
 		_, err := p.GetValueForBool()

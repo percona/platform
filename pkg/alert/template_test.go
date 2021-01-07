@@ -40,7 +40,6 @@ templates:
         summary: A duration parameter for testing
         unit: s
         type: float
-        value: 5
       - name: boolean
         summary: A boolean parameter for testing
         type: bool
@@ -94,7 +93,6 @@ templates:
 	require.NoError(t, err)
 	assert.Equal(t, float64(0), lower)
 	assert.Equal(t, float64(100), higher)
-
 	fv, err := param.GetValueForFloat()
 	require.NoError(t, err)
 	assert.Equal(t, float64(80), fv)
@@ -105,6 +103,7 @@ templates:
 	assert.Equal(t, Seconds, param.Unit)
 	assert.Equal(t, Float, param.Type)
 	assert.Empty(t, param.Range)
+	assert.Nil(t, param.Value)
 
 	param = r.Params[2]
 	assert.Equal(t, "boolean", param.Name)
@@ -112,7 +111,6 @@ templates:
 	assert.Empty(t, param.Unit)
 	assert.Equal(t, Bool, param.Type)
 	assert.Empty(t, param.Range)
-
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
 	assert.Equal(t, false, bv)
@@ -123,7 +121,6 @@ templates:
 	assert.Empty(t, param.Unit)
 	assert.Equal(t, String, param.Type)
 	assert.Empty(t, param.Range)
-
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)
 	assert.Equal(t, "foo", sv)
