@@ -36,14 +36,16 @@ templates:
         type: float
         range: [0, 100]
         value: 80
+      - name: duration
+        summary: A duration parameter for testing
+        unit: s
+        type: float
       - name: boolean
         summary: A boolean parameter for testing
-        unit: some
         type: bool
         value: false
       - name: string
         summary: A string parameter for testing
-        unit: some
         type: string
         value: foo
     for: 5m
@@ -78,39 +80,47 @@ templates:
 	assert.Len(t, r.Annotations, 2)
 	assert.Equal(t, "MySQL too many connections (instance {{ $labels.instance }})", r.Annotations["summary"])
 	assert.Equal(t, "More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}\nVALUE = {{ $value }}\nLABELS: {{ $labels }}", r.Annotations["description"])
-	assert.Len(t, r.Params, 3)
+	assert.Len(t, r.Params, 4)
 
 	param := r.Params[0]
 	assert.Equal(t, "threshold", param.Name)
 	assert.Equal(t, "A percentage from configured maximum", param.Summary)
-	assert.Equal(t, "%", param.Unit)
+	assert.Equal(t, Percentage, param.Unit)
 	assert.Equal(t, Float, param.Type)
 
+	assert.NotEmpty(t, param.Range)
 	lower, higher, err := param.GetRangeForFloat()
 	require.NoError(t, err)
 	assert.Equal(t, float64(0), lower)
 	assert.Equal(t, float64(100), higher)
-
 	fv, err := param.GetValueForFloat()
 	require.NoError(t, err)
 	assert.Equal(t, float64(80), fv)
 
 	param = r.Params[1]
+	assert.Equal(t, "duration", param.Name)
+	assert.Equal(t, "A duration parameter for testing", param.Summary)
+	assert.Equal(t, Seconds, param.Unit)
+	assert.Equal(t, Float, param.Type)
+	assert.Empty(t, param.Range)
+	assert.Nil(t, param.Value)
+
+	param = r.Params[2]
 	assert.Equal(t, "boolean", param.Name)
 	assert.Equal(t, "A boolean parameter for testing", param.Summary)
-	assert.Equal(t, "some", param.Unit)
+	assert.Empty(t, param.Unit)
 	assert.Equal(t, Bool, param.Type)
-
+	assert.Empty(t, param.Range)
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
 	assert.Equal(t, false, bv)
 
-	param = r.Params[2]
+	param = r.Params[3]
 	assert.Equal(t, "string", param.Name)
 	assert.Equal(t, "A string parameter for testing", param.Summary)
-	assert.Equal(t, "some", param.Unit)
+	assert.Empty(t, param.Unit)
 	assert.Equal(t, String, param.Type)
-
+	assert.Empty(t, param.Range)
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)
 	assert.Equal(t, "foo", sv)
@@ -134,7 +144,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -156,7 +166,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Value:   50,
 			}},
@@ -177,7 +187,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -199,7 +209,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -221,7 +231,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -243,7 +253,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -265,7 +275,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -287,7 +297,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
@@ -309,7 +319,7 @@ func TestTemplate_Validate(t *testing.T) {
 			Params: []Parameter{{
 				Name:    "param",
 				Summary: "Some expression parameter",
-				Unit:    "$",
+				Unit:    Seconds,
 				Type:    "float",
 				Range:   []interface{}{10, 90},
 				Value:   50,
