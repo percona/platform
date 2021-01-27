@@ -6,6 +6,7 @@ import (
 	"crypto/ed25519"
 	"encoding/base64"
 	"io"
+	"net/url"
 	"regexp"
 	"strings"
 
@@ -149,6 +150,7 @@ type Check struct {
 	Name        string        `yaml:"name"`
 	Summary     string        `yaml:"summary"`
 	Description string        `yaml:"description"`
+	Readmore    string        `yaml:"readmore,omitempty"`
 	Tiers       []common.Tier `yaml:"tiers,flow,omitempty"`
 	Type        Type          `yaml:"type"`
 	Query       string        `yaml:"query,omitempty"`
@@ -196,6 +198,13 @@ func (c *Check) Validate() error {
 
 	if c.Description == "" {
 		return errors.New("description is empty")
+	}
+
+	if c.Readmore != "" {
+		_, err := url.Parse(c.Readmore)
+		if err != nil {
+			return errors.New("readmore link is invalid URL")
+		}
 	}
 
 	return nil
