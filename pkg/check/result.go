@@ -1,6 +1,8 @@
 package check
 
 import (
+	"net/url"
+
 	"github.com/pkg/errors"
 
 	"github.com/percona-platform/platform/pkg/common"
@@ -8,16 +10,24 @@ import (
 
 // Result represents a single check script result that is used to generate alert.
 type Result struct {
-	Summary     string            `json:"summary"`     // required
-	Description string            `json:"description"` // optional
-	Severity    common.Severity   `json:"severity"`    // required
-	Labels      map[string]string `json:"labels"`      // optional
+	Summary     string            `json:"summary"`      // required
+	Description string            `json:"description"`  // optional
+	ReadmoreURL string            `yaml:"readmore_url"` // optional
+	Severity    common.Severity   `json:"severity"`     // required
+	Labels      map[string]string `json:"labels"`       // optional
 }
 
 // Validate validates check result for minimal correctness.
 func (r *Result) Validate() error {
 	if r.Summary == "" {
 		return errors.New("summary is empty")
+	}
+
+	if r.ReadmoreURL != "" {
+		_, err := url.Parse(r.ReadmoreURL)
+		if err != nil {
+			return errors.New("readmore_url link is invalid")
+		}
 	}
 
 	if err := r.Severity.Validate(); err != nil {

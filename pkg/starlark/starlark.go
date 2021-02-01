@@ -234,6 +234,10 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	if err != nil {
 		return nil, err
 	}
+	readmoreURL, err := getField(m, "readmore_url")
+	if err != nil {
+		return nil, err
+	}
 	severity, err := getField(m, "severity")
 	if err != nil {
 		return nil, err
@@ -260,6 +264,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	res := &check.Result{
 		Summary:     summary,
 		Description: description,
+		ReadmoreURL: readmoreURL,
 		Severity:    common.ParseSeverity(severity),
 		Labels:      labels,
 	}
