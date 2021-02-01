@@ -200,10 +200,10 @@ func (c *Check) Validate() error {
 		return errors.New("description is empty")
 	}
 
-	if c.Readmore != "" {
-		_, err := url.Parse(c.Readmore)
+	if c.ReadmoreURL != "" {
+		_, err := url.Parse(c.ReadmoreURL)
 		if err != nil {
-			return errors.New("readmore link is invalid URL")
+			return errors.New("readmore_url link is invalid")
 		}
 	}
 
