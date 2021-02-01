@@ -150,7 +150,7 @@ type Check struct {
 	Name        string        `yaml:"name"`
 	Summary     string        `yaml:"summary"`
 	Description string        `yaml:"description"`
-	Readmore    string        `yaml:"readmore,omitempty"`
+	ReadmoreURL string        `yaml:"readmore_url,omitempty"`
 	Tiers       []common.Tier `yaml:"tiers,flow,omitempty"`
 	Type        Type          `yaml:"type"`
 	Query       string        `yaml:"query,omitempty"`
