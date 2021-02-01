@@ -10,11 +10,11 @@ import (
 
 // Result represents a single check script result that is used to generate alert.
 type Result struct {
-	Summary     string            `json:"summary"`      // required
-	Description string            `json:"description"`  // optional
-	ReadmoreURL string            `yaml:"readmore_url"` // optional
-	Severity    common.Severity   `json:"severity"`     // required
-	Labels      map[string]string `json:"labels"`       // optional
+	Summary     string            `json:"summary"`       // required
+	Description string            `json:"description"`   // optional
+	ReadMoreURL string            `yaml:"read_more_url"` // optional
+	Severity    common.Severity   `json:"severity"`      // required
+	Labels      map[string]string `json:"labels"`        // optional
 }
 
 // Validate validates check result for minimal correctness.
@@ -23,10 +23,10 @@ func (r *Result) Validate() error {
 		return errors.New("summary is empty")
 	}
 
-	if r.ReadmoreURL != "" {
-		_, err := url.ParseRequestURI(r.ReadmoreURL)
+	if r.ReadMoreURL != "" {
+		_, err := url.ParseRequestURI(r.ReadMoreURL)
 		if err != nil {
-			return errors.Errorf("readmore_url: %s is invalid", r.ReadmoreURL)
+			return errors.Errorf("readmore_url: %s is invalid", r.ReadMoreURL)
 		}
 	}
 

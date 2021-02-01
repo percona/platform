@@ -264,7 +264,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	res := &check.Result{
 		Summary:     summary,
 		Description: description,
-		ReadmoreURL: readmoreURL,
+		ReadMoreURL: readmoreURL,
 		Severity:    common.ParseSeverity(severity),
 		Labels:      labels,
 	}

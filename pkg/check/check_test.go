@@ -603,7 +603,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}{
 		{
 			name:   "normal",
-			result: &Result{Severity: common.Notice, Summary: "some text", ReadmoreURL: "https://www.percona.com/"},
+			result: &Result{Severity: common.Notice, Summary: "some text", ReadMoreURL: "https://www.percona.com/"},
 			errStr: "",
 		},
 		{
@@ -623,7 +623,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 		},
 		{
 			name:   "invalid_readmore_url",
-			result: &Result{Severity: common.Notice, Summary: "some text", ReadmoreURL: "percona.com"},
+			result: &Result{Severity: common.Notice, Summary: "some text", ReadMoreURL: "percona.com"},
 			errStr: "readmore_url: percona.com is invalid",
 		},
 	}

@@ -81,7 +81,7 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
-			ReadmoreURL: "https://www.percona.com",
+			ReadMoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
@@ -102,13 +102,13 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_ssl to be YES, got NO",
-			ReadmoreURL: "https://www.percona.com",
+			ReadMoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_ssl": "NO"},
 		}, {
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
-			ReadmoreURL: "https://www.percona.com",
+			ReadMoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
