@@ -24,9 +24,9 @@ func (r *Result) Validate() error {
 	}
 
 	if r.ReadmoreURL != "" {
-		_, err := url.Parse(r.ReadmoreURL)
+		_, err := url.ParseRequestURI(r.ReadmoreURL)
 		if err != nil {
-			return errors.New("readmore_url link is invalid")
+			return errors.Errorf("readmore_url: %s is invalid", r.ReadmoreURL)
 		}
 	}
 

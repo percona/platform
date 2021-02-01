@@ -38,7 +38,8 @@ def check_context(rows, context):
         if expected and expected != actual:
             results.append({
                 "summary": "MySQL is not secured",
-                "description": "expected {} to be {}, got {}".format(name, expected, actual),
+				"description": "expected {} to be {}, got {}".format(name, expected, actual),
+				"readmore_url": "https://www.percona.com",
                 "severity": "warning",
                 "labels": {
                     name: actual,
@@ -80,6 +81,7 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
+			ReadmoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
@@ -100,11 +102,13 @@ def check_context(rows, context):
 		expected := []check.Result{{
 			Summary:     "MySQL is not secured",
 			Description: "expected have_ssl to be YES, got NO",
+			ReadmoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_ssl": "NO"},
 		}, {
 			Summary:     "MySQL is not secured",
 			Description: "expected have_openssl to be YES, got NO",
+			ReadmoreURL: "https://www.percona.com",
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
