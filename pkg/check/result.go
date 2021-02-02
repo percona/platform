@@ -17,7 +17,7 @@ type Result struct {
 	Labels      map[string]string `json:"labels"`        // optional
 }
 
-// Validate validates check result fields.
+// Validate checks result fields for emptiness/correctness.
 func (r *Result) Validate() error {
 	if r.Summary == "" {
 		return errors.New("summary is empty")
