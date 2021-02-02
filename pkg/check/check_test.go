@@ -622,9 +622,9 @@ func TestCheck_ResultValidate(t *testing.T) {
 			errStr: "summary is empty",
 		},
 		{
-			name:   "invalid_readmore_url",
+			name:   "invalid_read_more_url",
 			result: &Result{Severity: common.Notice, Summary: "some text", ReadMoreURL: "percona.com"},
-			errStr: "readmore_url: percona.com is invalid",
+			errStr: "read_more_url: percona.com is invalid",
 		},
 	}
 
