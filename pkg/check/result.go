@@ -12,7 +12,7 @@ import (
 type Result struct {
 	Summary     string            `json:"summary"`       // required
 	Description string            `json:"description"`   // optional
-	ReadMoreURL string            `yaml:"read_more_url"` // optional
+	ReadMoreURL string            `json:"read_more_url"` // optional
 	Severity    common.Severity   `json:"severity"`      // required
 	Labels      map[string]string `json:"labels"`        // optional
 }
@@ -26,7 +26,7 @@ func (r *Result) Validate() error {
 	if r.ReadMoreURL != "" {
 		_, err := url.ParseRequestURI(r.ReadMoreURL)
 		if err != nil {
-			return errors.Errorf("readmore_url: %s is invalid", r.ReadMoreURL)
+			return errors.Errorf("read_more_url: %s is invalid", r.ReadMoreURL)
 		}
 	}
 

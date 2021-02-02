@@ -234,7 +234,7 @@ func convertResult(m map[string]interface{}) (*check.Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	readmoreURL, err := getField(m, "readmore_url")
+	readmoreURL, err := getField(m, "read_more_url")
 	if err != nil {
 		return nil, err
 	}

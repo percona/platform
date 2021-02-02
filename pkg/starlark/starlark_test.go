@@ -39,7 +39,7 @@ def check_context(rows, context):
             results.append({
                 "summary": "MySQL is not secured",
 				"description": "expected {} to be {}, got {}".format(name, expected, actual),
-				"readmore_url": "https://www.percona.com",
+				"read_more_url": "https://www.percona.com",
                 "severity": "warning",
                 "labels": {
                     name: actual,
