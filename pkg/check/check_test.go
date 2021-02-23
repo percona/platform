@@ -434,11 +434,12 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Summary:     "Test Check",
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
+				Interval:    Interval("unknown"),
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
 			},
-			errStr: "",
+			errStr: "unknown check interval: unknown",
 		}, {
 			name: "empty_tier",
 			check: &Check{
