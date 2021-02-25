@@ -274,8 +274,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "mysql_select",
 			check: &Check{
 				Version:     1,
@@ -288,8 +287,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "postgresql_show",
 			check: &Check{
 				Version:     1,
@@ -302,8 +300,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "postgresql_select",
 			check: &Check{
 				Version:     1,
@@ -316,8 +313,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "mongodb_get_parameter",
 			check: &Check{
 				Version:     1,
@@ -329,8 +325,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "mongodb_build_info",
 			check: &Check{
 				Version:     1,
@@ -342,8 +337,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "mongodb_get_cmd_line_opts",
 			check: &Check{
 				Version:     1,
@@ -355,8 +349,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "clickhouse_show",
 			check: &Check{
 				Version:     1,
@@ -369,8 +362,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
-		},
-		{
+		}, {
 			name: "empty_version",
 			check: &Check{
 				Summary:     "Test Check",
@@ -381,8 +373,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "unexpected version 0",
-		},
-		{
+		}, {
 			name: "empty_name",
 			check: &Check{
 				Version:     1,
@@ -394,8 +385,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "invalid check name",
-		},
-		{
+		}, {
 			name: "invalid_name",
 			check: &Check{
 				Version:     1,
@@ -408,8 +398,49 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "invalid check name",
-		},
-		{
+		}, {
+			name: "normal interval",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Interval:    Standard,
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "empty interval",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Interval:    "",
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "unknown interval",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Interval:    Interval("unknown"),
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "unknown check interval: unknown",
+		}, {
 			name: "empty_tier",
 			check: &Check{
 				Version:     1,
@@ -421,8 +452,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		},
-		{
+		}, {
 			name: "invalid_tier",
 			check: &Check{
 				Version:     1,
@@ -435,8 +465,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "unknown check tier: \"invalid\"",
-		},
-		{
+		}, {
 			name: "empty_type",
 			check: &Check{
 				Version:     1,
@@ -449,8 +478,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "check type is empty",
-		},
-		{
+		}, {
 			name: "empty_query",
 			check: &Check{
 				Version:     1,
@@ -463,8 +491,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "check query is empty",
-		},
-		{
+		}, {
 			name: "non_empty_query_for_postgresql_show",
 			check: &Check{
 				Version:     1,
@@ -477,8 +504,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "POSTGRESQL_SHOW check type should have empty query",
-		},
-		{
+		}, {
 			name: "non_empty_query_for_mongodb_get_parameter",
 			check: &Check{
 				Version:     1,
@@ -491,8 +517,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_GETPARAMETER check type should have empty query",
-		},
-		{
+		}, {
 			name: "non_empty_query_for_mongodb_build_info",
 			check: &Check{
 				Version:     1,
@@ -505,8 +530,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_BUILDINFO check type should have empty query",
-		},
-		{
+		}, {
 			name: "non_empty_query_for_mongodb_get_cmd_line_opts",
 			check: &Check{
 				Version:     1,
@@ -519,8 +543,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_GETCMDLINEOPTS check type should have empty query",
-		},
-		{
+		}, {
 			name: "empty_script",
 			check: &Check{
 				Version:     1,
@@ -533,8 +556,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "",
 			},
 			errStr: "check script is empty",
-		},
-		{
+		}, {
 			name: "empty_summary",
 			check: &Check{
 				Version:     1,
@@ -547,8 +569,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "summary is empty",
-		},
-		{
+		}, {
 			name: "empty_summary",
 			check: &Check{
 				Version:     1,
@@ -561,8 +582,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "description is empty",
-		},
-		{
+		}, {
 			name: "script_with_tabs",
 			check: &Check{
 				Version:     1,
