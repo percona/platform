@@ -217,6 +217,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fauth_5fapi_2eproto::off
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignUpRequest, email_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignUpRequest, password_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignUpRequest, first_name_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignUpRequest, last_name_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignUpResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -272,15 +274,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fauth_5fapi_2eproto::off
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::auth::v1::SignUpRequest)},
-  { 7, -1, sizeof(::percona::platform::auth::v1::SignUpResponse)},
-  { 12, -1, sizeof(::percona::platform::auth::v1::SignInRequest)},
-  { 19, -1, sizeof(::percona::platform::auth::v1::SignInResponse)},
-  { 26, -1, sizeof(::percona::platform::auth::v1::SignOutRequest)},
-  { 31, -1, sizeof(::percona::platform::auth::v1::SignOutResponse)},
-  { 36, -1, sizeof(::percona::platform::auth::v1::RefreshSessionRequest)},
-  { 41, -1, sizeof(::percona::platform::auth::v1::RefreshSessionResponse)},
-  { 48, -1, sizeof(::percona::platform::auth::v1::ResetPasswordRequest)},
-  { 54, -1, sizeof(::percona::platform::auth::v1::ResetPasswordResponse)},
+  { 9, -1, sizeof(::percona::platform::auth::v1::SignUpResponse)},
+  { 14, -1, sizeof(::percona::platform::auth::v1::SignInRequest)},
+  { 21, -1, sizeof(::percona::platform::auth::v1::SignInResponse)},
+  { 28, -1, sizeof(::percona::platform::auth::v1::SignOutRequest)},
+  { 33, -1, sizeof(::percona::platform::auth::v1::SignOutResponse)},
+  { 38, -1, sizeof(::percona::platform::auth::v1::RefreshSessionRequest)},
+  { 43, -1, sizeof(::percona::platform::auth::v1::RefreshSessionResponse)},
+  { 50, -1, sizeof(::percona::platform::auth::v1::ResetPasswordRequest)},
+  { 56, -1, sizeof(::percona::platform::auth::v1::ResetPasswordResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -300,32 +302,33 @@ const char descriptor_table_protodef_auth_2fauth_5fapi_2eproto[] PROTOBUF_SECTIO
   "\n\023auth/auth_api.proto\022\030percona.platform."
   "auth.v1\0326github.com/mwitkow/go-proto-val"
   "idators/validator.proto\032\037google/protobuf"
-  "/timestamp.proto\"@\n\rSignUpRequest\022\025\n\005ema"
-  "il\030\001 \001(\tB\006\342\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002"
-  "X\001\"\020\n\016SignUpResponse\"@\n\rSignInRequest\022\025\n"
-  "\005email\030\001 \001(\tB\006\342\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006"
-  "\342\337\037\002X\001\"U\n\016SignInResponse\022\022\n\nsession_id\030\001"
-  " \001(\t\022/\n\013expire_time\030\002 \001(\0132\032.google.proto"
-  "buf.Timestamp\"\020\n\016SignOutRequest\"\021\n\017SignO"
-  "utResponse\"\027\n\025RefreshSessionRequest\"X\n\026R"
-  "efreshSessionResponse\022/\n\013expire_time\030\001 \001"
-  "(\0132\032.google.protobuf.Timestamp\022\r\n\005email\030"
-  "\002 \001(\t\"-\n\024ResetPasswordRequest\022\025\n\005email\030\001"
-  " \001(\tB\006\342\337\037\002X\001\"\027\n\025ResetPasswordResponse2\212\004"
-  "\n\007AuthAPI\022[\n\006SignUp\022\'.percona.platform.a"
-  "uth.v1.SignUpRequest\032(.percona.platform."
-  "auth.v1.SignUpResponse\022[\n\006SignIn\022\'.perco"
-  "na.platform.auth.v1.SignInRequest\032(.perc"
-  "ona.platform.auth.v1.SignInResponse\022^\n\007S"
-  "ignOut\022(.percona.platform.auth.v1.SignOu"
-  "tRequest\032).percona.platform.auth.v1.Sign"
-  "OutResponse\022s\n\016RefreshSession\022/.percona."
-  "platform.auth.v1.RefreshSessionRequest\0320"
-  ".percona.platform.auth.v1.RefreshSession"
-  "Response\022p\n\rResetPassword\022..percona.plat"
-  "form.auth.v1.ResetPasswordRequest\032/.perc"
-  "ona.platform.auth.v1.ResetPasswordRespon"
-  "seB\rZ\013auth;authv1b\006proto3"
+  "/timestamp.proto\"c\n\rSignUpRequest\022\025\n\005ema"
+  "il\030\001 \001(\tB\006\342\337\037\002X\001\022\024\n\010password\030\002 \001(\tB\002\030\001\022\022"
+  "\n\nfirst_name\030\003 \001(\t\022\021\n\tlast_name\030\004 \001(\t\"\020\n"
+  "\016SignUpResponse\"@\n\rSignInRequest\022\025\n\005emai"
+  "l\030\001 \001(\tB\006\342\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002X"
+  "\001\"U\n\016SignInResponse\022\022\n\nsession_id\030\001 \001(\t\022"
+  "/\n\013expire_time\030\002 \001(\0132\032.google.protobuf.T"
+  "imestamp\"\020\n\016SignOutRequest\"\021\n\017SignOutRes"
+  "ponse\"\027\n\025RefreshSessionRequest\"X\n\026Refres"
+  "hSessionResponse\022/\n\013expire_time\030\001 \001(\0132\032."
+  "google.protobuf.Timestamp\022\r\n\005email\030\002 \001(\t"
+  "\"-\n\024ResetPasswordRequest\022\025\n\005email\030\001 \001(\tB"
+  "\006\342\337\037\002X\001\"\027\n\025ResetPasswordResponse2\212\004\n\007Aut"
+  "hAPI\022[\n\006SignUp\022\'.percona.platform.auth.v"
+  "1.SignUpRequest\032(.percona.platform.auth."
+  "v1.SignUpResponse\022[\n\006SignIn\022\'.percona.pl"
+  "atform.auth.v1.SignInRequest\032(.percona.p"
+  "latform.auth.v1.SignInResponse\022^\n\007SignOu"
+  "t\022(.percona.platform.auth.v1.SignOutRequ"
+  "est\032).percona.platform.auth.v1.SignOutRe"
+  "sponse\022s\n\016RefreshSession\022/.percona.platf"
+  "orm.auth.v1.RefreshSessionRequest\0320.perc"
+  "ona.platform.auth.v1.RefreshSessionRespo"
+  "nse\022p\n\rResetPassword\022..percona.platform."
+  "auth.v1.ResetPasswordRequest\032/.percona.p"
+  "latform.auth.v1.ResetPasswordResponseB\rZ"
+  "\013auth;authv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fauth_5fapi_2eproto_deps[2] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -345,7 +348,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_aut
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fauth_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fauth_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 1145,
+  false, false, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 1180,
   &descriptor_table_auth_2fauth_5fapi_2eproto_once, descriptor_table_auth_2fauth_5fapi_2eproto_sccs, descriptor_table_auth_2fauth_5fapi_2eproto_deps, 10, 2,
   schemas, file_default_instances, TableStruct_auth_2fauth_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fauth_5fapi_2eproto, 10, file_level_enum_descriptors_auth_2fauth_5fapi_2eproto, file_level_service_descriptors_auth_2fauth_5fapi_2eproto,
@@ -385,6 +388,16 @@ SignUpRequest::SignUpRequest(const SignUpRequest& from)
     password_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_password(),
       GetArena());
   }
+  first_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_first_name().empty()) {
+    first_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_first_name(),
+      GetArena());
+  }
+  last_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_last_name().empty()) {
+    last_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_last_name(),
+      GetArena());
+  }
   // @@protoc_insertion_point(copy_constructor:percona.platform.auth.v1.SignUpRequest)
 }
 
@@ -392,6 +405,8 @@ void SignUpRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SignUpRequest_auth_2fauth_5fapi_2eproto.base);
   email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  first_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  last_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 SignUpRequest::~SignUpRequest() {
@@ -404,6 +419,8 @@ void SignUpRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  first_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  last_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void SignUpRequest::ArenaDtor(void* object) {
@@ -429,6 +446,8 @@ void SignUpRequest::Clear() {
 
   email_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   password_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  first_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  last_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -449,12 +468,30 @@ const char* SignUpRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string password = 2 [(.validator.field) = {
+      // string password = 2 [deprecated = true];
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_password();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.v1.SignUpRequest.password"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string first_name = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_first_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.v1.SignUpRequest.first_name"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string last_name = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          auto str = _internal_mutable_last_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.v1.SignUpRequest.last_name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -496,7 +533,7 @@ failure:
         1, this->_internal_email(), target);
   }
 
-  // string password = 2 [(.validator.field) = {
+  // string password = 2 [deprecated = true];
   if (this->password().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
@@ -504,6 +541,26 @@ failure:
       "percona.platform.auth.v1.SignUpRequest.password");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_password(), target);
+  }
+
+  // string first_name = 3;
+  if (this->first_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_first_name().data(), static_cast<int>(this->_internal_first_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.auth.v1.SignUpRequest.first_name");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_first_name(), target);
+  }
+
+  // string last_name = 4;
+  if (this->last_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_last_name().data(), static_cast<int>(this->_internal_last_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.auth.v1.SignUpRequest.last_name");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_last_name(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -529,11 +586,25 @@ size_t SignUpRequest::ByteSizeLong() const {
         this->_internal_email());
   }
 
-  // string password = 2 [(.validator.field) = {
+  // string password = 2 [deprecated = true];
   if (this->password().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_password());
+  }
+
+  // string first_name = 3;
+  if (this->first_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_first_name());
+  }
+
+  // string last_name = 4;
+  if (this->last_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_last_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -573,6 +644,12 @@ void SignUpRequest::MergeFrom(const SignUpRequest& from) {
   if (from.password().size() > 0) {
     _internal_set_password(from._internal_password());
   }
+  if (from.first_name().size() > 0) {
+    _internal_set_first_name(from._internal_first_name());
+  }
+  if (from.last_name().size() > 0) {
+    _internal_set_last_name(from._internal_last_name());
+  }
 }
 
 void SignUpRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -598,6 +675,8 @@ void SignUpRequest::InternalSwap(SignUpRequest* other) {
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   email_.Swap(&other->email_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  first_name_.Swap(&other->first_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  last_name_.Swap(&other->last_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SignUpRequest::GetMetadata() const {
