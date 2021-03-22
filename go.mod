@@ -12,11 +12,11 @@ require (
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/percona/promconfig v0.2.1
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.9.0
+	github.com/prometheus/client_golang v1.10.0
 	github.com/stretchr/testify v1.7.0
 	go.starlark.net v0.0.0-20201210151846-e81fc95f7bd5
 	go.uber.org/zap v1.16.0
-	golang.org/x/sys v0.0.0-20201223074533-0d417f636930
+	golang.org/x/sys v0.0.0-20210309074719-68d13333faf2
 	google.golang.org/grpc v1.35.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
