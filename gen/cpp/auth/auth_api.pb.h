@@ -228,6 +228,8 @@ class SignUpRequest PROTOBUF_FINAL :
   enum : int {
     kEmailFieldNumber = 1,
     kPasswordFieldNumber = 2,
+    kFirstNameFieldNumber = 3,
+    kLastNameFieldNumber = 4,
   };
   // string email = 1 [(.validator.field) = {
   void clear_email();
@@ -245,20 +247,52 @@ class SignUpRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_email();
   public:
 
-  // string password = 2 [(.validator.field) = {
-  void clear_password();
-  const std::string& password() const;
-  void set_password(const std::string& value);
-  void set_password(std::string&& value);
-  void set_password(const char* value);
-  void set_password(const char* value, size_t size);
-  std::string* mutable_password();
-  std::string* release_password();
-  void set_allocated_password(std::string* password);
+  // string password = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_password();
+  PROTOBUF_DEPRECATED const std::string& password() const;
+  PROTOBUF_DEPRECATED void set_password(const std::string& value);
+  PROTOBUF_DEPRECATED void set_password(std::string&& value);
+  PROTOBUF_DEPRECATED void set_password(const char* value);
+  PROTOBUF_DEPRECATED void set_password(const char* value, size_t size);
+  PROTOBUF_DEPRECATED std::string* mutable_password();
+  PROTOBUF_DEPRECATED std::string* release_password();
+  PROTOBUF_DEPRECATED void set_allocated_password(std::string* password);
   private:
   const std::string& _internal_password() const;
   void _internal_set_password(const std::string& value);
   std::string* _internal_mutable_password();
+  public:
+
+  // string first_name = 3;
+  void clear_first_name();
+  const std::string& first_name() const;
+  void set_first_name(const std::string& value);
+  void set_first_name(std::string&& value);
+  void set_first_name(const char* value);
+  void set_first_name(const char* value, size_t size);
+  std::string* mutable_first_name();
+  std::string* release_first_name();
+  void set_allocated_first_name(std::string* first_name);
+  private:
+  const std::string& _internal_first_name() const;
+  void _internal_set_first_name(const std::string& value);
+  std::string* _internal_mutable_first_name();
+  public:
+
+  // string last_name = 4;
+  void clear_last_name();
+  const std::string& last_name() const;
+  void set_last_name(const std::string& value);
+  void set_last_name(std::string&& value);
+  void set_last_name(const char* value);
+  void set_last_name(const char* value, size_t size);
+  std::string* mutable_last_name();
+  std::string* release_last_name();
+  void set_allocated_last_name(std::string* last_name);
+  private:
+  const std::string& _internal_last_name() const;
+  void _internal_set_last_name(const std::string& value);
+  std::string* _internal_mutable_last_name();
   public:
 
   // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.SignUpRequest)
@@ -270,6 +304,8 @@ class SignUpRequest PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr first_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_name_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
 };
@@ -1600,7 +1636,7 @@ inline void SignUpRequest::set_allocated_email(std::string* email) {
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignUpRequest.email)
 }
 
-// string password = 2 [(.validator.field) = {
+// string password = 2 [deprecated = true];
 inline void SignUpRequest::clear_password() {
   password_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
@@ -1660,6 +1696,130 @@ inline void SignUpRequest::set_allocated_password(std::string* password) {
   password_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), password,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignUpRequest.password)
+}
+
+// string first_name = 3;
+inline void SignUpRequest::clear_first_name() {
+  first_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& SignUpRequest::first_name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.SignUpRequest.first_name)
+  return _internal_first_name();
+}
+inline void SignUpRequest::set_first_name(const std::string& value) {
+  _internal_set_first_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.SignUpRequest.first_name)
+}
+inline std::string* SignUpRequest::mutable_first_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.SignUpRequest.first_name)
+  return _internal_mutable_first_name();
+}
+inline const std::string& SignUpRequest::_internal_first_name() const {
+  return first_name_.Get();
+}
+inline void SignUpRequest::_internal_set_first_name(const std::string& value) {
+  
+  first_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void SignUpRequest::set_first_name(std::string&& value) {
+  
+  first_name_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.SignUpRequest.first_name)
+}
+inline void SignUpRequest::set_first_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  first_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.SignUpRequest.first_name)
+}
+inline void SignUpRequest::set_first_name(const char* value,
+    size_t size) {
+  
+  first_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.SignUpRequest.first_name)
+}
+inline std::string* SignUpRequest::_internal_mutable_first_name() {
+  
+  return first_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* SignUpRequest::release_first_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.SignUpRequest.first_name)
+  return first_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SignUpRequest::set_allocated_first_name(std::string* first_name) {
+  if (first_name != nullptr) {
+    
+  } else {
+    
+  }
+  first_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), first_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignUpRequest.first_name)
+}
+
+// string last_name = 4;
+inline void SignUpRequest::clear_last_name() {
+  last_name_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& SignUpRequest::last_name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.SignUpRequest.last_name)
+  return _internal_last_name();
+}
+inline void SignUpRequest::set_last_name(const std::string& value) {
+  _internal_set_last_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.SignUpRequest.last_name)
+}
+inline std::string* SignUpRequest::mutable_last_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.SignUpRequest.last_name)
+  return _internal_mutable_last_name();
+}
+inline const std::string& SignUpRequest::_internal_last_name() const {
+  return last_name_.Get();
+}
+inline void SignUpRequest::_internal_set_last_name(const std::string& value) {
+  
+  last_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void SignUpRequest::set_last_name(std::string&& value) {
+  
+  last_name_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.SignUpRequest.last_name)
+}
+inline void SignUpRequest::set_last_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  last_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.SignUpRequest.last_name)
+}
+inline void SignUpRequest::set_last_name(const char* value,
+    size_t size) {
+  
+  last_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.SignUpRequest.last_name)
+}
+inline std::string* SignUpRequest::_internal_mutable_last_name() {
+  
+  return last_name_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* SignUpRequest::release_last_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.SignUpRequest.last_name)
+  return last_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SignUpRequest::set_allocated_last_name(std::string* last_name) {
+  if (last_name != nullptr) {
+    
+  } else {
+    
+  }
+  last_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), last_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignUpRequest.last_name)
 }
 
 // -------------------------------------------------------------------
