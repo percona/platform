@@ -75,6 +75,7 @@ checks:
 		name, document := name, document
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
+
 			cs, err := Parse(bytes.NewReader([]byte(document)), params)
 			require.NoError(t, err)
 
@@ -675,12 +676,18 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 `
 
 func TestCheck_Verify(t *testing.T) {
+	t.Parallel()
+
 	t.Run("valid", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), publicKey, signature)
 		require.NoError(t, err)
 	})
 
 	t.Run("invalid signature", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+f3fHZa0kEB7ei+K9lW+W4hIf+INVALID+INVALID=
@@ -691,6 +698,8 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 	})
 
 	t.Run("invalid global signature", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
@@ -700,6 +709,8 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKP+INVALID+I
 	})
 
 	t.Run("invalid trusted comment", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
 RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
@@ -709,21 +720,29 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 	})
 
 	t.Run("invalid public key", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQ+INVALID+INVALID", signature)
 		assert.EqualError(t, err, "invalid signature")
 	})
 
 	t.Run("empty data", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify(nil, publicKey, signature)
 		assert.EqualError(t, err, "invalid signature")
 	})
 
 	t.Run("empty signature", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), publicKey, "")
 		assert.EqualError(t, err, "incomplete signature")
 	})
 
 	t.Run("empty key", func(t *testing.T) {
+		t.Parallel()
+
 		err := Verify([]byte(data), "", signature)
 		assert.EqualError(t, err, "invalid public key")
 	})

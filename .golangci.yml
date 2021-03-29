@@ -26,11 +26,14 @@ linters:
   enable-all: true
   disable:
     - exhaustivestruct # useless
+    - gci              # we gofumports
     - goerr113         # we use pkg/errors for stack traces
     - gomnd            # too annoying
     - interfacer       # useless
     - lll              # gRPC types are long
+    - maligned         # deprecated
     - nlreturn         # conflicts with formatter
+    - scopelint        # deprecated
     - wrapcheck        # forces to wrap errors everywhere
     - wsl              # too annoying
 
