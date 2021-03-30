@@ -359,11 +359,11 @@ print("hello from main")
 	require.NoError(t, err)
 
 	var buf bytes.Buffer
-	print := func(args ...interface{}) {
+	printFunc := func(args ...interface{}) {
 		_, _ = buf.WriteString(fmt.Sprintln(args...))
 	}
 
-	res, err := env.run("test1", nil, "id", print)
+	res, err := env.run("test1", nil, "id", printFunc)
 	require.NoError(t, err)
 	assert.Equal(t, starlark.None, res)
 

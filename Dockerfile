@@ -1,11 +1,11 @@
-FROM golang:1.16.0
+FROM golang:1.16.2
 
 RUN apt-get update
 RUN apt-get install -y aria2 unzip
 
 # must match version in prototool.yml file
-ENV PROTOBUF_VERSION=3.13.0
-ENV PROTOBUF_CHECKSUM=fbebe5e32db9edbb1bf7988af5fed471d22730104bc6ebd5066c5b4646a0949e49139382cae2605c7abc188ea53f73b044f688c264726009fc68cbbab6a98819
+ENV PROTOBUF_VERSION=3.15.6
+ENV PROTOBUF_CHECKSUM=1c7c98819985c3d5284bb9baf423cf701a678372a46f7a0fd7c48dee398847032c4727dd32713ad99517e63fe1fb59976b4f46ebc3b8bef0bc14d9a9180f4111
 
 # must match versions in tools/go.mod
 ENV GO_PROTO_VALIDATORS_VERSION=0.3.2
