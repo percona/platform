@@ -4,22 +4,25 @@ import (
 	"testing"
 	"time"
 
-	"github.com/golang/protobuf/ptypes"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/durationpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	pmmv1 "github.com/percona-platform/platform/gen/telemetry/events/pmm"
 	reporterv1 "github.com/percona-platform/platform/gen/telemetry/reporter"
 )
 
 func TestValidators(t *testing.T) {
+	t.Parallel()
+
 	id := uuid.New()
 	event := &pmmv1.ServerUptimeEvent{
 		Id:                 id[:],
 		Version:            "1.2.3",
-		UpDuration:         ptypes.DurationProto(42 * time.Second),
+		UpDuration:         durationpb.New(42 * time.Second),
 		DistributionMethod: pmmv1.DistributionMethod_DOCKER,
 	}
 	err := event.Validate()
@@ -33,7 +36,7 @@ func TestValidators(t *testing.T) {
 	req := &reporterv1.ReportRequest{
 		Events: []*reporterv1.Event{{
 			Id:   id[:],
-			Time: ptypes.TimestampNow(),
+			Time: timestamppb.Now(),
 			Event: &reporterv1.AnyEvent{
 				TypeUrl: string(event.ProtoReflect().Descriptor().FullName()),
 				Binary:  eventB,

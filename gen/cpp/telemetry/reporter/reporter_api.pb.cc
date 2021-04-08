@@ -14,54 +14,41 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_telemetry_2freporter_2fevent_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Event_telemetry_2freporter_2fevent_2eproto;
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace percona {
 namespace platform {
 namespace telemetry {
 namespace reporter {
 namespace v1 {
-class ReportRequestDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReportRequest> _instance;
-} _ReportRequest_default_instance_;
-class ReportResponseDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReportResponse> _instance;
-} _ReportResponse_default_instance_;
+constexpr ReportRequest::ReportRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : events_(){}
+struct ReportRequestDefaultTypeInternal {
+  constexpr ReportRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ReportRequestDefaultTypeInternal() {}
+  union {
+    ReportRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReportRequestDefaultTypeInternal _ReportRequest_default_instance_;
+constexpr ReportResponse::ReportResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct ReportResponseDefaultTypeInternal {
+  constexpr ReportResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ReportResponseDefaultTypeInternal() {}
+  union {
+    ReportResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReportResponseDefaultTypeInternal _ReportResponse_default_instance_;
 }  // namespace v1
 }  // namespace reporter
 }  // namespace telemetry
 }  // namespace platform
 }  // namespace percona
-static void InitDefaultsscc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::percona::platform::telemetry::reporter::v1::_ReportRequest_default_instance_;
-    new (ptr) ::percona::platform::telemetry::reporter::v1::ReportRequest();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::percona::platform::telemetry::reporter::v1::ReportRequest::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto}, {
-      &scc_info_Event_telemetry_2freporter_2fevent_2eproto.base,}};
-
-static void InitDefaultsscc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::percona::platform::telemetry::reporter::v1::_ReportResponse_default_instance_;
-    new (ptr) ::percona::platform::telemetry::reporter::v1::ReportResponse();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::percona::platform::telemetry::reporter::v1::ReportResponse::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto}, {}};
-
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto = nullptr;
@@ -107,20 +94,21 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
   &::descriptor_table_telemetry_2freporter_2fevent_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_sccs[2] = {
-  &scc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto.base,
-  &scc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto.base,
-};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto = {
-  false, false, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 451,
-  &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_sccs, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 2, 2,
+  false, false, 451, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 
+  &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2freporter_5fapi_2eproto::offsets,
-  file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, 2, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,
+  file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,
 };
+PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
+descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_metadata_getter(int index) {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto);
+  return descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto.file_level_metadata[index];
+}
 
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_telemetry_2freporter_2freporter_5fapi_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto)), true);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_telemetry_2freporter_2freporter_5fapi_2eproto(&descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto);
 namespace percona {
 namespace platform {
 namespace telemetry {
@@ -129,8 +117,6 @@ namespace v1 {
 
 // ===================================================================
 
-void ReportRequest::InitAsDefaultInstance() {
-}
 class ReportRequest::_Internal {
  public:
 };
@@ -153,7 +139,6 @@ ReportRequest::ReportRequest(const ReportRequest& from)
 }
 
 void ReportRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto.base);
 }
 
 ReportRequest::~ReportRequest() {
@@ -175,11 +160,6 @@ void ReportRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void ReportRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ReportRequest& ReportRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReportRequest_telemetry_2freporter_2freporter_5fapi_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void ReportRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.ReportRequest)
@@ -193,7 +173,6 @@ void ReportRequest::Clear() {
 
 const char* ReportRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -335,8 +314,6 @@ void ReportRequest::InternalSwap(ReportRequest* other) {
 
 // ===================================================================
 
-void ReportResponse::InitAsDefaultInstance() {
-}
 class ReportResponse::_Internal {
  public:
 };
@@ -375,11 +352,6 @@ void ReportResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void ReportResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ReportResponse& ReportResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReportResponse_telemetry_2freporter_2freporter_5fapi_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void ReportResponse::Clear() {
 // @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.ReportResponse)
@@ -392,7 +364,6 @@ void ReportResponse::Clear() {
 
 const char* ReportResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
