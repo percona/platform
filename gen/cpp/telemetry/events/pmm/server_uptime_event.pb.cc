@@ -14,36 +14,38 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-
-PROTOBUF_PRAGMA_INIT_SEG
+extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2fduration_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Duration_google_2fprotobuf_2fduration_2eproto;
 namespace percona {
 namespace platform {
 namespace telemetry {
 namespace events {
 namespace pmm {
 namespace v1 {
-constexpr ServerUptimeEvent::ServerUptimeEvent(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , up_duration_(nullptr)
-  , distribution_method_(0)
-{}
-struct ServerUptimeEventDefaultTypeInternal {
-  constexpr ServerUptimeEventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~ServerUptimeEventDefaultTypeInternal() {}
-  union {
-    ServerUptimeEvent _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ServerUptimeEventDefaultTypeInternal _ServerUptimeEvent_default_instance_;
+class ServerUptimeEventDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ServerUptimeEvent> _instance;
+} _ServerUptimeEvent_default_instance_;
 }  // namespace v1
 }  // namespace pmm
 }  // namespace events
 }  // namespace telemetry
 }  // namespace platform
 }  // namespace percona
+static void InitDefaultsscc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::percona::platform::telemetry::events::pmm::v1::_ServerUptimeEvent_default_instance_;
+    new (ptr) ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::percona::platform::telemetry::events::pmm::v1::ServerUptimeEvent::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto}, {
+      &scc_info_Duration_google_2fprotobuf_2fduration_2eproto.base,}};
+
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto[1];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = nullptr;
@@ -87,21 +89,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
   &::descriptor_table_google_2fprotobuf_2fduration_2eproto,
 };
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_sccs[1] = {
+  &scc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto.base,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = {
-  false, false, 525, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 
-  &descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_deps, 2, 1,
+  false, false, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 525,
+  &descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_sccs, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_deps, 1, 2,
   schemas, file_default_instances, TableStruct_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto::offsets,
-  file_level_metadata_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_enum_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_service_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto,
+  file_level_metadata_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, 1, file_level_enum_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_service_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
-descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_metadata_getter(int index) {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto);
-  return descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto.file_level_metadata[index];
-}
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto(&descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto);
+static bool dynamic_init_dummy_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace telemetry {
@@ -127,6 +127,10 @@ bool DistributionMethod_IsValid(int value) {
 
 // ===================================================================
 
+void ServerUptimeEvent::InitAsDefaultInstance() {
+  ::percona::platform::telemetry::events::pmm::v1::_ServerUptimeEvent_default_instance_._instance.get_mutable()->up_duration_ = const_cast< PROTOBUF_NAMESPACE_ID::Duration*>(
+      PROTOBUF_NAMESPACE_ID::Duration::internal_default_instance());
+}
 class ServerUptimeEvent::_Internal {
  public:
   static const PROTOBUF_NAMESPACE_ID::Duration& up_duration(const ServerUptimeEvent* msg);
@@ -153,12 +157,12 @@ ServerUptimeEvent::ServerUptimeEvent(const ServerUptimeEvent& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
+    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_id(),
       GetArena());
   }
   version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_version().empty()) {
-    version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version(), 
+    version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_version(),
       GetArena());
   }
   if (from._internal_has_up_duration()) {
@@ -171,12 +175,12 @@ ServerUptimeEvent::ServerUptimeEvent(const ServerUptimeEvent& from)
 }
 
 void ServerUptimeEvent::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&up_duration_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&distribution_method_) -
-    reinterpret_cast<char*>(&up_duration_)) + sizeof(distribution_method_));
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto.base);
+  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&up_duration_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&distribution_method_) -
+      reinterpret_cast<char*>(&up_duration_)) + sizeof(distribution_method_));
 }
 
 ServerUptimeEvent::~ServerUptimeEvent() {
@@ -201,6 +205,11 @@ void ServerUptimeEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void ServerUptimeEvent::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const ServerUptimeEvent& ServerUptimeEvent::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ServerUptimeEvent_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void ServerUptimeEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent)
@@ -208,8 +217,8 @@ void ServerUptimeEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  version_.ClearToEmpty();
+  id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  version_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   if (GetArena() == nullptr && up_duration_ != nullptr) {
     delete up_duration_;
   }
@@ -220,6 +229,7 @@ void ServerUptimeEvent::Clear() {
 
 const char* ServerUptimeEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);

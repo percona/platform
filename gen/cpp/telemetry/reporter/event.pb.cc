@@ -14,46 +14,56 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-
-PROTOBUF_PRAGMA_INIT_SEG
+extern PROTOBUF_INTERNAL_EXPORT_google_2fprotobuf_2ftimestamp_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_telemetry_2freporter_2fevent_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto;
 namespace percona {
 namespace platform {
 namespace telemetry {
 namespace reporter {
 namespace v1 {
-constexpr AnyEvent::AnyEvent(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : type_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , binary_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , json_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct AnyEventDefaultTypeInternal {
-  constexpr AnyEventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~AnyEventDefaultTypeInternal() {}
-  union {
-    AnyEvent _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AnyEventDefaultTypeInternal _AnyEvent_default_instance_;
-constexpr Event::Event(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , time_(nullptr)
-  , event_(nullptr){}
-struct EventDefaultTypeInternal {
-  constexpr EventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~EventDefaultTypeInternal() {}
-  union {
-    Event _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EventDefaultTypeInternal _Event_default_instance_;
+class AnyEventDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AnyEvent> _instance;
+} _AnyEvent_default_instance_;
+class EventDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Event> _instance;
+} _Event_default_instance_;
 }  // namespace v1
 }  // namespace reporter
 }  // namespace telemetry
 }  // namespace platform
 }  // namespace percona
+static void InitDefaultsscc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::percona::platform::telemetry::reporter::v1::_AnyEvent_default_instance_;
+    new (ptr) ::percona::platform::telemetry::reporter::v1::AnyEvent();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::percona::platform::telemetry::reporter::v1::AnyEvent::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto}, {}};
+
+static void InitDefaultsscc_info_Event_telemetry_2freporter_2fevent_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::percona::platform::telemetry::reporter::v1::_Event_default_instance_;
+    new (ptr) ::percona::platform::telemetry::reporter::v1::Event();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::percona::platform::telemetry::reporter::v1::Event::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Event_telemetry_2freporter_2fevent_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Event_telemetry_2freporter_2fevent_2eproto}, {
+      &scc_info_Timestamp_google_2fprotobuf_2ftimestamp_2eproto.base,
+      &scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto.base,}};
+
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_telemetry_2freporter_2fevent_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_telemetry_2freporter_2fevent_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_telemetry_2freporter_2fevent_2eproto = nullptr;
@@ -105,21 +115,20 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_telemetry_2freporter_2fevent_2eproto_sccs[2] = {
+  &scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto.base,
+  &scc_info_Event_telemetry_2freporter_2fevent_2eproto.base,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2fevent_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2fevent_2eproto = {
-  false, false, 481, descriptor_table_protodef_telemetry_2freporter_2fevent_2eproto, "telemetry/reporter/event.proto", 
-  &descriptor_table_telemetry_2freporter_2fevent_2eproto_once, descriptor_table_telemetry_2freporter_2fevent_2eproto_deps, 2, 2,
+  false, false, descriptor_table_protodef_telemetry_2freporter_2fevent_2eproto, "telemetry/reporter/event.proto", 481,
+  &descriptor_table_telemetry_2freporter_2fevent_2eproto_once, descriptor_table_telemetry_2freporter_2fevent_2eproto_sccs, descriptor_table_telemetry_2freporter_2fevent_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2fevent_2eproto::offsets,
-  file_level_metadata_telemetry_2freporter_2fevent_2eproto, file_level_enum_descriptors_telemetry_2freporter_2fevent_2eproto, file_level_service_descriptors_telemetry_2freporter_2fevent_2eproto,
+  file_level_metadata_telemetry_2freporter_2fevent_2eproto, 2, file_level_enum_descriptors_telemetry_2freporter_2fevent_2eproto, file_level_service_descriptors_telemetry_2freporter_2fevent_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK ::PROTOBUF_NAMESPACE_ID::Metadata
-descriptor_table_telemetry_2freporter_2fevent_2eproto_metadata_getter(int index) {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_telemetry_2freporter_2fevent_2eproto);
-  return descriptor_table_telemetry_2freporter_2fevent_2eproto.file_level_metadata[index];
-}
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_telemetry_2freporter_2fevent_2eproto(&descriptor_table_telemetry_2freporter_2fevent_2eproto);
+static bool dynamic_init_dummy_telemetry_2freporter_2fevent_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_telemetry_2freporter_2fevent_2eproto)), true);
 namespace percona {
 namespace platform {
 namespace telemetry {
@@ -128,6 +137,8 @@ namespace v1 {
 
 // ===================================================================
 
+void AnyEvent::InitAsDefaultInstance() {
+}
 class AnyEvent::_Internal {
  public:
 };
@@ -143,26 +154,27 @@ AnyEvent::AnyEvent(const AnyEvent& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   type_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_type_url().empty()) {
-    type_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_type_url(), 
+    type_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_type_url(),
       GetArena());
   }
   binary_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_binary().empty()) {
-    binary_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_binary(), 
+    binary_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_binary(),
       GetArena());
   }
   json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_json().empty()) {
-    json_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_json(), 
+    json_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_json(),
       GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.AnyEvent)
 }
 
 void AnyEvent::SharedCtor() {
-type_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-binary_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto.base);
+  type_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  binary_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 AnyEvent::~AnyEvent() {
@@ -187,6 +199,11 @@ void AnyEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void AnyEvent::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const AnyEvent& AnyEvent::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AnyEvent_telemetry_2freporter_2fevent_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void AnyEvent::Clear() {
 // @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.AnyEvent)
@@ -194,14 +211,15 @@ void AnyEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  type_url_.ClearToEmpty();
-  binary_.ClearToEmpty();
-  json_.ClearToEmpty();
+  type_url_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  binary_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  json_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* AnyEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
@@ -399,6 +417,12 @@ void AnyEvent::InternalSwap(AnyEvent* other) {
 
 // ===================================================================
 
+void Event::InitAsDefaultInstance() {
+  ::percona::platform::telemetry::reporter::v1::_Event_default_instance_._instance.get_mutable()->time_ = const_cast< PROTOBUF_NAMESPACE_ID::Timestamp*>(
+      PROTOBUF_NAMESPACE_ID::Timestamp::internal_default_instance());
+  ::percona::platform::telemetry::reporter::v1::_Event_default_instance_._instance.get_mutable()->event_ = const_cast< ::percona::platform::telemetry::reporter::v1::AnyEvent*>(
+      ::percona::platform::telemetry::reporter::v1::AnyEvent::internal_default_instance());
+}
 class Event::_Internal {
  public:
   static const PROTOBUF_NAMESPACE_ID::Timestamp& time(const Event* msg);
@@ -430,7 +454,7 @@ Event::Event(const Event& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
+    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_id(),
       GetArena());
   }
   if (from._internal_has_time()) {
@@ -447,11 +471,11 @@ Event::Event(const Event& from)
 }
 
 void Event::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&time_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&event_) -
-    reinterpret_cast<char*>(&time_)) + sizeof(event_));
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Event_telemetry_2freporter_2fevent_2eproto.base);
+  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&time_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&event_) -
+      reinterpret_cast<char*>(&time_)) + sizeof(event_));
 }
 
 Event::~Event() {
@@ -476,6 +500,11 @@ void Event::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void Event::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+const Event& Event::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Event_telemetry_2freporter_2fevent_2eproto.base);
+  return *internal_default_instance();
+}
+
 
 void Event::Clear() {
 // @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.Event)
@@ -483,7 +512,7 @@ void Event::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
+  id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   if (GetArena() == nullptr && time_ != nullptr) {
     delete time_;
   }
@@ -497,6 +526,7 @@ void Event::Clear() {
 
 const char* Event::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
