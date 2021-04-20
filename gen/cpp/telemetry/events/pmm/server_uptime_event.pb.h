@@ -34,6 +34,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "github.com/mwitkow/go-proto-validators/validator.pb.h"
 #include <google/protobuf/duration.pb.h>
+#include <google/protobuf/wrappers.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto
@@ -227,6 +228,8 @@ class ServerUptimeEvent PROTOBUF_FINAL :
     kIdFieldNumber = 1,
     kVersionFieldNumber = 2,
     kUpDurationFieldNumber = 3,
+    kSttEnabledFieldNumber = 5,
+    kIaEnabledFieldNumber = 6,
     kDistributionMethodFieldNumber = 4,
   };
   // bytes id = 1 [(.validator.field) = {
@@ -279,6 +282,42 @@ class ServerUptimeEvent PROTOBUF_FINAL :
       PROTOBUF_NAMESPACE_ID::Duration* up_duration);
   PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_up_duration();
 
+  // .google.protobuf.BoolValue stt_enabled = 5;
+  bool has_stt_enabled() const;
+  private:
+  bool _internal_has_stt_enabled() const;
+  public:
+  void clear_stt_enabled();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& stt_enabled() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_stt_enabled();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_stt_enabled();
+  void set_allocated_stt_enabled(PROTOBUF_NAMESPACE_ID::BoolValue* stt_enabled);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_stt_enabled() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_stt_enabled();
+  public:
+  void unsafe_arena_set_allocated_stt_enabled(
+      PROTOBUF_NAMESPACE_ID::BoolValue* stt_enabled);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_stt_enabled();
+
+  // .google.protobuf.BoolValue ia_enabled = 6;
+  bool has_ia_enabled() const;
+  private:
+  bool _internal_has_ia_enabled() const;
+  public:
+  void clear_ia_enabled();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& ia_enabled() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_ia_enabled();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_ia_enabled();
+  void set_allocated_ia_enabled(PROTOBUF_NAMESPACE_ID::BoolValue* ia_enabled);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_ia_enabled() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_ia_enabled();
+  public:
+  void unsafe_arena_set_allocated_ia_enabled(
+      PROTOBUF_NAMESPACE_ID::BoolValue* ia_enabled);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_ia_enabled();
+
   // .percona.platform.telemetry.events.pmm.v1.DistributionMethod distribution_method = 4 [(.validator.field) = {
   void clear_distribution_method();
   ::percona::platform::telemetry::events::pmm::v1::DistributionMethod distribution_method() const;
@@ -298,6 +337,8 @@ class ServerUptimeEvent PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_;
   PROTOBUF_NAMESPACE_ID::Duration* up_duration_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* stt_enabled_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* ia_enabled_;
   int distribution_method_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto;
@@ -530,6 +571,160 @@ inline void ServerUptimeEvent::_internal_set_distribution_method(::percona::plat
 inline void ServerUptimeEvent::set_distribution_method(::percona::platform::telemetry::events::pmm::v1::DistributionMethod value) {
   _internal_set_distribution_method(value);
   // @@protoc_insertion_point(field_set:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.distribution_method)
+}
+
+// .google.protobuf.BoolValue stt_enabled = 5;
+inline bool ServerUptimeEvent::_internal_has_stt_enabled() const {
+  return this != internal_default_instance() && stt_enabled_ != nullptr;
+}
+inline bool ServerUptimeEvent::has_stt_enabled() const {
+  return _internal_has_stt_enabled();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& ServerUptimeEvent::_internal_stt_enabled() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = stt_enabled_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& ServerUptimeEvent::stt_enabled() const {
+  // @@protoc_insertion_point(field_get:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.stt_enabled)
+  return _internal_stt_enabled();
+}
+inline void ServerUptimeEvent::unsafe_arena_set_allocated_stt_enabled(
+    PROTOBUF_NAMESPACE_ID::BoolValue* stt_enabled) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(stt_enabled_);
+  }
+  stt_enabled_ = stt_enabled;
+  if (stt_enabled) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.stt_enabled)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::release_stt_enabled() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = stt_enabled_;
+  stt_enabled_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::unsafe_arena_release_stt_enabled() {
+  // @@protoc_insertion_point(field_release:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.stt_enabled)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = stt_enabled_;
+  stt_enabled_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::_internal_mutable_stt_enabled() {
+  
+  if (stt_enabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    stt_enabled_ = p;
+  }
+  return stt_enabled_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::mutable_stt_enabled() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.stt_enabled)
+  return _internal_mutable_stt_enabled();
+}
+inline void ServerUptimeEvent::set_allocated_stt_enabled(PROTOBUF_NAMESPACE_ID::BoolValue* stt_enabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(stt_enabled_);
+  }
+  if (stt_enabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(stt_enabled)->GetArena();
+    if (message_arena != submessage_arena) {
+      stt_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, stt_enabled, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  stt_enabled_ = stt_enabled;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.stt_enabled)
+}
+
+// .google.protobuf.BoolValue ia_enabled = 6;
+inline bool ServerUptimeEvent::_internal_has_ia_enabled() const {
+  return this != internal_default_instance() && ia_enabled_ != nullptr;
+}
+inline bool ServerUptimeEvent::has_ia_enabled() const {
+  return _internal_has_ia_enabled();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& ServerUptimeEvent::_internal_ia_enabled() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = ia_enabled_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& ServerUptimeEvent::ia_enabled() const {
+  // @@protoc_insertion_point(field_get:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.ia_enabled)
+  return _internal_ia_enabled();
+}
+inline void ServerUptimeEvent::unsafe_arena_set_allocated_ia_enabled(
+    PROTOBUF_NAMESPACE_ID::BoolValue* ia_enabled) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ia_enabled_);
+  }
+  ia_enabled_ = ia_enabled;
+  if (ia_enabled) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.ia_enabled)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::release_ia_enabled() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = ia_enabled_;
+  ia_enabled_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::unsafe_arena_release_ia_enabled() {
+  // @@protoc_insertion_point(field_release:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.ia_enabled)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = ia_enabled_;
+  ia_enabled_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::_internal_mutable_ia_enabled() {
+  
+  if (ia_enabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    ia_enabled_ = p;
+  }
+  return ia_enabled_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* ServerUptimeEvent::mutable_ia_enabled() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.ia_enabled)
+  return _internal_mutable_ia_enabled();
+}
+inline void ServerUptimeEvent::set_allocated_ia_enabled(PROTOBUF_NAMESPACE_ID::BoolValue* ia_enabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(ia_enabled_);
+  }
+  if (ia_enabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ia_enabled)->GetArena();
+    if (message_arena != submessage_arena) {
+      ia_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ia_enabled, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  ia_enabled_ = ia_enabled;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.ia_enabled)
 }
 
 #ifdef __GNUC__
