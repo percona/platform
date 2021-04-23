@@ -21,7 +21,7 @@ const (
 	platformRepo = "github.com/percona-platform/platform"
 	saasRepo     = "github.com/percona-platform/saas"
 	saasRoot     = "../saas"
-	saasUiRoot   = "../saas-ui/packages/platform-ui/src/core"
+	saasUiRoot   = "../saas-ui/src/core"
 )
 
 var generatedImportRe = regexp.MustCompile(`(?mi)[\n]^.*github_com_mwitkow.*$`)
