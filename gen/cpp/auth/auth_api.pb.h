@@ -48,7 +48,7 @@ struct TableStruct_auth_2fauth_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[14]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -96,6 +96,12 @@ extern SignUpRequestDefaultTypeInternal _SignUpRequest_default_instance_;
 class SignUpResponse;
 struct SignUpResponseDefaultTypeInternal;
 extern SignUpResponseDefaultTypeInternal _SignUpResponse_default_instance_;
+class UpdateProfileRequest;
+struct UpdateProfileRequestDefaultTypeInternal;
+extern UpdateProfileRequestDefaultTypeInternal _UpdateProfileRequest_default_instance_;
+class UpdateProfileResponse;
+struct UpdateProfileResponseDefaultTypeInternal;
+extern UpdateProfileResponseDefaultTypeInternal _UpdateProfileResponse_default_instance_;
 }  // namespace v1
 }  // namespace auth
 }  // namespace platform
@@ -113,6 +119,8 @@ template<> ::percona::platform::auth::v1::SignOutRequest* Arena::CreateMaybeMess
 template<> ::percona::platform::auth::v1::SignOutResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignOutResponse>(Arena*);
 template<> ::percona::platform::auth::v1::SignUpRequest* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignUpRequest>(Arena*);
 template<> ::percona::platform::auth::v1::SignUpResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::SignUpResponse>(Arena*);
+template<> ::percona::platform::auth::v1::UpdateProfileRequest* Arena::CreateMaybeMessage<::percona::platform::auth::v1::UpdateProfileRequest>(Arena*);
+template<> ::percona::platform::auth::v1::UpdateProfileResponse* Arena::CreateMaybeMessage<::percona::platform::auth::v1::UpdateProfileResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace percona {
 namespace platform {
@@ -1875,6 +1883,292 @@ class GetProfileResponse PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
 };
+// -------------------------------------------------------------------
+
+class UpdateProfileRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.v1.UpdateProfileRequest) */ {
+ public:
+  inline UpdateProfileRequest() : UpdateProfileRequest(nullptr) {}
+  virtual ~UpdateProfileRequest();
+  explicit constexpr UpdateProfileRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateProfileRequest(const UpdateProfileRequest& from);
+  UpdateProfileRequest(UpdateProfileRequest&& from) noexcept
+    : UpdateProfileRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateProfileRequest& operator=(const UpdateProfileRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateProfileRequest& operator=(UpdateProfileRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UpdateProfileRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateProfileRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateProfileRequest*>(
+               &_UpdateProfileRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(UpdateProfileRequest& a, UpdateProfileRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateProfileRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateProfileRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UpdateProfileRequest* New() const final {
+    return CreateMaybeMessage<UpdateProfileRequest>(nullptr);
+  }
+
+  UpdateProfileRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UpdateProfileRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UpdateProfileRequest& from);
+  void MergeFrom(const UpdateProfileRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateProfileRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.v1.UpdateProfileRequest";
+  }
+  protected:
+  explicit UpdateProfileRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_auth_2fauth_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFirstNameFieldNumber = 1,
+    kLastNameFieldNumber = 2,
+  };
+  // string first_name = 1 [(.validator.field) = {
+  void clear_first_name();
+  const std::string& first_name() const;
+  void set_first_name(const std::string& value);
+  void set_first_name(std::string&& value);
+  void set_first_name(const char* value);
+  void set_first_name(const char* value, size_t size);
+  std::string* mutable_first_name();
+  std::string* release_first_name();
+  void set_allocated_first_name(std::string* first_name);
+  private:
+  const std::string& _internal_first_name() const;
+  void _internal_set_first_name(const std::string& value);
+  std::string* _internal_mutable_first_name();
+  public:
+
+  // string last_name = 2 [(.validator.field) = {
+  void clear_last_name();
+  const std::string& last_name() const;
+  void set_last_name(const std::string& value);
+  void set_last_name(std::string&& value);
+  void set_last_name(const char* value);
+  void set_last_name(const char* value, size_t size);
+  std::string* mutable_last_name();
+  std::string* release_last_name();
+  void set_allocated_last_name(std::string* last_name);
+  private:
+  const std::string& _internal_last_name() const;
+  void _internal_set_last_name(const std::string& value);
+  std::string* _internal_mutable_last_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.UpdateProfileRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr first_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateProfileResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.auth.v1.UpdateProfileResponse) */ {
+ public:
+  inline UpdateProfileResponse() : UpdateProfileResponse(nullptr) {}
+  virtual ~UpdateProfileResponse();
+  explicit constexpr UpdateProfileResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateProfileResponse(const UpdateProfileResponse& from);
+  UpdateProfileResponse(UpdateProfileResponse&& from) noexcept
+    : UpdateProfileResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateProfileResponse& operator=(const UpdateProfileResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateProfileResponse& operator=(UpdateProfileResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UpdateProfileResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateProfileResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateProfileResponse*>(
+               &_UpdateProfileResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(UpdateProfileResponse& a, UpdateProfileResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateProfileResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateProfileResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UpdateProfileResponse* New() const final {
+    return CreateMaybeMessage<UpdateProfileResponse>(nullptr);
+  }
+
+  UpdateProfileResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UpdateProfileResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UpdateProfileResponse& from);
+  void MergeFrom(const UpdateProfileResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateProfileResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.auth.v1.UpdateProfileResponse";
+  }
+  protected:
+  explicit UpdateProfileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_auth_2fauth_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.UpdateProfileResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
+};
 // ===================================================================
 
 
@@ -2816,9 +3110,143 @@ inline void GetProfileResponse::set_allocated_last_name(std::string* last_name) 
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.GetProfileResponse.last_name)
 }
 
+// -------------------------------------------------------------------
+
+// UpdateProfileRequest
+
+// string first_name = 1 [(.validator.field) = {
+inline void UpdateProfileRequest::clear_first_name() {
+  first_name_.ClearToEmpty();
+}
+inline const std::string& UpdateProfileRequest::first_name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+  return _internal_first_name();
+}
+inline void UpdateProfileRequest::set_first_name(const std::string& value) {
+  _internal_set_first_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+}
+inline std::string* UpdateProfileRequest::mutable_first_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+  return _internal_mutable_first_name();
+}
+inline const std::string& UpdateProfileRequest::_internal_first_name() const {
+  return first_name_.Get();
+}
+inline void UpdateProfileRequest::_internal_set_first_name(const std::string& value) {
+  
+  first_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UpdateProfileRequest::set_first_name(std::string&& value) {
+  
+  first_name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+}
+inline void UpdateProfileRequest::set_first_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  first_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+}
+inline void UpdateProfileRequest::set_first_name(const char* value,
+    size_t size) {
+  
+  first_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+}
+inline std::string* UpdateProfileRequest::_internal_mutable_first_name() {
+  
+  return first_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UpdateProfileRequest::release_first_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+  return first_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UpdateProfileRequest::set_allocated_first_name(std::string* first_name) {
+  if (first_name != nullptr) {
+    
+  } else {
+    
+  }
+  first_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), first_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.UpdateProfileRequest.first_name)
+}
+
+// string last_name = 2 [(.validator.field) = {
+inline void UpdateProfileRequest::clear_last_name() {
+  last_name_.ClearToEmpty();
+}
+inline const std::string& UpdateProfileRequest::last_name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+  return _internal_last_name();
+}
+inline void UpdateProfileRequest::set_last_name(const std::string& value) {
+  _internal_set_last_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+}
+inline std::string* UpdateProfileRequest::mutable_last_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+  return _internal_mutable_last_name();
+}
+inline const std::string& UpdateProfileRequest::_internal_last_name() const {
+  return last_name_.Get();
+}
+inline void UpdateProfileRequest::_internal_set_last_name(const std::string& value) {
+  
+  last_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UpdateProfileRequest::set_last_name(std::string&& value) {
+  
+  last_name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+}
+inline void UpdateProfileRequest::set_last_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  last_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+}
+inline void UpdateProfileRequest::set_last_name(const char* value,
+    size_t size) {
+  
+  last_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+}
+inline std::string* UpdateProfileRequest::_internal_mutable_last_name() {
+  
+  return last_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UpdateProfileRequest::release_last_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+  return last_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UpdateProfileRequest::set_allocated_last_name(std::string* last_name) {
+  if (last_name != nullptr) {
+    
+  } else {
+    
+  }
+  last_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), last_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.UpdateProfileRequest.last_name)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateProfileResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
