@@ -19,6 +19,8 @@ var github_com_mwitkow_go$proto$validators_validator_pb = require('../../../gith
 goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 var google_protobuf_duration_pb = require('google-protobuf/google/protobuf/duration_pb.js');
 goog.object.extend(proto, google_protobuf_duration_pb);
+var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
+goog.object.extend(proto, google_protobuf_wrappers_pb);
 goog.exportSymbol('proto.percona.platform.telemetry.events.pmm.v1.DistributionMethod', null, global);
 goog.exportSymbol('proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent', null, global);
 /**
@@ -77,7 +79,9 @@ proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.toObject = func
     id: msg.getId_asB64(),
     version: jspb.Message.getFieldWithDefault(msg, 2, ""),
     upDuration: (f = msg.getUpDuration()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-    distributionMethod: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    distributionMethod: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    sttEnabled: (f = msg.getSttEnabled()) && google_protobuf_wrappers_pb.BoolValue.toObject(includeInstance, f),
+    iaEnabled: (f = msg.getIaEnabled()) && google_protobuf_wrappers_pb.BoolValue.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -130,6 +134,16 @@ proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.deserializeBina
     case 4:
       var value = /** @type {!proto.percona.platform.telemetry.events.pmm.v1.DistributionMethod} */ (reader.readEnum());
       msg.setDistributionMethod(value);
+      break;
+    case 5:
+      var value = new google_protobuf_wrappers_pb.BoolValue;
+      reader.readMessage(value,google_protobuf_wrappers_pb.BoolValue.deserializeBinaryFromReader);
+      msg.setSttEnabled(value);
+      break;
+    case 6:
+      var value = new google_protobuf_wrappers_pb.BoolValue;
+      reader.readMessage(value,google_protobuf_wrappers_pb.BoolValue.deserializeBinaryFromReader);
+      msg.setIaEnabled(value);
       break;
     default:
       reader.skipField();
@@ -187,6 +201,22 @@ proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.serializeBinary
     writer.writeEnum(
       4,
       f
+    );
+  }
+  f = message.getSttEnabled();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_wrappers_pb.BoolValue.serializeBinaryToWriter
+    );
+  }
+  f = message.getIaEnabled();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_wrappers_pb.BoolValue.serializeBinaryToWriter
     );
   }
 };
@@ -304,6 +334,80 @@ proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.getDi
  */
 proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.setDistributionMethod = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
+};
+
+
+/**
+ * optional google.protobuf.BoolValue stt_enabled = 5;
+ * @return {?proto.google.protobuf.BoolValue}
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.getSttEnabled = function() {
+  return /** @type{?proto.google.protobuf.BoolValue} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.BoolValue, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent} returns this
+*/
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.setSttEnabled = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent} returns this
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.clearSttEnabled = function() {
+  return this.setSttEnabled(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.hasSttEnabled = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional google.protobuf.BoolValue ia_enabled = 6;
+ * @return {?proto.google.protobuf.BoolValue}
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.getIaEnabled = function() {
+  return /** @type{?proto.google.protobuf.BoolValue} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.BoolValue, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.BoolValue|undefined} value
+ * @return {!proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent} returns this
+*/
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.setIaEnabled = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent} returns this
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.clearIaEnabled = function() {
+  return this.setIaEnabled(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.prototype.hasIaEnabled = function() {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 

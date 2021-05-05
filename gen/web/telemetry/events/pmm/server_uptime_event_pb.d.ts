@@ -2,6 +2,7 @@ import * as jspb from 'google-protobuf'
 
 import * as github_com_mwitkow_go$proto$validators_validator_pb from '../../../github.com/mwitkow/go-proto-validators/validator_pb';
 import * as google_protobuf_duration_pb from 'google-protobuf/google/protobuf/duration_pb';
+import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
 
 export class ServerUptimeEvent extends jspb.Message {
@@ -21,6 +22,16 @@ export class ServerUptimeEvent extends jspb.Message {
   getDistributionMethod(): DistributionMethod;
   setDistributionMethod(value: DistributionMethod): ServerUptimeEvent;
 
+  getSttEnabled(): google_protobuf_wrappers_pb.BoolValue | undefined;
+  setSttEnabled(value?: google_protobuf_wrappers_pb.BoolValue): ServerUptimeEvent;
+  hasSttEnabled(): boolean;
+  clearSttEnabled(): ServerUptimeEvent;
+
+  getIaEnabled(): google_protobuf_wrappers_pb.BoolValue | undefined;
+  setIaEnabled(value?: google_protobuf_wrappers_pb.BoolValue): ServerUptimeEvent;
+  hasIaEnabled(): boolean;
+  clearIaEnabled(): ServerUptimeEvent;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ServerUptimeEvent.AsObject;
   static toObject(includeInstance: boolean, msg: ServerUptimeEvent): ServerUptimeEvent.AsObject;
@@ -35,6 +46,8 @@ export namespace ServerUptimeEvent {
     version: string,
     upDuration?: google_protobuf_duration_pb.Duration.AsObject,
     distributionMethod: DistributionMethod,
+    sttEnabled?: google_protobuf_wrappers_pb.BoolValue.AsObject,
+    iaEnabled?: google_protobuf_wrappers_pb.BoolValue.AsObject,
   }
 }
 
