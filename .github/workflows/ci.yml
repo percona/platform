@@ -17,17 +17,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go-version:
-          - 1.15.x
-        os: [ubuntu-latest]
+        go-version: [1.16.x]
         may-fail: [false]
         include:
           - go-version: tip
-            os: ubuntu-latest
             may-fail: true
 
     continue-on-error: ${{ matrix.may-fail }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
 
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
@@ -89,7 +86,7 @@ jobs:
       - name: Download Go modules
         run: go mod download
 
-      - name: Install tools
+      - name: Install development tools
         run: make init
 
       - name: Initialize CI environment
@@ -139,18 +136,16 @@ jobs:
   check:
     name: Check
     timeout-minutes: 10
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request_target'
 
     strategy:
       fail-fast: false
       matrix:
-        go-version:
-          - 1.15.x
-        os: [ubuntu-latest]
+        go-version: [1.16.x]
         may-fail: [false]
 
     continue-on-error: ${{ matrix.may-fail }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
 
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
@@ -247,7 +242,7 @@ jobs:
     timeout-minutes: 10
     needs: test
     if: github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
       GOFLAGS: -mod=readonly
