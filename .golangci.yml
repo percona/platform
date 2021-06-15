@@ -25,11 +25,12 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - exhaustivestruct # useless
-    - gci              # we use gofumports
+    - exhaustivestruct # too annoying
+    - gci              # works poorly
     - goerr113         # we use pkg/errors for stack traces
+    - golint           # deprecated
     - gomnd            # too annoying
-    - interfacer       # useless
+    - interfacer       # deprecated
     - lll              # gRPC types are long
     - maligned         # deprecated
     - nlreturn         # conflicts with formatter

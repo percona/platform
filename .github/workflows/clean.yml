@@ -13,17 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        go-version:
-          - 1.15.x
-        os: [ubuntu-latest]
+        go-version: [1.16.x]
         may-fail: [false]
         include:
           - go-version: tip
-            os: ubuntu-latest
             may-fail: true
 
     continue-on-error: ${{ matrix.may-fail }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
 
     env:
       GOFLAGS: -mod=readonly
@@ -52,6 +49,8 @@ jobs:
 
       - name: Check out code into the Go module directory
         uses: percona-platform/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Enable Go modules cache
         uses: percona-platform/cache@v2
