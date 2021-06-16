@@ -15,7 +15,7 @@ require (
 	github.com/prometheus/client_golang v1.10.0
 	github.com/stretchr/testify v1.7.0
 	go.starlark.net v0.0.0-20210312235212-74c10e2c17dc
-	go.uber.org/zap v1.16.0
+	go.uber.org/zap v1.17.0
 	golang.org/x/sys v0.0.0-20210326220804-49726bf1d181
 	google.golang.org/grpc v1.36.1
 	google.golang.org/protobuf v1.26.0
