@@ -7,7 +7,7 @@ go 1.16
 require (
 	github.com/golang/protobuf v1.5.1
 	github.com/google/uuid v1.2.0
-	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/percona/promconfig v0.2.1
