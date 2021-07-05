@@ -11,10 +11,10 @@ import (
 	sync "sync"
 
 	proto "github.com/golang/protobuf/proto"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	_ "github.com/mwitkow/go-proto-validators"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 const (
@@ -110,7 +110,7 @@ type Event struct {
 	// Event UUID.
 	Id []byte `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// Time when this event was received by the sender.
-	Time *timestamp.Timestamp `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
+	Time *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
 	// Original event with a well-known type URL.
 	Event *AnyEvent `protobuf:"bytes,3,opt,name=event,proto3" json:"event,omitempty"`
 }
@@ -154,7 +154,7 @@ func (x *Event) GetId() []byte {
 	return nil
 }
 
-func (x *Event) GetTime() *timestamp.Timestamp {
+func (x *Event) GetTime() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Time
 	}
@@ -221,9 +221,9 @@ func file_telemetry_reporter_event_proto_rawDescGZIP() []byte {
 var (
 	file_telemetry_reporter_event_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 	file_telemetry_reporter_event_proto_goTypes  = []interface{}{
-		(*AnyEvent)(nil),            // 0: percona.platform.telemetry.reporter.v1.AnyEvent
-		(*Event)(nil),               // 1: percona.platform.telemetry.reporter.v1.Event
-		(*timestamp.Timestamp)(nil), // 2: google.protobuf.Timestamp
+		(*AnyEvent)(nil),              // 0: percona.platform.telemetry.reporter.v1.AnyEvent
+		(*Event)(nil),                 // 1: percona.platform.telemetry.reporter.v1.Event
+		(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 	}
 )
 

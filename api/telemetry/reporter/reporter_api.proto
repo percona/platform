@@ -6,11 +6,17 @@ option go_package = "telemetry/reporter;reporterv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "telemetry/reporter/event.proto";
+import "google/api/annotations.proto";
 
 // ReporterAPI describes server API for reporting telemetry events.
 service ReporterAPI {
   // Report submits several telemetry events to the server.
-  rpc Report(ReportRequest) returns (ReportResponse);
+  rpc Report(ReportRequest) returns (ReportResponse) {
+    option (google.api.http) = {
+      post: "/telemetry/reporter/v1/ReporterAPI/Report"
+      body: "*"
+    };
+  }
 }
 
 message ReportRequest {

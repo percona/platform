@@ -1,4 +1,5 @@
 DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
+DOCKER_LOCAL_IMAGE = percona-platform-prototool:local
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 
@@ -21,13 +22,45 @@ gen:                                       ## Format, check, and generate code u
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
 
 	rm -rf gen
-	$(DOCKER_RUN_CMD) prototool all api
+	mkdir gen && mkdir gen/cpp && mkdir gen/web
+	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
+	--cpp_out=gen/cpp --govalidators_out=gen \
+	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
+	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
+	--js_out=import_style=commonjs,binary:gen/web \
+	--go_out=gen --go_opt=paths=source_relative \
+	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/auth/auth_api.proto
+	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
+	--cpp_out=gen/cpp --govalidators_out=gen \
+	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
+	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
+	--js_out=import_style=commonjs,binary:gen/web \
+	--go_out=gen --go_opt=paths=source_relative \
+	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/check/retrieval/retrieval_api.proto
+	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
+	--cpp_out=gen/cpp --govalidators_out=gen \
+	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
+	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
+	--js_out=import_style=commonjs,binary:gen/web \
+	--go_out=gen --go_opt=paths=source_relative \
+	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/telemetry/reporter/*.proto
+	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
+	--cpp_out=gen/cpp --govalidators_out=gen \
+	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
+	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
+	--js_out=import_style=commonjs,binary:gen/web \
+	--go_out=gen --go_opt=paths=source_relative \
+	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/telemetry/events/pmm/server_uptime_event.proto
+
 	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
 	$(DOCKER_RUN_CMD) go run post-processing.go -patch-ui
 
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
+
+gen-local: docker-build-local             ## Same as `gen` but uses locally built Docker image
+	env DOCKER_RUN_IMAGE=$(DOCKER_LOCAL_IMAGE) make gen
 
 gen-code:                                  ## Generate code
 	go generate ./...
@@ -56,6 +89,9 @@ descriptors:                               ## Update files used for breaking cha
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
+
+docker-build-local:                       ## Use it if the Dockerfile in the repo is being changed to build and test locally before pushing to registry.
+	docker build -t percona-platform-prototool:local .
 
 docker-push:                               ## Tag and push prototool Docker image
 	docker tag $(DOCKER_DEV_IMAGE) $(DOCKER_RUN_IMAGE)

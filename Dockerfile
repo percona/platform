@@ -10,6 +10,7 @@ ENV PROTOBUF_CHECKSUM=1c7c98819985c3d5284bb9baf423cf701a678372a46f7a0fd7c48dee39
 # must match versions in tools/go.mod
 ENV GO_PROTO_VALIDATORS_VERSION=0.3.2
 
+ENV GRPC_GW_VERSION=v1.16.0
 ENV GRPC_WEB_VERSION=1.2.1
 ENV GRPC_WEB_CHECKSUM=6ce1625db7902d38d38d83690ec578c182e9cf2abaeb58d3fba1dae0c299c597
 
@@ -29,10 +30,15 @@ RUN cd /tmp/go && go install -v -mod=readonly \
   github.com/golang/protobuf/protoc-gen-go \
   github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
   github.com/uber/prototool/cmd/prototool \
-  mvdan.cc/gofumpt/gofumports
+  mvdan.cc/gofumpt/gofumports \
+  github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway \
+  google.golang.org/grpc/cmd/protoc-gen-go-grpc
 RUN mv -v /go/bin/* /usr/local/bin
 RUN mkdir -p /usr/local/include/github.com/mwitkow/go-proto-validators
 RUN mv -v /go/pkg/mod/github.com/mwitkow/go-proto-validators@v${GO_PROTO_VALIDATORS_VERSION}/*.proto /usr/local/include/github.com/mwitkow/go-proto-validators
+RUN curl --create-dirs -L https://raw.githubusercontent.com/grpc-ecosystem/grpc-gateway/${GRPC_GW_VERSION}/third_party/googleapis/google/api/annotations.proto -o /usr/local/include/google/api/annotations.proto
+RUN curl --create-dirs -L https://raw.githubusercontent.com/grpc-ecosystem/grpc-gateway/${GRPC_GW_VERSION}/third_party/googleapis/google/api/http.proto -o /usr/local/include/google/api/http.proto
+RUN curl --create-dirs -L https://raw.githubusercontent.com/grpc-ecosystem/grpc-gateway/${GRPC_GW_VERSION}/third_party/googleapis/google/rpc/status.proto -o /usr/local/include/google/rpc/status.proto
 RUN go clean -cache
 RUN go clean -modcache
 RUN rm -frv /go

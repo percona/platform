@@ -11,11 +11,11 @@ import (
 	sync "sync"
 
 	proto "github.com/golang/protobuf/proto"
-	duration "github.com/golang/protobuf/ptypes/duration"
-	wrappers "github.com/golang/protobuf/ptypes/wrappers"
 	_ "github.com/mwitkow/go-proto-validators"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	durationpb "google.golang.org/protobuf/types/known/durationpb"
+	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 const (
@@ -98,13 +98,13 @@ type ServerUptimeEvent struct {
 	// PMM Server version.
 	Version string `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
 	// PMM Server uptime.
-	UpDuration *duration.Duration `protobuf:"bytes,3,opt,name=up_duration,json=upDuration,proto3" json:"up_duration,omitempty"`
+	UpDuration *durationpb.Duration `protobuf:"bytes,3,opt,name=up_duration,json=upDuration,proto3" json:"up_duration,omitempty"`
 	// PMM Server distribution method.
 	DistributionMethod DistributionMethod `protobuf:"varint,4,opt,name=distribution_method,json=distributionMethod,proto3,enum=percona.platform.telemetry.events.pmm.v1.DistributionMethod" json:"distribution_method,omitempty"`
 	// PMM Server STT enabled.
-	SttEnabled *wrappers.BoolValue `protobuf:"bytes,5,opt,name=stt_enabled,json=sttEnabled,proto3" json:"stt_enabled,omitempty"`
+	SttEnabled *wrapperspb.BoolValue `protobuf:"bytes,5,opt,name=stt_enabled,json=sttEnabled,proto3" json:"stt_enabled,omitempty"`
 	// PMM Server IA enabled.
-	IaEnabled *wrappers.BoolValue `protobuf:"bytes,6,opt,name=ia_enabled,json=iaEnabled,proto3" json:"ia_enabled,omitempty"`
+	IaEnabled *wrapperspb.BoolValue `protobuf:"bytes,6,opt,name=ia_enabled,json=iaEnabled,proto3" json:"ia_enabled,omitempty"`
 }
 
 func (x *ServerUptimeEvent) Reset() {
@@ -153,7 +153,7 @@ func (x *ServerUptimeEvent) GetVersion() string {
 	return ""
 }
 
-func (x *ServerUptimeEvent) GetUpDuration() *duration.Duration {
+func (x *ServerUptimeEvent) GetUpDuration() *durationpb.Duration {
 	if x != nil {
 		return x.UpDuration
 	}
@@ -167,14 +167,14 @@ func (x *ServerUptimeEvent) GetDistributionMethod() DistributionMethod {
 	return DistributionMethod_DISTRIBUTION_METHOD_INVALID
 }
 
-func (x *ServerUptimeEvent) GetSttEnabled() *wrappers.BoolValue {
+func (x *ServerUptimeEvent) GetSttEnabled() *wrapperspb.BoolValue {
 	if x != nil {
 		return x.SttEnabled
 	}
 	return nil
 }
 
-func (x *ServerUptimeEvent) GetIaEnabled() *wrappers.BoolValue {
+func (x *ServerUptimeEvent) GetIaEnabled() *wrapperspb.BoolValue {
 	if x != nil {
 		return x.IaEnabled
 	}
@@ -248,10 +248,10 @@ var (
 	file_telemetry_events_pmm_server_uptime_event_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 	file_telemetry_events_pmm_server_uptime_event_proto_msgTypes  = make([]protoimpl.MessageInfo, 1)
 	file_telemetry_events_pmm_server_uptime_event_proto_goTypes   = []interface{}{
-		(DistributionMethod)(0),    // 0: percona.platform.telemetry.events.pmm.v1.DistributionMethod
-		(*ServerUptimeEvent)(nil),  // 1: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent
-		(*duration.Duration)(nil),  // 2: google.protobuf.Duration
-		(*wrappers.BoolValue)(nil), // 3: google.protobuf.BoolValue
+		(DistributionMethod)(0),      // 0: percona.platform.telemetry.events.pmm.v1.DistributionMethod
+		(*ServerUptimeEvent)(nil),    // 1: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent
+		(*durationpb.Duration)(nil),  // 2: google.protobuf.Duration
+		(*wrapperspb.BoolValue)(nil), // 3: google.protobuf.BoolValue
 	}
 )
 
