@@ -137,15 +137,15 @@ const char descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto
   ".percona.platform.check.retrieval.v1.Get"
   "AllAlertRuleTemplatesResponse\"D\202\323\344\223\002>\"9/"
   "check/retrieval/v1/RetrievalAPI/GetAllAl"
-  "ertRuleTemplates:\001*B\035Z\033check/retrieval;r"
-  "etrievalv1b\006proto3"
+  "ertRuleTemplates:\001*B\036Z\034/check/retrieval;"
+  "retrievalv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps[1] = {
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  false, false, 778, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
+  false, false, 779, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
   &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 1, 4,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
   file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
