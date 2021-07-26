@@ -2,6 +2,7 @@ DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
 DOCKER_LOCAL_IMAGE = percona-platform-prototool:local
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
+PROTOC_ARGS = -I api -I /usr/local/include --cpp_out=gen/cpp --govalidators_out=gen --grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web --grpc-gateway_out=logtostderr=true,paths=source_relative:gen --js_out=import_style=commonjs,binary:gen/web --go_out=gen --go_opt=paths=source_relative --go-grpc_out=gen --go-grpc_opt=paths=source_relative
 
 default: help
 
@@ -23,34 +24,11 @@ gen:                                       ## Format, check, and generate code u
 
 	rm -rf gen
 	mkdir gen && mkdir gen/cpp && mkdir gen/web
-	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
-	--cpp_out=gen/cpp --govalidators_out=gen \
-	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
-	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
-	--js_out=import_style=commonjs,binary:gen/web \
-	--go_out=gen --go_opt=paths=source_relative \
-	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/auth/auth_api.proto
-	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
-	--cpp_out=gen/cpp --govalidators_out=gen \
-	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
-	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
-	--js_out=import_style=commonjs,binary:gen/web \
-	--go_out=gen --go_opt=paths=source_relative \
-	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/check/retrieval/retrieval_api.proto
-	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
-	--cpp_out=gen/cpp --govalidators_out=gen \
-	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
-	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
-	--js_out=import_style=commonjs,binary:gen/web \
-	--go_out=gen --go_opt=paths=source_relative \
-	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/telemetry/reporter/*.proto
-	$(DOCKER_RUN_CMD) protoc -I api -I /usr/local/include \
-	--cpp_out=gen/cpp --govalidators_out=gen \
-	--grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web \
-	--grpc-gateway_out=logtostderr=true,paths=source_relative:gen \
-	--js_out=import_style=commonjs,binary:gen/web \
-	--go_out=gen --go_opt=paths=source_relative \
-	--go-grpc_out=gen --go-grpc_opt=paths=source_relative api/telemetry/events/pmm/server_uptime_event.proto
+
+	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/auth/auth_api.proto
+	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/check/retrieval/retrieval_api.proto
+	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/reporter/*.proto
+	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/events/pmm/server_uptime_event.proto
 
 	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
 
