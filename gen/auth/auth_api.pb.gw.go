@@ -603,7 +603,7 @@ var (
 
 	pattern_AuthAPI_RefreshSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "RefreshSession"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "Report"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "ResetPassword"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "GetProfile"}, "", runtime.AssumeColonVerbOpt(true)))
 

@@ -41,7 +41,7 @@ service AuthAPI {
   // ResetPassword initiates user's password reset procedure.
   rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/Report"
+      post: "/auth/v1/AuthAPI/ResetPassword"
       body: "*"
     };
   }
