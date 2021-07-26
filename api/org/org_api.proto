@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package percona.platform.org.v1;
+
+option go_package = "/org;orgv1";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/api/annotations.proto";
+
+// OrgAPI provides API for organization management for Percona services.
+service OrgAPI {
+    // CreateOrganization creates new user with given email and password.
+    rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
+      option (google.api.http) = {
+        post: "/org/v1/OrgAPI/Create"
+        body: "*"
+      };
+    }
+}
+
+message CreateOrganizationRequest {
+    // Organization name.
+    string name = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message CreateOrganizationResponse {
+    // Organization UUID.
+    string org_id = 1;
+}
