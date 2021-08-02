@@ -11,9 +11,10 @@ import (
 	"github.com/AlekSi/pointer"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
-	"github.com/percona-platform/platform/pkg/logger"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
+
+	"github.com/percona-platform/platform/pkg/logger"
 )
 
 const (

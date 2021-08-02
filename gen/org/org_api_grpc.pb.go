@@ -19,8 +19,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrgAPIClient interface {
-	// CreateOrganization creates new user with given email and password.
+	// CreateOrganization creates new organization with the given name and adds the user as org admin.
 	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
+	// GetOrganization fetches organization details for the given organization ID.
+	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
 }
 
 type orgAPIClient struct {
@@ -40,12 +42,23 @@ func (c *orgAPIClient) CreateOrganization(ctx context.Context, in *CreateOrganiz
 	return out, nil
 }
 
+func (c *orgAPIClient) GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error) {
+	out := new(GetOrganizationResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetOrganization", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
 type OrgAPIServer interface {
-	// CreateOrganization creates new user with given email and password.
+	// CreateOrganization creates new organization with the given name and adds the user as org admin.
 	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
+	// GetOrganization fetches organization details for the given organization ID.
+	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -54,6 +67,10 @@ type UnimplementedOrgAPIServer struct{}
 
 func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
+}
+
+func (UnimplementedOrgAPIServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -86,6 +103,24 @@ func _OrgAPI_CreateOrganization_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_GetOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).GetOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetOrganization",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).GetOrganization(ctx, req.(*GetOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +131,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateOrganization",
 			Handler:    _OrgAPI_CreateOrganization_Handler,
+		},
+		{
+			MethodName: "GetOrganization",
+			Handler:    _OrgAPI_GetOrganization_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

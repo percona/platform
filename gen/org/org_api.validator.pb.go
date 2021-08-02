@@ -11,6 +11,7 @@ import (
 	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,5 +29,21 @@ func (this *CreateOrganizationRequest) Validate() error {
 }
 
 func (this *CreateOrganizationResponse) Validate() error {
+	return nil
+}
+
+func (this *GetOrganizationRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	return nil
+}
+
+func (this *GetOrganizationResponse) Validate() error {
+	if this.CreatedAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
+		}
+	}
 	return nil
 }

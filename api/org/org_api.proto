@@ -6,13 +6,22 @@ option go_package = "/org;orgv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
-    // CreateOrganization creates new user with given email and password.
+    // CreateOrganization creates new organization with the given name and adds the user as org admin.
     rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
       option (google.api.http) = {
         post: "/org/v1/OrgAPI/Create"
+        body: "*"
+      };
+    }
+
+    // GetOrganization fetches organization details for the given organization ID.
+    rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
+      option (google.api.http) = {
+        post: "/org/v1/OrgAPI/Get"
         body: "*"
       };
     }
@@ -30,4 +39,20 @@ message CreateOrganizationRequest {
 message CreateOrganizationResponse {
     // Organization UUID.
     string org_id = 1;
+}
+
+message GetOrganizationRequest {
+  // Organization UUID.
+  string org_id = 1 [
+  (validator.field) = {
+    string_not_empty: true
+  }
+];
+}
+
+message GetOrganizationResponse {
+  // Organization name.
+  string name = 1;
+  // Organization's time of creation.
+  google.protobuf.Timestamp created_at = 2;
 }
