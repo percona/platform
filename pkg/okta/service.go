@@ -389,6 +389,20 @@ func (s *Service) CreateGroup(ctx context.Context, name, description string) (*G
 	}, nil
 }
 
+// DeleteGroup delete group with provided ID.
+func (s *Service) DeleteGroup(ctx context.Context, groupID string) error {
+	_, err := s.c.Group.DeleteGroup(ctx, groupID)
+	if err != nil {
+		if oErr, ok := err.(*okta.Error); ok {
+			return convertOktaError(oErr)
+		}
+
+		return errors.Wrap(err, "failed to delete group")
+	}
+
+	return nil
+}
+
 // GetGroupMembers returns list of group members.
 func (s *Service) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
 	params := query.Params{
@@ -416,6 +430,16 @@ func (s *Service) GetGroupMembers(ctx context.Context, groupID string, limit int
 // AddUserToGroup add user to group.
 func (s *Service) AddUserToGroup(ctx context.Context, userID, groupID string) error {
 	_, err := s.c.Group.AddUserToGroup(ctx, groupID, userID)
+	if err != nil {
+		return errors.Wrap(err, "failed to add user to group")
+	}
+
+	return nil
+}
+
+// RemoveUserToGroup remove user from group.
+func (s *Service) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
+	_, err := s.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
 	}
