@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -28,6 +29,21 @@ var (
 	errInvalidCredentials = status.Error(codes.Unauthenticated, "Invalid credentials.")
 	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
+
+// CustomeHeaderMatcher lets the Auth-* headers added by forwardauth pass
+// through to the grpc server when an HTTP request hits grpc-gateway server.
+func CustomHeaderMatcher(key string) (string, bool) {
+	switch key {
+	case AuthSessionHeader:
+	case AuthEmailHeader:
+	case AuthStatusHeader:
+	case AuthErrorHeader:
+		return key, true
+	default:
+		return runtime.DefaultHeaderMatcher(key)
+	}
+	return runtime.DefaultHeaderMatcher(key)
+}
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
