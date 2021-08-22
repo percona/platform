@@ -30,19 +30,22 @@ var (
 	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
 
-// CustomeHeaderMatcher lets the Auth-* headers added by forwardauth pass
-// through to the grpc server when an HTTP request hits grpc-gateway server.
+// CustomeHeaderMatcher preserves the Auth-* headers added by forwardauth
+// after the HTTP request is received by grpc-gateway and are forwarded as-is
+// to the grpc server.
 func CustomHeaderMatcher(key string) (string, bool) {
 	switch key {
-	case AuthSessionHeader:
-	case AuthEmailHeader:
-	case AuthStatusHeader:
-	case AuthErrorHeader:
+	case string(AuthSessionHeader):
+		fallthrough
+	case string(AuthEmailHeader):
+		fallthrough
+	case string(AuthStatusHeader):
+		fallthrough
+	case string(AuthErrorHeader):
 		return key, true
 	default:
 		return runtime.DefaultHeaderMatcher(key)
 	}
-	return runtime.DefaultHeaderMatcher(key)
 }
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
