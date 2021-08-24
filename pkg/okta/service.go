@@ -45,7 +45,7 @@ func New(host, token string) (*Service, error) {
 		context.Background(),
 		okta.WithOrgUrl(u.String()),
 		okta.WithToken(token),
-		okta.WithHttpClient(httpClient),
+		okta.WithHttpClientPtr(&httpClient),
 		okta.WithCache(false),
 	)
 	if err != nil {
