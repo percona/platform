@@ -13,49 +13,49 @@ service AuthAPI {
   // SignUp creates new user with given email and password.
   rpc SignUp(SignUpRequest) returns (SignUpResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/SignUp"
+      post: "/v1/auth/AuthAPI/SignUp"
       body: "*"
     };
   }
   // SignIn checks user authentication, creates session and returns session ID.
   rpc SignIn(SignInRequest) returns (SignInResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/SignIn"
+      post: "/v1/auth/AuthAPI/SignIn"
       body: "*"
     };
   }
   // SignOut terminates user session.
   rpc SignOut(SignOutRequest) returns (SignOutResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/SignOut"
+      post: "/v1/auth/AuthAPI/SignOut"
       body: "*"
     };
   }
   // RefreshSession refreshes session timeout.
   rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/RefreshSession"
+      post: "/v1/auth/AuthAPI/RefreshSession"
       body: "*"
     };
   }
   // ResetPassword initiates user's password reset procedure.
   rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/ResetPassword"
+      post: "/v1/auth/AuthAPI/ResetPassword"
       body: "*"
     };
   }
   // GetProfile returns user's email, first name and last name.
   rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/GetProfile"
+      post: "/v1/auth/AuthAPI/GetProfile"
       body: "*"
     };
   }
   // UpdateProfile updates user's first name and last name.
   rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
     option (google.api.http) = {
-      post: "/auth/v1/AuthAPI/UpdateProfile"
+      post: "/v1/auth/AuthAPI/UpdateProfile"
       body: "*"
     };
   }

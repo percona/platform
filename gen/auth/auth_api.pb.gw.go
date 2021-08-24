@@ -595,19 +595,19 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_AuthAPI_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "SignUp"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "SignUp"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "SignIn"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "SignIn"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "SignOut"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "SignOut"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_RefreshSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "RefreshSession"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_RefreshSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "RefreshSession"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "ResetPassword"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "ResetPassword"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "GetProfile"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "GetProfile"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_AuthAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"auth", "v1", "AuthAPI", "UpdateProfile"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "AuthAPI", "UpdateProfile"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

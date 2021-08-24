@@ -3,7 +3,9 @@ package servers
 import (
 	"context"
 	"fmt"
+	"net/textproto"
 	"strconv"
+	"strings"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/pkg/errors"
@@ -30,22 +32,15 @@ var (
 	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
 
-// CustomeHeaderMatcher preserves the Auth-* headers added by forwardauth
+// PerconaAuthHeaderMatcher preserves the Auth-* headers added by forwardauth
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
 // to the grpc server.
-func CustomHeaderMatcher(key string) (string, bool) {
-	switch key {
-	case string(AuthSessionHeader):
-		fallthrough
-	case string(AuthEmailHeader):
-		fallthrough
-	case string(AuthStatusHeader):
-		fallthrough
-	case string(AuthErrorHeader):
+func PerconaAuthHeaderMatcher(key string) (string, bool) {
+	keyCanonical := textproto.CanonicalMIMEHeaderKey(key)
+	if strings.HasPrefix(keyCanonical, "Auth-") {
 		return key, true
-	default:
-		return runtime.DefaultHeaderMatcher(key)
 	}
+	return runtime.DefaultHeaderMatcher(key)
 }
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
