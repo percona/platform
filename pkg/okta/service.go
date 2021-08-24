@@ -438,7 +438,7 @@ func (s *Service) AddUserToGroup(ctx context.Context, userID, groupID string) er
 	return nil
 }
 
-// RemoveUserToGroup remove user from group.
+// RemoveUserFromGroup remove user from group.
 func (s *Service) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
 	_, err := s.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
 	if err != nil {
@@ -620,22 +620,22 @@ func getUserLogin(user *okta.User) (string, error) {
 	return login.(string), nil
 }
 
-func convertOktaError(error *okta.Error) error {
-	switch error.ErrorCode {
+func convertOktaError(e *okta.Error) error {
+	switch e.ErrorCode {
 	case "E0000001":
-		switch error.ErrorSummary {
+		switch e.ErrorSummary {
 		case "Api validation failed: password":
-			return &AuthError{msg: "invalid password", origin: error}
+			return &AuthError{msg: "invalid password", origin: e}
 		case "Api validation failed: login":
-			return &AuthError{msg: "invalid login", origin: error}
+			return &AuthError{msg: "invalid login", origin: e}
 		default:
-			return error
+			return e
 		}
 	case "E0000004":
 		return ErrAuthentication
 	case "E0000007":
 		return ErrNotFound
 	default:
-		return error
+		return e
 	}
 }

@@ -35,12 +35,12 @@ func (e *AuthError) OriginError() error {
 }
 
 // getOktaErrorCause extracts cause message from Okta error.
-func getOktaErrorCause(error *okta.Error) string {
-	if len(error.ErrorCauses) == 0 {
+func getOktaErrorCause(e *okta.Error) string {
+	if len(e.ErrorCauses) == 0 {
 		return ""
 	}
 
-	cause, ok := error.ErrorCauses[0]["errorSummary"]
+	cause, ok := e.ErrorCauses[0]["errorSummary"]
 	if !ok {
 		return ""
 	}

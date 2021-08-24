@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const devHost = "okta-dev.percona.com"
+const devHost = "id-dev.percona.com"
 
 var authErrorType = new(AuthError) //nolint:gochecknoglobals
 
@@ -24,6 +24,8 @@ func init() { //nolint:gochecknoinits
 }
 
 func getOktaToken(t *testing.T) string {
+	t.Helper()
+
 	token := os.Getenv("OKTA_TOKEN")
 	require.NotEmpty(t, token, "Okta token is missing")
 
