@@ -156,6 +156,6 @@ func RegisterReporterAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux
 	return nil
 }
 
-var pattern_ReporterAPI_Report_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"telemetry", "reporter", "v1", "ReporterAPI", "Report"}, "", runtime.AssumeColonVerbOpt(true)))
+var pattern_ReporterAPI_Report_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "telemetry", "reporter", "ReporterAPI", "Report"}, "", runtime.AssumeColonVerbOpt(true)))
 
 var forward_ReporterAPI_Report_0 = runtime.ForwardResponseMessage

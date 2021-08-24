@@ -88,7 +88,7 @@ const char descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2epro
   "\255\001\n\006Report\0225.percona.platform.telemetry."
   "reporter.v1.ReportRequest\0326.percona.plat"
   "form.telemetry.reporter.v1.ReportRespons"
-  "e\"4\202\323\344\223\002.\")/telemetry/reporter/v1/Report"
+  "e\"4\202\323\344\223\002.\")/v1/telemetry/reporter/Report"
   "erAPI/Report:\001*B Z\036/telemetry/reporter;r"
   "eporterv1b\006proto3"
   ;
