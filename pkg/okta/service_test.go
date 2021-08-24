@@ -17,7 +17,7 @@ import (
 
 const devHost = "okta-dev.percona.com"
 
-var authErrorType = &AuthError{} //nolint:gochecknoglobals
+var authErrorType = new(AuthError) //nolint:gochecknoglobals
 
 func init() { //nolint:gochecknoinits
 	gofakeit.Seed(time.Now().UnixNano())
@@ -351,7 +351,7 @@ func TestGetUserLogin(t *testing.T) {
 
 	t.Run("missing login", func(t *testing.T) {
 		user := okta.User{
-			Profile: &okta.UserProfile{},
+			Profile: new(okta.UserProfile),
 		}
 
 		login, err := getUserLogin(&user)
@@ -399,7 +399,7 @@ func TestUpdateProfile(t *testing.T) {
 	defer deleteUser(t, s, testUser.ID)
 
 	t.Run("user doesn't exists", func(t *testing.T) {
-		_, err := s.UpdateProfile(context.Background(), &okta.User{Id: "unknown", Profile: &okta.UserProfile{}}, "firstName", "lastName")
+		_, err := s.UpdateProfile(context.Background(), &okta.User{Id: "unknown", Profile: new(okta.UserProfile)}, "firstName", "lastName")
 		require.EqualError(t, err, "missing user login")
 	})
 

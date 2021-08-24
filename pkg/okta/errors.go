@@ -1,8 +1,6 @@
 package okta
 
-import (
-	"github.com/okta/okta-sdk-golang/v2/okta"
-)
+import "github.com/okta/okta-sdk-golang/v2/okta"
 
 var (
 	ErrEmptyLogin     = &AuthError{msg: "login is empty"}     //nolint:golint
