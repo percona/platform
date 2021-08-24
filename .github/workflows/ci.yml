@@ -103,6 +103,8 @@ jobs:
         run: make gen-code
 
       - name: Run tests
+        env:
+          OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
         run: |
           go clean -testcache
           make test-crosscover
