@@ -132,11 +132,11 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\300\002\n\006OrgAPI\022\237\001\n\022CreateOrganization\0222.perc"
   "ona.platform.org.v1.CreateOrganizationRe"
   "quest\0323.percona.platform.org.v1.CreateOr"
-  "ganizationResponse\" \202\323\344\223\002\032\"\025/org/v1/OrgA"
+  "ganizationResponse\" \202\323\344\223\002\032\"\025/v1/org/OrgA"
   "PI/Create:\001*\022\223\001\n\017GetOrganization\022/.perco"
   "na.platform.org.v1.GetOrganizationReques"
   "t\0320.percona.platform.org.v1.GetOrganizat"
-  "ionResponse\"\035\202\323\344\223\002\027\"\022/org/v1/OrgAPI/Get:"
+  "ionResponse\"\035\202\323\344\223\002\027\"\022/v1/org/OrgAPI/Get:"
   "\001*B\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[3] = {

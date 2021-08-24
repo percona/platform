@@ -230,9 +230,9 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 }
 
 var (
-	pattern_OrgAPI_CreateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"org", "v1", "OrgAPI", "Create"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_CreateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "org", "OrgAPI", "Create"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"org", "v1", "OrgAPI", "Get"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "org", "OrgAPI", "Get"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
