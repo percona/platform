@@ -128,6 +128,10 @@ jobs:
           popd        && go mod tidy -v && git checkout go.sum
           git diff --exit-code
 
+      - name: Setup tmate session on failure
+        if: ${{ failure() }}
+        uses: percona-platform/action-tmate@v2
+
       - name: Run debug commands on failure
         if: ${{ failure() }}
         run: |
@@ -137,9 +141,6 @@ jobs:
           pwd
           git status
 
-      - name: Setup tmate session on failure
-        if: ${{ failure() }}
-        uses: percona-platform/action-tmate@v2
 
   check:
     name: Check
