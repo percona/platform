@@ -137,9 +137,9 @@ jobs:
           pwd
           git status
 
-      - name: Setup tmate session on failure
-        if: ${{ failure() }}
-        uses: percona-platform/action-tmate@v2
+#      - name: Setup tmate session on failure
+#        if: ${{ failure() }}
+#        uses: percona-platform/action-tmate@v2
 
   check:
     name: Check
