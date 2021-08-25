@@ -109,10 +109,6 @@ jobs:
           go clean -testcache
           make test-crosscover
 
-      - name: Setup tmate session on failure
-        if: ${{ failure() }}
-        uses: percona-platform/action-tmate@v2
-
       - name: Upload coverage results
         uses: percona-platform/codecov-action@v1
         with:
@@ -140,6 +136,10 @@ jobs:
           go env
           pwd
           git status
+
+      - name: Setup tmate session on failure
+        if: ${{ failure() }}
+        uses: percona-platform/action-tmate@v2
 
   check:
     name: Check
