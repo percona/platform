@@ -19,6 +19,8 @@ var github_com_mwitkow_go$proto$validators_validator_pb = require('../../github.
 goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 var telemetry_reporter_event_pb = require('../../telemetry/reporter/event_pb.js');
 goog.object.extend(proto, telemetry_reporter_event_pb);
+var google_api_annotations_pb = require('../../google/api/annotations_pb.js');
+goog.object.extend(proto, google_api_annotations_pb);
 goog.exportSymbol('proto.percona.platform.telemetry.reporter.v1.ReportRequest', null, global);
 goog.exportSymbol('proto.percona.platform.telemetry.reporter.v1.ReportResponse', null, global);
 /**

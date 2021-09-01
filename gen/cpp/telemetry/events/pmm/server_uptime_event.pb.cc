@@ -87,8 +87,8 @@ const char descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_
   "lue\022.\n\nia_enabled\030\006 \001(\0132\032.google.protobu"
   "f.BoolValue*S\n\022DistributionMethod\022\037\n\033DIS"
   "TRIBUTION_METHOD_INVALID\020\000\022\n\n\006DOCKER\020\001\022\007"
-  "\n\003OVF\020\002\022\007\n\003AMI\020\003B\034Z\032telemetry/events/pmm"
-  ";pmmv1b\006proto3"
+  "\n\003OVF\020\002\022\007\n\003AMI\020\003B\035Z\033/telemetry/events/pm"
+  "m;pmmv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -97,7 +97,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto = {
-  false, false, 654, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 
+  false, false, 655, descriptor_table_protodef_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, "telemetry/events/pmm/server_uptime_event.proto", 
   &descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_once, descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto_deps, 3, 1,
   schemas, file_default_instances, TableStruct_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto::offsets,
   file_level_metadata_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_enum_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto, file_level_service_descriptors_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto,

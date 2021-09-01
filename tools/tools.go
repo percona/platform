@@ -10,11 +10,13 @@ import (
 	_ "github.com/dvyukov/go-fuzz/go-fuzz-build"
 	_ "github.com/golang/protobuf/protoc-gen-go"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
+	_ "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway"
 	_ "github.com/mwitkow/go-proto-validators/protoc-gen-govalidators"
 	_ "github.com/quasilyte/go-consistent"
 	_ "github.com/reviewdog/reviewdog/cmd/reviewdog"
 	_ "github.com/uber/prototool/cmd/prototool"
 	_ "golang.org/x/tools/cmd/stringer"
+	_ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
 	_ "google.golang.org/protobuf/cmd/protoc-gen-go"
 	_ "mvdan.cc/gofumpt/gofumports"
 
@@ -25,6 +27,8 @@ import (
 // tools
 //go:generate go build -o ../bin/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz
 //go:generate go build -o ../bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
+//go:generate go build -o ../bin/protoc-gen-go-grpc google.golang.org/grpc/cmd/protoc-gen-go-grpc
+//go:generate go build -o ../bin/protoc-gen-grpc-gateway github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 //go:generate go build -o ../bin/protoc-gen-go github.com/golang/protobuf/protoc-gen-go
 //go:generate go build -o ../bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
 //go:generate go build -o ../bin/protoc-gen-govalidators github.com/mwitkow/go-proto-validators/protoc-gen-govalidators

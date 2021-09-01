@@ -120,26 +120,32 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n#check/retrieval/retrieval_api.proto\022#p"
-  "ercona.platform.check.retrieval.v1\"\025\n\023Ge"
-  "tAllChecksRequest\"8\n\024GetAllChecksRespons"
-  "e\022\014\n\004file\030\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t\"!\n\037G"
-  "etAllAlertRuleTemplatesRequest\"D\n GetAll"
-  "AlertRuleTemplatesResponse\022\014\n\004file\030\001 \001(\t"
-  "\022\022\n\nsignatures\030\002 \003(\t2\276\002\n\014RetrievalAPI\022\203\001"
-  "\n\014GetAllChecks\0228.percona.platform.check."
-  "retrieval.v1.GetAllChecksRequest\0329.perco"
-  "na.platform.check.retrieval.v1.GetAllChe"
-  "cksResponse\022\247\001\n\030GetAllAlertRuleTemplates"
-  "\022D.percona.platform.check.retrieval.v1.G"
-  "etAllAlertRuleTemplatesRequest\032E.percona"
-  ".platform.check.retrieval.v1.GetAllAlert"
-  "RuleTemplatesResponseB\035Z\033check/retrieval"
-  ";retrievalv1b\006proto3"
+  "ercona.platform.check.retrieval.v1\032\034goog"
+  "le/api/annotations.proto\"\025\n\023GetAllChecks"
+  "Request\"8\n\024GetAllChecksResponse\022\014\n\004file\030"
+  "\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t\"!\n\037GetAllAlert"
+  "RuleTemplatesRequest\"D\n GetAllAlertRuleT"
+  "emplatesResponse\022\014\n\004file\030\001 \001(\t\022\022\n\nsignat"
+  "ures\030\002 \003(\t2\220\003\n\014RetrievalAPI\022\246\001\n\014GetAllCh"
+  "ecks\0228.percona.platform.check.retrieval."
+  "v1.GetAllChecksRequest\0329.percona.platfor"
+  "m.check.retrieval.v1.GetAllChecksRespons"
+  "e\"!\202\323\344\223\002\033\"\026/v1/check/GetAllChecks:\001*\022\326\001\n"
+  "\030GetAllAlertRuleTemplates\022D.percona.plat"
+  "form.check.retrieval.v1.GetAllAlertRuleT"
+  "emplatesRequest\032E.percona.platform.check"
+  ".retrieval.v1.GetAllAlertRuleTemplatesRe"
+  "sponse\"-\202\323\344\223\002\'\"\"/v1/check/GetAllAlertRul"
+  "eTemplates:\001*B\036Z\034/check/retrieval;retrie"
+  "valv1b\006proto3"
   ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps[1] = {
+  &::descriptor_table_google_2fapi_2fannotations_2eproto,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  false, false, 620, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
-  &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, nullptr, 0, 4,
+  false, false, 733, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
+  &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 1, 4,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
   file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
 };
