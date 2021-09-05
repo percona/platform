@@ -301,7 +301,7 @@ func TestPasswordReset(t *testing.T) {
 	u, err := s.FindUser(context.Background(), email)
 	require.NoError(t, err)
 
-	err = s.ResetPassword(context.Background(), u.Id)
+	err = s.ResetPassword(context.Background(), u.ID)
 	assert.NoError(t, err)
 
 	_, _, err = s.SignIn(context.Background(), email, password)
@@ -401,15 +401,13 @@ func TestUpdateProfile(t *testing.T) {
 	defer deleteUser(t, s, testUser.ID)
 
 	t.Run("user doesn't exists", func(t *testing.T) {
-		_, err := s.UpdateProfile(context.Background(), &okta.User{Id: "unknown", Profile: new(okta.UserProfile)}, "firstName", "lastName")
+		_, err := s.UpdateProfile(context.Background(), &User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
 		require.EqualError(t, err, "missing user login")
 	})
 
 	t.Run("user exists update successful", func(t *testing.T) {
 		user, err := s.FindUser(context.Background(), testUser.Login)
 		require.NoError(t, err)
-		prof := *user.Profile
-		t.Log(prof["firstName"], prof["lastName"], prof["login"], user.Id)
 
 		newFirstName := gofakeit.FirstName()
 		newLastName := gofakeit.LastName()
@@ -417,7 +415,7 @@ func TestUpdateProfile(t *testing.T) {
 		require.NoError(t, err)
 
 		updatedProfile := *updatedUser.Profile
-		assert.Equal(t, user.Id, updatedUser.Id)
+		assert.Equal(t, user.ID, updatedUser.Id)
 		assert.Equal(t, newFirstName, updatedProfile["firstName"])
 		assert.Equal(t, newLastName, updatedProfile["lastName"])
 	})

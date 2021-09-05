@@ -108,7 +108,7 @@ func (s *Service) SignUp(ctx context.Context, login, firstName, lastName string)
 }
 
 // FindUser searches user by login and returns user.
-func (s *Service) FindUser(ctx context.Context, login string) (*okta.User, error) {
+func (s *Service) FindUser(ctx context.Context, login string) (*User, error) {
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
@@ -121,7 +121,16 @@ func (s *Service) FindUser(ctx context.Context, login string) (*okta.User, error
 		return nil, errors.Wrapf(err, "failed to find user")
 	}
 
-	return user, nil
+	userLogin, err := getUserLogin(user)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+	}
+
+	return &User{
+		ID:     user.Id,
+		Login:  userLogin,
+		Status: user.Status,
+	}, nil
 }
 
 // SignIn returns user id and session token. Returns AuthError in case of invalid login or password.
@@ -193,12 +202,7 @@ func (s *Service) DeleteUser(ctx context.Context, userID string) error {
 }
 
 // UpdateProfile updates user's profile.
-func (s *Service) UpdateProfile(ctx context.Context, user *okta.User, firstName, lastName string) (*okta.User, error) {
-	login, err := getUserLogin(user)
-	if err != nil {
-		return nil, err
-	}
-
+func (s *Service) UpdateProfile(ctx context.Context, user *User, firstName, lastName string) (*okta.User, error) {
 	// The okta-go-sdk implementation differs slightly from the API docs where it uses
 	// PUT instead of POST for this endpoint. In case of PUT (used by the SDK) it requires
 	// both the email and login fields to be non-empty, so we send the original login to prevent
@@ -207,11 +211,11 @@ func (s *Service) UpdateProfile(ctx context.Context, user *okta.User, firstName,
 		Profile: &okta.UserProfile{
 			"firstName": firstName,
 			"lastName":  lastName,
-			"login":     login,
-			"email":     login,
+			"login":     user.Login,
+			"email":     user.Login,
 		},
 	}
-	u, _, err := s.c.User.UpdateUser(ctx, user.Id, body, nil)
+	u, _, err := s.c.User.UpdateUser(ctx, user.ID, body, nil)
 	if err != nil {
 		if oErr, ok := err.(*okta.Error); ok {
 			return nil, convertOktaError(oErr)
