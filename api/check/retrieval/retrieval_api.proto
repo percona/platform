@@ -12,14 +12,14 @@ service RetrievalAPI {
   // GetAllChecks returns all available STT checks.
   rpc GetAllChecks(GetAllChecksRequest) returns (GetAllChecksResponse) {
     option (google.api.http) = {
-      post: "/v1/check/retrieval/RetrievalAPI/GetAllChecks"
+      post: "/v1/check/GetAllChecks"
       body: "*"
     };
   }
   // GetAllAlertRuleTemplates returns all available IA rule templates.
   rpc GetAllAlertRuleTemplates(GetAllAlertRuleTemplatesRequest) returns (GetAllAlertRuleTemplatesResponse) {
     option (google.api.http) = {
-      post: "/v1/check/retrieval/RetrievalAPI/GetAllAlertRuleTemplates"
+      post: "/v1/check/GetAllAlertRuleTemplates"
       body: "*"
     };
   }

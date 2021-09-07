@@ -342,33 +342,32 @@ const char descriptor_table_protodef_auth_2fauth_5fapi_2eproto[] PROTOBUF_SECTIO
   "\022\022\n\nfirst_name\030\002 \001(\t\022\021\n\tlast_name\030\003 \001(\t\""
   "M\n\024UpdateProfileRequest\022\032\n\nfirst_name\030\001 "
   "\001(\tB\006\342\337\037\002X\001\022\031\n\tlast_name\030\002 \001(\tB\006\342\337\037\002X\001\"\027"
-  "\n\025UpdateProfileResponse2\201\010\n\007AuthAPI\022\177\n\006S"
+  "\n\025UpdateProfileResponse2\310\007\n\007AuthAPI\022w\n\006S"
   "ignUp\022\'.percona.platform.auth.v1.SignUpR"
   "equest\032(.percona.platform.auth.v1.SignUp"
-  "Response\"\"\202\323\344\223\002\034\"\027/v1/auth/AuthAPI/SignU"
-  "p:\001*\022\177\n\006SignIn\022\'.percona.platform.auth.v"
-  "1.SignInRequest\032(.percona.platform.auth."
-  "v1.SignInResponse\"\"\202\323\344\223\002\034\"\027/v1/auth/Auth"
-  "API/SignIn:\001*\022\203\001\n\007SignOut\022(.percona.plat"
-  "form.auth.v1.SignOutRequest\032).percona.pl"
-  "atform.auth.v1.SignOutResponse\"#\202\323\344\223\002\035\"\030"
-  "/v1/auth/AuthAPI/SignOut:\001*\022\237\001\n\016RefreshS"
-  "ession\022/.percona.platform.auth.v1.Refres"
-  "hSessionRequest\0320.percona.platform.auth."
-  "v1.RefreshSessionResponse\"*\202\323\344\223\002$\"\037/v1/a"
-  "uth/AuthAPI/RefreshSession:\001*\022\233\001\n\rResetP"
-  "assword\022..percona.platform.auth.v1.Reset"
-  "PasswordRequest\032/.percona.platform.auth."
-  "v1.ResetPasswordResponse\")\202\323\344\223\002#\"\036/v1/au"
-  "th/AuthAPI/ResetPassword:\001*\022\217\001\n\nGetProfi"
-  "le\022+.percona.platform.auth.v1.GetProfile"
-  "Request\032,.percona.platform.auth.v1.GetPr"
-  "ofileResponse\"&\202\323\344\223\002 \"\033/v1/auth/AuthAPI/"
-  "GetProfile:\001*\022\233\001\n\rUpdateProfile\022..percon"
-  "a.platform.auth.v1.UpdateProfileRequest\032"
-  "/.percona.platform.auth.v1.UpdateProfile"
-  "Response\")\202\323\344\223\002#\"\036/v1/auth/AuthAPI/Updat"
-  "eProfile:\001*B\016Z\014/auth;authv1b\006proto3"
+  "Response\"\032\202\323\344\223\002\024\"\017/v1/auth/SignUp:\001*\022w\n\006"
+  "SignIn\022\'.percona.platform.auth.v1.SignIn"
+  "Request\032(.percona.platform.auth.v1.SignI"
+  "nResponse\"\032\202\323\344\223\002\024\"\017/v1/auth/SignIn:\001*\022{\n"
+  "\007SignOut\022(.percona.platform.auth.v1.Sign"
+  "OutRequest\032).percona.platform.auth.v1.Si"
+  "gnOutResponse\"\033\202\323\344\223\002\025\"\020/v1/auth/SignOut:"
+  "\001*\022\227\001\n\016RefreshSession\022/.percona.platform"
+  ".auth.v1.RefreshSessionRequest\0320.percona"
+  ".platform.auth.v1.RefreshSessionResponse"
+  "\"\"\202\323\344\223\002\034\"\027/v1/auth/RefreshSession:\001*\022\223\001\n"
+  "\rResetPassword\022..percona.platform.auth.v"
+  "1.ResetPasswordRequest\032/.percona.platfor"
+  "m.auth.v1.ResetPasswordResponse\"!\202\323\344\223\002\033\""
+  "\026/v1/auth/ResetPassword:\001*\022\207\001\n\nGetProfil"
+  "e\022+.percona.platform.auth.v1.GetProfileR"
+  "equest\032,.percona.platform.auth.v1.GetPro"
+  "fileResponse\"\036\202\323\344\223\002\030\"\023/v1/auth/GetProfil"
+  "e:\001*\022\223\001\n\rUpdateProfile\022..percona.platfor"
+  "m.auth.v1.UpdateProfileRequest\032/.percona"
+  ".platform.auth.v1.UpdateProfileResponse\""
+  "!\202\323\344\223\002\033\"\026/v1/auth/UpdateProfile:\001*B\016Z\014/a"
+  "uth;authv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fauth_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -377,7 +376,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fauth_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fauth_5fapi_2eproto = {
-  false, false, 1915, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
+  false, false, 1858, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
   &descriptor_table_auth_2fauth_5fapi_2eproto_once, descriptor_table_auth_2fauth_5fapi_2eproto_deps, 3, 14,
   schemas, file_default_instances, TableStruct_auth_2fauth_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fauth_5fapi_2eproto, file_level_enum_descriptors_auth_2fauth_5fapi_2eproto, file_level_service_descriptors_auth_2fauth_5fapi_2eproto,
