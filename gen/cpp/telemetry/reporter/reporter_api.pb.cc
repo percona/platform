@@ -84,13 +84,12 @@ const char descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2epro
   "t.proto\032\034google/api/annotations.proto\"V\n"
   "\rReportRequest\022E\n\006events\030\001 \003(\0132-.percona"
   ".platform.telemetry.reporter.v1.EventB\006\342"
-  "\337\037\002`\001\"\020\n\016ReportResponse2\275\001\n\013ReporterAPI\022"
-  "\255\001\n\006Report\0225.percona.platform.telemetry."
+  "\337\037\002`\001\"\020\n\016ReportResponse2\250\001\n\013ReporterAPI\022"
+  "\230\001\n\006Report\0225.percona.platform.telemetry."
   "reporter.v1.ReportRequest\0326.percona.plat"
   "form.telemetry.reporter.v1.ReportRespons"
-  "e\"4\202\323\344\223\002.\")/v1/telemetry/reporter/Report"
-  "erAPI/Report:\001*B Z\036/telemetry/reporter;r"
-  "eporterv1b\006proto3"
+  "e\"\037\202\323\344\223\002\031\"\024/v1/telemetry/Report:\001*B Z\036/t"
+  "elemetry/reporter;reporterv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -99,7 +98,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto = {
-  false, false, 537, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 
+  false, false, 516, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 
   &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 3, 2,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2freporter_5fapi_2eproto::offsets,
   file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,

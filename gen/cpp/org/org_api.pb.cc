@@ -169,20 +169,19 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "ed_at\030\002 \001(\0132\032.google.protobuf.Timestamp\""
   "\036\n\034GetOrganizationByUserRequest\"0\n\035GetOr"
   "ganizationByUserResponse\022\017\n\007org_ids\030\001 \003("
-  "\t2\372\003\n\006OrgAPI\022\237\001\n\022CreateOrganization\0222.pe"
+  "\t2\345\003\n\006OrgAPI\022\230\001\n\022CreateOrganization\0222.pe"
   "rcona.platform.org.v1.CreateOrganization"
   "Request\0323.percona.platform.org.v1.Create"
-  "OrganizationResponse\" \202\323\344\223\002\032\"\025/v1/org/Or"
-  "gAPI/Create:\001*\022\223\001\n\017GetOrganization\022/.per"
-  "cona.platform.org.v1.GetOrganizationRequ"
-  "est\0320.percona.platform.org.v1.GetOrganiz"
-  "ationResponse\"\035\202\323\344\223\002\027\"\022/v1/org/OrgAPI/Ge"
-  "t:\001*\022\267\001\n\025GetOrganizationByUser\0225.percona"
-  ".platform.org.v1.GetOrganizationByUserRe"
-  "quest\0326.percona.platform.org.v1.GetOrgan"
-  "izationByUserResponse\"/\202\323\344\223\002)\"$/v1/org/O"
-  "rgAPI/GetOrganizationByUser:\001*B\014Z\n/org;o"
-  "rgv1b\006proto3"
+  "OrganizationResponse\"\031\202\323\344\223\002\023\"\016/v1/org/Cr"
+  "eate:\001*\022\214\001\n\017GetOrganization\022/.percona.pl"
+  "atform.org.v1.GetOrganizationRequest\0320.p"
+  "ercona.platform.org.v1.GetOrganizationRe"
+  "sponse\"\026\202\323\344\223\002\020\"\013/v1/org/Get:\001*\022\260\001\n\025GetOr"
+  "ganizationByUser\0225.percona.platform.org."
+  "v1.GetOrganizationByUserRequest\0326.percon"
+  "a.platform.org.v1.GetOrganizationByUserR"
+  "esponse\"(\202\323\344\223\002\"\"\035/v1/org/GetOrganization"
+  "ByUser:\001*B\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -191,7 +190,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 1012, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  false, false, 991, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
   &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 3, 6,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,

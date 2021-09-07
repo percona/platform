@@ -13,7 +13,7 @@ service OrgAPI {
     // CreateOrganization creates new organization with the given name and adds the user as org admin.
     rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
       option (google.api.http) = {
-        post: "/v1/org/OrgAPI/Create"
+        post: "/v1/org/Create"
         body: "*"
       };
     }
@@ -21,7 +21,7 @@ service OrgAPI {
     // GetOrganization fetches organization details for the given organization ID.
     rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
       option (google.api.http) = {
-        post: "/v1/org/OrgAPI/Get"
+        post: "/v1/org/Get"
         body: "*"
       };
     }
@@ -29,7 +29,7 @@ service OrgAPI {
     // GetOrganizationByUser fetches organization IDs that the logged in user is a member of.
     rpc GetOrganizationByUser(GetOrganizationByUserRequest) returns (GetOrganizationByUserResponse) {
       option (google.api.http) = {
-        post: "/v1/org/OrgAPI/GetOrganizationByUser"
+        post: "/v1/org/GetOrganizationByUser"
         body: "*"
       };
     }

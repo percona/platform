@@ -230,9 +230,9 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_RetrievalAPI_GetAllChecks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "check", "retrieval", "RetrievalAPI", "GetAllChecks"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_RetrievalAPI_GetAllChecks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllChecks"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_RetrievalAPI_GetAllAlertRuleTemplates_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "check", "retrieval", "RetrievalAPI", "GetAllAlertRuleTemplates"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_RetrievalAPI_GetAllAlertRuleTemplates_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllAlertRuleTemplates"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

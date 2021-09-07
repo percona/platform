@@ -13,7 +13,7 @@ service ReporterAPI {
   // Report submits several telemetry events to the server.
   rpc Report(ReportRequest) returns (ReportResponse) {
     option (google.api.http) = {
-      post: "/v1/telemetry/reporter/ReporterAPI/Report"
+      post: "/v1/telemetry/Report"
       body: "*"
     };
   }

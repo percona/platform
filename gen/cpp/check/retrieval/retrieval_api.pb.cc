@@ -126,26 +126,25 @@ const char descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto
   "\001 \001(\t\022\022\n\nsignatures\030\002 \003(\t\"!\n\037GetAllAlert"
   "RuleTemplatesRequest\"D\n GetAllAlertRuleT"
   "emplatesResponse\022\014\n\004file\030\001 \001(\t\022\022\n\nsignat"
-  "ures\030\002 \003(\t2\276\003\n\014RetrievalAPI\022\275\001\n\014GetAllCh"
+  "ures\030\002 \003(\t2\220\003\n\014RetrievalAPI\022\246\001\n\014GetAllCh"
   "ecks\0228.percona.platform.check.retrieval."
   "v1.GetAllChecksRequest\0329.percona.platfor"
   "m.check.retrieval.v1.GetAllChecksRespons"
-  "e\"8\202\323\344\223\0022\"-/v1/check/retrieval/Retrieval"
-  "API/GetAllChecks:\001*\022\355\001\n\030GetAllAlertRuleT"
-  "emplates\022D.percona.platform.check.retrie"
-  "val.v1.GetAllAlertRuleTemplatesRequest\032E"
-  ".percona.platform.check.retrieval.v1.Get"
-  "AllAlertRuleTemplatesResponse\"D\202\323\344\223\002>\"9/"
-  "v1/check/retrieval/RetrievalAPI/GetAllAl"
-  "ertRuleTemplates:\001*B\036Z\034/check/retrieval;"
-  "retrievalv1b\006proto3"
+  "e\"!\202\323\344\223\002\033\"\026/v1/check/GetAllChecks:\001*\022\326\001\n"
+  "\030GetAllAlertRuleTemplates\022D.percona.plat"
+  "form.check.retrieval.v1.GetAllAlertRuleT"
+  "emplatesRequest\032E.percona.platform.check"
+  ".retrieval.v1.GetAllAlertRuleTemplatesRe"
+  "sponse\"-\202\323\344\223\002\'\"\"/v1/check/GetAllAlertRul"
+  "eTemplates:\001*B\036Z\034/check/retrieval;retrie"
+  "valv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps[1] = {
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto = {
-  false, false, 779, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
+  false, false, 733, descriptor_table_protodef_check_2fretrieval_2fretrieval_5fapi_2eproto, "check/retrieval/retrieval_api.proto", 
   &descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_once, descriptor_table_check_2fretrieval_2fretrieval_5fapi_2eproto_deps, 1, 4,
   schemas, file_default_instances, TableStruct_check_2fretrieval_2fretrieval_5fapi_2eproto::offsets,
   file_level_metadata_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_enum_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto, file_level_service_descriptors_check_2fretrieval_2fretrieval_5fapi_2eproto,
