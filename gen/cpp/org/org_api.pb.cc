@@ -129,15 +129,15 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "equest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\"W\n\027GetOrg"
   "anizationResponse\022\014\n\004name\030\001 \001(\t\022.\n\ncreat"
   "ed_at\030\002 \001(\0132\032.google.protobuf.Timestamp2"
-  "\300\002\n\006OrgAPI\022\237\001\n\022CreateOrganization\0222.perc"
+  "\262\002\n\006OrgAPI\022\230\001\n\022CreateOrganization\0222.perc"
   "ona.platform.org.v1.CreateOrganizationRe"
   "quest\0323.percona.platform.org.v1.CreateOr"
-  "ganizationResponse\" \202\323\344\223\002\032\"\025/v1/org/OrgA"
-  "PI/Create:\001*\022\223\001\n\017GetOrganization\022/.perco"
-  "na.platform.org.v1.GetOrganizationReques"
-  "t\0320.percona.platform.org.v1.GetOrganizat"
-  "ionResponse\"\035\202\323\344\223\002\027\"\022/v1/org/OrgAPI/Get:"
-  "\001*B\014Z\n/org;orgv1b\006proto3"
+  "ganizationResponse\"\031\202\323\344\223\002\023\"\016/v1/org/Crea"
+  "te:\001*\022\214\001\n\017GetOrganization\022/.percona.plat"
+  "form.org.v1.GetOrganizationRequest\0320.per"
+  "cona.platform.org.v1.GetOrganizationResp"
+  "onse\"\026\202\323\344\223\002\020\"\013/v1/org/Get:\001*B\014Z\n/org;org"
+  "v1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -146,7 +146,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 744, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  false, false, 730, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
   &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 3, 4,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
