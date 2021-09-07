@@ -47,3 +47,11 @@ func (this *GetOrganizationResponse) Validate() error {
 	}
 	return nil
 }
+
+func (this *GetOrganizationByUserRequest) Validate() error {
+	return nil
+}
+
+func (this *GetOrganizationByUserResponse) Validate() error {
+	return nil
+}

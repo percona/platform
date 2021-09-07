@@ -25,6 +25,14 @@ service OrgAPI {
         body: "*"
       };
     }
+
+    // GetOrganizationByUser fetches organization IDs that the logged in user is a member of.
+    rpc GetOrganizationByUser(GetOrganizationByUserRequest) returns (GetOrganizationByUserResponse) {
+      option (google.api.http) = {
+        post: "/v1/org/OrgAPI/GetOrganizationByUser"
+        body: "*"
+      };
+    }
 }
 
 message CreateOrganizationRequest {
@@ -55,4 +63,10 @@ message GetOrganizationResponse {
   string name = 1;
   // Organization's time of creation.
   google.protobuf.Timestamp created_at = 2;
+}
+
+message GetOrganizationByUserRequest {}
+
+message GetOrganizationByUserResponse {
+  repeated string org_ids = 1;
 }

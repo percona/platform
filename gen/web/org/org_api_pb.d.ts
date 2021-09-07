@@ -83,3 +83,37 @@ export namespace GetOrganizationResponse {
   }
 }
 
+export class GetOrganizationByUserRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationByUserRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByUserRequest): GetOrganizationByUserRequest.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByUserRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByUserRequest;
+  static deserializeBinaryFromReader(message: GetOrganizationByUserRequest, reader: jspb.BinaryReader): GetOrganizationByUserRequest;
+}
+
+export namespace GetOrganizationByUserRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetOrganizationByUserResponse extends jspb.Message {
+  getOrgIdsList(): Array<string>;
+  setOrgIdsList(value: Array<string>): GetOrganizationByUserResponse;
+  clearOrgIdsList(): GetOrganizationByUserResponse;
+  addOrgIds(value: string, index?: number): GetOrganizationByUserResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationByUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByUserResponse): GetOrganizationByUserResponse.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByUserResponse;
+  static deserializeBinaryFromReader(message: GetOrganizationByUserResponse, reader: jspb.BinaryReader): GetOrganizationByUserResponse;
+}
+
+export namespace GetOrganizationByUserResponse {
+  export type AsObject = {
+    orgIdsList: Array<string>,
+  }
+}
+
