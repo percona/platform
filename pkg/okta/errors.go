@@ -1,6 +1,10 @@
 package okta
 
-import "github.com/okta/okta-sdk-golang/v2/okta"
+import (
+	"github.com/pkg/errors"
+
+	"github.com/okta/okta-sdk-golang/v2/okta"
+)
 
 var (
 	ErrEmptyLogin     = &AuthError{msg: "login is empty"}     //nolint:golint
@@ -18,10 +22,19 @@ type AuthError struct {
 	msg    string
 }
 
+// NewError returns new AuthError with content.
+func NewError(msg string, origin error) error {
+	return &AuthError{
+		msg:    msg,
+		origin: origin,
+	}
+}
+
 // Error returns error message. If error cause is Okta error it will add Okta error summary to message.
 func (e *AuthError) Error() string {
 	if e.origin != nil {
-		if oErr, ok := e.origin.(*okta.Error); ok {
+		var oErr *okta.Error
+		if errors.As(e.origin, &oErr) {
 			return e.msg + ": " + getOktaErrorCause(oErr)
 		}
 		return e.msg + ": " + e.origin.Error()
@@ -35,12 +48,12 @@ func (e *AuthError) OriginError() error {
 }
 
 // getOktaErrorCause extracts cause message from Okta error.
-func getOktaErrorCause(e *okta.Error) string {
-	if len(e.ErrorCauses) == 0 {
+func getOktaErrorCause(err *okta.Error) string {
+	if len(err.ErrorCauses) == 0 {
 		return ""
 	}
 
-	cause, ok := e.ErrorCauses[0]["errorSummary"]
+	cause, ok := err.ErrorCauses[0]["errorSummary"]
 	if !ok {
 		return ""
 	}

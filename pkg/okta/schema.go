@@ -39,17 +39,3 @@ type SchemaProperty struct {
 type Ref struct {
 	Ref string `json:"ref,omitempty"`
 }
-
-// User represents user structure.
-type User struct {
-	ID     string
-	Login  string
-	Status string
-}
-
-// Group represents user group structure.
-type Group struct {
-	ID          string
-	Name        string
-	Description string
-}
