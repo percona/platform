@@ -450,7 +450,7 @@ func TestUpdateProfile(t *testing.T) {
 		t.Parallel()
 
 		_, err := s.UpdateProfile(context.Background(), &model.User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
-		require.EqualError(t, err, "missing user login")
+		require.EqualError(t, err, "not found")
 	})
 
 	t.Run("user exists update successful", func(t *testing.T) {
