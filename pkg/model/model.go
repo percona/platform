@@ -1,3 +1,4 @@
+// Package model contains custom types returned by Okta client code.
 package model
 
 // User represents user structure.
