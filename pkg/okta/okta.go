@@ -15,7 +15,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/percona-platform/platform/pkg/logger"
-
 	"github.com/percona-platform/platform/pkg/model"
 )
 
@@ -46,7 +45,8 @@ func New(ctx context.Context, host, token string) (*Service, error) {
 		okta.WithHttpClientPtr(&http.Client{
 			Transport: logger.HTTP(http.DefaultTransport, l.Debugf),
 		}),
-		okta.WithCache(false))
+		okta.WithCache(false),
+	)
 	if err != nil {
 		return nil, err
 	}

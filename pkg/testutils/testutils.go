@@ -82,7 +82,8 @@ func createOktaClient(t *testing.T) *okta.Client {
 		context.Background(),
 		okta.WithOrgUrl(u.String()),
 		okta.WithToken(GetOktaToken(t)),
-		okta.WithCache(false))
+		okta.WithCache(false),
+	)
 
 	return client
 }
