@@ -21,10 +21,35 @@ import (
 
 // Headers set by proxy.
 const (
-	AuthSessionHeader = "Auth-Session" // Okta authentication session ID
-	AuthEmailHeader   = "Auth-Email"   // user's email
-	AuthStatusHeader  = "Auth-Status"  // gRPC status code (codes.Code)
-	AuthErrorHeader   = "Auth-Error"   // gRPC error message, if code is not codes.OK
+	// AuthUsernameHeader is Percona Account username.
+	AuthUsernameHeader = "Auth-Username"
+
+	// AuthUserIdHeader is Percona Account ID.
+	AuthUserIdHeader = "Auth-User-ID"
+
+	// AuthSuperAdminHeader indicates that this
+	// Percona Account has Super Admin permissions on Portal.
+	AuthSuperAdminHeader = "Auth-Portal-Super-Admin"
+
+	// AuthPortalOrgIdHeader is Portal Organization ID.
+	AuthPortalOrgIdHeader = "Auth-Portal-Org-ID"
+
+	// AuthTokenHeader is OAuth2 access_token.
+	AuthTokenHeader = "Auth-Token"
+
+	// Keep for backward compatibility
+
+	// AuthSessionHeader Okta authentication session ID
+	AuthSessionHeader = "Auth-Session"
+
+	// AuthEmailHeader user's email
+	AuthEmailHeader = "Auth-Email"
+
+	// AuthStatusHeader gRPC status code (codes.Code).
+	AuthStatusHeader = "Auth-Status"
+
+	// AuthErrorHeader gRPC error message, if code is not codes.OK.
+	AuthErrorHeader = "Auth-Error"
 )
 
 var (
@@ -32,7 +57,7 @@ var (
 	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
 )
 
-// PerconaAuthHeaderMatcher preserves the Auth-* headers added by forwardauth
+// PerconaAuthHeaderMatcher preserves the PP-Auth-* headers added by /forwardauth in Authed service
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
 // to the grpc server.
 func PerconaAuthHeaderMatcher(key string) (string, bool) {
@@ -66,14 +91,16 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return nil, err
 		}
 
-		email, sessionID, err := getAuthData(md, l)
-		if err != nil {
-			if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+			// Request must be authenticated.
+			reqData, err := getAuthData(md, l)
+			if err != nil {
 				return nil, err
 			}
+			ctx = rdata.AddToContext(ctx, reqData)
 		}
 
-		return handler(rdata.AddToContext(ctx, sessionID, email), req)
+		return handler(ctx, req)
 	}
 }
 
@@ -101,19 +128,21 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return err
 		}
 
-		email, sessionID, err := getAuthData(md, l)
-		if err != nil {
-			if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+			// Request must be authenticated.
+			reqData, err := getAuthData(md, l)
+			if err != nil {
 				return err
 			}
+			ctx = rdata.AddToContext(ctx, reqData)
 		}
 
-		return handler(rdata.AddToContext(ctx, sessionID, email), ss)
+		return handler(ctx, ss)
 	}
 }
 
 // handleAuthProxyError checks authentication status and message forwarded from proxy
-// and returns proper response to user in case on any problem.
+// and returns proper response to user in case of any problem.
 func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 	authStatus, err := getAuthStatusFromMetadata(md)
 	if err != nil {
@@ -136,24 +165,70 @@ func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 // and returns struct with four fields. Use rdata package there?
 
 // getAuthData extracts user email and session id from request metadata.
-func getAuthData(md metadata.MD, l *zap.SugaredLogger) (string, string, error) {
-	email, err := getAuthEmailFromMetadata(md)
+func getAuthData(md metadata.MD, l *zap.SugaredLogger) (*rdata.RequestData, error) {
+	username, err := getStringFromMetadata(md, AuthUsernameHeader)
 	if err != nil {
-		l.Errorf("failed to get auth email from request metadata, reason: %+v", err)
-		return "", "", errAuthenticationFail
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUsernameHeader, err)
+		return nil, errAuthenticationFail
 	}
 
-	if email == "" {
-		return "", "", errInvalidCredentials
-	}
-
-	sessionID, err := getAuthSessionIDFromMetadata(md)
+	userID, err := getStringFromMetadata(md, AuthUserIdHeader)
 	if err != nil {
-		l.Errorf("failed to get auth session id from request metadata, reason: %+v", err)
-		return "", "", errAuthenticationFail
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUserIdHeader, err)
+		return nil, errAuthenticationFail
 	}
 
-	return email, sessionID, nil
+	isPortalSuperAdmin, err := getBoolFromMetadata(md, AuthSuperAdminHeader)
+	if err != nil {
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthSuperAdminHeader, err)
+		return nil, errAuthenticationFail
+	}
+
+	portalOrgID, err := getStringFromMetadata(md, AuthPortalOrgIdHeader)
+	if err != nil {
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthPortalOrgIdHeader, err)
+		return nil, errAuthenticationFail
+	}
+
+	authToken, err := getStringFromMetadata(md, AuthTokenHeader)
+	if err != nil {
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthTokenHeader, err)
+		return nil, errAuthenticationFail
+	}
+
+	// Keep for backward compatibility.
+	email, err := getStringFromMetadata(md, AuthEmailHeader)
+	if err != nil {
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthEmailHeader, err)
+		return nil, errAuthenticationFail
+	}
+
+	sessionID, err := getStringFromMetadata(md, AuthSessionHeader)
+	if err != nil {
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthSessionHeader, err)
+		return nil, errAuthenticationFail
+	}
+
+	// There are the following cases possible:
+	// - username exists in PP-Auth- headers - it means this incoming request we are processing now
+	// is from real user (browser).
+	// - portalOrgID exists in PP-Auth- headers - it means this incoming request we are processing now
+	// is from PMM Server (machine-to-machine communication).
+	// Authorized incoming request must contain one of: username, portalOrgID, sessionID.
+	if len(username) == 0 && len(portalOrgID) == 0 && len(sessionID) == 0 {
+		l.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIdHeader, AuthSessionHeader)
+		return nil, errInvalidCredentials
+	}
+
+	return &rdata.RequestData{
+		Username:           username,
+		UserID:             userID,
+		IsPortalSuperAdmin: isPortalSuperAdmin,
+		PortalOrgID:        portalOrgID,
+		AuthToken:          authToken,
+		UserEmail:          email,
+		SessionID:          sessionID,
+	}, nil
 }
 
 // getAuthStatusFromMetadata extracts auth status set by proxy from metadata.
@@ -181,11 +256,11 @@ func getAuthErrorFromMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
-// getAuthEmailFromMetadata extracts user email set by proxy from metadata.
-func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
-	header := md.Get(AuthEmailHeader)
+// getStringFromMetadata extracts string key set by proxy from metadata.
+func getStringFromMetadata(md metadata.MD, key string) (string, error) {
+	header := md.Get(key)
 	if len(header) > 1 {
-		return "", fmt.Errorf("expect at most one auth email header, got: %d", len(header))
+		return "", fmt.Errorf("expect at most one %s header, got: %d", key, len(header))
 	}
 
 	if len(header) == 0 {
@@ -195,16 +270,21 @@ func getAuthEmailFromMetadata(md metadata.MD) (string, error) {
 	return header[0], nil
 }
 
-// getAuthSessionIDFromMetadata extracts user session id set by proxy from metadata.
-func getAuthSessionIDFromMetadata(md metadata.MD) (string, error) {
-	header := md.Get(AuthSessionHeader)
+// getBoolFromMetadata extracts bool key set by proxy from metadata.
+func getBoolFromMetadata(md metadata.MD, key string) (bool, error) {
+	header := md.Get(key)
 	if len(header) > 1 {
-		return "", fmt.Errorf("expect at most one auth session header, got: %d", len(header))
+		return false, fmt.Errorf("expect at most one %s header, got: %d", key, len(header))
 	}
 
 	if len(header) == 0 {
-		return "", nil
+		return false, nil
 	}
 
-	return header[0], nil
+	v, err := strconv.ParseBool(header[0])
+	if err != nil {
+		return false, errors.Wrapf(err, "failed to parse %s header", key)
+	}
+
+	return v, nil
 }
