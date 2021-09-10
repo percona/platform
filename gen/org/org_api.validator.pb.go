@@ -55,3 +55,19 @@ func (this *GetOrganizationByUserRequest) Validate() error {
 func (this *GetOrganizationByUserResponse) Validate() error {
 	return nil
 }
+
+func (this *InviteMemberRequest) Validate() error {
+	return nil
+}
+
+func (this *InviteMemberResponse) Validate() error {
+	return nil
+}
+
+func (this *ListMembersRequest) Validate() error {
+	return nil
+}
+
+func (this *ListMembersResponse) Validate() error {
+	return nil
+}

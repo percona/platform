@@ -33,6 +33,22 @@ service OrgAPI {
         body: "*"
       };
     }
+
+    // InviteMember invites users to a Percona Platform Organization.
+    rpc InviteMember(InviteMemberRequest) returns (InviteMemberResponse) {
+      option (google.api.http) = {
+        post: "/v1/org/InviteMember"
+        body: "*"
+      };
+    }
+
+    // ListMembers invites users to a Percona Platform Organization.
+    rpc ListMembers(ListMembersRequest) returns (ListMembersResponse) {
+      option (google.api.http) = {
+        post: "/v1/org/ListMembers"
+        body: "*"
+      };
+    }
 }
 
 message CreateOrganizationRequest {
@@ -69,4 +85,30 @@ message GetOrganizationByUserRequest {}
 
 message GetOrganizationByUserResponse {
   repeated string org_ids = 1;
+}
+
+enum OrganizationMemberRole {
+  ORGANIZATION_MEMBER_ROLE_INVALID = 0;
+
+  ADMIN = 1;
+
+  TECHNICAL = 2;
+}
+
+message InviteMemberRequest {
+  string email = 1;
+
+  OrganizationMemberRole role = 2;
+}
+
+message InviteMemberResponse {}
+
+message ListMembersRequest {}
+
+message ListMembersResponse {
+  string email = 1;
+
+  string name = 2;
+
+  OrganizationMemberRole role = 3;
 }
