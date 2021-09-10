@@ -24,25 +24,25 @@ const (
 	// AuthUsernameHeader is Percona Account username.
 	AuthUsernameHeader = "Auth-Username"
 
-	// AuthUserIdHeader is Percona Account ID.
-	AuthUserIdHeader = "Auth-User-ID"
+	// AuthUserIDHeader is Percona Account ID.
+	AuthUserIDHeader = "Auth-User-ID"
 
 	// AuthSuperAdminHeader indicates that this
 	// Percona Account has Super Admin permissions on Portal.
 	AuthSuperAdminHeader = "Auth-Portal-Super-Admin"
 
-	// AuthPortalOrgIdHeader is Portal Organization ID.
-	AuthPortalOrgIdHeader = "Auth-Portal-Org-ID"
+	// AuthPortalOrgIDHeader is Portal Organization ID.
+	AuthPortalOrgIDHeader = "Auth-Portal-Org-ID"
 
 	// AuthTokenHeader is OAuth2 access_token.
 	AuthTokenHeader = "Auth-Token"
 
-	// Keep for backward compatibility
+	// Keep for backward compatibility.
 
-	// AuthSessionHeader Okta authentication session ID
+	// AuthSessionHeader Okta authentication session ID.
 	AuthSessionHeader = "Auth-Session"
 
-	// AuthEmailHeader user's email
+	// AuthEmailHeader user's email.
 	AuthEmailHeader = "Auth-Email"
 
 	// AuthStatusHeader gRPC status code (codes.Code).
@@ -172,9 +172,9 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (*rdata.RequestData, erro
 		return nil, errAuthenticationFail
 	}
 
-	userID, err := getStringFromMetadata(md, AuthUserIdHeader)
+	userID, err := getStringFromMetadata(md, AuthUserIDHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUserIdHeader, err)
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUserIDHeader, err)
 		return nil, errAuthenticationFail
 	}
 
@@ -184,9 +184,9 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (*rdata.RequestData, erro
 		return nil, errAuthenticationFail
 	}
 
-	portalOrgID, err := getStringFromMetadata(md, AuthPortalOrgIdHeader)
+	portalOrgID, err := getStringFromMetadata(md, AuthPortalOrgIDHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthPortalOrgIdHeader, err)
+		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthPortalOrgIDHeader, err)
 		return nil, errAuthenticationFail
 	}
 
@@ -216,7 +216,7 @@ func getAuthData(md metadata.MD, l *zap.SugaredLogger) (*rdata.RequestData, erro
 	// is from PMM Server (machine-to-machine communication).
 	// Authorized incoming request must contain one of: username, portalOrgID, sessionID.
 	if len(username) == 0 && len(portalOrgID) == 0 && len(sessionID) == 0 {
-		l.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIdHeader, AuthSessionHeader)
+		l.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIDHeader, AuthSessionHeader)
 		return nil, errInvalidCredentials
 	}
 
