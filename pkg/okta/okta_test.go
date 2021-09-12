@@ -13,7 +13,7 @@ import (
 	"github.com/percona-platform/platform/pkg/testutils"
 )
 
-var authErrorType = &AuthError{} //nolint:gochecknoglobals
+var authErrorType = new(AuthError) //nolint:gochecknoglobals
 
 func init() { //nolint:gochecknoinits
 	gofakeit.Seed(time.Now().UnixNano())
@@ -387,7 +387,7 @@ func TestGetUserLogin(t *testing.T) {
 		t.Parallel()
 
 		user := okta.User{
-			Profile: &okta.UserProfile{},
+			Profile: new(okta.UserProfile),
 		}
 
 		login, err := getUserLogin(&user)
@@ -450,7 +450,7 @@ func TestUpdateProfile(t *testing.T) {
 		t.Parallel()
 
 		_, err := s.UpdateProfile(context.Background(), &model.User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
-		require.EqualError(t, err, "missing user login")
+		require.EqualError(t, err, "not found")
 	})
 
 	t.Run("user exists update successful", func(t *testing.T) {

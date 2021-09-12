@@ -1,5 +1,4 @@
 DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
-DOCKER_LOCAL_IMAGE = percona-platform-prototool:local
 DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 PROTOC_ARGS = -I api -I /usr/local/include --cpp_out=gen/cpp --govalidators_out=gen --grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web --grpc-gateway_out=logtostderr=true,paths=source_relative:gen --js_out=import_style=commonjs,binary:gen/web --go_out=gen --go_opt=paths=source_relative --go-grpc_out=gen --go-grpc_opt=paths=source_relative
@@ -23,7 +22,7 @@ gen:                                       ## Format, check, and generate code u
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
 
 	rm -rf gen
-	mkdir gen && mkdir gen/cpp && mkdir gen/web
+	mkdir -p gen/cpp gen/web
 
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/auth/auth_api.proto
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/check/retrieval/retrieval_api.proto
@@ -37,9 +36,6 @@ gen:                                       ## Format, check, and generate code u
 
 gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
 	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
-
-gen-local: docker-build-local             ## Same as `gen` but uses locally built Docker image
-	env DOCKER_RUN_IMAGE=$(DOCKER_LOCAL_IMAGE) make gen
 
 gen-code:                                  ## Generate code
 	go generate ./...
@@ -68,9 +64,6 @@ descriptors:                               ## Update files used for breaking cha
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
-
-docker-build-local:                       ## Use it if the Dockerfile in the repo is being changed to build and test locally before pushing to registry.
-	docker build -t percona-platform-prototool:local .
 
 docker-push:                               ## Tag and push prototool Docker image
 	docker tag $(DOCKER_DEV_IMAGE) $(DOCKER_RUN_IMAGE)
