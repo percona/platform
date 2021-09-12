@@ -64,10 +64,21 @@ func (this *InviteMemberResponse) Validate() error {
 	return nil
 }
 
+func (this *OrganizationMember) Validate() error {
+	return nil
+}
+
 func (this *ListMembersRequest) Validate() error {
 	return nil
 }
 
 func (this *ListMembersResponse) Validate() error {
+	for _, item := range this.Members {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Members", err)
+			}
+		}
+	}
 	return nil
 }

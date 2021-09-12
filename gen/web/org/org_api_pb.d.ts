@@ -153,6 +153,32 @@ export namespace InviteMemberResponse {
   }
 }
 
+export class OrganizationMember extends jspb.Message {
+  getEmail(): string;
+  setEmail(value: string): OrganizationMember;
+
+  getName(): string;
+  setName(value: string): OrganizationMember;
+
+  getRole(): OrganizationMemberRole;
+  setRole(value: OrganizationMemberRole): OrganizationMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationMember.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationMember): OrganizationMember.AsObject;
+  static serializeBinaryToWriter(message: OrganizationMember, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationMember;
+  static deserializeBinaryFromReader(message: OrganizationMember, reader: jspb.BinaryReader): OrganizationMember;
+}
+
+export namespace OrganizationMember {
+  export type AsObject = {
+    email: string,
+    name: string,
+    role: OrganizationMemberRole,
+  }
+}
+
 export class ListMembersRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListMembersRequest.AsObject;
@@ -168,14 +194,10 @@ export namespace ListMembersRequest {
 }
 
 export class ListMembersResponse extends jspb.Message {
-  getEmail(): string;
-  setEmail(value: string): ListMembersResponse;
-
-  getName(): string;
-  setName(value: string): ListMembersResponse;
-
-  getRole(): OrganizationMemberRole;
-  setRole(value: OrganizationMemberRole): ListMembersResponse;
+  getMembersList(): Array<OrganizationMember>;
+  setMembersList(value: Array<OrganizationMember>): ListMembersResponse;
+  clearMembersList(): ListMembersResponse;
+  addMembers(value?: OrganizationMember, index?: number): OrganizationMember;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListMembersResponse.AsObject;
@@ -187,9 +209,7 @@ export class ListMembersResponse extends jspb.Message {
 
 export namespace ListMembersResponse {
   export type AsObject = {
-    email: string,
-    name: string,
-    role: OrganizationMemberRole,
+    membersList: Array<OrganizationMember.AsObject>,
   }
 }
 

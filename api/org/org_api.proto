@@ -103,12 +103,16 @@ message InviteMemberRequest {
 
 message InviteMemberResponse {}
 
-message ListMembersRequest {}
-
-message ListMembersResponse {
+message OrganizationMember {
   string email = 1;
 
   string name = 2;
 
   OrganizationMemberRole role = 3;
+}
+
+message ListMembersRequest {}
+
+message ListMembersResponse {
+  repeated OrganizationMember members = 1;
 }
