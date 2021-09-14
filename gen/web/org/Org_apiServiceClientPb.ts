@@ -115,5 +115,45 @@ export class OrgAPIClient {
     this.methodInfoGetOrganization);
   }
 
+  methodInfoDeleteOrganization = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.DeleteOrganizationResponse,
+    (request: org_org_api_pb.DeleteOrganizationRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.DeleteOrganizationResponse.deserializeBinary
+  );
+
+  deleteOrganization(
+    request: org_org_api_pb.DeleteOrganizationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.DeleteOrganizationResponse>;
+
+  deleteOrganization(
+    request: org_org_api_pb.DeleteOrganizationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.DeleteOrganizationResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.DeleteOrganizationResponse>;
+
+  deleteOrganization(
+    request: org_org_api_pb.DeleteOrganizationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.DeleteOrganizationResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/DeleteOrganization',
+        request,
+        metadata || {},
+        this.methodInfoDeleteOrganization,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/DeleteOrganization',
+    request,
+    metadata || {},
+    this.methodInfoDeleteOrganization);
+  }
+
 }
 

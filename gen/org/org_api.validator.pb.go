@@ -57,3 +57,14 @@ func (this *GetOrganizationResponse) Validate() error {
 	}
 	return nil
 }
+
+func (this *DeleteOrganizationRequest) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	return nil
+}
+
+func (this *DeleteOrganizationResponse) Validate() error {
+	return nil
+}

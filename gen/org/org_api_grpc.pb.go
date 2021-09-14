@@ -23,6 +23,8 @@ type OrgAPIClient interface {
 	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
 	// GetOrganization fetches organization details for the given organization ID.
 	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
+	// DeleteOrganization deletes organization and its members for the given organization ID.
+	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 }
 
 type orgAPIClient struct {
@@ -51,6 +53,15 @@ func (c *orgAPIClient) GetOrganization(ctx context.Context, in *GetOrganizationR
 	return out, nil
 }
 
+func (c *orgAPIClient) DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error) {
+	out := new(DeleteOrganizationResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -59,6 +70,8 @@ type OrgAPIServer interface {
 	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
 	// GetOrganization fetches organization details for the given organization ID.
 	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
+	// DeleteOrganization deletes organization and its members for the given organization ID.
+	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -71,6 +84,10 @@ func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrga
 
 func (UnimplementedOrgAPIServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
+}
+
+func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -121,6 +138,24 @@ func _OrgAPI_GetOrganization_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_DeleteOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).DeleteOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/DeleteOrganization",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).DeleteOrganization(ctx, req.(*DeleteOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -135,6 +170,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrganization",
 			Handler:    _OrgAPI_GetOrganization_Handler,
+		},
+		{
+			MethodName: "DeleteOrganization",
+			Handler:    _OrgAPI_DeleteOrganization_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

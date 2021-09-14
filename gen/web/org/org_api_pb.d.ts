@@ -107,3 +107,35 @@ export namespace GetOrganizationResponse {
   }
 }
 
+export class DeleteOrganizationRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): DeleteOrganizationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteOrganizationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteOrganizationRequest): DeleteOrganizationRequest.AsObject;
+  static serializeBinaryToWriter(message: DeleteOrganizationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteOrganizationRequest;
+  static deserializeBinaryFromReader(message: DeleteOrganizationRequest, reader: jspb.BinaryReader): DeleteOrganizationRequest;
+}
+
+export namespace DeleteOrganizationRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class DeleteOrganizationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteOrganizationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteOrganizationResponse): DeleteOrganizationResponse.AsObject;
+  static serializeBinaryToWriter(message: DeleteOrganizationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteOrganizationResponse;
+  static deserializeBinaryFromReader(message: DeleteOrganizationResponse, reader: jspb.BinaryReader): DeleteOrganizationResponse;
+}
+
+export namespace DeleteOrganizationResponse {
+  export type AsObject = {
+  }
+}
+

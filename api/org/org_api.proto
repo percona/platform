@@ -25,6 +25,14 @@ service OrgAPI {
         body: "*"
       };
     }
+
+    // DeleteOrganization deletes organization and its members for the given organization ID.
+    rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
+      option (google.api.http) = {
+        post: "/v1/org/Delete"
+        body: "*"
+      };
+    }
 }
 
 message CreateOrganizationRequest {
@@ -66,3 +74,14 @@ message GetOrganizationResponse {
   // Timestamp of organization creation.
   google.protobuf.Timestamp created_at = 3;
 }
+
+message DeleteOrganizationRequest {
+  // Perona Portal Organization UUID.
+  string id = 1 [
+  (validator.field) = {
+    string_not_empty: true
+  }
+];
+}
+
+message DeleteOrganizationResponse {}
