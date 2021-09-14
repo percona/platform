@@ -24,8 +24,24 @@ export namespace CreateOrganizationRequest {
 }
 
 export class CreateOrganizationResponse extends jspb.Message {
-  getOrgId(): string;
-  setOrgId(value: string): CreateOrganizationResponse;
+  getId(): string;
+  setId(value: string): CreateOrganizationResponse;
+
+  getName(): string;
+  setName(value: string): CreateOrganizationResponse;
+
+  getOktaGroupId(): string;
+  setOktaGroupId(value: string): CreateOrganizationResponse;
+
+  getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): CreateOrganizationResponse;
+  hasCreatedAt(): boolean;
+  clearCreatedAt(): CreateOrganizationResponse;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): CreateOrganizationResponse;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): CreateOrganizationResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateOrganizationResponse.AsObject;
@@ -37,13 +53,17 @@ export class CreateOrganizationResponse extends jspb.Message {
 
 export namespace CreateOrganizationResponse {
   export type AsObject = {
-    orgId: string,
+    id: string,
+    name: string,
+    oktaGroupId: string,
+    createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }
 }
 
 export class GetOrganizationRequest extends jspb.Message {
-  getOrgId(): string;
-  setOrgId(value: string): GetOrganizationRequest;
+  getId(): string;
+  setId(value: string): GetOrganizationRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrganizationRequest.AsObject;
@@ -55,11 +75,14 @@ export class GetOrganizationRequest extends jspb.Message {
 
 export namespace GetOrganizationRequest {
   export type AsObject = {
-    orgId: string,
+    id: string,
   }
 }
 
 export class GetOrganizationResponse extends jspb.Message {
+  getId(): string;
+  setId(value: string): GetOrganizationResponse;
+
   getName(): string;
   setName(value: string): GetOrganizationResponse;
 
@@ -78,6 +101,7 @@ export class GetOrganizationResponse extends jspb.Message {
 
 export namespace GetOrganizationResponse {
   export type AsObject = {
+    id: string,
     name: string,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }

@@ -37,13 +37,21 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
-    // Organization UUID.
-    string org_id = 1;
+    // Perona Portal Organization UUID.
+    string id = 1;
+    // Percona Portal Organization Name.
+    string name = 2;
+    // Percona Portal Okta Group ID.
+    string okta_group_id = 3;
+    // Timestamp of organization creation.
+    google.protobuf.Timestamp created_at = 4;
+    // Timestamp when organization was last updated.
+    google.protobuf.Timestamp updated_at = 5;
 }
 
 message GetOrganizationRequest {
-  // Organization UUID.
-  string org_id = 1 [
+  // Perona Portal Organization UUID.
+  string id = 1 [
   (validator.field) = {
     string_not_empty: true
   }
@@ -51,8 +59,10 @@ message GetOrganizationRequest {
 }
 
 message GetOrganizationResponse {
-  // Organization name.
-  string name = 1;
-  // Organization's time of creation.
-  google.protobuf.Timestamp created_at = 2;
+  // Perona Portal Organization UUID.
+  string id = 1;
+  // Percona Portal Organization Name.
+  string name = 2;
+  // Timestamp of organization creation.
+  google.protobuf.Timestamp created_at = 3;
 }
