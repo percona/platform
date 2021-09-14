@@ -21,20 +21,23 @@ import (
 
 // Headers set by proxy.
 const (
-	// AuthUsernameHeader is Percona Account username.
+	// AuthUsernameHeader Percona Account username that is used for authentication.
 	AuthUsernameHeader = "Auth-Username"
 
-	// AuthUserIDHeader is Percona Account ID.
+	// AuthUserIDHeader Percona Account User ID in Okta.
+	// Note: Percona Account is handled by Okta so ID comes from Okta as well.
 	AuthUserIDHeader = "Auth-User-ID"
 
-	// AuthSuperAdminHeader indicates that this
-	// Percona Account has Super Admin permissions on Portal.
+	// AuthSuperAdminHeader flag indicates that this particular user has SuperAdmin
+	// permissions in Percona Portal only.
 	AuthSuperAdminHeader = "Auth-Portal-Super-Admin"
 
-	// AuthPortalOrgIDHeader is Portal Organization ID.
+	// AuthPortalOrgIDHeader Percona Portal Organization ID (equal to Okta Group ID).
 	AuthPortalOrgIDHeader = "Auth-Portal-Org-ID"
 
-	// AuthTokenHeader is OAuth2 access_token.
+	// AuthTokenHeader holds OAuth2 access_token that was used for request authentication.
+	// Is used for token propagation to outgoing requests since 'Authorization'
+	// HTTP header is removed by Traefik after request authentication.
 	AuthTokenHeader = "Auth-Token"
 
 	// Keep for backward compatibility.
@@ -52,10 +55,7 @@ const (
 	AuthErrorHeader = "Auth-Error"
 )
 
-var (
-	errInvalidCredentials = status.Error(codes.Unauthenticated, "Invalid credentials.")
-	errAuthenticationFail = status.Error(codes.Internal, "Authentication fail.")
-)
+var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
 
 // PerconaAuthHeaderMatcher preserves the PP-Auth-* headers added by /forwardauth in Authed service
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
@@ -79,23 +79,25 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
-			l.Error("No metadata in incoming request.")
+			l.Error("No metadata in incoming request. Rejecting request.")
 			return nil, errAuthenticationFail
 		}
-		l.Debugf("Received metadata: %+v", md)
+		l.Debugf("Received metadata: %+v.", md)
 
 		// Check authentication error before checking if methods requires authentication at all:
 		// * if Authorization header is absent, Auth Service returns OK;
 		// * but if Authorization header is present, it should be valid.
 		if err := handleAuthProxyError(md, l); err != nil {
+			l.Error("Incoming request is unauthenticated. Rejecting request.")
 			return nil, err
 		}
 
 		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
 			// Request must be authenticated.
-			reqData, err := getAuthData(md, l)
+			reqData, err := getAuthData(md)
 			if err != nil {
-				return nil, err
+				l.Errorf("Can't extract auth data from incoming request, reason: %+v. Rejecting request.", err)
+				return nil, errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, reqData)
 		}
@@ -116,7 +118,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
-			l.Error("No metadata in incoming request.")
+			l.Error("No metadata in incoming request. Rejecting request.")
 			return errAuthenticationFail
 		}
 		l.Debugf("Received metadata: %+v", md)
@@ -125,14 +127,16 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 		// * if Authorization header is absent, Auth Service returns OK;
 		// * but if Authorization header is present, it should be valid.
 		if err := handleAuthProxyError(md, l); err != nil {
+			l.Error("Incoming request is unauthenticated. Rejecting request.")
 			return err
 		}
 
 		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
 			// Request must be authenticated.
-			reqData, err := getAuthData(md, l)
+			reqData, err := getAuthData(md)
 			if err != nil {
-				return err
+				l.Errorf("Can't extract auth data from incoming request, reason: %+v. Rejecting request.", err)
+				return errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, reqData)
 		}
@@ -146,14 +150,15 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 	authStatus, err := getAuthStatusFromMetadata(md)
 	if err != nil {
-		l.Errorf("failed to get auth status from request metadata, reason: %+v", err)
+		l.Errorf("Failed to get auth status from request metadata, reason: %+v.", err)
 		return errAuthenticationFail
 	}
 
 	if authStatus != codes.OK {
 		authError, err := getAuthErrorFromMetadata(md)
 		if err != nil {
-			l.Error(err)
+			l.Errorf("Failed to extract auth error from incoming request, reason: %+v.", err)
+			return errAuthenticationFail
 		}
 		return status.Error(authStatus, authError)
 	}
@@ -161,63 +166,52 @@ func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
 	return nil
 }
 
-// TODO Merge five functions below and some code above into function that parses incoming headers/metadata
-// and returns struct with four fields. Use rdata package there?
-
 // getAuthData extracts user email and session id from request metadata.
-func getAuthData(md metadata.MD, l *zap.SugaredLogger) (*rdata.RequestData, error) {
+func getAuthData(md metadata.MD) (*rdata.RequestData, error) {
 	username, err := getStringFromMetadata(md, AuthUsernameHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUsernameHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUsernameHeader)
 	}
 
 	userID, err := getStringFromMetadata(md, AuthUserIDHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthUserIDHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUserIDHeader)
 	}
 
 	isPortalSuperAdmin, err := getBoolFromMetadata(md, AuthSuperAdminHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthSuperAdminHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthSuperAdminHeader)
 	}
 
 	portalOrgID, err := getStringFromMetadata(md, AuthPortalOrgIDHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthPortalOrgIDHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthPortalOrgIDHeader)
 	}
 
 	authToken, err := getStringFromMetadata(md, AuthTokenHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthTokenHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthTokenHeader)
 	}
 
 	// Keep for backward compatibility.
 	email, err := getStringFromMetadata(md, AuthEmailHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthEmailHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthEmailHeader)
 	}
 
 	sessionID, err := getStringFromMetadata(md, AuthSessionHeader)
 	if err != nil {
-		l.Errorf("failed to get %s from request metadata, reason: %+v", AuthSessionHeader, err)
-		return nil, errAuthenticationFail
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthSessionHeader)
 	}
 
 	// There are the following cases possible:
-	// - username exists in PP-Auth- headers - it means this incoming request we are processing now
+	// - Auth-Username header is not empty - it means this incoming request we are processing now
 	// is from real user (browser).
-	// - portalOrgID exists in PP-Auth- headers - it means this incoming request we are processing now
+	// - Auth-Portal-Org-ID header is not empty - it means this incoming request we are processing now
 	// is from PMM Server (machine-to-machine communication).
 	// Authorized incoming request must contain one of: username, portalOrgID, sessionID.
 	if len(username) == 0 && len(portalOrgID) == 0 && len(sessionID) == 0 {
-		l.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIDHeader, AuthSessionHeader)
-		return nil, errInvalidCredentials
+		return nil, fmt.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIDHeader, AuthSessionHeader)
 	}
 
 	return &rdata.RequestData{
@@ -250,7 +244,7 @@ func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 func getAuthErrorFromMetadata(md metadata.MD) (string, error) {
 	header := md.Get(AuthErrorHeader)
 	if len(header) != 1 {
-		return "", fmt.Errorf("expect exactly one auth error header, got: %d", len(header))
+		return "", fmt.Errorf("expect exactly one %s header, got: %d", AuthErrorHeader, len(header))
 	}
 
 	return header[0], nil
