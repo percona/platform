@@ -62,7 +62,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SignInRequestDefaultTypeInterna
 constexpr SignInResponse::SignInResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : session_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , expire_time_(nullptr){}
+  , token_type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , access_token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , expire_time_(nullptr)
+  , expires_in_(0){}
 struct SignInResponseDefaultTypeInternal {
   constexpr SignInResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -227,6 +230,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_auth_2fauth_5fapi_2eproto::off
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignInResponse, session_id_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignInResponse, expire_time_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignInResponse, token_type_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignInResponse, expires_in_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignInResponse, access_token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::auth::v1::SignOutRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -291,16 +297,16 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 9, -1, sizeof(::percona::platform::auth::v1::SignUpResponse)},
   { 14, -1, sizeof(::percona::platform::auth::v1::SignInRequest)},
   { 21, -1, sizeof(::percona::platform::auth::v1::SignInResponse)},
-  { 28, -1, sizeof(::percona::platform::auth::v1::SignOutRequest)},
-  { 33, -1, sizeof(::percona::platform::auth::v1::SignOutResponse)},
-  { 38, -1, sizeof(::percona::platform::auth::v1::RefreshSessionRequest)},
-  { 43, -1, sizeof(::percona::platform::auth::v1::RefreshSessionResponse)},
-  { 50, -1, sizeof(::percona::platform::auth::v1::ResetPasswordRequest)},
-  { 56, -1, sizeof(::percona::platform::auth::v1::ResetPasswordResponse)},
-  { 61, -1, sizeof(::percona::platform::auth::v1::GetProfileRequest)},
-  { 66, -1, sizeof(::percona::platform::auth::v1::GetProfileResponse)},
-  { 74, -1, sizeof(::percona::platform::auth::v1::UpdateProfileRequest)},
-  { 81, -1, sizeof(::percona::platform::auth::v1::UpdateProfileResponse)},
+  { 31, -1, sizeof(::percona::platform::auth::v1::SignOutRequest)},
+  { 36, -1, sizeof(::percona::platform::auth::v1::SignOutResponse)},
+  { 41, -1, sizeof(::percona::platform::auth::v1::RefreshSessionRequest)},
+  { 46, -1, sizeof(::percona::platform::auth::v1::RefreshSessionResponse)},
+  { 53, -1, sizeof(::percona::platform::auth::v1::ResetPasswordRequest)},
+  { 59, -1, sizeof(::percona::platform::auth::v1::ResetPasswordResponse)},
+  { 64, -1, sizeof(::percona::platform::auth::v1::GetProfileRequest)},
+  { 69, -1, sizeof(::percona::platform::auth::v1::GetProfileResponse)},
+  { 77, -1, sizeof(::percona::platform::auth::v1::UpdateProfileRequest)},
+  { 84, -1, sizeof(::percona::platform::auth::v1::UpdateProfileResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -329,45 +335,47 @@ const char descriptor_table_protodef_auth_2fauth_5fapi_2eproto[] PROTOBUF_SECTIO
   "\342\337\037\002X\001\022\024\n\010password\030\002 \001(\tB\002\030\001\022\022\n\nfirst_na"
   "me\030\003 \001(\t\022\021\n\tlast_name\030\004 \001(\t\"\020\n\016SignUpRes"
   "ponse\"@\n\rSignInRequest\022\025\n\005email\030\001 \001(\tB\006\342"
-  "\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"U\n\016SignI"
-  "nResponse\022\022\n\nsession_id\030\001 \001(\t\022/\n\013expire_"
-  "time\030\002 \001(\0132\032.google.protobuf.Timestamp\"\020"
-  "\n\016SignOutRequest\"\021\n\017SignOutResponse\"\027\n\025R"
-  "efreshSessionRequest\"X\n\026RefreshSessionRe"
-  "sponse\022/\n\013expire_time\030\001 \001(\0132\032.google.pro"
-  "tobuf.Timestamp\022\r\n\005email\030\002 \001(\t\"-\n\024ResetP"
-  "asswordRequest\022\025\n\005email\030\001 \001(\tB\006\342\337\037\002X\001\"\027\n"
-  "\025ResetPasswordResponse\"\023\n\021GetProfileRequ"
-  "est\"J\n\022GetProfileResponse\022\r\n\005email\030\001 \001(\t"
-  "\022\022\n\nfirst_name\030\002 \001(\t\022\021\n\tlast_name\030\003 \001(\t\""
-  "M\n\024UpdateProfileRequest\022\032\n\nfirst_name\030\001 "
-  "\001(\tB\006\342\337\037\002X\001\022\031\n\tlast_name\030\002 \001(\tB\006\342\337\037\002X\001\"\027"
-  "\n\025UpdateProfileResponse2\310\007\n\007AuthAPI\022w\n\006S"
-  "ignUp\022\'.percona.platform.auth.v1.SignUpR"
-  "equest\032(.percona.platform.auth.v1.SignUp"
-  "Response\"\032\202\323\344\223\002\024\"\017/v1/auth/SignUp:\001*\022w\n\006"
-  "SignIn\022\'.percona.platform.auth.v1.SignIn"
-  "Request\032(.percona.platform.auth.v1.SignI"
-  "nResponse\"\032\202\323\344\223\002\024\"\017/v1/auth/SignIn:\001*\022{\n"
-  "\007SignOut\022(.percona.platform.auth.v1.Sign"
-  "OutRequest\032).percona.platform.auth.v1.Si"
-  "gnOutResponse\"\033\202\323\344\223\002\025\"\020/v1/auth/SignOut:"
-  "\001*\022\227\001\n\016RefreshSession\022/.percona.platform"
-  ".auth.v1.RefreshSessionRequest\0320.percona"
-  ".platform.auth.v1.RefreshSessionResponse"
-  "\"\"\202\323\344\223\002\034\"\027/v1/auth/RefreshSession:\001*\022\223\001\n"
-  "\rResetPassword\022..percona.platform.auth.v"
-  "1.ResetPasswordRequest\032/.percona.platfor"
-  "m.auth.v1.ResetPasswordResponse\"!\202\323\344\223\002\033\""
-  "\026/v1/auth/ResetPassword:\001*\022\207\001\n\nGetProfil"
-  "e\022+.percona.platform.auth.v1.GetProfileR"
-  "equest\032,.percona.platform.auth.v1.GetPro"
-  "fileResponse\"\036\202\323\344\223\002\030\"\023/v1/auth/GetProfil"
-  "e:\001*\022\223\001\n\rUpdateProfile\022..percona.platfor"
-  "m.auth.v1.UpdateProfileRequest\032/.percona"
-  ".platform.auth.v1.UpdateProfileResponse\""
-  "!\202\323\344\223\002\033\"\026/v1/auth/UpdateProfile:\001*B\016Z\014/a"
-  "uth;authv1b\006proto3"
+  "\337\037\002X\001\022\030\n\010password\030\002 \001(\tB\006\342\337\037\002X\001\"\223\001\n\016Sign"
+  "InResponse\022\022\n\nsession_id\030\001 \001(\t\022/\n\013expire"
+  "_time\030\002 \001(\0132\032.google.protobuf.Timestamp\022"
+  "\022\n\ntoken_type\030\003 \001(\t\022\022\n\nexpires_in\030\004 \001(\005\022"
+  "\024\n\014access_token\030\005 \001(\t\"\020\n\016SignOutRequest\""
+  "\021\n\017SignOutResponse\"\027\n\025RefreshSessionRequ"
+  "est\"X\n\026RefreshSessionResponse\022/\n\013expire_"
+  "time\030\001 \001(\0132\032.google.protobuf.Timestamp\022\r"
+  "\n\005email\030\002 \001(\t\"-\n\024ResetPasswordRequest\022\025\n"
+  "\005email\030\001 \001(\tB\006\342\337\037\002X\001\"\027\n\025ResetPasswordRes"
+  "ponse\"\023\n\021GetProfileRequest\"J\n\022GetProfile"
+  "Response\022\r\n\005email\030\001 \001(\t\022\022\n\nfirst_name\030\002 "
+  "\001(\t\022\021\n\tlast_name\030\003 \001(\t\"M\n\024UpdateProfileR"
+  "equest\022\032\n\nfirst_name\030\001 \001(\tB\006\342\337\037\002X\001\022\031\n\tla"
+  "st_name\030\002 \001(\tB\006\342\337\037\002X\001\"\027\n\025UpdateProfileRe"
+  "sponse2\310\007\n\007AuthAPI\022w\n\006SignUp\022\'.percona.p"
+  "latform.auth.v1.SignUpRequest\032(.percona."
+  "platform.auth.v1.SignUpResponse\"\032\202\323\344\223\002\024\""
+  "\017/v1/auth/SignUp:\001*\022w\n\006SignIn\022\'.percona."
+  "platform.auth.v1.SignInRequest\032(.percona"
+  ".platform.auth.v1.SignInResponse\"\032\202\323\344\223\002\024"
+  "\"\017/v1/auth/SignIn:\001*\022{\n\007SignOut\022(.percon"
+  "a.platform.auth.v1.SignOutRequest\032).perc"
+  "ona.platform.auth.v1.SignOutResponse\"\033\202\323"
+  "\344\223\002\025\"\020/v1/auth/SignOut:\001*\022\227\001\n\016RefreshSes"
+  "sion\022/.percona.platform.auth.v1.RefreshS"
+  "essionRequest\0320.percona.platform.auth.v1"
+  ".RefreshSessionResponse\"\"\202\323\344\223\002\034\"\027/v1/aut"
+  "h/RefreshSession:\001*\022\223\001\n\rResetPassword\022.."
+  "percona.platform.auth.v1.ResetPasswordRe"
+  "quest\032/.percona.platform.auth.v1.ResetPa"
+  "sswordResponse\"!\202\323\344\223\002\033\"\026/v1/auth/ResetPa"
+  "ssword:\001*\022\207\001\n\nGetProfile\022+.percona.platf"
+  "orm.auth.v1.GetProfileRequest\032,.percona."
+  "platform.auth.v1.GetProfileResponse\"\036\202\323\344"
+  "\223\002\030\"\023/v1/auth/GetProfile:\001*\022\223\001\n\rUpdatePr"
+  "ofile\022..percona.platform.auth.v1.UpdateP"
+  "rofileRequest\032/.percona.platform.auth.v1"
+  ".UpdateProfileResponse\"!\202\323\344\223\002\033\"\026/v1/auth"
+  "/UpdateProfile:\001*B\016Z\014/auth;authv1b\006proto"
+  "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fauth_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -376,7 +384,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fauth_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fauth_5fapi_2eproto = {
-  false, false, 1858, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
+  false, false, 1921, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
   &descriptor_table_auth_2fauth_5fapi_2eproto_once, descriptor_table_auth_2fauth_5fapi_2eproto_deps, 3, 14,
   schemas, file_default_instances, TableStruct_auth_2fauth_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fauth_5fapi_2eproto, file_level_enum_descriptors_auth_2fauth_5fapi_2eproto, file_level_service_descriptors_auth_2fauth_5fapi_2eproto,
@@ -1134,17 +1142,33 @@ SignInResponse::SignInResponse(const SignInResponse& from)
     session_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_session_id(), 
       GetArena());
   }
+  token_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_token_type().empty()) {
+    token_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token_type(), 
+      GetArena());
+  }
+  access_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_access_token().empty()) {
+    access_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_access_token(), 
+      GetArena());
+  }
   if (from._internal_has_expire_time()) {
     expire_time_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.expire_time_);
   } else {
     expire_time_ = nullptr;
   }
+  expires_in_ = from.expires_in_;
   // @@protoc_insertion_point(copy_constructor:percona.platform.auth.v1.SignInResponse)
 }
 
 void SignInResponse::SharedCtor() {
 session_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-expire_time_ = nullptr;
+token_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+access_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&expire_time_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&expires_in_) -
+    reinterpret_cast<char*>(&expire_time_)) + sizeof(expires_in_));
 }
 
 SignInResponse::~SignInResponse() {
@@ -1156,6 +1180,8 @@ SignInResponse::~SignInResponse() {
 void SignInResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   session_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  token_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  access_token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete expire_time_;
 }
 
@@ -1176,10 +1202,13 @@ void SignInResponse::Clear() {
   (void) cached_has_bits;
 
   session_id_.ClearToEmpty();
+  token_type_.ClearToEmpty();
+  access_token_.ClearToEmpty();
   if (GetArena() == nullptr && expire_time_ != nullptr) {
     delete expire_time_;
   }
   expire_time_ = nullptr;
+  expires_in_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1203,6 +1232,31 @@ const char* SignInResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_expire_time(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string token_type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_token_type();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.v1.SignInResponse.token_type"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 expires_in = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          expires_in_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string access_token = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          auto str = _internal_mutable_access_token();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.auth.v1.SignInResponse.access_token"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1252,6 +1306,32 @@ failure:
         2, _Internal::expire_time(this), target, stream);
   }
 
+  // string token_type = 3;
+  if (this->token_type().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token_type().data(), static_cast<int>(this->_internal_token_type().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.auth.v1.SignInResponse.token_type");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_token_type(), target);
+  }
+
+  // int32 expires_in = 4;
+  if (this->expires_in() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_expires_in(), target);
+  }
+
+  // string access_token = 5;
+  if (this->access_token().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_access_token().data(), static_cast<int>(this->_internal_access_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.auth.v1.SignInResponse.access_token");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_access_token(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1275,11 +1355,32 @@ size_t SignInResponse::ByteSizeLong() const {
         this->_internal_session_id());
   }
 
+  // string token_type = 3;
+  if (this->token_type().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token_type());
+  }
+
+  // string access_token = 5;
+  if (this->access_token().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_access_token());
+  }
+
   // .google.protobuf.Timestamp expire_time = 2;
   if (this->has_expire_time()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *expire_time_);
+  }
+
+  // int32 expires_in = 4;
+  if (this->expires_in() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_expires_in());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1316,8 +1417,17 @@ void SignInResponse::MergeFrom(const SignInResponse& from) {
   if (from.session_id().size() > 0) {
     _internal_set_session_id(from._internal_session_id());
   }
+  if (from.token_type().size() > 0) {
+    _internal_set_token_type(from._internal_token_type());
+  }
+  if (from.access_token().size() > 0) {
+    _internal_set_access_token(from._internal_access_token());
+  }
   if (from.has_expire_time()) {
     _internal_mutable_expire_time()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_expire_time());
+  }
+  if (from.expires_in() != 0) {
+    _internal_set_expires_in(from._internal_expires_in());
   }
 }
 
@@ -1343,7 +1453,14 @@ void SignInResponse::InternalSwap(SignInResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   session_id_.Swap(&other->session_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  swap(expire_time_, other->expire_time_);
+  token_type_.Swap(&other->token_type_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  access_token_.Swap(&other->access_token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SignInResponse, expires_in_)
+      + sizeof(SignInResponse::expires_in_)
+      - PROTOBUF_FIELD_OFFSET(SignInResponse, expire_time_)>(
+          reinterpret_cast<char*>(&expire_time_),
+          reinterpret_cast<char*>(&other->expire_time_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SignInResponse::GetMetadata() const {
