@@ -86,10 +86,18 @@ export class GetOrganizationResponse extends jspb.Message {
   getName(): string;
   setName(value: string): GetOrganizationResponse;
 
+  getOktaGroupId(): string;
+  setOktaGroupId(value: string): GetOrganizationResponse;
+
   getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationResponse;
   hasCreatedAt(): boolean;
   clearCreatedAt(): GetOrganizationResponse;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationResponse;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): GetOrganizationResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrganizationResponse.AsObject;
@@ -103,7 +111,9 @@ export namespace GetOrganizationResponse {
   export type AsObject = {
     id: string,
     name: string,
+    oktaGroupId: string,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }
 }
 

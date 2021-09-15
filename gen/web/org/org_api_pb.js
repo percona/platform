@@ -739,7 +739,9 @@ proto.percona.platform.org.v1.GetOrganizationResponse.toObject = function(includ
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     name: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    oktaGroupId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -785,9 +787,18 @@ proto.percona.platform.org.v1.GetOrganizationResponse.deserializeBinaryFromReade
       msg.setName(value);
       break;
     case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOktaGroupId(value);
+      break;
+    case 4:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedAt(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setUpdatedAt(value);
       break;
     default:
       reader.skipField();
@@ -832,10 +843,25 @@ proto.percona.platform.org.v1.GetOrganizationResponse.serializeBinaryToWriter = 
       f
     );
   }
+  f = message.getOktaGroupId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
   f = message.getCreatedAt();
   if (f != null) {
     writer.writeMessage(
-      3,
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getUpdatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -880,12 +906,30 @@ proto.percona.platform.org.v1.GetOrganizationResponse.prototype.setName = functi
 
 
 /**
- * optional google.protobuf.Timestamp created_at = 3;
+ * optional string okta_group_id = 3;
+ * @return {string}
+ */
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.getOktaGroupId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.org.v1.GetOrganizationResponse} returns this
+ */
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.setOktaGroupId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 4;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.percona.platform.org.v1.GetOrganizationResponse.prototype.getCreatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
 };
 
 
@@ -894,7 +938,7 @@ proto.percona.platform.org.v1.GetOrganizationResponse.prototype.getCreatedAt = f
  * @return {!proto.percona.platform.org.v1.GetOrganizationResponse} returns this
 */
 proto.percona.platform.org.v1.GetOrganizationResponse.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
@@ -912,7 +956,44 @@ proto.percona.platform.org.v1.GetOrganizationResponse.prototype.clearCreatedAt =
  * @return {boolean}
  */
 proto.percona.platform.org.v1.GetOrganizationResponse.prototype.hasCreatedAt = function() {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp updated_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.getUpdatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.percona.platform.org.v1.GetOrganizationResponse} returns this
+*/
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.setUpdatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.percona.platform.org.v1.GetOrganizationResponse} returns this
+ */
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.clearUpdatedAt = function() {
+  return this.setUpdatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.percona.platform.org.v1.GetOrganizationResponse.prototype.hasUpdatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
