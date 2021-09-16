@@ -109,6 +109,74 @@ export namespace GetOrganizationByIDResponse {
   }
 }
 
+export class Organization extends jspb.Message {
+  getId(): string;
+  setId(value: string): Organization;
+
+  getName(): string;
+  setName(value: string): Organization;
+
+  getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): Organization;
+  hasCreatedAt(): boolean;
+  clearCreatedAt(): Organization;
+
+  getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): Organization;
+  hasUpdatedAt(): boolean;
+  clearUpdatedAt(): Organization;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Organization.AsObject;
+  static toObject(includeInstance: boolean, msg: Organization): Organization.AsObject;
+  static serializeBinaryToWriter(message: Organization, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Organization;
+  static deserializeBinaryFromReader(message: Organization, reader: jspb.BinaryReader): Organization;
+}
+
+export namespace Organization {
+  export type AsObject = {
+    id: string,
+    name: string,
+    createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+  }
+}
+
+export class GetOrganizationByUserRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationByUserRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByUserRequest): GetOrganizationByUserRequest.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByUserRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByUserRequest;
+  static deserializeBinaryFromReader(message: GetOrganizationByUserRequest, reader: jspb.BinaryReader): GetOrganizationByUserRequest;
+}
+
+export namespace GetOrganizationByUserRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetOrganizationByUserResponse extends jspb.Message {
+  getOrganizationsList(): Array<Organization>;
+  setOrganizationsList(value: Array<Organization>): GetOrganizationByUserResponse;
+  clearOrganizationsList(): GetOrganizationByUserResponse;
+  addOrganizations(value?: Organization, index?: number): Organization;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationByUserResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByUserResponse): GetOrganizationByUserResponse.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByUserResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByUserResponse;
+  static deserializeBinaryFromReader(message: GetOrganizationByUserResponse, reader: jspb.BinaryReader): GetOrganizationByUserResponse;
+}
+
+export namespace GetOrganizationByUserResponse {
+  export type AsObject = {
+    organizationsList: Array<Organization.AsObject>,
+  }
+}
+
 export class DeleteOrganizationRequest extends jspb.Message {
   getId(): string;
   setId(value: string): DeleteOrganizationRequest;

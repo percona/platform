@@ -23,6 +23,8 @@ type OrgAPIClient interface {
 	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
 	// GetOrganizationByID fetches organization details for the given organization ID.
 	GetOrganizationByID(ctx context.Context, in *GetOrganizationByIDRequest, opts ...grpc.CallOption) (*GetOrganizationByIDResponse, error)
+	// GetOrganizationByUser fetches organizations that the logged in user has permission to view.
+	GetOrganizationByUser(ctx context.Context, in *GetOrganizationByUserRequest, opts ...grpc.CallOption) (*GetOrganizationByUserResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 }
@@ -53,6 +55,15 @@ func (c *orgAPIClient) GetOrganizationByID(ctx context.Context, in *GetOrganizat
 	return out, nil
 }
 
+func (c *orgAPIClient) GetOrganizationByUser(ctx context.Context, in *GetOrganizationByUserRequest, opts ...grpc.CallOption) (*GetOrganizationByUserResponse, error) {
+	out := new(GetOrganizationByUserResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetOrganizationByUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orgAPIClient) DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error) {
 	out := new(DeleteOrganizationResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", in, out, opts...)
@@ -70,6 +81,8 @@ type OrgAPIServer interface {
 	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
 	// GetOrganizationByID fetches organization details for the given organization ID.
 	GetOrganizationByID(context.Context, *GetOrganizationByIDRequest) (*GetOrganizationByIDResponse, error)
+	// GetOrganizationByUser fetches organizations that the logged in user has permission to view.
+	GetOrganizationByUser(context.Context, *GetOrganizationByUserRequest) (*GetOrganizationByUserResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
@@ -84,6 +97,10 @@ func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrga
 
 func (UnimplementedOrgAPIServer) GetOrganizationByID(context.Context, *GetOrganizationByIDRequest) (*GetOrganizationByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationByID not implemented")
+}
+
+func (UnimplementedOrgAPIServer) GetOrganizationByUser(context.Context, *GetOrganizationByUserRequest) (*GetOrganizationByUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationByUser not implemented")
 }
 
 func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
@@ -138,6 +155,24 @@ func _OrgAPI_GetOrganizationByID_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_GetOrganizationByUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationByUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).GetOrganizationByUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetOrganizationByUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).GetOrganizationByUser(ctx, req.(*GetOrganizationByUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrgAPI_DeleteOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteOrganizationRequest)
 	if err := dec(in); err != nil {
@@ -170,6 +205,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOrganizationByID",
 			Handler:    _OrgAPI_GetOrganizationByID_Handler,
+		},
+		{
+			MethodName: "GetOrganizationByUser",
+			Handler:    _OrgAPI_GetOrganizationByUser_Handler,
 		},
 		{
 			MethodName: "DeleteOrganization",

@@ -26,6 +26,14 @@ service OrgAPI {
       };
     }
 
+    // GetOrganizationByUser fetches organizations that the logged in user has permission to view.
+    rpc GetOrganizationByUser(GetOrganizationByUserRequest) returns (GetOrganizationByUserResponse) {
+      option (google.api.http) = {
+        post: "/v1/org/GetOrganizationByUser"
+        body: "*"
+      };
+    }
+
     // DeleteOrganization deletes organization and its members for the given organization ID.
     rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
       option (google.api.http) = {
@@ -73,6 +81,24 @@ message GetOrganizationByIDResponse {
     google.protobuf.Timestamp created_at = 3;
     // Timestamp when organization was last updated.
     google.protobuf.Timestamp updated_at = 4;
+}
+
+
+message Organization {
+  // Perona Portal Organization ID.
+  string id = 1;
+  // Percona Portal Organization Name.
+  string name = 2;
+  // Timestamp of organization creation.
+  google.protobuf.Timestamp created_at = 3;
+  // Timestamp when organization was last updated.
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message GetOrganizationByUserRequest {}
+
+message GetOrganizationByUserResponse {
+  repeated Organization organizations = 1;
 }
 
 message DeleteOrganizationRequest {
