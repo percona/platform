@@ -30,9 +30,6 @@ export class CreateOrganizationResponse extends jspb.Message {
   getName(): string;
   setName(value: string): CreateOrganizationResponse;
 
-  getOktaGroupId(): string;
-  setOktaGroupId(value: string): CreateOrganizationResponse;
-
   getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
   setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): CreateOrganizationResponse;
   hasCreatedAt(): boolean;
@@ -55,63 +52,58 @@ export namespace CreateOrganizationResponse {
   export type AsObject = {
     id: string,
     name: string,
-    oktaGroupId: string,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }
 }
 
-export class GetOrganizationRequest extends jspb.Message {
+export class GetOrganizationByIDRequest extends jspb.Message {
   getId(): string;
-  setId(value: string): GetOrganizationRequest;
+  setId(value: string): GetOrganizationByIDRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetOrganizationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetOrganizationRequest): GetOrganizationRequest.AsObject;
-  static serializeBinaryToWriter(message: GetOrganizationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetOrganizationRequest;
-  static deserializeBinaryFromReader(message: GetOrganizationRequest, reader: jspb.BinaryReader): GetOrganizationRequest;
+  toObject(includeInstance?: boolean): GetOrganizationByIDRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByIDRequest): GetOrganizationByIDRequest.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByIDRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByIDRequest;
+  static deserializeBinaryFromReader(message: GetOrganizationByIDRequest, reader: jspb.BinaryReader): GetOrganizationByIDRequest;
 }
 
-export namespace GetOrganizationRequest {
+export namespace GetOrganizationByIDRequest {
   export type AsObject = {
     id: string,
   }
 }
 
-export class GetOrganizationResponse extends jspb.Message {
+export class GetOrganizationByIDResponse extends jspb.Message {
   getId(): string;
-  setId(value: string): GetOrganizationResponse;
+  setId(value: string): GetOrganizationByIDResponse;
 
   getName(): string;
-  setName(value: string): GetOrganizationResponse;
-
-  getOktaGroupId(): string;
-  setOktaGroupId(value: string): GetOrganizationResponse;
+  setName(value: string): GetOrganizationByIDResponse;
 
   getCreatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationResponse;
+  setCreatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationByIDResponse;
   hasCreatedAt(): boolean;
-  clearCreatedAt(): GetOrganizationResponse;
+  clearCreatedAt(): GetOrganizationByIDResponse;
 
   getUpdatedAt(): google_protobuf_timestamp_pb.Timestamp | undefined;
-  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationResponse;
+  setUpdatedAt(value?: google_protobuf_timestamp_pb.Timestamp): GetOrganizationByIDResponse;
   hasUpdatedAt(): boolean;
-  clearUpdatedAt(): GetOrganizationResponse;
+  clearUpdatedAt(): GetOrganizationByIDResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetOrganizationResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetOrganizationResponse): GetOrganizationResponse.AsObject;
-  static serializeBinaryToWriter(message: GetOrganizationResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetOrganizationResponse;
-  static deserializeBinaryFromReader(message: GetOrganizationResponse, reader: jspb.BinaryReader): GetOrganizationResponse;
+  toObject(includeInstance?: boolean): GetOrganizationByIDResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationByIDResponse): GetOrganizationByIDResponse.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationByIDResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationByIDResponse;
+  static deserializeBinaryFromReader(message: GetOrganizationByIDResponse, reader: jspb.BinaryReader): GetOrganizationByIDResponse;
 }
 
-export namespace GetOrganizationResponse {
+export namespace GetOrganizationByIDResponse {
   export type AsObject = {
     id: string,
     name: string,
-    oktaGroupId: string,
     createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
   }

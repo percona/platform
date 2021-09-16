@@ -18,10 +18,10 @@ service OrgAPI {
       };
     }
 
-    // GetOrganization fetches organization details for the given organization ID.
-    rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
+    // GetOrganizationByID fetches organization details for the given organization ID.
+    rpc GetOrganizationByID(GetOrganizationByIDRequest) returns (GetOrganizationByIDResponse) {
       option (google.api.http) = {
-        post: "/v1/org/Get"
+        post: "/v1/org/GetOrganizationByID"
         body: "*"
       };
     }
@@ -49,15 +49,13 @@ message CreateOrganizationResponse {
     string id = 1;
     // Percona Portal Organization Name.
     string name = 2;
-    // Percona Portal Okta Group ID.
-    string okta_group_id = 3;
     // Timestamp of organization creation.
-    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp created_at = 3;
     // Timestamp when organization was last updated.
-    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp updated_at = 4;
 }
 
-message GetOrganizationRequest {
+message GetOrganizationByIDRequest {
   // Perona Portal Organization ID.
   string id = 1 [
   (validator.field) = {
@@ -66,17 +64,15 @@ message GetOrganizationRequest {
 ];
 }
 
-message GetOrganizationResponse {
+message GetOrganizationByIDResponse {
     // Perona Portal Organization ID.
     string id = 1;
     // Percona Portal Organization Name.
     string name = 2;
-    // Percona Portal Okta Group ID.
-    string okta_group_id = 3;
     // Timestamp of organization creation.
-    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp created_at = 3;
     // Timestamp when organization was last updated.
-    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp updated_at = 4;
 }
 
 message DeleteOrganizationRequest {

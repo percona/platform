@@ -42,14 +42,14 @@ func (this *CreateOrganizationResponse) Validate() error {
 	return nil
 }
 
-func (this *GetOrganizationRequest) Validate() error {
+func (this *GetOrganizationByIDRequest) Validate() error {
 	if this.Id == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
 	}
 	return nil
 }
 
-func (this *GetOrganizationResponse) Validate() error {
+func (this *GetOrganizationByIDResponse) Validate() error {
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
