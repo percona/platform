@@ -13,15 +13,17 @@ service OrgAPI {
     // CreateOrganization creates new organization with the given name and adds the user as org admin.
     rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
       option (google.api.http) = {
-        post: "/v1/org/Create"
+        post: "/v1/org/CreateOrganization"
         body: "*"
       };
     }
 
-    // GetOrganizationByID fetches organization details for the given organization ID.
-    rpc GetOrganizationByID(GetOrganizationByIDRequest) returns (GetOrganizationByIDResponse) {
+    // GetOrganization fetches organization details either by:
+    // the organization ID sent in the request
+    // the user ID extracted from Auth headers. 
+    rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
       option (google.api.http) = {
-        post: "/v1/org/GetOrganizationByID"
+        post: "/v1/org/GetOrganization"
         body: "*"
       };
     }
@@ -29,7 +31,7 @@ service OrgAPI {
     // DeleteOrganization deletes organization and its members for the given organization ID.
     rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
       option (google.api.http) = {
-        post: "/v1/org/Delete"
+        post: "/v1/org/DeleteOrganization"
         body: "*"
       };
     }
@@ -59,17 +61,13 @@ message CreateOrganizationResponse {
     Organization org = 1;
 }
 
-message GetOrganizationByIDRequest {
+message GetOrganizationRequest {
   // Perona Portal Organization ID.
-  string id = 1 [
-  (validator.field) = {
-    string_not_empty: true
-  }
-];
+  string id = 1;
 }
 
-message GetOrganizationByIDResponse {
-  Organization org = 1;
+message GetOrganizationResponse {
+  repeated Organization org = 1;
 }
 
 message DeleteOrganizationRequest {

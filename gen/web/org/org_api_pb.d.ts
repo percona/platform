@@ -77,41 +77,41 @@ export namespace CreateOrganizationResponse {
   }
 }
 
-export class GetOrganizationByIDRequest extends jspb.Message {
+export class GetOrganizationRequest extends jspb.Message {
   getId(): string;
-  setId(value: string): GetOrganizationByIDRequest;
+  setId(value: string): GetOrganizationRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetOrganizationByIDRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetOrganizationByIDRequest): GetOrganizationByIDRequest.AsObject;
-  static serializeBinaryToWriter(message: GetOrganizationByIDRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetOrganizationByIDRequest;
-  static deserializeBinaryFromReader(message: GetOrganizationByIDRequest, reader: jspb.BinaryReader): GetOrganizationByIDRequest;
+  toObject(includeInstance?: boolean): GetOrganizationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationRequest): GetOrganizationRequest.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationRequest;
+  static deserializeBinaryFromReader(message: GetOrganizationRequest, reader: jspb.BinaryReader): GetOrganizationRequest;
 }
 
-export namespace GetOrganizationByIDRequest {
+export namespace GetOrganizationRequest {
   export type AsObject = {
     id: string,
   }
 }
 
-export class GetOrganizationByIDResponse extends jspb.Message {
-  getOrg(): Organization | undefined;
-  setOrg(value?: Organization): GetOrganizationByIDResponse;
-  hasOrg(): boolean;
-  clearOrg(): GetOrganizationByIDResponse;
+export class GetOrganizationResponse extends jspb.Message {
+  getOrgList(): Array<Organization>;
+  setOrgList(value: Array<Organization>): GetOrganizationResponse;
+  clearOrgList(): GetOrganizationResponse;
+  addOrg(value?: Organization, index?: number): Organization;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetOrganizationByIDResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetOrganizationByIDResponse): GetOrganizationByIDResponse.AsObject;
-  static serializeBinaryToWriter(message: GetOrganizationByIDResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetOrganizationByIDResponse;
-  static deserializeBinaryFromReader(message: GetOrganizationByIDResponse, reader: jspb.BinaryReader): GetOrganizationByIDResponse;
+  toObject(includeInstance?: boolean): GetOrganizationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationResponse): GetOrganizationResponse.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationResponse;
+  static deserializeBinaryFromReader(message: GetOrganizationResponse, reader: jspb.BinaryReader): GetOrganizationResponse;
 }
 
-export namespace GetOrganizationByIDResponse {
+export namespace GetOrganizationResponse {
   export type AsObject = {
-    org?: Organization.AsObject,
+    orgList: Array<Organization.AsObject>,
   }
 }
 
