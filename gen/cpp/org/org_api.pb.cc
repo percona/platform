@@ -20,6 +20,21 @@ namespace percona {
 namespace platform {
 namespace org {
 namespace v1 {
+constexpr Organization::Organization(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , created_at_(nullptr)
+  , updated_at_(nullptr){}
+struct OrganizationDefaultTypeInternal {
+  constexpr OrganizationDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~OrganizationDefaultTypeInternal() {}
+  union {
+    Organization _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OrganizationDefaultTypeInternal _Organization_default_instance_;
 constexpr CreateOrganizationRequest::CreateOrganizationRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
@@ -34,10 +49,7 @@ struct CreateOrganizationRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CreateOrganizationRequestDefaultTypeInternal _CreateOrganizationRequest_default_instance_;
 constexpr CreateOrganizationResponse::CreateOrganizationResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , created_at_(nullptr)
-  , updated_at_(nullptr){}
+  : org_(nullptr){}
 struct CreateOrganizationResponseDefaultTypeInternal {
   constexpr CreateOrganizationResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -61,10 +73,7 @@ struct GetOrganizationByIDRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetOrganizationByIDRequestDefaultTypeInternal _GetOrganizationByIDRequest_default_instance_;
 constexpr GetOrganizationByIDResponse::GetOrganizationByIDResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , created_at_(nullptr)
-  , updated_at_(nullptr){}
+  : org_(nullptr){}
 struct GetOrganizationByIDResponseDefaultTypeInternal {
   constexpr GetOrganizationByIDResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -101,11 +110,20 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeleteOrganizationResponseDefau
 }  // namespace org
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[6];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[7];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_org_2forg_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_org_2forg_5fapi_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Organization, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Organization, id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Organization, name_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Organization, created_at_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Organization, updated_at_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -117,10 +135,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, id_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, name_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, created_at_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, updated_at_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, org_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -132,10 +147,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDResponse, id_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDResponse, name_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDResponse, created_at_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDResponse, updated_at_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationByIDResponse, org_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DeleteOrganizationRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -149,15 +161,17 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _weak_field_map_
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::percona::platform::org::v1::CreateOrganizationRequest)},
-  { 6, -1, sizeof(::percona::platform::org::v1::CreateOrganizationResponse)},
-  { 15, -1, sizeof(::percona::platform::org::v1::GetOrganizationByIDRequest)},
-  { 21, -1, sizeof(::percona::platform::org::v1::GetOrganizationByIDResponse)},
-  { 30, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationRequest)},
-  { 36, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationResponse)},
+  { 0, -1, sizeof(::percona::platform::org::v1::Organization)},
+  { 9, -1, sizeof(::percona::platform::org::v1::CreateOrganizationRequest)},
+  { 15, -1, sizeof(::percona::platform::org::v1::CreateOrganizationResponse)},
+  { 21, -1, sizeof(::percona::platform::org::v1::GetOrganizationByIDRequest)},
+  { 27, -1, sizeof(::percona::platform::org::v1::GetOrganizationByIDResponse)},
+  { 33, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationRequest)},
+  { 39, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Organization_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_CreateOrganizationRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_CreateOrganizationResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_GetOrganizationByIDRequest_default_instance_),
@@ -171,32 +185,32 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "g.v1\0326github.com/mwitkow/go-proto-valida"
   "tors/validator.proto\032\034google/api/annotat"
   "ions.proto\032\037google/protobuf/timestamp.pr"
-  "oto\"1\n\031CreateOrganizationRequest\022\024\n\004name"
-  "\030\001 \001(\tB\006\342\337\037\002X\001\"\226\001\n\032CreateOrganizationRes"
-  "ponse\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022.\n\ncreat"
-  "ed_at\030\003 \001(\0132\032.google.protobuf.Timestamp\022"
-  ".\n\nupdated_at\030\004 \001(\0132\032.google.protobuf.Ti"
-  "mestamp\"0\n\032GetOrganizationByIDRequest\022\022\n"
-  "\002id\030\001 \001(\tB\006\342\337\037\002X\001\"\227\001\n\033GetOrganizationByI"
-  "DResponse\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022.\n\nc"
-  "reated_at\030\003 \001(\0132\032.google.protobuf.Timest"
-  "amp\022.\n\nupdated_at\030\004 \001(\0132\032.google.protobu"
-  "f.Timestamp\"/\n\031DeleteOrganizationRequest"
-  "\022\022\n\002id\030\001 \001(\tB\006\342\337\037\002X\001\"\034\n\032DeleteOrganizati"
-  "onResponse2\351\003\n\006OrgAPI\022\230\001\n\022CreateOrganiza"
-  "tion\0222.percona.platform.org.v1.CreateOrg"
-  "anizationRequest\0323.percona.platform.org."
-  "v1.CreateOrganizationResponse\"\031\202\323\344\223\002\023\"\016/"
-  "v1/org/Create:\001*\022\250\001\n\023GetOrganizationByID"
-  "\0223.percona.platform.org.v1.GetOrganizati"
-  "onByIDRequest\0324.percona.platform.org.v1."
-  "GetOrganizationByIDResponse\"&\202\323\344\223\002 \"\033/v1"
-  "/org/GetOrganizationByID:\001*\022\230\001\n\022DeleteOr"
-  "ganization\0222.percona.platform.org.v1.Del"
-  "eteOrganizationRequest\0323.percona.platfor"
-  "m.org.v1.DeleteOrganizationResponse\"\031\202\323\344"
-  "\223\002\023\"\016/v1/org/Delete:\001*B\014Z\n/org;orgv1b\006pr"
-  "oto3"
+  "oto\"\210\001\n\014Organization\022\n\n\002id\030\001 \001(\t\022\014\n\004name"
+  "\030\002 \001(\t\022.\n\ncreated_at\030\003 \001(\0132\032.google.prot"
+  "obuf.Timestamp\022.\n\nupdated_at\030\004 \001(\0132\032.goo"
+  "gle.protobuf.Timestamp\"1\n\031CreateOrganiza"
+  "tionRequest\022\024\n\004name\030\001 \001(\tB\006\342\337\037\002X\001\"P\n\032Cre"
+  "ateOrganizationResponse\0222\n\003org\030\001 \001(\0132%.p"
+  "ercona.platform.org.v1.Organization\"0\n\032G"
+  "etOrganizationByIDRequest\022\022\n\002id\030\001 \001(\tB\006\342"
+  "\337\037\002X\001\"Q\n\033GetOrganizationByIDResponse\0222\n\003"
+  "org\030\001 \001(\0132%.percona.platform.org.v1.Orga"
+  "nization\"/\n\031DeleteOrganizationRequest\022\022\n"
+  "\002id\030\001 \001(\tB\006\342\337\037\002X\001\"\034\n\032DeleteOrganizationR"
+  "esponse2\351\003\n\006OrgAPI\022\230\001\n\022CreateOrganizatio"
+  "n\0222.percona.platform.org.v1.CreateOrgani"
+  "zationRequest\0323.percona.platform.org.v1."
+  "CreateOrganizationResponse\"\031\202\323\344\223\002\023\"\016/v1/"
+  "org/Create:\001*\022\250\001\n\023GetOrganizationByID\0223."
+  "percona.platform.org.v1.GetOrganizationB"
+  "yIDRequest\0324.percona.platform.org.v1.Get"
+  "OrganizationByIDResponse\"&\202\323\344\223\002 \"\033/v1/or"
+  "g/GetOrganizationByID:\001*\022\230\001\n\022DeleteOrgan"
+  "ization\0222.percona.platform.org.v1.Delete"
+  "OrganizationRequest\0323.percona.platform.o"
+  "rg.v1.DeleteOrganizationResponse\"\031\202\323\344\223\002\023"
+  "\"\016/v1/org/Delete:\001*B\014Z\n/org;orgv1b\006proto"
+  "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[3] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -205,8 +219,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 1164, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
-  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 3, 6,
+  false, false, 1161, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 3, 7,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
 };
@@ -222,6 +236,346 @@ namespace percona {
 namespace platform {
 namespace org {
 namespace v1 {
+
+// ===================================================================
+
+class Organization::_Internal {
+ public:
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& created_at(const Organization* msg);
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& updated_at(const Organization* msg);
+};
+
+const PROTOBUF_NAMESPACE_ID::Timestamp&
+Organization::_Internal::created_at(const Organization* msg) {
+  return *msg->created_at_;
+}
+const PROTOBUF_NAMESPACE_ID::Timestamp&
+Organization::_Internal::updated_at(const Organization* msg) {
+  return *msg->updated_at_;
+}
+void Organization::clear_created_at() {
+  if (GetArena() == nullptr && created_at_ != nullptr) {
+    delete created_at_;
+  }
+  created_at_ = nullptr;
+}
+void Organization::clear_updated_at() {
+  if (GetArena() == nullptr && updated_at_ != nullptr) {
+    delete updated_at_;
+  }
+  updated_at_ = nullptr;
+}
+Organization::Organization(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.Organization)
+}
+Organization::Organization(const Organization& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_id().empty()) {
+    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
+      GetArena());
+  }
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  if (from._internal_has_created_at()) {
+    created_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.created_at_);
+  } else {
+    created_at_ = nullptr;
+  }
+  if (from._internal_has_updated_at()) {
+    updated_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.updated_at_);
+  } else {
+    updated_at_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.Organization)
+}
+
+void Organization::SharedCtor() {
+id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&created_at_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&updated_at_) -
+    reinterpret_cast<char*>(&created_at_)) + sizeof(updated_at_));
+}
+
+Organization::~Organization() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.Organization)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void Organization::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete created_at_;
+  if (this != internal_default_instance()) delete updated_at_;
+}
+
+void Organization::ArenaDtor(void* object) {
+  Organization* _this = reinterpret_cast< Organization* >(object);
+  (void)_this;
+}
+void Organization::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Organization::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Organization::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.Organization)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  id_.ClearToEmpty();
+  name_.ClearToEmpty();
+  if (GetArena() == nullptr && created_at_ != nullptr) {
+    delete created_at_;
+  }
+  created_at_ = nullptr;
+  if (GetArena() == nullptr && updated_at_ != nullptr) {
+    delete updated_at_;
+  }
+  updated_at_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Organization::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.Organization.id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string name = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.Organization.name"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Timestamp created_at = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_created_at(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Timestamp updated_at = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_updated_at(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Organization::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.Organization)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string id = 1;
+  if (this->id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_id().data(), static_cast<int>(this->_internal_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.Organization.id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_id(), target);
+  }
+
+  // string name = 2;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.Organization.name");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_name(), target);
+  }
+
+  // .google.protobuf.Timestamp created_at = 3;
+  if (this->has_created_at()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::created_at(this), target, stream);
+  }
+
+  // .google.protobuf.Timestamp updated_at = 4;
+  if (this->has_updated_at()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        4, _Internal::updated_at(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.Organization)
+  return target;
+}
+
+size_t Organization::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.Organization)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string id = 1;
+  if (this->id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_id());
+  }
+
+  // string name = 2;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // .google.protobuf.Timestamp created_at = 3;
+  if (this->has_created_at()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *created_at_);
+  }
+
+  // .google.protobuf.Timestamp updated_at = 4;
+  if (this->has_updated_at()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *updated_at_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Organization::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.Organization)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Organization* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Organization>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.Organization)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.Organization)
+    MergeFrom(*source);
+  }
+}
+
+void Organization::MergeFrom(const Organization& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.Organization)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.id().size() > 0) {
+    _internal_set_id(from._internal_id());
+  }
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from.has_created_at()) {
+    _internal_mutable_created_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_created_at());
+  }
+  if (from.has_updated_at()) {
+    _internal_mutable_updated_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_updated_at());
+  }
+}
+
+void Organization::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.Organization)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Organization::CopyFrom(const Organization& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.Organization)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Organization::IsInitialized() const {
+  return true;
+}
+
+void Organization::InternalSwap(Organization* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Organization, updated_at_)
+      + sizeof(Organization::updated_at_)
+      - PROTOBUF_FIELD_OFFSET(Organization, created_at_)>(
+          reinterpret_cast<char*>(&created_at_),
+          reinterpret_cast<char*>(&other->created_at_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Organization::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
 
 // ===================================================================
 
@@ -427,29 +781,12 @@ void CreateOrganizationRequest::InternalSwap(CreateOrganizationRequest* other) {
 
 class CreateOrganizationResponse::_Internal {
  public:
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& created_at(const CreateOrganizationResponse* msg);
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& updated_at(const CreateOrganizationResponse* msg);
+  static const ::percona::platform::org::v1::Organization& org(const CreateOrganizationResponse* msg);
 };
 
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-CreateOrganizationResponse::_Internal::created_at(const CreateOrganizationResponse* msg) {
-  return *msg->created_at_;
-}
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-CreateOrganizationResponse::_Internal::updated_at(const CreateOrganizationResponse* msg) {
-  return *msg->updated_at_;
-}
-void CreateOrganizationResponse::clear_created_at() {
-  if (GetArena() == nullptr && created_at_ != nullptr) {
-    delete created_at_;
-  }
-  created_at_ = nullptr;
-}
-void CreateOrganizationResponse::clear_updated_at() {
-  if (GetArena() == nullptr && updated_at_ != nullptr) {
-    delete updated_at_;
-  }
-  updated_at_ = nullptr;
+const ::percona::platform::org::v1::Organization&
+CreateOrganizationResponse::_Internal::org(const CreateOrganizationResponse* msg) {
+  return *msg->org_;
 }
 CreateOrganizationResponse::CreateOrganizationResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -460,36 +797,16 @@ CreateOrganizationResponse::CreateOrganizationResponse(::PROTOBUF_NAMESPACE_ID::
 CreateOrganizationResponse::CreateOrganizationResponse(const CreateOrganizationResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArena());
-  }
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
-  }
-  if (from._internal_has_created_at()) {
-    created_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.created_at_);
+  if (from._internal_has_org()) {
+    org_ = new ::percona::platform::org::v1::Organization(*from.org_);
   } else {
-    created_at_ = nullptr;
-  }
-  if (from._internal_has_updated_at()) {
-    updated_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.updated_at_);
-  } else {
-    updated_at_ = nullptr;
+    org_ = nullptr;
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.CreateOrganizationResponse)
 }
 
 void CreateOrganizationResponse::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&created_at_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&updated_at_) -
-    reinterpret_cast<char*>(&created_at_)) + sizeof(updated_at_));
+org_ = nullptr;
 }
 
 CreateOrganizationResponse::~CreateOrganizationResponse() {
@@ -500,10 +817,7 @@ CreateOrganizationResponse::~CreateOrganizationResponse() {
 
 void CreateOrganizationResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete created_at_;
-  if (this != internal_default_instance()) delete updated_at_;
+  if (this != internal_default_instance()) delete org_;
 }
 
 void CreateOrganizationResponse::ArenaDtor(void* object) {
@@ -522,16 +836,10 @@ void CreateOrganizationResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  name_.ClearToEmpty();
-  if (GetArena() == nullptr && created_at_ != nullptr) {
-    delete created_at_;
+  if (GetArena() == nullptr && org_ != nullptr) {
+    delete org_;
   }
-  created_at_ = nullptr;
-  if (GetArena() == nullptr && updated_at_ != nullptr) {
-    delete updated_at_;
-  }
-  updated_at_ = nullptr;
+  org_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -542,35 +850,10 @@ const char* CreateOrganizationResponse::_InternalParse(const char* ptr, ::PROTOB
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string id = 1;
+      // .percona.platform.org.v1.Organization org = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.CreateOrganizationResponse.id"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.CreateOrganizationResponse.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp created_at = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_created_at(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp updated_at = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_updated_at(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_org(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -602,40 +885,12 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string id = 1;
-  if (this->id().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_id().data(), static_cast<int>(this->_internal_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.CreateOrganizationResponse.id");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_id(), target);
-  }
-
-  // string name = 2;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.CreateOrganizationResponse.name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
-  }
-
-  // .google.protobuf.Timestamp created_at = 3;
-  if (this->has_created_at()) {
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::created_at(this), target, stream);
-  }
-
-  // .google.protobuf.Timestamp updated_at = 4;
-  if (this->has_updated_at()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::updated_at(this), target, stream);
+        1, _Internal::org(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -654,32 +909,11 @@ size_t CreateOrganizationResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string id = 1;
-  if (this->id().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_id());
-  }
-
-  // string name = 2;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  // .google.protobuf.Timestamp created_at = 3;
-  if (this->has_created_at()) {
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *created_at_);
-  }
-
-  // .google.protobuf.Timestamp updated_at = 4;
-  if (this->has_updated_at()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *updated_at_);
+        *org_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -713,17 +947,8 @@ void CreateOrganizationResponse::MergeFrom(const CreateOrganizationResponse& fro
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.id().size() > 0) {
-    _internal_set_id(from._internal_id());
-  }
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-  if (from.has_created_at()) {
-    _internal_mutable_created_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_created_at());
-  }
-  if (from.has_updated_at()) {
-    _internal_mutable_updated_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_updated_at());
+  if (from.has_org()) {
+    _internal_mutable_org()->::percona::platform::org::v1::Organization::MergeFrom(from._internal_org());
   }
 }
 
@@ -748,14 +973,7 @@ bool CreateOrganizationResponse::IsInitialized() const {
 void CreateOrganizationResponse::InternalSwap(CreateOrganizationResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CreateOrganizationResponse, updated_at_)
-      + sizeof(CreateOrganizationResponse::updated_at_)
-      - PROTOBUF_FIELD_OFFSET(CreateOrganizationResponse, created_at_)>(
-          reinterpret_cast<char*>(&created_at_),
-          reinterpret_cast<char*>(&other->created_at_));
+  swap(org_, other->org_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateOrganizationResponse::GetMetadata() const {
@@ -967,29 +1185,12 @@ void GetOrganizationByIDRequest::InternalSwap(GetOrganizationByIDRequest* other)
 
 class GetOrganizationByIDResponse::_Internal {
  public:
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& created_at(const GetOrganizationByIDResponse* msg);
-  static const PROTOBUF_NAMESPACE_ID::Timestamp& updated_at(const GetOrganizationByIDResponse* msg);
+  static const ::percona::platform::org::v1::Organization& org(const GetOrganizationByIDResponse* msg);
 };
 
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-GetOrganizationByIDResponse::_Internal::created_at(const GetOrganizationByIDResponse* msg) {
-  return *msg->created_at_;
-}
-const PROTOBUF_NAMESPACE_ID::Timestamp&
-GetOrganizationByIDResponse::_Internal::updated_at(const GetOrganizationByIDResponse* msg) {
-  return *msg->updated_at_;
-}
-void GetOrganizationByIDResponse::clear_created_at() {
-  if (GetArena() == nullptr && created_at_ != nullptr) {
-    delete created_at_;
-  }
-  created_at_ = nullptr;
-}
-void GetOrganizationByIDResponse::clear_updated_at() {
-  if (GetArena() == nullptr && updated_at_ != nullptr) {
-    delete updated_at_;
-  }
-  updated_at_ = nullptr;
+const ::percona::platform::org::v1::Organization&
+GetOrganizationByIDResponse::_Internal::org(const GetOrganizationByIDResponse* msg) {
+  return *msg->org_;
 }
 GetOrganizationByIDResponse::GetOrganizationByIDResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -1000,36 +1201,16 @@ GetOrganizationByIDResponse::GetOrganizationByIDResponse(::PROTOBUF_NAMESPACE_ID
 GetOrganizationByIDResponse::GetOrganizationByIDResponse(const GetOrganizationByIDResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArena());
-  }
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
-  }
-  if (from._internal_has_created_at()) {
-    created_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.created_at_);
+  if (from._internal_has_org()) {
+    org_ = new ::percona::platform::org::v1::Organization(*from.org_);
   } else {
-    created_at_ = nullptr;
-  }
-  if (from._internal_has_updated_at()) {
-    updated_at_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.updated_at_);
-  } else {
-    updated_at_ = nullptr;
+    org_ = nullptr;
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.GetOrganizationByIDResponse)
 }
 
 void GetOrganizationByIDResponse::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&created_at_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&updated_at_) -
-    reinterpret_cast<char*>(&created_at_)) + sizeof(updated_at_));
+org_ = nullptr;
 }
 
 GetOrganizationByIDResponse::~GetOrganizationByIDResponse() {
@@ -1040,10 +1221,7 @@ GetOrganizationByIDResponse::~GetOrganizationByIDResponse() {
 
 void GetOrganizationByIDResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete created_at_;
-  if (this != internal_default_instance()) delete updated_at_;
+  if (this != internal_default_instance()) delete org_;
 }
 
 void GetOrganizationByIDResponse::ArenaDtor(void* object) {
@@ -1062,16 +1240,10 @@ void GetOrganizationByIDResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  name_.ClearToEmpty();
-  if (GetArena() == nullptr && created_at_ != nullptr) {
-    delete created_at_;
+  if (GetArena() == nullptr && org_ != nullptr) {
+    delete org_;
   }
-  created_at_ = nullptr;
-  if (GetArena() == nullptr && updated_at_ != nullptr) {
-    delete updated_at_;
-  }
-  updated_at_ = nullptr;
+  org_ = nullptr;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1082,35 +1254,10 @@ const char* GetOrganizationByIDResponse::_InternalParse(const char* ptr, ::PROTO
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string id = 1;
+      // .percona.platform.org.v1.Organization org = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.GetOrganizationByIDResponse.id"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.GetOrganizationByIDResponse.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp created_at = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_created_at(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp updated_at = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_updated_at(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_org(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1142,40 +1289,12 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string id = 1;
-  if (this->id().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_id().data(), static_cast<int>(this->_internal_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.GetOrganizationByIDResponse.id");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_id(), target);
-  }
-
-  // string name = 2;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.GetOrganizationByIDResponse.name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_name(), target);
-  }
-
-  // .google.protobuf.Timestamp created_at = 3;
-  if (this->has_created_at()) {
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::created_at(this), target, stream);
-  }
-
-  // .google.protobuf.Timestamp updated_at = 4;
-  if (this->has_updated_at()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::updated_at(this), target, stream);
+        1, _Internal::org(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1194,32 +1313,11 @@ size_t GetOrganizationByIDResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string id = 1;
-  if (this->id().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_id());
-  }
-
-  // string name = 2;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  // .google.protobuf.Timestamp created_at = 3;
-  if (this->has_created_at()) {
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *created_at_);
-  }
-
-  // .google.protobuf.Timestamp updated_at = 4;
-  if (this->has_updated_at()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *updated_at_);
+        *org_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1253,17 +1351,8 @@ void GetOrganizationByIDResponse::MergeFrom(const GetOrganizationByIDResponse& f
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.id().size() > 0) {
-    _internal_set_id(from._internal_id());
-  }
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-  if (from.has_created_at()) {
-    _internal_mutable_created_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_created_at());
-  }
-  if (from.has_updated_at()) {
-    _internal_mutable_updated_at()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_updated_at());
+  if (from.has_org()) {
+    _internal_mutable_org()->::percona::platform::org::v1::Organization::MergeFrom(from._internal_org());
   }
 }
 
@@ -1288,14 +1377,7 @@ bool GetOrganizationByIDResponse::IsInitialized() const {
 void GetOrganizationByIDResponse::InternalSwap(GetOrganizationByIDResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetOrganizationByIDResponse, updated_at_)
-      + sizeof(GetOrganizationByIDResponse::updated_at_)
-      - PROTOBUF_FIELD_OFFSET(GetOrganizationByIDResponse, created_at_)>(
-          reinterpret_cast<char*>(&created_at_),
-          reinterpret_cast<char*>(&other->created_at_));
+  swap(org_, other->org_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetOrganizationByIDResponse::GetMetadata() const {
@@ -1666,6 +1748,9 @@ void DeleteOrganizationResponse::InternalSwap(DeleteOrganizationResponse* other)
 }  // namespace platform
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::Organization* Arena::CreateMaybeMessage< ::percona::platform::org::v1::Organization >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::Organization >(arena);
+}
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::CreateOrganizationRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::CreateOrganizationRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::CreateOrganizationRequest >(arena);
 }

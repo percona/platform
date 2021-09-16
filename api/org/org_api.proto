@@ -35,6 +35,17 @@ service OrgAPI {
     }
 }
 
+message Organization {
+  // Perona Portal Organization ID.
+  string id = 1;
+  // Percona Portal Organization Name.
+  string name = 2;
+  // Timestamp of organization creation.
+  google.protobuf.Timestamp created_at = 3;
+  // Timestamp when organization was last updated.
+  google.protobuf.Timestamp updated_at = 4;
+}
+
 message CreateOrganizationRequest {
     // Organization name.
     string name = 1 [
@@ -45,14 +56,7 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
-    // Perona Portal Organization ID.
-    string id = 1;
-    // Percona Portal Organization Name.
-    string name = 2;
-    // Timestamp of organization creation.
-    google.protobuf.Timestamp created_at = 3;
-    // Timestamp when organization was last updated.
-    google.protobuf.Timestamp updated_at = 4;
+    Organization org = 1;
 }
 
 message GetOrganizationByIDRequest {
@@ -65,14 +69,7 @@ message GetOrganizationByIDRequest {
 }
 
 message GetOrganizationByIDResponse {
-    // Perona Portal Organization ID.
-    string id = 1;
-    // Percona Portal Organization Name.
-    string name = 2;
-    // Timestamp of organization creation.
-    google.protobuf.Timestamp created_at = 3;
-    // Timestamp when organization was last updated.
-    google.protobuf.Timestamp updated_at = 4;
+  Organization org = 1;
 }
 
 message DeleteOrganizationRequest {

@@ -21,14 +21,7 @@ var (
 	_ = math.Inf
 )
 
-func (this *CreateOrganizationRequest) Validate() error {
-	if this.Name == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
-	}
-	return nil
-}
-
-func (this *CreateOrganizationResponse) Validate() error {
+func (this *Organization) Validate() error {
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
@@ -37,6 +30,22 @@ func (this *CreateOrganizationResponse) Validate() error {
 	if this.UpdatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.UpdatedAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("UpdatedAt", err)
+		}
+	}
+	return nil
+}
+
+func (this *CreateOrganizationRequest) Validate() error {
+	if this.Name == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	}
+	return nil
+}
+
+func (this *CreateOrganizationResponse) Validate() error {
+	if this.Org != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
 		}
 	}
 	return nil
@@ -50,14 +59,9 @@ func (this *GetOrganizationByIDRequest) Validate() error {
 }
 
 func (this *GetOrganizationByIDResponse) Validate() error {
-	if this.CreatedAt != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
-		}
-	}
-	if this.UpdatedAt != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.UpdatedAt); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("UpdatedAt", err)
+	if this.Org != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
 		}
 	}
 	return nil
