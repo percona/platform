@@ -582,7 +582,7 @@ func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
 	}
 
 	// Get policy rules
-	var rules []*signOnPolicyRule
+	var rules []*okta.OktaSignOnPolicyRule
 	if err := c.doRequest(ctx, "GET", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), nil, &rules); err != nil {
 		return errors.Wrap(err, "failed to get default policy rules")
 	}
@@ -590,13 +590,13 @@ func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
 	for _, rule := range rules {
 		if rule.Name == sessionTTLRuleName {
 			// Check session TTL value
-			if rule.Actions.SignOn.Session.MaxSessionIdleMinutes == int64(sessionTTL.Minutes()) {
+			if rule.Actions.Signon.Session.MaxSessionIdleMinutes == int64(sessionTTL.Minutes()) {
 				return nil
 			}
 
 			// Update session TTL value
-			rule.Actions.SignOn.Session.MaxSessionIdleMinutes = int64(sessionTTL.Minutes())
-			if err := c.doRequest(ctx, "PUT", fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyID, rule.ID), rule, nil); err != nil {
+			rule.Actions.Signon.Session.MaxSessionIdleMinutes = int64(sessionTTL.Minutes())
+			if err := c.doRequest(ctx, "PUT", fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyID, rule.Id), rule, nil); err != nil {
 				return errors.Wrap(err, "failed to update session TTL rule")
 			}
 
@@ -605,7 +605,7 @@ func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
 	}
 
 	// Create session TTL rule
-	sessionTTLRule := signOnPolicyRule{
+	sessionTTLRule := okta.OktaSignOnPolicyRule{
 		Name: sessionTTLRuleName,
 		Type: "SIGN_ON",
 		Conditions: &okta.OktaSignOnPolicyRuleConditions{
@@ -616,10 +616,10 @@ func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
 				Connection: "ANYWHERE",
 			},
 		},
-		Actions: &signOnPolicyRuleActions{
-			SignOn: &signOnPolicyRuleSignOnActions{
+		Actions: &okta.OktaSignOnPolicyRuleActions{
+			Signon: &okta.OktaSignOnPolicyRuleSignonActions{
 				Access: "ALLOW",
-				Session: &signOnPolicyRuleSignOnSessionActions{
+				Session: &okta.OktaSignOnPolicyRuleSignonSessionActions{
 					MaxSessionIdleMinutes: int64(sessionTTL.Minutes()),
 					UsePersistentCookie:   pointer.ToBool(false),
 				},
