@@ -1,5 +1,6 @@
-// Package model contains custom types returned by Okta client code.
-package model
+package okta
+
+// contains custom types returned by Okta client code.
 
 // User represents user structure.
 type User struct {

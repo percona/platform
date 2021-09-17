@@ -1,5 +1,4 @@
-// Package testutils provides helper functions.
-package testutils
+package okta
 
 import (
 	"context"
@@ -12,11 +11,8 @@ import (
 	"github.com/brianvoe/gofakeit"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
-	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	"github.com/percona-platform/platform/pkg/model"
 )
 
 // OktaDevHost Okta domain.
@@ -90,7 +86,7 @@ func createOktaClient(t *testing.T) *okta.Client {
 
 // CreateTestUser signs up an okta user with a password unlike our registration flow
 // since we need a user with a set password in our tests.
-func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *model.User {
+func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *User {
 	t.Helper()
 
 	u := okta.CreateUserRequest{ //nolint:exhaustivestruct
@@ -113,25 +109,11 @@ func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *
 	nLogin, err := getUserLogin(testUser)
 	require.NoError(t, err)
 
-	return &model.User{
+	return &User{
 		ID:     testUser.Id,
 		Login:  nLogin,
 		Status: testUser.Status,
 	}
-}
-
-func getUserLogin(user *okta.User) (string, error) {
-	if user.Profile == nil {
-		return "", errors.New("missing user profile")
-	}
-
-	profile := *user.Profile
-	login, ok := profile["login"]
-	if !ok {
-		return "", errors.New("missing user login")
-	}
-
-	return login.(string), nil
 }
 
 // GenCredentials create test user email and password.

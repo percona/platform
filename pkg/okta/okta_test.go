@@ -8,9 +8,6 @@ import (
 	"github.com/brianvoe/gofakeit"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/stretchr/testify/require"
-
-	"github.com/percona-platform/platform/pkg/model"
-	"github.com/percona-platform/platform/pkg/testutils"
 )
 
 var authErrorType = new(AuthError) //nolint:gochecknoglobals
@@ -19,9 +16,9 @@ func init() { //nolint:gochecknoinits
 	gofakeit.Seed(time.Now().UnixNano())
 }
 
-func createOktaService(t *testing.T) (*Service, error) {
+func createOktaService(t *testing.T) (*Client, error) {
 	t.Helper()
-	return New(context.Background(), testutils.OktaDevHost, testutils.GetOktaToken(t))
+	return New(context.Background(), OktaDevHost, GetOktaToken(t))
 }
 
 func TestSignUp(t *testing.T) {
@@ -33,7 +30,7 @@ func TestSignUp(t *testing.T) {
 	t.Run("invalid login", func(t *testing.T) {
 		t.Parallel()
 
-		_, _, firstName, lastName := testutils.GenCredentials(t)
+		_, _, firstName, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), "not email", firstName, lastName)
 		require.EqualError(t, err, "invalid login: login: Username must be in the form of an email address")
 		require.IsType(t, authErrorType, err)
@@ -43,7 +40,7 @@ func TestSignUp(t *testing.T) {
 	t.Run("empty login", func(t *testing.T) {
 		t.Parallel()
 
-		_, _, firstName, lastName := testutils.GenCredentials(t)
+		_, _, firstName, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), "", firstName, lastName)
 		require.Equal(t, err, ErrEmptyLogin)
 		require.IsType(t, authErrorType, err)
@@ -53,7 +50,7 @@ func TestSignUp(t *testing.T) {
 	t.Run("empty first name", func(t *testing.T) {
 		t.Parallel()
 
-		email, _, _, lastName := testutils.GenCredentials(t)
+		email, _, _, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), email, "", lastName)
 		require.Equal(t, err, ErrEmptyFirstName)
 		require.IsType(t, authErrorType, err)
@@ -63,7 +60,7 @@ func TestSignUp(t *testing.T) {
 	t.Run("empty last name", func(t *testing.T) {
 		t.Parallel()
 
-		email, _, firstName, _ := testutils.GenCredentials(t)
+		email, _, firstName, _ := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), email, firstName, "")
 		require.Equal(t, err, ErrEmptyLastName)
 		require.IsType(t, authErrorType, err)
@@ -73,10 +70,10 @@ func TestSignUp(t *testing.T) {
 	t.Run("valid sign up", func(t *testing.T) {
 		t.Parallel()
 
-		email, _, firstName, lastName := testutils.GenCredentials(t)
+		email, _, firstName, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), email, firstName, lastName)
 		require.NoError(t, err)
-		defer testutils.DeleteUser(t, user.ID)
+		defer DeleteUser(t, user.ID)
 
 		require.Equal(t, email, user.Login)
 		require.Equal(t, user.Status, "PROVISIONED")
@@ -90,10 +87,10 @@ func TestSignIn(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	t.Run("invalid password", func(t *testing.T) {
@@ -152,10 +149,10 @@ func TestSessions(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	t.Run("invalid session", func(t *testing.T) {
@@ -196,10 +193,10 @@ func TestSessionRefresh(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	t.Run("normal", func(t *testing.T) {
@@ -234,10 +231,10 @@ func TestCloseSession(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	t.Run("normal", func(t *testing.T) {
@@ -287,10 +284,10 @@ func TestFindUser(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	t.Run("user doesn't exists", func(t *testing.T) {
@@ -316,10 +313,10 @@ func TestPasswordReset(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	u, err := s.FindUser(context.Background(), email)
@@ -338,17 +335,17 @@ func TestGroups(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	user := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, user.ID)
+		DeleteUser(t, user.ID)
 	})
 
 	name := gofakeit.UUID()
 	description := "Test group"
 	group, err := s.CreateGroup(context.Background(), name, description)
 	t.Cleanup(func() {
-		testutils.DeleteGroup(t, group.ID)
+		DeleteGroup(t, group.ID)
 	})
 	require.NoError(t, err)
 	require.Equal(t, name, group.Name)
@@ -415,7 +412,7 @@ func TestDeleteUser(t *testing.T) {
 	t.Run("valid", func(t *testing.T) {
 		t.Parallel()
 
-		email, _, firstName, lastName := testutils.GenCredentials(t)
+		email, _, firstName, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), email, firstName, lastName)
 		require.NoError(t, err)
 
@@ -440,16 +437,16 @@ func TestUpdateProfile(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	email, password, firstName, lastName := testutils.GenCredentials(t)
-	testUser := testutils.CreateTestUser(t, email, password, firstName, lastName)
+	email, password, firstName, lastName := GenCredentials(t)
+	testUser := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
-		testutils.DeleteUser(t, testUser.ID)
+		DeleteUser(t, testUser.ID)
 	})
 
 	t.Run("user doesn't exists", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := s.UpdateProfile(context.Background(), &model.User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
+		_, err := s.UpdateProfile(context.Background(), &User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
 		require.EqualError(t, err, "not found")
 	})
 

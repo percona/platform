@@ -15,7 +15,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/percona-platform/platform/pkg/logger"
-	"github.com/percona-platform/platform/pkg/model"
 )
 
 const (
@@ -23,9 +22,9 @@ const (
 	sessionTTLRuleName = "SessionTTL (Managed by Authed. DO NOT EDIT!)"
 )
 
-// Service implements methods for interacting with Okta Identity Service API.
+// Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
-type Service struct {
+type Client struct {
 	l            *zap.SugaredLogger
 	c            *okta.Client
 	oktaHost     string
@@ -33,7 +32,7 @@ type Service struct {
 }
 
 // New returns new Service instance.
-func New(ctx context.Context, host, token string) (*Service, error) {
+func New(ctx context.Context, host, token string) (*Client, error) {
 	l := zap.L().Named("okta").Sugar()
 
 	u := url.URL{Scheme: "https", Host: host}
@@ -51,7 +50,7 @@ func New(ctx context.Context, host, token string) (*Service, error) {
 		return nil, err
 	}
 
-	s := &Service{
+	s := &Client{
 		l:            l,
 		c:            client,
 		oktaHost:     host,
@@ -75,7 +74,7 @@ func New(ctx context.Context, host, token string) (*Service, error) {
 // The user is created with a "PROVISIONED" state and a verification email is sent to the user.
 // Once the user sets the password the state changes to "ACTIVE" in Okta.
 // Returns AuthError when login, firstName and lastName violates validation rules, also when login already exists.
-func (s *Service) SignUp(ctx context.Context, login, firstName, lastName string) (*model.User, error) {
+func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) (*User, error) {
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
@@ -97,7 +96,7 @@ func (s *Service) SignUp(ctx context.Context, login, firstName, lastName string)
 		},
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
-	user, _, err := s.c.User.CreateUser(ctx, u, qp)
+	user, _, err := c.c.User.CreateUser(ctx, u, qp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -112,7 +111,7 @@ func (s *Service) SignUp(ctx context.Context, login, firstName, lastName string)
 		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
 	}
 
-	return &model.User{
+	return &User{
 		ID:     user.Id,
 		Login:  nLogin,
 		Status: user.Status,
@@ -120,11 +119,11 @@ func (s *Service) SignUp(ctx context.Context, login, firstName, lastName string)
 }
 
 // FindUser searches user by login and returns user.
-func (s *Service) FindUser(ctx context.Context, login string) (*model.User, error) {
+func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
-	user, _, err := s.c.User.GetUser(ctx, url.QueryEscape(login))
+	user, _, err := c.c.User.GetUser(ctx, url.QueryEscape(login))
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -149,7 +148,7 @@ func (s *Service) FindUser(ctx context.Context, login string) (*model.User, erro
 		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
 	}
 
-	return &model.User{
+	return &User{
 		ID:        user.Id,
 		Login:     userLogin,
 		FirstName: firstName,
@@ -159,7 +158,7 @@ func (s *Service) FindUser(ctx context.Context, login string) (*model.User, erro
 }
 
 // SignIn returns user id and session oktaAPIToken. Returns AuthError in case of invalid login or password.
-func (s *Service) SignIn(ctx context.Context, login, password string) (string, string, error) {
+func (c *Client) SignIn(ctx context.Context, login, password string) (string, string, error) {
 	if password == "" {
 		return "", "", ErrEmptyPassword
 	}
@@ -187,7 +186,7 @@ func (s *Service) SignIn(ctx context.Context, login, password string) (string, s
 		} `json:"_embedded"` //nolint:tagliatelle
 	}{}
 
-	err := s.doRequest(ctx, "POST", "/api/v1/authn", data, &resp)
+	err := c.doRequest(ctx, "POST", "/api/v1/authn", data, &resp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -201,8 +200,8 @@ func (s *Service) SignIn(ctx context.Context, login, password string) (string, s
 }
 
 // DeleteUser deactivates and deletes user.
-func (s *Service) DeleteUser(ctx context.Context, userID string) error {
-	err := s.deactivateUser(ctx, userID)
+func (c *Client) DeleteUser(ctx context.Context, userID string) error {
+	err := c.deactivateUser(ctx, userID)
 	if err != nil && !errors.Is(err, ErrNotFound) {
 		return err
 	}
@@ -210,12 +209,12 @@ func (s *Service) DeleteUser(ctx context.Context, userID string) error {
 	if err == nil {
 		nCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
 		defer cancel()
-		if err := s.waitForDeactivation(nCtx, userID); err != nil {
+		if err := c.waitForDeactivation(nCtx, userID); err != nil {
 			return err
 		}
 	}
 
-	_, err = s.c.User.DeactivateOrDeleteUser(ctx, userID, nil)
+	_, err = c.c.User.DeactivateOrDeleteUser(ctx, userID, nil)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -229,7 +228,7 @@ func (s *Service) DeleteUser(ctx context.Context, userID string) error {
 }
 
 // UpdateProfile updates user's profile.
-func (s *Service) UpdateProfile(ctx context.Context, user *model.User, firstName, lastName string) (*model.User, error) {
+func (c *Client) UpdateProfile(ctx context.Context, user *User, firstName, lastName string) (*User, error) {
 	// The okta-go-sdk implementation differs slightly from the API docs where it uses
 	// PUT instead of POST for this endpoint. In case of PUT (used by the SDK) it requires
 	// both the email and login fields to be non-empty, so we send the original login to prevent
@@ -242,7 +241,7 @@ func (s *Service) UpdateProfile(ctx context.Context, user *model.User, firstName
 			"email":     user.Login,
 		},
 	}
-	u, _, err := s.c.User.UpdateUser(ctx, user.ID, body, nil)
+	u, _, err := c.c.User.UpdateUser(ctx, user.ID, body, nil)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -267,7 +266,7 @@ func (s *Service) UpdateProfile(ctx context.Context, user *model.User, firstName
 		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
 	}
 
-	return &model.User{
+	return &User{
 		ID:        u.Id,
 		Login:     userLogin,
 		FirstName: fName,
@@ -276,8 +275,8 @@ func (s *Service) UpdateProfile(ctx context.Context, user *model.User, firstName
 	}, nil
 }
 
-func (s *Service) deactivateUser(ctx context.Context, userID string) error {
-	_, err := s.c.User.DeactivateUser(ctx, userID, nil)
+func (c *Client) deactivateUser(ctx context.Context, userID string) error {
+	_, err := c.c.User.DeactivateUser(ctx, userID, nil)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -290,12 +289,12 @@ func (s *Service) deactivateUser(ctx context.Context, userID string) error {
 	return nil
 }
 
-func (s *Service) waitForDeactivation(ctx context.Context, userID string) error {
+func (c *Client) waitForDeactivation(ctx context.Context, userID string) error {
 	t := time.NewTicker(time.Second)
 	defer t.Stop()
 
 	for {
-		user, _, err := s.c.User.GetUser(ctx, userID)
+		user, _, err := c.c.User.GetUser(ctx, userID)
 		if err != nil {
 			var oErr *okta.Error
 			if errors.As(err, &oErr) {
@@ -319,9 +318,9 @@ func (s *Service) waitForDeactivation(ctx context.Context, userID string) error 
 }
 
 // GetRegisteredUsersCount returns number of regustered users.
-func (s *Service) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
+func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
 	qp := query.NewQueryParams(query.WithQ("Everyone"), query.WithFilter("type eq \"BUILT_IN\""))
-	groups, _, err := s.c.Group.ListGroups(ctx, qp)
+	groups, _, err := c.c.Group.ListGroups(ctx, qp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -337,7 +336,7 @@ func (s *Service) GetRegisteredUsersCount(ctx context.Context) (float64, error) 
 
 	var group okta.Group
 	path := fmt.Sprintf("/api/v1/groups/%s?expand=stats", groups[0].Id)
-	err = s.doRequest(ctx, "GET", path, nil, &group)
+	err = c.doRequest(ctx, "GET", path, nil, &group)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -371,8 +370,8 @@ func (s *Service) GetRegisteredUsersCount(ctx context.Context) (float64, error) 
 }
 
 // CreateSession creates session and returns session id and expiration date.
-func (s *Service) CreateSession(ctx context.Context, sessionToken string) (string, time.Time, error) {
-	session, _, err := s.c.Session.CreateSession(ctx, okta.CreateSessionRequest{SessionToken: sessionToken})
+func (c *Client) CreateSession(ctx context.Context, sessionToken string) (string, time.Time, error) {
+	session, _, err := c.c.Session.CreateSession(ctx, okta.CreateSessionRequest{SessionToken: sessionToken})
 	if err != nil {
 		return "", time.Time{}, errors.Wrap(err, "failed to create session")
 	}
@@ -381,12 +380,12 @@ func (s *Service) CreateSession(ctx context.Context, sessionToken string) (strin
 }
 
 // CheckSession returns user login if session exists and active.
-func (s *Service) CheckSession(ctx context.Context, sessionID string) (string, error) {
+func (c *Client) CheckSession(ctx context.Context, sessionID string) (string, error) {
 	if sessionID == "" {
 		return "", ErrNotFound
 	}
 
-	session, _, err := s.c.Session.GetSession(ctx, sessionID)
+	session, _, err := c.c.Session.GetSession(ctx, sessionID)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -400,8 +399,8 @@ func (s *Service) CheckSession(ctx context.Context, sessionID string) (string, e
 }
 
 // RefreshSession resets session timeout and returns new expiration date.
-func (s *Service) RefreshSession(ctx context.Context, sessionID string) (time.Time, error) {
-	session, _, err := s.c.Session.RefreshSession(ctx, sessionID)
+func (c *Client) RefreshSession(ctx context.Context, sessionID string) (time.Time, error) {
+	session, _, err := c.c.Session.RefreshSession(ctx, sessionID)
 	if err != nil || session.ExpiresAt == nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -415,8 +414,8 @@ func (s *Service) RefreshSession(ctx context.Context, sessionID string) (time.Ti
 }
 
 // CloseSession terminates user session.
-func (s *Service) CloseSession(ctx context.Context, sessionID string) error {
-	_, err := s.c.Session.EndSession(ctx, sessionID)
+func (c *Client) CloseSession(ctx context.Context, sessionID string) error {
+	_, err := c.c.Session.EndSession(ctx, sessionID)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -430,7 +429,7 @@ func (s *Service) CloseSession(ctx context.Context, sessionID string) error {
 }
 
 // CreateGroup creates group with provided name and description.
-func (s *Service) CreateGroup(ctx context.Context, name, description string) (*model.Group, error) {
+func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Group, error) {
 	req := okta.Group{
 		Profile: &okta.GroupProfile{
 			Name:        name,
@@ -438,12 +437,12 @@ func (s *Service) CreateGroup(ctx context.Context, name, description string) (*m
 		},
 	}
 
-	group, _, err := s.c.Group.CreateGroup(ctx, req)
+	group, _, err := c.c.Group.CreateGroup(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create group")
 	}
 
-	return &model.Group{
+	return &Group{
 		ID:          group.Id,
 		Name:        group.Profile.Name,
 		Description: group.Profile.Description,
@@ -451,8 +450,8 @@ func (s *Service) CreateGroup(ctx context.Context, name, description string) (*m
 }
 
 // DeleteGroup delete group with provided ID.
-func (s *Service) DeleteGroup(ctx context.Context, groupID string) error {
-	_, err := s.c.Group.DeleteGroup(ctx, groupID)
+func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
+	_, err := c.c.Group.DeleteGroup(ctx, groupID)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -466,32 +465,32 @@ func (s *Service) DeleteGroup(ctx context.Context, groupID string) error {
 }
 
 // GetGroupMembers returns list of group members.
-func (s *Service) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]model.User, error) {
+func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
 	params := query.Params{
 		Limit:  int64(limit),
 		Cursor: cursor,
 	}
-	users, _, err := s.c.Group.ListGroupUsers(ctx, groupID, &params)
+	users, _, err := c.c.Group.ListGroupUsers(ctx, groupID, &params)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get group members")
 	}
 
-	res := make([]model.User, 0, len(users))
+	res := make([]User, 0, len(users))
 	for _, user := range users {
 		login, err := getUserLogin(user)
 		if err != nil {
-			s.l.Warnf("User %s has bad profile, reason: %+v.", user.Id, err)
+			c.l.Warnf("User %s has bad profile, reason: %+v.", user.Id, err)
 		}
 
-		res = append(res, model.User{ID: user.Id, Login: login, Status: user.Status})
+		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})
 	}
 
 	return res, nil
 }
 
 // AddUserToGroup add user to group.
-func (s *Service) AddUserToGroup(ctx context.Context, userID, groupID string) error {
-	_, err := s.c.Group.AddUserToGroup(ctx, groupID, userID)
+func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) error {
+	_, err := c.c.Group.AddUserToGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
 	}
@@ -500,8 +499,8 @@ func (s *Service) AddUserToGroup(ctx context.Context, userID, groupID string) er
 }
 
 // RemoveUserFromGroup remove user from group.
-func (s *Service) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
-	_, err := s.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
+func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
+	_, err := c.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
 	}
@@ -510,9 +509,9 @@ func (s *Service) RemoveUserFromGroup(ctx context.Context, userID, groupID strin
 }
 
 // ResetPassword resets user password and sends email for setting new one.
-func (s *Service) ResetPassword(ctx context.Context, userID string) error {
+func (c *Client) ResetPassword(ctx context.Context, userID string) error {
 	qp := query.NewQueryParams(query.WithSendEmail(true))
-	_, _, err := s.c.User.ResetPassword(ctx, userID, qp)
+	_, _, err := c.c.User.ResetPassword(ctx, userID, qp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -526,9 +525,9 @@ func (s *Service) ResetPassword(ctx context.Context, userID string) error {
 }
 
 // UpdateSchema updates schema for provided type.
-func (s *Service) UpdateSchema(ctx context.Context, typeID string, schema *Schema) (*Schema, error) {
+func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema) (*Schema, error) {
 	var res Schema
-	err := s.doRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
+	err := c.doRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to update schema")
 	}
@@ -537,9 +536,9 @@ func (s *Service) UpdateSchema(ctx context.Context, typeID string, schema *Schem
 }
 
 // GetSchema returns schema for provided type.
-func (s *Service) GetSchema(ctx context.Context, typeID string) (*Schema, error) {
+func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) {
 	var schema Schema
-	err := s.doRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
+	err := c.doRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get schema")
 	}
@@ -548,7 +547,7 @@ func (s *Service) GetSchema(ctx context.Context, typeID string) (*Schema, error)
 }
 
 // makeFirstAndLastNamesOptional makes firsName and LastName fields optional in provided schema.
-func (s *Service) makeFirstAndLastNamesOptional(ctx context.Context, typeID string) error {
+func (c *Client) makeFirstAndLastNamesOptional(ctx context.Context, typeID string) error {
 	schema := Schema{
 		Definitions: map[string]Definition{
 			"base": {
@@ -566,7 +565,7 @@ func (s *Service) makeFirstAndLastNamesOptional(ctx context.Context, typeID stri
 		},
 	}
 
-	_, err := s.UpdateSchema(ctx, typeID, &schema)
+	_, err := c.UpdateSchema(ctx, typeID, &schema)
 	if err != nil {
 		return errors.Wrap(err, "failed to make lastName and firstName fields optional")
 	}
@@ -576,15 +575,15 @@ func (s *Service) makeFirstAndLastNamesOptional(ctx context.Context, typeID stri
 
 // setUpSessionTTLRule checks whether session TTL rule exists. If it's not then rule created,
 // if rule exists but TTL value is not actual then it updated.
-func (s *Service) setUpSessionTTLRule(ctx context.Context) error {
-	policyID, err := s.findDefaultPolicy(ctx)
+func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
+	policyID, err := c.findDefaultPolicy(ctx)
 	if err != nil {
 		return errors.Wrap(err, "failed to get default policy")
 	}
 
 	// Get policy rules
 	var rules []*signOnPolicyRule
-	if err := s.doRequest(ctx, "GET", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), nil, &rules); err != nil {
+	if err := c.doRequest(ctx, "GET", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), nil, &rules); err != nil {
 		return errors.Wrap(err, "failed to get default policy rules")
 	}
 
@@ -597,7 +596,7 @@ func (s *Service) setUpSessionTTLRule(ctx context.Context) error {
 
 			// Update session TTL value
 			rule.Actions.SignOn.Session.MaxSessionIdleMinutes = int64(sessionTTL.Minutes())
-			if err := s.doRequest(ctx, "PUT", fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyID, rule.ID), rule, nil); err != nil {
+			if err := c.doRequest(ctx, "PUT", fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyID, rule.ID), rule, nil); err != nil {
 				return errors.Wrap(err, "failed to update session TTL rule")
 			}
 
@@ -628,7 +627,7 @@ func (s *Service) setUpSessionTTLRule(ctx context.Context) error {
 		},
 	}
 
-	if err := s.doRequest(ctx, "POST", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), sessionTTLRule, nil); err != nil {
+	if err := c.doRequest(ctx, "POST", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), sessionTTLRule, nil); err != nil {
 		return errors.Wrap(err, "failed to create session TTL rule")
 	}
 
@@ -636,9 +635,9 @@ func (s *Service) setUpSessionTTLRule(ctx context.Context) error {
 }
 
 // findDefaultPolicy returns default Okta Sign On policy ID.
-func (s *Service) findDefaultPolicy(ctx context.Context) (string, error) {
+func (c *Client) findDefaultPolicy(ctx context.Context) (string, error) {
 	qp := query.NewQueryParams(query.WithType("OKTA_SIGN_ON"))
-	policies, _, err := s.c.Policy.ListPolicies(ctx, qp)
+	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return "", err
 	}
@@ -652,8 +651,8 @@ func (s *Service) findDefaultPolicy(ctx context.Context) (string, error) {
 	return "", errors.New("can't find default Okta policy")
 }
 
-func (s *Service) doRequest(ctx context.Context, method, path string, body, v interface{}) error {
-	requestExecutor := s.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
+func (c *Client) doRequest(ctx context.Context, method, path string, body, v interface{}) error {
+	requestExecutor := c.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
 	req, err := requestExecutor.NewRequest(method, path, body)
 	if err != nil {
 		return err
