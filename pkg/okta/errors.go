@@ -35,7 +35,7 @@ func (e *AuthError) Error() string {
 	if e.origin != nil {
 		var oErr *okta.Error
 		if errors.As(e.origin, &oErr) {
-			return e.msg + ": " + getOktaErrorCause(oErr)
+			return e.msg + ": " + oErr.ErrorSummary
 		}
 		return e.msg + ": " + e.origin.Error()
 	}
@@ -45,18 +45,4 @@ func (e *AuthError) Error() string {
 // OriginError returns origin error that causes AuthError if exists.
 func (e *AuthError) OriginError() error {
 	return e.origin
-}
-
-// getOktaErrorCause extracts cause message from Okta error.
-func getOktaErrorCause(err *okta.Error) string {
-	if len(err.ErrorCauses) == 0 {
-		return ""
-	}
-
-	cause, ok := err.ErrorCauses[0]["errorSummary"]
-	if !ok {
-		return ""
-	}
-
-	return cause.(string)
 }
