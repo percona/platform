@@ -42,7 +42,7 @@ func (e *AuthError) Error() string {
 	return e.msg
 }
 
-// OriginError returns origin error that causes AuthError if exists.
-func (e *AuthError) OriginError() error {
+// Unwrap returns origin error that causes AuthError if exists.
+func (e *AuthError) Unwrap() error {
 	return e.origin
 }
