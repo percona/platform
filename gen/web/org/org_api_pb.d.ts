@@ -96,10 +96,10 @@ export namespace GetOrganizationRequest {
 }
 
 export class GetOrganizationResponse extends jspb.Message {
-  getOrgList(): Array<Organization>;
-  setOrgList(value: Array<Organization>): GetOrganizationResponse;
-  clearOrgList(): GetOrganizationResponse;
-  addOrg(value?: Organization, index?: number): Organization;
+  getOrg(): Organization | undefined;
+  setOrg(value?: Organization): GetOrganizationResponse;
+  hasOrg(): boolean;
+  clearOrg(): GetOrganizationResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrganizationResponse.AsObject;
@@ -111,7 +111,45 @@ export class GetOrganizationResponse extends jspb.Message {
 
 export namespace GetOrganizationResponse {
   export type AsObject = {
-    orgList: Array<Organization.AsObject>,
+    org?: Organization.AsObject,
+  }
+}
+
+export class ListOrganizationsRequest extends jspb.Message {
+  getUsername(): string;
+  setUsername(value: string): ListOrganizationsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListOrganizationsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListOrganizationsRequest): ListOrganizationsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListOrganizationsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListOrganizationsRequest;
+  static deserializeBinaryFromReader(message: ListOrganizationsRequest, reader: jspb.BinaryReader): ListOrganizationsRequest;
+}
+
+export namespace ListOrganizationsRequest {
+  export type AsObject = {
+    username: string,
+  }
+}
+
+export class ListOrganizationsResponse extends jspb.Message {
+  getOrgsList(): Array<Organization>;
+  setOrgsList(value: Array<Organization>): ListOrganizationsResponse;
+  clearOrgsList(): ListOrganizationsResponse;
+  addOrgs(value?: Organization, index?: number): Organization;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListOrganizationsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListOrganizationsResponse): ListOrganizationsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListOrganizationsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListOrganizationsResponse;
+  static deserializeBinaryFromReader(message: ListOrganizationsResponse, reader: jspb.BinaryReader): ListOrganizationsResponse;
+}
+
+export namespace ListOrganizationsResponse {
+  export type AsObject = {
+    orgsList: Array<Organization.AsObject>,
   }
 }
 

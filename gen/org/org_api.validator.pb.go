@@ -52,14 +52,30 @@ func (this *CreateOrganizationResponse) Validate() error {
 }
 
 func (this *GetOrganizationRequest) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
 	return nil
 }
 
 func (this *GetOrganizationResponse) Validate() error {
-	for _, item := range this.Org {
+	if this.Org != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+		}
+	}
+	return nil
+}
+
+func (this *ListOrganizationsRequest) Validate() error {
+	return nil
+}
+
+func (this *ListOrganizationsResponse) Validate() error {
+	for _, item := range this.Orgs {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Orgs", err)
 			}
 		}
 	}

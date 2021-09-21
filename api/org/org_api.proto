@@ -10,35 +10,38 @@ import "google/protobuf/timestamp.proto";
 
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
-    // CreateOrganization creates new organization with the given name and adds the user as org admin.
-    rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
-      option (google.api.http) = {
-        post: "/v1/org/CreateOrganization"
-        body: "*"
-      };
-    }
+  // CreateOrganization creates new organization with the given name and adds the user as org admin.
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs"
+      body: "*"
+    };
+  }
 
-    // GetOrganization fetches organization details either by:
-    // the organization ID sent in the request
-    // the user ID extracted from Auth headers. 
-    rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
-      option (google.api.http) = {
-        post: "/v1/org/GetOrganization"
-        body: "*"
-      };
-    }
+  // GetOrganization fetches organization details by ID.
+  rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
+    option (google.api.http) = {
+      get: "/v1/orgs/{id}"
+    };
+  }
 
-    // DeleteOrganization deletes organization and its members for the given organization ID.
-    rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
-      option (google.api.http) = {
-        post: "/v1/org/DeleteOrganization"
-        body: "*"
-      };
-    }
+  // ListOrganizations fetches organization details using filters.
+  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/orgs"
+    };
+  }
+  
+  // DeleteOrganization deletes organization and its members for the given organization ID.
+  rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/{id}"
+    };
+  }
 }
 
 message Organization {
-  // Perona Portal Organization ID.
+  // Percona Portal Organization ID.
   string id = 1;
   // Percona Portal Organization Name.
   string name = 2;
@@ -49,8 +52,8 @@ message Organization {
 }
 
 message CreateOrganizationRequest {
-    // Organization name.
-    string name = 1 [
+  // Organization name.
+  string name = 1 [
     (validator.field) = {
       string_not_empty: true
     }
@@ -58,25 +61,41 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
-    Organization org = 1;
+  Organization org = 1;
 }
 
 message GetOrganizationRequest {
-  // Perona Portal Organization ID.
-  string id = 1;
+  // Percona Portal Organization ID.
+  string id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
 }
 
 message GetOrganizationResponse {
-  repeated Organization org = 1;
+  Organization org = 1;
+}
+
+message ListOrganizationsRequest {
+  // Filters to be applied for lookup.
+  // In case there are several params passed the logical operation "and" is applied.
+  // Unknown params are ignored.
+  // In case non of the params are passed - the full list of organizations is returned.
+  string username = 1;
+}
+
+message ListOrganizationsResponse {
+  repeated Organization orgs = 1;
 }
 
 message DeleteOrganizationRequest {
-  // Perona Portal Organization ID.
+  // Percona Portal Organization ID.
   string id = 1 [
-  (validator.field) = {
-    string_not_empty: true
-  }
-];
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
 }
 
 message DeleteOrganizationResponse {}
