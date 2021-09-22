@@ -68,24 +68,6 @@ func (this *GetOrganizationResponse) Validate() error {
 }
 
 func (this *GetOrganizationByUserRequest) Validate() error {
-	if this.Org != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
-		}
-	}
-	if this.Member != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Member); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Member", err)
-		}
-	}
-	return nil
-}
-
-func (this *GetOrganizationByUserRequest_OrganizationFilter) Validate() error {
-	return nil
-}
-
-func (this *GetOrganizationByUserRequest_MembersFilter) Validate() error {
 	return nil
 }
 

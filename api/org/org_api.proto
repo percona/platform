@@ -28,8 +28,7 @@ service OrgAPI {
   // GetOrganizationByUser returns all the organizations that a signed in user has permission to view.
   rpc GetOrganizationByUser(GetOrganizationByUserRequest) returns (GetOrganizationByUserResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs/GetOrganizationByUser"
-      body: "*"
+      get: "/v1/orgs/GetOrganizationByUser"
     };
   }
   
@@ -78,26 +77,7 @@ message GetOrganizationResponse {
   Organization org = 1;
 }
 
-// Filters to be applied during constructing the list.
-// There are several levels of filter:
-// - organization level
-// - organization sub-collections level
-// Empty filters result in fetching all organizations.
-message GetOrganizationByUserRequest {
-  message OrganizationFilter {
-    // Organization name.
-    string name = 1;  
-  }
-
-  OrganizationFilter org = 1;
-
-  message MembersFilter {
-    // Organization member username.
-    string username = 1;
-  }
-
-  MembersFilter member = 2;
-}
+message GetOrganizationByUserRequest {}
 
 message GetOrganizationByUserResponse {
   repeated Organization orgs = 1;
