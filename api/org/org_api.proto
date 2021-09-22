@@ -25,10 +25,12 @@ service OrgAPI {
     };
   }
 
-  // ListOrganizations fetches organization details using filters.
-  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse) {
+  // SearchOrganizations fetches organization details that match filter 
+  // applied to items within the same organization collection and sub-collections as well.
+  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse) {
     option (google.api.http) = {
-      get: "/v1/orgs"
+      post: "/v1/orgs:search"
+      body: "*"
     };
   }
   
@@ -77,15 +79,28 @@ message GetOrganizationResponse {
   Organization org = 1;
 }
 
-message ListOrganizationsRequest {
-  // Filters to be applied for lookup.
-  // In case there are several params passed the logical operation "and" is applied.
-  // Unknown params are ignored.
-  // In case non of the params are passed - the full list of organizations is returned.
-  string username = 1;
+// Filters to be applied during constructing the list.
+// There are several levels of filter:
+// - organization level
+// - organization sub-collections level
+// Empty filters result in fetching all organizations.
+message SearchOrganizationsRequest {
+  message OrganizationFilter {
+    // Organization name.
+    string name = 1;  
+  }
+
+  OrganizationFilter org = 1;
+
+  message MembersFilter {
+    // Organization member username.
+    string username = 1;
+  }
+
+  MembersFilter member = 2;
 }
 
-message ListOrganizationsResponse {
+message SearchOrganizationsResponse {
   repeated Organization orgs = 1;
 }
 
