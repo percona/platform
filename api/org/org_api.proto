@@ -25,11 +25,10 @@ service OrgAPI {
     };
   }
 
-  // SearchOrganizations fetches organization details that match filter 
-  // applied to items within the same organization collection and sub-collections as well.
-  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse) {
+  // GetOrganizationByUser returns all the organizations that a signed in user has permission to view.
+  rpc GetOrganizationByUser(GetOrganizationByUserRequest) returns (GetOrganizationByUserResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs:search"
+      post: "/v1/orgs/GetOrganizationByUser"
       body: "*"
     };
   }
@@ -84,7 +83,7 @@ message GetOrganizationResponse {
 // - organization level
 // - organization sub-collections level
 // Empty filters result in fetching all organizations.
-message SearchOrganizationsRequest {
+message GetOrganizationByUserRequest {
   message OrganizationFilter {
     // Organization name.
     string name = 1;  
@@ -100,7 +99,7 @@ message SearchOrganizationsRequest {
   MembersFilter member = 2;
 }
 
-message SearchOrganizationsResponse {
+message GetOrganizationByUserResponse {
   repeated Organization orgs = 1;
 }
 

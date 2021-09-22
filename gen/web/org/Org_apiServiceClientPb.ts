@@ -115,44 +115,44 @@ export class OrgAPIClient {
     this.methodInfoGetOrganization);
   }
 
-  methodInfoSearchOrganizations = new grpcWeb.AbstractClientBase.MethodInfo(
-    org_org_api_pb.SearchOrganizationsResponse,
-    (request: org_org_api_pb.SearchOrganizationsRequest) => {
+  methodInfoGetOrganizationByUser = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.GetOrganizationByUserResponse,
+    (request: org_org_api_pb.GetOrganizationByUserRequest) => {
       return request.serializeBinary();
     },
-    org_org_api_pb.SearchOrganizationsResponse.deserializeBinary
+    org_org_api_pb.GetOrganizationByUserResponse.deserializeBinary
   );
 
-  searchOrganizations(
-    request: org_org_api_pb.SearchOrganizationsRequest,
-    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchOrganizationsResponse>;
+  getOrganizationByUser(
+    request: org_org_api_pb.GetOrganizationByUserRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.GetOrganizationByUserResponse>;
 
-  searchOrganizations(
-    request: org_org_api_pb.SearchOrganizationsRequest,
+  getOrganizationByUser(
+    request: org_org_api_pb.GetOrganizationByUserRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: org_org_api_pb.SearchOrganizationsResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchOrganizationsResponse>;
+               response: org_org_api_pb.GetOrganizationByUserResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.GetOrganizationByUserResponse>;
 
-  searchOrganizations(
-    request: org_org_api_pb.SearchOrganizationsRequest,
+  getOrganizationByUser(
+    request: org_org_api_pb.GetOrganizationByUserRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: org_org_api_pb.SearchOrganizationsResponse) => void) {
+               response: org_org_api_pb.GetOrganizationByUserResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/percona.platform.org.v1.OrgAPI/SearchOrganizations',
+          '/percona.platform.org.v1.OrgAPI/GetOrganizationByUser',
         request,
         metadata || {},
-        this.methodInfoSearchOrganizations,
+        this.methodInfoGetOrganizationByUser,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/percona.platform.org.v1.OrgAPI/SearchOrganizations',
+      '/percona.platform.org.v1.OrgAPI/GetOrganizationByUser',
     request,
     metadata || {},
-    this.methodInfoSearchOrganizations);
+    this.methodInfoGetOrganizationByUser);
   }
 
   methodInfoDeleteOrganization = new grpcWeb.AbstractClientBase.MethodInfo(

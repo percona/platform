@@ -67,7 +67,7 @@ func (this *GetOrganizationResponse) Validate() error {
 	return nil
 }
 
-func (this *SearchOrganizationsRequest) Validate() error {
+func (this *GetOrganizationByUserRequest) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
@@ -81,15 +81,15 @@ func (this *SearchOrganizationsRequest) Validate() error {
 	return nil
 }
 
-func (this *SearchOrganizationsRequest_OrganizationFilter) Validate() error {
+func (this *GetOrganizationByUserRequest_OrganizationFilter) Validate() error {
 	return nil
 }
 
-func (this *SearchOrganizationsRequest_MembersFilter) Validate() error {
+func (this *GetOrganizationByUserRequest_MembersFilter) Validate() error {
 	return nil
 }
 
-func (this *SearchOrganizationsResponse) Validate() error {
+func (this *GetOrganizationByUserResponse) Validate() error {
 	for _, item := range this.Orgs {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
