@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/AlekSi/pointer"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/pkg/errors"
@@ -50,24 +49,12 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 		return nil, err
 	}
 
-	s := &Client{
+	return &Client{
 		l:            l,
 		c:            client,
 		oktaHost:     host,
 		oktaAPIToken: token,
-	}
-
-	nCtx, cancel := context.WithTimeout(ctx, 20*time.Second)
-	defer cancel()
-	if err = s.setUpSessionTTLRule(nCtx); err != nil {
-		return nil, errors.Errorf("failed to setup Okta session TTL: %+v", err)
-	}
-
-	if err = s.makeFirstAndLastNamesOptional(nCtx, "default"); err != nil {
-		return nil, errors.Errorf("failed to setup Okta user schema: %+v", err)
-	}
-
-	return s, nil
+	}, nil
 }
 
 // SignUp creates user account with provided login, first name and last name.
@@ -186,7 +173,7 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 		} `json:"_embedded"` //nolint:tagliatelle
 	}{}
 
-	err := c.doRequest(ctx, "POST", "/api/v1/authn", data, &resp)
+	err := c.DoRequest(ctx, "POST", "/api/v1/authn", data, &resp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -336,7 +323,7 @@ func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
 
 	var group okta.Group
 	path := fmt.Sprintf("/api/v1/groups/%s?expand=stats", groups[0].Id)
-	err = c.doRequest(ctx, "GET", path, nil, &group)
+	err = c.DoRequest(ctx, "GET", path, nil, &group)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -527,7 +514,7 @@ func (c *Client) ResetPassword(ctx context.Context, userID string) error {
 // UpdateSchema updates schema for provided type.
 func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema) (*Schema, error) {
 	var res Schema
-	err := c.doRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
+	err := c.DoRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to update schema")
 	}
@@ -538,7 +525,7 @@ func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema
 // GetSchema returns schema for provided type.
 func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) {
 	var schema Schema
-	err := c.doRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
+	err := c.DoRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get schema")
 	}
@@ -546,112 +533,16 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 	return &schema, nil
 }
 
-// makeFirstAndLastNamesOptional makes firsName and LastName fields optional in provided schema.
-func (c *Client) makeFirstAndLastNamesOptional(ctx context.Context, typeID string) error {
-	schema := Schema{
-		Definitions: map[string]Definition{
-			"base": {
-				ID:   "#base",
-				Type: "object",
-				Properties: map[string]DefinitionProperty{
-					"firstName": {
-						Required: pointer.ToBool(false),
-					},
-					"lastName": {
-						Required: pointer.ToBool(false),
-					},
-				},
-			},
-		},
-	}
-
-	_, err := c.UpdateSchema(ctx, typeID, &schema)
-	if err != nil {
-		return errors.Wrap(err, "failed to make lastName and firstName fields optional")
-	}
-
-	return nil
-}
-
-// setUpSessionTTLRule checks whether session TTL rule exists. If it's not then rule created,
-// if rule exists but TTL value is not actual then it updated.
-func (c *Client) setUpSessionTTLRule(ctx context.Context) error {
-	policyID, err := c.findDefaultPolicy(ctx)
-	if err != nil {
-		return errors.Wrap(err, "failed to get default policy")
-	}
-
-	// Get policy rules
-	var rules []*okta.OktaSignOnPolicyRule
-	if err := c.doRequest(ctx, "GET", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), nil, &rules); err != nil {
-		return errors.Wrap(err, "failed to get default policy rules")
-	}
-
-	for _, rule := range rules {
-		if rule.Name == sessionTTLRuleName {
-			// Check session TTL value
-			if rule.Actions.Signon.Session.MaxSessionIdleMinutes == int64(sessionTTL.Minutes()) {
-				return nil
-			}
-
-			// Update session TTL value
-			rule.Actions.Signon.Session.MaxSessionIdleMinutes = int64(sessionTTL.Minutes())
-			if err := c.doRequest(ctx, "PUT", fmt.Sprintf("/api/v1/policies/%v/rules/%v", policyID, rule.Id), rule, nil); err != nil {
-				return errors.Wrap(err, "failed to update session TTL rule")
-			}
-
-			return nil
-		}
-	}
-
-	// Create session TTL rule
-	sessionTTLRule := okta.OktaSignOnPolicyRule{
-		Name: sessionTTLRuleName,
-		Type: "SIGN_ON",
-		Conditions: &okta.OktaSignOnPolicyRuleConditions{
-			AuthContext: &okta.PolicyRuleAuthContextCondition{
-				AuthType: "ANY",
-			},
-			Network: &okta.PolicyNetworkCondition{
-				Connection: "ANYWHERE",
-			},
-		},
-		Actions: &okta.OktaSignOnPolicyRuleActions{
-			Signon: &okta.OktaSignOnPolicyRuleSignonActions{
-				Access: "ALLOW",
-				Session: &okta.OktaSignOnPolicyRuleSignonSessionActions{
-					MaxSessionIdleMinutes: int64(sessionTTL.Minutes()),
-					UsePersistentCookie:   pointer.ToBool(false),
-				},
-			},
-		},
-	}
-
-	if err := c.doRequest(ctx, "POST", fmt.Sprintf("/api/v1/policies/%s/rules", policyID), sessionTTLRule, nil); err != nil {
-		return errors.Wrap(err, "failed to create session TTL rule")
-	}
-
-	return nil
-}
-
-// findDefaultPolicy returns default Okta Sign On policy ID.
-func (c *Client) findDefaultPolicy(ctx context.Context) (string, error) {
-	qp := query.NewQueryParams(query.WithType("OKTA_SIGN_ON"))
+func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) {
 	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-
-	for _, policy := range policies {
-		if *policy.System && policy.Name == "Default Policy" {
-			return policy.Id, nil
-		}
-	}
-
-	return "", errors.New("can't find default Okta policy")
+	return policies, err
 }
 
-func (c *Client) doRequest(ctx context.Context, method, path string, body, v interface{}) error {
+// DoRequest makes HTTP requests to okta endpoints.
+func (c *Client) DoRequest(ctx context.Context, method, path string, body, v interface{}) error {
 	requestExecutor := c.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
 	req, err := requestExecutor.NewRequest(method, path, body)
 	if err != nil {

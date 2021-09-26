@@ -28,46 +28,6 @@ func GetOktaToken(t *testing.T) string {
 	return token
 }
 
-// GetOAuthIssueURL reads OAUTH_ISSUER_URL env var and return its value.
-func GetOAuthIssueURL(t *testing.T) string {
-	t.Helper()
-
-	token := os.Getenv("OAUTH_ISSUER_URL")
-	require.NotEmpty(t, token, "OAUTH_ISSUER_URL env var is missing")
-
-	return token
-}
-
-// GetOAuthClientID reads OAUTH_CLIENT_ID env var and return its value.
-func GetOAuthClientID(t *testing.T) string {
-	t.Helper()
-
-	token := os.Getenv("OAUTH_CLIENT_ID")
-	require.NotEmpty(t, token, "OAUTH_CLIENT_ID env var is missing")
-
-	return token
-}
-
-// GetOAuthClientSecret reads OAUTH_CLIENT_SECRET env var and return its value.
-func GetOAuthClientSecret(t *testing.T) string {
-	t.Helper()
-
-	token := os.Getenv("OAUTH_CLIENT_SECRET")
-	require.NotEmpty(t, token, "OAUTH_CLIENT_SECRET env var is missing")
-
-	return token
-}
-
-// GetOAuthScopes reads OAUTH_SCOPES env var and return its value.
-func GetOAuthScopes(t *testing.T) string {
-	t.Helper()
-
-	token := os.Getenv("OAUTH_SCOPES")
-	require.NotEmpty(t, token, "OAUTH_SCOPES env var is missing")
-
-	return token
-}
-
 // createOktaClient creates Okta client.
 func createOktaClient(t *testing.T) *okta.Client {
 	t.Helper()
