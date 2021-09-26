@@ -12,6 +12,8 @@ import (
 
 var authErrorType = new(AuthError) //nolint:gochecknoglobals
 
+const sessionTTL = 7 * 24 * time.Hour
+
 func init() { //nolint:gochecknoinits
 	gofakeit.Seed(time.Now().UnixNano())
 }
@@ -32,7 +34,7 @@ func TestSignUp(t *testing.T) {
 
 		_, _, firstName, lastName := GenCredentials(t)
 		user, err := s.SignUp(context.Background(), "not email", firstName, lastName)
-		require.EqualError(t, err, "invalid login: login: Username must be in the form of an email address")
+		require.EqualError(t, err, "invalid login: Api validation failed: login")
 		require.IsType(t, authErrorType, err)
 		require.Nil(t, user)
 	})

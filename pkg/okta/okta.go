@@ -16,11 +16,6 @@ import (
 	"github.com/percona-platform/platform/pkg/logger"
 )
 
-const (
-	sessionTTL         = 7 * 24 * time.Hour
-	sessionTTLRuleName = "SessionTTL (Managed by Authed. DO NOT EDIT!)"
-)
-
 // Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
 type Client struct {
