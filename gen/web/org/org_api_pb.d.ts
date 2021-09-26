@@ -116,16 +116,6 @@ export namespace GetOrganizationResponse {
 }
 
 export class SearchOrganizationsRequest extends jspb.Message {
-  getOrg(): SearchOrganizationsRequest.OrganizationFilter | undefined;
-  setOrg(value?: SearchOrganizationsRequest.OrganizationFilter): SearchOrganizationsRequest;
-  hasOrg(): boolean;
-  clearOrg(): SearchOrganizationsRequest;
-
-  getMember(): SearchOrganizationsRequest.MembersFilter | undefined;
-  setMember(value?: SearchOrganizationsRequest.MembersFilter): SearchOrganizationsRequest;
-  hasMember(): boolean;
-  clearMember(): SearchOrganizationsRequest;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchOrganizationsRequest.AsObject;
   static toObject(includeInstance: boolean, msg: SearchOrganizationsRequest): SearchOrganizationsRequest.AsObject;
@@ -136,47 +126,7 @@ export class SearchOrganizationsRequest extends jspb.Message {
 
 export namespace SearchOrganizationsRequest {
   export type AsObject = {
-    org?: SearchOrganizationsRequest.OrganizationFilter.AsObject,
-    member?: SearchOrganizationsRequest.MembersFilter.AsObject,
   }
-
-  export class OrganizationFilter extends jspb.Message {
-    getName(): string;
-    setName(value: string): OrganizationFilter;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): OrganizationFilter.AsObject;
-    static toObject(includeInstance: boolean, msg: OrganizationFilter): OrganizationFilter.AsObject;
-    static serializeBinaryToWriter(message: OrganizationFilter, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): OrganizationFilter;
-    static deserializeBinaryFromReader(message: OrganizationFilter, reader: jspb.BinaryReader): OrganizationFilter;
-  }
-
-  export namespace OrganizationFilter {
-    export type AsObject = {
-      name: string,
-    }
-  }
-
-
-  export class MembersFilter extends jspb.Message {
-    getUsername(): string;
-    setUsername(value: string): MembersFilter;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): MembersFilter.AsObject;
-    static toObject(includeInstance: boolean, msg: MembersFilter): MembersFilter.AsObject;
-    static serializeBinaryToWriter(message: MembersFilter, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): MembersFilter;
-    static deserializeBinaryFromReader(message: MembersFilter, reader: jspb.BinaryReader): MembersFilter;
-  }
-
-  export namespace MembersFilter {
-    export type AsObject = {
-      username: string,
-    }
-  }
-
 }
 
 export class SearchOrganizationsResponse extends jspb.Message {

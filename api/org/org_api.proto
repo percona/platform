@@ -79,25 +79,7 @@ message GetOrganizationResponse {
   Organization org = 1;
 }
 
-// Filters to be applied during constructing the list.
-// There are several levels of filter:
-// - organization level
-// - organization sub-collections level
-// Empty filters result in fetching all organizations.
 message SearchOrganizationsRequest {
-  message OrganizationFilter {
-    // Organization name.
-    string name = 1;  
-  }
-
-  OrganizationFilter org = 1;
-
-  message MembersFilter {
-    // Organization member username.
-    string username = 1;
-  }
-
-  MembersFilter member = 2;
 }
 
 message SearchOrganizationsResponse {
