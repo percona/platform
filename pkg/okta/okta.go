@@ -434,7 +434,7 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 // GroupExists finds whether okta group with the provided name exists.
 func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 	var group *okta.Group
-	err := c.DoRequest(ctx, "POST", "api/v1/groups?q="+name, nil, group)
+	err := c.DoRequest(ctx, "POST", "/api/v1/groups?q="+name, nil, group)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
