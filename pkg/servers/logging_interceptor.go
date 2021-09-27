@@ -12,13 +12,17 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/percona-platform/platform/pkg/tracing"
+
+	"github.com/percona-platform/platform/pkg/logger"
 )
 
 // logGRPCRequest wraps f (gRPC handler) invocation with logging and panic recovery.
 func logGRPCRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() error) (err error) {
 	start := time.Now()
 	sl := l.Sugar()
-	sl.Infof("Starting %s ...", prefix)
+	l.Info("Starting " + prefix)
 
 	defer func() {
 		dur := time.Since(start)
@@ -34,30 +38,44 @@ func logGRPCRequest(l *zap.Logger, prefix string, warnD time.Duration, f func() 
 		}
 
 		// log gRPC errors as warning, not errors, even if they are wrapped
-		_, gRPCError := status.FromError(errors.Cause(err))
+		gRPCStatus, isGRPCError := status.FromError(errors.Cause(err))
 		switch {
 		case err == nil:
 			if warnD == 0 || dur < warnD {
-				sl.Infof("%s done in %s.", prefix, dur)
+				l.Info("Finished "+prefix,
+					zap.String("code", gRPCStatus.Code().String()),
+					zap.Duration("duration", dur),
+				)
 			} else {
-				sl.Warnf("%s done in %s (quite long).", prefix, dur)
+				l.Warn("Finished "+prefix,
+					zap.String("code", gRPCStatus.Code().String()),
+					zap.Duration("duration", dur),
+					zap.Duration("warn_duration", warnD),
+				)
 			}
-		case gRPCError:
-			// %+v for inner stacktraces produced by errors.WithStack(err)
-			sl.Warnf("%s done in %s with gRPC error: %+v", prefix, dur, err)
+		case isGRPCError:
+			l.Warn("Finished "+prefix,
+				zap.String("code", gRPCStatus.Code().String()),
+				zap.Duration("duration", dur),
+				zap.Error(err),
+			)
 		default:
-			// %+v for inner stacktraces produced by errors.WithStack(err)
-			sl.Errorf("%s done in %s with unexpected error: %+v", prefix, dur, err)
+			l.Error("Finished "+prefix,
+				zap.String("code", gRPCStatus.Code().String()),
+				zap.Duration("duration", dur),
+				zap.Error(err),
+			)
 			err = status.Error(codes.Internal, "Internal server error.")
 		}
 	}()
 
 	err = f()
+
 	return //nolint:nakedret
 }
 
 // unaryLoggingInterceptor returns a new unary server interceptor that logs incoming requests.
-func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterceptor {
+func unaryLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		// add pprof labels for more useful profiles
 		defer pprof.SetGoroutineLabels(ctx)
@@ -65,11 +83,17 @@ func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterce
 		pprof.SetGoroutineLabels(ctx)
 
 		// make context with logger
-		var l *zap.Logger
-		ctx, l = getCtxForRequest(ctx)
+		rl := l
+		if reqID := tracing.GetRequestIDFromGrpcIncomingContext(ctx); len(reqID) != 0 {
+			rl = rl.With(zap.String("request-id", reqID))
+		}
+		rl = rl.With(zap.String("method", info.FullMethod))
+
+		// wrap logger into context so that the following gRPC interceptors and handlers could re-use it.
+		ctx = logger.GetContextWithLogger(ctx, rl)
 
 		var res interface{}
-		err := logGRPCRequest(l, "RPC "+info.FullMethod, warnDuration, func() error {
+		err := logGRPCRequest(rl, "unary call", warnDuration, func() error {
 			var origErr error
 			res, origErr = handler(ctx, req)
 			return origErr
@@ -83,7 +107,7 @@ func unaryLoggingInterceptor(warnDuration time.Duration) grpc.UnaryServerInterce
 }
 
 // streamLoggingInterceptor returns a new stream server interceptor that logs incoming messages.
-func streamLoggingInterceptor(warnDuration time.Duration) grpc.StreamServerInterceptor {
+func streamLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.StreamServerInterceptor {
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()
 
@@ -93,10 +117,16 @@ func streamLoggingInterceptor(warnDuration time.Duration) grpc.StreamServerInter
 		pprof.SetGoroutineLabels(ctx)
 
 		// make context with logger
-		var l *zap.Logger
-		ctx, l = getCtxForRequest(ctx)
+		rl := l
+		if requestID := tracing.GetRequestIDFromGrpcIncomingContext(ctx); len(requestID) != 0 {
+			rl = rl.With(zap.String("request-id", requestID))
+		}
+		rl = rl.With(zap.String("method", info.FullMethod))
 
-		err := logGRPCRequest(l, "Stream "+info.FullMethod, warnDuration, func() error {
+		// wrap logger into context so that the following gRPC interceptors and handlers could re-use it.
+		ctx = logger.GetContextWithLogger(ctx, rl)
+
+		err := logGRPCRequest(l, "stream", warnDuration, func() error {
 			wrapped := grpc_middleware.WrapServerStream(ss)
 			wrapped.WrappedContext = ctx
 			return handler(srv, ss)

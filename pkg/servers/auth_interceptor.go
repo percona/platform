@@ -15,6 +15,8 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
+	"github.com/percona-platform/platform/pkg/tracing"
+
 	"github.com/percona-platform/platform/pkg/logger"
 	"github.com/percona-platform/platform/pkg/rdata"
 )
@@ -57,15 +59,28 @@ const (
 
 var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
 
-// PerconaAuthHeaderMatcher preserves the PP-Auth-* headers added by /forwardauth in Authed service
+// PerconaHeaderMatcher preserves the Auth-* headers added by /forwardauth in Authed service
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
 // to the grpc server.
-func PerconaAuthHeaderMatcher(key string) (string, bool) {
+func PerconaHeaderMatcher(key string) (string, bool) {
 	keyCanonical := textproto.CanonicalMIMEHeaderKey(key)
-	if strings.HasPrefix(keyCanonical, "Auth-") {
+	if perconaAuthHeadersMatcher(keyCanonical) {
 		return key, true
 	}
+
+	if tracing.OpenTracingHeadersMatcher(keyCanonical) {
+		return key, true
+	}
+
 	return runtime.DefaultHeaderMatcher(key)
+}
+
+// perconaAuthHeadersMatcher preserves the Auth-* headers added by /forwardauth in Authed service
+// after the HTTP request is received by grpc-gateway and are forwarded as-is
+// to the grpc server.
+// NOTE: key parameter must be in a Canonical format.
+func perconaAuthHeadersMatcher(key string) bool {
+	return strings.HasPrefix(key, "Auth-")
 }
 
 func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
@@ -75,7 +90,7 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 	}
 
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		l := logger.Get(ctx).Sugar()
+		l := logger.GetLoggerFromContext(ctx).Sugar()
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
@@ -114,7 +129,7 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()
-		l := logger.Get(ctx).Sugar()
+		l := logger.GetLoggerFromContext(ctx).Sugar()
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
