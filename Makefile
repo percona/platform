@@ -1,5 +1,5 @@
 DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
-DOCKER_RUN_IMAGE ?= docker.pkg.github.com/percona-platform/platform/prototool:latest
+DOCKER_RUN_IMAGE ?= ghcr.io/percona-platform/platform/prototool:latest
 DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
 PROTOC_ARGS = -I api -I /usr/local/include --cpp_out=gen/cpp --govalidators_out=gen --grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web --grpc-gateway_out=logtostderr=true,paths=source_relative:gen --js_out=import_style=commonjs,binary:gen/web --go_out=gen --go_opt=paths=source_relative --go-grpc_out=gen --go-grpc_opt=paths=source_relative
 

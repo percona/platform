@@ -88,12 +88,14 @@ enum DistributionMethod : int {
   DOCKER = 1,
   OVF = 2,
   AMI = 3,
+  AZURE = 4,
+  DO = 5,
   DistributionMethod_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   DistributionMethod_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool DistributionMethod_IsValid(int value);
 constexpr DistributionMethod DistributionMethod_MIN = DISTRIBUTION_METHOD_INVALID;
-constexpr DistributionMethod DistributionMethod_MAX = AMI;
+constexpr DistributionMethod DistributionMethod_MAX = DO;
 constexpr int DistributionMethod_ARRAYSIZE = DistributionMethod_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DistributionMethod_descriptor();

@@ -56,4 +56,6 @@ export enum DistributionMethod {
   DOCKER = 1,
   OVF = 2,
   AMI = 3,
+  AZURE = 4,
+  DO = 5,
 }
