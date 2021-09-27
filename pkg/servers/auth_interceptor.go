@@ -17,6 +17,7 @@ import (
 
 	"github.com/percona-platform/platform/pkg/logger"
 	"github.com/percona-platform/platform/pkg/rdata"
+	"github.com/percona-platform/platform/pkg/tracing"
 )
 
 type authMethodType int
@@ -75,15 +76,29 @@ const (
 
 var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
 
-// PerconaAuthHeaderMatcher preserves the PP-Auth-* headers added by /forwardauth in Authed service
+// PerconaHeaderMatcher preserves the Auth-* headers added by /forwardauth in Authed service
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
 // to the grpc server.
-func PerconaAuthHeaderMatcher(key string) (string, bool) {
+// It also preserves tracing headers.
+func PerconaHeaderMatcher(key string) (string, bool) {
 	keyCanonical := textproto.CanonicalMIMEHeaderKey(key)
-	if strings.HasPrefix(keyCanonical, "Auth-") {
+	if perconaAuthHeadersMatcher(keyCanonical) {
 		return key, true
 	}
+
+	if tracing.OpenTracingHeadersMatcher(keyCanonical) {
+		return key, true
+	}
+
 	return runtime.DefaultHeaderMatcher(key)
+}
+
+// perconaAuthHeadersMatcher preserves the Auth-* headers added by /forwardauth in Authed service
+// after the HTTP request is received by grpc-gateway and are forwarded as-is
+// to the grpc server.
+// NOTE: key parameter must be in a Canonical format.
+func perconaAuthHeadersMatcher(key string) bool {
+	return strings.HasPrefix(key, "Auth-")
 }
 
 func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor {
@@ -102,14 +117,14 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 	}
 
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		l := logger.Get(ctx).Sugar()
+		l := logger.GetLoggerFromContext(ctx)
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
 			l.Error("No metadata in incoming request. Rejecting request.")
 			return nil, errAuthenticationFail
 		}
-		l.Debugf("Received metadata: %+v.", md)
+		l.Debug("Received metadata", zap.Any("metadata", md))
 
 		// Check authentication error before checking if methods requires authentication at all:
 		// * if Authorization header is absent, Auth Service returns OK;
@@ -122,17 +137,35 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
 		case authMethodRequireAuth:
 			// Request must be authenticated.
-			reqData, err := getAuthData(md)
+			authData, err := getAuthData(md)
 			if err != nil {
-				l.Errorf("Can't extract auth data from incoming request, reason: %+v. Rejecting request.", err)
+				l.Error("Can't extract auth data from incoming request. Rejecting request.", zap.Error(err))
 				return nil, errAuthenticationFail
 			}
-			ctx = rdata.AddToContext(ctx, reqData)
+			ctx = rdata.AddToContext(ctx, authData)
+
+			// Add logger with userID/appID attribute to context.
+			// This logger will be extracted from context and used later by service layers.
+			if len(authData.UserID) != 0 {
+				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
+			} else if len(authData.AppID) != 0 {
+				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
+			}
+			ctx = logger.GetContextWithLogger(ctx, l)
 		case authMethodMayUseAuth:
 			// In case auth data exist add it to context.
-			reqData, err := getAuthData(md)
+			authData, err := getAuthData(md)
 			if err == nil {
-				ctx = rdata.AddToContext(ctx, reqData)
+				ctx = rdata.AddToContext(ctx, authData)
+
+				// Add logger with userID/appID attribute to context.
+				// This logger will be extracted from context and used later by service layers.
+				if len(authData.UserID) != 0 {
+					l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
+				} else if len(authData.AppID) != 0 {
+					l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
+				}
+				ctx = logger.GetContextWithLogger(ctx, l)
 			}
 		case authMethodNoAuth:
 		default:
@@ -160,14 +193,14 @@ func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.Strea
 
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()
-		l := logger.Get(ctx).Sugar()
+		l := logger.GetLoggerFromContext(ctx)
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
 			l.Error("No metadata in incoming request. Rejecting request.")
 			return errAuthenticationFail
 		}
-		l.Debugf("Received metadata: %+v", md)
+		l.Debug("Received metadata", zap.Any("metadata", md))
 
 		// Check authentication error before checking if methods requires authentication at all:
 		// * if Authorization header is absent, Auth Service returns OK;
@@ -178,20 +211,38 @@ func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.Strea
 		}
 
 		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
-		case authMethodMayUseAuth:
-			// In case auth data exist add it to context.
-			reqData, err := getAuthData(md)
-			if err == nil {
-				ctx = rdata.AddToContext(ctx, reqData)
-			}
 		case authMethodRequireAuth:
 			// Request must be authenticated.
-			reqData, err := getAuthData(md)
+			authData, err := getAuthData(md)
 			if err != nil {
-				l.Errorf("Can't extract auth data from incoming request, reason: %+v. Rejecting request.", err)
+				l.Error("Can't extract auth data from incoming request. Rejecting request.", zap.Error(err))
 				return errAuthenticationFail
 			}
-			ctx = rdata.AddToContext(ctx, reqData)
+			ctx = rdata.AddToContext(ctx, authData)
+
+			// Add logger with userID/appID attribute to context.
+			// This logger will be extracted from context and used later by service layers.
+			if len(authData.UserID) != 0 {
+				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
+			} else if len(authData.AppID) != 0 {
+				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
+			}
+			ctx = logger.GetContextWithLogger(ctx, l)
+		case authMethodMayUseAuth:
+			// In case auth data exist add it to context.
+			authData, err := getAuthData(md)
+			if err == nil {
+				ctx = rdata.AddToContext(ctx, authData)
+			}
+
+			// Add logger with userID/appID attribute to context.
+			// This logger will be extracted from context and used later by service layers.
+			if len(authData.UserID) != 0 {
+				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
+			} else if len(authData.AppID) != 0 {
+				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
+			}
+			ctx = logger.GetContextWithLogger(ctx, l)
 		case authMethodNoAuth:
 		default:
 			// Do not try to extract auth data from incoming context.
@@ -213,17 +264,17 @@ func getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet map[string]struct{
 
 // handleAuthProxyError checks authentication status and message forwarded from proxy
 // and returns proper response to user in case of any problem.
-func handleAuthProxyError(md metadata.MD, l *zap.SugaredLogger) error {
+func handleAuthProxyError(md metadata.MD, l *zap.Logger) error {
 	authStatus, err := getAuthStatusFromMetadata(md)
 	if err != nil {
-		l.Errorf("Failed to get auth status from request metadata, reason: %+v.", err)
+		l.Error("Failed to get auth status from request metadata.", zap.Error(err))
 		return errAuthenticationFail
 	}
 
 	if authStatus != codes.OK {
 		authError, err := getAuthErrorFromMetadata(md)
 		if err != nil {
-			l.Errorf("Failed to extract auth error from incoming request, reason: %+v.", err)
+			l.Error("Failed to extract auth error from incoming request.", zap.Error(err))
 			return errAuthenticationFail
 		}
 		return status.Error(authStatus, authError)

@@ -1,37 +1,52 @@
 package logger
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httputil"
+
+	"go.uber.org/zap"
 )
 
 // HTTP returns http.RoundTripper with request/response logger.
-func HTTP(rt http.RoundTripper, printf func(format string, args ...interface{})) http.RoundTripper {
+func HTTP(rt http.RoundTripper, loggerName string) http.RoundTripper {
 	return &roundTripper{
-		rt:     rt,
-		printf: printf,
+		rt:         rt,
+		loggerName: loggerName,
 	}
 }
 
 type roundTripper struct {
-	rt     http.RoundTripper
-	printf func(format string, v ...interface{})
+	rt         http.RoundTripper
+	loggerName string
 }
 
 func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	b, _ := httputil.DumpRequestOut(req, true)
-	if len(b) != 0 {
-		rt.printf("Request:\n%s", b)
+	rl := GetLoggerFromContext(req.Context())
+	if rl == nil {
+		// if context logger is absent use global one.
+		rl = zap.L()
+	}
+	rl = rl.Named(rt.loggerName)
+
+	if rl.Core().Enabled(zap.DebugLevel) {
+		b, _ := httputil.DumpRequestOut(req, true)
+		if len(b) != 0 {
+			rl.Info(fmt.Sprintf("Sending request:\n%s", b))
+		}
 	}
 
 	resp, err := rt.rt.RoundTrip(req)
 
-	if resp != nil {
-		b, _ = httputil.DumpResponse(resp, true)
-		if len(b) != 0 {
-			rt.printf("Response:\n%s", b)
+	if err != nil {
+		rl.Error("Received error", zap.Error(err))
+	} else if resp != nil {
+		if rl.Core().Enabled(zap.DebugLevel) {
+			b, _ := httputil.DumpResponse(resp, true)
+			if len(b) != 0 {
+				rl.Info(fmt.Sprintf("Received response:\n%s", b))
+			}
 		}
 	}
-
 	return resp, err
 }

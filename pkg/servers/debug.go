@@ -36,7 +36,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		opts = new(RunDebugServerOpts)
 	}
 
-	l := zap.L().Named("platform.servers.debug").Sugar()
+	l := zap.L().Named("servers.debug").Sugar()
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
@@ -134,8 +134,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 
 		// propagate ctx cancellation signals and pass logger to handlers
 		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
-			c, _ := getCtxForRequest(connCtx)
-			return c
+			return getCtxForRequest(connCtx)
 		},
 
 		// Handler defaults to http.DefaultServeMux
