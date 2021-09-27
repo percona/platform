@@ -23,8 +23,7 @@ type OrgAPIClient interface {
 	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
 	// GetOrganization fetches organization details by ID.
 	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
-	// SearchOrganizations fetches organization details that match filter
-	// applied to items within the same organization collection and sub-collections as well.
+	// SearchOrganizations fetches details of organization that a signed in user has permission to view.
 	SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
@@ -82,8 +81,7 @@ type OrgAPIServer interface {
 	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
 	// GetOrganization fetches organization details by ID.
 	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
-	// SearchOrganizations fetches organization details that match filter
-	// applied to items within the same organization collection and sub-collections as well.
+	// SearchOrganizations fetches details of organization that a signed in user has permission to view.
 	SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)

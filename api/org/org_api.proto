@@ -25,8 +25,7 @@ service OrgAPI {
     };
   }
 
-  // SearchOrganizations fetches organization details that match filter 
-  // applied to items within the same organization collection and sub-collections as well.
+  // SearchOrganizations fetches details of organization that a signed in user has permission to view.
   rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse) {
     option (google.api.http) = {
       post: "/v1/orgs:search"
