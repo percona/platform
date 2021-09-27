@@ -7,6 +7,7 @@ import (
 
 	"github.com/brianvoe/gofakeit"
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -362,6 +363,10 @@ func TestGroups(t *testing.T) {
 
 	require.Len(t, users, 1)
 	require.Equal(t, *user, users[0])
+
+	exists, err := s.GroupExists(context.Background(), name)
+	require.NoError(t, err)
+	assert.True(t, exists)
 }
 
 func TestGetUserLogin(t *testing.T) {
