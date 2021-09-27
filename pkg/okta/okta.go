@@ -431,6 +431,27 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 	}, nil
 }
 
+// GroupExists finds whether okta group with the provided name exists.
+func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
+	var group *okta.Group
+	err := c.DoRequest(ctx, "POST", "api/v1/groups?q="+name, nil, group)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return false, convertOktaError(oErr)
+		}
+
+		return false, errors.Wrap(err, "failed to find group")
+	}
+
+	// double check the response in case a partial match is returned.
+	if group.Profile.Name != name {
+		return false, nil
+	}
+
+	return true, nil
+}
+
 // DeleteGroup delete group with provided ID.
 func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
 	_, err := c.c.Group.DeleteGroup(ctx, groupID)
