@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package percona.platform.org.v1;
+
+option go_package = "/org;orgv1";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+// OrgAPI provides API for organization management for Percona services.
+service OrgAPI {
+  // CreateOrganization creates new organization with the given name and adds the user as org admin.
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs"
+      body: "*"
+    };
+  }
+
+  // GetOrganization fetches organization details by ID.
+  rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
+    option (google.api.http) = {
+      get: "/v1/orgs/{id}"
+    };
+  }
+
+  // SearchOrganizations fetches details of organization that a signed in user has permission to view.
+  rpc SearchOrganizations(SearchOrganizationsRequest) returns (SearchOrganizationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs:search"
+      body: "*"
+    };
+  }
+  
+  // DeleteOrganization deletes organization and its members for the given organization ID.
+  rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/{id}"
+    };
+  }
+}
+
+message Organization {
+  // Percona Portal Organization ID.
+  string id = 1;
+  // Percona Portal Organization Name.
+  string name = 2;
+  // Timestamp of organization creation.
+  google.protobuf.Timestamp created_at = 3;
+  // Timestamp when organization was last updated.
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message CreateOrganizationRequest {
+  // Organization name.
+  string name = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message CreateOrganizationResponse {
+  Organization org = 1;
+}
+
+message GetOrganizationRequest {
+  // Percona Portal Organization ID.
+  string id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message GetOrganizationResponse {
+  Organization org = 1;
+}
+
+message SearchOrganizationsRequest {
+}
+
+message SearchOrganizationsResponse {
+  repeated Organization orgs = 1;
+}
+
+message DeleteOrganizationRequest {
+  // Percona Portal Organization ID.
+  string id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message DeleteOrganizationResponse {}

@@ -65,10 +65,6 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		l.Panic("No Addr set.")
 	}
 
-	if opts.NoAuthMethods == nil {
-		l.Panic("No NoAuthMethods set.")
-	}
-
 	if opts.ShutdownTimeout == 0 {
 		opts.ShutdownTimeout = 3 * time.Second
 	}
