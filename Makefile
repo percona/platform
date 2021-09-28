@@ -26,6 +26,7 @@ gen:                                       ## Format, check, and generate code u
 
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/auth/auth_api.proto
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/check/retrieval/retrieval_api.proto
+	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/org/org_api.proto
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/reporter/*.proto
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/events/pmm/server_uptime_event.proto
 
@@ -60,6 +61,7 @@ descriptors:                               ## Update files used for breaking cha
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/auth -o api/auth/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check/retrieval -o api/check/retrieval/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break descriptor-set api/org -o api/org/descriptor.bin
 
 docker-build:                              ## Build prototool Docker dev image
 	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
