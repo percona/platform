@@ -444,6 +444,11 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 		return false, errors.Wrap(err, "failed to find group")
 	}
 
+	// if request was successful but no group by the provided name exists.
+	if len(g) == 0 {
+		return false, nil
+	}
+
 	// double check the response in case a partial match is returned.
 	group := g[0]
 	if group.Profile.Name != name {

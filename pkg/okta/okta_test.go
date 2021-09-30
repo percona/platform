@@ -367,6 +367,10 @@ func TestGroups(t *testing.T) {
 	exists, err := s.GroupExists(context.Background(), name)
 	require.NoError(t, err)
 	assert.True(t, exists)
+
+	exists, err = s.GroupExists(context.Background(), "non-existent-group")
+	require.NoError(t, err)
+	assert.False(t, exists)
 }
 
 func TestGetUserLogin(t *testing.T) {
