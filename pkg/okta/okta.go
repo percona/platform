@@ -445,6 +445,10 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 	}
 
 	// double check the response in case a partial match is returned.
+	if len(g) == 0 {
+		return false, nil
+	}
+
 	group := g[0]
 	if group.Profile.Name != name {
 		return false, nil
