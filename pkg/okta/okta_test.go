@@ -344,7 +344,7 @@ func TestGroups(t *testing.T) {
 		DeleteUser(t, user.ID)
 	})
 
-	name := gofakeit.UUID()
+	name := gofakeit.LastName() + ", " + gofakeit.LastName() + " and " + gofakeit.LastName()
 	description := "Test group"
 	group, err := s.CreateGroup(context.Background(), name, description)
 	t.Cleanup(func() {

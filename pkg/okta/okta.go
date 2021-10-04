@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -434,7 +435,11 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 // GroupExists finds whether okta group with the provided name exists.
 func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 	var g []okta.Group
-	err := c.DoRequest(ctx, "GET", fmt.Sprintf("/api/v1/groups?q=%s&limit=1", name), nil, &g)
+	params := url.Values{}
+	params.Add("q", name)
+	params.Add("limit", "1")
+
+	err := c.DoRequest(ctx, "GET", fmt.Sprintf("/api/v1/groups?%s", params.Encode()), nil, &g)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -444,18 +449,13 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 		return false, errors.Wrap(err, "failed to find group")
 	}
 
-	// if request was successful but no group by the provided name exists.
-	if len(g) == 0 {
-		return false, nil
+	for _, group := range g {
+		// Okta matches groups in case-insensitive format.
+		if strings.EqualFold(group.Profile.Name, name) {
+			return true, nil
+		}
 	}
-
-	// double check the response in case a partial match is returned.
-	group := g[0]
-	if group.Profile.Name != name {
-		return false, nil
-	}
-
-	return true, nil
+	return false, nil
 }
 
 // DeleteGroup delete group with provided ID.
