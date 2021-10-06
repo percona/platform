@@ -181,3 +181,120 @@ export namespace DeleteOrganizationResponse {
   }
 }
 
+export class InviteMemberRequest extends jspb.Message {
+  getUsername(): string;
+  setUsername(value: string): InviteMemberRequest;
+
+  getId(): string;
+  setId(value: string): InviteMemberRequest;
+
+  getRole(): OrganizationMemberRole;
+  setRole(value: OrganizationMemberRole): InviteMemberRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InviteMemberRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: InviteMemberRequest): InviteMemberRequest.AsObject;
+  static serializeBinaryToWriter(message: InviteMemberRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InviteMemberRequest;
+  static deserializeBinaryFromReader(message: InviteMemberRequest, reader: jspb.BinaryReader): InviteMemberRequest;
+}
+
+export namespace InviteMemberRequest {
+  export type AsObject = {
+    username: string,
+    id: string,
+    role: OrganizationMemberRole,
+  }
+}
+
+export class InviteMemberResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InviteMemberResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: InviteMemberResponse): InviteMemberResponse.AsObject;
+  static serializeBinaryToWriter(message: InviteMemberResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InviteMemberResponse;
+  static deserializeBinaryFromReader(message: InviteMemberResponse, reader: jspb.BinaryReader): InviteMemberResponse;
+}
+
+export namespace InviteMemberResponse {
+  export type AsObject = {
+  }
+}
+
+export class OrganizationMember extends jspb.Message {
+  getUsername(): string;
+  setUsername(value: string): OrganizationMember;
+
+  getFirstName(): string;
+  setFirstName(value: string): OrganizationMember;
+
+  getLastName(): string;
+  setLastName(value: string): OrganizationMember;
+
+  getRole(): OrganizationMemberRole;
+  setRole(value: OrganizationMemberRole): OrganizationMember;
+
+  getStatus(): string;
+  setStatus(value: string): OrganizationMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationMember.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationMember): OrganizationMember.AsObject;
+  static serializeBinaryToWriter(message: OrganizationMember, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationMember;
+  static deserializeBinaryFromReader(message: OrganizationMember, reader: jspb.BinaryReader): OrganizationMember;
+}
+
+export namespace OrganizationMember {
+  export type AsObject = {
+    username: string,
+    firstName: string,
+    lastName: string,
+    role: OrganizationMemberRole,
+    status: string,
+  }
+}
+
+export class ListMembersRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): ListMembersRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListMembersRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListMembersRequest): ListMembersRequest.AsObject;
+  static serializeBinaryToWriter(message: ListMembersRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListMembersRequest;
+  static deserializeBinaryFromReader(message: ListMembersRequest, reader: jspb.BinaryReader): ListMembersRequest;
+}
+
+export namespace ListMembersRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class ListMembersResponse extends jspb.Message {
+  getMembersList(): Array<OrganizationMember>;
+  setMembersList(value: Array<OrganizationMember>): ListMembersResponse;
+  clearMembersList(): ListMembersResponse;
+  addMembers(value?: OrganizationMember, index?: number): OrganizationMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListMembersResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListMembersResponse): ListMembersResponse.AsObject;
+  static serializeBinaryToWriter(message: ListMembersResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListMembersResponse;
+  static deserializeBinaryFromReader(message: ListMembersResponse, reader: jspb.BinaryReader): ListMembersResponse;
+}
+
+export namespace ListMembersResponse {
+  export type AsObject = {
+    membersList: Array<OrganizationMember.AsObject>,
+  }
+}
+
+export enum OrganizationMemberRole { 
+  ORGANIZATION_MEMBER_ROLE_INVALID = 0,
+  ADMIN = 1,
+  TECHNICAL = 2,
+}

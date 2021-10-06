@@ -92,3 +92,39 @@ func (this *DeleteOrganizationRequest) Validate() error {
 func (this *DeleteOrganizationResponse) Validate() error {
 	return nil
 }
+
+func (this *InviteMemberRequest) Validate() error {
+	if this.Username == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
+	}
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	return nil
+}
+
+func (this *InviteMemberResponse) Validate() error {
+	return nil
+}
+
+func (this *OrganizationMember) Validate() error {
+	return nil
+}
+
+func (this *ListMembersRequest) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	return nil
+}
+
+func (this *ListMembersResponse) Validate() error {
+	for _, item := range this.Members {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Members", err)
+			}
+		}
+	}
+	return nil
+}
