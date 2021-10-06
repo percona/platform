@@ -48,10 +48,11 @@ service OrgAPI {
     };
   }
 
-  // ListMembers lists members of a Percona Portal Organization.
-  rpc ListMembers(ListMembersRequest) returns (ListMembersResponse) {
+  // SearchMembers lists members of a Percona Portal Organization.
+  rpc SearchMembers(SearchMembersRequest) returns (SearchMembersResponse) {
     option (google.api.http) = {
-      get: "/v1/orgs/{id}/members"
+      post: "/v1/orgs/{id}/members:search"
+      body: "*"
     };
   }
 }
@@ -110,14 +111,6 @@ message DeleteOrganizationRequest {
 
 message DeleteOrganizationResponse {}
 
-enum OrganizationMemberRole {
-  ORGANIZATION_MEMBER_ROLE_INVALID = 0;
-
-  ADMIN = 1;
-
-  TECHNICAL = 2;
-}
-
 message InviteMemberRequest {
   // Percona Portal username to invite to the Organziation.
   string username = 1 [
@@ -134,7 +127,7 @@ message InviteMemberRequest {
   ];
 
   // Percona Portal Organization Role to be granted to invited user.
-  OrganizationMemberRole role = 3;
+  string role = 3;
 }
 
 message InviteMemberResponse {}
@@ -150,21 +143,27 @@ message OrganizationMember {
   string last_name = 3;
 
   // Percona Portal Organization Role of the member.
-  OrganizationMemberRole role = 4;
+  string role = 4;
 
   // Okta Account Status of the organization member.
   string status = 5;
 }
 
-message ListMembersRequest {
+message SearchMembersRequest {
   // Percona Portal Organization ID.
   string id = 1 [
     (validator.field) = {
       string_not_empty: true
     }
   ];
+
+  // Optional filter to be used by PMM to get current user info.
+  message UserFilter {
+    // Organization member username.
+    string username = 1;
+  }
 }
 
-message ListMembersResponse {
+message SearchMembersResponse {
   repeated OrganizationMember members = 1;
 }

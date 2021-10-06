@@ -235,44 +235,44 @@ export class OrgAPIClient {
     this.methodInfoInviteMember);
   }
 
-  methodInfoListMembers = new grpcWeb.AbstractClientBase.MethodInfo(
-    org_org_api_pb.ListMembersResponse,
-    (request: org_org_api_pb.ListMembersRequest) => {
+  methodInfoSearchMembers = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchMembersResponse,
+    (request: org_org_api_pb.SearchMembersRequest) => {
       return request.serializeBinary();
     },
-    org_org_api_pb.ListMembersResponse.deserializeBinary
+    org_org_api_pb.SearchMembersResponse.deserializeBinary
   );
 
-  listMembers(
-    request: org_org_api_pb.ListMembersRequest,
-    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.ListMembersResponse>;
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchMembersResponse>;
 
-  listMembers(
-    request: org_org_api_pb.ListMembersRequest,
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: org_org_api_pb.ListMembersResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.ListMembersResponse>;
+               response: org_org_api_pb.SearchMembersResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchMembersResponse>;
 
-  listMembers(
-    request: org_org_api_pb.ListMembersRequest,
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: org_org_api_pb.ListMembersResponse) => void) {
+               response: org_org_api_pb.SearchMembersResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/percona.platform.org.v1.OrgAPI/ListMembers',
+          '/percona.platform.org.v1.OrgAPI/SearchMembers',
         request,
         metadata || {},
-        this.methodInfoListMembers,
+        this.methodInfoSearchMembers,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/percona.platform.org.v1.OrgAPI/ListMembers',
+      '/percona.platform.org.v1.OrgAPI/SearchMembers',
     request,
     metadata || {},
-    this.methodInfoListMembers);
+    this.methodInfoSearchMembers);
   }
 
 }

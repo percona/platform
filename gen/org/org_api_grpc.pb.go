@@ -29,8 +29,8 @@ type OrgAPIClient interface {
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(ctx context.Context, in *InviteMemberRequest, opts ...grpc.CallOption) (*InviteMemberResponse, error)
-	// ListMembers lists members of a Percona Portal Organization.
-	ListMembers(ctx context.Context, in *ListMembersRequest, opts ...grpc.CallOption) (*ListMembersResponse, error)
+	// SearchMembers lists members of a Percona Portal Organization.
+	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
 }
 
 type orgAPIClient struct {
@@ -86,9 +86,9 @@ func (c *orgAPIClient) InviteMember(ctx context.Context, in *InviteMemberRequest
 	return out, nil
 }
 
-func (c *orgAPIClient) ListMembers(ctx context.Context, in *ListMembersRequest, opts ...grpc.CallOption) (*ListMembersResponse, error) {
-	out := new(ListMembersResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/ListMembers", in, out, opts...)
+func (c *orgAPIClient) SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error) {
+	out := new(SearchMembersResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchMembers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,8 +109,8 @@ type OrgAPIServer interface {
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error)
-	// ListMembers lists members of a Percona Portal Organization.
-	ListMembers(context.Context, *ListMembersRequest) (*ListMembersResponse, error)
+	// SearchMembers lists members of a Percona Portal Organization.
+	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -137,8 +137,8 @@ func (UnimplementedOrgAPIServer) InviteMember(context.Context, *InviteMemberRequ
 	return nil, status.Errorf(codes.Unimplemented, "method InviteMember not implemented")
 }
 
-func (UnimplementedOrgAPIServer) ListMembers(context.Context, *ListMembersRequest) (*ListMembersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListMembers not implemented")
+func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchMembers not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -243,20 +243,20 @@ func _OrgAPI_InviteMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrgAPI_ListMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListMembersRequest)
+func _OrgAPI_SearchMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchMembersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrgAPIServer).ListMembers(ctx, in)
+		return srv.(OrgAPIServer).SearchMembers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.org.v1.OrgAPI/ListMembers",
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchMembers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgAPIServer).ListMembers(ctx, req.(*ListMembersRequest))
+		return srv.(OrgAPIServer).SearchMembers(ctx, req.(*SearchMembersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -289,8 +289,8 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrgAPI_InviteMember_Handler,
 		},
 		{
-			MethodName: "ListMembers",
-			Handler:    _OrgAPI_ListMembers_Handler,
+			MethodName: "SearchMembers",
+			Handler:    _OrgAPI_SearchMembers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
