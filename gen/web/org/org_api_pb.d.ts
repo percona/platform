@@ -3,6 +3,7 @@ import * as jspb from 'google-protobuf'
 import * as github_com_mwitkow_go$proto$validators_validator_pb from '../github.com/mwitkow/go-proto-validators/validator_pb';
 import * as google_api_annotations_pb from '../google/api/annotations_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
+import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
 
 export class Organization extends jspb.Message {
@@ -179,5 +180,144 @@ export class DeleteOrganizationResponse extends jspb.Message {
 export namespace DeleteOrganizationResponse {
   export type AsObject = {
   }
+}
+
+export class SearchOrganizationEntitlementsRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): SearchOrganizationEntitlementsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationEntitlementsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationEntitlementsRequest): SearchOrganizationEntitlementsRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationEntitlementsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationEntitlementsRequest;
+  static deserializeBinaryFromReader(message: SearchOrganizationEntitlementsRequest, reader: jspb.BinaryReader): SearchOrganizationEntitlementsRequest;
+}
+
+export namespace SearchOrganizationEntitlementsRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class SearchOrganizationEntitlementsResponse extends jspb.Message {
+  getEntitlementsList(): Array<OrganizationEntitlement>;
+  setEntitlementsList(value: Array<OrganizationEntitlement>): SearchOrganizationEntitlementsResponse;
+  clearEntitlementsList(): SearchOrganizationEntitlementsResponse;
+  addEntitlements(value?: OrganizationEntitlement, index?: number): OrganizationEntitlement;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationEntitlementsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationEntitlementsResponse): SearchOrganizationEntitlementsResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationEntitlementsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationEntitlementsResponse;
+  static deserializeBinaryFromReader(message: SearchOrganizationEntitlementsResponse, reader: jspb.BinaryReader): SearchOrganizationEntitlementsResponse;
+}
+
+export namespace SearchOrganizationEntitlementsResponse {
+  export type AsObject = {
+    entitlementsList: Array<OrganizationEntitlement.AsObject>,
+  }
+}
+
+export class OrganizationEntitlement extends jspb.Message {
+  getNumber(): string;
+  setNumber(value: string): OrganizationEntitlement;
+
+  getName(): string;
+  setName(value: string): OrganizationEntitlement;
+
+  getSummary(): string;
+  setSummary(value: string): OrganizationEntitlement;
+
+  getTier(): google_protobuf_wrappers_pb.StringValue | undefined;
+  setTier(value?: google_protobuf_wrappers_pb.StringValue): OrganizationEntitlement;
+  hasTier(): boolean;
+  clearTier(): OrganizationEntitlement;
+
+  getTotalUnits(): google_protobuf_wrappers_pb.StringValue | undefined;
+  setTotalUnits(value?: google_protobuf_wrappers_pb.StringValue): OrganizationEntitlement;
+  hasTotalUnits(): boolean;
+  clearTotalUnits(): OrganizationEntitlement;
+
+  getUnlimitedUnits(): google_protobuf_wrappers_pb.BoolValue | undefined;
+  setUnlimitedUnits(value?: google_protobuf_wrappers_pb.BoolValue): OrganizationEntitlement;
+  hasUnlimitedUnits(): boolean;
+  clearUnlimitedUnits(): OrganizationEntitlement;
+
+  getSupportLevel(): google_protobuf_wrappers_pb.StringValue | undefined;
+  setSupportLevel(value?: google_protobuf_wrappers_pb.StringValue): OrganizationEntitlement;
+  hasSupportLevel(): boolean;
+  clearSupportLevel(): OrganizationEntitlement;
+
+  getSoftwareFamiliesList(): Array<string>;
+  setSoftwareFamiliesList(value: Array<string>): OrganizationEntitlement;
+  clearSoftwareFamiliesList(): OrganizationEntitlement;
+  addSoftwareFamilies(value: string, index?: number): OrganizationEntitlement;
+
+  getStartDate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setStartDate(value?: google_protobuf_timestamp_pb.Timestamp): OrganizationEntitlement;
+  hasStartDate(): boolean;
+  clearStartDate(): OrganizationEntitlement;
+
+  getEndDate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setEndDate(value?: google_protobuf_timestamp_pb.Timestamp): OrganizationEntitlement;
+  hasEndDate(): boolean;
+  clearEndDate(): OrganizationEntitlement;
+
+  getPlatform(): OrganizationEntitlement.Platform | undefined;
+  setPlatform(value?: OrganizationEntitlement.Platform): OrganizationEntitlement;
+  hasPlatform(): boolean;
+  clearPlatform(): OrganizationEntitlement;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationEntitlement.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationEntitlement): OrganizationEntitlement.AsObject;
+  static serializeBinaryToWriter(message: OrganizationEntitlement, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationEntitlement;
+  static deserializeBinaryFromReader(message: OrganizationEntitlement, reader: jspb.BinaryReader): OrganizationEntitlement;
+}
+
+export namespace OrganizationEntitlement {
+  export type AsObject = {
+    number: string,
+    name: string,
+    summary: string,
+    tier?: google_protobuf_wrappers_pb.StringValue.AsObject,
+    totalUnits?: google_protobuf_wrappers_pb.StringValue.AsObject,
+    unlimitedUnits?: google_protobuf_wrappers_pb.BoolValue.AsObject,
+    supportLevel?: google_protobuf_wrappers_pb.StringValue.AsObject,
+    softwareFamiliesList: Array<string>,
+    startDate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    endDate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    platform?: OrganizationEntitlement.Platform.AsObject,
+  }
+
+  export class Platform extends jspb.Message {
+    getSecurityAdvisor(): google_protobuf_wrappers_pb.StringValue | undefined;
+    setSecurityAdvisor(value?: google_protobuf_wrappers_pb.StringValue): Platform;
+    hasSecurityAdvisor(): boolean;
+    clearSecurityAdvisor(): Platform;
+
+    getConfigAdvisor(): google_protobuf_wrappers_pb.StringValue | undefined;
+    setConfigAdvisor(value?: google_protobuf_wrappers_pb.StringValue): Platform;
+    hasConfigAdvisor(): boolean;
+    clearConfigAdvisor(): Platform;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): Platform.AsObject;
+    static toObject(includeInstance: boolean, msg: Platform): Platform.AsObject;
+    static serializeBinaryToWriter(message: Platform, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Platform;
+    static deserializeBinaryFromReader(message: Platform, reader: jspb.BinaryReader): Platform;
+  }
+
+  export namespace Platform {
+    export type AsObject = {
+      securityAdvisor?: google_protobuf_wrappers_pb.StringValue.AsObject,
+      configAdvisor?: google_protobuf_wrappers_pb.StringValue.AsObject,
+    }
+  }
+
 }
 

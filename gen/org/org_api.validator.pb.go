@@ -12,6 +12,7 @@ import (
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
+	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -90,5 +91,76 @@ func (this *DeleteOrganizationRequest) Validate() error {
 }
 
 func (this *DeleteOrganizationResponse) Validate() error {
+	return nil
+}
+
+func (this *SearchOrganizationEntitlementsRequest) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	return nil
+}
+
+func (this *SearchOrganizationEntitlementsResponse) Validate() error {
+	for _, item := range this.Entitlements {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Entitlements", err)
+			}
+		}
+	}
+	return nil
+}
+
+func (this *OrganizationEntitlement) Validate() error {
+	if this.Tier != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Tier); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Tier", err)
+		}
+	}
+	if this.TotalUnits != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.TotalUnits); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("TotalUnits", err)
+		}
+	}
+	if this.UnlimitedUnits != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.UnlimitedUnits); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("UnlimitedUnits", err)
+		}
+	}
+	if this.SupportLevel != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.SupportLevel); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("SupportLevel", err)
+		}
+	}
+	if this.StartDate != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StartDate); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StartDate", err)
+		}
+	}
+	if this.EndDate != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.EndDate); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("EndDate", err)
+		}
+	}
+	if this.Platform != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Platform); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Platform", err)
+		}
+	}
+	return nil
+}
+
+func (this *OrganizationEntitlement_Platform) Validate() error {
+	if this.SecurityAdvisor != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.SecurityAdvisor); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("SecurityAdvisor", err)
+		}
+	}
+	if this.ConfigAdvisor != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ConfigAdvisor); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ConfigAdvisor", err)
+		}
+	}
 	return nil
 }
