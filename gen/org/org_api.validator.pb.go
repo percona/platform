@@ -191,3 +191,27 @@ func (this *OrganizationTicket) Validate() error {
 	}
 	return nil
 }
+
+func (this *SearchKnowledgeBaseRequest) Validate() error {
+	return nil
+}
+
+func (this *SearchKnowledgeBaseResponse) Validate() error {
+	for _, item := range this.KnowledgeBase {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("KnowledgeBase", err)
+			}
+		}
+	}
+	return nil
+}
+
+func (this *KnowledgeBase) Validate() error {
+	if this.PublishedDate != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.PublishedDate); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("PublishedDate", err)
+		}
+	}
+	return nil
+}

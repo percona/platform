@@ -411,3 +411,93 @@ export namespace OrganizationTicket {
   }
 }
 
+export class SearchKnowledgeBaseRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchKnowledgeBaseRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchKnowledgeBaseRequest): SearchKnowledgeBaseRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchKnowledgeBaseRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchKnowledgeBaseRequest;
+  static deserializeBinaryFromReader(message: SearchKnowledgeBaseRequest, reader: jspb.BinaryReader): SearchKnowledgeBaseRequest;
+}
+
+export namespace SearchKnowledgeBaseRequest {
+  export type AsObject = {
+  }
+}
+
+export class SearchKnowledgeBaseResponse extends jspb.Message {
+  getKnowledgeBaseList(): Array<KnowledgeBase>;
+  setKnowledgeBaseList(value: Array<KnowledgeBase>): SearchKnowledgeBaseResponse;
+  clearKnowledgeBaseList(): SearchKnowledgeBaseResponse;
+  addKnowledgeBase(value?: KnowledgeBase, index?: number): KnowledgeBase;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchKnowledgeBaseResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchKnowledgeBaseResponse): SearchKnowledgeBaseResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchKnowledgeBaseResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchKnowledgeBaseResponse;
+  static deserializeBinaryFromReader(message: SearchKnowledgeBaseResponse, reader: jspb.BinaryReader): SearchKnowledgeBaseResponse;
+}
+
+export namespace SearchKnowledgeBaseResponse {
+  export type AsObject = {
+    knowledgeBaseList: Array<KnowledgeBase.AsObject>,
+  }
+}
+
+export class KnowledgeBase extends jspb.Message {
+  getNumber(): string;
+  setNumber(value: string): KnowledgeBase;
+
+  getVersion(): string;
+  setVersion(value: string): KnowledgeBase;
+
+  getKnowledgeBase(): string;
+  setKnowledgeBase(value: string): KnowledgeBase;
+
+  getKnowledgeBaseUrl(): string;
+  setKnowledgeBaseUrl(value: string): KnowledgeBase;
+
+  getCategory(): string;
+  setCategory(value: string): KnowledgeBase;
+
+  getCategoryUrl(): string;
+  setCategoryUrl(value: string): KnowledgeBase;
+
+  getPublishedDate(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setPublishedDate(value?: google_protobuf_timestamp_pb.Timestamp): KnowledgeBase;
+  hasPublishedDate(): boolean;
+  clearPublishedDate(): KnowledgeBase;
+
+  getShortDescription(): string;
+  setShortDescription(value: string): KnowledgeBase;
+
+  getArticleUrl(): string;
+  setArticleUrl(value: string): KnowledgeBase;
+
+  getText(): string;
+  setText(value: string): KnowledgeBase;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): KnowledgeBase.AsObject;
+  static toObject(includeInstance: boolean, msg: KnowledgeBase): KnowledgeBase.AsObject;
+  static serializeBinaryToWriter(message: KnowledgeBase, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): KnowledgeBase;
+  static deserializeBinaryFromReader(message: KnowledgeBase, reader: jspb.BinaryReader): KnowledgeBase;
+}
+
+export namespace KnowledgeBase {
+  export type AsObject = {
+    number: string,
+    version: string,
+    knowledgeBase: string,
+    knowledgeBaseUrl: string,
+    category: string,
+    categoryUrl: string,
+    publishedDate?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    shortDescription: string,
+    articleUrl: string,
+    text: string,
+  }
+}
+

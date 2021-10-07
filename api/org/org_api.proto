@@ -54,6 +54,14 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/tickets:search"
     };
   }
+
+  // SearchKnowledgeBase fetches details of knowledge base.
+  // Only organizations that are linked to ServiceNow have access to knowledge base.
+  rpc SearchKnowledgeBase(SearchKnowledgeBaseRequest) returns (SearchKnowledgeBaseResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/knowledgebase:search"
+    };
+  }
 }
 
 message Organization {
@@ -191,4 +199,34 @@ message OrganizationTicket {
   string task_type = 8;
   // Ticket url.
   string url = 9;
+}
+
+message SearchKnowledgeBaseRequest {}
+
+message SearchKnowledgeBaseResponse {
+  repeated KnowledgeBase knowledge_base = 1;
+}
+
+// Contains information about knowledge base.
+message KnowledgeBase {
+  // Unique number.
+  string number = 1;
+  // Published version.
+  string version = 2;
+  // Product name.
+  string knowledge_base = 3;
+  // URL.
+  string knowledge_base_url = 4;
+  // Product category.
+  string category = 5;
+  // Category URL.
+  string category_url = 6;
+  // Publishing date.
+  google.protobuf.Timestamp published_date = 7;
+  // Short description.
+  string short_description = 8;
+  // Article URL.
+  string article_url = 9;
+  // Text.
+  string text = 10;
 }

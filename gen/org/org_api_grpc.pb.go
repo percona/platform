@@ -31,6 +31,9 @@ type OrgAPIClient interface {
 	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
 	SearchOrganizationTickets(ctx context.Context, in *SearchOrganizationTicketsRequest, opts ...grpc.CallOption) (*SearchOrganizationTicketsResponse, error)
+	// SearchKnowledgeBase fetches details of knowledge base.
+	// Only organizations that are linked to ServiceNow have access to knowledge base.
+	SearchKnowledgeBase(ctx context.Context, in *SearchKnowledgeBaseRequest, opts ...grpc.CallOption) (*SearchKnowledgeBaseResponse, error)
 }
 
 type orgAPIClient struct {
@@ -95,6 +98,15 @@ func (c *orgAPIClient) SearchOrganizationTickets(ctx context.Context, in *Search
 	return out, nil
 }
 
+func (c *orgAPIClient) SearchKnowledgeBase(ctx context.Context, in *SearchKnowledgeBaseRequest, opts ...grpc.CallOption) (*SearchKnowledgeBaseResponse, error) {
+	out := new(SearchKnowledgeBaseResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchKnowledgeBase", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -111,6 +123,9 @@ type OrgAPIServer interface {
 	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
 	SearchOrganizationTickets(context.Context, *SearchOrganizationTicketsRequest) (*SearchOrganizationTicketsResponse, error)
+	// SearchKnowledgeBase fetches details of knowledge base.
+	// Only organizations that are linked to ServiceNow have access to knowledge base.
+	SearchKnowledgeBase(context.Context, *SearchKnowledgeBaseRequest) (*SearchKnowledgeBaseResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -139,6 +154,10 @@ func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context,
 
 func (UnimplementedOrgAPIServer) SearchOrganizationTickets(context.Context, *SearchOrganizationTicketsRequest) (*SearchOrganizationTicketsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationTickets not implemented")
+}
+
+func (UnimplementedOrgAPIServer) SearchKnowledgeBase(context.Context, *SearchKnowledgeBaseRequest) (*SearchKnowledgeBaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchKnowledgeBase not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -261,6 +280,24 @@ func _OrgAPI_SearchOrganizationTickets_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_SearchKnowledgeBase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchKnowledgeBaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).SearchKnowledgeBase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchKnowledgeBase",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).SearchKnowledgeBase(ctx, req.(*SearchKnowledgeBaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -291,6 +328,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchOrganizationTickets",
 			Handler:    _OrgAPI_SearchOrganizationTickets_Handler,
+		},
+		{
+			MethodName: "SearchKnowledgeBase",
+			Handler:    _OrgAPI_SearchKnowledgeBase_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

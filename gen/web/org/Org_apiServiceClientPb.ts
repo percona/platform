@@ -275,5 +275,45 @@ export class OrgAPIClient {
     this.methodInfoSearchOrganizationTickets);
   }
 
+  methodInfoSearchKnowledgeBase = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchKnowledgeBaseResponse,
+    (request: org_org_api_pb.SearchKnowledgeBaseRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchKnowledgeBaseResponse.deserializeBinary
+  );
+
+  searchKnowledgeBase(
+    request: org_org_api_pb.SearchKnowledgeBaseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchKnowledgeBaseResponse>;
+
+  searchKnowledgeBase(
+    request: org_org_api_pb.SearchKnowledgeBaseRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchKnowledgeBaseResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchKnowledgeBaseResponse>;
+
+  searchKnowledgeBase(
+    request: org_org_api_pb.SearchKnowledgeBaseRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchKnowledgeBaseResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchKnowledgeBase',
+        request,
+        metadata || {},
+        this.methodInfoSearchKnowledgeBase,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchKnowledgeBase',
+    request,
+    metadata || {},
+    this.methodInfoSearchKnowledgeBase);
+  }
+
 }
 

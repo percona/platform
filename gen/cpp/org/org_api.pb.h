@@ -50,7 +50,7 @@ struct TableStruct_org_2forg_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[16]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[19]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -80,6 +80,9 @@ extern GetOrganizationRequestDefaultTypeInternal _GetOrganizationRequest_default
 class GetOrganizationResponse;
 struct GetOrganizationResponseDefaultTypeInternal;
 extern GetOrganizationResponseDefaultTypeInternal _GetOrganizationResponse_default_instance_;
+class KnowledgeBase;
+struct KnowledgeBaseDefaultTypeInternal;
+extern KnowledgeBaseDefaultTypeInternal _KnowledgeBase_default_instance_;
 class Organization;
 struct OrganizationDefaultTypeInternal;
 extern OrganizationDefaultTypeInternal _Organization_default_instance_;
@@ -92,6 +95,12 @@ extern OrganizationEntitlement_PlatformDefaultTypeInternal _OrganizationEntitlem
 class OrganizationTicket;
 struct OrganizationTicketDefaultTypeInternal;
 extern OrganizationTicketDefaultTypeInternal _OrganizationTicket_default_instance_;
+class SearchKnowledgeBaseRequest;
+struct SearchKnowledgeBaseRequestDefaultTypeInternal;
+extern SearchKnowledgeBaseRequestDefaultTypeInternal _SearchKnowledgeBaseRequest_default_instance_;
+class SearchKnowledgeBaseResponse;
+struct SearchKnowledgeBaseResponseDefaultTypeInternal;
+extern SearchKnowledgeBaseResponseDefaultTypeInternal _SearchKnowledgeBaseResponse_default_instance_;
 class SearchOrganizationEntitlementsRequest;
 struct SearchOrganizationEntitlementsRequestDefaultTypeInternal;
 extern SearchOrganizationEntitlementsRequestDefaultTypeInternal _SearchOrganizationEntitlementsRequest_default_instance_;
@@ -121,10 +130,13 @@ template<> ::percona::platform::org::v1::DeleteOrganizationRequest* Arena::Creat
 template<> ::percona::platform::org::v1::DeleteOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationResponse>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationResponse>(Arena*);
+template<> ::percona::platform::org::v1::KnowledgeBase* Arena::CreateMaybeMessage<::percona::platform::org::v1::KnowledgeBase>(Arena*);
 template<> ::percona::platform::org::v1::Organization* Arena::CreateMaybeMessage<::percona::platform::org::v1::Organization>(Arena*);
 template<> ::percona::platform::org::v1::OrganizationEntitlement* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement>(Arena*);
 template<> ::percona::platform::org::v1::OrganizationEntitlement_Platform* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement_Platform>(Arena*);
 template<> ::percona::platform::org::v1::OrganizationTicket* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationTicket>(Arena*);
+template<> ::percona::platform::org::v1::SearchKnowledgeBaseRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchKnowledgeBaseRequest>(Arena*);
+template<> ::percona::platform::org::v1::SearchKnowledgeBaseResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchKnowledgeBaseResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationTicketsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationTicketsRequest>(Arena*);
@@ -2841,6 +2853,584 @@ class OrganizationTicket PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SearchKnowledgeBaseRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchKnowledgeBaseRequest) */ {
+ public:
+  inline SearchKnowledgeBaseRequest() : SearchKnowledgeBaseRequest(nullptr) {}
+  virtual ~SearchKnowledgeBaseRequest();
+  explicit constexpr SearchKnowledgeBaseRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchKnowledgeBaseRequest(const SearchKnowledgeBaseRequest& from);
+  SearchKnowledgeBaseRequest(SearchKnowledgeBaseRequest&& from) noexcept
+    : SearchKnowledgeBaseRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchKnowledgeBaseRequest& operator=(const SearchKnowledgeBaseRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchKnowledgeBaseRequest& operator=(SearchKnowledgeBaseRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchKnowledgeBaseRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchKnowledgeBaseRequest* internal_default_instance() {
+    return reinterpret_cast<const SearchKnowledgeBaseRequest*>(
+               &_SearchKnowledgeBaseRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(SearchKnowledgeBaseRequest& a, SearchKnowledgeBaseRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchKnowledgeBaseRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchKnowledgeBaseRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchKnowledgeBaseRequest* New() const final {
+    return CreateMaybeMessage<SearchKnowledgeBaseRequest>(nullptr);
+  }
+
+  SearchKnowledgeBaseRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchKnowledgeBaseRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchKnowledgeBaseRequest& from);
+  void MergeFrom(const SearchKnowledgeBaseRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchKnowledgeBaseRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchKnowledgeBaseRequest";
+  }
+  protected:
+  explicit SearchKnowledgeBaseRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchKnowledgeBaseRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SearchKnowledgeBaseResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchKnowledgeBaseResponse) */ {
+ public:
+  inline SearchKnowledgeBaseResponse() : SearchKnowledgeBaseResponse(nullptr) {}
+  virtual ~SearchKnowledgeBaseResponse();
+  explicit constexpr SearchKnowledgeBaseResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchKnowledgeBaseResponse(const SearchKnowledgeBaseResponse& from);
+  SearchKnowledgeBaseResponse(SearchKnowledgeBaseResponse&& from) noexcept
+    : SearchKnowledgeBaseResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchKnowledgeBaseResponse& operator=(const SearchKnowledgeBaseResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchKnowledgeBaseResponse& operator=(SearchKnowledgeBaseResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchKnowledgeBaseResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchKnowledgeBaseResponse* internal_default_instance() {
+    return reinterpret_cast<const SearchKnowledgeBaseResponse*>(
+               &_SearchKnowledgeBaseResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(SearchKnowledgeBaseResponse& a, SearchKnowledgeBaseResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchKnowledgeBaseResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchKnowledgeBaseResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchKnowledgeBaseResponse* New() const final {
+    return CreateMaybeMessage<SearchKnowledgeBaseResponse>(nullptr);
+  }
+
+  SearchKnowledgeBaseResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchKnowledgeBaseResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchKnowledgeBaseResponse& from);
+  void MergeFrom(const SearchKnowledgeBaseResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchKnowledgeBaseResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchKnowledgeBaseResponse";
+  }
+  protected:
+  explicit SearchKnowledgeBaseResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kKnowledgeBaseFieldNumber = 1,
+  };
+  // repeated .percona.platform.org.v1.KnowledgeBase knowledge_base = 1;
+  int knowledge_base_size() const;
+  private:
+  int _internal_knowledge_base_size() const;
+  public:
+  void clear_knowledge_base();
+  ::percona::platform::org::v1::KnowledgeBase* mutable_knowledge_base(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::KnowledgeBase >*
+      mutable_knowledge_base();
+  private:
+  const ::percona::platform::org::v1::KnowledgeBase& _internal_knowledge_base(int index) const;
+  ::percona::platform::org::v1::KnowledgeBase* _internal_add_knowledge_base();
+  public:
+  const ::percona::platform::org::v1::KnowledgeBase& knowledge_base(int index) const;
+  ::percona::platform::org::v1::KnowledgeBase* add_knowledge_base();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::KnowledgeBase >&
+      knowledge_base() const;
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchKnowledgeBaseResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::KnowledgeBase > knowledge_base_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class KnowledgeBase PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.KnowledgeBase) */ {
+ public:
+  inline KnowledgeBase() : KnowledgeBase(nullptr) {}
+  virtual ~KnowledgeBase();
+  explicit constexpr KnowledgeBase(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  KnowledgeBase(const KnowledgeBase& from);
+  KnowledgeBase(KnowledgeBase&& from) noexcept
+    : KnowledgeBase() {
+    *this = ::std::move(from);
+  }
+
+  inline KnowledgeBase& operator=(const KnowledgeBase& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline KnowledgeBase& operator=(KnowledgeBase&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const KnowledgeBase& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const KnowledgeBase* internal_default_instance() {
+    return reinterpret_cast<const KnowledgeBase*>(
+               &_KnowledgeBase_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(KnowledgeBase& a, KnowledgeBase& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(KnowledgeBase* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(KnowledgeBase* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline KnowledgeBase* New() const final {
+    return CreateMaybeMessage<KnowledgeBase>(nullptr);
+  }
+
+  KnowledgeBase* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<KnowledgeBase>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const KnowledgeBase& from);
+  void MergeFrom(const KnowledgeBase& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(KnowledgeBase* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.KnowledgeBase";
+  }
+  protected:
+  explicit KnowledgeBase(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNumberFieldNumber = 1,
+    kVersionFieldNumber = 2,
+    kKnowledgeBaseFieldNumber = 3,
+    kKnowledgeBaseUrlFieldNumber = 4,
+    kCategoryFieldNumber = 5,
+    kCategoryUrlFieldNumber = 6,
+    kShortDescriptionFieldNumber = 8,
+    kArticleUrlFieldNumber = 9,
+    kTextFieldNumber = 10,
+    kPublishedDateFieldNumber = 7,
+  };
+  // string number = 1;
+  void clear_number();
+  const std::string& number() const;
+  void set_number(const std::string& value);
+  void set_number(std::string&& value);
+  void set_number(const char* value);
+  void set_number(const char* value, size_t size);
+  std::string* mutable_number();
+  std::string* release_number();
+  void set_allocated_number(std::string* number);
+  private:
+  const std::string& _internal_number() const;
+  void _internal_set_number(const std::string& value);
+  std::string* _internal_mutable_number();
+  public:
+
+  // string version = 2;
+  void clear_version();
+  const std::string& version() const;
+  void set_version(const std::string& value);
+  void set_version(std::string&& value);
+  void set_version(const char* value);
+  void set_version(const char* value, size_t size);
+  std::string* mutable_version();
+  std::string* release_version();
+  void set_allocated_version(std::string* version);
+  private:
+  const std::string& _internal_version() const;
+  void _internal_set_version(const std::string& value);
+  std::string* _internal_mutable_version();
+  public:
+
+  // string knowledge_base = 3;
+  void clear_knowledge_base();
+  const std::string& knowledge_base() const;
+  void set_knowledge_base(const std::string& value);
+  void set_knowledge_base(std::string&& value);
+  void set_knowledge_base(const char* value);
+  void set_knowledge_base(const char* value, size_t size);
+  std::string* mutable_knowledge_base();
+  std::string* release_knowledge_base();
+  void set_allocated_knowledge_base(std::string* knowledge_base);
+  private:
+  const std::string& _internal_knowledge_base() const;
+  void _internal_set_knowledge_base(const std::string& value);
+  std::string* _internal_mutable_knowledge_base();
+  public:
+
+  // string knowledge_base_url = 4;
+  void clear_knowledge_base_url();
+  const std::string& knowledge_base_url() const;
+  void set_knowledge_base_url(const std::string& value);
+  void set_knowledge_base_url(std::string&& value);
+  void set_knowledge_base_url(const char* value);
+  void set_knowledge_base_url(const char* value, size_t size);
+  std::string* mutable_knowledge_base_url();
+  std::string* release_knowledge_base_url();
+  void set_allocated_knowledge_base_url(std::string* knowledge_base_url);
+  private:
+  const std::string& _internal_knowledge_base_url() const;
+  void _internal_set_knowledge_base_url(const std::string& value);
+  std::string* _internal_mutable_knowledge_base_url();
+  public:
+
+  // string category = 5;
+  void clear_category();
+  const std::string& category() const;
+  void set_category(const std::string& value);
+  void set_category(std::string&& value);
+  void set_category(const char* value);
+  void set_category(const char* value, size_t size);
+  std::string* mutable_category();
+  std::string* release_category();
+  void set_allocated_category(std::string* category);
+  private:
+  const std::string& _internal_category() const;
+  void _internal_set_category(const std::string& value);
+  std::string* _internal_mutable_category();
+  public:
+
+  // string category_url = 6;
+  void clear_category_url();
+  const std::string& category_url() const;
+  void set_category_url(const std::string& value);
+  void set_category_url(std::string&& value);
+  void set_category_url(const char* value);
+  void set_category_url(const char* value, size_t size);
+  std::string* mutable_category_url();
+  std::string* release_category_url();
+  void set_allocated_category_url(std::string* category_url);
+  private:
+  const std::string& _internal_category_url() const;
+  void _internal_set_category_url(const std::string& value);
+  std::string* _internal_mutable_category_url();
+  public:
+
+  // string short_description = 8;
+  void clear_short_description();
+  const std::string& short_description() const;
+  void set_short_description(const std::string& value);
+  void set_short_description(std::string&& value);
+  void set_short_description(const char* value);
+  void set_short_description(const char* value, size_t size);
+  std::string* mutable_short_description();
+  std::string* release_short_description();
+  void set_allocated_short_description(std::string* short_description);
+  private:
+  const std::string& _internal_short_description() const;
+  void _internal_set_short_description(const std::string& value);
+  std::string* _internal_mutable_short_description();
+  public:
+
+  // string article_url = 9;
+  void clear_article_url();
+  const std::string& article_url() const;
+  void set_article_url(const std::string& value);
+  void set_article_url(std::string&& value);
+  void set_article_url(const char* value);
+  void set_article_url(const char* value, size_t size);
+  std::string* mutable_article_url();
+  std::string* release_article_url();
+  void set_allocated_article_url(std::string* article_url);
+  private:
+  const std::string& _internal_article_url() const;
+  void _internal_set_article_url(const std::string& value);
+  std::string* _internal_mutable_article_url();
+  public:
+
+  // string text = 10;
+  void clear_text();
+  const std::string& text() const;
+  void set_text(const std::string& value);
+  void set_text(std::string&& value);
+  void set_text(const char* value);
+  void set_text(const char* value, size_t size);
+  std::string* mutable_text();
+  std::string* release_text();
+  void set_allocated_text(std::string* text);
+  private:
+  const std::string& _internal_text() const;
+  void _internal_set_text(const std::string& value);
+  std::string* _internal_mutable_text();
+  public:
+
+  // .google.protobuf.Timestamp published_date = 7;
+  bool has_published_date() const;
+  private:
+  bool _internal_has_published_date() const;
+  public:
+  void clear_published_date();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& published_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_published_date();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_published_date();
+  void set_allocated_published_date(PROTOBUF_NAMESPACE_ID::Timestamp* published_date);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_published_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_published_date();
+  public:
+  void unsafe_arena_set_allocated_published_date(
+      PROTOBUF_NAMESPACE_ID::Timestamp* published_date);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_published_date();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.KnowledgeBase)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr number_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr knowledge_base_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr knowledge_base_url_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr category_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr category_url_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr short_description_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr article_url_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* published_date_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
 // ===================================================================
 
 
@@ -5297,9 +5887,692 @@ inline void OrganizationTicket::set_allocated_url(std::string* url) {
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.url)
 }
 
+// -------------------------------------------------------------------
+
+// SearchKnowledgeBaseRequest
+
+// -------------------------------------------------------------------
+
+// SearchKnowledgeBaseResponse
+
+// repeated .percona.platform.org.v1.KnowledgeBase knowledge_base = 1;
+inline int SearchKnowledgeBaseResponse::_internal_knowledge_base_size() const {
+  return knowledge_base_.size();
+}
+inline int SearchKnowledgeBaseResponse::knowledge_base_size() const {
+  return _internal_knowledge_base_size();
+}
+inline void SearchKnowledgeBaseResponse::clear_knowledge_base() {
+  knowledge_base_.Clear();
+}
+inline ::percona::platform::org::v1::KnowledgeBase* SearchKnowledgeBaseResponse::mutable_knowledge_base(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchKnowledgeBaseResponse.knowledge_base)
+  return knowledge_base_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::KnowledgeBase >*
+SearchKnowledgeBaseResponse::mutable_knowledge_base() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.org.v1.SearchKnowledgeBaseResponse.knowledge_base)
+  return &knowledge_base_;
+}
+inline const ::percona::platform::org::v1::KnowledgeBase& SearchKnowledgeBaseResponse::_internal_knowledge_base(int index) const {
+  return knowledge_base_.Get(index);
+}
+inline const ::percona::platform::org::v1::KnowledgeBase& SearchKnowledgeBaseResponse::knowledge_base(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchKnowledgeBaseResponse.knowledge_base)
+  return _internal_knowledge_base(index);
+}
+inline ::percona::platform::org::v1::KnowledgeBase* SearchKnowledgeBaseResponse::_internal_add_knowledge_base() {
+  return knowledge_base_.Add();
+}
+inline ::percona::platform::org::v1::KnowledgeBase* SearchKnowledgeBaseResponse::add_knowledge_base() {
+  // @@protoc_insertion_point(field_add:percona.platform.org.v1.SearchKnowledgeBaseResponse.knowledge_base)
+  return _internal_add_knowledge_base();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::KnowledgeBase >&
+SearchKnowledgeBaseResponse::knowledge_base() const {
+  // @@protoc_insertion_point(field_list:percona.platform.org.v1.SearchKnowledgeBaseResponse.knowledge_base)
+  return knowledge_base_;
+}
+
+// -------------------------------------------------------------------
+
+// KnowledgeBase
+
+// string number = 1;
+inline void KnowledgeBase::clear_number() {
+  number_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::number() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.number)
+  return _internal_number();
+}
+inline void KnowledgeBase::set_number(const std::string& value) {
+  _internal_set_number(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.number)
+}
+inline std::string* KnowledgeBase::mutable_number() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.number)
+  return _internal_mutable_number();
+}
+inline const std::string& KnowledgeBase::_internal_number() const {
+  return number_.Get();
+}
+inline void KnowledgeBase::_internal_set_number(const std::string& value) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_number(std::string&& value) {
+  
+  number_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.number)
+}
+inline void KnowledgeBase::set_number(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.number)
+}
+inline void KnowledgeBase::set_number(const char* value,
+    size_t size) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.number)
+}
+inline std::string* KnowledgeBase::_internal_mutable_number() {
+  
+  return number_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_number() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.number)
+  return number_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_number(std::string* number) {
+  if (number != nullptr) {
+    
+  } else {
+    
+  }
+  number_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), number,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.number)
+}
+
+// string version = 2;
+inline void KnowledgeBase::clear_version() {
+  version_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::version() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.version)
+  return _internal_version();
+}
+inline void KnowledgeBase::set_version(const std::string& value) {
+  _internal_set_version(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.version)
+}
+inline std::string* KnowledgeBase::mutable_version() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.version)
+  return _internal_mutable_version();
+}
+inline const std::string& KnowledgeBase::_internal_version() const {
+  return version_.Get();
+}
+inline void KnowledgeBase::_internal_set_version(const std::string& value) {
+  
+  version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_version(std::string&& value) {
+  
+  version_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.version)
+}
+inline void KnowledgeBase::set_version(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.version)
+}
+inline void KnowledgeBase::set_version(const char* value,
+    size_t size) {
+  
+  version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.version)
+}
+inline std::string* KnowledgeBase::_internal_mutable_version() {
+  
+  return version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_version() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.version)
+  return version_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_version(std::string* version) {
+  if (version != nullptr) {
+    
+  } else {
+    
+  }
+  version_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), version,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.version)
+}
+
+// string knowledge_base = 3;
+inline void KnowledgeBase::clear_knowledge_base() {
+  knowledge_base_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::knowledge_base() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+  return _internal_knowledge_base();
+}
+inline void KnowledgeBase::set_knowledge_base(const std::string& value) {
+  _internal_set_knowledge_base(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+}
+inline std::string* KnowledgeBase::mutable_knowledge_base() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+  return _internal_mutable_knowledge_base();
+}
+inline const std::string& KnowledgeBase::_internal_knowledge_base() const {
+  return knowledge_base_.Get();
+}
+inline void KnowledgeBase::_internal_set_knowledge_base(const std::string& value) {
+  
+  knowledge_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_knowledge_base(std::string&& value) {
+  
+  knowledge_base_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+}
+inline void KnowledgeBase::set_knowledge_base(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  knowledge_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+}
+inline void KnowledgeBase::set_knowledge_base(const char* value,
+    size_t size) {
+  
+  knowledge_base_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+}
+inline std::string* KnowledgeBase::_internal_mutable_knowledge_base() {
+  
+  return knowledge_base_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_knowledge_base() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+  return knowledge_base_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_knowledge_base(std::string* knowledge_base) {
+  if (knowledge_base != nullptr) {
+    
+  } else {
+    
+  }
+  knowledge_base_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), knowledge_base,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.knowledge_base)
+}
+
+// string knowledge_base_url = 4;
+inline void KnowledgeBase::clear_knowledge_base_url() {
+  knowledge_base_url_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::knowledge_base_url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+  return _internal_knowledge_base_url();
+}
+inline void KnowledgeBase::set_knowledge_base_url(const std::string& value) {
+  _internal_set_knowledge_base_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+}
+inline std::string* KnowledgeBase::mutable_knowledge_base_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+  return _internal_mutable_knowledge_base_url();
+}
+inline const std::string& KnowledgeBase::_internal_knowledge_base_url() const {
+  return knowledge_base_url_.Get();
+}
+inline void KnowledgeBase::_internal_set_knowledge_base_url(const std::string& value) {
+  
+  knowledge_base_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_knowledge_base_url(std::string&& value) {
+  
+  knowledge_base_url_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+}
+inline void KnowledgeBase::set_knowledge_base_url(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  knowledge_base_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+}
+inline void KnowledgeBase::set_knowledge_base_url(const char* value,
+    size_t size) {
+  
+  knowledge_base_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+}
+inline std::string* KnowledgeBase::_internal_mutable_knowledge_base_url() {
+  
+  return knowledge_base_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_knowledge_base_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+  return knowledge_base_url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_knowledge_base_url(std::string* knowledge_base_url) {
+  if (knowledge_base_url != nullptr) {
+    
+  } else {
+    
+  }
+  knowledge_base_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), knowledge_base_url,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.knowledge_base_url)
+}
+
+// string category = 5;
+inline void KnowledgeBase::clear_category() {
+  category_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::category() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.category)
+  return _internal_category();
+}
+inline void KnowledgeBase::set_category(const std::string& value) {
+  _internal_set_category(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.category)
+}
+inline std::string* KnowledgeBase::mutable_category() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.category)
+  return _internal_mutable_category();
+}
+inline const std::string& KnowledgeBase::_internal_category() const {
+  return category_.Get();
+}
+inline void KnowledgeBase::_internal_set_category(const std::string& value) {
+  
+  category_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_category(std::string&& value) {
+  
+  category_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.category)
+}
+inline void KnowledgeBase::set_category(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  category_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.category)
+}
+inline void KnowledgeBase::set_category(const char* value,
+    size_t size) {
+  
+  category_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.category)
+}
+inline std::string* KnowledgeBase::_internal_mutable_category() {
+  
+  return category_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_category() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.category)
+  return category_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_category(std::string* category) {
+  if (category != nullptr) {
+    
+  } else {
+    
+  }
+  category_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), category,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.category)
+}
+
+// string category_url = 6;
+inline void KnowledgeBase::clear_category_url() {
+  category_url_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::category_url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.category_url)
+  return _internal_category_url();
+}
+inline void KnowledgeBase::set_category_url(const std::string& value) {
+  _internal_set_category_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.category_url)
+}
+inline std::string* KnowledgeBase::mutable_category_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.category_url)
+  return _internal_mutable_category_url();
+}
+inline const std::string& KnowledgeBase::_internal_category_url() const {
+  return category_url_.Get();
+}
+inline void KnowledgeBase::_internal_set_category_url(const std::string& value) {
+  
+  category_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_category_url(std::string&& value) {
+  
+  category_url_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.category_url)
+}
+inline void KnowledgeBase::set_category_url(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  category_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.category_url)
+}
+inline void KnowledgeBase::set_category_url(const char* value,
+    size_t size) {
+  
+  category_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.category_url)
+}
+inline std::string* KnowledgeBase::_internal_mutable_category_url() {
+  
+  return category_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_category_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.category_url)
+  return category_url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_category_url(std::string* category_url) {
+  if (category_url != nullptr) {
+    
+  } else {
+    
+  }
+  category_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), category_url,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.category_url)
+}
+
+// .google.protobuf.Timestamp published_date = 7;
+inline bool KnowledgeBase::_internal_has_published_date() const {
+  return this != internal_default_instance() && published_date_ != nullptr;
+}
+inline bool KnowledgeBase::has_published_date() const {
+  return _internal_has_published_date();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& KnowledgeBase::_internal_published_date() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = published_date_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& KnowledgeBase::published_date() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.published_date)
+  return _internal_published_date();
+}
+inline void KnowledgeBase::unsafe_arena_set_allocated_published_date(
+    PROTOBUF_NAMESPACE_ID::Timestamp* published_date) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(published_date_);
+  }
+  published_date_ = published_date;
+  if (published_date) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.KnowledgeBase.published_date)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* KnowledgeBase::release_published_date() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = published_date_;
+  published_date_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* KnowledgeBase::unsafe_arena_release_published_date() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.published_date)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = published_date_;
+  published_date_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* KnowledgeBase::_internal_mutable_published_date() {
+  
+  if (published_date_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    published_date_ = p;
+  }
+  return published_date_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* KnowledgeBase::mutable_published_date() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.published_date)
+  return _internal_mutable_published_date();
+}
+inline void KnowledgeBase::set_allocated_published_date(PROTOBUF_NAMESPACE_ID::Timestamp* published_date) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(published_date_);
+  }
+  if (published_date) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(published_date)->GetArena();
+    if (message_arena != submessage_arena) {
+      published_date = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, published_date, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  published_date_ = published_date;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.published_date)
+}
+
+// string short_description = 8;
+inline void KnowledgeBase::clear_short_description() {
+  short_description_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::short_description() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.short_description)
+  return _internal_short_description();
+}
+inline void KnowledgeBase::set_short_description(const std::string& value) {
+  _internal_set_short_description(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.short_description)
+}
+inline std::string* KnowledgeBase::mutable_short_description() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.short_description)
+  return _internal_mutable_short_description();
+}
+inline const std::string& KnowledgeBase::_internal_short_description() const {
+  return short_description_.Get();
+}
+inline void KnowledgeBase::_internal_set_short_description(const std::string& value) {
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_short_description(std::string&& value) {
+  
+  short_description_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.short_description)
+}
+inline void KnowledgeBase::set_short_description(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.short_description)
+}
+inline void KnowledgeBase::set_short_description(const char* value,
+    size_t size) {
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.short_description)
+}
+inline std::string* KnowledgeBase::_internal_mutable_short_description() {
+  
+  return short_description_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_short_description() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.short_description)
+  return short_description_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_short_description(std::string* short_description) {
+  if (short_description != nullptr) {
+    
+  } else {
+    
+  }
+  short_description_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), short_description,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.short_description)
+}
+
+// string article_url = 9;
+inline void KnowledgeBase::clear_article_url() {
+  article_url_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::article_url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.article_url)
+  return _internal_article_url();
+}
+inline void KnowledgeBase::set_article_url(const std::string& value) {
+  _internal_set_article_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.article_url)
+}
+inline std::string* KnowledgeBase::mutable_article_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.article_url)
+  return _internal_mutable_article_url();
+}
+inline const std::string& KnowledgeBase::_internal_article_url() const {
+  return article_url_.Get();
+}
+inline void KnowledgeBase::_internal_set_article_url(const std::string& value) {
+  
+  article_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_article_url(std::string&& value) {
+  
+  article_url_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.article_url)
+}
+inline void KnowledgeBase::set_article_url(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  article_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.article_url)
+}
+inline void KnowledgeBase::set_article_url(const char* value,
+    size_t size) {
+  
+  article_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.article_url)
+}
+inline std::string* KnowledgeBase::_internal_mutable_article_url() {
+  
+  return article_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_article_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.article_url)
+  return article_url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_article_url(std::string* article_url) {
+  if (article_url != nullptr) {
+    
+  } else {
+    
+  }
+  article_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), article_url,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.article_url)
+}
+
+// string text = 10;
+inline void KnowledgeBase::clear_text() {
+  text_.ClearToEmpty();
+}
+inline const std::string& KnowledgeBase::text() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.KnowledgeBase.text)
+  return _internal_text();
+}
+inline void KnowledgeBase::set_text(const std::string& value) {
+  _internal_set_text(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.KnowledgeBase.text)
+}
+inline std::string* KnowledgeBase::mutable_text() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.KnowledgeBase.text)
+  return _internal_mutable_text();
+}
+inline const std::string& KnowledgeBase::_internal_text() const {
+  return text_.Get();
+}
+inline void KnowledgeBase::_internal_set_text(const std::string& value) {
+  
+  text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void KnowledgeBase::set_text(std::string&& value) {
+  
+  text_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.KnowledgeBase.text)
+}
+inline void KnowledgeBase::set_text(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.KnowledgeBase.text)
+}
+inline void KnowledgeBase::set_text(const char* value,
+    size_t size) {
+  
+  text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.KnowledgeBase.text)
+}
+inline std::string* KnowledgeBase::_internal_mutable_text() {
+  
+  return text_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* KnowledgeBase::release_text() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.KnowledgeBase.text)
+  return text_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void KnowledgeBase::set_allocated_text(std::string* text) {
+  if (text != nullptr) {
+    
+  } else {
+    
+  }
+  text_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), text,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.KnowledgeBase.text)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
