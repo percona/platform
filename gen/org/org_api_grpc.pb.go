@@ -27,6 +27,8 @@ type OrgAPIClient interface {
 	SearchOrganizations(ctx context.Context, in *SearchOrganizationsRequest, opts ...grpc.CallOption) (*SearchOrganizationsResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
+	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
+	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
 }
 
 type orgAPIClient struct {
@@ -73,6 +75,15 @@ func (c *orgAPIClient) DeleteOrganization(ctx context.Context, in *DeleteOrganiz
 	return out, nil
 }
 
+func (c *orgAPIClient) SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error) {
+	out := new(SearchOrganizationEntitlementsResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -85,6 +96,8 @@ type OrgAPIServer interface {
 	SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error)
 	// DeleteOrganization deletes organization and its members for the given organization ID.
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
+	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
+	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -105,6 +118,10 @@ func (UnimplementedOrgAPIServer) SearchOrganizations(context.Context, *SearchOrg
 
 func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
+}
+
+func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -191,6 +208,24 @@ func _OrgAPI_DeleteOrganization_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_SearchOrganizationEntitlements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchOrganizationEntitlementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).SearchOrganizationEntitlements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).SearchOrganizationEntitlements(ctx, req.(*SearchOrganizationEntitlementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +248,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteOrganization",
 			Handler:    _OrgAPI_DeleteOrganization_Handler,
+		},
+		{
+			MethodName: "SearchOrganizationEntitlements",
+			Handler:    _OrgAPI_SearchOrganizationEntitlements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

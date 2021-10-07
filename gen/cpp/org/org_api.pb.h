@@ -34,6 +34,7 @@
 #include "github.com/mwitkow/go-proto-validators/validator.pb.h"
 #include "google/api/annotations.pb.h"
 #include <google/protobuf/timestamp.pb.h>
+#include <google/protobuf/wrappers.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_org_2forg_5fapi_2eproto
@@ -49,7 +50,7 @@ struct TableStruct_org_2forg_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -82,6 +83,18 @@ extern GetOrganizationResponseDefaultTypeInternal _GetOrganizationResponse_defau
 class Organization;
 struct OrganizationDefaultTypeInternal;
 extern OrganizationDefaultTypeInternal _Organization_default_instance_;
+class OrganizationEntitlement;
+struct OrganizationEntitlementDefaultTypeInternal;
+extern OrganizationEntitlementDefaultTypeInternal _OrganizationEntitlement_default_instance_;
+class OrganizationEntitlement_Platform;
+struct OrganizationEntitlement_PlatformDefaultTypeInternal;
+extern OrganizationEntitlement_PlatformDefaultTypeInternal _OrganizationEntitlement_Platform_default_instance_;
+class SearchOrganizationEntitlementsRequest;
+struct SearchOrganizationEntitlementsRequestDefaultTypeInternal;
+extern SearchOrganizationEntitlementsRequestDefaultTypeInternal _SearchOrganizationEntitlementsRequest_default_instance_;
+class SearchOrganizationEntitlementsResponse;
+struct SearchOrganizationEntitlementsResponseDefaultTypeInternal;
+extern SearchOrganizationEntitlementsResponseDefaultTypeInternal _SearchOrganizationEntitlementsResponse_default_instance_;
 class SearchOrganizationsRequest;
 struct SearchOrganizationsRequestDefaultTypeInternal;
 extern SearchOrganizationsRequestDefaultTypeInternal _SearchOrganizationsRequest_default_instance_;
@@ -100,6 +113,10 @@ template<> ::percona::platform::org::v1::DeleteOrganizationResponse* Arena::Crea
 template<> ::percona::platform::org::v1::GetOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationResponse>(Arena*);
 template<> ::percona::platform::org::v1::Organization* Arena::CreateMaybeMessage<::percona::platform::org::v1::Organization>(Arena*);
+template<> ::percona::platform::org::v1::OrganizationEntitlement* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement>(Arena*);
+template<> ::percona::platform::org::v1::OrganizationEntitlement_Platform* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement_Platform>(Arena*);
+template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsRequest>(Arena*);
+template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1428,6 +1445,810 @@ class DeleteOrganizationResponse PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SearchOrganizationEntitlementsRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchOrganizationEntitlementsRequest) */ {
+ public:
+  inline SearchOrganizationEntitlementsRequest() : SearchOrganizationEntitlementsRequest(nullptr) {}
+  virtual ~SearchOrganizationEntitlementsRequest();
+  explicit constexpr SearchOrganizationEntitlementsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchOrganizationEntitlementsRequest(const SearchOrganizationEntitlementsRequest& from);
+  SearchOrganizationEntitlementsRequest(SearchOrganizationEntitlementsRequest&& from) noexcept
+    : SearchOrganizationEntitlementsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchOrganizationEntitlementsRequest& operator=(const SearchOrganizationEntitlementsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchOrganizationEntitlementsRequest& operator=(SearchOrganizationEntitlementsRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchOrganizationEntitlementsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchOrganizationEntitlementsRequest* internal_default_instance() {
+    return reinterpret_cast<const SearchOrganizationEntitlementsRequest*>(
+               &_SearchOrganizationEntitlementsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(SearchOrganizationEntitlementsRequest& a, SearchOrganizationEntitlementsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchOrganizationEntitlementsRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchOrganizationEntitlementsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchOrganizationEntitlementsRequest* New() const final {
+    return CreateMaybeMessage<SearchOrganizationEntitlementsRequest>(nullptr);
+  }
+
+  SearchOrganizationEntitlementsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchOrganizationEntitlementsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchOrganizationEntitlementsRequest& from);
+  void MergeFrom(const SearchOrganizationEntitlementsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchOrganizationEntitlementsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchOrganizationEntitlementsRequest";
+  }
+  protected:
+  explicit SearchOrganizationEntitlementsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+  };
+  // string id = 1 [(.validator.field) = {
+  void clear_id();
+  const std::string& id() const;
+  void set_id(const std::string& value);
+  void set_id(std::string&& value);
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  std::string* mutable_id();
+  std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchOrganizationEntitlementsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SearchOrganizationEntitlementsResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchOrganizationEntitlementsResponse) */ {
+ public:
+  inline SearchOrganizationEntitlementsResponse() : SearchOrganizationEntitlementsResponse(nullptr) {}
+  virtual ~SearchOrganizationEntitlementsResponse();
+  explicit constexpr SearchOrganizationEntitlementsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchOrganizationEntitlementsResponse(const SearchOrganizationEntitlementsResponse& from);
+  SearchOrganizationEntitlementsResponse(SearchOrganizationEntitlementsResponse&& from) noexcept
+    : SearchOrganizationEntitlementsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchOrganizationEntitlementsResponse& operator=(const SearchOrganizationEntitlementsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchOrganizationEntitlementsResponse& operator=(SearchOrganizationEntitlementsResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchOrganizationEntitlementsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchOrganizationEntitlementsResponse* internal_default_instance() {
+    return reinterpret_cast<const SearchOrganizationEntitlementsResponse*>(
+               &_SearchOrganizationEntitlementsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(SearchOrganizationEntitlementsResponse& a, SearchOrganizationEntitlementsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchOrganizationEntitlementsResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchOrganizationEntitlementsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchOrganizationEntitlementsResponse* New() const final {
+    return CreateMaybeMessage<SearchOrganizationEntitlementsResponse>(nullptr);
+  }
+
+  SearchOrganizationEntitlementsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchOrganizationEntitlementsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchOrganizationEntitlementsResponse& from);
+  void MergeFrom(const SearchOrganizationEntitlementsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchOrganizationEntitlementsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchOrganizationEntitlementsResponse";
+  }
+  protected:
+  explicit SearchOrganizationEntitlementsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEntitlementsFieldNumber = 1,
+  };
+  // repeated .percona.platform.org.v1.OrganizationEntitlement entitlements = 1;
+  int entitlements_size() const;
+  private:
+  int _internal_entitlements_size() const;
+  public:
+  void clear_entitlements();
+  ::percona::platform::org::v1::OrganizationEntitlement* mutable_entitlements(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationEntitlement >*
+      mutable_entitlements();
+  private:
+  const ::percona::platform::org::v1::OrganizationEntitlement& _internal_entitlements(int index) const;
+  ::percona::platform::org::v1::OrganizationEntitlement* _internal_add_entitlements();
+  public:
+  const ::percona::platform::org::v1::OrganizationEntitlement& entitlements(int index) const;
+  ::percona::platform::org::v1::OrganizationEntitlement* add_entitlements();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationEntitlement >&
+      entitlements() const;
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchOrganizationEntitlementsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationEntitlement > entitlements_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OrganizationEntitlement_Platform PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.OrganizationEntitlement.Platform) */ {
+ public:
+  inline OrganizationEntitlement_Platform() : OrganizationEntitlement_Platform(nullptr) {}
+  virtual ~OrganizationEntitlement_Platform();
+  explicit constexpr OrganizationEntitlement_Platform(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OrganizationEntitlement_Platform(const OrganizationEntitlement_Platform& from);
+  OrganizationEntitlement_Platform(OrganizationEntitlement_Platform&& from) noexcept
+    : OrganizationEntitlement_Platform() {
+    *this = ::std::move(from);
+  }
+
+  inline OrganizationEntitlement_Platform& operator=(const OrganizationEntitlement_Platform& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OrganizationEntitlement_Platform& operator=(OrganizationEntitlement_Platform&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const OrganizationEntitlement_Platform& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OrganizationEntitlement_Platform* internal_default_instance() {
+    return reinterpret_cast<const OrganizationEntitlement_Platform*>(
+               &_OrganizationEntitlement_Platform_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(OrganizationEntitlement_Platform& a, OrganizationEntitlement_Platform& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OrganizationEntitlement_Platform* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OrganizationEntitlement_Platform* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OrganizationEntitlement_Platform* New() const final {
+    return CreateMaybeMessage<OrganizationEntitlement_Platform>(nullptr);
+  }
+
+  OrganizationEntitlement_Platform* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OrganizationEntitlement_Platform>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const OrganizationEntitlement_Platform& from);
+  void MergeFrom(const OrganizationEntitlement_Platform& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OrganizationEntitlement_Platform* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.OrganizationEntitlement.Platform";
+  }
+  protected:
+  explicit OrganizationEntitlement_Platform(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSecurityAdvisorFieldNumber = 1,
+    kConfigAdvisorFieldNumber = 2,
+  };
+  // .google.protobuf.StringValue security_advisor = 1;
+  bool has_security_advisor() const;
+  private:
+  bool _internal_has_security_advisor() const;
+  public:
+  void clear_security_advisor();
+  const PROTOBUF_NAMESPACE_ID::StringValue& security_advisor() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* release_security_advisor();
+  PROTOBUF_NAMESPACE_ID::StringValue* mutable_security_advisor();
+  void set_allocated_security_advisor(PROTOBUF_NAMESPACE_ID::StringValue* security_advisor);
+  private:
+  const PROTOBUF_NAMESPACE_ID::StringValue& _internal_security_advisor() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* _internal_mutable_security_advisor();
+  public:
+  void unsafe_arena_set_allocated_security_advisor(
+      PROTOBUF_NAMESPACE_ID::StringValue* security_advisor);
+  PROTOBUF_NAMESPACE_ID::StringValue* unsafe_arena_release_security_advisor();
+
+  // .google.protobuf.StringValue config_advisor = 2;
+  bool has_config_advisor() const;
+  private:
+  bool _internal_has_config_advisor() const;
+  public:
+  void clear_config_advisor();
+  const PROTOBUF_NAMESPACE_ID::StringValue& config_advisor() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* release_config_advisor();
+  PROTOBUF_NAMESPACE_ID::StringValue* mutable_config_advisor();
+  void set_allocated_config_advisor(PROTOBUF_NAMESPACE_ID::StringValue* config_advisor);
+  private:
+  const PROTOBUF_NAMESPACE_ID::StringValue& _internal_config_advisor() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* _internal_mutable_config_advisor();
+  public:
+  void unsafe_arena_set_allocated_config_advisor(
+      PROTOBUF_NAMESPACE_ID::StringValue* config_advisor);
+  PROTOBUF_NAMESPACE_ID::StringValue* unsafe_arena_release_config_advisor();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.OrganizationEntitlement.Platform)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  PROTOBUF_NAMESPACE_ID::StringValue* security_advisor_;
+  PROTOBUF_NAMESPACE_ID::StringValue* config_advisor_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OrganizationEntitlement PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.OrganizationEntitlement) */ {
+ public:
+  inline OrganizationEntitlement() : OrganizationEntitlement(nullptr) {}
+  virtual ~OrganizationEntitlement();
+  explicit constexpr OrganizationEntitlement(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OrganizationEntitlement(const OrganizationEntitlement& from);
+  OrganizationEntitlement(OrganizationEntitlement&& from) noexcept
+    : OrganizationEntitlement() {
+    *this = ::std::move(from);
+  }
+
+  inline OrganizationEntitlement& operator=(const OrganizationEntitlement& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OrganizationEntitlement& operator=(OrganizationEntitlement&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const OrganizationEntitlement& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OrganizationEntitlement* internal_default_instance() {
+    return reinterpret_cast<const OrganizationEntitlement*>(
+               &_OrganizationEntitlement_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(OrganizationEntitlement& a, OrganizationEntitlement& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OrganizationEntitlement* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OrganizationEntitlement* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OrganizationEntitlement* New() const final {
+    return CreateMaybeMessage<OrganizationEntitlement>(nullptr);
+  }
+
+  OrganizationEntitlement* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OrganizationEntitlement>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const OrganizationEntitlement& from);
+  void MergeFrom(const OrganizationEntitlement& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OrganizationEntitlement* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.OrganizationEntitlement";
+  }
+  protected:
+  explicit OrganizationEntitlement(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef OrganizationEntitlement_Platform Platform;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSoftwareFamiliesFieldNumber = 8,
+    kNumberFieldNumber = 1,
+    kNameFieldNumber = 2,
+    kSummaryFieldNumber = 3,
+    kTierFieldNumber = 4,
+    kTotalUnitsFieldNumber = 5,
+    kUnlimitedUnitsFieldNumber = 6,
+    kSupportLevelFieldNumber = 7,
+    kStartDateFieldNumber = 9,
+    kEndDateFieldNumber = 10,
+    kPlatformFieldNumber = 11,
+  };
+  // repeated string software_families = 8;
+  int software_families_size() const;
+  private:
+  int _internal_software_families_size() const;
+  public:
+  void clear_software_families();
+  const std::string& software_families(int index) const;
+  std::string* mutable_software_families(int index);
+  void set_software_families(int index, const std::string& value);
+  void set_software_families(int index, std::string&& value);
+  void set_software_families(int index, const char* value);
+  void set_software_families(int index, const char* value, size_t size);
+  std::string* add_software_families();
+  void add_software_families(const std::string& value);
+  void add_software_families(std::string&& value);
+  void add_software_families(const char* value);
+  void add_software_families(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& software_families() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_software_families();
+  private:
+  const std::string& _internal_software_families(int index) const;
+  std::string* _internal_add_software_families();
+  public:
+
+  // string number = 1;
+  void clear_number();
+  const std::string& number() const;
+  void set_number(const std::string& value);
+  void set_number(std::string&& value);
+  void set_number(const char* value);
+  void set_number(const char* value, size_t size);
+  std::string* mutable_number();
+  std::string* release_number();
+  void set_allocated_number(std::string* number);
+  private:
+  const std::string& _internal_number() const;
+  void _internal_set_number(const std::string& value);
+  std::string* _internal_mutable_number();
+  public:
+
+  // string name = 2;
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string summary = 3;
+  void clear_summary();
+  const std::string& summary() const;
+  void set_summary(const std::string& value);
+  void set_summary(std::string&& value);
+  void set_summary(const char* value);
+  void set_summary(const char* value, size_t size);
+  std::string* mutable_summary();
+  std::string* release_summary();
+  void set_allocated_summary(std::string* summary);
+  private:
+  const std::string& _internal_summary() const;
+  void _internal_set_summary(const std::string& value);
+  std::string* _internal_mutable_summary();
+  public:
+
+  // .google.protobuf.StringValue tier = 4;
+  bool has_tier() const;
+  private:
+  bool _internal_has_tier() const;
+  public:
+  void clear_tier();
+  const PROTOBUF_NAMESPACE_ID::StringValue& tier() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* release_tier();
+  PROTOBUF_NAMESPACE_ID::StringValue* mutable_tier();
+  void set_allocated_tier(PROTOBUF_NAMESPACE_ID::StringValue* tier);
+  private:
+  const PROTOBUF_NAMESPACE_ID::StringValue& _internal_tier() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* _internal_mutable_tier();
+  public:
+  void unsafe_arena_set_allocated_tier(
+      PROTOBUF_NAMESPACE_ID::StringValue* tier);
+  PROTOBUF_NAMESPACE_ID::StringValue* unsafe_arena_release_tier();
+
+  // .google.protobuf.StringValue total_units = 5;
+  bool has_total_units() const;
+  private:
+  bool _internal_has_total_units() const;
+  public:
+  void clear_total_units();
+  const PROTOBUF_NAMESPACE_ID::StringValue& total_units() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* release_total_units();
+  PROTOBUF_NAMESPACE_ID::StringValue* mutable_total_units();
+  void set_allocated_total_units(PROTOBUF_NAMESPACE_ID::StringValue* total_units);
+  private:
+  const PROTOBUF_NAMESPACE_ID::StringValue& _internal_total_units() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* _internal_mutable_total_units();
+  public:
+  void unsafe_arena_set_allocated_total_units(
+      PROTOBUF_NAMESPACE_ID::StringValue* total_units);
+  PROTOBUF_NAMESPACE_ID::StringValue* unsafe_arena_release_total_units();
+
+  // .google.protobuf.BoolValue unlimited_units = 6;
+  bool has_unlimited_units() const;
+  private:
+  bool _internal_has_unlimited_units() const;
+  public:
+  void clear_unlimited_units();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& unlimited_units() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_unlimited_units();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_unlimited_units();
+  void set_allocated_unlimited_units(PROTOBUF_NAMESPACE_ID::BoolValue* unlimited_units);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_unlimited_units() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_unlimited_units();
+  public:
+  void unsafe_arena_set_allocated_unlimited_units(
+      PROTOBUF_NAMESPACE_ID::BoolValue* unlimited_units);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_unlimited_units();
+
+  // .google.protobuf.StringValue support_level = 7;
+  bool has_support_level() const;
+  private:
+  bool _internal_has_support_level() const;
+  public:
+  void clear_support_level();
+  const PROTOBUF_NAMESPACE_ID::StringValue& support_level() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* release_support_level();
+  PROTOBUF_NAMESPACE_ID::StringValue* mutable_support_level();
+  void set_allocated_support_level(PROTOBUF_NAMESPACE_ID::StringValue* support_level);
+  private:
+  const PROTOBUF_NAMESPACE_ID::StringValue& _internal_support_level() const;
+  PROTOBUF_NAMESPACE_ID::StringValue* _internal_mutable_support_level();
+  public:
+  void unsafe_arena_set_allocated_support_level(
+      PROTOBUF_NAMESPACE_ID::StringValue* support_level);
+  PROTOBUF_NAMESPACE_ID::StringValue* unsafe_arena_release_support_level();
+
+  // .google.protobuf.Timestamp start_date = 9;
+  bool has_start_date() const;
+  private:
+  bool _internal_has_start_date() const;
+  public:
+  void clear_start_date();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& start_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_start_date();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_start_date();
+  void set_allocated_start_date(PROTOBUF_NAMESPACE_ID::Timestamp* start_date);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_start_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_start_date();
+  public:
+  void unsafe_arena_set_allocated_start_date(
+      PROTOBUF_NAMESPACE_ID::Timestamp* start_date);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_start_date();
+
+  // .google.protobuf.Timestamp end_date = 10;
+  bool has_end_date() const;
+  private:
+  bool _internal_has_end_date() const;
+  public:
+  void clear_end_date();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& end_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_end_date();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_end_date();
+  void set_allocated_end_date(PROTOBUF_NAMESPACE_ID::Timestamp* end_date);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_end_date() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_end_date();
+  public:
+  void unsafe_arena_set_allocated_end_date(
+      PROTOBUF_NAMESPACE_ID::Timestamp* end_date);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_end_date();
+
+  // .percona.platform.org.v1.OrganizationEntitlement.Platform platform = 11;
+  bool has_platform() const;
+  private:
+  bool _internal_has_platform() const;
+  public:
+  void clear_platform();
+  const ::percona::platform::org::v1::OrganizationEntitlement_Platform& platform() const;
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* release_platform();
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* mutable_platform();
+  void set_allocated_platform(::percona::platform::org::v1::OrganizationEntitlement_Platform* platform);
+  private:
+  const ::percona::platform::org::v1::OrganizationEntitlement_Platform& _internal_platform() const;
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* _internal_mutable_platform();
+  public:
+  void unsafe_arena_set_allocated_platform(
+      ::percona::platform::org::v1::OrganizationEntitlement_Platform* platform);
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* unsafe_arena_release_platform();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.OrganizationEntitlement)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> software_families_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr number_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr summary_;
+  PROTOBUF_NAMESPACE_ID::StringValue* tier_;
+  PROTOBUF_NAMESPACE_ID::StringValue* total_units_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* unlimited_units_;
+  PROTOBUF_NAMESPACE_ID::StringValue* support_level_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* start_date_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* end_date_;
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* platform_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
 // ===================================================================
 
 
@@ -2135,9 +2956,1089 @@ inline void DeleteOrganizationRequest::set_allocated_id(std::string* id) {
 
 // DeleteOrganizationResponse
 
+// -------------------------------------------------------------------
+
+// SearchOrganizationEntitlementsRequest
+
+// string id = 1 [(.validator.field) = {
+inline void SearchOrganizationEntitlementsRequest::clear_id() {
+  id_.ClearToEmpty();
+}
+inline const std::string& SearchOrganizationEntitlementsRequest::id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  return _internal_id();
+}
+inline void SearchOrganizationEntitlementsRequest::set_id(const std::string& value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+}
+inline std::string* SearchOrganizationEntitlementsRequest::mutable_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  return _internal_mutable_id();
+}
+inline const std::string& SearchOrganizationEntitlementsRequest::_internal_id() const {
+  return id_.Get();
+}
+inline void SearchOrganizationEntitlementsRequest::_internal_set_id(const std::string& value) {
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void SearchOrganizationEntitlementsRequest::set_id(std::string&& value) {
+  
+  id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+}
+inline void SearchOrganizationEntitlementsRequest::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+}
+inline void SearchOrganizationEntitlementsRequest::set_id(const char* value,
+    size_t size) {
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+}
+inline std::string* SearchOrganizationEntitlementsRequest::_internal_mutable_id() {
+  
+  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* SearchOrganizationEntitlementsRequest::release_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SearchOrganizationEntitlementsRequest::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+}
+
+// -------------------------------------------------------------------
+
+// SearchOrganizationEntitlementsResponse
+
+// repeated .percona.platform.org.v1.OrganizationEntitlement entitlements = 1;
+inline int SearchOrganizationEntitlementsResponse::_internal_entitlements_size() const {
+  return entitlements_.size();
+}
+inline int SearchOrganizationEntitlementsResponse::entitlements_size() const {
+  return _internal_entitlements_size();
+}
+inline void SearchOrganizationEntitlementsResponse::clear_entitlements() {
+  entitlements_.Clear();
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement* SearchOrganizationEntitlementsResponse::mutable_entitlements(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements)
+  return entitlements_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationEntitlement >*
+SearchOrganizationEntitlementsResponse::mutable_entitlements() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements)
+  return &entitlements_;
+}
+inline const ::percona::platform::org::v1::OrganizationEntitlement& SearchOrganizationEntitlementsResponse::_internal_entitlements(int index) const {
+  return entitlements_.Get(index);
+}
+inline const ::percona::platform::org::v1::OrganizationEntitlement& SearchOrganizationEntitlementsResponse::entitlements(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements)
+  return _internal_entitlements(index);
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement* SearchOrganizationEntitlementsResponse::_internal_add_entitlements() {
+  return entitlements_.Add();
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement* SearchOrganizationEntitlementsResponse::add_entitlements() {
+  // @@protoc_insertion_point(field_add:percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements)
+  return _internal_add_entitlements();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationEntitlement >&
+SearchOrganizationEntitlementsResponse::entitlements() const {
+  // @@protoc_insertion_point(field_list:percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements)
+  return entitlements_;
+}
+
+// -------------------------------------------------------------------
+
+// OrganizationEntitlement_Platform
+
+// .google.protobuf.StringValue security_advisor = 1;
+inline bool OrganizationEntitlement_Platform::_internal_has_security_advisor() const {
+  return this != internal_default_instance() && security_advisor_ != nullptr;
+}
+inline bool OrganizationEntitlement_Platform::has_security_advisor() const {
+  return _internal_has_security_advisor();
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement_Platform::_internal_security_advisor() const {
+  const PROTOBUF_NAMESPACE_ID::StringValue* p = security_advisor_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::StringValue&>(
+      PROTOBUF_NAMESPACE_ID::_StringValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement_Platform::security_advisor() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor)
+  return _internal_security_advisor();
+}
+inline void OrganizationEntitlement_Platform::unsafe_arena_set_allocated_security_advisor(
+    PROTOBUF_NAMESPACE_ID::StringValue* security_advisor) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(security_advisor_);
+  }
+  security_advisor_ = security_advisor;
+  if (security_advisor) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor)
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::release_security_advisor() {
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = security_advisor_;
+  security_advisor_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::unsafe_arena_release_security_advisor() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor)
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = security_advisor_;
+  security_advisor_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::_internal_mutable_security_advisor() {
+  
+  if (security_advisor_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::StringValue>(GetArena());
+    security_advisor_ = p;
+  }
+  return security_advisor_;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::mutable_security_advisor() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor)
+  return _internal_mutable_security_advisor();
+}
+inline void OrganizationEntitlement_Platform::set_allocated_security_advisor(PROTOBUF_NAMESPACE_ID::StringValue* security_advisor) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(security_advisor_);
+  }
+  if (security_advisor) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(security_advisor)->GetArena();
+    if (message_arena != submessage_arena) {
+      security_advisor = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, security_advisor, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  security_advisor_ = security_advisor;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor)
+}
+
+// .google.protobuf.StringValue config_advisor = 2;
+inline bool OrganizationEntitlement_Platform::_internal_has_config_advisor() const {
+  return this != internal_default_instance() && config_advisor_ != nullptr;
+}
+inline bool OrganizationEntitlement_Platform::has_config_advisor() const {
+  return _internal_has_config_advisor();
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement_Platform::_internal_config_advisor() const {
+  const PROTOBUF_NAMESPACE_ID::StringValue* p = config_advisor_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::StringValue&>(
+      PROTOBUF_NAMESPACE_ID::_StringValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement_Platform::config_advisor() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor)
+  return _internal_config_advisor();
+}
+inline void OrganizationEntitlement_Platform::unsafe_arena_set_allocated_config_advisor(
+    PROTOBUF_NAMESPACE_ID::StringValue* config_advisor) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(config_advisor_);
+  }
+  config_advisor_ = config_advisor;
+  if (config_advisor) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor)
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::release_config_advisor() {
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = config_advisor_;
+  config_advisor_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::unsafe_arena_release_config_advisor() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor)
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = config_advisor_;
+  config_advisor_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::_internal_mutable_config_advisor() {
+  
+  if (config_advisor_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::StringValue>(GetArena());
+    config_advisor_ = p;
+  }
+  return config_advisor_;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement_Platform::mutable_config_advisor() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor)
+  return _internal_mutable_config_advisor();
+}
+inline void OrganizationEntitlement_Platform::set_allocated_config_advisor(PROTOBUF_NAMESPACE_ID::StringValue* config_advisor) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(config_advisor_);
+  }
+  if (config_advisor) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(config_advisor)->GetArena();
+    if (message_arena != submessage_arena) {
+      config_advisor = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, config_advisor, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  config_advisor_ = config_advisor;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor)
+}
+
+// -------------------------------------------------------------------
+
+// OrganizationEntitlement
+
+// string number = 1;
+inline void OrganizationEntitlement::clear_number() {
+  number_.ClearToEmpty();
+}
+inline const std::string& OrganizationEntitlement::number() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.number)
+  return _internal_number();
+}
+inline void OrganizationEntitlement::set_number(const std::string& value) {
+  _internal_set_number(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationEntitlement.number)
+}
+inline std::string* OrganizationEntitlement::mutable_number() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.number)
+  return _internal_mutable_number();
+}
+inline const std::string& OrganizationEntitlement::_internal_number() const {
+  return number_.Get();
+}
+inline void OrganizationEntitlement::_internal_set_number(const std::string& value) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationEntitlement::set_number(std::string&& value) {
+  
+  number_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationEntitlement.number)
+}
+inline void OrganizationEntitlement::set_number(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationEntitlement.number)
+}
+inline void OrganizationEntitlement::set_number(const char* value,
+    size_t size) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationEntitlement.number)
+}
+inline std::string* OrganizationEntitlement::_internal_mutable_number() {
+  
+  return number_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationEntitlement::release_number() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.number)
+  return number_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationEntitlement::set_allocated_number(std::string* number) {
+  if (number != nullptr) {
+    
+  } else {
+    
+  }
+  number_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), number,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.number)
+}
+
+// string name = 2;
+inline void OrganizationEntitlement::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& OrganizationEntitlement::name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.name)
+  return _internal_name();
+}
+inline void OrganizationEntitlement::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationEntitlement.name)
+}
+inline std::string* OrganizationEntitlement::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.name)
+  return _internal_mutable_name();
+}
+inline const std::string& OrganizationEntitlement::_internal_name() const {
+  return name_.Get();
+}
+inline void OrganizationEntitlement::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationEntitlement::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationEntitlement.name)
+}
+inline void OrganizationEntitlement::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationEntitlement.name)
+}
+inline void OrganizationEntitlement::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationEntitlement.name)
+}
+inline std::string* OrganizationEntitlement::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationEntitlement::release_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationEntitlement::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.name)
+}
+
+// string summary = 3;
+inline void OrganizationEntitlement::clear_summary() {
+  summary_.ClearToEmpty();
+}
+inline const std::string& OrganizationEntitlement::summary() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.summary)
+  return _internal_summary();
+}
+inline void OrganizationEntitlement::set_summary(const std::string& value) {
+  _internal_set_summary(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationEntitlement.summary)
+}
+inline std::string* OrganizationEntitlement::mutable_summary() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.summary)
+  return _internal_mutable_summary();
+}
+inline const std::string& OrganizationEntitlement::_internal_summary() const {
+  return summary_.Get();
+}
+inline void OrganizationEntitlement::_internal_set_summary(const std::string& value) {
+  
+  summary_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationEntitlement::set_summary(std::string&& value) {
+  
+  summary_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationEntitlement.summary)
+}
+inline void OrganizationEntitlement::set_summary(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  summary_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationEntitlement.summary)
+}
+inline void OrganizationEntitlement::set_summary(const char* value,
+    size_t size) {
+  
+  summary_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationEntitlement.summary)
+}
+inline std::string* OrganizationEntitlement::_internal_mutable_summary() {
+  
+  return summary_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationEntitlement::release_summary() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.summary)
+  return summary_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationEntitlement::set_allocated_summary(std::string* summary) {
+  if (summary != nullptr) {
+    
+  } else {
+    
+  }
+  summary_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), summary,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.summary)
+}
+
+// .google.protobuf.StringValue tier = 4;
+inline bool OrganizationEntitlement::_internal_has_tier() const {
+  return this != internal_default_instance() && tier_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_tier() const {
+  return _internal_has_tier();
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::_internal_tier() const {
+  const PROTOBUF_NAMESPACE_ID::StringValue* p = tier_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::StringValue&>(
+      PROTOBUF_NAMESPACE_ID::_StringValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::tier() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.tier)
+  return _internal_tier();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_tier(
+    PROTOBUF_NAMESPACE_ID::StringValue* tier) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tier_);
+  }
+  tier_ = tier;
+  if (tier) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.tier)
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::release_tier() {
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = tier_;
+  tier_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::unsafe_arena_release_tier() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.tier)
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = tier_;
+  tier_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::_internal_mutable_tier() {
+  
+  if (tier_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::StringValue>(GetArena());
+    tier_ = p;
+  }
+  return tier_;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::mutable_tier() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.tier)
+  return _internal_mutable_tier();
+}
+inline void OrganizationEntitlement::set_allocated_tier(PROTOBUF_NAMESPACE_ID::StringValue* tier) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(tier_);
+  }
+  if (tier) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tier)->GetArena();
+    if (message_arena != submessage_arena) {
+      tier = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, tier, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  tier_ = tier;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.tier)
+}
+
+// .google.protobuf.StringValue total_units = 5;
+inline bool OrganizationEntitlement::_internal_has_total_units() const {
+  return this != internal_default_instance() && total_units_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_total_units() const {
+  return _internal_has_total_units();
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::_internal_total_units() const {
+  const PROTOBUF_NAMESPACE_ID::StringValue* p = total_units_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::StringValue&>(
+      PROTOBUF_NAMESPACE_ID::_StringValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::total_units() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.total_units)
+  return _internal_total_units();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_total_units(
+    PROTOBUF_NAMESPACE_ID::StringValue* total_units) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_units_);
+  }
+  total_units_ = total_units;
+  if (total_units) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.total_units)
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::release_total_units() {
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = total_units_;
+  total_units_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::unsafe_arena_release_total_units() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.total_units)
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = total_units_;
+  total_units_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::_internal_mutable_total_units() {
+  
+  if (total_units_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::StringValue>(GetArena());
+    total_units_ = p;
+  }
+  return total_units_;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::mutable_total_units() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.total_units)
+  return _internal_mutable_total_units();
+}
+inline void OrganizationEntitlement::set_allocated_total_units(PROTOBUF_NAMESPACE_ID::StringValue* total_units) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_units_);
+  }
+  if (total_units) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_units)->GetArena();
+    if (message_arena != submessage_arena) {
+      total_units = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, total_units, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  total_units_ = total_units;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.total_units)
+}
+
+// .google.protobuf.BoolValue unlimited_units = 6;
+inline bool OrganizationEntitlement::_internal_has_unlimited_units() const {
+  return this != internal_default_instance() && unlimited_units_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_unlimited_units() const {
+  return _internal_has_unlimited_units();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& OrganizationEntitlement::_internal_unlimited_units() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = unlimited_units_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& OrganizationEntitlement::unlimited_units() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.unlimited_units)
+  return _internal_unlimited_units();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_unlimited_units(
+    PROTOBUF_NAMESPACE_ID::BoolValue* unlimited_units) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(unlimited_units_);
+  }
+  unlimited_units_ = unlimited_units;
+  if (unlimited_units) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.unlimited_units)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* OrganizationEntitlement::release_unlimited_units() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = unlimited_units_;
+  unlimited_units_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* OrganizationEntitlement::unsafe_arena_release_unlimited_units() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.unlimited_units)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = unlimited_units_;
+  unlimited_units_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* OrganizationEntitlement::_internal_mutable_unlimited_units() {
+  
+  if (unlimited_units_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    unlimited_units_ = p;
+  }
+  return unlimited_units_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* OrganizationEntitlement::mutable_unlimited_units() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.unlimited_units)
+  return _internal_mutable_unlimited_units();
+}
+inline void OrganizationEntitlement::set_allocated_unlimited_units(PROTOBUF_NAMESPACE_ID::BoolValue* unlimited_units) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(unlimited_units_);
+  }
+  if (unlimited_units) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(unlimited_units)->GetArena();
+    if (message_arena != submessage_arena) {
+      unlimited_units = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, unlimited_units, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  unlimited_units_ = unlimited_units;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.unlimited_units)
+}
+
+// .google.protobuf.StringValue support_level = 7;
+inline bool OrganizationEntitlement::_internal_has_support_level() const {
+  return this != internal_default_instance() && support_level_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_support_level() const {
+  return _internal_has_support_level();
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::_internal_support_level() const {
+  const PROTOBUF_NAMESPACE_ID::StringValue* p = support_level_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::StringValue&>(
+      PROTOBUF_NAMESPACE_ID::_StringValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::StringValue& OrganizationEntitlement::support_level() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.support_level)
+  return _internal_support_level();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_support_level(
+    PROTOBUF_NAMESPACE_ID::StringValue* support_level) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(support_level_);
+  }
+  support_level_ = support_level;
+  if (support_level) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.support_level)
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::release_support_level() {
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = support_level_;
+  support_level_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::unsafe_arena_release_support_level() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.support_level)
+  
+  PROTOBUF_NAMESPACE_ID::StringValue* temp = support_level_;
+  support_level_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::_internal_mutable_support_level() {
+  
+  if (support_level_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::StringValue>(GetArena());
+    support_level_ = p;
+  }
+  return support_level_;
+}
+inline PROTOBUF_NAMESPACE_ID::StringValue* OrganizationEntitlement::mutable_support_level() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.support_level)
+  return _internal_mutable_support_level();
+}
+inline void OrganizationEntitlement::set_allocated_support_level(PROTOBUF_NAMESPACE_ID::StringValue* support_level) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(support_level_);
+  }
+  if (support_level) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(support_level)->GetArena();
+    if (message_arena != submessage_arena) {
+      support_level = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, support_level, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  support_level_ = support_level;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.support_level)
+}
+
+// repeated string software_families = 8;
+inline int OrganizationEntitlement::_internal_software_families_size() const {
+  return software_families_.size();
+}
+inline int OrganizationEntitlement::software_families_size() const {
+  return _internal_software_families_size();
+}
+inline void OrganizationEntitlement::clear_software_families() {
+  software_families_.Clear();
+}
+inline std::string* OrganizationEntitlement::add_software_families() {
+  // @@protoc_insertion_point(field_add_mutable:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  return _internal_add_software_families();
+}
+inline const std::string& OrganizationEntitlement::_internal_software_families(int index) const {
+  return software_families_.Get(index);
+}
+inline const std::string& OrganizationEntitlement::software_families(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  return _internal_software_families(index);
+}
+inline std::string* OrganizationEntitlement::mutable_software_families(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  return software_families_.Mutable(index);
+}
+inline void OrganizationEntitlement::set_software_families(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  software_families_.Mutable(index)->assign(value);
+}
+inline void OrganizationEntitlement::set_software_families(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  software_families_.Mutable(index)->assign(std::move(value));
+}
+inline void OrganizationEntitlement::set_software_families(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  software_families_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline void OrganizationEntitlement::set_software_families(int index, const char* value, size_t size) {
+  software_families_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline std::string* OrganizationEntitlement::_internal_add_software_families() {
+  return software_families_.Add();
+}
+inline void OrganizationEntitlement::add_software_families(const std::string& value) {
+  software_families_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline void OrganizationEntitlement::add_software_families(std::string&& value) {
+  software_families_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline void OrganizationEntitlement::add_software_families(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  software_families_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline void OrganizationEntitlement::add_software_families(const char* value, size_t size) {
+  software_families_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:percona.platform.org.v1.OrganizationEntitlement.software_families)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+OrganizationEntitlement::software_families() const {
+  // @@protoc_insertion_point(field_list:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  return software_families_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+OrganizationEntitlement::mutable_software_families() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.org.v1.OrganizationEntitlement.software_families)
+  return &software_families_;
+}
+
+// .google.protobuf.Timestamp start_date = 9;
+inline bool OrganizationEntitlement::_internal_has_start_date() const {
+  return this != internal_default_instance() && start_date_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_start_date() const {
+  return _internal_has_start_date();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationEntitlement::_internal_start_date() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = start_date_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationEntitlement::start_date() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.start_date)
+  return _internal_start_date();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_start_date(
+    PROTOBUF_NAMESPACE_ID::Timestamp* start_date) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(start_date_);
+  }
+  start_date_ = start_date;
+  if (start_date) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.start_date)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::release_start_date() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = start_date_;
+  start_date_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::unsafe_arena_release_start_date() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.start_date)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = start_date_;
+  start_date_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::_internal_mutable_start_date() {
+  
+  if (start_date_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    start_date_ = p;
+  }
+  return start_date_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::mutable_start_date() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.start_date)
+  return _internal_mutable_start_date();
+}
+inline void OrganizationEntitlement::set_allocated_start_date(PROTOBUF_NAMESPACE_ID::Timestamp* start_date) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(start_date_);
+  }
+  if (start_date) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(start_date)->GetArena();
+    if (message_arena != submessage_arena) {
+      start_date = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, start_date, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  start_date_ = start_date;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.start_date)
+}
+
+// .google.protobuf.Timestamp end_date = 10;
+inline bool OrganizationEntitlement::_internal_has_end_date() const {
+  return this != internal_default_instance() && end_date_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_end_date() const {
+  return _internal_has_end_date();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationEntitlement::_internal_end_date() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = end_date_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationEntitlement::end_date() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.end_date)
+  return _internal_end_date();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_end_date(
+    PROTOBUF_NAMESPACE_ID::Timestamp* end_date) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(end_date_);
+  }
+  end_date_ = end_date;
+  if (end_date) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.end_date)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::release_end_date() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = end_date_;
+  end_date_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::unsafe_arena_release_end_date() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.end_date)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = end_date_;
+  end_date_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::_internal_mutable_end_date() {
+  
+  if (end_date_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    end_date_ = p;
+  }
+  return end_date_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationEntitlement::mutable_end_date() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.end_date)
+  return _internal_mutable_end_date();
+}
+inline void OrganizationEntitlement::set_allocated_end_date(PROTOBUF_NAMESPACE_ID::Timestamp* end_date) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(end_date_);
+  }
+  if (end_date) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(end_date)->GetArena();
+    if (message_arena != submessage_arena) {
+      end_date = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, end_date, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  end_date_ = end_date;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.end_date)
+}
+
+// .percona.platform.org.v1.OrganizationEntitlement.Platform platform = 11;
+inline bool OrganizationEntitlement::_internal_has_platform() const {
+  return this != internal_default_instance() && platform_ != nullptr;
+}
+inline bool OrganizationEntitlement::has_platform() const {
+  return _internal_has_platform();
+}
+inline void OrganizationEntitlement::clear_platform() {
+  if (GetArena() == nullptr && platform_ != nullptr) {
+    delete platform_;
+  }
+  platform_ = nullptr;
+}
+inline const ::percona::platform::org::v1::OrganizationEntitlement_Platform& OrganizationEntitlement::_internal_platform() const {
+  const ::percona::platform::org::v1::OrganizationEntitlement_Platform* p = platform_;
+  return p != nullptr ? *p : reinterpret_cast<const ::percona::platform::org::v1::OrganizationEntitlement_Platform&>(
+      ::percona::platform::org::v1::_OrganizationEntitlement_Platform_default_instance_);
+}
+inline const ::percona::platform::org::v1::OrganizationEntitlement_Platform& OrganizationEntitlement::platform() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationEntitlement.platform)
+  return _internal_platform();
+}
+inline void OrganizationEntitlement::unsafe_arena_set_allocated_platform(
+    ::percona::platform::org::v1::OrganizationEntitlement_Platform* platform) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(platform_);
+  }
+  platform_ = platform;
+  if (platform) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationEntitlement.platform)
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement_Platform* OrganizationEntitlement::release_platform() {
+  
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* temp = platform_;
+  platform_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement_Platform* OrganizationEntitlement::unsafe_arena_release_platform() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationEntitlement.platform)
+  
+  ::percona::platform::org::v1::OrganizationEntitlement_Platform* temp = platform_;
+  platform_ = nullptr;
+  return temp;
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement_Platform* OrganizationEntitlement::_internal_mutable_platform() {
+  
+  if (platform_ == nullptr) {
+    auto* p = CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement_Platform>(GetArena());
+    platform_ = p;
+  }
+  return platform_;
+}
+inline ::percona::platform::org::v1::OrganizationEntitlement_Platform* OrganizationEntitlement::mutable_platform() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationEntitlement.platform)
+  return _internal_mutable_platform();
+}
+inline void OrganizationEntitlement::set_allocated_platform(::percona::platform::org::v1::OrganizationEntitlement_Platform* platform) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete platform_;
+  }
+  if (platform) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(platform);
+    if (message_arena != submessage_arena) {
+      platform = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, platform, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  platform_ = platform;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.platform)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
