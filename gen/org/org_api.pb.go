@@ -697,6 +697,223 @@ func (x *OrganizationEntitlement) GetPlatform() *OrganizationEntitlement_Platfor
 	return nil
 }
 
+type SearchOrganizationTicketsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Percona Portal Organization ID.
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *SearchOrganizationTicketsRequest) Reset() {
+	*x = SearchOrganizationTicketsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_org_org_api_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SearchOrganizationTicketsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchOrganizationTicketsRequest) ProtoMessage() {}
+
+func (x *SearchOrganizationTicketsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_org_org_api_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchOrganizationTicketsRequest.ProtoReflect.Descriptor instead.
+func (*SearchOrganizationTicketsRequest) Descriptor() ([]byte, []int) {
+	return file_org_org_api_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *SearchOrganizationTicketsRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type SearchOrganizationTicketsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Organization tickets matching the request.
+	Tickets []*OrganizationTicket `protobuf:"bytes,1,rep,name=tickets,proto3" json:"tickets,omitempty"`
+}
+
+func (x *SearchOrganizationTicketsResponse) Reset() {
+	*x = SearchOrganizationTicketsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_org_org_api_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SearchOrganizationTicketsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchOrganizationTicketsResponse) ProtoMessage() {}
+
+func (x *SearchOrganizationTicketsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_org_org_api_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchOrganizationTicketsResponse.ProtoReflect.Descriptor instead.
+func (*SearchOrganizationTicketsResponse) Descriptor() ([]byte, []int) {
+	return file_org_org_api_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *SearchOrganizationTicketsResponse) GetTickets() []*OrganizationTicket {
+	if x != nil {
+		return x.Tickets
+	}
+	return nil
+}
+
+// Contains information about ticket.
+type OrganizationTicket struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Ticket number.
+	Number string `protobuf:"bytes,1,opt,name=number,proto3" json:"number,omitempty"`
+	// Ticket short description.
+	ShortDescription string `protobuf:"bytes,2,opt,name=short_description,json=shortDescription,proto3" json:"short_description,omitempty"`
+	// Ticket priority.
+	Priority string `protobuf:"bytes,3,opt,name=priority,proto3" json:"priority,omitempty"`
+	// Ticket state.
+	State string `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
+	// Ticket creation time.
+	CreateTime *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
+	// Department.
+	Department string `protobuf:"bytes,6,opt,name=department,proto3" json:"department,omitempty"`
+	// Ticket requester.
+	Requester string `protobuf:"bytes,7,opt,name=requester,proto3" json:"requester,omitempty"`
+	// Task type.
+	TaskType string `protobuf:"bytes,8,opt,name=task_type,json=taskType,proto3" json:"task_type,omitempty"`
+	// Ticket url.
+	Url string `protobuf:"bytes,9,opt,name=url,proto3" json:"url,omitempty"`
+}
+
+func (x *OrganizationTicket) Reset() {
+	*x = OrganizationTicket{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_org_org_api_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OrganizationTicket) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationTicket) ProtoMessage() {}
+
+func (x *OrganizationTicket) ProtoReflect() protoreflect.Message {
+	mi := &file_org_org_api_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationTicket.ProtoReflect.Descriptor instead.
+func (*OrganizationTicket) Descriptor() ([]byte, []int) {
+	return file_org_org_api_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *OrganizationTicket) GetNumber() string {
+	if x != nil {
+		return x.Number
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetShortDescription() string {
+	if x != nil {
+		return x.ShortDescription
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetPriority() string {
+	if x != nil {
+		return x.Priority
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetState() string {
+	if x != nil {
+		return x.State
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetCreateTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreateTime
+	}
+	return nil
+}
+
+func (x *OrganizationTicket) GetDepartment() string {
+	if x != nil {
+		return x.Department
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetRequester() string {
+	if x != nil {
+		return x.Requester
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetTaskType() string {
+	if x != nil {
+		return x.TaskType
+	}
+	return ""
+}
+
+func (x *OrganizationTicket) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
 type OrganizationEntitlement_Platform struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -711,7 +928,7 @@ type OrganizationEntitlement_Platform struct {
 func (x *OrganizationEntitlement_Platform) Reset() {
 	*x = OrganizationEntitlement_Platform{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_org_org_api_proto_msgTypes[12]
+		mi := &file_org_org_api_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -724,7 +941,7 @@ func (x *OrganizationEntitlement_Platform) String() string {
 func (*OrganizationEntitlement_Platform) ProtoMessage() {}
 
 func (x *OrganizationEntitlement_Platform) ProtoReflect() protoreflect.Message {
-	mi := &file_org_org_api_proto_msgTypes[12]
+	mi := &file_org_org_api_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -869,7 +1086,37 @@ var file_org_org_api_proto_rawDesc = []byte{
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x56,
 	0x61, 0x6c, 0x75, 0x65, 0x52, 0x0d, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x41, 0x64, 0x76, 0x69,
-	0x73, 0x6f, 0x72, 0x32, 0xb4, 0x06, 0x0a, 0x06, 0x4f, 0x72, 0x67, 0x41, 0x50, 0x49, 0x12, 0x92,
+	0x73, 0x6f, 0x72, 0x22, 0x3a, 0x0a, 0x20, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4f, 0x72, 0x67,
+	0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x06, 0xe2, 0xdf, 0x1f, 0x02, 0x58, 0x01, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x6a, 0x0a, 0x21, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x07, 0x74, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x18,
+	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e, 0x61, 0x2e,
+	0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2e, 0x76, 0x31, 0x2e,
+	0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x63, 0x6b,
+	0x65, 0x74, 0x52, 0x07, 0x74, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x22, 0xb5, 0x02, 0x0a, 0x12,
+	0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x63, 0x6b,
+	0x65, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x2b, 0x0a, 0x11, 0x73, 0x68,
+	0x6f, 0x72, 0x74, 0x5f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x10, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x44, 0x65, 0x73, 0x63,
+	0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x72, 0x69, 0x6f, 0x72,
+	0x69, 0x74, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x72, 0x69, 0x6f, 0x72,
+	0x69, 0x74, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x12, 0x3b, 0x0a, 0x0b, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
+	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
+	0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x64, 0x65, 0x70, 0x61, 0x72, 0x74,
+	0x6d, 0x65, 0x6e, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x64, 0x65, 0x70, 0x61,
+	0x72, 0x74, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x65, 0x72, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x65, 0x72, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x61, 0x73, 0x6b, 0x5f, 0x74, 0x79, 0x70,
+	0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x61, 0x73, 0x6b, 0x54, 0x79, 0x70,
+	0x65, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03,
+	0x75, 0x72, 0x6c, 0x32, 0xef, 0x07, 0x0a, 0x06, 0x4f, 0x72, 0x67, 0x41, 0x50, 0x49, 0x12, 0x92,
 	0x01, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
 	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x32, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e, 0x61, 0x2e,
 	0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2e, 0x76, 0x31, 0x2e,
@@ -920,8 +1167,20 @@ var file_org_org_api_proto_rawDesc = []byte{
 	0x6e, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2d, 0x82, 0xd3, 0xe4,
 	0x93, 0x02, 0x27, 0x22, 0x25, 0x2f, 0x76, 0x31, 0x2f, 0x6f, 0x72, 0x67, 0x73, 0x2f, 0x7b, 0x6f,
 	0x72, 0x67, 0x5f, 0x69, 0x64, 0x7d, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x6d, 0x65,
-	0x6e, 0x74, 0x73, 0x3a, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x6f,
-	0x72, 0x67, 0x3b, 0x6f, 0x72, 0x67, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x74, 0x73, 0x3a, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x12, 0xb8, 0x01, 0x0a, 0x19, 0x53,
+	0x65, 0x61, 0x72, 0x63, 0x68, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x12, 0x39, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f,
+	0x6e, 0x61, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2e,
+	0x76, 0x31, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x3a, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e, 0x61, 0x2e, 0x70, 0x6c,
+	0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65,
+	0x61, 0x72, 0x63, 0x68, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x24, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1e, 0x22, 0x1c, 0x2f, 0x76, 0x31, 0x2f, 0x6f, 0x72, 0x67,
+	0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f, 0x74, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x73, 0x3a, 0x73,
+	0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x6f, 0x72, 0x67, 0x3b, 0x6f, 0x72,
+	0x67, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -937,7 +1196,7 @@ func file_org_org_api_proto_rawDescGZIP() []byte {
 }
 
 var (
-	file_org_org_api_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_org_org_api_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 	file_org_org_api_proto_goTypes  = []interface{}{
 		(*Organization)(nil),                           // 0: percona.platform.org.v1.Organization
 		(*CreateOrganizationRequest)(nil),              // 1: percona.platform.org.v1.CreateOrganizationRequest
@@ -951,44 +1210,51 @@ var (
 		(*SearchOrganizationEntitlementsRequest)(nil),  // 9: percona.platform.org.v1.SearchOrganizationEntitlementsRequest
 		(*SearchOrganizationEntitlementsResponse)(nil), // 10: percona.platform.org.v1.SearchOrganizationEntitlementsResponse
 		(*OrganizationEntitlement)(nil),                // 11: percona.platform.org.v1.OrganizationEntitlement
-		(*OrganizationEntitlement_Platform)(nil),       // 12: percona.platform.org.v1.OrganizationEntitlement.Platform
-		(*timestamppb.Timestamp)(nil),                  // 13: google.protobuf.Timestamp
-		(*wrapperspb.StringValue)(nil),                 // 14: google.protobuf.StringValue
-		(*wrapperspb.BoolValue)(nil),                   // 15: google.protobuf.BoolValue
+		(*SearchOrganizationTicketsRequest)(nil),       // 12: percona.platform.org.v1.SearchOrganizationTicketsRequest
+		(*SearchOrganizationTicketsResponse)(nil),      // 13: percona.platform.org.v1.SearchOrganizationTicketsResponse
+		(*OrganizationTicket)(nil),                     // 14: percona.platform.org.v1.OrganizationTicket
+		(*OrganizationEntitlement_Platform)(nil),       // 15: percona.platform.org.v1.OrganizationEntitlement.Platform
+		(*timestamppb.Timestamp)(nil),                  // 16: google.protobuf.Timestamp
+		(*wrapperspb.StringValue)(nil),                 // 17: google.protobuf.StringValue
+		(*wrapperspb.BoolValue)(nil),                   // 18: google.protobuf.BoolValue
 	}
 )
 
 var file_org_org_api_proto_depIdxs = []int32{
-	13, // 0: percona.platform.org.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
-	13, // 1: percona.platform.org.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
+	16, // 0: percona.platform.org.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
+	16, // 1: percona.platform.org.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 2: percona.platform.org.v1.CreateOrganizationResponse.org:type_name -> percona.platform.org.v1.Organization
 	0,  // 3: percona.platform.org.v1.GetOrganizationResponse.org:type_name -> percona.platform.org.v1.Organization
 	0,  // 4: percona.platform.org.v1.SearchOrganizationsResponse.orgs:type_name -> percona.platform.org.v1.Organization
 	11, // 5: percona.platform.org.v1.SearchOrganizationEntitlementsResponse.entitlements:type_name -> percona.platform.org.v1.OrganizationEntitlement
-	14, // 6: percona.platform.org.v1.OrganizationEntitlement.tier:type_name -> google.protobuf.StringValue
-	14, // 7: percona.platform.org.v1.OrganizationEntitlement.total_units:type_name -> google.protobuf.StringValue
-	15, // 8: percona.platform.org.v1.OrganizationEntitlement.unlimited_units:type_name -> google.protobuf.BoolValue
-	14, // 9: percona.platform.org.v1.OrganizationEntitlement.support_level:type_name -> google.protobuf.StringValue
-	13, // 10: percona.platform.org.v1.OrganizationEntitlement.start_date:type_name -> google.protobuf.Timestamp
-	13, // 11: percona.platform.org.v1.OrganizationEntitlement.end_date:type_name -> google.protobuf.Timestamp
-	12, // 12: percona.platform.org.v1.OrganizationEntitlement.platform:type_name -> percona.platform.org.v1.OrganizationEntitlement.Platform
-	14, // 13: percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor:type_name -> google.protobuf.StringValue
-	14, // 14: percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor:type_name -> google.protobuf.StringValue
-	1,  // 15: percona.platform.org.v1.OrgAPI.CreateOrganization:input_type -> percona.platform.org.v1.CreateOrganizationRequest
-	3,  // 16: percona.platform.org.v1.OrgAPI.GetOrganization:input_type -> percona.platform.org.v1.GetOrganizationRequest
-	5,  // 17: percona.platform.org.v1.OrgAPI.SearchOrganizations:input_type -> percona.platform.org.v1.SearchOrganizationsRequest
-	7,  // 18: percona.platform.org.v1.OrgAPI.DeleteOrganization:input_type -> percona.platform.org.v1.DeleteOrganizationRequest
-	9,  // 19: percona.platform.org.v1.OrgAPI.SearchOrganizationEntitlements:input_type -> percona.platform.org.v1.SearchOrganizationEntitlementsRequest
-	2,  // 20: percona.platform.org.v1.OrgAPI.CreateOrganization:output_type -> percona.platform.org.v1.CreateOrganizationResponse
-	4,  // 21: percona.platform.org.v1.OrgAPI.GetOrganization:output_type -> percona.platform.org.v1.GetOrganizationResponse
-	6,  // 22: percona.platform.org.v1.OrgAPI.SearchOrganizations:output_type -> percona.platform.org.v1.SearchOrganizationsResponse
-	8,  // 23: percona.platform.org.v1.OrgAPI.DeleteOrganization:output_type -> percona.platform.org.v1.DeleteOrganizationResponse
-	10, // 24: percona.platform.org.v1.OrgAPI.SearchOrganizationEntitlements:output_type -> percona.platform.org.v1.SearchOrganizationEntitlementsResponse
-	20, // [20:25] is the sub-list for method output_type
-	15, // [15:20] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	17, // 6: percona.platform.org.v1.OrganizationEntitlement.tier:type_name -> google.protobuf.StringValue
+	17, // 7: percona.platform.org.v1.OrganizationEntitlement.total_units:type_name -> google.protobuf.StringValue
+	18, // 8: percona.platform.org.v1.OrganizationEntitlement.unlimited_units:type_name -> google.protobuf.BoolValue
+	17, // 9: percona.platform.org.v1.OrganizationEntitlement.support_level:type_name -> google.protobuf.StringValue
+	16, // 10: percona.platform.org.v1.OrganizationEntitlement.start_date:type_name -> google.protobuf.Timestamp
+	16, // 11: percona.platform.org.v1.OrganizationEntitlement.end_date:type_name -> google.protobuf.Timestamp
+	15, // 12: percona.platform.org.v1.OrganizationEntitlement.platform:type_name -> percona.platform.org.v1.OrganizationEntitlement.Platform
+	14, // 13: percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets:type_name -> percona.platform.org.v1.OrganizationTicket
+	16, // 14: percona.platform.org.v1.OrganizationTicket.create_time:type_name -> google.protobuf.Timestamp
+	17, // 15: percona.platform.org.v1.OrganizationEntitlement.Platform.security_advisor:type_name -> google.protobuf.StringValue
+	17, // 16: percona.platform.org.v1.OrganizationEntitlement.Platform.config_advisor:type_name -> google.protobuf.StringValue
+	1,  // 17: percona.platform.org.v1.OrgAPI.CreateOrganization:input_type -> percona.platform.org.v1.CreateOrganizationRequest
+	3,  // 18: percona.platform.org.v1.OrgAPI.GetOrganization:input_type -> percona.platform.org.v1.GetOrganizationRequest
+	5,  // 19: percona.platform.org.v1.OrgAPI.SearchOrganizations:input_type -> percona.platform.org.v1.SearchOrganizationsRequest
+	7,  // 20: percona.platform.org.v1.OrgAPI.DeleteOrganization:input_type -> percona.platform.org.v1.DeleteOrganizationRequest
+	9,  // 21: percona.platform.org.v1.OrgAPI.SearchOrganizationEntitlements:input_type -> percona.platform.org.v1.SearchOrganizationEntitlementsRequest
+	12, // 22: percona.platform.org.v1.OrgAPI.SearchOrganizationTickets:input_type -> percona.platform.org.v1.SearchOrganizationTicketsRequest
+	2,  // 23: percona.platform.org.v1.OrgAPI.CreateOrganization:output_type -> percona.platform.org.v1.CreateOrganizationResponse
+	4,  // 24: percona.platform.org.v1.OrgAPI.GetOrganization:output_type -> percona.platform.org.v1.GetOrganizationResponse
+	6,  // 25: percona.platform.org.v1.OrgAPI.SearchOrganizations:output_type -> percona.platform.org.v1.SearchOrganizationsResponse
+	8,  // 26: percona.platform.org.v1.OrgAPI.DeleteOrganization:output_type -> percona.platform.org.v1.DeleteOrganizationResponse
+	10, // 27: percona.platform.org.v1.OrgAPI.SearchOrganizationEntitlements:output_type -> percona.platform.org.v1.SearchOrganizationEntitlementsResponse
+	13, // 28: percona.platform.org.v1.OrgAPI.SearchOrganizationTickets:output_type -> percona.platform.org.v1.SearchOrganizationTicketsResponse
+	23, // [23:29] is the sub-list for method output_type
+	17, // [17:23] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_org_org_api_proto_init() }
@@ -1142,6 +1408,42 @@ func file_org_org_api_proto_init() {
 			}
 		}
 		file_org_org_api_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SearchOrganizationTicketsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_org_org_api_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SearchOrganizationTicketsResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_org_org_api_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OrganizationTicket); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_org_org_api_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrganizationEntitlement_Platform); i {
 			case 0:
 				return &v.state
@@ -1160,7 +1462,7 @@ func file_org_org_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_org_org_api_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

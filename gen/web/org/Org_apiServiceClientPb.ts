@@ -235,5 +235,45 @@ export class OrgAPIClient {
     this.methodInfoSearchOrganizationEntitlements);
   }
 
+  methodInfoSearchOrganizationTickets = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchOrganizationTicketsResponse,
+    (request: org_org_api_pb.SearchOrganizationTicketsRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchOrganizationTicketsResponse.deserializeBinary
+  );
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchOrganizationTicketsResponse>;
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchOrganizationTicketsResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchOrganizationTicketsResponse>;
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchOrganizationTicketsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets',
+        request,
+        metadata || {},
+        this.methodInfoSearchOrganizationTickets,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets',
+    request,
+    metadata || {},
+    this.methodInfoSearchOrganizationTickets);
+  }
+
 }
 

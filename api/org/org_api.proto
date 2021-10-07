@@ -47,6 +47,13 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/entitlements:search"
     };
   }
+
+  // SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
+  rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{id}/tickets:search"
+    };
+  }
 }
 
 message Organization {
@@ -148,4 +155,40 @@ message OrganizationEntitlement {
   google.protobuf.Timestamp end_date = 10;
   // Platform specific options covered by this entitlement.
   Platform platform = 11;
+}
+
+message SearchOrganizationTicketsRequest {
+  // Percona Portal Organization ID.
+  string id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationTicketsResponse {
+  // Organization tickets matching the request.
+  repeated OrganizationTicket tickets = 1;
+}
+
+// Contains information about ticket.
+message OrganizationTicket {
+  // Ticket number.
+  string number = 1;
+  // Ticket short description.
+  string short_description = 2;
+  // Ticket priority.
+  string priority = 3;
+  // Ticket state.
+  string state = 4;
+  // Ticket creation time.
+  google.protobuf.Timestamp create_time = 5;
+  // Department.
+  string department = 6;
+  // Ticket requester.
+  string requester = 7;
+  // Task type.
+  string task_type = 8;
+  // Ticket url.
+  string url = 9;
 }

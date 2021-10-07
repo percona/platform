@@ -164,3 +164,30 @@ func (this *OrganizationEntitlement_Platform) Validate() error {
 	}
 	return nil
 }
+
+func (this *SearchOrganizationTicketsRequest) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	return nil
+}
+
+func (this *SearchOrganizationTicketsResponse) Validate() error {
+	for _, item := range this.Tickets {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Tickets", err)
+			}
+		}
+	}
+	return nil
+}
+
+func (this *OrganizationTicket) Validate() error {
+	if this.CreateTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", err)
+		}
+	}
+	return nil
+}
