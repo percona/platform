@@ -2234,6 +2234,7 @@ class SearchMembersRequest PROTOBUF_FINAL :
 
   enum : int {
     kIdFieldNumber = 1,
+    kUserFieldNumber = 2,
   };
   // string id = 1 [(.validator.field) = {
   void clear_id();
@@ -2251,6 +2252,24 @@ class SearchMembersRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_id();
   public:
 
+  // .percona.platform.org.v1.SearchMembersRequest.UserFilter user = 2;
+  bool has_user() const;
+  private:
+  bool _internal_has_user() const;
+  public:
+  void clear_user();
+  const ::percona::platform::org::v1::SearchMembersRequest_UserFilter& user() const;
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* release_user();
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* mutable_user();
+  void set_allocated_user(::percona::platform::org::v1::SearchMembersRequest_UserFilter* user);
+  private:
+  const ::percona::platform::org::v1::SearchMembersRequest_UserFilter& _internal_user() const;
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* _internal_mutable_user();
+  public:
+  void unsafe_arena_set_allocated_user(
+      ::percona::platform::org::v1::SearchMembersRequest_UserFilter* user);
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* unsafe_arena_release_user();
+
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchMembersRequest)
  private:
   class _Internal;
@@ -2259,6 +2278,7 @@ class SearchMembersRequest PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* user_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -3743,6 +3763,89 @@ inline void SearchMembersRequest::set_allocated_id(std::string* id) {
   id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchMembersRequest.id)
+}
+
+// .percona.platform.org.v1.SearchMembersRequest.UserFilter user = 2;
+inline bool SearchMembersRequest::_internal_has_user() const {
+  return this != internal_default_instance() && user_ != nullptr;
+}
+inline bool SearchMembersRequest::has_user() const {
+  return _internal_has_user();
+}
+inline void SearchMembersRequest::clear_user() {
+  if (GetArena() == nullptr && user_ != nullptr) {
+    delete user_;
+  }
+  user_ = nullptr;
+}
+inline const ::percona::platform::org::v1::SearchMembersRequest_UserFilter& SearchMembersRequest::_internal_user() const {
+  const ::percona::platform::org::v1::SearchMembersRequest_UserFilter* p = user_;
+  return p != nullptr ? *p : reinterpret_cast<const ::percona::platform::org::v1::SearchMembersRequest_UserFilter&>(
+      ::percona::platform::org::v1::_SearchMembersRequest_UserFilter_default_instance_);
+}
+inline const ::percona::platform::org::v1::SearchMembersRequest_UserFilter& SearchMembersRequest::user() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchMembersRequest.user)
+  return _internal_user();
+}
+inline void SearchMembersRequest::unsafe_arena_set_allocated_user(
+    ::percona::platform::org::v1::SearchMembersRequest_UserFilter* user) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(user_);
+  }
+  user_ = user;
+  if (user) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.SearchMembersRequest.user)
+}
+inline ::percona::platform::org::v1::SearchMembersRequest_UserFilter* SearchMembersRequest::release_user() {
+  
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* temp = user_;
+  user_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::percona::platform::org::v1::SearchMembersRequest_UserFilter* SearchMembersRequest::unsafe_arena_release_user() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchMembersRequest.user)
+  
+  ::percona::platform::org::v1::SearchMembersRequest_UserFilter* temp = user_;
+  user_ = nullptr;
+  return temp;
+}
+inline ::percona::platform::org::v1::SearchMembersRequest_UserFilter* SearchMembersRequest::_internal_mutable_user() {
+  
+  if (user_ == nullptr) {
+    auto* p = CreateMaybeMessage<::percona::platform::org::v1::SearchMembersRequest_UserFilter>(GetArena());
+    user_ = p;
+  }
+  return user_;
+}
+inline ::percona::platform::org::v1::SearchMembersRequest_UserFilter* SearchMembersRequest::mutable_user() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchMembersRequest.user)
+  return _internal_mutable_user();
+}
+inline void SearchMembersRequest::set_allocated_user(::percona::platform::org::v1::SearchMembersRequest_UserFilter* user) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete user_;
+  }
+  if (user) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(user);
+    if (message_arena != submessage_arena) {
+      user = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, user, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  user_ = user;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchMembersRequest.user)
 }
 
 // -------------------------------------------------------------------

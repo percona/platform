@@ -2240,7 +2240,8 @@ proto.percona.platform.org.v1.SearchMembersRequest.prototype.toObject = function
  */
 proto.percona.platform.org.v1.SearchMembersRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    user: (f = msg.getUser()) && proto.percona.platform.org.v1.SearchMembersRequest.UserFilter.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2281,6 +2282,11 @@ proto.percona.platform.org.v1.SearchMembersRequest.deserializeBinaryFromReader =
       var value = /** @type {string} */ (reader.readString());
       msg.setId(value);
       break;
+    case 2:
+      var value = new proto.percona.platform.org.v1.SearchMembersRequest.UserFilter;
+      reader.readMessage(value,proto.percona.platform.org.v1.SearchMembersRequest.UserFilter.deserializeBinaryFromReader);
+      msg.setUser(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -2315,6 +2321,14 @@ proto.percona.platform.org.v1.SearchMembersRequest.serializeBinaryToWriter = fun
     writer.writeString(
       1,
       f
+    );
+  }
+  f = message.getUser();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.percona.platform.org.v1.SearchMembersRequest.UserFilter.serializeBinaryToWriter
     );
   }
 };
@@ -2465,6 +2479,43 @@ proto.percona.platform.org.v1.SearchMembersRequest.prototype.getId = function() 
  */
 proto.percona.platform.org.v1.SearchMembersRequest.prototype.setId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional UserFilter user = 2;
+ * @return {?proto.percona.platform.org.v1.SearchMembersRequest.UserFilter}
+ */
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.getUser = function() {
+  return /** @type{?proto.percona.platform.org.v1.SearchMembersRequest.UserFilter} */ (
+    jspb.Message.getWrapperField(this, proto.percona.platform.org.v1.SearchMembersRequest.UserFilter, 2));
+};
+
+
+/**
+ * @param {?proto.percona.platform.org.v1.SearchMembersRequest.UserFilter|undefined} value
+ * @return {!proto.percona.platform.org.v1.SearchMembersRequest} returns this
+*/
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.setUser = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.percona.platform.org.v1.SearchMembersRequest} returns this
+ */
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.clearUser = function() {
+  return this.setUser(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.hasUser = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 

@@ -259,6 +259,11 @@ export class SearchMembersRequest extends jspb.Message {
   getId(): string;
   setId(value: string): SearchMembersRequest;
 
+  getUser(): SearchMembersRequest.UserFilter | undefined;
+  setUser(value?: SearchMembersRequest.UserFilter): SearchMembersRequest;
+  hasUser(): boolean;
+  clearUser(): SearchMembersRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchMembersRequest.AsObject;
   static toObject(includeInstance: boolean, msg: SearchMembersRequest): SearchMembersRequest.AsObject;
@@ -270,6 +275,7 @@ export class SearchMembersRequest extends jspb.Message {
 export namespace SearchMembersRequest {
   export type AsObject = {
     id: string,
+    user?: SearchMembersRequest.UserFilter.AsObject,
   }
 
   export class UserFilter extends jspb.Message {

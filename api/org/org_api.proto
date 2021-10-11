@@ -162,6 +162,8 @@ message SearchMembersRequest {
     // Organization member username.
     string username = 1;
   }
+
+  UserFilter user = 2;
 }
 
 message SearchMembersResponse {
