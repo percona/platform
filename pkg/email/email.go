@@ -10,11 +10,12 @@ import (
 
 // Client implements methods for interacting with AWS SES.
 type Client struct {
-	client *ses.SES
+	client      *ses.SES
+	senderEmail string
 }
 
 // New returns an instance of Client.
-func New(iamUserAcessKey, iamUserAccessSecret, region string) *Client {
+func New(iamUserAcessKey, iamUserAccessSecret, region, senderEmail string) *Client {
 	sess := session.Must(session.NewSession(&aws.Config{
 		MaxRetries:  aws.Int(3),
 		Credentials: credentials.NewStaticCredentials(iamUserAcessKey, iamUserAccessSecret, ""),
@@ -22,13 +23,13 @@ func New(iamUserAcessKey, iamUserAccessSecret, region string) *Client {
 	}))
 
 	return &Client{
-		client: ses.New(sess, &aws.Config{}),
+		client:      ses.New(sess, &aws.Config{}),
+		senderEmail: senderEmail,
 	}
 }
 
 // Params contains details about the email to be sent to the user.
 type Params struct {
-	From    string
 	To      string
 	Subject string
 	Body    string
@@ -50,7 +51,7 @@ func (c *Client) SendEmail(email Params) error {
 				Data: aws.String(email.Subject),
 			},
 		},
-		Source: aws.String(email.From),
+		Source: aws.String(c.senderEmail),
 	}
 	_, err := c.client.SendEmail(emailInput)
 	return err
