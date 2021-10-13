@@ -28,6 +28,10 @@ const (
 	// Note: Percona Account is handled by Okta so ID comes from Okta as well.
 	AuthUserIDHeader = "Auth-User-ID"
 
+	// AuthAppIDHeader Application ID in Okta.
+	// Note: Application is handled by Okta so ID comes from Okta as well.
+	AuthAppIDHeader = "Auth-App-ID"
+
 	// AuthSuperAdminHeader flag indicates that this particular user has SuperAdmin
 	// permissions in Percona Portal only.
 	AuthSuperAdminHeader = "Auth-Portal-Super-Admin"
@@ -178,6 +182,11 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) {
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUserIDHeader)
 	}
 
+	appID, err := getStringFromMetadata(md, AuthAppIDHeader)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthAppIDHeader)
+	}
+
 	isPortalSuperAdmin, err := getBoolFromMetadata(md, AuthSuperAdminHeader)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthSuperAdminHeader)
@@ -217,6 +226,7 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) {
 	return &rdata.RequestData{
 		Username:           username,
 		UserID:             userID,
+		AppID:              appID,
 		IsPortalSuperAdmin: isPortalSuperAdmin,
 		PortalOrgID:        portalOrgID,
 		AuthToken:          authToken,

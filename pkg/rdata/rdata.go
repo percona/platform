@@ -19,6 +19,10 @@ type RequestData struct {
 	// Note: Percona Account is handled by Okta so ID comes from Okta as well.
 	UserID string
 
+	// AppID Application ID in Okta.
+	// Note: Application is handled by Okta so ID comes from Okta as well.
+	AppID string
+
 	// IsPortalSuperAdmin flag indicates that this particular user has SuperAdmin
 	// permissions in Percona Portal only.
 	IsPortalSuperAdmin bool
