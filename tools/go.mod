@@ -13,10 +13,10 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/quasilyte/go-consistent v0.0.0-20200404105227-766526bf1e96
-	github.com/reviewdog/reviewdog v0.11.0
+	github.com/reviewdog/reviewdog v0.13.0
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
-	golang.org/x/tools v0.1.6
+	golang.org/x/tools v0.1.7
 	google.golang.org/grpc v1.41.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1

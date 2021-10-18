@@ -344,7 +344,7 @@ func TestGroups(t *testing.T) {
 		DeleteUser(t, user.ID)
 	})
 
-	name := gofakeit.UUID()
+	name := gofakeit.LastName() + ", " + gofakeit.LastName() + " and " + gofakeit.LastName()
 	description := "Test group"
 	group, err := s.CreateGroup(context.Background(), name, description)
 	t.Cleanup(func() {
@@ -367,6 +367,10 @@ func TestGroups(t *testing.T) {
 	exists, err := s.GroupExists(context.Background(), name)
 	require.NoError(t, err)
 	assert.True(t, exists)
+
+	exists, err = s.GroupExists(context.Background(), "non-existent-group")
+	require.NoError(t, err)
+	assert.False(t, exists)
 }
 
 func TestGetUserLogin(t *testing.T) {
