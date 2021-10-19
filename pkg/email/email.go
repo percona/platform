@@ -16,14 +16,15 @@ type Client struct {
 
 // New returns an instance of Client.
 func New(iamUserAcessKey, iamUserAccessSecret, region, senderEmail string) *Client {
-	sess := session.Must(session.NewSession(&aws.Config{
+	cfg := &aws.Config{
 		MaxRetries:  aws.Int(3),
 		Credentials: credentials.NewStaticCredentials(iamUserAcessKey, iamUserAccessSecret, ""),
 		Region:      aws.String(region),
-	}))
+	}
+	sess := session.Must(session.NewSession(cfg))
 
 	return &Client{
-		client:      ses.New(sess, &aws.Config{}),
+		client:      ses.New(sess, cfg),
 		senderEmail: senderEmail,
 	}
 }
