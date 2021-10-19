@@ -37,7 +37,7 @@ type Params struct {
 }
 
 // SendEmail sends an email using the provided params to the user using SES.
-func (c *Client) SendEmail(email Params) error {
+func (c *Client) SendEmail(email *Params) error {
 	emailInput := &ses.SendEmailInput{
 		Destination: &ses.Destination{
 			ToAddresses: []*string{aws.String(email.To)},
