@@ -214,15 +214,15 @@ func request_OrgAPI_SearchOrganizationEntitlements_0(ctx context.Context, marsha
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := client.SearchOrganizationEntitlements(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -240,15 +240,15 @@ func local_request_OrgAPI_SearchOrganizationEntitlements_0(ctx context.Context, 
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := server.SearchOrganizationEntitlements(ctx, &protoReq)
@@ -517,7 +517,7 @@ var (
 
 	pattern_OrgAPI_DeleteOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_SearchOrganizationEntitlements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "id", "entitlements"}, "search", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_SearchOrganizationEntitlements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "entitlements"}, "search", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

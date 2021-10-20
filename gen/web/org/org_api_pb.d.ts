@@ -183,8 +183,8 @@ export namespace DeleteOrganizationResponse {
 }
 
 export class SearchOrganizationEntitlementsRequest extends jspb.Message {
-  getId(): string;
-  setId(value: string): SearchOrganizationEntitlementsRequest;
+  getOrgId(): string;
+  setOrgId(value: string): SearchOrganizationEntitlementsRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchOrganizationEntitlementsRequest.AsObject;
@@ -196,7 +196,7 @@ export class SearchOrganizationEntitlementsRequest extends jspb.Message {
 
 export namespace SearchOrganizationEntitlementsRequest {
   export type AsObject = {
-    id: string,
+    orgId: string,
   }
 }
 

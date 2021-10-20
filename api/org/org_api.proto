@@ -44,7 +44,7 @@ service OrgAPI {
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs/{id}/entitlements:search"
+      post: "/v1/orgs/{org_id}/entitlements:search"
     };
   }
 }
@@ -105,7 +105,7 @@ message DeleteOrganizationResponse {}
 
 message SearchOrganizationEntitlementsRequest {
   // Percona Portal Organization ID.
-  string id = 1 [
+  string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }
