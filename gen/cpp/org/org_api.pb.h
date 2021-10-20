@@ -1560,22 +1560,22 @@ class SearchOrganizationEntitlementsRequest PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kOrgIdFieldNumber = 1,
   };
-  // string id = 1 [(.validator.field) = {
-  void clear_id();
-  const std::string& id() const;
-  void set_id(const std::string& value);
-  void set_id(std::string&& value);
-  void set_id(const char* value);
-  void set_id(const char* value, size_t size);
-  std::string* mutable_id();
-  std::string* release_id();
-  void set_allocated_id(std::string* id);
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
   private:
-  const std::string& _internal_id() const;
-  void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
   public:
 
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchOrganizationEntitlementsRequest)
@@ -1585,7 +1585,7 @@ class SearchOrganizationEntitlementsRequest PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -2960,65 +2960,65 @@ inline void DeleteOrganizationRequest::set_allocated_id(std::string* id) {
 
 // SearchOrganizationEntitlementsRequest
 
-// string id = 1 [(.validator.field) = {
-inline void SearchOrganizationEntitlementsRequest::clear_id() {
-  id_.ClearToEmpty();
+// string org_id = 1 [(.validator.field) = {
+inline void SearchOrganizationEntitlementsRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
 }
-inline const std::string& SearchOrganizationEntitlementsRequest::id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
-  return _internal_id();
+inline const std::string& SearchOrganizationEntitlementsRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
+  return _internal_org_id();
 }
-inline void SearchOrganizationEntitlementsRequest::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+inline void SearchOrganizationEntitlementsRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
 }
-inline std::string* SearchOrganizationEntitlementsRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
-  return _internal_mutable_id();
+inline std::string* SearchOrganizationEntitlementsRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
+  return _internal_mutable_org_id();
 }
-inline const std::string& SearchOrganizationEntitlementsRequest::_internal_id() const {
-  return id_.Get();
+inline const std::string& SearchOrganizationEntitlementsRequest::_internal_org_id() const {
+  return org_id_.Get();
 }
-inline void SearchOrganizationEntitlementsRequest::_internal_set_id(const std::string& value) {
+inline void SearchOrganizationEntitlementsRequest::_internal_set_org_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void SearchOrganizationEntitlementsRequest::set_id(std::string&& value) {
+inline void SearchOrganizationEntitlementsRequest::set_org_id(std::string&& value) {
   
-  id_.Set(
+  org_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
 }
-inline void SearchOrganizationEntitlementsRequest::set_id(const char* value) {
+inline void SearchOrganizationEntitlementsRequest::set_org_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
 }
-inline void SearchOrganizationEntitlementsRequest::set_id(const char* value,
+inline void SearchOrganizationEntitlementsRequest::set_org_id(const char* value,
     size_t size) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
 }
-inline std::string* SearchOrganizationEntitlementsRequest::_internal_mutable_id() {
+inline std::string* SearchOrganizationEntitlementsRequest::_internal_mutable_org_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* SearchOrganizationEntitlementsRequest::release_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* SearchOrganizationEntitlementsRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void SearchOrganizationEntitlementsRequest::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void SearchOrganizationEntitlementsRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchOrganizationEntitlementsRequest.org_id)
 }
 
 // -------------------------------------------------------------------

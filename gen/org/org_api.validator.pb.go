@@ -95,8 +95,8 @@ func (this *DeleteOrganizationResponse) Validate() error {
 }
 
 func (this *SearchOrganizationEntitlementsRequest) Validate() error {
-	if this.Id == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
