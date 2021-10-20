@@ -78,8 +78,8 @@ export namespace CreateOrganizationResponse {
 }
 
 export class GetOrganizationRequest extends jspb.Message {
-  getId(): string;
-  setId(value: string): GetOrganizationRequest;
+  getOrgId(): string;
+  setOrgId(value: string): GetOrganizationRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrganizationRequest.AsObject;
@@ -91,7 +91,7 @@ export class GetOrganizationRequest extends jspb.Message {
 
 export namespace GetOrganizationRequest {
   export type AsObject = {
-    id: string,
+    orgId: string,
   }
 }
 
@@ -150,8 +150,8 @@ export namespace SearchOrganizationsResponse {
 }
 
 export class DeleteOrganizationRequest extends jspb.Message {
-  getId(): string;
-  setId(value: string): DeleteOrganizationRequest;
+  getOrgId(): string;
+  setOrgId(value: string): DeleteOrganizationRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DeleteOrganizationRequest.AsObject;
@@ -163,7 +163,7 @@ export class DeleteOrganizationRequest extends jspb.Message {
 
 export namespace DeleteOrganizationRequest {
   export type AsObject = {
-    id: string,
+    orgId: string,
   }
 }
 
@@ -185,8 +185,8 @@ export class InviteMemberRequest extends jspb.Message {
   getUsername(): string;
   setUsername(value: string): InviteMemberRequest;
 
-  getId(): string;
-  setId(value: string): InviteMemberRequest;
+  getOrgId(): string;
+  setOrgId(value: string): InviteMemberRequest;
 
   getRole(): string;
   setRole(value: string): InviteMemberRequest;
@@ -202,7 +202,7 @@ export class InviteMemberRequest extends jspb.Message {
 export namespace InviteMemberRequest {
   export type AsObject = {
     username: string,
-    id: string,
+    orgId: string,
     role: string,
   }
 }
@@ -222,6 +222,9 @@ export namespace InviteMemberResponse {
 }
 
 export class OrganizationMember extends jspb.Message {
+  getMemberId(): string;
+  setMemberId(value: string): OrganizationMember;
+
   getUsername(): string;
   setUsername(value: string): OrganizationMember;
 
@@ -247,6 +250,7 @@ export class OrganizationMember extends jspb.Message {
 
 export namespace OrganizationMember {
   export type AsObject = {
+    memberId: string,
     username: string,
     firstName: string,
     lastName: string,
@@ -256,8 +260,8 @@ export namespace OrganizationMember {
 }
 
 export class SearchMembersRequest extends jspb.Message {
-  getId(): string;
-  setId(value: string): SearchMembersRequest;
+  getOrgId(): string;
+  setOrgId(value: string): SearchMembersRequest;
 
   getUser(): SearchMembersRequest.UserFilter | undefined;
   setUser(value?: SearchMembersRequest.UserFilter): SearchMembersRequest;
@@ -274,7 +278,7 @@ export class SearchMembersRequest extends jspb.Message {
 
 export namespace SearchMembersRequest {
   export type AsObject = {
-    id: string,
+    orgId: string,
     user?: SearchMembersRequest.UserFilter.AsObject,
   }
 

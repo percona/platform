@@ -21,7 +21,7 @@ service OrgAPI {
   // GetOrganization fetches organization details by ID.
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {
-      get: "/v1/orgs/{id}"
+      get: "/v1/orgs/{org_id}"
     };
   }
 
@@ -36,14 +36,14 @@ service OrgAPI {
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
-      delete: "/v1/orgs/{id}"
+      delete: "/v1/orgs/{org_id}"
     };
   }
 
   // InviteMember invites users to a Percona Portal Organization.
   rpc InviteMember(InviteMemberRequest) returns (InviteMemberResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs/{id}/members"
+      post: "/v1/orgs/{org_id}/members"
       body: "*"
     };
   }
@@ -51,7 +51,7 @@ service OrgAPI {
   // SearchMembers lists members of a Percona Portal Organization.
   rpc SearchMembers(SearchMembersRequest) returns (SearchMembersResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs/{id}/members:search"
+      post: "/v1/orgs/{org_id}/members:search"
       body: "*"
     };
   }
@@ -83,7 +83,7 @@ message CreateOrganizationResponse {
 
 message GetOrganizationRequest {
   // Percona Portal Organization ID.
-  string id = 1 [
+  string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }
@@ -102,7 +102,7 @@ message SearchOrganizationsResponse {
 
 message DeleteOrganizationRequest {
   // Percona Portal Organization ID.
-  string id = 1 [
+  string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }
@@ -120,7 +120,7 @@ message InviteMemberRequest {
   ];
 
   // Percona Portal Organization ID to which to invite the user to.
-  string id = 2 [
+  string org_id = 2 [
     (validator.field) = {
       string_not_empty: true
     }
@@ -133,25 +133,28 @@ message InviteMemberRequest {
 message InviteMemberResponse {}
 
 message OrganizationMember {
+  // Percona Portal member UUID.
+  string member_id = 1;
+
   // Percona Portal username of the organization member.
-  string username = 1;
+  string username = 2;
 
   // First name of the organization member.
-  string first_name = 2;
+  string first_name = 3;
 
   // Last name of the organization member.
-  string last_name = 3;
+  string last_name = 4;
 
   // Percona Portal Organization Role of the member.
-  string role = 4;
+  string role = 5;
 
   // Okta Account Status of the organization member.
-  string status = 5;
+  string status = 6;
 }
 
 message SearchMembersRequest {
   // Percona Portal Organization ID.
-  string id = 1 [
+  string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }

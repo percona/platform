@@ -739,22 +739,22 @@ class GetOrganizationRequest PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kOrgIdFieldNumber = 1,
   };
-  // string id = 1 [(.validator.field) = {
-  void clear_id();
-  const std::string& id() const;
-  void set_id(const std::string& value);
-  void set_id(std::string&& value);
-  void set_id(const char* value);
-  void set_id(const char* value, size_t size);
-  std::string* mutable_id();
-  std::string* release_id();
-  void set_allocated_id(std::string* id);
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
   private:
-  const std::string& _internal_id() const;
-  void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
   public:
 
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.GetOrganizationRequest)
@@ -764,7 +764,7 @@ class GetOrganizationRequest PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -1299,22 +1299,22 @@ class DeleteOrganizationRequest PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kOrgIdFieldNumber = 1,
   };
-  // string id = 1 [(.validator.field) = {
-  void clear_id();
-  const std::string& id() const;
-  void set_id(const std::string& value);
-  void set_id(std::string&& value);
-  void set_id(const char* value);
-  void set_id(const char* value, size_t size);
-  std::string* mutable_id();
-  std::string* release_id();
-  void set_allocated_id(std::string* id);
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
   private:
-  const std::string& _internal_id() const;
-  void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
   public:
 
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.DeleteOrganizationRequest)
@@ -1324,7 +1324,7 @@ class DeleteOrganizationRequest PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -1568,7 +1568,7 @@ class InviteMemberRequest PROTOBUF_FINAL :
 
   enum : int {
     kUsernameFieldNumber = 1,
-    kIdFieldNumber = 2,
+    kOrgIdFieldNumber = 2,
     kRoleFieldNumber = 3,
   };
   // string username = 1 [(.validator.field) = {
@@ -1587,20 +1587,20 @@ class InviteMemberRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_username();
   public:
 
-  // string id = 2 [(.validator.field) = {
-  void clear_id();
-  const std::string& id() const;
-  void set_id(const std::string& value);
-  void set_id(std::string&& value);
-  void set_id(const char* value);
-  void set_id(const char* value, size_t size);
-  std::string* mutable_id();
-  std::string* release_id();
-  void set_allocated_id(std::string* id);
+  // string org_id = 2 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
   private:
-  const std::string& _internal_id() const;
-  void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
   public:
 
   // string role = 3;
@@ -1627,7 +1627,7 @@ class InviteMemberRequest PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr role_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
@@ -1871,13 +1871,30 @@ class OrganizationMember PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUsernameFieldNumber = 1,
-    kFirstNameFieldNumber = 2,
-    kLastNameFieldNumber = 3,
-    kRoleFieldNumber = 4,
-    kStatusFieldNumber = 5,
+    kMemberIdFieldNumber = 1,
+    kUsernameFieldNumber = 2,
+    kFirstNameFieldNumber = 3,
+    kLastNameFieldNumber = 4,
+    kRoleFieldNumber = 5,
+    kStatusFieldNumber = 6,
   };
-  // string username = 1;
+  // string member_id = 1;
+  void clear_member_id();
+  const std::string& member_id() const;
+  void set_member_id(const std::string& value);
+  void set_member_id(std::string&& value);
+  void set_member_id(const char* value);
+  void set_member_id(const char* value, size_t size);
+  std::string* mutable_member_id();
+  std::string* release_member_id();
+  void set_allocated_member_id(std::string* member_id);
+  private:
+  const std::string& _internal_member_id() const;
+  void _internal_set_member_id(const std::string& value);
+  std::string* _internal_mutable_member_id();
+  public:
+
+  // string username = 2;
   void clear_username();
   const std::string& username() const;
   void set_username(const std::string& value);
@@ -1893,7 +1910,7 @@ class OrganizationMember PROTOBUF_FINAL :
   std::string* _internal_mutable_username();
   public:
 
-  // string first_name = 2;
+  // string first_name = 3;
   void clear_first_name();
   const std::string& first_name() const;
   void set_first_name(const std::string& value);
@@ -1909,7 +1926,7 @@ class OrganizationMember PROTOBUF_FINAL :
   std::string* _internal_mutable_first_name();
   public:
 
-  // string last_name = 3;
+  // string last_name = 4;
   void clear_last_name();
   const std::string& last_name() const;
   void set_last_name(const std::string& value);
@@ -1925,7 +1942,7 @@ class OrganizationMember PROTOBUF_FINAL :
   std::string* _internal_mutable_last_name();
   public:
 
-  // string role = 4;
+  // string role = 5;
   void clear_role();
   const std::string& role() const;
   void set_role(const std::string& value);
@@ -1941,7 +1958,7 @@ class OrganizationMember PROTOBUF_FINAL :
   std::string* _internal_mutable_role();
   public:
 
-  // string status = 5;
+  // string status = 6;
   void clear_status();
   const std::string& status() const;
   void set_status(const std::string& value);
@@ -1964,6 +1981,7 @@ class OrganizationMember PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr member_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr first_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_name_;
@@ -2233,23 +2251,23 @@ class SearchMembersRequest PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kOrgIdFieldNumber = 1,
     kUserFieldNumber = 2,
   };
-  // string id = 1 [(.validator.field) = {
-  void clear_id();
-  const std::string& id() const;
-  void set_id(const std::string& value);
-  void set_id(std::string&& value);
-  void set_id(const char* value);
-  void set_id(const char* value, size_t size);
-  std::string* mutable_id();
-  std::string* release_id();
-  void set_allocated_id(std::string* id);
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
   private:
-  const std::string& _internal_id() const;
-  void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
   public:
 
   // .percona.platform.org.v1.SearchMembersRequest.UserFilter user = 2;
@@ -2277,7 +2295,7 @@ class SearchMembersRequest PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   ::percona::platform::org::v1::SearchMembersRequest_UserFilter* user_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
@@ -2871,65 +2889,65 @@ inline void CreateOrganizationResponse::set_allocated_org(::percona::platform::o
 
 // GetOrganizationRequest
 
-// string id = 1 [(.validator.field) = {
-inline void GetOrganizationRequest::clear_id() {
-  id_.ClearToEmpty();
+// string org_id = 1 [(.validator.field) = {
+inline void GetOrganizationRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
 }
-inline const std::string& GetOrganizationRequest::id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.GetOrganizationRequest.id)
-  return _internal_id();
+inline const std::string& GetOrganizationRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.GetOrganizationRequest.org_id)
+  return _internal_org_id();
 }
-inline void GetOrganizationRequest::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.GetOrganizationRequest.id)
+inline void GetOrganizationRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.GetOrganizationRequest.org_id)
 }
-inline std::string* GetOrganizationRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.GetOrganizationRequest.id)
-  return _internal_mutable_id();
+inline std::string* GetOrganizationRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.GetOrganizationRequest.org_id)
+  return _internal_mutable_org_id();
 }
-inline const std::string& GetOrganizationRequest::_internal_id() const {
-  return id_.Get();
+inline const std::string& GetOrganizationRequest::_internal_org_id() const {
+  return org_id_.Get();
 }
-inline void GetOrganizationRequest::_internal_set_id(const std::string& value) {
+inline void GetOrganizationRequest::_internal_set_org_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void GetOrganizationRequest::set_id(std::string&& value) {
+inline void GetOrganizationRequest::set_org_id(std::string&& value) {
   
-  id_.Set(
+  org_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.GetOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.GetOrganizationRequest.org_id)
 }
-inline void GetOrganizationRequest::set_id(const char* value) {
+inline void GetOrganizationRequest::set_org_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.GetOrganizationRequest.id)
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.GetOrganizationRequest.org_id)
 }
-inline void GetOrganizationRequest::set_id(const char* value,
+inline void GetOrganizationRequest::set_org_id(const char* value,
     size_t size) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.GetOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.GetOrganizationRequest.org_id)
 }
-inline std::string* GetOrganizationRequest::_internal_mutable_id() {
+inline std::string* GetOrganizationRequest::_internal_mutable_org_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* GetOrganizationRequest::release_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.GetOrganizationRequest.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* GetOrganizationRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.GetOrganizationRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void GetOrganizationRequest::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void GetOrganizationRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.GetOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.GetOrganizationRequest.org_id)
 }
 
 // -------------------------------------------------------------------
@@ -3070,65 +3088,65 @@ SearchOrganizationsResponse::orgs() const {
 
 // DeleteOrganizationRequest
 
-// string id = 1 [(.validator.field) = {
-inline void DeleteOrganizationRequest::clear_id() {
-  id_.ClearToEmpty();
+// string org_id = 1 [(.validator.field) = {
+inline void DeleteOrganizationRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
 }
-inline const std::string& DeleteOrganizationRequest::id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteOrganizationRequest.id)
-  return _internal_id();
+inline const std::string& DeleteOrganizationRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
+  return _internal_org_id();
 }
-inline void DeleteOrganizationRequest::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteOrganizationRequest.id)
+inline void DeleteOrganizationRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
 }
-inline std::string* DeleteOrganizationRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteOrganizationRequest.id)
-  return _internal_mutable_id();
+inline std::string* DeleteOrganizationRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
+  return _internal_mutable_org_id();
 }
-inline const std::string& DeleteOrganizationRequest::_internal_id() const {
-  return id_.Get();
+inline const std::string& DeleteOrganizationRequest::_internal_org_id() const {
+  return org_id_.Get();
 }
-inline void DeleteOrganizationRequest::_internal_set_id(const std::string& value) {
+inline void DeleteOrganizationRequest::_internal_set_org_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void DeleteOrganizationRequest::set_id(std::string&& value) {
+inline void DeleteOrganizationRequest::set_org_id(std::string&& value) {
   
-  id_.Set(
+  org_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
 }
-inline void DeleteOrganizationRequest::set_id(const char* value) {
+inline void DeleteOrganizationRequest::set_org_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteOrganizationRequest.id)
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
 }
-inline void DeleteOrganizationRequest::set_id(const char* value,
+inline void DeleteOrganizationRequest::set_org_id(const char* value,
     size_t size) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
 }
-inline std::string* DeleteOrganizationRequest::_internal_mutable_id() {
+inline std::string* DeleteOrganizationRequest::_internal_mutable_org_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* DeleteOrganizationRequest::release_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteOrganizationRequest.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* DeleteOrganizationRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void DeleteOrganizationRequest::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void DeleteOrganizationRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteOrganizationRequest.id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteOrganizationRequest.org_id)
 }
 
 // -------------------------------------------------------------------
@@ -3200,65 +3218,65 @@ inline void InviteMemberRequest::set_allocated_username(std::string* username) {
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.InviteMemberRequest.username)
 }
 
-// string id = 2 [(.validator.field) = {
-inline void InviteMemberRequest::clear_id() {
-  id_.ClearToEmpty();
+// string org_id = 2 [(.validator.field) = {
+inline void InviteMemberRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
 }
-inline const std::string& InviteMemberRequest::id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.InviteMemberRequest.id)
-  return _internal_id();
+inline const std::string& InviteMemberRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.InviteMemberRequest.org_id)
+  return _internal_org_id();
 }
-inline void InviteMemberRequest::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.InviteMemberRequest.id)
+inline void InviteMemberRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.InviteMemberRequest.org_id)
 }
-inline std::string* InviteMemberRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.InviteMemberRequest.id)
-  return _internal_mutable_id();
+inline std::string* InviteMemberRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.InviteMemberRequest.org_id)
+  return _internal_mutable_org_id();
 }
-inline const std::string& InviteMemberRequest::_internal_id() const {
-  return id_.Get();
+inline const std::string& InviteMemberRequest::_internal_org_id() const {
+  return org_id_.Get();
 }
-inline void InviteMemberRequest::_internal_set_id(const std::string& value) {
+inline void InviteMemberRequest::_internal_set_org_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void InviteMemberRequest::set_id(std::string&& value) {
+inline void InviteMemberRequest::set_org_id(std::string&& value) {
   
-  id_.Set(
+  org_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.InviteMemberRequest.id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.InviteMemberRequest.org_id)
 }
-inline void InviteMemberRequest::set_id(const char* value) {
+inline void InviteMemberRequest::set_org_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.InviteMemberRequest.id)
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.InviteMemberRequest.org_id)
 }
-inline void InviteMemberRequest::set_id(const char* value,
+inline void InviteMemberRequest::set_org_id(const char* value,
     size_t size) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.InviteMemberRequest.id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.InviteMemberRequest.org_id)
 }
-inline std::string* InviteMemberRequest::_internal_mutable_id() {
+inline std::string* InviteMemberRequest::_internal_mutable_org_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* InviteMemberRequest::release_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.InviteMemberRequest.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* InviteMemberRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.InviteMemberRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void InviteMemberRequest::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void InviteMemberRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.InviteMemberRequest.id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.InviteMemberRequest.org_id)
 }
 
 // string role = 3;
@@ -3330,7 +3348,68 @@ inline void InviteMemberRequest::set_allocated_role(std::string* role) {
 
 // OrganizationMember
 
-// string username = 1;
+// string member_id = 1;
+inline void OrganizationMember::clear_member_id() {
+  member_id_.ClearToEmpty();
+}
+inline const std::string& OrganizationMember::member_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationMember.member_id)
+  return _internal_member_id();
+}
+inline void OrganizationMember::set_member_id(const std::string& value) {
+  _internal_set_member_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationMember.member_id)
+}
+inline std::string* OrganizationMember::mutable_member_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationMember.member_id)
+  return _internal_mutable_member_id();
+}
+inline const std::string& OrganizationMember::_internal_member_id() const {
+  return member_id_.Get();
+}
+inline void OrganizationMember::_internal_set_member_id(const std::string& value) {
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationMember::set_member_id(std::string&& value) {
+  
+  member_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationMember.member_id)
+}
+inline void OrganizationMember::set_member_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationMember.member_id)
+}
+inline void OrganizationMember::set_member_id(const char* value,
+    size_t size) {
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationMember.member_id)
+}
+inline std::string* OrganizationMember::_internal_mutable_member_id() {
+  
+  return member_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationMember::release_member_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationMember.member_id)
+  return member_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationMember::set_allocated_member_id(std::string* member_id) {
+  if (member_id != nullptr) {
+    
+  } else {
+    
+  }
+  member_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), member_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationMember.member_id)
+}
+
+// string username = 2;
 inline void OrganizationMember::clear_username() {
   username_.ClearToEmpty();
 }
@@ -3391,7 +3470,7 @@ inline void OrganizationMember::set_allocated_username(std::string* username) {
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationMember.username)
 }
 
-// string first_name = 2;
+// string first_name = 3;
 inline void OrganizationMember::clear_first_name() {
   first_name_.ClearToEmpty();
 }
@@ -3452,7 +3531,7 @@ inline void OrganizationMember::set_allocated_first_name(std::string* first_name
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationMember.first_name)
 }
 
-// string last_name = 3;
+// string last_name = 4;
 inline void OrganizationMember::clear_last_name() {
   last_name_.ClearToEmpty();
 }
@@ -3513,7 +3592,7 @@ inline void OrganizationMember::set_allocated_last_name(std::string* last_name) 
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationMember.last_name)
 }
 
-// string role = 4;
+// string role = 5;
 inline void OrganizationMember::clear_role() {
   role_.ClearToEmpty();
 }
@@ -3574,7 +3653,7 @@ inline void OrganizationMember::set_allocated_role(std::string* role) {
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationMember.role)
 }
 
-// string status = 5;
+// string status = 6;
 inline void OrganizationMember::clear_status() {
   status_.ClearToEmpty();
 }
@@ -3704,65 +3783,65 @@ inline void SearchMembersRequest_UserFilter::set_allocated_username(std::string*
 
 // SearchMembersRequest
 
-// string id = 1 [(.validator.field) = {
-inline void SearchMembersRequest::clear_id() {
-  id_.ClearToEmpty();
+// string org_id = 1 [(.validator.field) = {
+inline void SearchMembersRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
 }
-inline const std::string& SearchMembersRequest::id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchMembersRequest.id)
-  return _internal_id();
+inline const std::string& SearchMembersRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchMembersRequest.org_id)
+  return _internal_org_id();
 }
-inline void SearchMembersRequest::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchMembersRequest.id)
+inline void SearchMembersRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchMembersRequest.org_id)
 }
-inline std::string* SearchMembersRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchMembersRequest.id)
-  return _internal_mutable_id();
+inline std::string* SearchMembersRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchMembersRequest.org_id)
+  return _internal_mutable_org_id();
 }
-inline const std::string& SearchMembersRequest::_internal_id() const {
-  return id_.Get();
+inline const std::string& SearchMembersRequest::_internal_org_id() const {
+  return org_id_.Get();
 }
-inline void SearchMembersRequest::_internal_set_id(const std::string& value) {
+inline void SearchMembersRequest::_internal_set_org_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void SearchMembersRequest::set_id(std::string&& value) {
+inline void SearchMembersRequest::set_org_id(std::string&& value) {
   
-  id_.Set(
+  org_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchMembersRequest.id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchMembersRequest.org_id)
 }
-inline void SearchMembersRequest::set_id(const char* value) {
+inline void SearchMembersRequest::set_org_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchMembersRequest.id)
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchMembersRequest.org_id)
 }
-inline void SearchMembersRequest::set_id(const char* value,
+inline void SearchMembersRequest::set_org_id(const char* value,
     size_t size) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchMembersRequest.id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchMembersRequest.org_id)
 }
-inline std::string* SearchMembersRequest::_internal_mutable_id() {
+inline std::string* SearchMembersRequest::_internal_mutable_org_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* SearchMembersRequest::release_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchMembersRequest.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* SearchMembersRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchMembersRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void SearchMembersRequest::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void SearchMembersRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchMembersRequest.id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchMembersRequest.org_id)
 }
 
 // .percona.platform.org.v1.SearchMembersRequest.UserFilter user = 2;

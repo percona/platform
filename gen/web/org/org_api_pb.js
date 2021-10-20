@@ -926,7 +926,7 @@ proto.percona.platform.org.v1.GetOrganizationRequest.prototype.toObject = functi
  */
 proto.percona.platform.org.v1.GetOrganizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    orgId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -965,7 +965,7 @@ proto.percona.platform.org.v1.GetOrganizationRequest.deserializeBinaryFromReader
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setOrgId(value);
       break;
     default:
       reader.skipField();
@@ -996,7 +996,7 @@ proto.percona.platform.org.v1.GetOrganizationRequest.prototype.serializeBinary =
  */
 proto.percona.platform.org.v1.GetOrganizationRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getOrgId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -1007,10 +1007,10 @@ proto.percona.platform.org.v1.GetOrganizationRequest.serializeBinaryToWriter = f
 
 
 /**
- * optional string id = 1;
+ * optional string org_id = 1;
  * @return {string}
  */
-proto.percona.platform.org.v1.GetOrganizationRequest.prototype.getId = function() {
+proto.percona.platform.org.v1.GetOrganizationRequest.prototype.getOrgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -1019,7 +1019,7 @@ proto.percona.platform.org.v1.GetOrganizationRequest.prototype.getId = function(
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.GetOrganizationRequest} returns this
  */
-proto.percona.platform.org.v1.GetOrganizationRequest.prototype.setId = function(value) {
+proto.percona.platform.org.v1.GetOrganizationRequest.prototype.setOrgId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
@@ -1468,7 +1468,7 @@ proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.toObject = fun
  */
 proto.percona.platform.org.v1.DeleteOrganizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    orgId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1507,7 +1507,7 @@ proto.percona.platform.org.v1.DeleteOrganizationRequest.deserializeBinaryFromRea
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setOrgId(value);
       break;
     default:
       reader.skipField();
@@ -1538,7 +1538,7 @@ proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.serializeBinar
  */
 proto.percona.platform.org.v1.DeleteOrganizationRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getOrgId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -1549,10 +1549,10 @@ proto.percona.platform.org.v1.DeleteOrganizationRequest.serializeBinaryToWriter 
 
 
 /**
- * optional string id = 1;
+ * optional string org_id = 1;
  * @return {string}
  */
-proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.getId = function() {
+proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.getOrgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -1561,7 +1561,7 @@ proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.getId = functi
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.DeleteOrganizationRequest} returns this
  */
-proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.setId = function(value) {
+proto.percona.platform.org.v1.DeleteOrganizationRequest.prototype.setOrgId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
@@ -1700,7 +1700,7 @@ proto.percona.platform.org.v1.InviteMemberRequest.prototype.toObject = function(
 proto.percona.platform.org.v1.InviteMemberRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     username: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    id: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    orgId: jspb.Message.getFieldWithDefault(msg, 2, ""),
     role: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
@@ -1744,7 +1744,7 @@ proto.percona.platform.org.v1.InviteMemberRequest.deserializeBinaryFromReader = 
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setOrgId(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -1786,7 +1786,7 @@ proto.percona.platform.org.v1.InviteMemberRequest.serializeBinaryToWriter = func
       f
     );
   }
-  f = message.getId();
+  f = message.getOrgId();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -1822,10 +1822,10 @@ proto.percona.platform.org.v1.InviteMemberRequest.prototype.setUsername = functi
 
 
 /**
- * optional string id = 2;
+ * optional string org_id = 2;
  * @return {string}
  */
-proto.percona.platform.org.v1.InviteMemberRequest.prototype.getId = function() {
+proto.percona.platform.org.v1.InviteMemberRequest.prototype.getOrgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -1834,7 +1834,7 @@ proto.percona.platform.org.v1.InviteMemberRequest.prototype.getId = function() {
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.InviteMemberRequest} returns this
  */
-proto.percona.platform.org.v1.InviteMemberRequest.prototype.setId = function(value) {
+proto.percona.platform.org.v1.InviteMemberRequest.prototype.setOrgId = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
@@ -1990,11 +1990,12 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.toObject = function(o
  */
 proto.percona.platform.org.v1.OrganizationMember.toObject = function(includeInstance, msg) {
   var f, obj = {
-    username: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    role: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    status: jspb.Message.getFieldWithDefault(msg, 5, "")
+    memberId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    username: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    firstName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    lastName: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    role: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -2033,21 +2034,25 @@ proto.percona.platform.org.v1.OrganizationMember.deserializeBinaryFromReader = f
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUsername(value);
+      msg.setMemberId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setFirstName(value);
+      msg.setUsername(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLastName(value);
+      msg.setFirstName(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setRole(value);
+      msg.setLastName(value);
       break;
     case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRole(value);
+      break;
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setStatus(value);
       break;
@@ -2080,38 +2085,45 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.serializeBinary = fun
  */
 proto.percona.platform.org.v1.OrganizationMember.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUsername();
+  f = message.getMemberId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getFirstName();
+  f = message.getUsername();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getLastName();
+  f = message.getFirstName();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getRole();
+  f = message.getLastName();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = message.getStatus();
+  f = message.getRole();
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = message.getStatus();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
       f
     );
   }
@@ -2119,10 +2131,10 @@ proto.percona.platform.org.v1.OrganizationMember.serializeBinaryToWriter = funct
 
 
 /**
- * optional string username = 1;
+ * optional string member_id = 1;
  * @return {string}
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.getUsername = function() {
+proto.percona.platform.org.v1.OrganizationMember.prototype.getMemberId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -2131,16 +2143,16 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.getUsername = functio
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.setUsername = function(value) {
+proto.percona.platform.org.v1.OrganizationMember.prototype.setMemberId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string first_name = 2;
+ * optional string username = 2;
  * @return {string}
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.getFirstName = function() {
+proto.percona.platform.org.v1.OrganizationMember.prototype.getUsername = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -2149,16 +2161,16 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.getFirstName = functi
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.setFirstName = function(value) {
+proto.percona.platform.org.v1.OrganizationMember.prototype.setUsername = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string last_name = 3;
+ * optional string first_name = 3;
  * @return {string}
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.getLastName = function() {
+proto.percona.platform.org.v1.OrganizationMember.prototype.getFirstName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -2167,16 +2179,16 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.getLastName = functio
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.setLastName = function(value) {
+proto.percona.platform.org.v1.OrganizationMember.prototype.setFirstName = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string role = 4;
+ * optional string last_name = 4;
  * @return {string}
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.getRole = function() {
+proto.percona.platform.org.v1.OrganizationMember.prototype.getLastName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -2185,16 +2197,16 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.getRole = function() 
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.setRole = function(value) {
+proto.percona.platform.org.v1.OrganizationMember.prototype.setLastName = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional string status = 5;
+ * optional string role = 5;
  * @return {string}
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.getStatus = function() {
+proto.percona.platform.org.v1.OrganizationMember.prototype.getRole = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
@@ -2203,8 +2215,26 @@ proto.percona.platform.org.v1.OrganizationMember.prototype.getStatus = function(
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
  */
-proto.percona.platform.org.v1.OrganizationMember.prototype.setStatus = function(value) {
+proto.percona.platform.org.v1.OrganizationMember.prototype.setRole = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional string status = 6;
+ * @return {string}
+ */
+proto.percona.platform.org.v1.OrganizationMember.prototype.getStatus = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.org.v1.OrganizationMember} returns this
+ */
+proto.percona.platform.org.v1.OrganizationMember.prototype.setStatus = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
 };
 
 
@@ -2240,7 +2270,7 @@ proto.percona.platform.org.v1.SearchMembersRequest.prototype.toObject = function
  */
 proto.percona.platform.org.v1.SearchMembersRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    orgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     user: (f = msg.getUser()) && proto.percona.platform.org.v1.SearchMembersRequest.UserFilter.toObject(includeInstance, f)
   };
 
@@ -2280,7 +2310,7 @@ proto.percona.platform.org.v1.SearchMembersRequest.deserializeBinaryFromReader =
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setOrgId(value);
       break;
     case 2:
       var value = new proto.percona.platform.org.v1.SearchMembersRequest.UserFilter;
@@ -2316,7 +2346,7 @@ proto.percona.platform.org.v1.SearchMembersRequest.prototype.serializeBinary = f
  */
 proto.percona.platform.org.v1.SearchMembersRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getOrgId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -2465,10 +2495,10 @@ proto.percona.platform.org.v1.SearchMembersRequest.UserFilter.prototype.setUsern
 
 
 /**
- * optional string id = 1;
+ * optional string org_id = 1;
  * @return {string}
  */
-proto.percona.platform.org.v1.SearchMembersRequest.prototype.getId = function() {
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.getOrgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -2477,7 +2507,7 @@ proto.percona.platform.org.v1.SearchMembersRequest.prototype.getId = function() 
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.SearchMembersRequest} returns this
  */
-proto.percona.platform.org.v1.SearchMembersRequest.prototype.setId = function(value) {
+proto.percona.platform.org.v1.SearchMembersRequest.prototype.setOrgId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

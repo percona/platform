@@ -52,8 +52,8 @@ func (this *CreateOrganizationResponse) Validate() error {
 }
 
 func (this *GetOrganizationRequest) Validate() error {
-	if this.Id == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
@@ -83,8 +83,8 @@ func (this *SearchOrganizationsResponse) Validate() error {
 }
 
 func (this *DeleteOrganizationRequest) Validate() error {
-	if this.Id == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
@@ -97,8 +97,8 @@ func (this *InviteMemberRequest) Validate() error {
 	if this.Username == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
 	}
-	if this.Id == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
@@ -112,8 +112,8 @@ func (this *OrganizationMember) Validate() error {
 }
 
 func (this *SearchMembersRequest) Validate() error {
-	if this.Id == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	if this.User != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.User); err != nil {

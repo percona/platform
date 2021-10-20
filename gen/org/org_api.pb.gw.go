@@ -78,15 +78,15 @@ func request_OrgAPI_GetOrganization_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := client.GetOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -104,15 +104,15 @@ func local_request_OrgAPI_GetOrganization_0(ctx context.Context, marshaler runti
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := server.GetOrganization(ctx, &protoReq)
@@ -162,15 +162,15 @@ func request_OrgAPI_DeleteOrganization_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := client.DeleteOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -188,15 +188,15 @@ func local_request_OrgAPI_DeleteOrganization_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := server.DeleteOrganization(ctx, &protoReq)
@@ -222,15 +222,15 @@ func request_OrgAPI_InviteMember_0(ctx context.Context, marshaler runtime.Marsha
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := client.InviteMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -256,15 +256,15 @@ func local_request_OrgAPI_InviteMember_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := server.InviteMember(ctx, &protoReq)
@@ -290,15 +290,15 @@ func request_OrgAPI_SearchMembers_0(ctx context.Context, marshaler runtime.Marsh
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := client.SearchMembers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -324,15 +324,15 @@ func local_request_OrgAPI_SearchMembers_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["id"]
+	val, ok = pathParams["org_id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.OrgId, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
 
 	msg, err := server.SearchMembers(ctx, &protoReq)
@@ -636,15 +636,15 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 var (
 	pattern_OrgAPI_CreateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_OrgAPI_SearchOrganizations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, "search", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_DeleteOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_DeleteOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_InviteMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "id", "members"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_InviteMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_SearchMembers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "id", "members"}, "search", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_SearchMembers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "search", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
