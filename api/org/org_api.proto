@@ -51,7 +51,7 @@ service OrgAPI {
   // SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
   rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
     option (google.api.http) = {
-      post: "/v1/orgs/{id}/tickets:search"
+      post: "/v1/orgs/{org_id}/tickets:search"
     };
   }
 }
@@ -159,7 +159,7 @@ message OrganizationEntitlement {
 
 message SearchOrganizationTicketsRequest {
   // Percona Portal Organization ID.
-  string id = 1 [
+  string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }

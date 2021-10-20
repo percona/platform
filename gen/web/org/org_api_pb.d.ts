@@ -322,8 +322,8 @@ export namespace OrganizationEntitlement {
 }
 
 export class SearchOrganizationTicketsRequest extends jspb.Message {
-  getId(): string;
-  setId(value: string): SearchOrganizationTicketsRequest;
+  getOrgId(): string;
+  setOrgId(value: string): SearchOrganizationTicketsRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchOrganizationTicketsRequest.AsObject;
@@ -335,7 +335,7 @@ export class SearchOrganizationTicketsRequest extends jspb.Message {
 
 export namespace SearchOrganizationTicketsRequest {
   export type AsObject = {
-    id: string,
+    orgId: string,
   }
 }
 

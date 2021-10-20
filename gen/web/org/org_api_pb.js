@@ -2818,7 +2818,7 @@ proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.toObjec
  */
 proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    orgId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -2857,7 +2857,7 @@ proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.deserializeBinary
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setOrgId(value);
       break;
     default:
       reader.skipField();
@@ -2888,7 +2888,7 @@ proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.seriali
  */
 proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getOrgId();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -2899,10 +2899,10 @@ proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.serializeBinaryTo
 
 
 /**
- * optional string id = 1;
+ * optional string org_id = 1;
  * @return {string}
  */
-proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.getId = function() {
+proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.getOrgId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -2911,7 +2911,7 @@ proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.getId =
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.SearchOrganizationTicketsRequest} returns this
  */
-proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.setId = function(value) {
+proto.percona.platform.org.v1.SearchOrganizationTicketsRequest.prototype.setOrgId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
