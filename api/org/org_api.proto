@@ -70,6 +70,14 @@ service OrgAPI {
       post: "/v1/orgs/company:search"
     };
   }
+
+  // UpdateMember updates user to a Percona Portal Organization.
+  rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{org_id}/members/{member_id}"
+      body: "*"
+    };
+  }
 }
 
 message Organization {
@@ -244,4 +252,29 @@ message SearchMembersRequest {
 
 message SearchMembersResponse {
   repeated OrganizationMember members = 1;
+}
+
+message UpdateMemberRequest {
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  string member_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Organization member role.
+  string role = 3 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message UpdateMemberResponse {
+  OrganizationMember member = 1;
 }

@@ -35,6 +35,8 @@ type OrgAPIClient interface {
 	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
 	SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error)
+	// UpdateMember updates user to a Percona Portal Organization.
+	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
 }
 
 type orgAPIClient struct {
@@ -117,6 +119,15 @@ func (c *orgAPIClient) SearchUserCompany(ctx context.Context, in *SearchUserComp
 	return out, nil
 }
 
+func (c *orgAPIClient) UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error) {
+	out := new(UpdateMemberResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/UpdateMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -137,6 +148,8 @@ type OrgAPIServer interface {
 	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
 	SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error)
+	// UpdateMember updates user to a Percona Portal Organization.
+	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -173,6 +186,10 @@ func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context,
 
 func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserCompany not implemented")
+}
+
+func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -331,6 +348,24 @@ func _OrgAPI_SearchUserCompany_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_UpdateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).UpdateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/UpdateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).UpdateMember(ctx, req.(*UpdateMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -369,6 +404,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchUserCompany",
 			Handler:    _OrgAPI_SearchUserCompany_Handler,
+		},
+		{
+			MethodName: "UpdateMember",
+			Handler:    _OrgAPI_UpdateMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

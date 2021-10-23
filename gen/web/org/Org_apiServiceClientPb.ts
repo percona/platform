@@ -355,5 +355,45 @@ export class OrgAPIClient {
     this.methodInfoSearchUserCompany);
   }
 
+  methodInfoUpdateMember = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.UpdateMemberResponse,
+    (request: org_org_api_pb.UpdateMemberRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.UpdateMemberResponse.deserializeBinary
+  );
+
+  updateMember(
+    request: org_org_api_pb.UpdateMemberRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.UpdateMemberResponse>;
+
+  updateMember(
+    request: org_org_api_pb.UpdateMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.UpdateMemberResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.UpdateMemberResponse>;
+
+  updateMember(
+    request: org_org_api_pb.UpdateMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.UpdateMemberResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/UpdateMember',
+        request,
+        metadata || {},
+        this.methodInfoUpdateMember,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/UpdateMember',
+    request,
+    metadata || {},
+    this.methodInfoUpdateMember);
+  }
+
 }
 
