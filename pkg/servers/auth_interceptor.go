@@ -19,6 +19,8 @@ import (
 	"github.com/percona-platform/platform/pkg/rdata"
 )
 
+type authMethodType int
+
 // Headers set by proxy.
 const (
 	// AuthUsernameHeader Percona Account username that is used for authentication.
@@ -53,6 +55,18 @@ const (
 
 	// AuthErrorHeader gRPC error message, if code is not codes.OK.
 	AuthErrorHeader = "Auth-Error"
+
+	// Auth methods types.
+
+	// Method doesn't require authentication.
+	authMethodNoAuth authMethodType = iota
+
+	// Method may use authentication data if it exists.
+	// Anonymous calls of this method are allowed as well.
+	authMethodMayUseAuth
+
+	// Method require authentication otherwise it will be rejected.
+	authMethodRequireAuth
 )
 
 var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
@@ -68,10 +82,19 @@ func PerconaAuthHeaderMatcher(key string) (string, bool) {
 	return runtime.DefaultHeaderMatcher(key)
 }
 
-func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
+func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor {
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
+	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
+
 	for _, m := range noAuthMethods {
 		noAuthMethodsSet[m] = struct{}{}
+	}
+
+	for _, m := range mayUseAuthMethods {
+		if _, ok := noAuthMethodsSet[m]; ok {
+			panic(fmt.Sprintf("method %s can't be listed in NoAuthMethods and MayUseAuthMethods simultaneously", m))
+		}
+		mayUseAuthMethodsSet[m] = struct{}{}
 	}
 
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
@@ -92,7 +115,8 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 			return nil, err
 		}
 
-		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
+		case authMethodRequireAuth:
 			// Request must be authenticated.
 			reqData, err := getAuthData(md)
 			if err != nil {
@@ -100,16 +124,34 @@ func unaryAuthInterceptor(noAuthMethods []string) grpc.UnaryServerInterceptor {
 				return nil, errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, reqData)
+		case authMethodMayUseAuth:
+			// In case auth data exist add it to context.
+			reqData, err := getAuthData(md)
+			if err == nil {
+				ctx = rdata.AddToContext(ctx, reqData)
+			}
+		case authMethodNoAuth:
+		default:
+			// Do not try to extract auth data from incoming context.
 		}
 
 		return handler(ctx, req)
 	}
 }
 
-func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor {
+func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.StreamServerInterceptor {
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
+	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
+
 	for _, m := range noAuthMethods {
 		noAuthMethodsSet[m] = struct{}{}
+	}
+
+	for _, m := range mayUseAuthMethods {
+		if _, ok := noAuthMethodsSet[m]; ok {
+			panic(fmt.Sprintf("method %s can't be listed in NoAuthMethods and MayUseAuthMethods simultaneously", m))
+		}
+		mayUseAuthMethodsSet[m] = struct{}{}
 	}
 
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
@@ -131,7 +173,14 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 			return err
 		}
 
-		if _, ok := noAuthMethodsSet[info.FullMethod]; !ok {
+		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
+		case authMethodMayUseAuth:
+			// In case auth data exist add it to context.
+			reqData, err := getAuthData(md)
+			if err == nil {
+				ctx = rdata.AddToContext(ctx, reqData)
+			}
+		case authMethodRequireAuth:
 			// Request must be authenticated.
 			reqData, err := getAuthData(md)
 			if err != nil {
@@ -139,10 +188,23 @@ func streamAuthInterceptor(noAuthMethods []string) grpc.StreamServerInterceptor 
 				return errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, reqData)
+		case authMethodNoAuth:
+		default:
+			// Do not try to extract auth data from incoming context.
 		}
-
 		return handler(ctx, ss)
 	}
+}
+
+func getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet map[string]struct{}, m string) authMethodType {
+	if _, ok := noAuthMethodsSet[m]; ok {
+		return authMethodNoAuth
+	}
+
+	if _, ok := mayUseAuthMethodsSet[m]; ok {
+		return authMethodMayUseAuth
+	}
+	return authMethodRequireAuth
 }
 
 // handleAuthProxyError checks authentication status and message forwarded from proxy
