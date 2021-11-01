@@ -841,7 +841,10 @@ proto.percona.platform.auth.v1.SignInResponse.prototype.toObject = function(opt_
 proto.percona.platform.auth.v1.SignInResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     sessionId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    expireTime: (f = msg.getExpireTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    expireTime: (f = msg.getExpireTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    tokenType: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    expiresIn: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    accessToken: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -887,6 +890,18 @@ proto.percona.platform.auth.v1.SignInResponse.deserializeBinaryFromReader = func
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpireTime(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTokenType(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setExpiresIn(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAccessToken(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -929,6 +944,27 @@ proto.percona.platform.auth.v1.SignInResponse.serializeBinaryToWriter = function
       2,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getTokenType();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getExpiresIn();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = message.getAccessToken();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
     );
   }
 };
@@ -986,6 +1022,60 @@ proto.percona.platform.auth.v1.SignInResponse.prototype.clearExpireTime = functi
  */
 proto.percona.platform.auth.v1.SignInResponse.prototype.hasExpireTime = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * optional string token_type = 3;
+ * @return {string}
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.getTokenType = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.auth.v1.SignInResponse} returns this
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.setTokenType = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 expires_in = 4;
+ * @return {number}
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.getExpiresIn = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.percona.platform.auth.v1.SignInResponse} returns this
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.setExpiresIn = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional string access_token = 5;
+ * @return {string}
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.getAccessToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.auth.v1.SignInResponse} returns this
+ */
+proto.percona.platform.auth.v1.SignInResponse.prototype.setAccessToken = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
