@@ -50,7 +50,7 @@ struct TableStruct_org_2forg_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[16]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -101,6 +101,15 @@ extern SearchOrganizationsRequestDefaultTypeInternal _SearchOrganizationsRequest
 class SearchOrganizationsResponse;
 struct SearchOrganizationsResponseDefaultTypeInternal;
 extern SearchOrganizationsResponseDefaultTypeInternal _SearchOrganizationsResponse_default_instance_;
+class SearchUserCompanyRequest;
+struct SearchUserCompanyRequestDefaultTypeInternal;
+extern SearchUserCompanyRequestDefaultTypeInternal _SearchUserCompanyRequest_default_instance_;
+class SearchUserCompanyResponse;
+struct SearchUserCompanyResponseDefaultTypeInternal;
+extern SearchUserCompanyResponseDefaultTypeInternal _SearchUserCompanyResponse_default_instance_;
+class UserCompany;
+struct UserCompanyDefaultTypeInternal;
+extern UserCompanyDefaultTypeInternal _UserCompany_default_instance_;
 }  // namespace v1
 }  // namespace org
 }  // namespace platform
@@ -119,6 +128,9 @@ template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsRequest* 
 template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsResponse>(Arena*);
+template<> ::percona::platform::org::v1::SearchUserCompanyRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchUserCompanyRequest>(Arena*);
+template<> ::percona::platform::org::v1::SearchUserCompanyResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchUserCompanyResponse>(Arena*);
+template<> ::percona::platform::org::v1::UserCompany* Arena::CreateMaybeMessage<::percona::platform::org::v1::UserCompany>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace percona {
 namespace platform {
@@ -2249,6 +2261,420 @@ class OrganizationEntitlement PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SearchUserCompanyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchUserCompanyRequest) */ {
+ public:
+  inline SearchUserCompanyRequest() : SearchUserCompanyRequest(nullptr) {}
+  virtual ~SearchUserCompanyRequest();
+  explicit constexpr SearchUserCompanyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchUserCompanyRequest(const SearchUserCompanyRequest& from);
+  SearchUserCompanyRequest(SearchUserCompanyRequest&& from) noexcept
+    : SearchUserCompanyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchUserCompanyRequest& operator=(const SearchUserCompanyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchUserCompanyRequest& operator=(SearchUserCompanyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchUserCompanyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchUserCompanyRequest* internal_default_instance() {
+    return reinterpret_cast<const SearchUserCompanyRequest*>(
+               &_SearchUserCompanyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(SearchUserCompanyRequest& a, SearchUserCompanyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchUserCompanyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchUserCompanyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchUserCompanyRequest* New() const final {
+    return CreateMaybeMessage<SearchUserCompanyRequest>(nullptr);
+  }
+
+  SearchUserCompanyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchUserCompanyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchUserCompanyRequest& from);
+  void MergeFrom(const SearchUserCompanyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchUserCompanyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchUserCompanyRequest";
+  }
+  protected:
+  explicit SearchUserCompanyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchUserCompanyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SearchUserCompanyResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchUserCompanyResponse) */ {
+ public:
+  inline SearchUserCompanyResponse() : SearchUserCompanyResponse(nullptr) {}
+  virtual ~SearchUserCompanyResponse();
+  explicit constexpr SearchUserCompanyResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchUserCompanyResponse(const SearchUserCompanyResponse& from);
+  SearchUserCompanyResponse(SearchUserCompanyResponse&& from) noexcept
+    : SearchUserCompanyResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchUserCompanyResponse& operator=(const SearchUserCompanyResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchUserCompanyResponse& operator=(SearchUserCompanyResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchUserCompanyResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchUserCompanyResponse* internal_default_instance() {
+    return reinterpret_cast<const SearchUserCompanyResponse*>(
+               &_SearchUserCompanyResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(SearchUserCompanyResponse& a, SearchUserCompanyResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchUserCompanyResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchUserCompanyResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchUserCompanyResponse* New() const final {
+    return CreateMaybeMessage<SearchUserCompanyResponse>(nullptr);
+  }
+
+  SearchUserCompanyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchUserCompanyResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchUserCompanyResponse& from);
+  void MergeFrom(const SearchUserCompanyResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchUserCompanyResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchUserCompanyResponse";
+  }
+  protected:
+  explicit SearchUserCompanyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCompanyFieldNumber = 1,
+  };
+  // .percona.platform.org.v1.UserCompany company = 1;
+  bool has_company() const;
+  private:
+  bool _internal_has_company() const;
+  public:
+  void clear_company();
+  const ::percona::platform::org::v1::UserCompany& company() const;
+  ::percona::platform::org::v1::UserCompany* release_company();
+  ::percona::platform::org::v1::UserCompany* mutable_company();
+  void set_allocated_company(::percona::platform::org::v1::UserCompany* company);
+  private:
+  const ::percona::platform::org::v1::UserCompany& _internal_company() const;
+  ::percona::platform::org::v1::UserCompany* _internal_mutable_company();
+  public:
+  void unsafe_arena_set_allocated_company(
+      ::percona::platform::org::v1::UserCompany* company);
+  ::percona::platform::org::v1::UserCompany* unsafe_arena_release_company();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchUserCompanyResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::percona::platform::org::v1::UserCompany* company_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UserCompany PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.UserCompany) */ {
+ public:
+  inline UserCompany() : UserCompany(nullptr) {}
+  virtual ~UserCompany();
+  explicit constexpr UserCompany(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserCompany(const UserCompany& from);
+  UserCompany(UserCompany&& from) noexcept
+    : UserCompany() {
+    *this = ::std::move(from);
+  }
+
+  inline UserCompany& operator=(const UserCompany& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserCompany& operator=(UserCompany&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UserCompany& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserCompany* internal_default_instance() {
+    return reinterpret_cast<const UserCompany*>(
+               &_UserCompany_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(UserCompany& a, UserCompany& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserCompany* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserCompany* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserCompany* New() const final {
+    return CreateMaybeMessage<UserCompany>(nullptr);
+  }
+
+  UserCompany* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UserCompany>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UserCompany& from);
+  void MergeFrom(const UserCompany& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserCompany* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.UserCompany";
+  }
+  protected:
+  explicit UserCompany(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.UserCompany)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
 // ===================================================================
 
 
@@ -4028,9 +4454,171 @@ inline void OrganizationEntitlement::set_allocated_platform(::percona::platform:
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationEntitlement.platform)
 }
 
+// -------------------------------------------------------------------
+
+// SearchUserCompanyRequest
+
+// -------------------------------------------------------------------
+
+// SearchUserCompanyResponse
+
+// .percona.platform.org.v1.UserCompany company = 1;
+inline bool SearchUserCompanyResponse::_internal_has_company() const {
+  return this != internal_default_instance() && company_ != nullptr;
+}
+inline bool SearchUserCompanyResponse::has_company() const {
+  return _internal_has_company();
+}
+inline void SearchUserCompanyResponse::clear_company() {
+  if (GetArena() == nullptr && company_ != nullptr) {
+    delete company_;
+  }
+  company_ = nullptr;
+}
+inline const ::percona::platform::org::v1::UserCompany& SearchUserCompanyResponse::_internal_company() const {
+  const ::percona::platform::org::v1::UserCompany* p = company_;
+  return p != nullptr ? *p : reinterpret_cast<const ::percona::platform::org::v1::UserCompany&>(
+      ::percona::platform::org::v1::_UserCompany_default_instance_);
+}
+inline const ::percona::platform::org::v1::UserCompany& SearchUserCompanyResponse::company() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchUserCompanyResponse.company)
+  return _internal_company();
+}
+inline void SearchUserCompanyResponse::unsafe_arena_set_allocated_company(
+    ::percona::platform::org::v1::UserCompany* company) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(company_);
+  }
+  company_ = company;
+  if (company) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.SearchUserCompanyResponse.company)
+}
+inline ::percona::platform::org::v1::UserCompany* SearchUserCompanyResponse::release_company() {
+  
+  ::percona::platform::org::v1::UserCompany* temp = company_;
+  company_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::percona::platform::org::v1::UserCompany* SearchUserCompanyResponse::unsafe_arena_release_company() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchUserCompanyResponse.company)
+  
+  ::percona::platform::org::v1::UserCompany* temp = company_;
+  company_ = nullptr;
+  return temp;
+}
+inline ::percona::platform::org::v1::UserCompany* SearchUserCompanyResponse::_internal_mutable_company() {
+  
+  if (company_ == nullptr) {
+    auto* p = CreateMaybeMessage<::percona::platform::org::v1::UserCompany>(GetArena());
+    company_ = p;
+  }
+  return company_;
+}
+inline ::percona::platform::org::v1::UserCompany* SearchUserCompanyResponse::mutable_company() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchUserCompanyResponse.company)
+  return _internal_mutable_company();
+}
+inline void SearchUserCompanyResponse::set_allocated_company(::percona::platform::org::v1::UserCompany* company) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete company_;
+  }
+  if (company) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(company);
+    if (message_arena != submessage_arena) {
+      company = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, company, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  company_ = company;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchUserCompanyResponse.company)
+}
+
+// -------------------------------------------------------------------
+
+// UserCompany
+
+// string name = 1;
+inline void UserCompany::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& UserCompany::name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.UserCompany.name)
+  return _internal_name();
+}
+inline void UserCompany::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.UserCompany.name)
+}
+inline std::string* UserCompany::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.UserCompany.name)
+  return _internal_mutable_name();
+}
+inline const std::string& UserCompany::_internal_name() const {
+  return name_.Get();
+}
+inline void UserCompany::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserCompany::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.UserCompany.name)
+}
+inline void UserCompany::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.UserCompany.name)
+}
+inline void UserCompany::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.UserCompany.name)
+}
+inline std::string* UserCompany::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserCompany::release_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.UserCompany.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserCompany::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.UserCompany.name)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

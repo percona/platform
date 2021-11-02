@@ -164,3 +164,20 @@ func (this *OrganizationEntitlement_Platform) Validate() error {
 	}
 	return nil
 }
+
+func (this *SearchUserCompanyRequest) Validate() error {
+	return nil
+}
+
+func (this *SearchUserCompanyResponse) Validate() error {
+	if this.Company != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Company); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Company", err)
+		}
+	}
+	return nil
+}
+
+func (this *UserCompany) Validate() error {
+	return nil
+}

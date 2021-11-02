@@ -321,3 +321,55 @@ export namespace OrganizationEntitlement {
 
 }
 
+export class SearchUserCompanyRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchUserCompanyRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchUserCompanyRequest): SearchUserCompanyRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchUserCompanyRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchUserCompanyRequest;
+  static deserializeBinaryFromReader(message: SearchUserCompanyRequest, reader: jspb.BinaryReader): SearchUserCompanyRequest;
+}
+
+export namespace SearchUserCompanyRequest {
+  export type AsObject = {
+  }
+}
+
+export class SearchUserCompanyResponse extends jspb.Message {
+  getCompany(): UserCompany | undefined;
+  setCompany(value?: UserCompany): SearchUserCompanyResponse;
+  hasCompany(): boolean;
+  clearCompany(): SearchUserCompanyResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchUserCompanyResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchUserCompanyResponse): SearchUserCompanyResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchUserCompanyResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchUserCompanyResponse;
+  static deserializeBinaryFromReader(message: SearchUserCompanyResponse, reader: jspb.BinaryReader): SearchUserCompanyResponse;
+}
+
+export namespace SearchUserCompanyResponse {
+  export type AsObject = {
+    company?: UserCompany.AsObject,
+  }
+}
+
+export class UserCompany extends jspb.Message {
+  getName(): string;
+  setName(value: string): UserCompany;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UserCompany.AsObject;
+  static toObject(includeInstance: boolean, msg: UserCompany): UserCompany.AsObject;
+  static serializeBinaryToWriter(message: UserCompany, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UserCompany;
+  static deserializeBinaryFromReader(message: UserCompany, reader: jspb.BinaryReader): UserCompany;
+}
+
+export namespace UserCompany {
+  export type AsObject = {
+    name: string,
+  }
+}
+

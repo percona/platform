@@ -47,6 +47,13 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/entitlements:search"
     };
   }
+
+  // SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
+  rpc SearchUserCompany(SearchUserCompanyRequest) returns (SearchUserCompanyResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/company:search"
+    };
+  }
 }
 
 message Organization {
@@ -148,4 +155,15 @@ message OrganizationEntitlement {
   google.protobuf.Timestamp end_date = 10;
   // Platform specific options covered by this entitlement.
   Platform platform = 11;
+}
+
+message SearchUserCompanyRequest {}
+
+message SearchUserCompanyResponse {
+  UserCompany company = 1;
+}
+
+message UserCompany {
+  // Percona Customer name.
+  string name = 1;
 }
