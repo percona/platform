@@ -201,7 +201,7 @@ struct SearchUserCompanyRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SearchUserCompanyRequestDefaultTypeInternal _SearchUserCompanyRequest_default_instance_;
 constexpr SearchUserCompanyResponse::SearchUserCompanyResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : company_(nullptr){}
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct SearchUserCompanyResponseDefaultTypeInternal {
   constexpr SearchUserCompanyResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -211,23 +211,11 @@ struct SearchUserCompanyResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SearchUserCompanyResponseDefaultTypeInternal _SearchUserCompanyResponse_default_instance_;
-constexpr UserCompany::UserCompany(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct UserCompanyDefaultTypeInternal {
-  constexpr UserCompanyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~UserCompanyDefaultTypeInternal() {}
-  union {
-    UserCompany _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserCompanyDefaultTypeInternal _UserCompany_default_instance_;
 }  // namespace v1
 }  // namespace org
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[16];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[15];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_org_2forg_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_org_2forg_5fapi_2eproto = nullptr;
 
@@ -332,13 +320,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::SearchUserCompanyResponse, company_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UserCompany, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UserCompany, name_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::SearchUserCompanyResponse, name_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::org::v1::Organization)},
@@ -356,7 +338,6 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 74, -1, sizeof(::percona::platform::org::v1::OrganizationEntitlement)},
   { 90, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyRequest)},
   { 95, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyResponse)},
-  { 101, -1, sizeof(::percona::platform::org::v1::UserCompany)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -375,7 +356,6 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_OrganizationEntitlement_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchUserCompanyRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchUserCompanyResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UserCompany_default_instance_),
 };
 
 const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -418,35 +398,33 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\n\010Platform\0226\n\020security_advisor\030\001 \001(\0132\034.g"
   "oogle.protobuf.StringValue\0224\n\016config_adv"
   "isor\030\002 \001(\0132\034.google.protobuf.StringValue"
-  "\"\032\n\030SearchUserCompanyRequest\"R\n\031SearchUs"
-  "erCompanyResponse\0225\n\007company\030\001 \001(\0132$.per"
-  "cona.platform.org.v1.UserCompany\"\033\n\013User"
-  "Company\022\014\n\004name\030\001 \001(\t2\322\007\n\006OrgAPI\022\222\001\n\022Cre"
-  "ateOrganization\0222.percona.platform.org.v"
-  "1.CreateOrganizationRequest\0323.percona.pl"
-  "atform.org.v1.CreateOrganizationResponse"
-  "\"\023\202\323\344\223\002\r\"\010/v1/orgs:\001*\022\213\001\n\017GetOrganizatio"
-  "n\022/.percona.platform.org.v1.GetOrganizat"
-  "ionRequest\0320.percona.platform.org.v1.Get"
-  "OrganizationResponse\"\025\202\323\344\223\002\017\022\r/v1/orgs/{"
-  "id}\022\234\001\n\023SearchOrganizations\0223.percona.pl"
-  "atform.org.v1.SearchOrganizationsRequest"
-  "\0324.percona.platform.org.v1.SearchOrganiz"
-  "ationsResponse\"\032\202\323\344\223\002\024\"\017/v1/orgs:search:"
-  "\001*\022\224\001\n\022DeleteOrganization\0222.percona.plat"
-  "form.org.v1.DeleteOrganizationRequest\0323."
-  "percona.platform.org.v1.DeleteOrganizati"
-  "onResponse\"\025\202\323\344\223\002\017*\r/v1/orgs/{id}\022\320\001\n\036Se"
-  "archOrganizationEntitlements\022>.percona.p"
-  "latform.org.v1.SearchOrganizationEntitle"
-  "mentsRequest\032\?.percona.platform.org.v1.S"
-  "earchOrganizationEntitlementsResponse\"-\202"
-  "\323\344\223\002\'\"%/v1/orgs/{org_id}/entitlements:se"
-  "arch\022\233\001\n\021SearchUserCompany\0221.percona.pla"
-  "tform.org.v1.SearchUserCompanyRequest\0322."
-  "percona.platform.org.v1.SearchUserCompan"
-  "yResponse\"\037\202\323\344\223\002\031\"\027/v1/orgs/company:sear"
-  "chB\014Z\n/org;orgv1b\006proto3"
+  "\"\032\n\030SearchUserCompanyRequest\")\n\031SearchUs"
+  "erCompanyResponse\022\014\n\004name\030\001 \001(\t2\322\007\n\006OrgA"
+  "PI\022\222\001\n\022CreateOrganization\0222.percona.plat"
+  "form.org.v1.CreateOrganizationRequest\0323."
+  "percona.platform.org.v1.CreateOrganizati"
+  "onResponse\"\023\202\323\344\223\002\r\"\010/v1/orgs:\001*\022\213\001\n\017GetO"
+  "rganization\022/.percona.platform.org.v1.Ge"
+  "tOrganizationRequest\0320.percona.platform."
+  "org.v1.GetOrganizationResponse\"\025\202\323\344\223\002\017\022\r"
+  "/v1/orgs/{id}\022\234\001\n\023SearchOrganizations\0223."
+  "percona.platform.org.v1.SearchOrganizati"
+  "onsRequest\0324.percona.platform.org.v1.Sea"
+  "rchOrganizationsResponse\"\032\202\323\344\223\002\024\"\017/v1/or"
+  "gs:search:\001*\022\224\001\n\022DeleteOrganization\0222.pe"
+  "rcona.platform.org.v1.DeleteOrganization"
+  "Request\0323.percona.platform.org.v1.Delete"
+  "OrganizationResponse\"\025\202\323\344\223\002\017*\r/v1/orgs/{"
+  "id}\022\320\001\n\036SearchOrganizationEntitlements\022>"
+  ".percona.platform.org.v1.SearchOrganizat"
+  "ionEntitlementsRequest\032\?.percona.platfor"
+  "m.org.v1.SearchOrganizationEntitlementsR"
+  "esponse\"-\202\323\344\223\002\'\"%/v1/orgs/{org_id}/entit"
+  "lements:search\022\233\001\n\021SearchUserCompany\0221.p"
+  "ercona.platform.org.v1.SearchUserCompany"
+  "Request\0322.percona.platform.org.v1.Search"
+  "UserCompanyResponse\"\037\202\323\344\223\002\031\"\027/v1/orgs/co"
+  "mpany:searchB\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[4] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -456,8 +434,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 2704, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
-  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 4, 16,
+  false, false, 2634, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 4, 15,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
 };
@@ -3788,13 +3766,8 @@ void SearchUserCompanyRequest::InternalSwap(SearchUserCompanyRequest* other) {
 
 class SearchUserCompanyResponse::_Internal {
  public:
-  static const ::percona::platform::org::v1::UserCompany& company(const SearchUserCompanyResponse* msg);
 };
 
-const ::percona::platform::org::v1::UserCompany&
-SearchUserCompanyResponse::_Internal::company(const SearchUserCompanyResponse* msg) {
-  return *msg->company_;
-}
 SearchUserCompanyResponse::SearchUserCompanyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
@@ -3804,16 +3777,16 @@ SearchUserCompanyResponse::SearchUserCompanyResponse(::PROTOBUF_NAMESPACE_ID::Ar
 SearchUserCompanyResponse::SearchUserCompanyResponse(const SearchUserCompanyResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_company()) {
-    company_ = new ::percona::platform::org::v1::UserCompany(*from.company_);
-  } else {
-    company_ = nullptr;
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
   }
   // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.SearchUserCompanyResponse)
 }
 
 void SearchUserCompanyResponse::SharedCtor() {
-company_ = nullptr;
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 SearchUserCompanyResponse::~SearchUserCompanyResponse() {
@@ -3824,7 +3797,7 @@ SearchUserCompanyResponse::~SearchUserCompanyResponse() {
 
 void SearchUserCompanyResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
-  if (this != internal_default_instance()) delete company_;
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void SearchUserCompanyResponse::ArenaDtor(void* object) {
@@ -3843,10 +3816,7 @@ void SearchUserCompanyResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArena() == nullptr && company_ != nullptr) {
-    delete company_;
-  }
-  company_ = nullptr;
+  name_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3857,10 +3827,12 @@ const char* SearchUserCompanyResponse::_InternalParse(const char* ptr, ::PROTOBU
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .percona.platform.org.v1.UserCompany company = 1;
+      // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_company(), ptr);
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.SearchUserCompanyResponse.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -3892,12 +3864,14 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.UserCompany company = 1;
-  if (this->has_company()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::company(this), target, stream);
+  // string name = 1;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.SearchUserCompanyResponse.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3916,11 +3890,11 @@ size_t SearchUserCompanyResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.UserCompany company = 1;
-  if (this->has_company()) {
+  // string name = 1;
+  if (this->name().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *company_);
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3954,8 +3928,8 @@ void SearchUserCompanyResponse::MergeFrom(const SearchUserCompanyResponse& from)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.has_company()) {
-    _internal_mutable_company()->::percona::platform::org::v1::UserCompany::MergeFrom(from._internal_company());
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
   }
 }
 
@@ -3980,210 +3954,10 @@ bool SearchUserCompanyResponse::IsInitialized() const {
 void SearchUserCompanyResponse::InternalSwap(SearchUserCompanyResponse* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
-  swap(company_, other->company_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata SearchUserCompanyResponse::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
-class UserCompany::_Internal {
- public:
-};
-
-UserCompany::UserCompany(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
-  SharedCtor();
-  RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.UserCompany)
-}
-UserCompany::UserCompany(const UserCompany& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArena());
-  }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.UserCompany)
-}
-
-void UserCompany::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-UserCompany::~UserCompany() {
-  // @@protoc_insertion_point(destructor:percona.platform.org.v1.UserCompany)
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-void UserCompany::SharedDtor() {
-  GOOGLE_DCHECK(GetArena() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void UserCompany::ArenaDtor(void* object) {
-  UserCompany* _this = reinterpret_cast< UserCompany* >(object);
-  (void)_this;
-}
-void UserCompany::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void UserCompany::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void UserCompany::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.UserCompany)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  name_.ClearToEmpty();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* UserCompany::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // string name = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UserCompany.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* UserCompany::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.UserCompany)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.UserCompany.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.UserCompany)
-  return target;
-}
-
-size_t UserCompany::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.UserCompany)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void UserCompany::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.UserCompany)
-  GOOGLE_DCHECK_NE(&from, this);
-  const UserCompany* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UserCompany>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.UserCompany)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.UserCompany)
-    MergeFrom(*source);
-  }
-}
-
-void UserCompany::MergeFrom(const UserCompany& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.UserCompany)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.name().size() > 0) {
-    _internal_set_name(from._internal_name());
-  }
-}
-
-void UserCompany::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.UserCompany)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void UserCompany::CopyFrom(const UserCompany& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.UserCompany)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool UserCompany::IsInitialized() const {
-  return true;
-}
-
-void UserCompany::InternalSwap(UserCompany* other) {
-  using std::swap;
-  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata UserCompany::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SearchUserCompanyResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -4238,9 +4012,6 @@ template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchUserCompanyRequ
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchUserCompanyResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::SearchUserCompanyResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::SearchUserCompanyResponse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UserCompany* Arena::CreateMaybeMessage< ::percona::platform::org::v1::UserCompany >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::org::v1::UserCompany >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

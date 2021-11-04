@@ -160,10 +160,6 @@ message OrganizationEntitlement {
 message SearchUserCompanyRequest {}
 
 message SearchUserCompanyResponse {
-  UserCompany company = 1;
-}
-
-message UserCompany {
   // Percona Customer name.
   string name = 1;
 }

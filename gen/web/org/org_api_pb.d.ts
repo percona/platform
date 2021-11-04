@@ -336,10 +336,8 @@ export namespace SearchUserCompanyRequest {
 }
 
 export class SearchUserCompanyResponse extends jspb.Message {
-  getCompany(): UserCompany | undefined;
-  setCompany(value?: UserCompany): SearchUserCompanyResponse;
-  hasCompany(): boolean;
-  clearCompany(): SearchUserCompanyResponse;
+  getName(): string;
+  setName(value: string): SearchUserCompanyResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SearchUserCompanyResponse.AsObject;
@@ -350,24 +348,6 @@ export class SearchUserCompanyResponse extends jspb.Message {
 }
 
 export namespace SearchUserCompanyResponse {
-  export type AsObject = {
-    company?: UserCompany.AsObject,
-  }
-}
-
-export class UserCompany extends jspb.Message {
-  getName(): string;
-  setName(value: string): UserCompany;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UserCompany.AsObject;
-  static toObject(includeInstance: boolean, msg: UserCompany): UserCompany.AsObject;
-  static serializeBinaryToWriter(message: UserCompany, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UserCompany;
-  static deserializeBinaryFromReader(message: UserCompany, reader: jspb.BinaryReader): UserCompany;
-}
-
-export namespace UserCompany {
   export type AsObject = {
     name: string,
   }
