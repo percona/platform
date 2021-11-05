@@ -7,6 +7,9 @@ import (
 	"github.com/pkg/errors"
 )
 
+// ErrNoAuthData helper error for case when auth data is absent in incoming context.
+var ErrNoAuthData = errors.New("missing request data in request context")
+
 type requestDataKey struct{}
 
 // RequestData contains request related data added by interceptors.
@@ -54,5 +57,5 @@ func GetFromContext(ctx context.Context) (*RequestData, error) {
 		}
 	}
 
-	return nil, errors.New("missing request data in request context")
+	return nil, ErrNoAuthData
 }
