@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package percona.platform.org.v1;
+
+option go_package = "/org;orgv1";
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/api/annotations.proto";
+
+// InventoryAPI provides API for inventory management.
+service InventoryAPI {
+  // AddPMM adds PMM into inventory and returns SSO details.
+  rpc AddPMM(AddPMMRequest) returns (AddPMMResponse) {
+    option (google.api.http) = {
+      post: "/v1/inventory"
+    };
+  }
+}
+
+message PerconaSSODetails {
+  string client_id = 1;
+  string client_secret = 2;
+  string issuer_url = 3;
+  string scope = 4;
+}
+
+message AddPMMRequest {
+  // ID from PMM Server DB - pmm-managed.settings.telemetry.uuid.
+  string pmm_server_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User defined human readable PMM Server Name.
+  string pmm_server_name = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // Public Address from PMM Server Settings.
+  string pmm_server_url = 3 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // URL for oauth callback.
+  string pmm_server_oauth_callback_url = 4 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message AddPMMResponse {
+  PerconaSSODetails sso_details = 1;
+}
