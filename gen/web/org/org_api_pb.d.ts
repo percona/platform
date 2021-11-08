@@ -6,6 +6,86 @@ import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/t
 import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
 
+export class PmmServerSSODetails extends jspb.Message {
+  getClientId(): string;
+  setClientId(value: string): PmmServerSSODetails;
+
+  getClientSecret(): string;
+  setClientSecret(value: string): PmmServerSSODetails;
+
+  getIssuerUrl(): string;
+  setIssuerUrl(value: string): PmmServerSSODetails;
+
+  getScope(): string;
+  setScope(value: string): PmmServerSSODetails;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): PmmServerSSODetails.AsObject;
+  static toObject(includeInstance: boolean, msg: PmmServerSSODetails): PmmServerSSODetails.AsObject;
+  static serializeBinaryToWriter(message: PmmServerSSODetails, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PmmServerSSODetails;
+  static deserializeBinaryFromReader(message: PmmServerSSODetails, reader: jspb.BinaryReader): PmmServerSSODetails;
+}
+
+export namespace PmmServerSSODetails {
+  export type AsObject = {
+    clientId: string,
+    clientSecret: string,
+    issuerUrl: string,
+    scope: string,
+  }
+}
+
+export class ConnectPMMRequest extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): ConnectPMMRequest;
+
+  getPmmServerName(): string;
+  setPmmServerName(value: string): ConnectPMMRequest;
+
+  getPmmServerUrl(): string;
+  setPmmServerUrl(value: string): ConnectPMMRequest;
+
+  getPmmServerOauthCallbackUrl(): string;
+  setPmmServerOauthCallbackUrl(value: string): ConnectPMMRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ConnectPMMRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ConnectPMMRequest): ConnectPMMRequest.AsObject;
+  static serializeBinaryToWriter(message: ConnectPMMRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ConnectPMMRequest;
+  static deserializeBinaryFromReader(message: ConnectPMMRequest, reader: jspb.BinaryReader): ConnectPMMRequest;
+}
+
+export namespace ConnectPMMRequest {
+  export type AsObject = {
+    pmmServerId: string,
+    pmmServerName: string,
+    pmmServerUrl: string,
+    pmmServerOauthCallbackUrl: string,
+  }
+}
+
+export class ConnectPMMResponse extends jspb.Message {
+  getSsoDetails(): PmmServerSSODetails | undefined;
+  setSsoDetails(value?: PmmServerSSODetails): ConnectPMMResponse;
+  hasSsoDetails(): boolean;
+  clearSsoDetails(): ConnectPMMResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ConnectPMMResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ConnectPMMResponse): ConnectPMMResponse.AsObject;
+  static serializeBinaryToWriter(message: ConnectPMMResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ConnectPMMResponse;
+  static deserializeBinaryFromReader(message: ConnectPMMResponse, reader: jspb.BinaryReader): ConnectPMMResponse;
+}
+
+export namespace ConnectPMMResponse {
+  export type AsObject = {
+    ssoDetails?: PmmServerSSODetails.AsObject,
+  }
+}
+
 export class Organization extends jspb.Message {
   getId(): string;
   setId(value: string): Organization;
