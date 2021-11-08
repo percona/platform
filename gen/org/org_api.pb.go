@@ -25,7 +25,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type PmmServerSSODetails struct {
+type PMMServerSSODetails struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -36,8 +36,8 @@ type PmmServerSSODetails struct {
 	Scope        string `protobuf:"bytes,4,opt,name=scope,proto3" json:"scope,omitempty"`
 }
 
-func (x *PmmServerSSODetails) Reset() {
-	*x = PmmServerSSODetails{}
+func (x *PMMServerSSODetails) Reset() {
+	*x = PMMServerSSODetails{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_org_org_api_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -45,13 +45,13 @@ func (x *PmmServerSSODetails) Reset() {
 	}
 }
 
-func (x *PmmServerSSODetails) String() string {
+func (x *PMMServerSSODetails) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PmmServerSSODetails) ProtoMessage() {}
+func (*PMMServerSSODetails) ProtoMessage() {}
 
-func (x *PmmServerSSODetails) ProtoReflect() protoreflect.Message {
+func (x *PMMServerSSODetails) ProtoReflect() protoreflect.Message {
 	mi := &file_org_org_api_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -63,33 +63,33 @@ func (x *PmmServerSSODetails) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PmmServerSSODetails.ProtoReflect.Descriptor instead.
-func (*PmmServerSSODetails) Descriptor() ([]byte, []int) {
+// Deprecated: Use PMMServerSSODetails.ProtoReflect.Descriptor instead.
+func (*PMMServerSSODetails) Descriptor() ([]byte, []int) {
 	return file_org_org_api_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *PmmServerSSODetails) GetClientId() string {
+func (x *PMMServerSSODetails) GetClientId() string {
 	if x != nil {
 		return x.ClientId
 	}
 	return ""
 }
 
-func (x *PmmServerSSODetails) GetClientSecret() string {
+func (x *PMMServerSSODetails) GetClientSecret() string {
 	if x != nil {
 		return x.ClientSecret
 	}
 	return ""
 }
 
-func (x *PmmServerSSODetails) GetIssuerUrl() string {
+func (x *PMMServerSSODetails) GetIssuerUrl() string {
 	if x != nil {
 		return x.IssuerUrl
 	}
 	return ""
 }
 
-func (x *PmmServerSSODetails) GetScope() string {
+func (x *PMMServerSSODetails) GetScope() string {
 	if x != nil {
 		return x.Scope
 	}
@@ -176,7 +176,7 @@ type ConnectPMMResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SsoDetails *PmmServerSSODetails `protobuf:"bytes,1,opt,name=sso_details,json=ssoDetails,proto3" json:"sso_details,omitempty"`
+	SsoDetails *PMMServerSSODetails `protobuf:"bytes,1,opt,name=sso_details,json=ssoDetails,proto3" json:"sso_details,omitempty"`
 }
 
 func (x *ConnectPMMResponse) Reset() {
@@ -211,7 +211,7 @@ func (*ConnectPMMResponse) Descriptor() ([]byte, []int) {
 	return file_org_org_api_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ConnectPMMResponse) GetSsoDetails() *PmmServerSSODetails {
+func (x *ConnectPMMResponse) GetSsoDetails() *PMMServerSSODetails {
 	if x != nil {
 		return x.SsoDetails
 	}
@@ -1508,7 +1508,7 @@ var file_org_org_api_proto_rawDesc = []byte{
 	0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x62, 0x75, 0x66, 0x2f, 0x77, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x73, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x22, 0x8c, 0x01, 0x0a, 0x13, 0x50, 0x6d, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x65,
+	0x6f, 0x74, 0x6f, 0x22, 0x8c, 0x01, 0x0a, 0x13, 0x50, 0x4d, 0x4d, 0x53, 0x65, 0x72, 0x76, 0x65,
 	0x72, 0x53, 0x53, 0x4f, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x63,
 	0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
 	0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x63, 0x6c, 0x69, 0x65,
@@ -1536,7 +1536,7 @@ var file_org_org_api_proto_rawDesc = []byte{
 	0x73, 0x65, 0x12, 0x4d, 0x0a, 0x0b, 0x73, 0x73, 0x6f, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c,
 	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e,
 	0x61, 0x2e, 0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2e, 0x76,
-	0x31, 0x2e, 0x50, 0x6d, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x44, 0x65,
+	0x31, 0x2e, 0x50, 0x4d, 0x4d, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x53, 0x53, 0x4f, 0x44, 0x65,
 	0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x0a, 0x73, 0x73, 0x6f, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
 	0x73, 0x22, 0xa8, 0x01, 0x0a, 0x0c, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
@@ -1812,7 +1812,7 @@ func file_org_org_api_proto_rawDescGZIP() []byte {
 var (
 	file_org_org_api_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 	file_org_org_api_proto_goTypes  = []interface{}{
-		(*PmmServerSSODetails)(nil),                    // 0: percona.platform.org.v1.PmmServerSSODetails
+		(*PMMServerSSODetails)(nil),                    // 0: percona.platform.org.v1.PMMServerSSODetails
 		(*ConnectPMMRequest)(nil),                      // 1: percona.platform.org.v1.ConnectPMMRequest
 		(*ConnectPMMResponse)(nil),                     // 2: percona.platform.org.v1.ConnectPMMResponse
 		(*Organization)(nil),                           // 3: percona.platform.org.v1.Organization
@@ -1845,7 +1845,7 @@ var (
 )
 
 var file_org_org_api_proto_depIdxs = []int32{
-	0,  // 0: percona.platform.org.v1.ConnectPMMResponse.sso_details:type_name -> percona.platform.org.v1.PmmServerSSODetails
+	0,  // 0: percona.platform.org.v1.ConnectPMMResponse.sso_details:type_name -> percona.platform.org.v1.PMMServerSSODetails
 	26, // 1: percona.platform.org.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
 	26, // 2: percona.platform.org.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp
 	3,  // 3: percona.platform.org.v1.CreateOrganizationResponse.org:type_name -> percona.platform.org.v1.Organization
@@ -1898,7 +1898,7 @@ func file_org_org_api_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_org_org_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PmmServerSSODetails); i {
+			switch v := v.(*PMMServerSSODetails); i {
 			case 0:
 				return &v.state
 			case 1:

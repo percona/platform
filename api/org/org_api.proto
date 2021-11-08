@@ -87,7 +87,7 @@ service OrgAPI {
   }
 }
 
-message PmmServerSSODetails {
+message PMMServerSSODetails {
   string client_id = 1;
   string client_secret = 2;
   string issuer_url = 3;
@@ -122,7 +122,7 @@ message ConnectPMMRequest {
 }
 
 message ConnectPMMResponse {
-  PmmServerSSODetails sso_details = 1;
+  PMMServerSSODetails sso_details = 1;
 }
 
 message Organization {

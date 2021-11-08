@@ -20,21 +20,21 @@ namespace percona {
 namespace platform {
 namespace org {
 namespace v1 {
-constexpr PmmServerSSODetails::PmmServerSSODetails(
+constexpr PMMServerSSODetails::PMMServerSSODetails(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : client_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , client_secret_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , issuer_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , scope_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct PmmServerSSODetailsDefaultTypeInternal {
-  constexpr PmmServerSSODetailsDefaultTypeInternal()
+struct PMMServerSSODetailsDefaultTypeInternal {
+  constexpr PMMServerSSODetailsDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~PmmServerSSODetailsDefaultTypeInternal() {}
+  ~PMMServerSSODetailsDefaultTypeInternal() {}
   union {
-    PmmServerSSODetails _instance;
+    PMMServerSSODetails _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PmmServerSSODetailsDefaultTypeInternal _PmmServerSSODetails_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PMMServerSSODetailsDefaultTypeInternal _PMMServerSSODetails_default_instance_;
 constexpr ConnectPMMRequest::ConnectPMMRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : pmm_server_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -368,14 +368,14 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PmmServerSSODetails, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PMMServerSSODetails, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PmmServerSSODetails, client_id_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PmmServerSSODetails, client_secret_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PmmServerSSODetails, issuer_url_),
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PmmServerSSODetails, scope_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PMMServerSSODetails, client_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PMMServerSSODetails, client_secret_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PMMServerSSODetails, issuer_url_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::PMMServerSSODetails, scope_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::ConnectPMMRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -551,7 +551,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberResponse, member_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::percona::platform::org::v1::PmmServerSSODetails)},
+  { 0, -1, sizeof(::percona::platform::org::v1::PMMServerSSODetails)},
   { 9, -1, sizeof(::percona::platform::org::v1::ConnectPMMRequest)},
   { 18, -1, sizeof(::percona::platform::org::v1::ConnectPMMResponse)},
   { 24, -1, sizeof(::percona::platform::org::v1::Organization)},
@@ -580,7 +580,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_PmmServerSSODetails_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_PMMServerSSODetails_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_ConnectPMMRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_ConnectPMMResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Organization_default_instance_),
@@ -614,7 +614,7 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "tors/validator.proto\032\034google/api/annotat"
   "ions.proto\032\037google/protobuf/timestamp.pr"
   "oto\032\036google/protobuf/wrappers.proto\"b\n\023P"
-  "mmServerSSODetails\022\021\n\tclient_id\030\001 \001(\t\022\025\n"
+  "MMServerSSODetails\022\021\n\tclient_id\030\001 \001(\t\022\025\n"
   "\rclient_secret\030\002 \001(\t\022\022\n\nissuer_url\030\003 \001(\t"
   "\022\r\n\005scope\030\004 \001(\t\"\242\001\n\021ConnectPMMRequest\022\035\n"
   "\rpmm_server_id\030\001 \001(\tB\006\342\337\037\002X\001\022\037\n\017pmm_serv"
@@ -622,7 +622,7 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\003 \001(\tB\006\342\337\037\002X\001\022-\n\035pmm_server_oauth_callba"
   "ck_url\030\004 \001(\tB\006\342\337\037\002X\001\"W\n\022ConnectPMMRespon"
   "se\022A\n\013sso_details\030\001 \001(\0132,.percona.platfo"
-  "rm.org.v1.PmmServerSSODetails\"\210\001\n\014Organi"
+  "rm.org.v1.PMMServerSSODetails\"\210\001\n\014Organi"
   "zation\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022.\n\ncrea"
   "ted_at\030\003 \001(\0132\032.google.protobuf.Timestamp"
   "\022.\n\nupdated_at\030\004 \001(\0132\032.google.protobuf.T"
@@ -745,17 +745,17 @@ namespace v1 {
 
 // ===================================================================
 
-class PmmServerSSODetails::_Internal {
+class PMMServerSSODetails::_Internal {
  public:
 };
 
-PmmServerSSODetails::PmmServerSSODetails(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+PMMServerSSODetails::PMMServerSSODetails(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.PMMServerSSODetails)
 }
-PmmServerSSODetails::PmmServerSSODetails(const PmmServerSSODetails& from)
+PMMServerSSODetails::PMMServerSSODetails(const PMMServerSSODetails& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   client_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -778,23 +778,23 @@ PmmServerSSODetails::PmmServerSSODetails(const PmmServerSSODetails& from)
     scope_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scope(), 
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.PMMServerSSODetails)
 }
 
-void PmmServerSSODetails::SharedCtor() {
+void PMMServerSSODetails::SharedCtor() {
 client_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 client_secret_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 issuer_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 scope_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-PmmServerSSODetails::~PmmServerSSODetails() {
-  // @@protoc_insertion_point(destructor:percona.platform.org.v1.PmmServerSSODetails)
+PMMServerSSODetails::~PMMServerSSODetails() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.PMMServerSSODetails)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void PmmServerSSODetails::SharedDtor() {
+void PMMServerSSODetails::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   client_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   client_secret_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -802,18 +802,18 @@ void PmmServerSSODetails::SharedDtor() {
   scope_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void PmmServerSSODetails::ArenaDtor(void* object) {
-  PmmServerSSODetails* _this = reinterpret_cast< PmmServerSSODetails* >(object);
+void PMMServerSSODetails::ArenaDtor(void* object) {
+  PMMServerSSODetails* _this = reinterpret_cast< PMMServerSSODetails* >(object);
   (void)_this;
 }
-void PmmServerSSODetails::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void PMMServerSSODetails::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void PmmServerSSODetails::SetCachedSize(int size) const {
+void PMMServerSSODetails::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void PmmServerSSODetails::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.PmmServerSSODetails)
+void PMMServerSSODetails::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.PMMServerSSODetails)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -825,7 +825,7 @@ void PmmServerSSODetails::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* PmmServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PMMServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -837,7 +837,7 @@ const char* PmmServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAME
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_client_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PmmServerSSODetails.client_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PMMServerSSODetails.client_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -846,7 +846,7 @@ const char* PmmServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAME
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_client_secret();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PmmServerSSODetails.client_secret"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PMMServerSSODetails.client_secret"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -855,7 +855,7 @@ const char* PmmServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAME
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           auto str = _internal_mutable_issuer_url();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PmmServerSSODetails.issuer_url"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PMMServerSSODetails.issuer_url"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -864,7 +864,7 @@ const char* PmmServerSSODetails::_InternalParse(const char* ptr, ::PROTOBUF_NAME
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_scope();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PmmServerSSODetails.scope"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.PMMServerSSODetails.scope"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -890,9 +890,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* PmmServerSSODetails::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* PMMServerSSODetails::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.PMMServerSSODetails)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -901,7 +901,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_client_id().data(), static_cast<int>(this->_internal_client_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.PmmServerSSODetails.client_id");
+      "percona.platform.org.v1.PMMServerSSODetails.client_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_client_id(), target);
   }
@@ -911,7 +911,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_client_secret().data(), static_cast<int>(this->_internal_client_secret().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.PmmServerSSODetails.client_secret");
+      "percona.platform.org.v1.PMMServerSSODetails.client_secret");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_client_secret(), target);
   }
@@ -921,7 +921,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_issuer_url().data(), static_cast<int>(this->_internal_issuer_url().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.PmmServerSSODetails.issuer_url");
+      "percona.platform.org.v1.PMMServerSSODetails.issuer_url");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_issuer_url(), target);
   }
@@ -931,7 +931,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_scope().data(), static_cast<int>(this->_internal_scope().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.PmmServerSSODetails.scope");
+      "percona.platform.org.v1.PMMServerSSODetails.scope");
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_scope(), target);
   }
@@ -940,12 +940,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.PMMServerSSODetails)
   return target;
 }
 
-size_t PmmServerSSODetails::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.PmmServerSSODetails)
+size_t PMMServerSSODetails::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.PMMServerSSODetails)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -989,23 +989,23 @@ size_t PmmServerSSODetails::ByteSizeLong() const {
   return total_size;
 }
 
-void PmmServerSSODetails::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.PmmServerSSODetails)
+void PMMServerSSODetails::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.PMMServerSSODetails)
   GOOGLE_DCHECK_NE(&from, this);
-  const PmmServerSSODetails* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PmmServerSSODetails>(
+  const PMMServerSSODetails* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<PMMServerSSODetails>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.PMMServerSSODetails)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.PmmServerSSODetails)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.PMMServerSSODetails)
     MergeFrom(*source);
   }
 }
 
-void PmmServerSSODetails::MergeFrom(const PmmServerSSODetails& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.PmmServerSSODetails)
+void PMMServerSSODetails::MergeFrom(const PMMServerSSODetails& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.PMMServerSSODetails)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1025,25 +1025,25 @@ void PmmServerSSODetails::MergeFrom(const PmmServerSSODetails& from) {
   }
 }
 
-void PmmServerSSODetails::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.PmmServerSSODetails)
+void PMMServerSSODetails::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.PMMServerSSODetails)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void PmmServerSSODetails::CopyFrom(const PmmServerSSODetails& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.PmmServerSSODetails)
+void PMMServerSSODetails::CopyFrom(const PMMServerSSODetails& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.PMMServerSSODetails)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool PmmServerSSODetails::IsInitialized() const {
+bool PMMServerSSODetails::IsInitialized() const {
   return true;
 }
 
-void PmmServerSSODetails::InternalSwap(PmmServerSSODetails* other) {
+void PMMServerSSODetails::InternalSwap(PMMServerSSODetails* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   client_id_.Swap(&other->client_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
@@ -1052,7 +1052,7 @@ void PmmServerSSODetails::InternalSwap(PmmServerSSODetails* other) {
   scope_.Swap(&other->scope_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata PmmServerSSODetails::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata PMMServerSSODetails::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1375,10 +1375,10 @@ void ConnectPMMRequest::InternalSwap(ConnectPMMRequest* other) {
 
 class ConnectPMMResponse::_Internal {
  public:
-  static const ::percona::platform::org::v1::PmmServerSSODetails& sso_details(const ConnectPMMResponse* msg);
+  static const ::percona::platform::org::v1::PMMServerSSODetails& sso_details(const ConnectPMMResponse* msg);
 };
 
-const ::percona::platform::org::v1::PmmServerSSODetails&
+const ::percona::platform::org::v1::PMMServerSSODetails&
 ConnectPMMResponse::_Internal::sso_details(const ConnectPMMResponse* msg) {
   return *msg->sso_details_;
 }
@@ -1392,7 +1392,7 @@ ConnectPMMResponse::ConnectPMMResponse(const ConnectPMMResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_sso_details()) {
-    sso_details_ = new ::percona::platform::org::v1::PmmServerSSODetails(*from.sso_details_);
+    sso_details_ = new ::percona::platform::org::v1::PMMServerSSODetails(*from.sso_details_);
   } else {
     sso_details_ = nullptr;
   }
@@ -1444,7 +1444,7 @@ const char* ConnectPMMResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .percona.platform.org.v1.PmmServerSSODetails sso_details = 1;
+      // .percona.platform.org.v1.PMMServerSSODetails sso_details = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_sso_details(), ptr);
@@ -1479,7 +1479,7 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.PmmServerSSODetails sso_details = 1;
+  // .percona.platform.org.v1.PMMServerSSODetails sso_details = 1;
   if (this->has_sso_details()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1503,7 +1503,7 @@ size_t ConnectPMMResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.PmmServerSSODetails sso_details = 1;
+  // .percona.platform.org.v1.PMMServerSSODetails sso_details = 1;
   if (this->has_sso_details()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1542,7 +1542,7 @@ void ConnectPMMResponse::MergeFrom(const ConnectPMMResponse& from) {
   (void) cached_has_bits;
 
   if (from.has_sso_details()) {
-    _internal_mutable_sso_details()->::percona::platform::org::v1::PmmServerSSODetails::MergeFrom(from._internal_sso_details());
+    _internal_mutable_sso_details()->::percona::platform::org::v1::PMMServerSSODetails::MergeFrom(from._internal_sso_details());
   }
 }
 
@@ -7030,8 +7030,8 @@ void UpdateMemberResponse::InternalSwap(UpdateMemberResponse* other) {
 }  // namespace platform
 }  // namespace percona
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::PmmServerSSODetails* Arena::CreateMaybeMessage< ::percona::platform::org::v1::PmmServerSSODetails >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::org::v1::PmmServerSSODetails >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::PMMServerSSODetails* Arena::CreateMaybeMessage< ::percona::platform::org::v1::PMMServerSSODetails >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::PMMServerSSODetails >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::ConnectPMMRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::ConnectPMMRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::ConnectPMMRequest >(arena);

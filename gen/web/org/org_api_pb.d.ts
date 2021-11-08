@@ -6,28 +6,28 @@ import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/t
 import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
 
-export class PmmServerSSODetails extends jspb.Message {
+export class PMMServerSSODetails extends jspb.Message {
   getClientId(): string;
-  setClientId(value: string): PmmServerSSODetails;
+  setClientId(value: string): PMMServerSSODetails;
 
   getClientSecret(): string;
-  setClientSecret(value: string): PmmServerSSODetails;
+  setClientSecret(value: string): PMMServerSSODetails;
 
   getIssuerUrl(): string;
-  setIssuerUrl(value: string): PmmServerSSODetails;
+  setIssuerUrl(value: string): PMMServerSSODetails;
 
   getScope(): string;
-  setScope(value: string): PmmServerSSODetails;
+  setScope(value: string): PMMServerSSODetails;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): PmmServerSSODetails.AsObject;
-  static toObject(includeInstance: boolean, msg: PmmServerSSODetails): PmmServerSSODetails.AsObject;
-  static serializeBinaryToWriter(message: PmmServerSSODetails, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): PmmServerSSODetails;
-  static deserializeBinaryFromReader(message: PmmServerSSODetails, reader: jspb.BinaryReader): PmmServerSSODetails;
+  toObject(includeInstance?: boolean): PMMServerSSODetails.AsObject;
+  static toObject(includeInstance: boolean, msg: PMMServerSSODetails): PMMServerSSODetails.AsObject;
+  static serializeBinaryToWriter(message: PMMServerSSODetails, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PMMServerSSODetails;
+  static deserializeBinaryFromReader(message: PMMServerSSODetails, reader: jspb.BinaryReader): PMMServerSSODetails;
 }
 
-export namespace PmmServerSSODetails {
+export namespace PMMServerSSODetails {
   export type AsObject = {
     clientId: string,
     clientSecret: string,
@@ -67,8 +67,8 @@ export namespace ConnectPMMRequest {
 }
 
 export class ConnectPMMResponse extends jspb.Message {
-  getSsoDetails(): PmmServerSSODetails | undefined;
-  setSsoDetails(value?: PmmServerSSODetails): ConnectPMMResponse;
+  getSsoDetails(): PMMServerSSODetails | undefined;
+  setSsoDetails(value?: PMMServerSSODetails): ConnectPMMResponse;
   hasSsoDetails(): boolean;
   clearSsoDetails(): ConnectPMMResponse;
 
@@ -82,7 +82,7 @@ export class ConnectPMMResponse extends jspb.Message {
 
 export namespace ConnectPMMResponse {
   export type AsObject = {
-    ssoDetails?: PmmServerSSODetails.AsObject,
+    ssoDetails?: PMMServerSSODetails.AsObject,
   }
 }
 

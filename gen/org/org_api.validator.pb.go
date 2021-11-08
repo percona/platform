@@ -22,7 +22,7 @@ var (
 	_ = math.Inf
 )
 
-func (this *PmmServerSSODetails) Validate() error {
+func (this *PMMServerSSODetails) Validate() error {
 	return nil
 }
 
