@@ -2107,7 +2107,7 @@ class SearchMembersRequest_UserFilter PROTOBUF_FINAL :
   enum : int {
     kUsernameFieldNumber = 1,
   };
-  // string username = 1;
+  // string username = 1 [(.validator.field) = {
   void clear_username();
   const std::string& username() const;
   void set_username(const std::string& value);
@@ -3718,7 +3718,7 @@ inline void OrganizationMember::set_allocated_status(std::string* status) {
 
 // SearchMembersRequest_UserFilter
 
-// string username = 1;
+// string username = 1 [(.validator.field) = {
 inline void SearchMembersRequest_UserFilter::clear_username() {
   username_.ClearToEmpty();
 }

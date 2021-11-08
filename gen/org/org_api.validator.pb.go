@@ -124,6 +124,9 @@ func (this *SearchMembersRequest) Validate() error {
 }
 
 func (this *SearchMembersRequest_UserFilter) Validate() error {
+	if this.Username == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
+	}
 	return nil
 }
 
