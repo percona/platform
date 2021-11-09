@@ -80,6 +80,7 @@ service OrgAPI {
   }
 
   // ConnectPMM adds PMM into inventory and returns SSO details.
+  // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
   rpc ConnectPMM(ConnectPMMRequest) returns (ConnectPMMResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/inventory"

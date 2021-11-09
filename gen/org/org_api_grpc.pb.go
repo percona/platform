@@ -38,6 +38,7 @@ type OrgAPIClient interface {
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
 	// ConnectPMM adds PMM into inventory and returns SSO details.
+	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error)
 }
 
@@ -162,6 +163,7 @@ type OrgAPIServer interface {
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
 	// ConnectPMM adds PMM into inventory and returns SSO details.
+	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
