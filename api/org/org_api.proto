@@ -107,7 +107,7 @@ message ConnectPMMRequest {
       string_not_empty: true
     }
   ];
-  // Public Address from PMM Server Settings.
+  // User accessible address of PMM Server.
   string pmm_server_url = 3 [
     (validator.field) = {
       string_not_empty: true
