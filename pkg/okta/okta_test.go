@@ -489,3 +489,25 @@ func TestGetRegisteredUsersCount(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, usersCount)
 }
+
+func TestAddOAuthApp(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	app, err := s.AddOAuthApp(context.Background(), &OAuthAppParams{
+		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
+		PMMServerURL:         "https://localhost/graph",
+		PMMServerID:          "0f0123ba-978d-4bcc-979d-e8495060fe81",
+		OrgID:                "338311eb-3afc-45c9-b3b8-fce32f29e4e3",
+	})
+
+	require.NoError(t, err)
+	require.NotNil(t, app)
+	assert.NotEmpty(t, app.AppID)
+	require.NotNil(t, app.Credentials)
+	require.NotNil(t, app.Credentials.OAuthClient)
+	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
+	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+}

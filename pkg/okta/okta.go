@@ -2,11 +2,13 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
+	"text/template"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -561,6 +563,84 @@ func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Po
 		return nil, err
 	}
 	return policies, err
+}
+
+const addOAuthAppRequestBody = `
+{
+    "name": "oidc_client",
+    "label": "{{ .PMMServerID }}",
+    "status": "ACTIVE",
+    "signOnMode": "OPENID_CONNECT",
+    "credentials": {
+        "oauthClient": {
+            "autoKeyRotation": true,
+            "token_endpoint_auth_method": "client_secret_basic"
+        }
+    },
+    "settings": {
+        "oauthClient": {
+            "redirect_uris": [
+                "{{ .PMMServerCallbackURL }}"
+            ],
+            "post_logout_redirect_uris": [
+                "{{ .PMMServerURL }}"
+            ],
+            "response_types": [
+                "code"
+            ],
+            "grant_types": [
+                "client_credentials",
+                "authorization_code",
+                "refresh_token"
+            ],
+            "application_type": "web",
+            "consent_method": "REQUIRED",
+            "issuer_mode": "CUSTOM_URL"
+        }
+    },
+    "profile": {
+        "percona": {
+            "portal": {
+                "orgId": "{{ .OrgID }}",
+                "invId": "{{ .InventoryID }}"
+            }
+        }
+    }
+}`
+
+var addOAuthAppRequestBodyTmpl = template.Must(template.New("addOAuthAppRequest").Parse(addOAuthAppRequestBody))
+
+type OAuthApp struct {
+	AppID       string `json:"id"`
+	Credentials struct {
+		OAuthClient struct {
+			ClientID     string `json:"client_id"`
+			ClientSecret string `json:"client_secret"`
+		} `json:"oauthClient"`
+	} `json:"credentials"`
+}
+
+type OAuthAppParams struct {
+	PMMServerID          string
+	PMMServerURL         string
+	PMMServerCallbackURL string
+	OrgID                string
+	InventoryID          string
+}
+
+func (c *Client) AddOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
+	var request bytes.Buffer
+	err := addOAuthAppRequestBodyTmpl.Execute(&request, params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
+	}
+
+	var result OAuthApp
+	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")
+	}
+	return &result, nil
 }
 
 // DoRequest makes HTTP requests to okta endpoints.
