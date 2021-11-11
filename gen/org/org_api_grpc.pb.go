@@ -8,6 +8,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -37,6 +38,8 @@ type OrgAPIClient interface {
 	SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
+	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
+	DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type orgAPIClient struct {
@@ -128,6 +131,15 @@ func (c *orgAPIClient) UpdateMember(ctx context.Context, in *UpdateMemberRequest
 	return out, nil
 }
 
+func (c *orgAPIClient) DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DeleteMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -150,6 +162,8 @@ type OrgAPIServer interface {
 	SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
+	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
+	DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -190,6 +204,10 @@ func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserC
 
 func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
+}
+
+func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -366,6 +384,24 @@ func _OrgAPI_UpdateMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).DeleteMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/DeleteMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).DeleteMember(ctx, req.(*DeleteMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -408,6 +444,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateMember",
 			Handler:    _OrgAPI_UpdateMember_Handler,
+		},
+		{
+			MethodName: "DeleteMember",
+			Handler:    _OrgAPI_DeleteMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

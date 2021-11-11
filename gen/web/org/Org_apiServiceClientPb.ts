@@ -13,6 +13,7 @@
 
 import * as grpcWeb from 'grpc-web';
 
+import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 import * as org_org_api_pb from '../org/org_api_pb';
 
 
@@ -393,6 +394,46 @@ export class OrgAPIClient {
     request,
     metadata || {},
     this.methodInfoUpdateMember);
+  }
+
+  methodInfoDeleteMember = new grpcWeb.AbstractClientBase.MethodInfo(
+    google_protobuf_empty_pb.Empty,
+    (request: org_org_api_pb.DeleteMemberRequest) => {
+      return request.serializeBinary();
+    },
+    google_protobuf_empty_pb.Empty.deserializeBinary
+  );
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/DeleteMember',
+        request,
+        metadata || {},
+        this.methodInfoDeleteMember,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/DeleteMember',
+    request,
+    metadata || {},
+    this.methodInfoDeleteMember);
   }
 
 }
