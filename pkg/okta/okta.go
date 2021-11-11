@@ -509,6 +509,16 @@ func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) err
 	return nil
 }
 
+// AddAppToGroup adds app to group.
+func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodPost, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to add app to group")
+	}
+
+	return nil
+}
+
 // RemoveUserFromGroup remove user from group.
 func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
 	_, err := c.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
