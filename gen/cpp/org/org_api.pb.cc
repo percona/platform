@@ -290,11 +290,37 @@ struct SearchMembersResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SearchMembersResponseDefaultTypeInternal _SearchMembersResponse_default_instance_;
+constexpr UpdateMemberRequest::UpdateMemberRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : org_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , member_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , role_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct UpdateMemberRequestDefaultTypeInternal {
+  constexpr UpdateMemberRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateMemberRequestDefaultTypeInternal() {}
+  union {
+    UpdateMemberRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateMemberRequestDefaultTypeInternal _UpdateMemberRequest_default_instance_;
+constexpr UpdateMemberResponse::UpdateMemberResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : member_(nullptr){}
+struct UpdateMemberResponseDefaultTypeInternal {
+  constexpr UpdateMemberResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateMemberResponseDefaultTypeInternal() {}
+  union {
+    UpdateMemberResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateMemberResponseDefaultTypeInternal _UpdateMemberResponse_default_instance_;
 }  // namespace v1
 }  // namespace org
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[21];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[23];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_org_2forg_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_org_2forg_5fapi_2eproto = nullptr;
 
@@ -443,6 +469,20 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::SearchMembersResponse, members_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberRequest, org_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberRequest, member_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberRequest, role_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateMemberResponse, member_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::org::v1::Organization)},
@@ -466,6 +506,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 125, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest_UserFilter)},
   { 131, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest)},
   { 138, -1, sizeof(::percona::platform::org::v1::SearchMembersResponse)},
+  { 144, -1, sizeof(::percona::platform::org::v1::UpdateMemberRequest)},
+  { 152, -1, sizeof(::percona::platform::org::v1::UpdateMemberResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -490,6 +532,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchMembersRequest_UserFilter_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchMembersRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchMembersResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateMemberRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateMemberResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -546,40 +590,48 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "&\n\nUserFilter\022\030\n\010username\030\001 \001(\tB\006\342\337\037\002X\001\""
   "U\n\025SearchMembersResponse\022<\n\007members\030\001 \003("
   "\0132+.percona.platform.org.v1.Organization"
-  "Member2\214\n\n\006OrgAPI\022\222\001\n\022CreateOrganization"
-  "\0222.percona.platform.org.v1.CreateOrganiz"
-  "ationRequest\0323.percona.platform.org.v1.C"
-  "reateOrganizationResponse\"\023\202\323\344\223\002\r\"\010/v1/o"
-  "rgs:\001*\022\217\001\n\017GetOrganization\022/.percona.pla"
-  "tform.org.v1.GetOrganizationRequest\0320.pe"
-  "rcona.platform.org.v1.GetOrganizationRes"
-  "ponse\"\031\202\323\344\223\002\023\022\021/v1/orgs/{org_id}\022\234\001\n\023Sea"
-  "rchOrganizations\0223.percona.platform.org."
-  "v1.SearchOrganizationsRequest\0324.percona."
-  "platform.org.v1.SearchOrganizationsRespo"
-  "nse\"\032\202\323\344\223\002\024\"\017/v1/orgs:search:\001*\022\230\001\n\022Dele"
-  "teOrganization\0222.percona.platform.org.v1"
-  ".DeleteOrganizationRequest\0323.percona.pla"
-  "tform.org.v1.DeleteOrganizationResponse\""
-  "\031\202\323\344\223\002\023*\021/v1/orgs/{org_id}\022\221\001\n\014InviteMem"
-  "ber\022,.percona.platform.org.v1.InviteMemb"
-  "erRequest\032-.percona.platform.org.v1.Invi"
-  "teMemberResponse\"$\202\323\344\223\002\036\"\031/v1/orgs/{org_"
-  "id}/members:\001*\022\233\001\n\rSearchMembers\022-.perco"
-  "na.platform.org.v1.SearchMembersRequest\032"
-  "..percona.platform.org.v1.SearchMembersR"
-  "esponse\"+\202\323\344\223\002%\" /v1/orgs/{org_id}/membe"
-  "rs:search:\001*\022\320\001\n\036SearchOrganizationEntit"
-  "lements\022>.percona.platform.org.v1.Search"
-  "OrganizationEntitlementsRequest\032\?.percon"
-  "a.platform.org.v1.SearchOrganizationEnti"
-  "tlementsResponse\"-\202\323\344\223\002\'\"%/v1/orgs/{org_"
-  "id}/entitlements:search\022\233\001\n\021SearchUserCo"
-  "mpany\0221.percona.platform.org.v1.SearchUs"
-  "erCompanyRequest\0322.percona.platform.org."
-  "v1.SearchUserCompanyResponse\"\037\202\323\344\223\002\031\"\027/v"
-  "1/orgs/company:searchB\014Z\n/org;orgv1b\006pro"
-  "to3"
+  "Member\"^\n\023UpdateMemberRequest\022\026\n\006org_id\030"
+  "\001 \001(\tB\006\342\337\037\002X\001\022\031\n\tmember_id\030\002 \001(\tB\006\342\337\037\002X\001"
+  "\022\024\n\004role\030\003 \001(\tB\006\342\337\037\002X\001\"S\n\024UpdateMemberRe"
+  "sponse\022;\n\006member\030\001 \001(\0132+.percona.platfor"
+  "m.org.v1.OrganizationMember2\254\013\n\006OrgAPI\022\222"
+  "\001\n\022CreateOrganization\0222.percona.platform"
+  ".org.v1.CreateOrganizationRequest\0323.perc"
+  "ona.platform.org.v1.CreateOrganizationRe"
+  "sponse\"\023\202\323\344\223\002\r\"\010/v1/orgs:\001*\022\217\001\n\017GetOrgan"
+  "ization\022/.percona.platform.org.v1.GetOrg"
+  "anizationRequest\0320.percona.platform.org."
+  "v1.GetOrganizationResponse\"\031\202\323\344\223\002\023\022\021/v1/"
+  "orgs/{org_id}\022\234\001\n\023SearchOrganizations\0223."
+  "percona.platform.org.v1.SearchOrganizati"
+  "onsRequest\0324.percona.platform.org.v1.Sea"
+  "rchOrganizationsResponse\"\032\202\323\344\223\002\024\"\017/v1/or"
+  "gs:search:\001*\022\230\001\n\022DeleteOrganization\0222.pe"
+  "rcona.platform.org.v1.DeleteOrganization"
+  "Request\0323.percona.platform.org.v1.Delete"
+  "OrganizationResponse\"\031\202\323\344\223\002\023*\021/v1/orgs/{"
+  "org_id}\022\221\001\n\014InviteMember\022,.percona.platf"
+  "orm.org.v1.InviteMemberRequest\032-.percona"
+  ".platform.org.v1.InviteMemberResponse\"$\202"
+  "\323\344\223\002\036\"\031/v1/orgs/{org_id}/members:\001*\022\233\001\n\r"
+  "SearchMembers\022-.percona.platform.org.v1."
+  "SearchMembersRequest\032..percona.platform."
+  "org.v1.SearchMembersResponse\"+\202\323\344\223\002%\" /v"
+  "1/orgs/{org_id}/members:search:\001*\022\320\001\n\036Se"
+  "archOrganizationEntitlements\022>.percona.p"
+  "latform.org.v1.SearchOrganizationEntitle"
+  "mentsRequest\032\?.percona.platform.org.v1.S"
+  "earchOrganizationEntitlementsResponse\"-\202"
+  "\323\344\223\002\'\"%/v1/orgs/{org_id}/entitlements:se"
+  "arch\022\233\001\n\021SearchUserCompany\0221.percona.pla"
+  "tform.org.v1.SearchUserCompanyRequest\0322."
+  "percona.platform.org.v1.SearchUserCompan"
+  "yResponse\"\037\202\323\344\223\002\031\"\027/v1/orgs/company:sear"
+  "ch\022\235\001\n\014UpdateMember\022,.percona.platform.o"
+  "rg.v1.UpdateMemberRequest\032-.percona.plat"
+  "form.org.v1.UpdateMemberResponse\"0\202\323\344\223\002*"
+  "\032%/v1/orgs/{org_id}/members/{member_id}:"
+  "\001*B\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[4] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -589,8 +641,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 3443, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
-  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 4, 21,
+  false, false, 3784, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 4, 23,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
 };
@@ -5576,6 +5628,486 @@ void SearchMembersResponse::InternalSwap(SearchMembersResponse* other) {
 }
 
 
+// ===================================================================
+
+class UpdateMemberRequest::_Internal {
+ public:
+};
+
+UpdateMemberRequest::UpdateMemberRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.UpdateMemberRequest)
+}
+UpdateMemberRequest::UpdateMemberRequest(const UpdateMemberRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_org_id().empty()) {
+    org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_org_id(), 
+      GetArena());
+  }
+  member_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_member_id().empty()) {
+    member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_member_id(), 
+      GetArena());
+  }
+  role_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_role().empty()) {
+    role_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_role(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.UpdateMemberRequest)
+}
+
+void UpdateMemberRequest::SharedCtor() {
+org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+member_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+role_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+UpdateMemberRequest::~UpdateMemberRequest() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.UpdateMemberRequest)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void UpdateMemberRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  org_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  member_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  role_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void UpdateMemberRequest::ArenaDtor(void* object) {
+  UpdateMemberRequest* _this = reinterpret_cast< UpdateMemberRequest* >(object);
+  (void)_this;
+}
+void UpdateMemberRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateMemberRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateMemberRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.UpdateMemberRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  org_id_.ClearToEmpty();
+  member_id_.ClearToEmpty();
+  role_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateMemberRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string org_id = 1 [(.validator.field) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_org_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UpdateMemberRequest.org_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string member_id = 2 [(.validator.field) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_member_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UpdateMemberRequest.member_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string role = 3 [(.validator.field) = {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_role();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UpdateMemberRequest.role"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UpdateMemberRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.UpdateMemberRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_org_id().data(), static_cast<int>(this->_internal_org_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.UpdateMemberRequest.org_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_org_id(), target);
+  }
+
+  // string member_id = 2 [(.validator.field) = {
+  if (this->member_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_member_id().data(), static_cast<int>(this->_internal_member_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.UpdateMemberRequest.member_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_member_id(), target);
+  }
+
+  // string role = 3 [(.validator.field) = {
+  if (this->role().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_role().data(), static_cast<int>(this->_internal_role().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.UpdateMemberRequest.role");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_role(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.UpdateMemberRequest)
+  return target;
+}
+
+size_t UpdateMemberRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.UpdateMemberRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_org_id());
+  }
+
+  // string member_id = 2 [(.validator.field) = {
+  if (this->member_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_member_id());
+  }
+
+  // string role = 3 [(.validator.field) = {
+  if (this->role().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_role());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateMemberRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.UpdateMemberRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UpdateMemberRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UpdateMemberRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.UpdateMemberRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.UpdateMemberRequest)
+    MergeFrom(*source);
+  }
+}
+
+void UpdateMemberRequest::MergeFrom(const UpdateMemberRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.UpdateMemberRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.org_id().size() > 0) {
+    _internal_set_org_id(from._internal_org_id());
+  }
+  if (from.member_id().size() > 0) {
+    _internal_set_member_id(from._internal_member_id());
+  }
+  if (from.role().size() > 0) {
+    _internal_set_role(from._internal_role());
+  }
+}
+
+void UpdateMemberRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.UpdateMemberRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateMemberRequest::CopyFrom(const UpdateMemberRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.UpdateMemberRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateMemberRequest::IsInitialized() const {
+  return true;
+}
+
+void UpdateMemberRequest::InternalSwap(UpdateMemberRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  org_id_.Swap(&other->org_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  member_id_.Swap(&other->member_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  role_.Swap(&other->role_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateMemberRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class UpdateMemberResponse::_Internal {
+ public:
+  static const ::percona::platform::org::v1::OrganizationMember& member(const UpdateMemberResponse* msg);
+};
+
+const ::percona::platform::org::v1::OrganizationMember&
+UpdateMemberResponse::_Internal::member(const UpdateMemberResponse* msg) {
+  return *msg->member_;
+}
+UpdateMemberResponse::UpdateMemberResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.UpdateMemberResponse)
+}
+UpdateMemberResponse::UpdateMemberResponse(const UpdateMemberResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_member()) {
+    member_ = new ::percona::platform::org::v1::OrganizationMember(*from.member_);
+  } else {
+    member_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.UpdateMemberResponse)
+}
+
+void UpdateMemberResponse::SharedCtor() {
+member_ = nullptr;
+}
+
+UpdateMemberResponse::~UpdateMemberResponse() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.UpdateMemberResponse)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void UpdateMemberResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance()) delete member_;
+}
+
+void UpdateMemberResponse::ArenaDtor(void* object) {
+  UpdateMemberResponse* _this = reinterpret_cast< UpdateMemberResponse* >(object);
+  (void)_this;
+}
+void UpdateMemberResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateMemberResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateMemberResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.UpdateMemberResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArena() == nullptr && member_ != nullptr) {
+    delete member_;
+  }
+  member_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateMemberResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .percona.platform.org.v1.OrganizationMember member = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_member(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UpdateMemberResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.UpdateMemberResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.OrganizationMember member = 1;
+  if (this->has_member()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::member(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.UpdateMemberResponse)
+  return target;
+}
+
+size_t UpdateMemberResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.UpdateMemberResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.OrganizationMember member = 1;
+  if (this->has_member()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *member_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateMemberResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.UpdateMemberResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UpdateMemberResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UpdateMemberResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.UpdateMemberResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.UpdateMemberResponse)
+    MergeFrom(*source);
+  }
+}
+
+void UpdateMemberResponse::MergeFrom(const UpdateMemberResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.UpdateMemberResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_member()) {
+    _internal_mutable_member()->::percona::platform::org::v1::OrganizationMember::MergeFrom(from._internal_member());
+  }
+}
+
+void UpdateMemberResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.UpdateMemberResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateMemberResponse::CopyFrom(const UpdateMemberResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.UpdateMemberResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateMemberResponse::IsInitialized() const {
+  return true;
+}
+
+void UpdateMemberResponse::InternalSwap(UpdateMemberResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(member_, other->member_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateMemberResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace v1
 }  // namespace org
@@ -5644,6 +6176,12 @@ template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchMembersRequest*
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchMembersResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::SearchMembersResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::SearchMembersResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UpdateMemberRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::UpdateMemberRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::UpdateMemberRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UpdateMemberResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::UpdateMemberResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::UpdateMemberResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
