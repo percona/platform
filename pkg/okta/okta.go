@@ -519,6 +519,23 @@ func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error
 	return nil
 }
 
+// IsOriginTrusted returns boolean telling if given origin is trusted.
+func (c *Client) IsOriginTrusted(ctx context.Context, origin string) (bool, error) {
+	origins, response, err := c.c.TrustedOrigin.ListOrigins(ctx, nil)
+	if response.HasNextPage() {
+		c.l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
+	}
+	if err != nil {
+		return false, errors.Wrap(err, "failed to check if origin is trusted")
+	}
+	for _, trusted := range origins {
+		if trusted.Origin == origin {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
 // RemoveUserFromGroup remove user from group.
 func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
 	_, err := c.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
