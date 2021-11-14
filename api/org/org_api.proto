@@ -7,6 +7,7 @@ option go_package = "/org;orgv1";
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
@@ -37,6 +38,13 @@ service OrgAPI {
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
       delete: "/v1/orgs/{id}"
+    };
+  }
+
+  // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
+  rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/entitlements:search"
     };
   }
 }
@@ -78,8 +86,7 @@ message GetOrganizationResponse {
   Organization org = 1;
 }
 
-message SearchOrganizationsRequest {
-}
+message SearchOrganizationsRequest {}
 
 message SearchOrganizationsResponse {
   repeated Organization orgs = 1;
@@ -95,3 +102,50 @@ message DeleteOrganizationRequest {
 }
 
 message DeleteOrganizationResponse {}
+
+message SearchOrganizationEntitlementsRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationEntitlementsResponse {
+  repeated OrganizationEntitlement entitlements = 1;
+}
+
+// Contains information about Organization entitlement.
+message OrganizationEntitlement {
+  message Platform {
+    // Flag indicates that security advisors are covered by this entitlement.
+    google.protobuf.StringValue security_advisor = 1;
+    // Flag indicates that config advisors are covered by this entitlement.
+    google.protobuf.StringValue config_advisor = 2;
+  }
+  // Entitlement number.
+  string number = 1;
+  // Entitlement name.
+  string name = 2;
+  // Entitlement short summary.
+  string summary = 3;
+  // Entitlement tier.
+  google.protobuf.StringValue tier = 4;
+  // Total units covered by this entitlement.
+  google.protobuf.StringValue total_units = 5;
+  // Flag indicates that unlimited units are covered.
+  google.protobuf.BoolValue unlimited_units = 6;
+  // Support level covered by this entitlement.
+  google.protobuf.StringValue support_level = 7;
+  // Percona product families covered by this entitlement.
+  repeated string software_families = 8;
+  // Entitlement start data.
+  // Note: only date is used here but not time.
+  google.protobuf.Timestamp start_date = 9;
+  // Entitlement end date.
+  // Note: only date is used here but not time.
+  google.protobuf.Timestamp end_date = 10;
+  // Platform specific options covered by this entitlement.
+  Platform platform = 11;
+}
