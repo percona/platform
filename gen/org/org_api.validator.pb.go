@@ -164,3 +164,11 @@ func (this *OrganizationEntitlement_Platform) Validate() error {
 	}
 	return nil
 }
+
+func (this *SearchUserCompanyRequest) Validate() error {
+	return nil
+}
+
+func (this *SearchUserCompanyResponse) Validate() error {
+	return nil
+}
