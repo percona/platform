@@ -279,7 +279,7 @@ func handleAuthProxyError(md metadata.MD, l *zap.Logger) error {
 }
 
 // getAuthData extracts user email and session id from request metadata.
-func getAuthData(md metadata.MD) (*rdata.RequestData, error) {
+func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen, cyclop
 	username, err := getStringFromMetadata(md, AuthUsernameHeader)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUsernameHeader)

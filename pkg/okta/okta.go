@@ -624,7 +624,7 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 	return &schema, nil
 }
 
-func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) {
+func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) { //nolint:revive
 	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return nil, err
@@ -675,21 +675,21 @@ const createOAuthAppRequestBody = `
     }
 }`
 
-var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
+var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody)) //nolint:gochecknoglobals
 
 // OAuthApp represents an oauth app.
-type OAuthApp struct {
+type OAuthApp struct { //nolint:revive
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID     string `json:"client_id"`
-			ClientSecret string `json:"client_secret"`
+			ClientID     string `json:"client_id"`     // nolint:tagliatelle
+			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
 
 // OAuthAppParams contains values needed when creating a new OAuth app.
-type OAuthAppParams struct {
+type OAuthAppParams struct { //nolint:revive
 	PMMServerID          string
 	PMMServerURL         string
 	PMMServerCallbackURL string
@@ -698,7 +698,7 @@ type OAuthAppParams struct {
 }
 
 // CreateOAuthApp creates a new OAuth app.
-func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
+func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) { //nolint:revive
 	var request bytes.Buffer
 	err := createOAuthAppRequestBodyTmpl.Execute(&request, params)
 	if err != nil {
