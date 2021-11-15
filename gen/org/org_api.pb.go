@@ -105,7 +105,7 @@ type ConnectPMMRequest struct {
 	PmmServerId string `protobuf:"bytes,1,opt,name=pmm_server_id,json=pmmServerId,proto3" json:"pmm_server_id,omitempty"`
 	// User defined human readable PMM Server Name.
 	PmmServerName string `protobuf:"bytes,2,opt,name=pmm_server_name,json=pmmServerName,proto3" json:"pmm_server_name,omitempty"`
-	// Public Address from PMM Server Settings.
+	// User accessible address of PMM Server.
 	PmmServerUrl string `protobuf:"bytes,3,opt,name=pmm_server_url,json=pmmServerUrl,proto3" json:"pmm_server_url,omitempty"`
 	// URL for oauth callback.
 	PmmServerOauthCallbackUrl string `protobuf:"bytes,4,opt,name=pmm_server_oauth_callback_url,json=pmmServerOauthCallbackUrl,proto3" json:"pmm_server_oauth_callback_url,omitempty"`

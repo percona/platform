@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/brianvoe/gofakeit"
+	"github.com/brianvoe/gofakeit/v6"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -536,7 +536,7 @@ func TestTrustedOrigin(t *testing.T) {
 	subdomain, err := randomHex(8)
 	require.NoError(t, err)
 	require.NotEmpty(t, subdomain)
-	var origin = "https://" + subdomain + ".com"
+	origin := "https://" + subdomain + ".com"
 
 	_, err = s.GetTrustedOriginID(ctx, origin)
 	if err == nil {
