@@ -519,21 +519,41 @@ func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error
 	return nil
 }
 
-// IsOriginTrusted returns boolean telling if given origin is trusted.
-func (c *Client) IsOriginTrusted(ctx context.Context, origin string) (bool, error) {
+var errOriginNotFound error = errors.New("trusted origin not found")
+
+// GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
+func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
 	origins, response, err := c.c.TrustedOrigin.ListOrigins(ctx, nil)
 	if response.HasNextPage() {
 		c.l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
 	}
 	if err != nil {
-		return false, errors.Wrap(err, "failed to check if origin is trusted")
+		return "", errors.Wrap(err, "failed to check if origin is trusted")
 	}
 	for _, trusted := range origins {
 		if trusted.Origin == origin {
-			return true, nil
+			return trusted.Id, nil
 		}
 	}
-	return false, nil
+	return "", errOriginNotFound
+}
+
+// AddTrustedOrigin makes the given origin trusted.
+func (c *Client) AddTrustedOrigin(ctx context.Context, origin string) error {
+	_, _, err := c.c.TrustedOrigin.CreateOrigin(ctx, okta.TrustedOrigin{
+		Name:   origin,
+		Origin: origin,
+		Scopes: []*okta.Scope{
+			{Type: "REDIRECT"},
+		},
+	})
+	return err
+}
+
+// DeleteTrustedOrigin deletes the given trusted origin.
+func (c *Client) DeleteTrustedOrigin(ctx context.Context, originID string) error {
+	_, err := c.c.TrustedOrigin.DeleteOrigin(ctx, originID)
+	return err
 }
 
 // RemoveUserFromGroup remove user from group.

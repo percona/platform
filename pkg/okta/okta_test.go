@@ -2,6 +2,9 @@ package okta
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
+	"errors"
 	"testing"
 	"time"
 
@@ -510,4 +513,56 @@ func TestAddOAuthApp(t *testing.T) {
 	require.NotNil(t, app.Credentials.OAuthClient)
 	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
 	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+}
+
+func TestTrustedOrigin(t *testing.T) {
+	t.Parallel()
+	randomHex := func(n int) (string, error) {
+		b := make([]byte, n)
+		read, err := rand.Read(b)
+		if read < n {
+			return "", errors.New("failed to read given number of bytes")
+		}
+		if err != nil {
+			return "", err
+		}
+		return hex.EncodeToString(b), nil
+	}
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+	// Let's create a random domain to be able to run multiple instances of tests in parallel.
+	subdomain, err := randomHex(8)
+	require.NoError(t, err)
+	require.NotEmpty(t, subdomain)
+	var origin = "https://" + subdomain + ".com"
+
+	_, err = s.GetTrustedOriginID(ctx, origin)
+	if err == nil {
+		err = s.DeleteTrustedOrigin(ctx, origin)
+		require.NoError(t, err)
+		_, err = s.GetTrustedOriginID(ctx, origin)
+		assert.ErrorIs(t, err, errOriginNotFound)
+	} else if !errors.Is(err, errOriginNotFound) {
+		t.Fatalf("failed to get origin ID from the API: %s", err)
+	}
+
+	err = s.AddTrustedOrigin(ctx, origin)
+	require.NoError(t, err)
+
+	id, err := s.GetTrustedOriginID(ctx, origin)
+	require.NoError(t, err)
+	assert.NotEmpty(t, id)
+
+	t.Cleanup(func() {
+		s.DeleteTrustedOrigin(ctx, id) //nolint:errcheck
+	})
+
+	err = s.DeleteTrustedOrigin(ctx, id)
+	require.NoError(t, err)
+
+	id, err = s.GetTrustedOriginID(ctx, origin)
+	require.ErrorIs(t, err, errOriginNotFound)
+	assert.Empty(t, id)
 }
