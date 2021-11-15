@@ -543,8 +543,8 @@ func TestTrustedOrigin(t *testing.T) {
 		err = s.DeleteTrustedOrigin(ctx, origin)
 		require.NoError(t, err)
 		_, err = s.GetTrustedOriginID(ctx, origin)
-		assert.ErrorIs(t, err, errOriginNotFound)
-	} else if !errors.Is(err, errOriginNotFound) {
+		assert.ErrorIs(t, err, ErrOriginNotFound)
+	} else if !errors.Is(err, ErrOriginNotFound) {
 		t.Fatalf("failed to get origin ID from the API: %s", err)
 	}
 
@@ -563,6 +563,6 @@ func TestTrustedOrigin(t *testing.T) {
 	require.NoError(t, err)
 
 	id, err = s.GetTrustedOriginID(ctx, origin)
-	require.ErrorIs(t, err, errOriginNotFound)
+	require.ErrorIs(t, err, ErrOriginNotFound)
 	assert.Empty(t, id)
 }

@@ -519,7 +519,8 @@ func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error
 	return nil
 }
 
-var errOriginNotFound error = errors.New("trusted origin not found")
+// ErrOriginNotFound means operation on origin failed because it does not exist.
+var ErrOriginNotFound error = errors.New("trusted origin not found")
 
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
@@ -535,7 +536,7 @@ func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string,
 			return trusted.Id, nil
 		}
 	}
-	return "", errOriginNotFound
+	return "", ErrOriginNotFound
 }
 
 // AddTrustedOrigin makes the given origin trusted.
