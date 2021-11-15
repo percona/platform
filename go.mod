@@ -5,7 +5,7 @@ go 1.16
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/brianvoe/gofakeit v3.18.0+incompatible
+	github.com/brianvoe/gofakeit/v6 v6.9.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
