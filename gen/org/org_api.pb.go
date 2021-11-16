@@ -1444,36 +1444,33 @@ func file_org_org_api_proto_rawDescGZIP() []byte {
 	return file_org_org_api_proto_rawDescData
 }
 
-var (
-	file_org_org_api_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
-	file_org_org_api_proto_goTypes  = []interface{}{
-		(*Organization)(nil),                           // 0: percona.platform.org.v1.Organization
-		(*CreateOrganizationRequest)(nil),              // 1: percona.platform.org.v1.CreateOrganizationRequest
-		(*CreateOrganizationResponse)(nil),             // 2: percona.platform.org.v1.CreateOrganizationResponse
-		(*GetOrganizationRequest)(nil),                 // 3: percona.platform.org.v1.GetOrganizationRequest
-		(*GetOrganizationResponse)(nil),                // 4: percona.platform.org.v1.GetOrganizationResponse
-		(*SearchOrganizationsRequest)(nil),             // 5: percona.platform.org.v1.SearchOrganizationsRequest
-		(*SearchOrganizationsResponse)(nil),            // 6: percona.platform.org.v1.SearchOrganizationsResponse
-		(*DeleteOrganizationRequest)(nil),              // 7: percona.platform.org.v1.DeleteOrganizationRequest
-		(*DeleteOrganizationResponse)(nil),             // 8: percona.platform.org.v1.DeleteOrganizationResponse
-		(*SearchOrganizationEntitlementsRequest)(nil),  // 9: percona.platform.org.v1.SearchOrganizationEntitlementsRequest
-		(*SearchOrganizationEntitlementsResponse)(nil), // 10: percona.platform.org.v1.SearchOrganizationEntitlementsResponse
-		(*OrganizationEntitlement)(nil),                // 11: percona.platform.org.v1.OrganizationEntitlement
-		(*SearchUserCompanyRequest)(nil),               // 12: percona.platform.org.v1.SearchUserCompanyRequest
-		(*SearchUserCompanyResponse)(nil),              // 13: percona.platform.org.v1.SearchUserCompanyResponse
-		(*InviteMemberRequest)(nil),                    // 14: percona.platform.org.v1.InviteMemberRequest
-		(*InviteMemberResponse)(nil),                   // 15: percona.platform.org.v1.InviteMemberResponse
-		(*OrganizationMember)(nil),                     // 16: percona.platform.org.v1.OrganizationMember
-		(*SearchMembersRequest)(nil),                   // 17: percona.platform.org.v1.SearchMembersRequest
-		(*SearchMembersResponse)(nil),                  // 18: percona.platform.org.v1.SearchMembersResponse
-		(*OrganizationEntitlement_Platform)(nil),       // 19: percona.platform.org.v1.OrganizationEntitlement.Platform
-		(*SearchMembersRequest_UserFilter)(nil),        // 20: percona.platform.org.v1.SearchMembersRequest.UserFilter
-		(*timestamppb.Timestamp)(nil),                  // 21: google.protobuf.Timestamp
-		(*wrapperspb.StringValue)(nil),                 // 22: google.protobuf.StringValue
-		(*wrapperspb.BoolValue)(nil),                   // 23: google.protobuf.BoolValue
-	}
-)
-
+var file_org_org_api_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_org_org_api_proto_goTypes = []interface{}{
+	(*Organization)(nil),                           // 0: percona.platform.org.v1.Organization
+	(*CreateOrganizationRequest)(nil),              // 1: percona.platform.org.v1.CreateOrganizationRequest
+	(*CreateOrganizationResponse)(nil),             // 2: percona.platform.org.v1.CreateOrganizationResponse
+	(*GetOrganizationRequest)(nil),                 // 3: percona.platform.org.v1.GetOrganizationRequest
+	(*GetOrganizationResponse)(nil),                // 4: percona.platform.org.v1.GetOrganizationResponse
+	(*SearchOrganizationsRequest)(nil),             // 5: percona.platform.org.v1.SearchOrganizationsRequest
+	(*SearchOrganizationsResponse)(nil),            // 6: percona.platform.org.v1.SearchOrganizationsResponse
+	(*DeleteOrganizationRequest)(nil),              // 7: percona.platform.org.v1.DeleteOrganizationRequest
+	(*DeleteOrganizationResponse)(nil),             // 8: percona.platform.org.v1.DeleteOrganizationResponse
+	(*SearchOrganizationEntitlementsRequest)(nil),  // 9: percona.platform.org.v1.SearchOrganizationEntitlementsRequest
+	(*SearchOrganizationEntitlementsResponse)(nil), // 10: percona.platform.org.v1.SearchOrganizationEntitlementsResponse
+	(*OrganizationEntitlement)(nil),                // 11: percona.platform.org.v1.OrganizationEntitlement
+	(*SearchUserCompanyRequest)(nil),               // 12: percona.platform.org.v1.SearchUserCompanyRequest
+	(*SearchUserCompanyResponse)(nil),              // 13: percona.platform.org.v1.SearchUserCompanyResponse
+	(*InviteMemberRequest)(nil),                    // 14: percona.platform.org.v1.InviteMemberRequest
+	(*InviteMemberResponse)(nil),                   // 15: percona.platform.org.v1.InviteMemberResponse
+	(*OrganizationMember)(nil),                     // 16: percona.platform.org.v1.OrganizationMember
+	(*SearchMembersRequest)(nil),                   // 17: percona.platform.org.v1.SearchMembersRequest
+	(*SearchMembersResponse)(nil),                  // 18: percona.platform.org.v1.SearchMembersResponse
+	(*OrganizationEntitlement_Platform)(nil),       // 19: percona.platform.org.v1.OrganizationEntitlement.Platform
+	(*SearchMembersRequest_UserFilter)(nil),        // 20: percona.platform.org.v1.SearchMembersRequest.UserFilter
+	(*timestamppb.Timestamp)(nil),                  // 21: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil),                 // 22: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),                   // 23: google.protobuf.BoolValue
+}
 var file_org_org_api_proto_depIdxs = []int32{
 	21, // 0: percona.platform.org.v1.Organization.created_at:type_name -> google.protobuf.Timestamp
 	21, // 1: percona.platform.org.v1.Organization.updated_at:type_name -> google.protobuf.Timestamp

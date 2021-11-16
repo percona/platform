@@ -887,27 +887,24 @@ func file_auth_auth_api_proto_rawDescGZIP() []byte {
 	return file_auth_auth_api_proto_rawDescData
 }
 
-var (
-	file_auth_auth_api_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-	file_auth_auth_api_proto_goTypes  = []interface{}{
-		(*SignUpRequest)(nil),          // 0: percona.platform.auth.v1.SignUpRequest
-		(*SignUpResponse)(nil),         // 1: percona.platform.auth.v1.SignUpResponse
-		(*SignInRequest)(nil),          // 2: percona.platform.auth.v1.SignInRequest
-		(*SignInResponse)(nil),         // 3: percona.platform.auth.v1.SignInResponse
-		(*SignOutRequest)(nil),         // 4: percona.platform.auth.v1.SignOutRequest
-		(*SignOutResponse)(nil),        // 5: percona.platform.auth.v1.SignOutResponse
-		(*RefreshSessionRequest)(nil),  // 6: percona.platform.auth.v1.RefreshSessionRequest
-		(*RefreshSessionResponse)(nil), // 7: percona.platform.auth.v1.RefreshSessionResponse
-		(*ResetPasswordRequest)(nil),   // 8: percona.platform.auth.v1.ResetPasswordRequest
-		(*ResetPasswordResponse)(nil),  // 9: percona.platform.auth.v1.ResetPasswordResponse
-		(*GetProfileRequest)(nil),      // 10: percona.platform.auth.v1.GetProfileRequest
-		(*GetProfileResponse)(nil),     // 11: percona.platform.auth.v1.GetProfileResponse
-		(*UpdateProfileRequest)(nil),   // 12: percona.platform.auth.v1.UpdateProfileRequest
-		(*UpdateProfileResponse)(nil),  // 13: percona.platform.auth.v1.UpdateProfileResponse
-		(*timestamppb.Timestamp)(nil),  // 14: google.protobuf.Timestamp
-	}
-)
-
+var file_auth_auth_api_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_auth_auth_api_proto_goTypes = []interface{}{
+	(*SignUpRequest)(nil),          // 0: percona.platform.auth.v1.SignUpRequest
+	(*SignUpResponse)(nil),         // 1: percona.platform.auth.v1.SignUpResponse
+	(*SignInRequest)(nil),          // 2: percona.platform.auth.v1.SignInRequest
+	(*SignInResponse)(nil),         // 3: percona.platform.auth.v1.SignInResponse
+	(*SignOutRequest)(nil),         // 4: percona.platform.auth.v1.SignOutRequest
+	(*SignOutResponse)(nil),        // 5: percona.platform.auth.v1.SignOutResponse
+	(*RefreshSessionRequest)(nil),  // 6: percona.platform.auth.v1.RefreshSessionRequest
+	(*RefreshSessionResponse)(nil), // 7: percona.platform.auth.v1.RefreshSessionResponse
+	(*ResetPasswordRequest)(nil),   // 8: percona.platform.auth.v1.ResetPasswordRequest
+	(*ResetPasswordResponse)(nil),  // 9: percona.platform.auth.v1.ResetPasswordResponse
+	(*GetProfileRequest)(nil),      // 10: percona.platform.auth.v1.GetProfileRequest
+	(*GetProfileResponse)(nil),     // 11: percona.platform.auth.v1.GetProfileResponse
+	(*UpdateProfileRequest)(nil),   // 12: percona.platform.auth.v1.UpdateProfileRequest
+	(*UpdateProfileResponse)(nil),  // 13: percona.platform.auth.v1.UpdateProfileResponse
+	(*timestamppb.Timestamp)(nil),  // 14: google.protobuf.Timestamp
+}
 var file_auth_auth_api_proto_depIdxs = []int32{
 	14, // 0: percona.platform.auth.v1.SignInResponse.expire_time:type_name -> google.protobuf.Timestamp
 	14, // 1: percona.platform.auth.v1.RefreshSessionResponse.expire_time:type_name -> google.protobuf.Timestamp
