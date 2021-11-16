@@ -4,14 +4,17 @@ package tracing
 import (
 	"context"
 	"net/http"
+	"net/textproto"
 	"strings"
 
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
 
 const (
 	tracingHeaderPrefix = "X-B3-"
 	tracingHeaderName   = "X-B3-TraceId"
+	portalRequestID     = "Percona-Portal-Request-Id"
 )
 
 // OpenTracingHeadersMatcher preserves the OpenTracing headers added by Traefik
@@ -22,8 +25,8 @@ func OpenTracingHeadersMatcher(key string) bool {
 	return strings.HasPrefix(key, tracingHeaderPrefix)
 }
 
-// GetRequestIDFromGrpcIncomingContext extracts from trace-id value from gRPC incoming metadata.
-func GetRequestIDFromGrpcIncomingContext(ctx context.Context) string {
+// GetRequestIDFromGRPCIncomingContext extracts from trace-id value from gRPC incoming metadata.
+func GetRequestIDFromGRPCIncomingContext(ctx context.Context) string {
 	if headers, ok := metadata.FromIncomingContext(ctx); ok {
 		if reqIDs := headers.Get(tracingHeaderName); len(reqIDs) != 0 {
 			return reqIDs[0]
@@ -38,4 +41,9 @@ func GetRequestIDFromHTTPRequest(r *http.Request) string {
 		return reqID
 	}
 	return ""
+}
+
+// AddRequestIDToGRPCResponseContext adds trace-id value to gRPC response metadata.
+func AddRequestIDToGRPCResponseContext(ctx context.Context, reqID string) {
+	_ = grpc.SetHeader(ctx, metadata.Pairs(textproto.CanonicalMIMEHeaderKey(portalRequestID), reqID))
 }

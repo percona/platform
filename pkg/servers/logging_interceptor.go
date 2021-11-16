@@ -82,15 +82,18 @@ func unaryLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.Una
 
 		// make context with logger
 		var rl *zap.Logger
-		if reqID := tracing.GetRequestIDFromGrpcIncomingContext(ctx); len(reqID) != 0 {
+		if reqID := tracing.GetRequestIDFromGRPCIncomingContext(ctx); len(reqID) != 0 {
 			rl = l.With(zap.String(logger.RequestIDAttr, reqID))
+			defer func() {
+				tracing.AddRequestIDToGRPCResponseContext(ctx, reqID)
+			}()
 		} else {
 			rl = l
 		}
 
 		zapReq := zap.Skip()
 		if rl.Core().Enabled(zap.DebugLevel) {
-			zapReq = zap.Object("request", logger.NewGrpcMessageDumper(ctx, req, info, true))
+			zapReq = zap.Object("request", logger.NewGRPCMessageDumper(ctx, req, info, true))
 		}
 
 		rl.Info("Received unary call", zapReq)
@@ -108,7 +111,7 @@ func unaryLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.Una
 		zapResp := zap.Skip()
 		zapErr := zap.Skip()
 		if rl.Core().Enabled(zap.DebugLevel) {
-			zapResp = zap.Object("response", logger.NewGrpcMessageDumper(ctx, res, info, false))
+			zapResp = zap.Object("response", logger.NewGRPCMessageDumper(ctx, res, info, false))
 		}
 
 		if err != nil {
@@ -133,8 +136,11 @@ func streamLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.St
 
 		// make context with logger
 		var rl *zap.Logger
-		if requestID := tracing.GetRequestIDFromGrpcIncomingContext(ctx); len(requestID) != 0 {
-			rl = l.With(zap.String(logger.RequestIDAttr, requestID))
+		if reqID := tracing.GetRequestIDFromGRPCIncomingContext(ctx); len(reqID) != 0 {
+			rl = l.With(zap.String(logger.RequestIDAttr, reqID))
+			defer func() {
+				tracing.AddRequestIDToGRPCResponseContext(ctx, reqID)
+			}()
 		} else {
 			rl = l
 		}

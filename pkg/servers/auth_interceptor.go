@@ -93,9 +93,7 @@ func PerconaHeaderMatcher(key string) (string, bool) {
 	return runtime.DefaultHeaderMatcher(key)
 }
 
-// perconaAuthHeadersMatcher preserves the Auth-* headers added by /forwardauth in Authed service
-// after the HTTP request is received by grpc-gateway and are forwarded as-is
-// to the grpc server.
+// perconaAuthHeadersMatcher filter function for the Percona Auth-* headers added by /forwardauth in Authed service.
 // NOTE: key parameter must be in a Canonical format.
 func perconaAuthHeadersMatcher(key string) bool {
 	return strings.HasPrefix(key, "Auth-")
@@ -134,44 +132,42 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 			return nil, err
 		}
 
+		authData := new(rdata.RequestData)
+		var err error
+
 		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
 		case authMethodRequireAuth:
 			// Request must be authenticated.
-			authData, err := getAuthData(md)
+			authData, err = getAuthData(md)
 			if err != nil {
 				l.Error("Can't extract auth data from incoming request. Rejecting request.", zap.Error(err))
 				return nil, errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, authData)
-
-			// Add logger with userID/appID attribute to context.
-			// This logger will be extracted from context and used later by service layers.
-			if len(authData.UserID) != 0 {
-				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
-			} else if len(authData.AppID) != 0 {
-				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
-			}
-			ctx = logger.GetContextWithLogger(ctx, l)
-		case authMethodMayUseAuth:
+		case authMethodMayUseAuth, authMethodNoAuth:
 			// In case auth data exist add it to context.
-			authData, err := getAuthData(md)
+			tmpAuthData, err := getAuthData(md)
 			if err == nil {
+				authData = tmpAuthData
 				ctx = rdata.AddToContext(ctx, authData)
-
-				// Add logger with userID/appID attribute to context.
-				// This logger will be extracted from context and used later by service layers.
-				if len(authData.UserID) != 0 {
-					l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
-				} else if len(authData.AppID) != 0 {
-					l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
-				}
-				ctx = logger.GetContextWithLogger(ctx, l)
 			}
-		case authMethodNoAuth:
 		default:
 			// Do not try to extract auth data from incoming context.
 		}
 
+		// Add logger with userID/appID attributes to context.
+		// This logger will be extracted from context and used later by service layers.
+		zapUserID := zap.Skip()
+		if len(authData.UserID) != 0 {
+			zapUserID = zap.String(logger.UserIDAttr, authData.UserID)
+		}
+
+		zapAppID := zap.Skip()
+		if len(authData.AppID) != 0 {
+			zapAppID = zap.String(logger.AppIDAttr, authData.AppID)
+		}
+
+		ctx = logger.GetContextWithLogger(ctx, l.With(zapUserID, zapAppID))
 		return handler(ctx, req)
 	}
 }
@@ -210,43 +206,42 @@ func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.Strea
 			return err
 		}
 
+		authData := new(rdata.RequestData)
+		var err error
+
 		switch getAuthMethodType(noAuthMethodsSet, mayUseAuthMethodsSet, info.FullMethod) {
 		case authMethodRequireAuth:
 			// Request must be authenticated.
-			authData, err := getAuthData(md)
+			authData, err = getAuthData(md)
 			if err != nil {
 				l.Error("Can't extract auth data from incoming request. Rejecting request.", zap.Error(err))
 				return errAuthenticationFail
 			}
 			ctx = rdata.AddToContext(ctx, authData)
-
-			// Add logger with userID/appID attribute to context.
-			// This logger will be extracted from context and used later by service layers.
-			if len(authData.UserID) != 0 {
-				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
-			} else if len(authData.AppID) != 0 {
-				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
-			}
-			ctx = logger.GetContextWithLogger(ctx, l)
-		case authMethodMayUseAuth:
+		case authMethodMayUseAuth, authMethodNoAuth:
 			// In case auth data exist add it to context.
-			authData, err := getAuthData(md)
+			tmpAuthData, err := getAuthData(md)
 			if err == nil {
+				authData = tmpAuthData
 				ctx = rdata.AddToContext(ctx, authData)
 			}
-
-			// Add logger with userID/appID attribute to context.
-			// This logger will be extracted from context and used later by service layers.
-			if len(authData.UserID) != 0 {
-				l = l.With(zap.String(logger.UserIDAttr, authData.UserID))
-			} else if len(authData.AppID) != 0 {
-				l = l.With(zap.String(logger.AppIDAttr, authData.AppID))
-			}
-			ctx = logger.GetContextWithLogger(ctx, l)
-		case authMethodNoAuth:
 		default:
 			// Do not try to extract auth data from incoming context.
 		}
+
+		// Add logger with userID/appID attributes to context.
+		// This logger will be extracted from context and used later by service layers.
+		zapUserID := zap.Skip()
+		if len(authData.UserID) != 0 {
+			zapUserID = zap.String(logger.UserIDAttr, authData.UserID)
+		}
+
+		zapAppID := zap.Skip()
+		if len(authData.AppID) != 0 {
+			zapAppID = zap.String(logger.AppIDAttr, authData.AppID)
+		}
+
+		ctx = logger.GetContextWithLogger(ctx, l.With(zapUserID, zapAppID))
 		return handler(ctx, ss)
 	}
 }

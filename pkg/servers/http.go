@@ -89,7 +89,7 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 
 // RequestLoggerMiddleware creates middleware for logging HTTP request execution time.
 // It extracts request ID (tracing ID) from incoming HTTP request, creates logger instance with this request ID
-// and add logger instance into the request context.
+// and adds logger instance into the request context.
 func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		startTime := time.Now()

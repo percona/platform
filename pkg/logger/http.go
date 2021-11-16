@@ -32,8 +32,10 @@ func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	if rl.Core().Enabled(zap.DebugLevel) {
 		b, _ := httputil.DumpRequestOut(req, true)
 		if len(b) != 0 {
-			rl.Info(fmt.Sprintf("Sending request:\n%s", b))
+			rl.Debug(fmt.Sprintf("Sending request:\n%s", b))
 		}
+	} else {
+		rl.Info(fmt.Sprintf("Sending request to host=%s", req.URL.Host))
 	}
 
 	resp, err := rt.rt.RoundTrip(req)
@@ -44,8 +46,10 @@ func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 		if rl.Core().Enabled(zap.DebugLevel) {
 			b, _ := httputil.DumpResponse(resp, true)
 			if len(b) != 0 {
-				rl.Info(fmt.Sprintf("Received response:\n%s", b))
+				rl.Debug(fmt.Sprintf("Received response:\n%s", b))
 			}
+		} else {
+			rl.Info(fmt.Sprintf("Received response: %s", resp.Status))
 		}
 	}
 	return resp, err

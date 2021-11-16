@@ -54,17 +54,17 @@ var protoMarshalOpts = protojson.MarshalOptions{
 	EmitUnpopulated: true,
 }
 
-// GrpcMessageDumper helper struct for dumping gRPC message using zap logger.
-type GrpcMessageDumper struct {
+// GRPCMessageDumper helper struct for dumping gRPC message using zap logger.
+type GRPCMessageDumper struct {
 	msg       interface{}
 	ctx       context.Context
 	info      *grpc.UnaryServerInfo
 	isRequest bool
 }
 
-// NewGrpcMessageDumper creates gRPC message dumper for zap logger.
-func NewGrpcMessageDumper(ctx context.Context, msg interface{}, info *grpc.UnaryServerInfo, isRequest bool) *GrpcMessageDumper {
-	return &GrpcMessageDumper{
+// NewGRPCMessageDumper creates gRPC message dumper for zap logger.
+func NewGRPCMessageDumper(ctx context.Context, msg interface{}, info *grpc.UnaryServerInfo, isRequest bool) *GRPCMessageDumper {
+	return &GRPCMessageDumper{
 		ctx:       ctx,
 		msg:       msg,
 		info:      info,
@@ -73,7 +73,7 @@ func NewGrpcMessageDumper(ctx context.Context, msg interface{}, info *grpc.Unary
 }
 
 // MarshalLogObject implements zapcore.ObjectMarshaler interface.
-func (d *GrpcMessageDumper) MarshalLogObject(enc zapcore.ObjectEncoder) error {
+func (d *GRPCMessageDumper) MarshalLogObject(enc zapcore.ObjectEncoder) error {
 	if d.isRequest {
 		if md, ok := metadata.FromIncomingContext(d.ctx); ok {
 			zap.Any("metadata", md).AddTo(enc)
