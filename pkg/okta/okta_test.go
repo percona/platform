@@ -567,6 +567,7 @@ func randomHex(n int) (string, error) {
 	}
 	return hex.EncodeToString(b), nil
 }
+
 func TestTrustedOrigin(t *testing.T) {
 	t.Parallel()
 
