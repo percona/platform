@@ -728,7 +728,10 @@ class SignInResponse PROTOBUF_FINAL :
 
   enum : int {
     kSessionIdFieldNumber = 1,
+    kTokenTypeFieldNumber = 3,
+    kAccessTokenFieldNumber = 5,
     kExpireTimeFieldNumber = 2,
+    kExpiresInFieldNumber = 4,
   };
   // string session_id = 1;
   void clear_session_id();
@@ -744,6 +747,38 @@ class SignInResponse PROTOBUF_FINAL :
   const std::string& _internal_session_id() const;
   void _internal_set_session_id(const std::string& value);
   std::string* _internal_mutable_session_id();
+  public:
+
+  // string token_type = 3;
+  void clear_token_type();
+  const std::string& token_type() const;
+  void set_token_type(const std::string& value);
+  void set_token_type(std::string&& value);
+  void set_token_type(const char* value);
+  void set_token_type(const char* value, size_t size);
+  std::string* mutable_token_type();
+  std::string* release_token_type();
+  void set_allocated_token_type(std::string* token_type);
+  private:
+  const std::string& _internal_token_type() const;
+  void _internal_set_token_type(const std::string& value);
+  std::string* _internal_mutable_token_type();
+  public:
+
+  // string access_token = 5;
+  void clear_access_token();
+  const std::string& access_token() const;
+  void set_access_token(const std::string& value);
+  void set_access_token(std::string&& value);
+  void set_access_token(const char* value);
+  void set_access_token(const char* value, size_t size);
+  std::string* mutable_access_token();
+  std::string* release_access_token();
+  void set_allocated_access_token(std::string* access_token);
+  private:
+  const std::string& _internal_access_token() const;
+  void _internal_set_access_token(const std::string& value);
+  std::string* _internal_mutable_access_token();
   public:
 
   // .google.protobuf.Timestamp expire_time = 2;
@@ -764,6 +799,15 @@ class SignInResponse PROTOBUF_FINAL :
       PROTOBUF_NAMESPACE_ID::Timestamp* expire_time);
   PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_expire_time();
 
+  // int32 expires_in = 4;
+  void clear_expires_in();
+  ::PROTOBUF_NAMESPACE_ID::int32 expires_in() const;
+  void set_expires_in(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_expires_in() const;
+  void _internal_set_expires_in(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:percona.platform.auth.v1.SignInResponse)
  private:
   class _Internal;
@@ -772,7 +816,10 @@ class SignInResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr access_token_;
   PROTOBUF_NAMESPACE_ID::Timestamp* expire_time_;
+  ::PROTOBUF_NAMESPACE_ID::int32 expires_in_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_2fauth_5fapi_2eproto;
 };
@@ -2695,6 +2742,148 @@ inline void SignInResponse::set_allocated_expire_time(PROTOBUF_NAMESPACE_ID::Tim
   }
   expire_time_ = expire_time;
   // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignInResponse.expire_time)
+}
+
+// string token_type = 3;
+inline void SignInResponse::clear_token_type() {
+  token_type_.ClearToEmpty();
+}
+inline const std::string& SignInResponse::token_type() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.SignInResponse.token_type)
+  return _internal_token_type();
+}
+inline void SignInResponse::set_token_type(const std::string& value) {
+  _internal_set_token_type(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.SignInResponse.token_type)
+}
+inline std::string* SignInResponse::mutable_token_type() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.SignInResponse.token_type)
+  return _internal_mutable_token_type();
+}
+inline const std::string& SignInResponse::_internal_token_type() const {
+  return token_type_.Get();
+}
+inline void SignInResponse::_internal_set_token_type(const std::string& value) {
+  
+  token_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void SignInResponse::set_token_type(std::string&& value) {
+  
+  token_type_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.SignInResponse.token_type)
+}
+inline void SignInResponse::set_token_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  token_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.SignInResponse.token_type)
+}
+inline void SignInResponse::set_token_type(const char* value,
+    size_t size) {
+  
+  token_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.SignInResponse.token_type)
+}
+inline std::string* SignInResponse::_internal_mutable_token_type() {
+  
+  return token_type_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* SignInResponse::release_token_type() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.SignInResponse.token_type)
+  return token_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SignInResponse::set_allocated_token_type(std::string* token_type) {
+  if (token_type != nullptr) {
+    
+  } else {
+    
+  }
+  token_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token_type,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignInResponse.token_type)
+}
+
+// int32 expires_in = 4;
+inline void SignInResponse::clear_expires_in() {
+  expires_in_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SignInResponse::_internal_expires_in() const {
+  return expires_in_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SignInResponse::expires_in() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.SignInResponse.expires_in)
+  return _internal_expires_in();
+}
+inline void SignInResponse::_internal_set_expires_in(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  expires_in_ = value;
+}
+inline void SignInResponse::set_expires_in(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_expires_in(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.SignInResponse.expires_in)
+}
+
+// string access_token = 5;
+inline void SignInResponse::clear_access_token() {
+  access_token_.ClearToEmpty();
+}
+inline const std::string& SignInResponse::access_token() const {
+  // @@protoc_insertion_point(field_get:percona.platform.auth.v1.SignInResponse.access_token)
+  return _internal_access_token();
+}
+inline void SignInResponse::set_access_token(const std::string& value) {
+  _internal_set_access_token(value);
+  // @@protoc_insertion_point(field_set:percona.platform.auth.v1.SignInResponse.access_token)
+}
+inline std::string* SignInResponse::mutable_access_token() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.auth.v1.SignInResponse.access_token)
+  return _internal_mutable_access_token();
+}
+inline const std::string& SignInResponse::_internal_access_token() const {
+  return access_token_.Get();
+}
+inline void SignInResponse::_internal_set_access_token(const std::string& value) {
+  
+  access_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void SignInResponse::set_access_token(std::string&& value) {
+  
+  access_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.auth.v1.SignInResponse.access_token)
+}
+inline void SignInResponse::set_access_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  access_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.auth.v1.SignInResponse.access_token)
+}
+inline void SignInResponse::set_access_token(const char* value,
+    size_t size) {
+  
+  access_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.auth.v1.SignInResponse.access_token)
+}
+inline std::string* SignInResponse::_internal_mutable_access_token() {
+  
+  return access_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* SignInResponse::release_access_token() {
+  // @@protoc_insertion_point(field_release:percona.platform.auth.v1.SignInResponse.access_token)
+  return access_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SignInResponse::set_allocated_access_token(std::string* access_token) {
+  if (access_token != nullptr) {
+    
+  } else {
+    
+  }
+  access_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), access_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.auth.v1.SignInResponse.access_token)
 }
 
 // -------------------------------------------------------------------

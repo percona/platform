@@ -98,6 +98,16 @@ message SignInResponse {
   string session_id = 1;
   // Session expiration time.
   google.protobuf.Timestamp expire_time = 2;
+
+  // OAuth token type.
+  string token_type = 3;
+
+  // OAuth token expiration period (sec).
+  // This field is applicable to access_token only.
+  int32 expires_in = 4;
+
+  // OAuth token.
+  string access_token = 5;
 }
 
 message SignOutRequest {}

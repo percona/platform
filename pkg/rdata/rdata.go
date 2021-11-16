@@ -7,6 +7,9 @@ import (
 	"github.com/pkg/errors"
 )
 
+// ErrNoAuthData helper error for case when auth data is absent in incoming context.
+var ErrNoAuthData = errors.New("missing request data in request context")
+
 type requestDataKey struct{}
 
 // RequestData contains request related data added by interceptors.
@@ -18,6 +21,10 @@ type RequestData struct {
 	// UserID Percona Account User ID in Okta.
 	// Note: Percona Account is handled by Okta so ID comes from Okta as well.
 	UserID string
+
+	// AppID Application ID in Okta.
+	// Note: Application is handled by Okta so ID comes from Okta as well.
+	AppID string
 
 	// IsPortalSuperAdmin flag indicates that this particular user has SuperAdmin
 	// permissions in Percona Portal only.
@@ -50,5 +57,5 @@ func GetFromContext(ctx context.Context) (*RequestData, error) {
 		}
 	}
 
-	return nil, errors.New("missing request data in request context")
+	return nil, ErrNoAuthData
 }

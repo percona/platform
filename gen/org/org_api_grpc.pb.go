@@ -31,6 +31,10 @@ type OrgAPIClient interface {
 	InviteMember(ctx context.Context, in *InviteMemberRequest, opts ...grpc.CallOption) (*InviteMemberResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
+	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
+	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
+	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
+	SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error)
 }
 
 type orgAPIClient struct {
@@ -95,6 +99,24 @@ func (c *orgAPIClient) SearchMembers(ctx context.Context, in *SearchMembersReque
 	return out, nil
 }
 
+func (c *orgAPIClient) SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error) {
+	out := new(SearchOrganizationEntitlementsResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orgAPIClient) SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error) {
+	out := new(SearchUserCompanyResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -111,6 +133,10 @@ type OrgAPIServer interface {
 	InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
+	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
+	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
+	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
+	SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -139,6 +165,14 @@ func (UnimplementedOrgAPIServer) InviteMember(context.Context, *InviteMemberRequ
 
 func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchMembers not implemented")
+}
+
+func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
+}
+
+func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchUserCompany not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -261,6 +295,42 @@ func _OrgAPI_SearchMembers_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_SearchOrganizationEntitlements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchOrganizationEntitlementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).SearchOrganizationEntitlements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).SearchOrganizationEntitlements(ctx, req.(*SearchOrganizationEntitlementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrgAPI_SearchUserCompany_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchUserCompanyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).SearchUserCompany(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchUserCompany",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).SearchUserCompany(ctx, req.(*SearchUserCompanyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -291,6 +361,14 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchMembers",
 			Handler:    _OrgAPI_SearchMembers_Handler,
+		},
+		{
+			MethodName: "SearchOrganizationEntitlements",
+			Handler:    _OrgAPI_SearchOrganizationEntitlements_Handler,
+		},
+		{
+			MethodName: "SearchUserCompany",
+			Handler:    _OrgAPI_SearchUserCompany_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -49,6 +49,8 @@ type NewGRPCServerOpts struct {
 
 	// gRPC server methods that don't require authentication.
 	NoAuthMethods []string
+	// gRPC server methods that may check authentication data.
+	MayUseAuthMethods []string
 }
 
 // NewGRPCServer creates new gRPC server with given options.
@@ -73,7 +75,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		unaryLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
-		unaryAuthInterceptor(opts.NoAuthMethods),
+		unaryAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
 	}
 	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
@@ -81,7 +83,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		streamLoggingInterceptor(opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
-		streamAuthInterceptor(opts.NoAuthMethods),
+		streamAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
 	}
 	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 

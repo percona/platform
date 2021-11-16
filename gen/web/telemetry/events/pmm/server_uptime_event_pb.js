@@ -418,7 +418,9 @@ proto.percona.platform.telemetry.events.pmm.v1.DistributionMethod = {
   DISTRIBUTION_METHOD_INVALID: 0,
   DOCKER: 1,
   OVF: 2,
-  AMI: 3
+  AMI: 3,
+  AZURE: 4,
+  DO: 5
 };
 
 goog.object.extend(exports, proto.percona.platform.telemetry.events.pmm.v1);

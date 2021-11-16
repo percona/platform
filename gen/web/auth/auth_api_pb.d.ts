@@ -79,6 +79,15 @@ export class SignInResponse extends jspb.Message {
   hasExpireTime(): boolean;
   clearExpireTime(): SignInResponse;
 
+  getTokenType(): string;
+  setTokenType(value: string): SignInResponse;
+
+  getExpiresIn(): number;
+  setExpiresIn(value: number): SignInResponse;
+
+  getAccessToken(): string;
+  setAccessToken(value: string): SignInResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SignInResponse.AsObject;
   static toObject(includeInstance: boolean, msg: SignInResponse): SignInResponse.AsObject;
@@ -91,6 +100,9 @@ export namespace SignInResponse {
   export type AsObject = {
     sessionId: string,
     expireTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    tokenType: string,
+    expiresIn: number,
+    accessToken: string,
   }
 }
 
