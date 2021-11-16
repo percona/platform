@@ -20,5 +20,5 @@ require (
 	google.golang.org/grpc v1.42.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
-	mvdan.cc/gofumpt v0.2.0 // indirect
+	mvdan.cc/gofumpt v0.2.0
 )
