@@ -509,11 +509,29 @@ func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) err
 	return nil
 }
 
+// IsAppAssignedToGroup returns true if app is assigned to given group, false otherwise - not found error. Also false in case of any other error.
+func (c *Client) IsAppAssignedToGroup(ctx context.Context, appID, groupID string) bool {
+	if err := c.DoRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil); err != nil {
+		return false
+	}
+	return true
+}
+
 // AddAppToGroup adds app to group.
 func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error {
-	err := c.DoRequest(ctx, http.MethodPost, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	err := c.DoRequest(ctx, http.MethodPut, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
 	if err != nil {
-		return errors.Wrap(err, "failed to add app to group")
+		return errors.Wrap(err, "failed to add app to the group")
+	}
+
+	return nil
+}
+
+// RemoveAppFromGroup removes app from group.
+func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodDelete, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to remove app from the group")
 	}
 
 	return nil

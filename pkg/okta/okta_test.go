@@ -499,7 +499,9 @@ func TestAddOAuthApp(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	app, err := s.AddOAuthApp(context.Background(), &OAuthAppParams{
+	ctx := context.Background()
+
+	app, err := s.AddOAuthApp(ctx, &OAuthAppParams{
 		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
 		PMMServerURL:         "https://localhost/graph",
 		PMMServerID:          "0f0123ba-978d-4bcc-979d-e8495060fe81",
@@ -513,21 +515,56 @@ func TestAddOAuthApp(t *testing.T) {
 	require.NotNil(t, app.Credentials.OAuthClient)
 	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
 	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+
+	name, err := randomHex(8)
+	require.NoError(t, err)
+
+	description, err := randomHex(16)
+	require.NoError(t, err)
+
+	group, err := s.CreateGroup(ctx, name, description)
+	require.NoError(t, err)
+	require.NotNil(t, group)
+	t.Cleanup(func() {
+		s.DeleteGroup(ctx, group.ID) //nolint:checkerr
+	})
+
+	assigned := s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.False(t, assigned)
+
+	err = s.AddAppToGroup(ctx, app.AppID, group.ID)
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.RemoveAppFromGroup(ctx, app.AppID, group.ID) //nolint:checkerr
+	})
+
+	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.True(t, assigned)
+
+	err = s.RemoveAppFromGroup(ctx, app.AppID, group.ID)
+	require.NoError(t, err)
+
+	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.False(t, assigned)
+
+	err = s.DeleteGroup(ctx, group.ID)
+	require.NoError(t, err)
 }
 
+func randomHex(n int) (string, error) {
+	b := make([]byte, n)
+	read, err := rand.Read(b)
+	if read < n {
+		return "", errors.New("failed to read given number of bytes")
+	}
+	if err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(b), nil
+}
 func TestTrustedOrigin(t *testing.T) {
 	t.Parallel()
-	randomHex := func(n int) (string, error) {
-		b := make([]byte, n)
-		read, err := rand.Read(b)
-		if read < n {
-			return "", errors.New("failed to read given number of bytes")
-		}
-		if err != nil {
-			return "", err
-		}
-		return hex.EncodeToString(b), nil
-	}
+
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
