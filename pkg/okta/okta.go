@@ -712,6 +712,22 @@ func (c *Client) AddOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAut
 	return &result, nil
 }
 
+func (c *Client) DeleteApp(ctx context.Context, appID string) error {
+	_, err := c.c.Application.DeactivateApplication(ctx, appID)
+	if err != nil {
+		return errors.Wrap(err, "failed to deactivate app before deleting it")
+	}
+
+	if _, err = c.c.Application.DeleteApplication(ctx, appID); err != nil {
+		_, e := c.c.Application.ActivateApplication(ctx, appID)
+		if e != nil {
+			c.l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required")
+		}
+		return err
+	}
+	return nil
+}
+
 // DoRequest makes HTTP requests to okta endpoints.
 func (c *Client) DoRequest(ctx context.Context, method, path string, body, v interface{}) error {
 	requestExecutor := c.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")

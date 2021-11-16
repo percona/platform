@@ -493,7 +493,7 @@ func TestGetRegisteredUsersCount(t *testing.T) {
 	require.NotEmpty(t, usersCount)
 }
 
-func TestAddOAuthApp(t *testing.T) {
+func TestAppLifecycle(t *testing.T) {
 	t.Parallel()
 
 	s, err := createOktaService(t)
@@ -507,8 +507,10 @@ func TestAddOAuthApp(t *testing.T) {
 		PMMServerID:          "0f0123ba-978d-4bcc-979d-e8495060fe81",
 		OrgID:                "338311eb-3afc-45c9-b3b8-fce32f29e4e3",
 	})
-
 	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.DeleteApp(ctx, app.AppID) //nolint:checkerr
+	})
 	require.NotNil(t, app)
 	assert.NotEmpty(t, app.AppID)
 	require.NotNil(t, app.Credentials)
@@ -548,6 +550,9 @@ func TestAddOAuthApp(t *testing.T) {
 	assert.False(t, assigned)
 
 	err = s.DeleteGroup(ctx, group.ID)
+	require.NoError(t, err)
+
+	err = s.DeleteApp(ctx, app.AppID)
 	require.NoError(t, err)
 }
 
