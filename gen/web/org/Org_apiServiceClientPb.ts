@@ -195,6 +195,86 @@ export class OrgAPIClient {
     this.methodInfoDeleteOrganization);
   }
 
+  methodInfoInviteMember = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.InviteMemberResponse,
+    (request: org_org_api_pb.InviteMemberRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.InviteMemberResponse.deserializeBinary
+  );
+
+  inviteMember(
+    request: org_org_api_pb.InviteMemberRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.InviteMemberResponse>;
+
+  inviteMember(
+    request: org_org_api_pb.InviteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.InviteMemberResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.InviteMemberResponse>;
+
+  inviteMember(
+    request: org_org_api_pb.InviteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.InviteMemberResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/InviteMember',
+        request,
+        metadata || {},
+        this.methodInfoInviteMember,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/InviteMember',
+    request,
+    metadata || {},
+    this.methodInfoInviteMember);
+  }
+
+  methodInfoSearchMembers = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchMembersResponse,
+    (request: org_org_api_pb.SearchMembersRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchMembersResponse.deserializeBinary
+  );
+
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchMembersResponse>;
+
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchMembersResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchMembersResponse>;
+
+  searchMembers(
+    request: org_org_api_pb.SearchMembersRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchMembersResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchMembers',
+        request,
+        metadata || {},
+        this.methodInfoSearchMembers,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchMembers',
+    request,
+    metadata || {},
+    this.methodInfoSearchMembers);
+  }
+
   methodInfoSearchOrganizationEntitlements = new grpcWeb.AbstractClientBase.MethodInfo(
     org_org_api_pb.SearchOrganizationEntitlementsResponse,
     (request: org_org_api_pb.SearchOrganizationEntitlementsRequest) => {
