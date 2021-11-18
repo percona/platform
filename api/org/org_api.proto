@@ -84,6 +84,7 @@ service OrgAPI {
   rpc ConnectPMM(ConnectPMMRequest) returns (ConnectPMMResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/inventory"
+      body: "*"
     };
   }
 }

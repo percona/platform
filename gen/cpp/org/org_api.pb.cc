@@ -675,7 +675,7 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\006\342\337\037\002X\001\022\031\n\tmember_id\030\002 \001(\tB\006\342\337\037\002X\001\022\024\n\004ro"
   "le\030\003 \001(\tB\006\342\337\037\002X\001\"S\n\024UpdateMemberResponse"
   "\022;\n\006member\030\001 \001(\0132+.percona.platform.org."
-  "v1.OrganizationMember2\260\014\n\006OrgAPI\022\222\001\n\022Cre"
+  "v1.OrganizationMember2\263\014\n\006OrgAPI\022\222\001\n\022Cre"
   "ateOrganization\0222.percona.platform.org.v"
   "1.CreateOrganizationRequest\0323.percona.pl"
   "atform.org.v1.CreateOrganizationResponse"
@@ -711,11 +711,11 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\014UpdateMember\022,.percona.platform.org.v1."
   "UpdateMemberRequest\032-.percona.platform.o"
   "rg.v1.UpdateMemberResponse\"0\202\323\344\223\002*\032%/v1/"
-  "orgs/{org_id}/members/{member_id}:\001*\022\201\001\n"
+  "orgs/{org_id}/members/{member_id}:\001*\022\204\001\n"
   "\nConnectPMM\022*.percona.platform.org.v1.Co"
   "nnectPMMRequest\032+.percona.platform.org.v"
-  "1.ConnectPMMResponse\"\032\202\323\344\223\002\024\"\022/v1/orgs/i"
-  "nventoryB\014Z\n/org;orgv1b\006proto3"
+  "1.ConnectPMMResponse\"\035\202\323\344\223\002\027\"\022/v1/orgs/i"
+  "nventory:\001*B\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[4] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -725,7 +725,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 4270, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  false, false, 4273, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
   &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 4, 26,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
