@@ -4,12 +4,12 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/hex"
-	"errors"
 	"testing"
 	"time"
 
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
