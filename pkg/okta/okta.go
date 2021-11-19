@@ -679,6 +679,7 @@ const addOAuthAppRequestBody = `
 
 var addOAuthAppRequestBodyTmpl = template.Must(template.New("addOAuthAppRequest").Parse(addOAuthAppRequestBody))
 
+// OAuthApp represents an oauth app.
 type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
@@ -689,6 +690,7 @@ type OAuthApp struct {
 	} `json:"credentials"`
 }
 
+// OAuthAppParams contains values needed when creating a new OAuth app.
 type OAuthAppParams struct {
 	PMMServerID          string
 	PMMServerURL         string
@@ -697,6 +699,7 @@ type OAuthAppParams struct {
 	InventoryID          string
 }
 
+// AddOAuthApp creates a new OAuth app.
 func (c *Client) AddOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
 	var request bytes.Buffer
 	err := addOAuthAppRequestBodyTmpl.Execute(&request, params)
@@ -712,6 +715,7 @@ func (c *Client) AddOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAut
 	return &result, nil
 }
 
+// DeleteApp deletes an app with given appID.
 func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 	_, err := c.c.Application.DeactivateApplication(ctx, appID)
 	if err != nil {

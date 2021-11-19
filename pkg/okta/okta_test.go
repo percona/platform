@@ -509,7 +509,7 @@ func TestAppLifecycle(t *testing.T) {
 	})
 	require.NoError(t, err)
 	t.Cleanup(func() {
-		s.DeleteApp(ctx, app.AppID) //nolint:checkerr
+		s.DeleteApp(ctx, app.AppID) //nolint:errcheck
 	})
 	require.NotNil(t, app)
 	assert.NotEmpty(t, app.AppID)
@@ -528,7 +528,7 @@ func TestAppLifecycle(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, group)
 	t.Cleanup(func() {
-		s.DeleteGroup(ctx, group.ID) //nolint:checkerr
+		s.DeleteGroup(ctx, group.ID) //nolint:errcheck
 	})
 
 	assigned := s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
@@ -537,7 +537,7 @@ func TestAppLifecycle(t *testing.T) {
 	err = s.AddAppToGroup(ctx, app.AppID, group.ID)
 	require.NoError(t, err)
 	t.Cleanup(func() {
-		s.RemoveAppFromGroup(ctx, app.AppID, group.ID) //nolint:checkerr
+		s.RemoveAppFromGroup(ctx, app.AppID, group.ID) //nolint:errcheck
 	})
 
 	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
