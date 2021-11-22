@@ -14,7 +14,7 @@ import (
 const (
 	tracingHeaderPrefix = "X-B3-"
 	tracingHeaderName   = "X-B3-TraceId"
-	portalRequestID     = "Percona-Portal-Request-Id"
+	portalRequestID     = "X-Percona-Portal-Request-Id"
 )
 
 // OpenTracingHeadersMatcher preserves the OpenTracing headers added by Traefik

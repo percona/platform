@@ -22,12 +22,7 @@ type roundTripper struct {
 }
 
 func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	rl := GetLoggerFromContext(req.Context())
-	if rl == nil {
-		// if context logger is absent use global one.
-		rl = zap.L()
-	}
-	rl = rl.Named(rt.loggerName)
+	rl := GetLoggerFromContext(req.Context()).Named(rt.loggerName)
 
 	if rl.Core().Enabled(zap.DebugLevel) {
 		b, _ := httputil.DumpRequestOut(req, true)
