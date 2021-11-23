@@ -637,7 +637,7 @@ func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Po
 const addOAuthAppRequestBody = `
 {
     "name": "oidc_client",
-    "label": "{{ .PMMServerID }}",
+    "label": "PMM-{{ .PMMServerID }}",
     "status": "ACTIVE",
     "signOnMode": "OPENID_CONNECT",
     "credentials": {
