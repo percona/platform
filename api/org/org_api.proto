@@ -97,7 +97,7 @@ message PMMServerSSODetails {
 }
 
 message ConnectPMMRequest {
-  // ID from PMM Server DB - pmm-managed.settings.telemetry.uuid.
+  // Unique PMM Server ID.
   string pmm_server_id = 1 [
     (validator.field) = {
       string_not_empty: true

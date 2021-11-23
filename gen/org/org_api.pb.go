@@ -101,7 +101,7 @@ type ConnectPMMRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// ID from PMM Server DB - pmm-managed.settings.telemetry.uuid.
+	// Unique PMM Server ID.
 	PmmServerId string `protobuf:"bytes,1,opt,name=pmm_server_id,json=pmmServerId,proto3" json:"pmm_server_id,omitempty"`
 	// User defined human readable PMM Server Name.
 	PmmServerName string `protobuf:"bytes,2,opt,name=pmm_server_name,json=pmmServerName,proto3" json:"pmm_server_name,omitempty"`
