@@ -99,7 +99,7 @@ func perconaAuthHeadersMatcher(key string) bool {
 	return strings.HasPrefix(key, "Auth-")
 }
 
-func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor {
+func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor { //nolint:cyclop
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
 	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
 
@@ -172,7 +172,7 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 	}
 }
 
-func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.StreamServerInterceptor {
+func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.StreamServerInterceptor { //nolint:cyclop
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
 	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
 

@@ -678,7 +678,7 @@ const createOAuthAppRequestBody = `
 var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody)) //nolint:gochecknoglobals
 
 // OAuthApp represents an oauth app.
-type OAuthApp struct { //nolint:revive
+type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
@@ -689,7 +689,7 @@ type OAuthApp struct { //nolint:revive
 }
 
 // OAuthAppParams contains values needed when creating a new OAuth app.
-type OAuthAppParams struct { //nolint:revive
+type OAuthAppParams struct {
 	PMMServerID          string
 	PMMServerURL         string
 	PMMServerCallbackURL string
@@ -698,7 +698,7 @@ type OAuthAppParams struct { //nolint:revive
 }
 
 // CreateOAuthApp creates a new OAuth app.
-func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) { //nolint:revive
+func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
 	var request bytes.Buffer
 	err := createOAuthAppRequestBodyTmpl.Execute(&request, params)
 	if err != nil {

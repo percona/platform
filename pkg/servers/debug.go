@@ -153,7 +153,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(shutdownCtx); err != nil {
+	if err := server.Shutdown(shutdownCtx); err != nil { //nolint:contextcheck //intended context switch
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()

@@ -38,6 +38,7 @@ linters:
     - wrapcheck        # forces to wrap errors everywhere
     - wsl              # too annoying
     - varnamelen       # doesn't match the go codestyle
+    - ireturn          # incompatible with the codebase
 
 issues:
   exclude-use-default: false

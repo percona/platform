@@ -85,7 +85,7 @@ func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop
 func starlarkToGo(v starlark.Value) (interface{}, error) { //nolint:funlen, cyclop
 	switch v := v.(type) {
 	case starlark.NoneType:
-		return nil, nil
+		return nil, nil //nolint:nilnil //intended
 
 	case starlark.Bool:
 		return bool(v), nil
