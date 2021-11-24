@@ -557,8 +557,8 @@ func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string,
 	return "", ErrOriginNotFound
 }
 
-// AddTrustedOrigin makes the given origin trusted and returns it's id.
-func (c *Client) AddTrustedOrigin(ctx context.Context, origin string) (string, error) {
+// CreateTrustedOrigin makes the given origin trusted and returns it's id.
+func (c *Client) CreateTrustedOrigin(ctx context.Context, origin string) (string, error) {
 	trusted, _, err := c.c.TrustedOrigin.CreateOrigin(ctx, okta.TrustedOrigin{
 		Name:   origin,
 		Origin: origin,
