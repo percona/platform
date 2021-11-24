@@ -634,7 +634,7 @@ func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Po
 	return policies, err
 }
 
-const addOAuthAppRequestBody = `
+const createOAuthAppRequestBody = `
 {
     "name": "oidc_client",
     "label": "PMM-{{ .PMMServerID }}",
@@ -677,7 +677,7 @@ const addOAuthAppRequestBody = `
     }
 }`
 
-var addOAuthAppRequestBodyTmpl = template.Must(template.New("addOAuthAppRequest").Parse(addOAuthAppRequestBody))
+var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
 
 // OAuthApp represents an oauth app.
 type OAuthApp struct {
@@ -699,10 +699,10 @@ type OAuthAppParams struct {
 	InventoryID          string
 }
 
-// AddOAuthApp creates a new OAuth app.
-func (c *Client) AddOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
+// CreateOAuthApp creates a new OAuth app.
+func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
 	var request bytes.Buffer
-	err := addOAuthAppRequestBodyTmpl.Execute(&request, params)
+	err := createOAuthAppRequestBodyTmpl.Execute(&request, params)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
 	}

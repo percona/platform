@@ -501,7 +501,7 @@ func TestAppLifecycle(t *testing.T) {
 
 	ctx := context.Background()
 
-	app, err := s.AddOAuthApp(ctx, &OAuthAppParams{
+	app, err := s.CreateOAuthApp(ctx, &OAuthAppParams{
 		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
 		PMMServerURL:         "https://localhost/graph",
 		PMMServerID:          "0f0123ba-978d-4bcc-979d-e8495060fe81",
