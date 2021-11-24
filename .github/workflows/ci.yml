@@ -264,7 +264,7 @@ jobs:
         run: sudo .github/workflows/enable-docker-experimental.sh
 
       - name: Login in Docker registry
-        run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+        run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
 
       - name: Build Docker image
         run: make docker-build
