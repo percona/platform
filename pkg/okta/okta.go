@@ -724,7 +724,7 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 	if _, err = c.c.Application.DeleteApplication(ctx, appID); err != nil {
 		_, e := c.c.Application.ActivateApplication(ctx, appID)
 		if e != nil {
-			l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required")
+			l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required", zap.Error(e))
 		}
 		return err
 	}
