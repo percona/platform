@@ -37,6 +37,9 @@ type OrgAPIClient interface {
 	SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
+	// ConnectPMM adds PMM into inventory and returns SSO details.
+	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+	ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error)
 }
 
 type orgAPIClient struct {
@@ -128,6 +131,15 @@ func (c *orgAPIClient) UpdateMember(ctx context.Context, in *UpdateMemberRequest
 	return out, nil
 }
 
+func (c *orgAPIClient) ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error) {
+	out := new(ConnectPMMResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/ConnectPMM", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -150,6 +162,9 @@ type OrgAPIServer interface {
 	SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
+	// ConnectPMM adds PMM into inventory and returns SSO details.
+	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+	ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -190,6 +205,10 @@ func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserC
 
 func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
+}
+
+func (UnimplementedOrgAPIServer) ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConnectPMM not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -366,6 +385,24 @@ func _OrgAPI_UpdateMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_ConnectPMM_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConnectPMMRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).ConnectPMM(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/ConnectPMM",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).ConnectPMM(ctx, req.(*ConnectPMMRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -408,6 +445,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateMember",
 			Handler:    _OrgAPI_UpdateMember_Handler,
+		},
+		{
+			MethodName: "ConnectPMM",
+			Handler:    _OrgAPI_ConnectPMM_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
