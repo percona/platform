@@ -30,7 +30,8 @@ gen:                                       ## Format, check, and generate code u
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/reporter/*.proto
 	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/events/pmm/server_uptime_event.proto
 
-	$(DOCKER_RUN_CMD) gofumports -local github.com/percona-platform/platform -w .
+	$(DOCKER_RUN_CMD) gofumpt -w .
+	$(DOCKER_RUN_CMD) goimports -local github.com/percona-platform/platform -w .
 
 	$(DOCKER_RUN_CMD) go run post-processing.go -patch-ui
 
@@ -42,7 +43,8 @@ gen-code:                                  ## Generate code
 	go install ./...
 
 format:                                    ## Format source code
-	bin/gofumports -local github.com/percona-platform/platform -l -w .
+	bin/gofumpt -l -w .
+	bin/goimports -local github.com/percona-platform/platform -l -w .
 
 check:                                     ## Run checks/linters for the whole project
 	bin/go-consistent -exclude=tools -pedantic ./...

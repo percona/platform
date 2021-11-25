@@ -25,15 +25,13 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var (
-	_ codes.Code
-	_ io.Reader
-	_ status.Status
-	_ = runtime.String
-	_ = utilities.NewDoubleArray
-	_ = descriptor.ForMessage
-	_ = metadata.Join
-)
+var _ codes.Code
+var _ io.Reader
+var _ status.Status
+var _ = runtime.String
+var _ = utilities.NewDoubleArray
+var _ = descriptor.ForMessage
+var _ = metadata.Join
 
 func request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetAllChecksRequest
@@ -49,6 +47,7 @@ func request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler runtime.
 
 	msg, err := client.GetAllChecks(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -65,6 +64,7 @@ func local_request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler ru
 
 	msg, err := server.GetAllChecks(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 func request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -81,6 +81,7 @@ func request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, marsha
 
 	msg, err := client.GetAllAlertRuleTemplates(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -97,6 +98,7 @@ func local_request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, 
 
 	msg, err := server.GetAllAlertRuleTemplates(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 // RegisterRetrievalAPIHandlerServer registers the http handlers for service RetrievalAPI to "mux".
@@ -104,6 +106,7 @@ func local_request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, 
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRetrievalAPIHandlerFromEndpoint instead.
 func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RetrievalAPIServer) error {
+
 	mux.Handle("POST", pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -124,6 +127,7 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		}
 
 		forward_RetrievalAPI_GetAllChecks_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	mux.Handle("POST", pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -146,6 +150,7 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		}
 
 		forward_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -188,6 +193,7 @@ func RegisterRetrievalAPIHandler(ctx context.Context, mux *runtime.ServeMux, con
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "RetrievalAPIClient" to call the correct interceptors.
 func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RetrievalAPIClient) error {
+
 	mux.Handle("POST", pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -205,6 +211,7 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		}
 
 		forward_RetrievalAPI_GetAllChecks_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	mux.Handle("POST", pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -224,6 +231,7 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		}
 
 		forward_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil

@@ -141,36 +141,30 @@ type OrgAPIServer interface {
 }
 
 // UnimplementedOrgAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedOrgAPIServer struct{}
+type UnimplementedOrgAPIServer struct {
+}
 
 func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
 }
-
 func (UnimplementedOrgAPIServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
 }
-
 func (UnimplementedOrgAPIServer) SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizations not implemented")
 }
-
 func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
 }
-
 func (UnimplementedOrgAPIServer) InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteMember not implemented")
 }
-
 func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchMembers not implemented")
 }
-
 func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
 }
-
 func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserCompany not implemented")
 }

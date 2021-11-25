@@ -213,15 +213,12 @@ func file_telemetry_reporter_event_proto_rawDescGZIP() []byte {
 	return file_telemetry_reporter_event_proto_rawDescData
 }
 
-var (
-	file_telemetry_reporter_event_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-	file_telemetry_reporter_event_proto_goTypes  = []interface{}{
-		(*AnyEvent)(nil),              // 0: percona.platform.telemetry.reporter.v1.AnyEvent
-		(*Event)(nil),                 // 1: percona.platform.telemetry.reporter.v1.Event
-		(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
-	}
-)
-
+var file_telemetry_reporter_event_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_telemetry_reporter_event_proto_goTypes = []interface{}{
+	(*AnyEvent)(nil),              // 0: percona.platform.telemetry.reporter.v1.AnyEvent
+	(*Event)(nil),                 // 1: percona.platform.telemetry.reporter.v1.Event
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
+}
 var file_telemetry_reporter_event_proto_depIdxs = []int32{
 	2, // 0: percona.platform.telemetry.reporter.v1.Event.time:type_name -> google.protobuf.Timestamp
 	0, // 1: percona.platform.telemetry.reporter.v1.Event.event:type_name -> percona.platform.telemetry.reporter.v1.AnyEvent
