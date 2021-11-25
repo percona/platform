@@ -79,6 +79,11 @@ func (r *Reform) After(query string, args []interface{}, d time.Duration, err er
 	r.mResponses.WithLabelValues(statement(query), e).Observe(d.Seconds())
 }
 
+// ReplaceLogger replaces reform.PrintfLogger.
+func (r *Reform) ReplaceLogger(newLogger *reform.PrintfLogger) {
+	r.l = newLogger
+}
+
 // Describe implements prom.Collector.
 func (r *Reform) Describe(ch chan<- *prometheus.Desc) {
 	r.mRequests.Describe(ch)
