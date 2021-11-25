@@ -101,7 +101,7 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 			rl = l
 		}
 
-		msg := "Received request"
+		msg := "Received request."
 		if rl.Core().Enabled(zap.DebugLevel) {
 			b, _ := httputil.DumpRequest(r, true)
 			if len(b) != 0 {
@@ -118,7 +118,7 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 		lrw := newLoggingResponseWriter(w)
 		next.ServeHTTP(lrw, r)
 
-		rl.Info("Request was processed",
+		rl.Info("Request was processed.",
 			zap.Int("code", lrw.StatusCode),
 			zap.Duration("duration", time.Since(startTime)),
 		)
