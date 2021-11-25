@@ -539,9 +539,10 @@ var ErrOriginNotFound error = errors.New("trusted origin was not found")
 
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	origins, response, err := c.c.TrustedOrigin.ListOrigins(ctx, nil)
 	if response.HasNextPage() {
-		c.l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
+		l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
 	}
 	if err != nil {
 		return "", errors.Wrap(err, "failed to check if origin is trusted")
@@ -714,6 +715,7 @@ func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*O
 
 // DeleteApp deletes an app with given appID.
 func (c *Client) DeleteApp(ctx context.Context, appID string) error {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	_, err := c.c.Application.DeactivateApplication(ctx, appID)
 	if err != nil {
 		return errors.Wrap(err, "failed to deactivate app before deleting it")
@@ -722,7 +724,7 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 	if _, err = c.c.Application.DeleteApplication(ctx, appID); err != nil {
 		_, e := c.c.Application.ActivateApplication(ctx, appID)
 		if e != nil {
-			c.l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required")
+			l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required", zap.Error(e))
 		}
 		return err
 	}
