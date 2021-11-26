@@ -103,6 +103,13 @@ service OrgAPI {
     };
   }
 
+  // DeleteInventory deletes the inventory with ghe given ID from the given organization
+  rpc DeleteInventory(DeleteInventoryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/inventory/{pmm_server_id}"
+    };
+  }
+
   // SearchInventory returns the inventory list of the given organization
   rpc SearchInventory(SearchInventoryRequest) returns (SearchInventoryResponse) {
     option (google.api.http) = {
@@ -371,6 +378,15 @@ message DeleteMemberRequest {
 
   // Percona Portal Member ID.
   string member_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message DeleteInventoryRequest {
+  // PMM server ID.
+  string pmm_server_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }

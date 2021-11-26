@@ -45,6 +45,8 @@ type OrgAPIClient interface {
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error)
+	// DeleteInventory deletes the inventory with ghe given ID from the given organization
+	DeleteInventory(ctx context.Context, in *DeleteInventoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(ctx context.Context, in *SearchInventoryRequest, opts ...grpc.CallOption) (*SearchInventoryResponse, error)
 }
@@ -165,6 +167,15 @@ func (c *orgAPIClient) ConnectPMM(ctx context.Context, in *ConnectPMMRequest, op
 	return out, nil
 }
 
+func (c *orgAPIClient) DeleteInventory(ctx context.Context, in *DeleteInventoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DeleteInventory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orgAPIClient) SearchInventory(ctx context.Context, in *SearchInventoryRequest, opts ...grpc.CallOption) (*SearchInventoryResponse, error) {
 	out := new(SearchInventoryResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchInventory", in, out, opts...)
@@ -203,6 +214,8 @@ type OrgAPIServer interface {
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error)
+	// DeleteInventory deletes the inventory with ghe given ID from the given organization
+	DeleteInventory(context.Context, *DeleteInventoryRequest) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
@@ -247,6 +260,9 @@ func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequ
 }
 func (UnimplementedOrgAPIServer) ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectPMM not implemented")
+}
+func (UnimplementedOrgAPIServer) DeleteInventory(context.Context, *DeleteInventoryRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteInventory not implemented")
 }
 func (UnimplementedOrgAPIServer) SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchInventory not implemented")
@@ -480,6 +496,24 @@ func _OrgAPI_ConnectPMM_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_DeleteInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteInventoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).DeleteInventory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/DeleteInventory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).DeleteInventory(ctx, req.(*DeleteInventoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrgAPI_SearchInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchInventoryRequest)
 	if err := dec(in); err != nil {
@@ -552,6 +586,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConnectPMM",
 			Handler:    _OrgAPI_ConnectPMM_Handler,
+		},
+		{
+			MethodName: "DeleteInventory",
+			Handler:    _OrgAPI_DeleteInventory_Handler,
 		},
 		{
 			MethodName: "SearchInventory",

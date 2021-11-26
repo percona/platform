@@ -516,6 +516,46 @@ export class OrgAPIClient {
     this.methodInfoConnectPMM);
   }
 
+  methodInfoDeleteInventory = new grpcWeb.AbstractClientBase.MethodInfo(
+    google_protobuf_empty_pb.Empty,
+    (request: org_org_api_pb.DeleteInventoryRequest) => {
+      return request.serializeBinary();
+    },
+    google_protobuf_empty_pb.Empty.deserializeBinary
+  );
+
+  deleteInventory(
+    request: org_org_api_pb.DeleteInventoryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
+
+  deleteInventory(
+    request: org_org_api_pb.DeleteInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
+
+  deleteInventory(
+    request: org_org_api_pb.DeleteInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/DeleteInventory',
+        request,
+        metadata || {},
+        this.methodInfoDeleteInventory,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/DeleteInventory',
+    request,
+    metadata || {},
+    this.methodInfoDeleteInventory);
+  }
+
   methodInfoSearchInventory = new grpcWeb.AbstractClientBase.MethodInfo(
     org_org_api_pb.SearchInventoryResponse,
     (request: org_org_api_pb.SearchInventoryRequest) => {

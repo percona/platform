@@ -696,6 +696,24 @@ export namespace DeleteMemberRequest {
   }
 }
 
+export class DeleteInventoryRequest extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): DeleteInventoryRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteInventoryRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteInventoryRequest): DeleteInventoryRequest.AsObject;
+  static serializeBinaryToWriter(message: DeleteInventoryRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteInventoryRequest;
+  static deserializeBinaryFromReader(message: DeleteInventoryRequest, reader: jspb.BinaryReader): DeleteInventoryRequest;
+}
+
+export namespace DeleteInventoryRequest {
+  export type AsObject = {
+    pmmServerId: string,
+  }
+}
+
 export class SearchInventoryRequest extends jspb.Message {
   getOrgId(): string;
   setOrgId(value: string): SearchInventoryRequest;

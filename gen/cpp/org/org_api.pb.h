@@ -51,7 +51,7 @@ struct TableStruct_org_2forg_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[36]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -81,6 +81,9 @@ extern CreateOrganizationRequestDefaultTypeInternal _CreateOrganizationRequest_d
 class CreateOrganizationResponse;
 struct CreateOrganizationResponseDefaultTypeInternal;
 extern CreateOrganizationResponseDefaultTypeInternal _CreateOrganizationResponse_default_instance_;
+class DeleteInventoryRequest;
+struct DeleteInventoryRequestDefaultTypeInternal;
+extern DeleteInventoryRequestDefaultTypeInternal _DeleteInventoryRequest_default_instance_;
 class DeleteMemberRequest;
 struct DeleteMemberRequestDefaultTypeInternal;
 extern DeleteMemberRequestDefaultTypeInternal _DeleteMemberRequest_default_instance_;
@@ -179,6 +182,7 @@ template<> ::percona::platform::org::v1::Contacts* Arena::CreateMaybeMessage<::p
 template<> ::percona::platform::org::v1::Contacts_CustomerSuccess* Arena::CreateMaybeMessage<::percona::platform::org::v1::Contacts_CustomerSuccess>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationResponse>(Arena*);
+template<> ::percona::platform::org::v1::DeleteInventoryRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteInventoryRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteMemberRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteMemberRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationResponse>(Arena*);
@@ -4980,6 +4984,150 @@ class DeleteMemberRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class DeleteInventoryRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.DeleteInventoryRequest) */ {
+ public:
+  inline DeleteInventoryRequest() : DeleteInventoryRequest(nullptr) {}
+  virtual ~DeleteInventoryRequest();
+  explicit constexpr DeleteInventoryRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteInventoryRequest(const DeleteInventoryRequest& from);
+  DeleteInventoryRequest(DeleteInventoryRequest&& from) noexcept
+    : DeleteInventoryRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteInventoryRequest& operator=(const DeleteInventoryRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteInventoryRequest& operator=(DeleteInventoryRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteInventoryRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteInventoryRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteInventoryRequest*>(
+               &_DeleteInventoryRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(DeleteInventoryRequest& a, DeleteInventoryRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteInventoryRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteInventoryRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteInventoryRequest* New() const final {
+    return CreateMaybeMessage<DeleteInventoryRequest>(nullptr);
+  }
+
+  DeleteInventoryRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteInventoryRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteInventoryRequest& from);
+  void MergeFrom(const DeleteInventoryRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteInventoryRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.DeleteInventoryRequest";
+  }
+  protected:
+  explicit DeleteInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPmmServerIdFieldNumber = 1,
+  };
+  // string pmm_server_id = 1 [(.validator.field) = {
+  void clear_pmm_server_id();
+  const std::string& pmm_server_id() const;
+  void set_pmm_server_id(const std::string& value);
+  void set_pmm_server_id(std::string&& value);
+  void set_pmm_server_id(const char* value);
+  void set_pmm_server_id(const char* value, size_t size);
+  std::string* mutable_pmm_server_id();
+  std::string* release_pmm_server_id();
+  void set_allocated_pmm_server_id(std::string* pmm_server_id);
+  private:
+  const std::string& _internal_pmm_server_id() const;
+  void _internal_set_pmm_server_id(const std::string& value);
+  std::string* _internal_mutable_pmm_server_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.DeleteInventoryRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pmm_server_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SearchInventoryRequest PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchInventoryRequest) */ {
  public:
@@ -5023,7 +5171,7 @@ class SearchInventoryRequest PROTOBUF_FINAL :
                &_SearchInventoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(SearchInventoryRequest& a, SearchInventoryRequest& b) {
     a.Swap(&b);
@@ -5167,7 +5315,7 @@ class Inventory PROTOBUF_FINAL :
                &_Inventory_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(Inventory& a, Inventory& b) {
     a.Swap(&b);
@@ -5347,7 +5495,7 @@ class SearchInventoryResponse PROTOBUF_FINAL :
                &_SearchInventoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(SearchInventoryResponse& a, SearchInventoryResponse& b) {
     a.Swap(&b);
@@ -5493,7 +5641,7 @@ class SearchOrganizationTicketsRequest PROTOBUF_FINAL :
                &_SearchOrganizationTicketsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
   friend void swap(SearchOrganizationTicketsRequest& a, SearchOrganizationTicketsRequest& b) {
     a.Swap(&b);
@@ -5637,7 +5785,7 @@ class SearchOrganizationTicketsResponse PROTOBUF_FINAL :
                &_SearchOrganizationTicketsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(SearchOrganizationTicketsResponse& a, SearchOrganizationTicketsResponse& b) {
     a.Swap(&b);
@@ -5783,7 +5931,7 @@ class OrganizationTicket PROTOBUF_FINAL :
                &_OrganizationTicket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(OrganizationTicket& a, OrganizationTicket& b) {
     a.Swap(&b);
@@ -10035,6 +10183,71 @@ inline void DeleteMemberRequest::set_allocated_member_id(std::string* member_id)
 
 // -------------------------------------------------------------------
 
+// DeleteInventoryRequest
+
+// string pmm_server_id = 1 [(.validator.field) = {
+inline void DeleteInventoryRequest::clear_pmm_server_id() {
+  pmm_server_id_.ClearToEmpty();
+}
+inline const std::string& DeleteInventoryRequest::pmm_server_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  return _internal_pmm_server_id();
+}
+inline void DeleteInventoryRequest::set_pmm_server_id(const std::string& value) {
+  _internal_set_pmm_server_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+}
+inline std::string* DeleteInventoryRequest::mutable_pmm_server_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  return _internal_mutable_pmm_server_id();
+}
+inline const std::string& DeleteInventoryRequest::_internal_pmm_server_id() const {
+  return pmm_server_id_.Get();
+}
+inline void DeleteInventoryRequest::_internal_set_pmm_server_id(const std::string& value) {
+  
+  pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteInventoryRequest::set_pmm_server_id(std::string&& value) {
+  
+  pmm_server_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+}
+inline void DeleteInventoryRequest::set_pmm_server_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+}
+inline void DeleteInventoryRequest::set_pmm_server_id(const char* value,
+    size_t size) {
+  
+  pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+}
+inline std::string* DeleteInventoryRequest::_internal_mutable_pmm_server_id() {
+  
+  return pmm_server_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteInventoryRequest::release_pmm_server_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  return pmm_server_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteInventoryRequest::set_allocated_pmm_server_id(std::string* pmm_server_id) {
+  if (pmm_server_id != nullptr) {
+    
+  } else {
+    
+  }
+  pmm_server_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pmm_server_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+}
+
+// -------------------------------------------------------------------
+
 // SearchInventoryRequest
 
 // string org_id = 1 [(.validator.field) = {
@@ -11008,6 +11221,8 @@ inline void OrganizationTicket::set_allocated_url(std::string* url) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
