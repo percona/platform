@@ -270,6 +270,25 @@ func (this *DeleteMemberRequest) Validate() error {
 	}
 	return nil
 }
+func (this *SearchInventoryRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	return nil
+}
+func (this *Inventory) Validate() error {
+	return nil
+}
+func (this *SearchInventoryResponse) Validate() error {
+	for _, item := range this.Inventory {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Inventory", err)
+			}
+		}
+	}
+	return nil
+}
 func (this *SearchOrganizationTicketsRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
