@@ -2,6 +2,7 @@ import * as jspb from 'google-protobuf'
 
 import * as github_com_mwitkow_go$proto$validators_validator_pb from '../github.com/mwitkow/go-proto-validators/validator_pb';
 import * as google_api_annotations_pb from '../google/api/annotations_pb';
+import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
 import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
@@ -617,6 +618,28 @@ export class UpdateMemberResponse extends jspb.Message {
 export namespace UpdateMemberResponse {
   export type AsObject = {
     member?: OrganizationMember.AsObject,
+  }
+}
+
+export class DeleteMemberRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): DeleteMemberRequest;
+
+  getMemberId(): string;
+  setMemberId(value: string): DeleteMemberRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteMemberRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteMemberRequest): DeleteMemberRequest.AsObject;
+  static serializeBinaryToWriter(message: DeleteMemberRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteMemberRequest;
+  static deserializeBinaryFromReader(message: DeleteMemberRequest, reader: jspb.BinaryReader): DeleteMemberRequest;
+}
+
+export namespace DeleteMemberRequest {
+  export type AsObject = {
+    orgId: string,
+    memberId: string,
   }
 }
 
