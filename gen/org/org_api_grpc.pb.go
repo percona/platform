@@ -231,7 +231,6 @@ func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequ
 func (UnimplementedOrgAPIServer) ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectPMM not implemented")
 }
-
 func (UnimplementedOrgAPIServer) SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchInventory not implemented")
 }

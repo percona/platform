@@ -625,6 +625,7 @@ func request_OrgAPI_SearchInventory_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.SearchInventory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
+
 }
 
 func local_request_OrgAPI_SearchInventory_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -651,6 +652,7 @@ func local_request_OrgAPI_SearchInventory_0(ctx context.Context, marshaler runti
 
 	msg, err := server.SearchInventory(ctx, &protoReq)
 	return msg, metadata, err
+
 }
 
 // RegisterOrgAPIHandlerServer registers the http handlers for service OrgAPI to "mux".
@@ -932,6 +934,7 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		}
 
 		forward_OrgAPI_SearchInventory_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
@@ -1212,6 +1215,7 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		}
 
 		forward_OrgAPI_SearchInventory_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
 	})
 
 	return nil
