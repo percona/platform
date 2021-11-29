@@ -198,3 +198,23 @@ func (this *SearchMembersResponse) Validate() error {
 	}
 	return nil
 }
+func (this *UpdateMemberRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	if this.MemberId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("MemberId", fmt.Errorf(`value '%v' must not be an empty string`, this.MemberId))
+	}
+	if this.Role == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Role", fmt.Errorf(`value '%v' must not be an empty string`, this.Role))
+	}
+	return nil
+}
+func (this *UpdateMemberResponse) Validate() error {
+	if this.Member != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Member); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Member", err)
+		}
+	}
+	return nil
+}

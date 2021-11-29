@@ -494,3 +494,49 @@ export namespace SearchMembersResponse {
   }
 }
 
+export class UpdateMemberRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): UpdateMemberRequest;
+
+  getMemberId(): string;
+  setMemberId(value: string): UpdateMemberRequest;
+
+  getRole(): string;
+  setRole(value: string): UpdateMemberRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMemberRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMemberRequest): UpdateMemberRequest.AsObject;
+  static serializeBinaryToWriter(message: UpdateMemberRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMemberRequest;
+  static deserializeBinaryFromReader(message: UpdateMemberRequest, reader: jspb.BinaryReader): UpdateMemberRequest;
+}
+
+export namespace UpdateMemberRequest {
+  export type AsObject = {
+    orgId: string,
+    memberId: string,
+    role: string,
+  }
+}
+
+export class UpdateMemberResponse extends jspb.Message {
+  getMember(): OrganizationMember | undefined;
+  setMember(value?: OrganizationMember): UpdateMemberResponse;
+  hasMember(): boolean;
+  clearMember(): UpdateMemberResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMemberResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMemberResponse): UpdateMemberResponse.AsObject;
+  static serializeBinaryToWriter(message: UpdateMemberResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMemberResponse;
+  static deserializeBinaryFromReader(message: UpdateMemberResponse, reader: jspb.BinaryReader): UpdateMemberResponse;
+}
+
+export namespace UpdateMemberResponse {
+  export type AsObject = {
+    member?: OrganizationMember.AsObject,
+  }
+}
+
