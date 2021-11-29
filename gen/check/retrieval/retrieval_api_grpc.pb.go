@@ -63,12 +63,12 @@ type RetrievalAPIServer interface {
 }
 
 // UnimplementedRetrievalAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedRetrievalAPIServer struct{}
+type UnimplementedRetrievalAPIServer struct {
+}
 
 func (UnimplementedRetrievalAPIServer) GetAllChecks(context.Context, *GetAllChecksRequest) (*GetAllChecksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllChecks not implemented")
 }
-
 func (UnimplementedRetrievalAPIServer) GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAlertRuleTemplates not implemented")
 }

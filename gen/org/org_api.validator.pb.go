@@ -17,16 +17,13 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var (
-	_ = proto.Marshal
-	_ = fmt.Errorf
-	_ = math.Inf
-)
+var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
 
 func (this *PMMServerSSODetails) Validate() error {
 	return nil
 }
-
 func (this *ConnectPMMRequest) Validate() error {
 	if this.PmmServerId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerId", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerId))
@@ -42,7 +39,6 @@ func (this *ConnectPMMRequest) Validate() error {
 	}
 	return nil
 }
-
 func (this *ConnectPMMResponse) Validate() error {
 	if this.SsoDetails != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.SsoDetails); err != nil {
@@ -51,7 +47,6 @@ func (this *ConnectPMMResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *Organization) Validate() error {
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
@@ -65,14 +60,12 @@ func (this *Organization) Validate() error {
 	}
 	return nil
 }
-
 func (this *CreateOrganizationRequest) Validate() error {
 	if this.Name == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
 	}
 	return nil
 }
-
 func (this *CreateOrganizationResponse) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
@@ -81,14 +74,12 @@ func (this *CreateOrganizationResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *GetOrganizationRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
-
 func (this *GetOrganizationResponse) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
@@ -97,11 +88,9 @@ func (this *GetOrganizationResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *SearchOrganizationsRequest) Validate() error {
 	return nil
 }
-
 func (this *SearchOrganizationsResponse) Validate() error {
 	for _, item := range this.Orgs {
 		if item != nil {
@@ -112,25 +101,21 @@ func (this *SearchOrganizationsResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *DeleteOrganizationRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
-
 func (this *DeleteOrganizationResponse) Validate() error {
 	return nil
 }
-
 func (this *SearchOrganizationEntitlementsRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
-
 func (this *SearchOrganizationEntitlementsResponse) Validate() error {
 	for _, item := range this.Entitlements {
 		if item != nil {
@@ -141,7 +126,6 @@ func (this *SearchOrganizationEntitlementsResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *OrganizationEntitlement) Validate() error {
 	if this.Tier != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Tier); err != nil {
@@ -180,7 +164,6 @@ func (this *OrganizationEntitlement) Validate() error {
 	}
 	return nil
 }
-
 func (this *OrganizationEntitlement_Platform) Validate() error {
 	if this.SecurityAdvisor != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.SecurityAdvisor); err != nil {
@@ -194,15 +177,12 @@ func (this *OrganizationEntitlement_Platform) Validate() error {
 	}
 	return nil
 }
-
 func (this *SearchUserCompanyRequest) Validate() error {
 	return nil
 }
-
 func (this *SearchUserCompanyResponse) Validate() error {
 	return nil
 }
-
 func (this *InviteMemberRequest) Validate() error {
 	if this.Username == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
@@ -212,15 +192,12 @@ func (this *InviteMemberRequest) Validate() error {
 	}
 	return nil
 }
-
 func (this *InviteMemberResponse) Validate() error {
 	return nil
 }
-
 func (this *OrganizationMember) Validate() error {
 	return nil
 }
-
 func (this *SearchMembersRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
@@ -232,14 +209,12 @@ func (this *SearchMembersRequest) Validate() error {
 	}
 	return nil
 }
-
 func (this *SearchMembersRequest_UserFilter) Validate() error {
 	if this.Username == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
 	}
 	return nil
 }
-
 func (this *SearchMembersResponse) Validate() error {
 	for _, item := range this.Members {
 		if item != nil {
@@ -250,7 +225,6 @@ func (this *SearchMembersResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *UpdateMemberRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
@@ -263,7 +237,6 @@ func (this *UpdateMemberRequest) Validate() error {
 	}
 	return nil
 }
-
 func (this *UpdateMemberResponse) Validate() error {
 	if this.Member != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Member); err != nil {
@@ -272,7 +245,6 @@ func (this *UpdateMemberResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *DeleteMemberRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
@@ -282,14 +254,12 @@ func (this *DeleteMemberRequest) Validate() error {
 	}
 	return nil
 }
-
 func (this *SearchOrganizationTicketsRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
 	return nil
 }
-
 func (this *SearchOrganizationTicketsResponse) Validate() error {
 	for _, item := range this.Tickets {
 		if item != nil {
@@ -300,7 +270,6 @@ func (this *SearchOrganizationTicketsResponse) Validate() error {
 	}
 	return nil
 }
-
 func (this *OrganizationTicket) Validate() error {
 	if this.CreateTime != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {

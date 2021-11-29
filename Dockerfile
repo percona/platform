@@ -28,11 +28,12 @@ RUN mkdir /tmp/go
 COPY tools/go.mod tools/go.sum tools/tools.go /tmp/go/
 RUN cd /tmp/go && go install -v -mod=readonly \
   github.com/golang/protobuf/protoc-gen-go \
+  github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway \
   github.com/mwitkow/go-proto-validators/protoc-gen-govalidators \
   github.com/uber/prototool/cmd/prototool \
-  mvdan.cc/gofumpt/gofumports \
-  github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway \
-  google.golang.org/grpc/cmd/protoc-gen-go-grpc
+  golang.org/x/tools/cmd/goimports \
+  google.golang.org/grpc/cmd/protoc-gen-go-grpc \
+  mvdan.cc/gofumpt
 RUN mv -v /go/bin/* /usr/local/bin
 RUN mkdir -p /usr/local/include/github.com/mwitkow/go-proto-validators
 RUN mv -v /go/pkg/mod/github.com/mwitkow/go-proto-validators@v${GO_PROTO_VALIDATORS_VERSION}/*.proto /usr/local/include/github.com/mwitkow/go-proto-validators
