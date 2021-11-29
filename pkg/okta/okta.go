@@ -20,7 +20,6 @@ import (
 // Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
 type Client struct {
-	l            *zap.SugaredLogger
 	c            *okta.Client
 	oktaHost     string
 	oktaAPIToken string
@@ -28,8 +27,6 @@ type Client struct {
 
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
-	l := zap.L().Named("okta").Sugar()
-
 	u := url.URL{Scheme: "https", Host: host}
 
 	_, client, err := okta.NewClient(
@@ -37,7 +34,7 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 		okta.WithOrgUrl(u.String()),
 		okta.WithToken(token),
 		okta.WithHttpClientPtr(&http.Client{
-			Transport: logger.HTTP(http.DefaultTransport, l.Debugf),
+			Transport: logger.HTTP(http.DefaultTransport, "oktaClient"),
 		}),
 		okta.WithCache(false),
 	)
@@ -46,7 +43,6 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 	}
 
 	return &Client{
-		l:            l,
 		c:            client,
 		oktaHost:     host,
 		oktaAPIToken: token,
@@ -475,6 +471,7 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
 
 // GetGroupMembers returns list of group members.
 func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	params := query.Params{
 		Limit:  int64(limit),
 		Cursor: cursor,
@@ -488,7 +485,7 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 	for _, user := range users {
 		login, err := getUserLogin(user)
 		if err != nil {
-			c.l.Warnf("User %s has bad profile, reason: %+v.", user.Id, err)
+			l.Warn(fmt.Sprintf("User %s has bad profile.", user.Id), zap.Error(err))
 		}
 
 		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})

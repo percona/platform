@@ -2,6 +2,7 @@
 package app
 
 import (
+	"fmt"
 	"os"
 	"runtime/debug"
 	"strconv"
@@ -100,8 +101,9 @@ func Setup(opts *SetupOpts) (*Config, error) {
 		Default(logDebugDefault).BoolVar(&config.LoggerOpts.LogDebug)
 	b, _ = strconv.ParseBool(os.Getenv("PLATFORM_LOG_DEVMODE"))
 	logDevMode := strconv.FormatBool(b)
-	kingpin.Flag("log.devmode", "Enable development mode loging: text instead of JSON, DPanic panics instead of logging errors").
+	kingpin.Flag("log.devmode", "Enable development mode logging: text instead of JSON, DPanic panics instead of logging errors").
 		Default(logDevMode).BoolVar(&config.LoggerOpts.LogDevMode)
+	config.LoggerOpts.LogName = fmt.Sprintf("platform.%s", opts.Name)
 
 	kingpin.CommandLine.Action(func(*kingpin.ParseContext) error {
 		logger.FlagsParsed = true
