@@ -65,6 +65,13 @@ service OrgAPI {
     };
   }
 
+  // SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
+  rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/tickets:search"
+    };
+  }
+
   // SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
   rpc SearchUserCompany(SearchUserCompanyRequest) returns (SearchUserCompanyResponse) {
     option (google.api.http) = {
@@ -86,6 +93,53 @@ service OrgAPI {
       delete: "/v1/orgs/{org_id}/members/{member_id}"
     };
   }
+
+  // ConnectPMM adds PMM into inventory and returns SSO details.
+  // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+  rpc ConnectPMM(ConnectPMMRequest) returns (ConnectPMMResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/inventory"
+      body: "*"
+    };
+  }
+}
+
+message PMMServerSSODetails {
+  string client_id = 1;
+  string client_secret = 2;
+  string issuer_url = 3;
+  string scope = 4;
+}
+
+message ConnectPMMRequest {
+  // Unique PMM Server ID.
+  string pmm_server_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User defined human readable PMM Server Name.
+  string pmm_server_name = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User accessible address of PMM Server.
+  string pmm_server_url = 3 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // URL for oauth callback.
+  string pmm_server_oauth_callback_url = 4 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message ConnectPMMResponse {
+  PMMServerSSODetails sso_details = 1;
 }
 
 message Organization {
@@ -288,15 +342,53 @@ message UpdateMemberResponse {
 }
 
 message DeleteMemberRequest {
+  // Percona Portal Organization ID.
   string org_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }
   ];
 
+  // Percona Portal Member ID.
   string member_id = 2 [
     (validator.field) = {
       string_not_empty: true
     }
   ];
+}
+
+message SearchOrganizationTicketsRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationTicketsResponse {
+  // Organization tickets matching the request.
+  repeated OrganizationTicket tickets = 1;
+}
+
+// Contains information about ticket.
+message OrganizationTicket {
+  // Ticket number.
+  string number = 1;
+  // Ticket short description.
+  string short_description = 2;
+  // Ticket priority.
+  string priority = 3;
+  // Ticket state.
+  string state = 4;
+  // Ticket creation time.
+  google.protobuf.Timestamp create_time = 5;
+  // Department.
+  string department = 6;
+  // Ticket requester.
+  string requester = 7;
+  // Task type.
+  string task_type = 8;
+  // Ticket url.
+  string url = 9;
 }

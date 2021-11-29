@@ -37,6 +37,7 @@ linters:
     - scopelint        # deprecated
     - wrapcheck        # forces to wrap errors everywhere
     - wsl              # too annoying
+    - varnamelen       # annoying
 
 issues:
   exclude-use-default: false

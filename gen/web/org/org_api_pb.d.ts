@@ -7,6 +7,86 @@ import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/t
 import * as google_protobuf_wrappers_pb from 'google-protobuf/google/protobuf/wrappers_pb';
 
 
+export class PMMServerSSODetails extends jspb.Message {
+  getClientId(): string;
+  setClientId(value: string): PMMServerSSODetails;
+
+  getClientSecret(): string;
+  setClientSecret(value: string): PMMServerSSODetails;
+
+  getIssuerUrl(): string;
+  setIssuerUrl(value: string): PMMServerSSODetails;
+
+  getScope(): string;
+  setScope(value: string): PMMServerSSODetails;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): PMMServerSSODetails.AsObject;
+  static toObject(includeInstance: boolean, msg: PMMServerSSODetails): PMMServerSSODetails.AsObject;
+  static serializeBinaryToWriter(message: PMMServerSSODetails, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): PMMServerSSODetails;
+  static deserializeBinaryFromReader(message: PMMServerSSODetails, reader: jspb.BinaryReader): PMMServerSSODetails;
+}
+
+export namespace PMMServerSSODetails {
+  export type AsObject = {
+    clientId: string,
+    clientSecret: string,
+    issuerUrl: string,
+    scope: string,
+  }
+}
+
+export class ConnectPMMRequest extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): ConnectPMMRequest;
+
+  getPmmServerName(): string;
+  setPmmServerName(value: string): ConnectPMMRequest;
+
+  getPmmServerUrl(): string;
+  setPmmServerUrl(value: string): ConnectPMMRequest;
+
+  getPmmServerOauthCallbackUrl(): string;
+  setPmmServerOauthCallbackUrl(value: string): ConnectPMMRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ConnectPMMRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ConnectPMMRequest): ConnectPMMRequest.AsObject;
+  static serializeBinaryToWriter(message: ConnectPMMRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ConnectPMMRequest;
+  static deserializeBinaryFromReader(message: ConnectPMMRequest, reader: jspb.BinaryReader): ConnectPMMRequest;
+}
+
+export namespace ConnectPMMRequest {
+  export type AsObject = {
+    pmmServerId: string,
+    pmmServerName: string,
+    pmmServerUrl: string,
+    pmmServerOauthCallbackUrl: string,
+  }
+}
+
+export class ConnectPMMResponse extends jspb.Message {
+  getSsoDetails(): PMMServerSSODetails | undefined;
+  setSsoDetails(value?: PMMServerSSODetails): ConnectPMMResponse;
+  hasSsoDetails(): boolean;
+  clearSsoDetails(): ConnectPMMResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ConnectPMMResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ConnectPMMResponse): ConnectPMMResponse.AsObject;
+  static serializeBinaryToWriter(message: ConnectPMMResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ConnectPMMResponse;
+  static deserializeBinaryFromReader(message: ConnectPMMResponse, reader: jspb.BinaryReader): ConnectPMMResponse;
+}
+
+export namespace ConnectPMMResponse {
+  export type AsObject = {
+    ssoDetails?: PMMServerSSODetails.AsObject,
+  }
+}
+
 export class Organization extends jspb.Message {
   getId(): string;
   setId(value: string): Organization;
@@ -560,6 +640,96 @@ export namespace DeleteMemberRequest {
   export type AsObject = {
     orgId: string,
     memberId: string,
+  }
+}
+
+export class SearchOrganizationTicketsRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): SearchOrganizationTicketsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationTicketsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationTicketsRequest): SearchOrganizationTicketsRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationTicketsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationTicketsRequest;
+  static deserializeBinaryFromReader(message: SearchOrganizationTicketsRequest, reader: jspb.BinaryReader): SearchOrganizationTicketsRequest;
+}
+
+export namespace SearchOrganizationTicketsRequest {
+  export type AsObject = {
+    orgId: string,
+  }
+}
+
+export class SearchOrganizationTicketsResponse extends jspb.Message {
+  getTicketsList(): Array<OrganizationTicket>;
+  setTicketsList(value: Array<OrganizationTicket>): SearchOrganizationTicketsResponse;
+  clearTicketsList(): SearchOrganizationTicketsResponse;
+  addTickets(value?: OrganizationTicket, index?: number): OrganizationTicket;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationTicketsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationTicketsResponse): SearchOrganizationTicketsResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationTicketsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationTicketsResponse;
+  static deserializeBinaryFromReader(message: SearchOrganizationTicketsResponse, reader: jspb.BinaryReader): SearchOrganizationTicketsResponse;
+}
+
+export namespace SearchOrganizationTicketsResponse {
+  export type AsObject = {
+    ticketsList: Array<OrganizationTicket.AsObject>,
+  }
+}
+
+export class OrganizationTicket extends jspb.Message {
+  getNumber(): string;
+  setNumber(value: string): OrganizationTicket;
+
+  getShortDescription(): string;
+  setShortDescription(value: string): OrganizationTicket;
+
+  getPriority(): string;
+  setPriority(value: string): OrganizationTicket;
+
+  getState(): string;
+  setState(value: string): OrganizationTicket;
+
+  getCreateTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreateTime(value?: google_protobuf_timestamp_pb.Timestamp): OrganizationTicket;
+  hasCreateTime(): boolean;
+  clearCreateTime(): OrganizationTicket;
+
+  getDepartment(): string;
+  setDepartment(value: string): OrganizationTicket;
+
+  getRequester(): string;
+  setRequester(value: string): OrganizationTicket;
+
+  getTaskType(): string;
+  setTaskType(value: string): OrganizationTicket;
+
+  getUrl(): string;
+  setUrl(value: string): OrganizationTicket;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationTicket.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationTicket): OrganizationTicket.AsObject;
+  static serializeBinaryToWriter(message: OrganizationTicket, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationTicket;
+  static deserializeBinaryFromReader(message: OrganizationTicket, reader: jspb.BinaryReader): OrganizationTicket;
+}
+
+export namespace OrganizationTicket {
+  export type AsObject = {
+    number: string,
+    shortDescription: string,
+    priority: string,
+    state: string,
+    createTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    department: string,
+    requester: string,
+    taskType: string,
+    url: string,
   }
 }
 

@@ -2,11 +2,13 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
+	"text/template"
 	"time"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -20,7 +22,6 @@ import (
 // Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
 type Client struct {
-	l            *zap.SugaredLogger
 	c            *okta.Client
 	oktaHost     string
 	oktaAPIToken string
@@ -28,8 +29,6 @@ type Client struct {
 
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
-	l := zap.L().Named("okta").Sugar()
-
 	u := url.URL{Scheme: "https", Host: host}
 
 	_, client, err := okta.NewClient(
@@ -37,7 +36,7 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 		okta.WithOrgUrl(u.String()),
 		okta.WithToken(token),
 		okta.WithHttpClientPtr(&http.Client{
-			Transport: logger.HTTP(http.DefaultTransport, l.Debugf),
+			Transport: logger.HTTP(http.DefaultTransport, "oktaClient"),
 		}),
 		okta.WithCache(false),
 	)
@@ -46,7 +45,6 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 	}
 
 	return &Client{
-		l:            l,
 		c:            client,
 		oktaHost:     host,
 		oktaAPIToken: token,
@@ -475,6 +473,7 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
 
 // GetGroupMembers returns list of group members.
 func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	params := query.Params{
 		Limit:  int64(limit),
 		Cursor: cursor,
@@ -488,7 +487,7 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 	for _, user := range users {
 		login, err := getUserLogin(user)
 		if err != nil {
-			c.l.Warnf("User %s has bad profile, reason: %+v.", user.Id, err)
+			l.Warn(fmt.Sprintf("User %s has bad profile.", user.Id), zap.Error(err))
 		}
 
 		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})
@@ -505,6 +504,76 @@ func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) err
 	}
 
 	return nil
+}
+
+// IsAppAssignedToGroup returns true if app is assigned to given group, false otherwise - not found error. Also false in case of any other error.
+func (c *Client) IsAppAssignedToGroup(ctx context.Context, appID, groupID string) bool {
+	if err := c.DoRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil); err != nil {
+		return false
+	}
+	return true
+}
+
+// AddAppToGroup adds app to group.
+func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodPut, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to add app to the group")
+	}
+
+	return nil
+}
+
+// RemoveAppFromGroup removes app from group.
+func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodDelete, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to remove app from the group")
+	}
+
+	return nil
+}
+
+// ErrOriginNotFound means operation on origin failed because it does not exist.
+var ErrOriginNotFound error = errors.New("trusted origin was not found")
+
+// GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
+func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	origins, response, err := c.c.TrustedOrigin.ListOrigins(ctx, nil)
+	if response.HasNextPage() {
+		l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
+	}
+	if err != nil {
+		return "", errors.Wrap(err, "failed to check if origin is trusted")
+	}
+	for _, trusted := range origins {
+		if trusted.Origin == origin {
+			return trusted.Id, nil
+		}
+	}
+	return "", ErrOriginNotFound
+}
+
+// CreateTrustedOrigin makes the given origin trusted and returns it's id.
+func (c *Client) CreateTrustedOrigin(ctx context.Context, origin string) (string, error) {
+	trusted, _, err := c.c.TrustedOrigin.CreateOrigin(ctx, okta.TrustedOrigin{
+		Name:   origin,
+		Origin: origin,
+		Scopes: []*okta.Scope{
+			{Type: "REDIRECT"},
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+	return trusted.Id, nil
+}
+
+// DeleteTrustedOrigin deletes the given trusted origin.
+func (c *Client) DeleteTrustedOrigin(ctx context.Context, originID string) error {
+	_, err := c.c.TrustedOrigin.DeleteOrigin(ctx, originID)
+	return err
 }
 
 // RemoveUserFromGroup remove user from group.
@@ -561,6 +630,105 @@ func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Po
 		return nil, err
 	}
 	return policies, err
+}
+
+const createOAuthAppRequestBody = `
+{
+    "name": "oidc_client",
+    "label": "PMM-{{ .PMMServerID }}",
+    "status": "ACTIVE",
+    "signOnMode": "OPENID_CONNECT",
+    "credentials": {
+        "oauthClient": {
+            "autoKeyRotation": true,
+            "token_endpoint_auth_method": "client_secret_basic"
+        }
+    },
+    "settings": {
+        "oauthClient": {
+            "redirect_uris": [
+                "{{ .PMMServerCallbackURL }}"
+            ],
+            "post_logout_redirect_uris": [
+                "{{ .PMMServerURL }}"
+            ],
+            "response_types": [
+                "code"
+            ],
+            "grant_types": [
+                "client_credentials",
+                "authorization_code",
+                "refresh_token"
+            ],
+            "application_type": "web",
+            "consent_method": "REQUIRED",
+            "issuer_mode": "CUSTOM_URL"
+        }
+    },
+    "profile": {
+        "percona": {
+            "portal": {
+                "orgId": "{{ .OrgID }}",
+                "invId": "{{ .InventoryID }}"
+            }
+        }
+    }
+}`
+
+var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
+
+// OAuthApp represents an oauth app.
+type OAuthApp struct {
+	AppID       string `json:"id"`
+	Credentials struct {
+		OAuthClient struct {
+			ClientID     string `json:"client_id"`
+			ClientSecret string `json:"client_secret"`
+		} `json:"oauthClient"`
+	} `json:"credentials"`
+}
+
+// OAuthAppParams contains values needed when creating a new OAuth app.
+type OAuthAppParams struct {
+	PMMServerID          string
+	PMMServerURL         string
+	PMMServerCallbackURL string
+	OrgID                string
+	InventoryID          string
+}
+
+// CreateOAuthApp creates a new OAuth app.
+func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
+	var request bytes.Buffer
+	err := createOAuthAppRequestBodyTmpl.Execute(&request, params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
+	}
+
+	var result OAuthApp
+	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")
+	}
+	return &result, nil
+}
+
+// DeleteApp deletes an app with given appID.
+func (c *Client) DeleteApp(ctx context.Context, appID string) error {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	_, err := c.c.Application.DeactivateApplication(ctx, appID)
+	if err != nil {
+		return errors.Wrap(err, "failed to deactivate app before deleting it")
+	}
+
+	if _, err = c.c.Application.DeleteApplication(ctx, appID); err != nil {
+		_, e := c.c.Application.ActivateApplication(ctx, appID)
+		if e != nil {
+			l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required", zap.Error(e))
+		}
+		return err
+	}
+	return nil
 }
 
 // DoRequest makes HTTP requests to okta endpoints.

@@ -2,11 +2,14 @@ package okta
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"testing"
 	"time"
 
-	"github.com/brianvoe/gofakeit"
+	"github.com/brianvoe/gofakeit/v6"
 	"github.com/okta/okta-sdk-golang/v2/okta"
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -488,4 +491,118 @@ func TestGetRegisteredUsersCount(t *testing.T) {
 	usersCount, err := s.GetRegisteredUsersCount(context.Background())
 	require.NoError(t, err)
 	require.NotEmpty(t, usersCount)
+}
+
+func TestAppLifecycle(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+
+	app, err := s.CreateOAuthApp(ctx, &OAuthAppParams{
+		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
+		PMMServerURL:         "https://localhost/graph",
+		PMMServerID:          "0f0123ba-978d-4bcc-979d-e8495060fe81",
+		OrgID:                "338311eb-3afc-45c9-b3b8-fce32f29e4e3",
+	})
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.DeleteApp(ctx, app.AppID) //nolint:errcheck,gosec
+	})
+	require.NotNil(t, app)
+	assert.NotEmpty(t, app.AppID)
+	require.NotNil(t, app.Credentials)
+	require.NotNil(t, app.Credentials.OAuthClient)
+	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
+	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+
+	name, err := randomHex(8)
+	require.NoError(t, err)
+
+	description, err := randomHex(16)
+	require.NoError(t, err)
+
+	group, err := s.CreateGroup(ctx, name, description)
+	require.NoError(t, err)
+	require.NotNil(t, group)
+	t.Cleanup(func() {
+		s.DeleteGroup(ctx, group.ID) //nolint:errcheck,gosec
+	})
+
+	assigned := s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.False(t, assigned)
+
+	err = s.AddAppToGroup(ctx, app.AppID, group.ID)
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.RemoveAppFromGroup(ctx, app.AppID, group.ID) //nolint:errcheck,gosec
+	})
+
+	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.True(t, assigned)
+
+	err = s.RemoveAppFromGroup(ctx, app.AppID, group.ID)
+	require.NoError(t, err)
+
+	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
+	assert.False(t, assigned)
+
+	err = s.DeleteGroup(ctx, group.ID)
+	require.NoError(t, err)
+
+	err = s.DeleteApp(ctx, app.AppID)
+	require.NoError(t, err)
+}
+
+func randomHex(n int) (string, error) {
+	b := make([]byte, n)
+	read, err := rand.Read(b)
+	if read < n {
+		return "", errors.New("failed to read given number of bytes")
+	}
+	if err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(b), nil
+}
+
+func TestTrustedOrigin(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+	// Let's create a random domain to be able to run multiple instances of tests in parallel.
+	subdomain, err := randomHex(8)
+	require.NoError(t, err)
+	require.NotEmpty(t, subdomain)
+	origin := "https://" + subdomain + ".com"
+
+	_, err = s.GetTrustedOriginID(ctx, origin)
+	if err == nil {
+		err = s.DeleteTrustedOrigin(ctx, origin)
+		require.NoError(t, err)
+		_, err = s.GetTrustedOriginID(ctx, origin)
+		assert.ErrorIs(t, err, ErrOriginNotFound)
+	} else if !errors.Is(err, ErrOriginNotFound) {
+		t.Fatalf("failed to get origin ID from the API: %s", err)
+	}
+
+	id, err := s.CreateTrustedOrigin(ctx, origin)
+	require.NoError(t, err)
+	assert.NotEmpty(t, id)
+
+	t.Cleanup(func() {
+		s.DeleteTrustedOrigin(ctx, id) //nolint:errcheck,gosec
+	})
+
+	err = s.DeleteTrustedOrigin(ctx, id)
+	require.NoError(t, err)
+
+	id, err = s.GetTrustedOriginID(ctx, origin)
+	require.ErrorIs(t, err, ErrOriginNotFound)
+	assert.Empty(t, id)
 }

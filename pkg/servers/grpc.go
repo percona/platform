@@ -55,7 +55,7 @@ type NewGRPCServerOpts struct {
 
 // NewGRPCServer creates new gRPC server with given options.
 func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
-	l := zap.L().Named("platform.servers.grpc").Sugar()
+	l := zap.L().Named("servers.grpc").Sugar()
 
 	grpc.EnableTracing = true
 
@@ -72,7 +72,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 	}
 
 	unaryInterceptors := []grpc.UnaryServerInterceptor{
-		unaryLoggingInterceptor(opts.WarnDuration),
+		unaryLoggingInterceptor(l.Desugar(), opts.WarnDuration),
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
 		unaryAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
@@ -80,7 +80,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
 	streamInterceptors := []grpc.StreamServerInterceptor{
-		streamLoggingInterceptor(opts.WarnDuration),
+		streamLoggingInterceptor(l.Desugar(), opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
 		streamAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
