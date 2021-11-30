@@ -37,7 +37,7 @@ linters:
     - scopelint        # deprecated
     - wrapcheck        # forces to wrap errors everywhere
     - wsl              # too annoying
-    - varnamelen       # doesn't match go codestyle
+    - varnamelen       # doesn't match the go codestyle
 
 issues:
   exclude-use-default: false

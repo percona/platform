@@ -395,5 +395,45 @@ export class OrgAPIClient {
     this.methodInfoUpdateMember);
   }
 
+  methodInfoConnectPMM = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.ConnectPMMResponse,
+    (request: org_org_api_pb.ConnectPMMRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.ConnectPMMResponse.deserializeBinary
+  );
+
+  connectPMM(
+    request: org_org_api_pb.ConnectPMMRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.ConnectPMMResponse>;
+
+  connectPMM(
+    request: org_org_api_pb.ConnectPMMRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.ConnectPMMResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.ConnectPMMResponse>;
+
+  connectPMM(
+    request: org_org_api_pb.ConnectPMMRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.ConnectPMMResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/ConnectPMM',
+        request,
+        metadata || {},
+        this.methodInfoConnectPMM,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/ConnectPMM',
+    request,
+    metadata || {},
+    this.methodInfoConnectPMM);
+  }
+
 }
 

@@ -20,6 +20,32 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+func (this *PMMServerSSODetails) Validate() error {
+	return nil
+}
+func (this *ConnectPMMRequest) Validate() error {
+	if this.PmmServerId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerId", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerId))
+	}
+	if this.PmmServerName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerName", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerName))
+	}
+	if this.PmmServerUrl == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerUrl", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerUrl))
+	}
+	if this.PmmServerOauthCallbackUrl == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerOauthCallbackUrl", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerOauthCallbackUrl))
+	}
+	return nil
+}
+func (this *ConnectPMMResponse) Validate() error {
+	if this.SsoDetails != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.SsoDetails); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("SsoDetails", err)
+		}
+	}
+	return nil
+}
 func (this *Organization) Validate() error {
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
