@@ -665,15 +665,21 @@ func TestCheck_ResultValidate(t *testing.T) {
 	}
 }
 
-const data = `random data`
-
-const publicKey = `RWRQmBOLeYzAeuR2L6L1GJN9qTR8ceQrawtijPTQkVbf3LJsrLeUjQcL`
-
-const signature = `untrusted comment: signature from minisign secret key
-RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
-trusted comment: timestamp:1586854934	file:data
-WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==
+const (
+	data      = `random data`
+	publicKey = `RWS3wNj+cjvpdKiPgiiqRsbOEPtTP++3Me64W3txOXOtoeplPQciXOu/`
+	signature = `untrusted comment: signature from minisign secret key
+RWS3wNj+cjvpdJ6ZzxAlsmfz6WGJHICa8umTeLyqfA/ZYKPeJWmhDP+Sn2qf3kgotbQ05eqv4ezvkPiq+QK65ZumPm/Zpk0BtAQ=
+trusted comment: timestamp:1638271463	file:data
+Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxmU9EzDw==
 `
+)
+
+// Private key that was used to sign test data.
+/*
+untrusted comment: minisign encrypted secret key
+RWRTY0Iyr0t5TaUWsOUUhtYhUm+QKu+jch5Q/KEKoWIZFi7GcFsAAAACAAAAAAAAAEAAAAAAI+0TaT6z3ylgJ1Wgkf2WDDkXe3kC/acK0dW5vm0TV6zRC1Sfzeoqd+WJleSHYZgr6VPV7VOpgypMw/duwW+69ZeCwsUyTXUmW7NUKWPo41M7t0NSDyhKkGKg8FMONV3Ly29Eb9seK8I=
+*/
 
 func TestCheck_Verify(t *testing.T) {
 	t.Parallel()
@@ -690,9 +696,9 @@ func TestCheck_Verify(t *testing.T) {
 
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
-RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+f3fHZa0kEB7ei+K9lW+W4hIf+INVALID+INVALID=
-trusted comment: timestamp:1586854934	file:data
-WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
+RWS3wNj+cjvpdJ6ZzxAlsmfz6WGJHICa8umTeLyqfA/ZYKPeJWmhDP+Sn2qf3kgotbQ05eqv4ezvkPiq+QK+INVALID+INVALID=
+trusted comment: timestamp:1638271463	file:data
+Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxmU9EzDw==`))
 
 		assert.EqualError(t, err, "invalid signature")
 	})
@@ -702,9 +708,9 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G3
 
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
-RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
-trusted comment: timestamp:1586854934	file:data
-WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKP+INVALID+INVALID==`))
+RWS3wNj+cjvpdJ6ZzxAlsmfz6WGJHICa8umTeLyqfA/ZYKPeJWmhDP+Sn2qf3kgotbQ05eqv4ezvkPiq+QK65ZumPm/Zpk0BtAQ=
+trusted comment: timestamp:1638271463	file:data
+Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXC+INVALID+INVALID==`))
 		assert.EqualError(t, err, "invalid global signature")
 	})
 
@@ -713,16 +719,16 @@ WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2veRfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKP+INVALID+I
 
 		err := Verify([]byte(data), publicKey, strings.TrimSpace(`
 untrusted comment: signature from minisign secret key
-RWRQmBOLeYzAetS6fGVWAvzwCgDuo/zNlvdOrClAvjCUSMLnUimp6NQd1L+x77HZa0kEB7ei+K9lW+W4hIf1D8gRNm+cdQr7dgk=
-trusted comment: timestamp:1586854934	file:INVALID COMMENT
-WXAxVyC6G82QuXtGlJZzLWoVmw8QNWks2T6RfXo8F9oKjI+sPbBf0ZOBWD2hXKFBCo5pKPSJiaVeI4G36OlEAw==`))
+RWS3wNj+cjvpdJ6ZzxAlsmfz6WGJHICa8umTeLyqfA/ZYKPeJWmhDP+Sn2qf3kgotbQ05eqv4ezvkPiq+QK65ZumPm/Zpk0BtAQ=
+trusted comment: timestamp:1638271463	file:INVALID COMMENT
+Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxmU9EzDw==`))
 		assert.EqualError(t, err, "invalid global signature")
 	})
 
 	t.Run("invalid public key", func(t *testing.T) {
 		t.Parallel()
 
-		err := Verify([]byte("random data"), "RWRQmBOLeYzAeu5FL8f1JMN9qTR8CDfrabdtjPTQ+INVALID+INVALID", signature)
+		err := Verify([]byte("random data"), "RWS3wNj+cjvpdKiPgiiqRsbOEPtTP++3Me64W3tx+INVALID+INVALID", signature)
 		assert.EqualError(t, err, "invalid signature")
 	})
 
