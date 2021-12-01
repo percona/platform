@@ -29,7 +29,7 @@ func GetOktaToken(t *testing.T) string {
 }
 
 // createOktaClient creates Okta client.
-func createOktaClient(t *testing.T) *okta.Client {
+func createOktaClient(t *testing.T) *okta.Client { //nolint:unused
 	t.Helper()
 
 	u := url.URL{Scheme: "https", Host: OktaDevHost}
