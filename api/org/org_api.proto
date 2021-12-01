@@ -94,6 +94,13 @@ service OrgAPI {
       body: "*"
     };
   }
+
+  // SearchInventory returns the inventory list of the given organization
+  rpc SearchInventory(SearchInventoryRequest) returns (SearchInventoryResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/inventory:search"
+    };
+  }
 }
 
 message PMMServerSSODetails {
