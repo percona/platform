@@ -1498,23 +1498,23 @@ class Contacts PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNewTicketFieldNumber = 2,
+    kNewTicketUrlFieldNumber = 2,
     kCustomerSuccessFieldNumber = 1,
   };
-  // string new_ticket = 2;
-  void clear_new_ticket();
-  const std::string& new_ticket() const;
-  void set_new_ticket(const std::string& value);
-  void set_new_ticket(std::string&& value);
-  void set_new_ticket(const char* value);
-  void set_new_ticket(const char* value, size_t size);
-  std::string* mutable_new_ticket();
-  std::string* release_new_ticket();
-  void set_allocated_new_ticket(std::string* new_ticket);
+  // string new_ticket_url = 2;
+  void clear_new_ticket_url();
+  const std::string& new_ticket_url() const;
+  void set_new_ticket_url(const std::string& value);
+  void set_new_ticket_url(std::string&& value);
+  void set_new_ticket_url(const char* value);
+  void set_new_ticket_url(const char* value, size_t size);
+  std::string* mutable_new_ticket_url();
+  std::string* release_new_ticket_url();
+  void set_allocated_new_ticket_url(std::string* new_ticket_url);
   private:
-  const std::string& _internal_new_ticket() const;
-  void _internal_set_new_ticket(const std::string& value);
-  std::string* _internal_mutable_new_ticket();
+  const std::string& _internal_new_ticket_url() const;
+  void _internal_set_new_ticket_url(const std::string& value);
+  std::string* _internal_mutable_new_ticket_url();
   public:
 
   // .percona.platform.org.v1.Contacts.CustomerSuccess customer_success = 1;
@@ -1542,7 +1542,7 @@ class Contacts PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr new_ticket_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr new_ticket_url_;
   ::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
@@ -6022,65 +6022,65 @@ inline void Contacts::set_allocated_customer_success(::percona::platform::org::v
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.customer_success)
 }
 
-// string new_ticket = 2;
-inline void Contacts::clear_new_ticket() {
-  new_ticket_.ClearToEmpty();
+// string new_ticket_url = 2;
+inline void Contacts::clear_new_ticket_url() {
+  new_ticket_url_.ClearToEmpty();
 }
-inline const std::string& Contacts::new_ticket() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.new_ticket)
-  return _internal_new_ticket();
+inline const std::string& Contacts::new_ticket_url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.new_ticket_url)
+  return _internal_new_ticket_url();
 }
-inline void Contacts::set_new_ticket(const std::string& value) {
-  _internal_set_new_ticket(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Contacts.new_ticket)
+inline void Contacts::set_new_ticket_url(const std::string& value) {
+  _internal_set_new_ticket_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Contacts.new_ticket_url)
 }
-inline std::string* Contacts::mutable_new_ticket() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.new_ticket)
-  return _internal_mutable_new_ticket();
+inline std::string* Contacts::mutable_new_ticket_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.new_ticket_url)
+  return _internal_mutable_new_ticket_url();
 }
-inline const std::string& Contacts::_internal_new_ticket() const {
-  return new_ticket_.Get();
+inline const std::string& Contacts::_internal_new_ticket_url() const {
+  return new_ticket_url_.Get();
 }
-inline void Contacts::_internal_set_new_ticket(const std::string& value) {
+inline void Contacts::_internal_set_new_ticket_url(const std::string& value) {
   
-  new_ticket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void Contacts::set_new_ticket(std::string&& value) {
+inline void Contacts::set_new_ticket_url(std::string&& value) {
   
-  new_ticket_.Set(
+  new_ticket_url_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Contacts.new_ticket)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Contacts.new_ticket_url)
 }
-inline void Contacts::set_new_ticket(const char* value) {
+inline void Contacts::set_new_ticket_url(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  new_ticket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Contacts.new_ticket)
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Contacts.new_ticket_url)
 }
-inline void Contacts::set_new_ticket(const char* value,
+inline void Contacts::set_new_ticket_url(const char* value,
     size_t size) {
   
-  new_ticket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Contacts.new_ticket)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Contacts.new_ticket_url)
 }
-inline std::string* Contacts::_internal_mutable_new_ticket() {
+inline std::string* Contacts::_internal_mutable_new_ticket_url() {
   
-  return new_ticket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return new_ticket_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* Contacts::release_new_ticket() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.new_ticket)
-  return new_ticket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* Contacts::release_new_ticket_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.new_ticket_url)
+  return new_ticket_url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Contacts::set_allocated_new_ticket(std::string* new_ticket) {
-  if (new_ticket != nullptr) {
+inline void Contacts::set_allocated_new_ticket_url(std::string* new_ticket_url) {
+  if (new_ticket_url != nullptr) {
     
   } else {
     
   }
-  new_ticket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), new_ticket,
+  new_ticket_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), new_ticket_url,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.new_ticket)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.new_ticket_url)
 }
 
 // -------------------------------------------------------------------

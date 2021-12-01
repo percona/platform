@@ -1806,7 +1806,7 @@ proto.percona.platform.org.v1.Contacts.prototype.toObject = function(opt_include
 proto.percona.platform.org.v1.Contacts.toObject = function(includeInstance, msg) {
   var f, obj = {
     customerSuccess: (f = msg.getCustomerSuccess()) && proto.percona.platform.org.v1.Contacts.CustomerSuccess.toObject(includeInstance, f),
-    newTicket: jspb.Message.getFieldWithDefault(msg, 2, "")
+    newTicketUrl: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1850,7 +1850,7 @@ proto.percona.platform.org.v1.Contacts.deserializeBinaryFromReader = function(ms
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setNewTicket(value);
+      msg.setNewTicketUrl(value);
       break;
     default:
       reader.skipField();
@@ -1889,7 +1889,7 @@ proto.percona.platform.org.v1.Contacts.serializeBinaryToWriter = function(messag
       proto.percona.platform.org.v1.Contacts.CustomerSuccess.serializeBinaryToWriter
     );
   }
-  f = message.getNewTicket();
+  f = message.getNewTicketUrl();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -2097,10 +2097,10 @@ proto.percona.platform.org.v1.Contacts.prototype.hasCustomerSuccess = function()
 
 
 /**
- * optional string new_ticket = 2;
+ * optional string new_ticket_url = 2;
  * @return {string}
  */
-proto.percona.platform.org.v1.Contacts.prototype.getNewTicket = function() {
+proto.percona.platform.org.v1.Contacts.prototype.getNewTicketUrl = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -2109,7 +2109,7 @@ proto.percona.platform.org.v1.Contacts.prototype.getNewTicket = function() {
  * @param {string} value
  * @return {!proto.percona.platform.org.v1.Contacts} returns this
  */
-proto.percona.platform.org.v1.Contacts.prototype.setNewTicket = function(value) {
+proto.percona.platform.org.v1.Contacts.prototype.setNewTicketUrl = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

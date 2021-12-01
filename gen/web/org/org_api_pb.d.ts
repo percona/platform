@@ -164,8 +164,8 @@ export class Contacts extends jspb.Message {
   hasCustomerSuccess(): boolean;
   clearCustomerSuccess(): Contacts;
 
-  getNewTicket(): string;
-  setNewTicket(value: string): Contacts;
+  getNewTicketUrl(): string;
+  setNewTicketUrl(value: string): Contacts;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Contacts.AsObject;
@@ -178,7 +178,7 @@ export class Contacts extends jspb.Message {
 export namespace Contacts {
   export type AsObject = {
     customerSuccess?: Contacts.CustomerSuccess.AsObject,
-    newTicket: string,
+    newTicketUrl: string,
   }
 
   export class CustomerSuccess extends jspb.Message {
