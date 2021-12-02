@@ -74,6 +74,17 @@ func (this *CreateOrganizationResponse) Validate() error {
 	}
 	return nil
 }
+func (this *Contacts) Validate() error {
+	if this.CustomerSuccess != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CustomerSuccess); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CustomerSuccess", err)
+		}
+	}
+	return nil
+}
+func (this *Contacts_CustomerSuccess) Validate() error {
+	return nil
+}
 func (this *GetOrganizationRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
@@ -84,6 +95,11 @@ func (this *GetOrganizationResponse) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+		}
+	}
+	if this.Contacts != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Contacts); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Contacts", err)
 		}
 	}
 	return nil
