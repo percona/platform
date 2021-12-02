@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"golang.org/x/crypto/blake2b"
 	"gopkg.in/yaml.v3"
 
 	"github.com/percona-platform/platform/pkg/common"
@@ -39,12 +40,22 @@ func Verify(data []byte, publicKey, sig string) error {
 	sAlg, sKeyID, sSig := sBin[0:2], sBin[2:10], sBin[10:74]
 	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42]
 
-	if !bytes.Equal(kAlg, sAlg) {
-		return errors.New("incompatible signature algorithm")
+	// Key algorithm should be `Ed`.
+	if kAlg[0] != 0x45 || kAlg[1] != 0x64 {
+		return errors.New("unsupported key algorithm")
 	}
-	if sAlg[0] != 0x45 || sAlg[1] != 0x64 {
+	// Signature algorithm can be `Ed`(legacy) or `ED`(pre-hashed).
+	if sAlg[0] != 0x45 || (sAlg[1] != 0x64 && sAlg[1] != 0x44) {
 		return errors.New("unsupported signature algorithm")
 	}
+
+	// For pre-hashed signature get data hash.
+	if sAlg[1] == 0x44 {
+		h, _ := blake2b.New512(nil)
+		h.Write(data)
+		data = h.Sum(nil)
+	}
+
 	if !bytes.Equal(kKeyID, sKeyID) {
 		return errors.New("incompatible key identifiers")
 	}
