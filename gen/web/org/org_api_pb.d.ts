@@ -673,3 +673,93 @@ export namespace UpdateMemberResponse {
   }
 }
 
+export class SearchOrganizationTicketsRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): SearchOrganizationTicketsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationTicketsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationTicketsRequest): SearchOrganizationTicketsRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationTicketsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationTicketsRequest;
+  static deserializeBinaryFromReader(message: SearchOrganizationTicketsRequest, reader: jspb.BinaryReader): SearchOrganizationTicketsRequest;
+}
+
+export namespace SearchOrganizationTicketsRequest {
+  export type AsObject = {
+    orgId: string,
+  }
+}
+
+export class SearchOrganizationTicketsResponse extends jspb.Message {
+  getTicketsList(): Array<OrganizationTicket>;
+  setTicketsList(value: Array<OrganizationTicket>): SearchOrganizationTicketsResponse;
+  clearTicketsList(): SearchOrganizationTicketsResponse;
+  addTickets(value?: OrganizationTicket, index?: number): OrganizationTicket;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchOrganizationTicketsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchOrganizationTicketsResponse): SearchOrganizationTicketsResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchOrganizationTicketsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchOrganizationTicketsResponse;
+  static deserializeBinaryFromReader(message: SearchOrganizationTicketsResponse, reader: jspb.BinaryReader): SearchOrganizationTicketsResponse;
+}
+
+export namespace SearchOrganizationTicketsResponse {
+  export type AsObject = {
+    ticketsList: Array<OrganizationTicket.AsObject>,
+  }
+}
+
+export class OrganizationTicket extends jspb.Message {
+  getNumber(): string;
+  setNumber(value: string): OrganizationTicket;
+
+  getShortDescription(): string;
+  setShortDescription(value: string): OrganizationTicket;
+
+  getPriority(): string;
+  setPriority(value: string): OrganizationTicket;
+
+  getState(): string;
+  setState(value: string): OrganizationTicket;
+
+  getCreateTime(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setCreateTime(value?: google_protobuf_timestamp_pb.Timestamp): OrganizationTicket;
+  hasCreateTime(): boolean;
+  clearCreateTime(): OrganizationTicket;
+
+  getDepartment(): string;
+  setDepartment(value: string): OrganizationTicket;
+
+  getRequester(): string;
+  setRequester(value: string): OrganizationTicket;
+
+  getTaskType(): string;
+  setTaskType(value: string): OrganizationTicket;
+
+  getUrl(): string;
+  setUrl(value: string): OrganizationTicket;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationTicket.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationTicket): OrganizationTicket.AsObject;
+  static serializeBinaryToWriter(message: OrganizationTicket, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationTicket;
+  static deserializeBinaryFromReader(message: OrganizationTicket, reader: jspb.BinaryReader): OrganizationTicket;
+}
+
+export namespace OrganizationTicket {
+  export type AsObject = {
+    number: string,
+    shortDescription: string,
+    priority: string,
+    state: string,
+    createTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    department: string,
+    requester: string,
+    taskType: string,
+    url: string,
+  }
+}
+
