@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     name: Test
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     strategy:
       fail-fast: false

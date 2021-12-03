@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var authErrorType = new(AuthError) //nolint:gochecknoglobals
+var authErrorType = new(AuthError) //nolint:gochecknoglobals,errname
 
 const sessionTTL = 7 * 24 * time.Hour
 
