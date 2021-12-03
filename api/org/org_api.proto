@@ -340,6 +340,27 @@ message UpdateMemberResponse {
   OrganizationMember member = 1;
 }
 
+message SearchInventoryRequest {
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message Inventory {
+  // PMM Server ID
+  string pmm_server_id = 1;
+  // User defined human readable PMM Server Name.
+  string pmm_server_name = 2;
+  // User accessible address of PMM Server.
+  string pmm_server_url = 3;
+}
+
+message SearchInventoryResponse {
+  repeated Inventory inventory = 1;
+}
+
 message SearchOrganizationTicketsRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
