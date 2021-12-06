@@ -158,6 +158,53 @@ export namespace CreateOrganizationResponse {
   }
 }
 
+export class Contacts extends jspb.Message {
+  getCustomerSuccess(): Contacts.CustomerSuccess | undefined;
+  setCustomerSuccess(value?: Contacts.CustomerSuccess): Contacts;
+  hasCustomerSuccess(): boolean;
+  clearCustomerSuccess(): Contacts;
+
+  getNewTicketUrl(): string;
+  setNewTicketUrl(value: string): Contacts;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Contacts.AsObject;
+  static toObject(includeInstance: boolean, msg: Contacts): Contacts.AsObject;
+  static serializeBinaryToWriter(message: Contacts, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Contacts;
+  static deserializeBinaryFromReader(message: Contacts, reader: jspb.BinaryReader): Contacts;
+}
+
+export namespace Contacts {
+  export type AsObject = {
+    customerSuccess?: Contacts.CustomerSuccess.AsObject,
+    newTicketUrl: string,
+  }
+
+  export class CustomerSuccess extends jspb.Message {
+    getName(): string;
+    setName(value: string): CustomerSuccess;
+
+    getEmail(): string;
+    setEmail(value: string): CustomerSuccess;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): CustomerSuccess.AsObject;
+    static toObject(includeInstance: boolean, msg: CustomerSuccess): CustomerSuccess.AsObject;
+    static serializeBinaryToWriter(message: CustomerSuccess, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): CustomerSuccess;
+    static deserializeBinaryFromReader(message: CustomerSuccess, reader: jspb.BinaryReader): CustomerSuccess;
+  }
+
+  export namespace CustomerSuccess {
+    export type AsObject = {
+      name: string,
+      email: string,
+    }
+  }
+
+}
+
 export class GetOrganizationRequest extends jspb.Message {
   getOrgId(): string;
   setOrgId(value: string): GetOrganizationRequest;
@@ -182,6 +229,11 @@ export class GetOrganizationResponse extends jspb.Message {
   hasOrg(): boolean;
   clearOrg(): GetOrganizationResponse;
 
+  getContacts(): Contacts | undefined;
+  setContacts(value?: Contacts): GetOrganizationResponse;
+  hasContacts(): boolean;
+  clearContacts(): GetOrganizationResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetOrganizationResponse.AsObject;
   static toObject(includeInstance: boolean, msg: GetOrganizationResponse): GetOrganizationResponse.AsObject;
@@ -193,6 +245,7 @@ export class GetOrganizationResponse extends jspb.Message {
 export namespace GetOrganizationResponse {
   export type AsObject = {
     org?: Organization.AsObject,
+    contacts?: Contacts.AsObject,
   }
 }
 
