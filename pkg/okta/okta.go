@@ -624,7 +624,7 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 	return &schema, nil
 }
 
-func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) {
+func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) { //nolint:revive
 	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return nil, err
@@ -675,15 +675,15 @@ const createOAuthAppRequestBody = `
     }
 }`
 
-var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
+var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody)) //nolint:gochecknoglobals
 
 // OAuthApp represents an oauth app.
 type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID     string `json:"client_id"`
-			ClientSecret string `json:"client_secret"`
+			ClientID     string `json:"client_id"`     // nolint:tagliatelle
+			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
