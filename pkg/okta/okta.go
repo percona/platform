@@ -56,6 +56,9 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 // Once the user sets the password the state changes to "ACTIVE" in Okta.
 // Returns AuthError when login, firstName and lastName violates validation rules, also when login already exists.
 func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) (*User, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating new Okta user.", zap.String("login", login))
+
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
@@ -101,9 +104,13 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 // FindUser searches user by login and returns user.
 func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta user by username.", zap.String("username", login))
+
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
+
 	user, _, err := c.c.User.GetUser(ctx, url.QueryEscape(login))
 	if err != nil {
 		var oErr *okta.Error
@@ -140,6 +147,9 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 
 // SignIn returns user id and session oktaAPIToken. Returns AuthError in case of invalid login or password.
 func (c *Client) SignIn(ctx context.Context, login, password string) (string, string, error) {
+	l := extractLogger(ctx)
+	l.Info("Signin in Okta user.", zap.String("username", login))
+
 	if password == "" {
 		return "", "", ErrEmptyPassword
 	}
@@ -182,8 +192,12 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 
 // DeleteUser deactivates and deletes user.
 func (c *Client) DeleteUser(ctx context.Context, userID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting Okta user by ID.", zap.String("userID", userID))
+
 	err := c.deactivateUser(ctx, userID)
 	if err != nil && !errors.Is(err, ErrNotFound) {
+		l.Error("Okta user is not found.", zap.Error(err))
 		return err
 	}
 
@@ -191,6 +205,7 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 		nCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
 		defer cancel()
 		if err := c.waitForDeactivation(nCtx, userID); err != nil {
+			l.Error("User deactivation failed.", zap.Error(err))
 			return err
 		}
 	}
@@ -210,6 +225,9 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 
 // UpdateProfile updates user's profile.
 func (c *Client) UpdateProfile(ctx context.Context, user *User, firstName, lastName string) (*User, error) {
+	l := extractLogger(ctx)
+	l.Info("Updating Okta user profile.", zap.String("userID", user.ID))
+
 	// The okta-go-sdk implementation differs slightly from the API docs where it uses
 	// PUT instead of POST for this endpoint. In case of PUT (used by the SDK) it requires
 	// both the email and login fields to be non-empty, so we send the original login to prevent
@@ -300,6 +318,9 @@ func (c *Client) waitForDeactivation(ctx context.Context, userID string) error {
 
 // GetRegisteredUsersCount returns number of regustered users.
 func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
+	l := extractLogger(ctx)
+	l.Info("Getting registered users count from Okta.")
+
 	qp := query.NewQueryParams(query.WithQ("Everyone"), query.WithFilter("type eq \"BUILT_IN\""))
 	groups, _, err := c.c.Group.ListGroups(ctx, qp)
 	if err != nil {
@@ -352,6 +373,8 @@ func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
 
 // CreateSession creates session and returns session id and expiration date.
 func (c *Client) CreateSession(ctx context.Context, sessionToken string) (string, time.Time, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating Okta user session.")
 	session, _, err := c.c.Session.CreateSession(ctx, okta.CreateSessionRequest{SessionToken: sessionToken})
 	if err != nil {
 		return "", time.Time{}, errors.Wrap(err, "failed to create session")
@@ -362,6 +385,8 @@ func (c *Client) CreateSession(ctx context.Context, sessionToken string) (string
 
 // CheckSession returns user login if session exists and active.
 func (c *Client) CheckSession(ctx context.Context, sessionID string) (string, error) {
+	l := extractLogger(ctx)
+	l.Info("Checking Okta user session.")
 	if sessionID == "" {
 		return "", ErrNotFound
 	}
@@ -381,6 +406,9 @@ func (c *Client) CheckSession(ctx context.Context, sessionID string) (string, er
 
 // RefreshSession resets session timeout and returns new expiration date.
 func (c *Client) RefreshSession(ctx context.Context, sessionID string) (time.Time, error) {
+	l := extractLogger(ctx)
+	l.Info("Refreshing Okta user session.")
+
 	session, _, err := c.c.Session.RefreshSession(ctx, sessionID)
 	if err != nil || session.ExpiresAt == nil {
 		var oErr *okta.Error
@@ -396,6 +424,9 @@ func (c *Client) RefreshSession(ctx context.Context, sessionID string) (time.Tim
 
 // CloseSession terminates user session.
 func (c *Client) CloseSession(ctx context.Context, sessionID string) error {
+	l := extractLogger(ctx)
+	l.Info("Closing Okta user session.")
+
 	_, err := c.c.Session.EndSession(ctx, sessionID)
 	if err != nil {
 		var oErr *okta.Error
@@ -411,6 +442,9 @@ func (c *Client) CloseSession(ctx context.Context, sessionID string) error {
 
 // CreateGroup creates group with provided name and description.
 func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Group, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating Okta group.", zap.String("oktaGroupName", name))
+
 	req := okta.Group{
 		Profile: &okta.GroupProfile{
 			Name:        name,
@@ -432,6 +466,9 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 
 // GroupExists finds whether okta group with the provided name exists.
 func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta group by name.", zap.String("oktaGroupName", name))
+
 	var g []okta.Group
 	params := url.Values{}
 	params.Add("q", name)
@@ -458,6 +495,9 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 
 // DeleteGroup delete group with provided ID.
 func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting Okta group by ID.", zap.String("oktaGroupID", groupID))
+
 	_, err := c.c.Group.DeleteGroup(ctx, groupID)
 	if err != nil {
 		var oErr *okta.Error
@@ -473,7 +513,9 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
 
 // GetGroupMembers returns list of group members.
 func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
-	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta group members.", zap.String("groupID", groupID))
+
 	params := query.Params{
 		Limit:  int64(limit),
 		Cursor: cursor,
@@ -498,6 +540,12 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 
 // AddUserToGroup add user to group.
 func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Adding user to Okta group.",
+		zap.String("oktaUserID", userID),
+		zap.String("groupID", groupID),
+	)
+
 	_, err := c.c.Group.AddUserToGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
@@ -578,6 +626,11 @@ func (c *Client) DeleteTrustedOrigin(ctx context.Context, originID string) error
 
 // RemoveUserFromGroup remove user from group.
 func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting user from Okta group.",
+		zap.String("oktaUserID", userID),
+		zap.String("groupID", groupID),
+	)
 	_, err := c.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
@@ -588,6 +641,9 @@ func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string
 
 // ResetPassword resets user password and sends email for setting new one.
 func (c *Client) ResetPassword(ctx context.Context, userID string) error {
+	l := extractLogger(ctx)
+	l.Info("Resetting password for Okta user.", zap.String("oktaUserID", userID))
+
 	qp := query.NewQueryParams(query.WithSendEmail(true))
 	_, _, err := c.c.User.ResetPassword(ctx, userID, qp)
 	if err != nil {
@@ -604,6 +660,12 @@ func (c *Client) ResetPassword(ctx context.Context, userID string) error {
 
 // UpdateSchema updates schema for provided type.
 func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema) (*Schema, error) {
+	l := extractLogger(ctx)
+	l.Info("Updating Okta user profile schema.",
+		zap.String("typeID", typeID),
+		zap.String("schemaID", schema.ID),
+	)
+
 	var res Schema
 	err := c.DoRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
 	if err != nil {
@@ -615,6 +677,8 @@ func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema
 
 // GetSchema returns schema for provided type.
 func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta user profile schema.", zap.String("typeID", typeID))
 	var schema Schema
 	err := c.DoRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
 	if err != nil {
@@ -625,6 +689,8 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 }
 
 func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) { //nolint:revive
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta policies.")
 	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return nil, err
@@ -808,4 +874,8 @@ func convertOktaError(err *okta.Error) error {
 	default:
 		return err
 	}
+}
+
+func extractLogger(ctx context.Context) *zap.Logger {
+	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
 }

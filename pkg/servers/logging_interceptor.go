@@ -96,7 +96,10 @@ func unaryLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.Una
 			zapReq = zap.Object("request", logger.NewGRPCMessageDumper(ctx, req, info, true))
 		}
 
-		rl.Info("Received unary call", zapReq)
+		rl.Info("Received unary call.",
+			zap.String("method", info.FullMethod),
+			zapReq,
+		)
 
 		// wrap logger into context so that the following gRPC interceptors and handlers could re-use it.
 		ctx = logger.GetContextWithLogger(ctx, rl)
