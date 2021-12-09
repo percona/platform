@@ -31,7 +31,7 @@ type RunDebugServerOpts struct {
 
 // RunDebugServer runs debug server with given options until ctx is canceled.
 // All errors cause panic.
-func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen
+func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen, cyclop
 	if opts == nil {
 		opts = new(RunDebugServerOpts)
 	}
@@ -153,7 +153,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(shutdownCtx); err != nil {
+	if err := server.Shutdown(shutdownCtx); err != nil { //nolint:contextcheck //intended context switch
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()

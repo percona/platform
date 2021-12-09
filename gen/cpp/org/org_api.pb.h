@@ -33,6 +33,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "github.com/mwitkow/go-proto-validators/validator.pb.h"
 #include "google/api/annotations.pb.h"
+#include <google/protobuf/empty.pb.h>
 #include <google/protobuf/timestamp.pb.h>
 #include <google/protobuf/wrappers.pb.h>
 // @@protoc_insertion_point(includes)
@@ -50,7 +51,7 @@ struct TableStruct_org_2forg_5fapi_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[26]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[32]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -68,12 +69,21 @@ extern ConnectPMMRequestDefaultTypeInternal _ConnectPMMRequest_default_instance_
 class ConnectPMMResponse;
 struct ConnectPMMResponseDefaultTypeInternal;
 extern ConnectPMMResponseDefaultTypeInternal _ConnectPMMResponse_default_instance_;
+class Contacts;
+struct ContactsDefaultTypeInternal;
+extern ContactsDefaultTypeInternal _Contacts_default_instance_;
+class Contacts_CustomerSuccess;
+struct Contacts_CustomerSuccessDefaultTypeInternal;
+extern Contacts_CustomerSuccessDefaultTypeInternal _Contacts_CustomerSuccess_default_instance_;
 class CreateOrganizationRequest;
 struct CreateOrganizationRequestDefaultTypeInternal;
 extern CreateOrganizationRequestDefaultTypeInternal _CreateOrganizationRequest_default_instance_;
 class CreateOrganizationResponse;
 struct CreateOrganizationResponseDefaultTypeInternal;
 extern CreateOrganizationResponseDefaultTypeInternal _CreateOrganizationResponse_default_instance_;
+class DeleteMemberRequest;
+struct DeleteMemberRequestDefaultTypeInternal;
+extern DeleteMemberRequestDefaultTypeInternal _DeleteMemberRequest_default_instance_;
 class DeleteOrganizationRequest;
 struct DeleteOrganizationRequestDefaultTypeInternal;
 extern DeleteOrganizationRequestDefaultTypeInternal _DeleteOrganizationRequest_default_instance_;
@@ -104,6 +114,9 @@ extern OrganizationEntitlement_PlatformDefaultTypeInternal _OrganizationEntitlem
 class OrganizationMember;
 struct OrganizationMemberDefaultTypeInternal;
 extern OrganizationMemberDefaultTypeInternal _OrganizationMember_default_instance_;
+class OrganizationTicket;
+struct OrganizationTicketDefaultTypeInternal;
+extern OrganizationTicketDefaultTypeInternal _OrganizationTicket_default_instance_;
 class PMMServerSSODetails;
 struct PMMServerSSODetailsDefaultTypeInternal;
 extern PMMServerSSODetailsDefaultTypeInternal _PMMServerSSODetails_default_instance_;
@@ -122,6 +135,12 @@ extern SearchOrganizationEntitlementsRequestDefaultTypeInternal _SearchOrganizat
 class SearchOrganizationEntitlementsResponse;
 struct SearchOrganizationEntitlementsResponseDefaultTypeInternal;
 extern SearchOrganizationEntitlementsResponseDefaultTypeInternal _SearchOrganizationEntitlementsResponse_default_instance_;
+class SearchOrganizationTicketsRequest;
+struct SearchOrganizationTicketsRequestDefaultTypeInternal;
+extern SearchOrganizationTicketsRequestDefaultTypeInternal _SearchOrganizationTicketsRequest_default_instance_;
+class SearchOrganizationTicketsResponse;
+struct SearchOrganizationTicketsResponseDefaultTypeInternal;
+extern SearchOrganizationTicketsResponseDefaultTypeInternal _SearchOrganizationTicketsResponse_default_instance_;
 class SearchOrganizationsRequest;
 struct SearchOrganizationsRequestDefaultTypeInternal;
 extern SearchOrganizationsRequestDefaultTypeInternal _SearchOrganizationsRequest_default_instance_;
@@ -147,8 +166,11 @@ extern UpdateMemberResponseDefaultTypeInternal _UpdateMemberResponse_default_ins
 PROTOBUF_NAMESPACE_OPEN
 template<> ::percona::platform::org::v1::ConnectPMMRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::ConnectPMMRequest>(Arena*);
 template<> ::percona::platform::org::v1::ConnectPMMResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::ConnectPMMResponse>(Arena*);
+template<> ::percona::platform::org::v1::Contacts* Arena::CreateMaybeMessage<::percona::platform::org::v1::Contacts>(Arena*);
+template<> ::percona::platform::org::v1::Contacts_CustomerSuccess* Arena::CreateMaybeMessage<::percona::platform::org::v1::Contacts_CustomerSuccess>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationResponse>(Arena*);
+template<> ::percona::platform::org::v1::DeleteMemberRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteMemberRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationResponse>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationRequest>(Arena*);
@@ -159,12 +181,15 @@ template<> ::percona::platform::org::v1::Organization* Arena::CreateMaybeMessage
 template<> ::percona::platform::org::v1::OrganizationEntitlement* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement>(Arena*);
 template<> ::percona::platform::org::v1::OrganizationEntitlement_Platform* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationEntitlement_Platform>(Arena*);
 template<> ::percona::platform::org::v1::OrganizationMember* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationMember>(Arena*);
+template<> ::percona::platform::org::v1::OrganizationTicket* Arena::CreateMaybeMessage<::percona::platform::org::v1::OrganizationTicket>(Arena*);
 template<> ::percona::platform::org::v1::PMMServerSSODetails* Arena::CreateMaybeMessage<::percona::platform::org::v1::PMMServerSSODetails>(Arena*);
 template<> ::percona::platform::org::v1::SearchMembersRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchMembersRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchMembersRequest_UserFilter* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchMembersRequest_UserFilter>(Arena*);
 template<> ::percona::platform::org::v1::SearchMembersResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchMembersResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationEntitlementsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationEntitlementsResponse>(Arena*);
+template<> ::percona::platform::org::v1::SearchOrganizationTicketsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationTicketsRequest>(Arena*);
+template<> ::percona::platform::org::v1::SearchOrganizationTicketsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationTicketsResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsRequest>(Arena*);
 template<> ::percona::platform::org::v1::SearchOrganizationsResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchOrganizationsResponse>(Arena*);
 template<> ::percona::platform::org::v1::SearchUserCompanyRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::SearchUserCompanyRequest>(Arena*);
@@ -1213,6 +1238,334 @@ class CreateOrganizationResponse PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class Contacts_CustomerSuccess PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.Contacts.CustomerSuccess) */ {
+ public:
+  inline Contacts_CustomerSuccess() : Contacts_CustomerSuccess(nullptr) {}
+  virtual ~Contacts_CustomerSuccess();
+  explicit constexpr Contacts_CustomerSuccess(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Contacts_CustomerSuccess(const Contacts_CustomerSuccess& from);
+  Contacts_CustomerSuccess(Contacts_CustomerSuccess&& from) noexcept
+    : Contacts_CustomerSuccess() {
+    *this = ::std::move(from);
+  }
+
+  inline Contacts_CustomerSuccess& operator=(const Contacts_CustomerSuccess& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Contacts_CustomerSuccess& operator=(Contacts_CustomerSuccess&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Contacts_CustomerSuccess& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Contacts_CustomerSuccess* internal_default_instance() {
+    return reinterpret_cast<const Contacts_CustomerSuccess*>(
+               &_Contacts_CustomerSuccess_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(Contacts_CustomerSuccess& a, Contacts_CustomerSuccess& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Contacts_CustomerSuccess* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Contacts_CustomerSuccess* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Contacts_CustomerSuccess* New() const final {
+    return CreateMaybeMessage<Contacts_CustomerSuccess>(nullptr);
+  }
+
+  Contacts_CustomerSuccess* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Contacts_CustomerSuccess>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Contacts_CustomerSuccess& from);
+  void MergeFrom(const Contacts_CustomerSuccess& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Contacts_CustomerSuccess* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.Contacts.CustomerSuccess";
+  }
+  protected:
+  explicit Contacts_CustomerSuccess(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kEmailFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string email = 2;
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.Contacts.CustomerSuccess)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Contacts PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.Contacts) */ {
+ public:
+  inline Contacts() : Contacts(nullptr) {}
+  virtual ~Contacts();
+  explicit constexpr Contacts(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Contacts(const Contacts& from);
+  Contacts(Contacts&& from) noexcept
+    : Contacts() {
+    *this = ::std::move(from);
+  }
+
+  inline Contacts& operator=(const Contacts& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Contacts& operator=(Contacts&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Contacts& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Contacts* internal_default_instance() {
+    return reinterpret_cast<const Contacts*>(
+               &_Contacts_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(Contacts& a, Contacts& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Contacts* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Contacts* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Contacts* New() const final {
+    return CreateMaybeMessage<Contacts>(nullptr);
+  }
+
+  Contacts* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Contacts>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Contacts& from);
+  void MergeFrom(const Contacts& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Contacts* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.Contacts";
+  }
+  protected:
+  explicit Contacts(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef Contacts_CustomerSuccess CustomerSuccess;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNewTicketUrlFieldNumber = 2,
+    kCustomerSuccessFieldNumber = 1,
+  };
+  // string new_ticket_url = 2;
+  void clear_new_ticket_url();
+  const std::string& new_ticket_url() const;
+  void set_new_ticket_url(const std::string& value);
+  void set_new_ticket_url(std::string&& value);
+  void set_new_ticket_url(const char* value);
+  void set_new_ticket_url(const char* value, size_t size);
+  std::string* mutable_new_ticket_url();
+  std::string* release_new_ticket_url();
+  void set_allocated_new_ticket_url(std::string* new_ticket_url);
+  private:
+  const std::string& _internal_new_ticket_url() const;
+  void _internal_set_new_ticket_url(const std::string& value);
+  std::string* _internal_mutable_new_ticket_url();
+  public:
+
+  // .percona.platform.org.v1.Contacts.CustomerSuccess customer_success = 1;
+  bool has_customer_success() const;
+  private:
+  bool _internal_has_customer_success() const;
+  public:
+  void clear_customer_success();
+  const ::percona::platform::org::v1::Contacts_CustomerSuccess& customer_success() const;
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* release_customer_success();
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* mutable_customer_success();
+  void set_allocated_customer_success(::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success);
+  private:
+  const ::percona::platform::org::v1::Contacts_CustomerSuccess& _internal_customer_success() const;
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* _internal_mutable_customer_success();
+  public:
+  void unsafe_arena_set_allocated_customer_success(
+      ::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success);
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* unsafe_arena_release_customer_success();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.Contacts)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr new_ticket_url_;
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetOrganizationRequest PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.GetOrganizationRequest) */ {
  public:
@@ -1256,7 +1609,7 @@ class GetOrganizationRequest PROTOBUF_FINAL :
                &_GetOrganizationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(GetOrganizationRequest& a, GetOrganizationRequest& b) {
     a.Swap(&b);
@@ -1400,7 +1753,7 @@ class GetOrganizationResponse PROTOBUF_FINAL :
                &_GetOrganizationResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(GetOrganizationResponse& a, GetOrganizationResponse& b) {
     a.Swap(&b);
@@ -1471,6 +1824,7 @@ class GetOrganizationResponse PROTOBUF_FINAL :
 
   enum : int {
     kOrgFieldNumber = 1,
+    kContactsFieldNumber = 2,
   };
   // .percona.platform.org.v1.Organization org = 1;
   bool has_org() const;
@@ -1490,6 +1844,24 @@ class GetOrganizationResponse PROTOBUF_FINAL :
       ::percona::platform::org::v1::Organization* org);
   ::percona::platform::org::v1::Organization* unsafe_arena_release_org();
 
+  // .percona.platform.org.v1.Contacts contacts = 2;
+  bool has_contacts() const;
+  private:
+  bool _internal_has_contacts() const;
+  public:
+  void clear_contacts();
+  const ::percona::platform::org::v1::Contacts& contacts() const;
+  ::percona::platform::org::v1::Contacts* release_contacts();
+  ::percona::platform::org::v1::Contacts* mutable_contacts();
+  void set_allocated_contacts(::percona::platform::org::v1::Contacts* contacts);
+  private:
+  const ::percona::platform::org::v1::Contacts& _internal_contacts() const;
+  ::percona::platform::org::v1::Contacts* _internal_mutable_contacts();
+  public:
+  void unsafe_arena_set_allocated_contacts(
+      ::percona::platform::org::v1::Contacts* contacts);
+  ::percona::platform::org::v1::Contacts* unsafe_arena_release_contacts();
+
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.GetOrganizationResponse)
  private:
   class _Internal;
@@ -1498,6 +1870,7 @@ class GetOrganizationResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::percona::platform::org::v1::Organization* org_;
+  ::percona::platform::org::v1::Contacts* contacts_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -1546,7 +1919,7 @@ class SearchOrganizationsRequest PROTOBUF_FINAL :
                &_SearchOrganizationsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(SearchOrganizationsRequest& a, SearchOrganizationsRequest& b) {
     a.Swap(&b);
@@ -1670,7 +2043,7 @@ class SearchOrganizationsResponse PROTOBUF_FINAL :
                &_SearchOrganizationsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(SearchOrganizationsResponse& a, SearchOrganizationsResponse& b) {
     a.Swap(&b);
@@ -1816,7 +2189,7 @@ class DeleteOrganizationRequest PROTOBUF_FINAL :
                &_DeleteOrganizationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(DeleteOrganizationRequest& a, DeleteOrganizationRequest& b) {
     a.Swap(&b);
@@ -1960,7 +2333,7 @@ class DeleteOrganizationResponse PROTOBUF_FINAL :
                &_DeleteOrganizationResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(DeleteOrganizationResponse& a, DeleteOrganizationResponse& b) {
     a.Swap(&b);
@@ -2084,7 +2457,7 @@ class SearchOrganizationEntitlementsRequest PROTOBUF_FINAL :
                &_SearchOrganizationEntitlementsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(SearchOrganizationEntitlementsRequest& a, SearchOrganizationEntitlementsRequest& b) {
     a.Swap(&b);
@@ -2228,7 +2601,7 @@ class SearchOrganizationEntitlementsResponse PROTOBUF_FINAL :
                &_SearchOrganizationEntitlementsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(SearchOrganizationEntitlementsResponse& a, SearchOrganizationEntitlementsResponse& b) {
     a.Swap(&b);
@@ -2374,7 +2747,7 @@ class OrganizationEntitlement_Platform PROTOBUF_FINAL :
                &_OrganizationEntitlement_Platform_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(OrganizationEntitlement_Platform& a, OrganizationEntitlement_Platform& b) {
     a.Swap(&b);
@@ -2540,7 +2913,7 @@ class OrganizationEntitlement PROTOBUF_FINAL :
                &_OrganizationEntitlement_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(OrganizationEntitlement& a, OrganizationEntitlement& b) {
     a.Swap(&b);
@@ -2888,7 +3261,7 @@ class SearchUserCompanyRequest PROTOBUF_FINAL :
                &_SearchUserCompanyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(SearchUserCompanyRequest& a, SearchUserCompanyRequest& b) {
     a.Swap(&b);
@@ -3012,7 +3385,7 @@ class SearchUserCompanyResponse PROTOBUF_FINAL :
                &_SearchUserCompanyResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(SearchUserCompanyResponse& a, SearchUserCompanyResponse& b) {
     a.Swap(&b);
@@ -3156,7 +3529,7 @@ class InviteMemberRequest PROTOBUF_FINAL :
                &_InviteMemberRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(InviteMemberRequest& a, InviteMemberRequest& b) {
     a.Swap(&b);
@@ -3336,7 +3709,7 @@ class InviteMemberResponse PROTOBUF_FINAL :
                &_InviteMemberResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(InviteMemberResponse& a, InviteMemberResponse& b) {
     a.Swap(&b);
@@ -3460,7 +3833,7 @@ class OrganizationMember PROTOBUF_FINAL :
                &_OrganizationMember_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(OrganizationMember& a, OrganizationMember& b) {
     a.Swap(&b);
@@ -3694,7 +4067,7 @@ class SearchMembersRequest_UserFilter PROTOBUF_FINAL :
                &_SearchMembersRequest_UserFilter_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(SearchMembersRequest_UserFilter& a, SearchMembersRequest_UserFilter& b) {
     a.Swap(&b);
@@ -3838,7 +4211,7 @@ class SearchMembersRequest PROTOBUF_FINAL :
                &_SearchMembersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(SearchMembersRequest& a, SearchMembersRequest& b) {
     a.Swap(&b);
@@ -4004,7 +4377,7 @@ class SearchMembersResponse PROTOBUF_FINAL :
                &_SearchMembersResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(SearchMembersResponse& a, SearchMembersResponse& b) {
     a.Swap(&b);
@@ -4150,7 +4523,7 @@ class UpdateMemberRequest PROTOBUF_FINAL :
                &_UpdateMemberRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(UpdateMemberRequest& a, UpdateMemberRequest& b) {
     a.Swap(&b);
@@ -4330,7 +4703,7 @@ class UpdateMemberResponse PROTOBUF_FINAL :
                &_UpdateMemberResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(UpdateMemberResponse& a, UpdateMemberResponse& b) {
     a.Swap(&b);
@@ -4428,6 +4801,748 @@ class UpdateMemberResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::percona::platform::org::v1::OrganizationMember* member_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteMemberRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.DeleteMemberRequest) */ {
+ public:
+  inline DeleteMemberRequest() : DeleteMemberRequest(nullptr) {}
+  virtual ~DeleteMemberRequest();
+  explicit constexpr DeleteMemberRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteMemberRequest(const DeleteMemberRequest& from);
+  DeleteMemberRequest(DeleteMemberRequest&& from) noexcept
+    : DeleteMemberRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteMemberRequest& operator=(const DeleteMemberRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteMemberRequest& operator=(DeleteMemberRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteMemberRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteMemberRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteMemberRequest*>(
+               &_DeleteMemberRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    28;
+
+  friend void swap(DeleteMemberRequest& a, DeleteMemberRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteMemberRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteMemberRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteMemberRequest* New() const final {
+    return CreateMaybeMessage<DeleteMemberRequest>(nullptr);
+  }
+
+  DeleteMemberRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteMemberRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteMemberRequest& from);
+  void MergeFrom(const DeleteMemberRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteMemberRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.DeleteMemberRequest";
+  }
+  protected:
+  explicit DeleteMemberRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOrgIdFieldNumber = 1,
+    kMemberIdFieldNumber = 2,
+  };
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
+  private:
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
+  public:
+
+  // string member_id = 2 [(.validator.field) = {
+  void clear_member_id();
+  const std::string& member_id() const;
+  void set_member_id(const std::string& value);
+  void set_member_id(std::string&& value);
+  void set_member_id(const char* value);
+  void set_member_id(const char* value, size_t size);
+  std::string* mutable_member_id();
+  std::string* release_member_id();
+  void set_allocated_member_id(std::string* member_id);
+  private:
+  const std::string& _internal_member_id() const;
+  void _internal_set_member_id(const std::string& value);
+  std::string* _internal_mutable_member_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.DeleteMemberRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr member_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SearchOrganizationTicketsRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchOrganizationTicketsRequest) */ {
+ public:
+  inline SearchOrganizationTicketsRequest() : SearchOrganizationTicketsRequest(nullptr) {}
+  virtual ~SearchOrganizationTicketsRequest();
+  explicit constexpr SearchOrganizationTicketsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchOrganizationTicketsRequest(const SearchOrganizationTicketsRequest& from);
+  SearchOrganizationTicketsRequest(SearchOrganizationTicketsRequest&& from) noexcept
+    : SearchOrganizationTicketsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchOrganizationTicketsRequest& operator=(const SearchOrganizationTicketsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchOrganizationTicketsRequest& operator=(SearchOrganizationTicketsRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchOrganizationTicketsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchOrganizationTicketsRequest* internal_default_instance() {
+    return reinterpret_cast<const SearchOrganizationTicketsRequest*>(
+               &_SearchOrganizationTicketsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(SearchOrganizationTicketsRequest& a, SearchOrganizationTicketsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchOrganizationTicketsRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchOrganizationTicketsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchOrganizationTicketsRequest* New() const final {
+    return CreateMaybeMessage<SearchOrganizationTicketsRequest>(nullptr);
+  }
+
+  SearchOrganizationTicketsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchOrganizationTicketsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchOrganizationTicketsRequest& from);
+  void MergeFrom(const SearchOrganizationTicketsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchOrganizationTicketsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchOrganizationTicketsRequest";
+  }
+  protected:
+  explicit SearchOrganizationTicketsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOrgIdFieldNumber = 1,
+  };
+  // string org_id = 1 [(.validator.field) = {
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
+  private:
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchOrganizationTicketsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SearchOrganizationTicketsResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.SearchOrganizationTicketsResponse) */ {
+ public:
+  inline SearchOrganizationTicketsResponse() : SearchOrganizationTicketsResponse(nullptr) {}
+  virtual ~SearchOrganizationTicketsResponse();
+  explicit constexpr SearchOrganizationTicketsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SearchOrganizationTicketsResponse(const SearchOrganizationTicketsResponse& from);
+  SearchOrganizationTicketsResponse(SearchOrganizationTicketsResponse&& from) noexcept
+    : SearchOrganizationTicketsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SearchOrganizationTicketsResponse& operator=(const SearchOrganizationTicketsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SearchOrganizationTicketsResponse& operator=(SearchOrganizationTicketsResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SearchOrganizationTicketsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SearchOrganizationTicketsResponse* internal_default_instance() {
+    return reinterpret_cast<const SearchOrganizationTicketsResponse*>(
+               &_SearchOrganizationTicketsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    30;
+
+  friend void swap(SearchOrganizationTicketsResponse& a, SearchOrganizationTicketsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SearchOrganizationTicketsResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SearchOrganizationTicketsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SearchOrganizationTicketsResponse* New() const final {
+    return CreateMaybeMessage<SearchOrganizationTicketsResponse>(nullptr);
+  }
+
+  SearchOrganizationTicketsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SearchOrganizationTicketsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SearchOrganizationTicketsResponse& from);
+  void MergeFrom(const SearchOrganizationTicketsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SearchOrganizationTicketsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.SearchOrganizationTicketsResponse";
+  }
+  protected:
+  explicit SearchOrganizationTicketsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTicketsFieldNumber = 1,
+  };
+  // repeated .percona.platform.org.v1.OrganizationTicket tickets = 1;
+  int tickets_size() const;
+  private:
+  int _internal_tickets_size() const;
+  public:
+  void clear_tickets();
+  ::percona::platform::org::v1::OrganizationTicket* mutable_tickets(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationTicket >*
+      mutable_tickets();
+  private:
+  const ::percona::platform::org::v1::OrganizationTicket& _internal_tickets(int index) const;
+  ::percona::platform::org::v1::OrganizationTicket* _internal_add_tickets();
+  public:
+  const ::percona::platform::org::v1::OrganizationTicket& tickets(int index) const;
+  ::percona::platform::org::v1::OrganizationTicket* add_tickets();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationTicket >&
+      tickets() const;
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.SearchOrganizationTicketsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationTicket > tickets_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_org_2forg_5fapi_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OrganizationTicket PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.OrganizationTicket) */ {
+ public:
+  inline OrganizationTicket() : OrganizationTicket(nullptr) {}
+  virtual ~OrganizationTicket();
+  explicit constexpr OrganizationTicket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OrganizationTicket(const OrganizationTicket& from);
+  OrganizationTicket(OrganizationTicket&& from) noexcept
+    : OrganizationTicket() {
+    *this = ::std::move(from);
+  }
+
+  inline OrganizationTicket& operator=(const OrganizationTicket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OrganizationTicket& operator=(OrganizationTicket&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const OrganizationTicket& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OrganizationTicket* internal_default_instance() {
+    return reinterpret_cast<const OrganizationTicket*>(
+               &_OrganizationTicket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    31;
+
+  friend void swap(OrganizationTicket& a, OrganizationTicket& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OrganizationTicket* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OrganizationTicket* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OrganizationTicket* New() const final {
+    return CreateMaybeMessage<OrganizationTicket>(nullptr);
+  }
+
+  OrganizationTicket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OrganizationTicket>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const OrganizationTicket& from);
+  void MergeFrom(const OrganizationTicket& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OrganizationTicket* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "percona.platform.org.v1.OrganizationTicket";
+  }
+  protected:
+  explicit OrganizationTicket(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_org_2forg_5fapi_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNumberFieldNumber = 1,
+    kShortDescriptionFieldNumber = 2,
+    kPriorityFieldNumber = 3,
+    kStateFieldNumber = 4,
+    kDepartmentFieldNumber = 6,
+    kRequesterFieldNumber = 7,
+    kTaskTypeFieldNumber = 8,
+    kUrlFieldNumber = 9,
+    kCreateTimeFieldNumber = 5,
+  };
+  // string number = 1;
+  void clear_number();
+  const std::string& number() const;
+  void set_number(const std::string& value);
+  void set_number(std::string&& value);
+  void set_number(const char* value);
+  void set_number(const char* value, size_t size);
+  std::string* mutable_number();
+  std::string* release_number();
+  void set_allocated_number(std::string* number);
+  private:
+  const std::string& _internal_number() const;
+  void _internal_set_number(const std::string& value);
+  std::string* _internal_mutable_number();
+  public:
+
+  // string short_description = 2;
+  void clear_short_description();
+  const std::string& short_description() const;
+  void set_short_description(const std::string& value);
+  void set_short_description(std::string&& value);
+  void set_short_description(const char* value);
+  void set_short_description(const char* value, size_t size);
+  std::string* mutable_short_description();
+  std::string* release_short_description();
+  void set_allocated_short_description(std::string* short_description);
+  private:
+  const std::string& _internal_short_description() const;
+  void _internal_set_short_description(const std::string& value);
+  std::string* _internal_mutable_short_description();
+  public:
+
+  // string priority = 3;
+  void clear_priority();
+  const std::string& priority() const;
+  void set_priority(const std::string& value);
+  void set_priority(std::string&& value);
+  void set_priority(const char* value);
+  void set_priority(const char* value, size_t size);
+  std::string* mutable_priority();
+  std::string* release_priority();
+  void set_allocated_priority(std::string* priority);
+  private:
+  const std::string& _internal_priority() const;
+  void _internal_set_priority(const std::string& value);
+  std::string* _internal_mutable_priority();
+  public:
+
+  // string state = 4;
+  void clear_state();
+  const std::string& state() const;
+  void set_state(const std::string& value);
+  void set_state(std::string&& value);
+  void set_state(const char* value);
+  void set_state(const char* value, size_t size);
+  std::string* mutable_state();
+  std::string* release_state();
+  void set_allocated_state(std::string* state);
+  private:
+  const std::string& _internal_state() const;
+  void _internal_set_state(const std::string& value);
+  std::string* _internal_mutable_state();
+  public:
+
+  // string department = 6;
+  void clear_department();
+  const std::string& department() const;
+  void set_department(const std::string& value);
+  void set_department(std::string&& value);
+  void set_department(const char* value);
+  void set_department(const char* value, size_t size);
+  std::string* mutable_department();
+  std::string* release_department();
+  void set_allocated_department(std::string* department);
+  private:
+  const std::string& _internal_department() const;
+  void _internal_set_department(const std::string& value);
+  std::string* _internal_mutable_department();
+  public:
+
+  // string requester = 7;
+  void clear_requester();
+  const std::string& requester() const;
+  void set_requester(const std::string& value);
+  void set_requester(std::string&& value);
+  void set_requester(const char* value);
+  void set_requester(const char* value, size_t size);
+  std::string* mutable_requester();
+  std::string* release_requester();
+  void set_allocated_requester(std::string* requester);
+  private:
+  const std::string& _internal_requester() const;
+  void _internal_set_requester(const std::string& value);
+  std::string* _internal_mutable_requester();
+  public:
+
+  // string task_type = 8;
+  void clear_task_type();
+  const std::string& task_type() const;
+  void set_task_type(const std::string& value);
+  void set_task_type(std::string&& value);
+  void set_task_type(const char* value);
+  void set_task_type(const char* value, size_t size);
+  std::string* mutable_task_type();
+  std::string* release_task_type();
+  void set_allocated_task_type(std::string* task_type);
+  private:
+  const std::string& _internal_task_type() const;
+  void _internal_set_task_type(const std::string& value);
+  std::string* _internal_mutable_task_type();
+  public:
+
+  // string url = 9;
+  void clear_url();
+  const std::string& url() const;
+  void set_url(const std::string& value);
+  void set_url(std::string&& value);
+  void set_url(const char* value);
+  void set_url(const char* value, size_t size);
+  std::string* mutable_url();
+  std::string* release_url();
+  void set_allocated_url(std::string* url);
+  private:
+  const std::string& _internal_url() const;
+  void _internal_set_url(const std::string& value);
+  std::string* _internal_mutable_url();
+  public:
+
+  // .google.protobuf.Timestamp create_time = 5;
+  bool has_create_time() const;
+  private:
+  bool _internal_has_create_time() const;
+  public:
+  void clear_create_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_create_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_create_time();
+  void set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_create_time();
+  public:
+  void unsafe_arena_set_allocated_create_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_create_time();
+
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.OrganizationTicket)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr number_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr short_description_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr priority_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr state_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr department_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr requester_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr task_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr url_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* create_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -5455,6 +6570,280 @@ inline void CreateOrganizationResponse::set_allocated_org(::percona::platform::o
 
 // -------------------------------------------------------------------
 
+// Contacts_CustomerSuccess
+
+// string name = 1;
+inline void Contacts_CustomerSuccess::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& Contacts_CustomerSuccess::name() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+  return _internal_name();
+}
+inline void Contacts_CustomerSuccess::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+}
+inline std::string* Contacts_CustomerSuccess::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+  return _internal_mutable_name();
+}
+inline const std::string& Contacts_CustomerSuccess::_internal_name() const {
+  return name_.Get();
+}
+inline void Contacts_CustomerSuccess::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Contacts_CustomerSuccess::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+}
+inline void Contacts_CustomerSuccess::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+}
+inline void Contacts_CustomerSuccess::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+}
+inline std::string* Contacts_CustomerSuccess::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Contacts_CustomerSuccess::release_name() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Contacts_CustomerSuccess::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.CustomerSuccess.name)
+}
+
+// string email = 2;
+inline void Contacts_CustomerSuccess::clear_email() {
+  email_.ClearToEmpty();
+}
+inline const std::string& Contacts_CustomerSuccess::email() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+  return _internal_email();
+}
+inline void Contacts_CustomerSuccess::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+}
+inline std::string* Contacts_CustomerSuccess::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+  return _internal_mutable_email();
+}
+inline const std::string& Contacts_CustomerSuccess::_internal_email() const {
+  return email_.Get();
+}
+inline void Contacts_CustomerSuccess::_internal_set_email(const std::string& value) {
+  
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Contacts_CustomerSuccess::set_email(std::string&& value) {
+  
+  email_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+}
+inline void Contacts_CustomerSuccess::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+}
+inline void Contacts_CustomerSuccess::set_email(const char* value,
+    size_t size) {
+  
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+}
+inline std::string* Contacts_CustomerSuccess::_internal_mutable_email() {
+  
+  return email_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Contacts_CustomerSuccess::release_email() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+  return email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Contacts_CustomerSuccess::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.CustomerSuccess.email)
+}
+
+// -------------------------------------------------------------------
+
+// Contacts
+
+// .percona.platform.org.v1.Contacts.CustomerSuccess customer_success = 1;
+inline bool Contacts::_internal_has_customer_success() const {
+  return this != internal_default_instance() && customer_success_ != nullptr;
+}
+inline bool Contacts::has_customer_success() const {
+  return _internal_has_customer_success();
+}
+inline void Contacts::clear_customer_success() {
+  if (GetArena() == nullptr && customer_success_ != nullptr) {
+    delete customer_success_;
+  }
+  customer_success_ = nullptr;
+}
+inline const ::percona::platform::org::v1::Contacts_CustomerSuccess& Contacts::_internal_customer_success() const {
+  const ::percona::platform::org::v1::Contacts_CustomerSuccess* p = customer_success_;
+  return p != nullptr ? *p : reinterpret_cast<const ::percona::platform::org::v1::Contacts_CustomerSuccess&>(
+      ::percona::platform::org::v1::_Contacts_CustomerSuccess_default_instance_);
+}
+inline const ::percona::platform::org::v1::Contacts_CustomerSuccess& Contacts::customer_success() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.customer_success)
+  return _internal_customer_success();
+}
+inline void Contacts::unsafe_arena_set_allocated_customer_success(
+    ::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(customer_success_);
+  }
+  customer_success_ = customer_success;
+  if (customer_success) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.Contacts.customer_success)
+}
+inline ::percona::platform::org::v1::Contacts_CustomerSuccess* Contacts::release_customer_success() {
+  
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* temp = customer_success_;
+  customer_success_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::percona::platform::org::v1::Contacts_CustomerSuccess* Contacts::unsafe_arena_release_customer_success() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.customer_success)
+  
+  ::percona::platform::org::v1::Contacts_CustomerSuccess* temp = customer_success_;
+  customer_success_ = nullptr;
+  return temp;
+}
+inline ::percona::platform::org::v1::Contacts_CustomerSuccess* Contacts::_internal_mutable_customer_success() {
+  
+  if (customer_success_ == nullptr) {
+    auto* p = CreateMaybeMessage<::percona::platform::org::v1::Contacts_CustomerSuccess>(GetArena());
+    customer_success_ = p;
+  }
+  return customer_success_;
+}
+inline ::percona::platform::org::v1::Contacts_CustomerSuccess* Contacts::mutable_customer_success() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.customer_success)
+  return _internal_mutable_customer_success();
+}
+inline void Contacts::set_allocated_customer_success(::percona::platform::org::v1::Contacts_CustomerSuccess* customer_success) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete customer_success_;
+  }
+  if (customer_success) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(customer_success);
+    if (message_arena != submessage_arena) {
+      customer_success = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, customer_success, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  customer_success_ = customer_success;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.customer_success)
+}
+
+// string new_ticket_url = 2;
+inline void Contacts::clear_new_ticket_url() {
+  new_ticket_url_.ClearToEmpty();
+}
+inline const std::string& Contacts::new_ticket_url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Contacts.new_ticket_url)
+  return _internal_new_ticket_url();
+}
+inline void Contacts::set_new_ticket_url(const std::string& value) {
+  _internal_set_new_ticket_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Contacts.new_ticket_url)
+}
+inline std::string* Contacts::mutable_new_ticket_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Contacts.new_ticket_url)
+  return _internal_mutable_new_ticket_url();
+}
+inline const std::string& Contacts::_internal_new_ticket_url() const {
+  return new_ticket_url_.Get();
+}
+inline void Contacts::_internal_set_new_ticket_url(const std::string& value) {
+  
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Contacts::set_new_ticket_url(std::string&& value) {
+  
+  new_ticket_url_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Contacts.new_ticket_url)
+}
+inline void Contacts::set_new_ticket_url(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Contacts.new_ticket_url)
+}
+inline void Contacts::set_new_ticket_url(const char* value,
+    size_t size) {
+  
+  new_ticket_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Contacts.new_ticket_url)
+}
+inline std::string* Contacts::_internal_mutable_new_ticket_url() {
+  
+  return new_ticket_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Contacts::release_new_ticket_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Contacts.new_ticket_url)
+  return new_ticket_url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Contacts::set_allocated_new_ticket_url(std::string* new_ticket_url) {
+  if (new_ticket_url != nullptr) {
+    
+  } else {
+    
+  }
+  new_ticket_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), new_ticket_url,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Contacts.new_ticket_url)
+}
+
+// -------------------------------------------------------------------
+
 // GetOrganizationRequest
 
 // string org_id = 1 [(.validator.field) = {
@@ -5603,6 +6992,89 @@ inline void GetOrganizationResponse::set_allocated_org(::percona::platform::org:
   }
   org_ = org;
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.GetOrganizationResponse.org)
+}
+
+// .percona.platform.org.v1.Contacts contacts = 2;
+inline bool GetOrganizationResponse::_internal_has_contacts() const {
+  return this != internal_default_instance() && contacts_ != nullptr;
+}
+inline bool GetOrganizationResponse::has_contacts() const {
+  return _internal_has_contacts();
+}
+inline void GetOrganizationResponse::clear_contacts() {
+  if (GetArena() == nullptr && contacts_ != nullptr) {
+    delete contacts_;
+  }
+  contacts_ = nullptr;
+}
+inline const ::percona::platform::org::v1::Contacts& GetOrganizationResponse::_internal_contacts() const {
+  const ::percona::platform::org::v1::Contacts* p = contacts_;
+  return p != nullptr ? *p : reinterpret_cast<const ::percona::platform::org::v1::Contacts&>(
+      ::percona::platform::org::v1::_Contacts_default_instance_);
+}
+inline const ::percona::platform::org::v1::Contacts& GetOrganizationResponse::contacts() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.GetOrganizationResponse.contacts)
+  return _internal_contacts();
+}
+inline void GetOrganizationResponse::unsafe_arena_set_allocated_contacts(
+    ::percona::platform::org::v1::Contacts* contacts) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(contacts_);
+  }
+  contacts_ = contacts;
+  if (contacts) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.GetOrganizationResponse.contacts)
+}
+inline ::percona::platform::org::v1::Contacts* GetOrganizationResponse::release_contacts() {
+  
+  ::percona::platform::org::v1::Contacts* temp = contacts_;
+  contacts_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::percona::platform::org::v1::Contacts* GetOrganizationResponse::unsafe_arena_release_contacts() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.GetOrganizationResponse.contacts)
+  
+  ::percona::platform::org::v1::Contacts* temp = contacts_;
+  contacts_ = nullptr;
+  return temp;
+}
+inline ::percona::platform::org::v1::Contacts* GetOrganizationResponse::_internal_mutable_contacts() {
+  
+  if (contacts_ == nullptr) {
+    auto* p = CreateMaybeMessage<::percona::platform::org::v1::Contacts>(GetArena());
+    contacts_ = p;
+  }
+  return contacts_;
+}
+inline ::percona::platform::org::v1::Contacts* GetOrganizationResponse::mutable_contacts() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.GetOrganizationResponse.contacts)
+  return _internal_mutable_contacts();
+}
+inline void GetOrganizationResponse::set_allocated_contacts(::percona::platform::org::v1::Contacts* contacts) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete contacts_;
+  }
+  if (contacts) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(contacts);
+    if (message_arena != submessage_arena) {
+      contacts = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, contacts, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  contacts_ = contacts;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.GetOrganizationResponse.contacts)
 }
 
 // -------------------------------------------------------------------
@@ -7953,9 +9425,824 @@ inline void UpdateMemberResponse::set_allocated_member(::percona::platform::org:
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.UpdateMemberResponse.member)
 }
 
+// -------------------------------------------------------------------
+
+// DeleteMemberRequest
+
+// string org_id = 1 [(.validator.field) = {
+inline void DeleteMemberRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
+}
+inline const std::string& DeleteMemberRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteMemberRequest.org_id)
+  return _internal_org_id();
+}
+inline void DeleteMemberRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteMemberRequest.org_id)
+}
+inline std::string* DeleteMemberRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteMemberRequest.org_id)
+  return _internal_mutable_org_id();
+}
+inline const std::string& DeleteMemberRequest::_internal_org_id() const {
+  return org_id_.Get();
+}
+inline void DeleteMemberRequest::_internal_set_org_id(const std::string& value) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteMemberRequest::set_org_id(std::string&& value) {
+  
+  org_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteMemberRequest.org_id)
+}
+inline void DeleteMemberRequest::set_org_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteMemberRequest.org_id)
+}
+inline void DeleteMemberRequest::set_org_id(const char* value,
+    size_t size) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteMemberRequest.org_id)
+}
+inline std::string* DeleteMemberRequest::_internal_mutable_org_id() {
+  
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteMemberRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteMemberRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteMemberRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
+    
+  } else {
+    
+  }
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteMemberRequest.org_id)
+}
+
+// string member_id = 2 [(.validator.field) = {
+inline void DeleteMemberRequest::clear_member_id() {
+  member_id_.ClearToEmpty();
+}
+inline const std::string& DeleteMemberRequest::member_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteMemberRequest.member_id)
+  return _internal_member_id();
+}
+inline void DeleteMemberRequest::set_member_id(const std::string& value) {
+  _internal_set_member_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteMemberRequest.member_id)
+}
+inline std::string* DeleteMemberRequest::mutable_member_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteMemberRequest.member_id)
+  return _internal_mutable_member_id();
+}
+inline const std::string& DeleteMemberRequest::_internal_member_id() const {
+  return member_id_.Get();
+}
+inline void DeleteMemberRequest::_internal_set_member_id(const std::string& value) {
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteMemberRequest::set_member_id(std::string&& value) {
+  
+  member_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteMemberRequest.member_id)
+}
+inline void DeleteMemberRequest::set_member_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteMemberRequest.member_id)
+}
+inline void DeleteMemberRequest::set_member_id(const char* value,
+    size_t size) {
+  
+  member_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteMemberRequest.member_id)
+}
+inline std::string* DeleteMemberRequest::_internal_mutable_member_id() {
+  
+  return member_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteMemberRequest::release_member_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteMemberRequest.member_id)
+  return member_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteMemberRequest::set_allocated_member_id(std::string* member_id) {
+  if (member_id != nullptr) {
+    
+  } else {
+    
+  }
+  member_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), member_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteMemberRequest.member_id)
+}
+
+// -------------------------------------------------------------------
+
+// SearchOrganizationTicketsRequest
+
+// string org_id = 1 [(.validator.field) = {
+inline void SearchOrganizationTicketsRequest::clear_org_id() {
+  org_id_.ClearToEmpty();
+}
+inline const std::string& SearchOrganizationTicketsRequest::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+  return _internal_org_id();
+}
+inline void SearchOrganizationTicketsRequest::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+}
+inline std::string* SearchOrganizationTicketsRequest::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+  return _internal_mutable_org_id();
+}
+inline const std::string& SearchOrganizationTicketsRequest::_internal_org_id() const {
+  return org_id_.Get();
+}
+inline void SearchOrganizationTicketsRequest::_internal_set_org_id(const std::string& value) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void SearchOrganizationTicketsRequest::set_org_id(std::string&& value) {
+  
+  org_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+}
+inline void SearchOrganizationTicketsRequest::set_org_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+}
+inline void SearchOrganizationTicketsRequest::set_org_id(const char* value,
+    size_t size) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+}
+inline std::string* SearchOrganizationTicketsRequest::_internal_mutable_org_id() {
+  
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* SearchOrganizationTicketsRequest::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SearchOrganizationTicketsRequest::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
+    
+  } else {
+    
+  }
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.SearchOrganizationTicketsRequest.org_id)
+}
+
+// -------------------------------------------------------------------
+
+// SearchOrganizationTicketsResponse
+
+// repeated .percona.platform.org.v1.OrganizationTicket tickets = 1;
+inline int SearchOrganizationTicketsResponse::_internal_tickets_size() const {
+  return tickets_.size();
+}
+inline int SearchOrganizationTicketsResponse::tickets_size() const {
+  return _internal_tickets_size();
+}
+inline void SearchOrganizationTicketsResponse::clear_tickets() {
+  tickets_.Clear();
+}
+inline ::percona::platform::org::v1::OrganizationTicket* SearchOrganizationTicketsResponse::mutable_tickets(int index) {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets)
+  return tickets_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationTicket >*
+SearchOrganizationTicketsResponse::mutable_tickets() {
+  // @@protoc_insertion_point(field_mutable_list:percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets)
+  return &tickets_;
+}
+inline const ::percona::platform::org::v1::OrganizationTicket& SearchOrganizationTicketsResponse::_internal_tickets(int index) const {
+  return tickets_.Get(index);
+}
+inline const ::percona::platform::org::v1::OrganizationTicket& SearchOrganizationTicketsResponse::tickets(int index) const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets)
+  return _internal_tickets(index);
+}
+inline ::percona::platform::org::v1::OrganizationTicket* SearchOrganizationTicketsResponse::_internal_add_tickets() {
+  return tickets_.Add();
+}
+inline ::percona::platform::org::v1::OrganizationTicket* SearchOrganizationTicketsResponse::add_tickets() {
+  // @@protoc_insertion_point(field_add:percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets)
+  return _internal_add_tickets();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::percona::platform::org::v1::OrganizationTicket >&
+SearchOrganizationTicketsResponse::tickets() const {
+  // @@protoc_insertion_point(field_list:percona.platform.org.v1.SearchOrganizationTicketsResponse.tickets)
+  return tickets_;
+}
+
+// -------------------------------------------------------------------
+
+// OrganizationTicket
+
+// string number = 1;
+inline void OrganizationTicket::clear_number() {
+  number_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::number() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.number)
+  return _internal_number();
+}
+inline void OrganizationTicket::set_number(const std::string& value) {
+  _internal_set_number(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.number)
+}
+inline std::string* OrganizationTicket::mutable_number() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.number)
+  return _internal_mutable_number();
+}
+inline const std::string& OrganizationTicket::_internal_number() const {
+  return number_.Get();
+}
+inline void OrganizationTicket::_internal_set_number(const std::string& value) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_number(std::string&& value) {
+  
+  number_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.number)
+}
+inline void OrganizationTicket::set_number(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.number)
+}
+inline void OrganizationTicket::set_number(const char* value,
+    size_t size) {
+  
+  number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.number)
+}
+inline std::string* OrganizationTicket::_internal_mutable_number() {
+  
+  return number_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_number() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.number)
+  return number_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_number(std::string* number) {
+  if (number != nullptr) {
+    
+  } else {
+    
+  }
+  number_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), number,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.number)
+}
+
+// string short_description = 2;
+inline void OrganizationTicket::clear_short_description() {
+  short_description_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::short_description() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.short_description)
+  return _internal_short_description();
+}
+inline void OrganizationTicket::set_short_description(const std::string& value) {
+  _internal_set_short_description(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.short_description)
+}
+inline std::string* OrganizationTicket::mutable_short_description() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.short_description)
+  return _internal_mutable_short_description();
+}
+inline const std::string& OrganizationTicket::_internal_short_description() const {
+  return short_description_.Get();
+}
+inline void OrganizationTicket::_internal_set_short_description(const std::string& value) {
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_short_description(std::string&& value) {
+  
+  short_description_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.short_description)
+}
+inline void OrganizationTicket::set_short_description(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.short_description)
+}
+inline void OrganizationTicket::set_short_description(const char* value,
+    size_t size) {
+  
+  short_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.short_description)
+}
+inline std::string* OrganizationTicket::_internal_mutable_short_description() {
+  
+  return short_description_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_short_description() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.short_description)
+  return short_description_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_short_description(std::string* short_description) {
+  if (short_description != nullptr) {
+    
+  } else {
+    
+  }
+  short_description_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), short_description,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.short_description)
+}
+
+// string priority = 3;
+inline void OrganizationTicket::clear_priority() {
+  priority_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::priority() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.priority)
+  return _internal_priority();
+}
+inline void OrganizationTicket::set_priority(const std::string& value) {
+  _internal_set_priority(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.priority)
+}
+inline std::string* OrganizationTicket::mutable_priority() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.priority)
+  return _internal_mutable_priority();
+}
+inline const std::string& OrganizationTicket::_internal_priority() const {
+  return priority_.Get();
+}
+inline void OrganizationTicket::_internal_set_priority(const std::string& value) {
+  
+  priority_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_priority(std::string&& value) {
+  
+  priority_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.priority)
+}
+inline void OrganizationTicket::set_priority(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  priority_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.priority)
+}
+inline void OrganizationTicket::set_priority(const char* value,
+    size_t size) {
+  
+  priority_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.priority)
+}
+inline std::string* OrganizationTicket::_internal_mutable_priority() {
+  
+  return priority_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_priority() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.priority)
+  return priority_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_priority(std::string* priority) {
+  if (priority != nullptr) {
+    
+  } else {
+    
+  }
+  priority_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), priority,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.priority)
+}
+
+// string state = 4;
+inline void OrganizationTicket::clear_state() {
+  state_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::state() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.state)
+  return _internal_state();
+}
+inline void OrganizationTicket::set_state(const std::string& value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.state)
+}
+inline std::string* OrganizationTicket::mutable_state() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.state)
+  return _internal_mutable_state();
+}
+inline const std::string& OrganizationTicket::_internal_state() const {
+  return state_.Get();
+}
+inline void OrganizationTicket::_internal_set_state(const std::string& value) {
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_state(std::string&& value) {
+  
+  state_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.state)
+}
+inline void OrganizationTicket::set_state(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.state)
+}
+inline void OrganizationTicket::set_state(const char* value,
+    size_t size) {
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.state)
+}
+inline std::string* OrganizationTicket::_internal_mutable_state() {
+  
+  return state_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_state() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.state)
+  return state_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_state(std::string* state) {
+  if (state != nullptr) {
+    
+  } else {
+    
+  }
+  state_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), state,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.state)
+}
+
+// .google.protobuf.Timestamp create_time = 5;
+inline bool OrganizationTicket::_internal_has_create_time() const {
+  return this != internal_default_instance() && create_time_ != nullptr;
+}
+inline bool OrganizationTicket::has_create_time() const {
+  return _internal_has_create_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationTicket::_internal_create_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = create_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& OrganizationTicket::create_time() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.create_time)
+  return _internal_create_time();
+}
+inline void OrganizationTicket::unsafe_arena_set_allocated_create_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  create_time_ = create_time;
+  if (create_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:percona.platform.org.v1.OrganizationTicket.create_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationTicket::release_create_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationTicket::unsafe_arena_release_create_time() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.create_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationTicket::_internal_mutable_create_time() {
+  
+  if (create_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    create_time_ = p;
+  }
+  return create_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* OrganizationTicket::mutable_create_time() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.create_time)
+  return _internal_mutable_create_time();
+}
+inline void OrganizationTicket::set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  if (create_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      create_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, create_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  create_time_ = create_time;
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.create_time)
+}
+
+// string department = 6;
+inline void OrganizationTicket::clear_department() {
+  department_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::department() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.department)
+  return _internal_department();
+}
+inline void OrganizationTicket::set_department(const std::string& value) {
+  _internal_set_department(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.department)
+}
+inline std::string* OrganizationTicket::mutable_department() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.department)
+  return _internal_mutable_department();
+}
+inline const std::string& OrganizationTicket::_internal_department() const {
+  return department_.Get();
+}
+inline void OrganizationTicket::_internal_set_department(const std::string& value) {
+  
+  department_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_department(std::string&& value) {
+  
+  department_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.department)
+}
+inline void OrganizationTicket::set_department(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  department_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.department)
+}
+inline void OrganizationTicket::set_department(const char* value,
+    size_t size) {
+  
+  department_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.department)
+}
+inline std::string* OrganizationTicket::_internal_mutable_department() {
+  
+  return department_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_department() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.department)
+  return department_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_department(std::string* department) {
+  if (department != nullptr) {
+    
+  } else {
+    
+  }
+  department_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), department,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.department)
+}
+
+// string requester = 7;
+inline void OrganizationTicket::clear_requester() {
+  requester_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::requester() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.requester)
+  return _internal_requester();
+}
+inline void OrganizationTicket::set_requester(const std::string& value) {
+  _internal_set_requester(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.requester)
+}
+inline std::string* OrganizationTicket::mutable_requester() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.requester)
+  return _internal_mutable_requester();
+}
+inline const std::string& OrganizationTicket::_internal_requester() const {
+  return requester_.Get();
+}
+inline void OrganizationTicket::_internal_set_requester(const std::string& value) {
+  
+  requester_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_requester(std::string&& value) {
+  
+  requester_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.requester)
+}
+inline void OrganizationTicket::set_requester(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  requester_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.requester)
+}
+inline void OrganizationTicket::set_requester(const char* value,
+    size_t size) {
+  
+  requester_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.requester)
+}
+inline std::string* OrganizationTicket::_internal_mutable_requester() {
+  
+  return requester_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_requester() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.requester)
+  return requester_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_requester(std::string* requester) {
+  if (requester != nullptr) {
+    
+  } else {
+    
+  }
+  requester_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), requester,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.requester)
+}
+
+// string task_type = 8;
+inline void OrganizationTicket::clear_task_type() {
+  task_type_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::task_type() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.task_type)
+  return _internal_task_type();
+}
+inline void OrganizationTicket::set_task_type(const std::string& value) {
+  _internal_set_task_type(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.task_type)
+}
+inline std::string* OrganizationTicket::mutable_task_type() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.task_type)
+  return _internal_mutable_task_type();
+}
+inline const std::string& OrganizationTicket::_internal_task_type() const {
+  return task_type_.Get();
+}
+inline void OrganizationTicket::_internal_set_task_type(const std::string& value) {
+  
+  task_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_task_type(std::string&& value) {
+  
+  task_type_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.task_type)
+}
+inline void OrganizationTicket::set_task_type(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  task_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.task_type)
+}
+inline void OrganizationTicket::set_task_type(const char* value,
+    size_t size) {
+  
+  task_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.task_type)
+}
+inline std::string* OrganizationTicket::_internal_mutable_task_type() {
+  
+  return task_type_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_task_type() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.task_type)
+  return task_type_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_task_type(std::string* task_type) {
+  if (task_type != nullptr) {
+    
+  } else {
+    
+  }
+  task_type_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), task_type,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.task_type)
+}
+
+// string url = 9;
+inline void OrganizationTicket::clear_url() {
+  url_.ClearToEmpty();
+}
+inline const std::string& OrganizationTicket::url() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.OrganizationTicket.url)
+  return _internal_url();
+}
+inline void OrganizationTicket::set_url(const std::string& value) {
+  _internal_set_url(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.OrganizationTicket.url)
+}
+inline std::string* OrganizationTicket::mutable_url() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.OrganizationTicket.url)
+  return _internal_mutable_url();
+}
+inline const std::string& OrganizationTicket::_internal_url() const {
+  return url_.Get();
+}
+inline void OrganizationTicket::_internal_set_url(const std::string& value) {
+  
+  url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void OrganizationTicket::set_url(std::string&& value) {
+  
+  url_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.OrganizationTicket.url)
+}
+inline void OrganizationTicket::set_url(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.OrganizationTicket.url)
+}
+inline void OrganizationTicket::set_url(const char* value,
+    size_t size) {
+  
+  url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.OrganizationTicket.url)
+}
+inline std::string* OrganizationTicket::_internal_mutable_url() {
+  
+  return url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* OrganizationTicket::release_url() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.OrganizationTicket.url)
+  return url_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void OrganizationTicket::set_allocated_url(std::string* url) {
+  if (url != nullptr) {
+    
+  } else {
+    
+  }
+  url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), url,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.OrganizationTicket.url)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

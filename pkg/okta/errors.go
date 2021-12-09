@@ -7,10 +7,10 @@ import (
 )
 
 var (
-	ErrEmptyLogin     = &AuthError{msg: "login is empty"}     //nolint:golint
-	ErrEmptyFirstName = &AuthError{msg: "firstName is empty"} //nolint:golint
-	ErrEmptyLastName  = &AuthError{msg: "lastName is empty"}  //nolint:golint
-	ErrEmptyPassword  = &AuthError{msg: "password is empty"}  //nolint:golint
+	ErrEmptyLogin     = &AuthError{msg: "login is empty"} //nolint:revive
+	ErrEmptyFirstName = &AuthError{msg: "firstName is empty"}
+	ErrEmptyLastName  = &AuthError{msg: "lastName is empty"}
+	ErrEmptyPassword  = &AuthError{msg: "password is empty"}
 	ErrAuthentication = &AuthError{msg: "authentication error"}
 	ErrNotFound       = &AuthError{msg: "not found"}
 )

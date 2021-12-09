@@ -489,7 +489,7 @@ func TestRegisterAdditionalContext(t *testing.T) {
 
 		res := ""
 		for i := 0; i < l; i++ {
-			row := args[i].(map[string]interface{})
+			row := args[i].(map[string]interface{}) //nolint:forcetypeassert
 			for k, v := range row {
 				res += fmt.Sprintf("%s:%s", k, v)
 			}

@@ -6,6 +6,7 @@ option go_package = "/org;orgv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -64,6 +65,13 @@ service OrgAPI {
     };
   }
 
+  // SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
+  rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/tickets:search"
+    };
+  }
+
   // SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
   rpc SearchUserCompany(SearchUserCompanyRequest) returns (SearchUserCompanyResponse) {
     option (google.api.http) = {
@@ -76,6 +84,13 @@ service OrgAPI {
     option (google.api.http) = {
       put: "/v1/orgs/{org_id}/members/{member_id}"
       body: "*"
+    };
+  }
+
+  // DeleteMember deletes a Percona Portal Organization Member with the given ID.
+  rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/{org_id}/members/{member_id}"
     };
   }
 
@@ -151,6 +166,18 @@ message CreateOrganizationResponse {
   Organization org = 1;
 }
 
+message Contacts {
+  message CustomerSuccess {
+    string name = 1;
+    string email = 2;
+  }
+
+  // Contact information of the customer success employee assigned to a customer's account.
+  CustomerSuccess customer_success = 1;
+  // Ticket URL.
+  string new_ticket_url = 2;
+}
+
 message GetOrganizationRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
@@ -162,6 +189,7 @@ message GetOrganizationRequest {
 
 message GetOrganizationResponse {
   Organization org = 1;
+  Contacts contacts = 2;
 }
 
 message SearchOrganizationsRequest {}
@@ -324,4 +352,56 @@ message UpdateMemberRequest {
 
 message UpdateMemberResponse {
   OrganizationMember member = 1;
+}
+
+message DeleteMemberRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Percona Portal Member ID.
+  string member_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationTicketsRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationTicketsResponse {
+  // Organization tickets matching the request.
+  repeated OrganizationTicket tickets = 1;
+}
+
+// Contains information about ticket.
+message OrganizationTicket {
+  // Ticket number.
+  string number = 1;
+  // Ticket short description.
+  string short_description = 2;
+  // Ticket priority.
+  string priority = 3;
+  // Ticket state.
+  string state = 4;
+  // Ticket creation time.
+  google.protobuf.Timestamp create_time = 5;
+  // Department.
+  string department = 6;
+  // Ticket requester.
+  string requester = 7;
+  // Task type.
+  string task_type = 8;
+  // Ticket url.
+  string url = 9;
 }
