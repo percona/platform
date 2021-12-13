@@ -398,18 +398,18 @@ struct DeleteMemberRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeleteMemberRequestDefaultTypeInternal _DeleteMemberRequest_default_instance_;
-constexpr DeleteInventoryRequest::DeleteInventoryRequest(
+constexpr DisconnectPMMRequest::DisconnectPMMRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : pmm_server_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct DeleteInventoryRequestDefaultTypeInternal {
-  constexpr DeleteInventoryRequestDefaultTypeInternal()
+struct DisconnectPMMRequestDefaultTypeInternal {
+  constexpr DisconnectPMMRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~DeleteInventoryRequestDefaultTypeInternal() {}
+  ~DisconnectPMMRequestDefaultTypeInternal() {}
   union {
-    DeleteInventoryRequest _instance;
+    DisconnectPMMRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeleteInventoryRequestDefaultTypeInternal _DeleteInventoryRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DisconnectPMMRequestDefaultTypeInternal _DisconnectPMMRequest_default_instance_;
 constexpr SearchInventoryRequest::SearchInventoryRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : org_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
@@ -707,11 +707,11 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DeleteMemberRequest, org_id_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DeleteMemberRequest, member_id_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DeleteInventoryRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DisconnectPMMRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DeleteInventoryRequest, pmm_server_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::DisconnectPMMRequest, pmm_server_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::SearchInventoryRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -790,7 +790,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 183, -1, sizeof(::percona::platform::org::v1::UpdateMemberRequest)},
   { 191, -1, sizeof(::percona::platform::org::v1::UpdateMemberResponse)},
   { 197, -1, sizeof(::percona::platform::org::v1::DeleteMemberRequest)},
-  { 204, -1, sizeof(::percona::platform::org::v1::DeleteInventoryRequest)},
+  { 204, -1, sizeof(::percona::platform::org::v1::DisconnectPMMRequest)},
   { 210, -1, sizeof(::percona::platform::org::v1::SearchInventoryRequest)},
   { 216, -1, sizeof(::percona::platform::org::v1::Inventory)},
   { 225, -1, sizeof(::percona::platform::org::v1::SearchInventoryResponse)},
@@ -829,7 +829,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateMemberRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateMemberResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_DeleteMemberRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_DeleteInventoryRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_DisconnectPMMRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchInventoryRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Inventory_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchInventoryResponse_default_instance_),
@@ -913,80 +913,80 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "ponse\022;\n\006member\030\001 \001(\0132+.percona.platform"
   ".org.v1.OrganizationMember\"H\n\023DeleteMemb"
   "erRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\022\031\n\tmem"
-  "ber_id\030\002 \001(\tB\006\342\337\037\002X\001\"7\n\026DeleteInventoryR"
-  "equest\022\035\n\rpmm_server_id\030\001 \001(\tB\006\342\337\037\002X\001\"0\n"
-  "\026SearchInventoryRequest\022\026\n\006org_id\030\001 \001(\tB"
-  "\006\342\337\037\002X\001\"f\n\tInventory\022\025\n\rpmm_server_id\030\001 "
-  "\001(\t\022\027\n\017pmm_server_name\030\002 \001(\t\022\026\n\016pmm_serv"
-  "er_url\030\003 \001(\t\022\021\n\torigin_id\030\004 \001(\t\"P\n\027Searc"
-  "hInventoryResponse\0225\n\tinventory\030\001 \003(\0132\"."
-  "percona.platform.org.v1.Inventory\":\n Sea"
-  "rchOrganizationTicketsRequest\022\026\n\006org_id\030"
-  "\001 \001(\tB\006\342\337\037\002X\001\"a\n!SearchOrganizationTicke"
-  "tsResponse\022<\n\007tickets\030\001 \003(\0132+.percona.pl"
-  "atform.org.v1.OrganizationTicket\"\330\001\n\022Org"
-  "anizationTicket\022\016\n\006number\030\001 \001(\t\022\031\n\021short"
-  "_description\030\002 \001(\t\022\020\n\010priority\030\003 \001(\t\022\r\n\005"
-  "state\030\004 \001(\t\022/\n\013create_time\030\005 \001(\0132\032.googl"
-  "e.protobuf.Timestamp\022\022\n\ndepartment\030\006 \001(\t"
-  "\022\021\n\trequester\030\007 \001(\t\022\021\n\ttask_type\030\010 \001(\t\022\013"
-  "\n\003url\030\t \001(\t2\244\021\n\006OrgAPI\022\222\001\n\022CreateOrganiz"
-  "ation\0222.percona.platform.org.v1.CreateOr"
-  "ganizationRequest\0323.percona.platform.org"
-  ".v1.CreateOrganizationResponse\"\023\202\323\344\223\002\r\"\010"
-  "/v1/orgs:\001*\022\217\001\n\017GetOrganization\022/.percon"
-  "a.platform.org.v1.GetOrganizationRequest"
-  "\0320.percona.platform.org.v1.GetOrganizati"
-  "onResponse\"\031\202\323\344\223\002\023\022\021/v1/orgs/{org_id}\022\234\001"
-  "\n\023SearchOrganizations\0223.percona.platform"
-  ".org.v1.SearchOrganizationsRequest\0324.per"
-  "cona.platform.org.v1.SearchOrganizations"
-  "Response\"\032\202\323\344\223\002\024\"\017/v1/orgs:search:\001*\022\230\001\n"
-  "\022DeleteOrganization\0222.percona.platform.o"
-  "rg.v1.DeleteOrganizationRequest\0323.percon"
-  "a.platform.org.v1.DeleteOrganizationResp"
-  "onse\"\031\202\323\344\223\002\023*\021/v1/orgs/{org_id}\022\221\001\n\014Invi"
-  "teMember\022,.percona.platform.org.v1.Invit"
-  "eMemberRequest\032-.percona.platform.org.v1"
-  ".InviteMemberResponse\"$\202\323\344\223\002\036\"\031/v1/orgs/"
-  "{org_id}/members:\001*\022\233\001\n\rSearchMembers\022-."
-  "percona.platform.org.v1.SearchMembersReq"
-  "uest\032..percona.platform.org.v1.SearchMem"
-  "bersResponse\"+\202\323\344\223\002%\" /v1/orgs/{org_id}/"
-  "members:search:\001*\022\320\001\n\036SearchOrganization"
-  "Entitlements\022>.percona.platform.org.v1.S"
-  "earchOrganizationEntitlementsRequest\032\?.p"
-  "ercona.platform.org.v1.SearchOrganizatio"
-  "nEntitlementsResponse\"-\202\323\344\223\002\'\"%/v1/orgs/"
-  "{org_id}/entitlements:search\022\274\001\n\031SearchO"
-  "rganizationTickets\0229.percona.platform.or"
-  "g.v1.SearchOrganizationTicketsRequest\032:."
-  "percona.platform.org.v1.SearchOrganizati"
-  "onTicketsResponse\"(\202\323\344\223\002\"\" /v1/orgs/{org"
-  "_id}/tickets:search\022\233\001\n\021SearchUserCompan"
-  "y\0221.percona.platform.org.v1.SearchUserCo"
-  "mpanyRequest\0322.percona.platform.org.v1.S"
-  "earchUserCompanyResponse\"\037\202\323\344\223\002\031\"\027/v1/or"
-  "gs/company:search\022\235\001\n\014UpdateMember\022,.per"
-  "cona.platform.org.v1.UpdateMemberRequest"
-  "\032-.percona.platform.org.v1.UpdateMemberR"
-  "esponse\"0\202\323\344\223\002*\032%/v1/orgs/{org_id}/membe"
-  "rs/{member_id}:\001*\022\203\001\n\014DeleteMember\022,.per"
-  "cona.platform.org.v1.DeleteMemberRequest"
-  "\032\026.google.protobuf.Empty\"-\202\323\344\223\002\'*%/v1/or"
-  "gs/{org_id}/members/{member_id}\022\204\001\n\nConn"
-  "ectPMM\022*.percona.platform.org.v1.Connect"
-  "PMMRequest\032+.percona.platform.org.v1.Con"
-  "nectPMMResponse\"\035\202\323\344\223\002\027\"\022/v1/orgs/invent"
-  "ory:\001*\022\206\001\n\017DeleteInventory\022/.percona.pla"
-  "tform.org.v1.DeleteInventoryRequest\032\026.go"
-  "ogle.protobuf.Empty\"*\202\323\344\223\002$*\"/v1/orgs/in"
-  "ventory/{pmm_server_id}\022\240\001\n\017SearchInvent"
-  "ory\022/.percona.platform.org.v1.SearchInve"
-  "ntoryRequest\0320.percona.platform.org.v1.S"
-  "earchInventoryResponse\"*\202\323\344\223\002$\"\"/v1/orgs"
-  "/{org_id}/inventory:searchB\014Z\n/org;orgv1"
-  "b\006proto3"
+  "ber_id\030\002 \001(\tB\006\342\337\037\002X\001\"5\n\024DisconnectPMMReq"
+  "uest\022\035\n\rpmm_server_id\030\001 \001(\tB\006\342\337\037\002X\001\"0\n\026S"
+  "earchInventoryRequest\022\026\n\006org_id\030\001 \001(\tB\006\342"
+  "\337\037\002X\001\"f\n\tInventory\022\025\n\rpmm_server_id\030\001 \001("
+  "\t\022\027\n\017pmm_server_name\030\002 \001(\t\022\026\n\016pmm_server"
+  "_url\030\003 \001(\t\022\021\n\torigin_id\030\004 \001(\t\"P\n\027SearchI"
+  "nventoryResponse\0225\n\tinventory\030\001 \003(\0132\".pe"
+  "rcona.platform.org.v1.Inventory\":\n Searc"
+  "hOrganizationTicketsRequest\022\026\n\006org_id\030\001 "
+  "\001(\tB\006\342\337\037\002X\001\"a\n!SearchOrganizationTickets"
+  "Response\022<\n\007tickets\030\001 \003(\0132+.percona.plat"
+  "form.org.v1.OrganizationTicket\"\330\001\n\022Organ"
+  "izationTicket\022\016\n\006number\030\001 \001(\t\022\031\n\021short_d"
+  "escription\030\002 \001(\t\022\020\n\010priority\030\003 \001(\t\022\r\n\005st"
+  "ate\030\004 \001(\t\022/\n\013create_time\030\005 \001(\0132\032.google."
+  "protobuf.Timestamp\022\022\n\ndepartment\030\006 \001(\t\022\021"
+  "\n\trequester\030\007 \001(\t\022\021\n\ttask_type\030\010 \001(\t\022\013\n\003"
+  "url\030\t \001(\t2\240\021\n\006OrgAPI\022\222\001\n\022CreateOrganizat"
+  "ion\0222.percona.platform.org.v1.CreateOrga"
+  "nizationRequest\0323.percona.platform.org.v"
+  "1.CreateOrganizationResponse\"\023\202\323\344\223\002\r\"\010/v"
+  "1/orgs:\001*\022\217\001\n\017GetOrganization\022/.percona."
+  "platform.org.v1.GetOrganizationRequest\0320"
+  ".percona.platform.org.v1.GetOrganization"
+  "Response\"\031\202\323\344\223\002\023\022\021/v1/orgs/{org_id}\022\234\001\n\023"
+  "SearchOrganizations\0223.percona.platform.o"
+  "rg.v1.SearchOrganizationsRequest\0324.perco"
+  "na.platform.org.v1.SearchOrganizationsRe"
+  "sponse\"\032\202\323\344\223\002\024\"\017/v1/orgs:search:\001*\022\230\001\n\022D"
+  "eleteOrganization\0222.percona.platform.org"
+  ".v1.DeleteOrganizationRequest\0323.percona."
+  "platform.org.v1.DeleteOrganizationRespon"
+  "se\"\031\202\323\344\223\002\023*\021/v1/orgs/{org_id}\022\221\001\n\014Invite"
+  "Member\022,.percona.platform.org.v1.InviteM"
+  "emberRequest\032-.percona.platform.org.v1.I"
+  "nviteMemberResponse\"$\202\323\344\223\002\036\"\031/v1/orgs/{o"
+  "rg_id}/members:\001*\022\233\001\n\rSearchMembers\022-.pe"
+  "rcona.platform.org.v1.SearchMembersReque"
+  "st\032..percona.platform.org.v1.SearchMembe"
+  "rsResponse\"+\202\323\344\223\002%\" /v1/orgs/{org_id}/me"
+  "mbers:search:\001*\022\320\001\n\036SearchOrganizationEn"
+  "titlements\022>.percona.platform.org.v1.Sea"
+  "rchOrganizationEntitlementsRequest\032\?.per"
+  "cona.platform.org.v1.SearchOrganizationE"
+  "ntitlementsResponse\"-\202\323\344\223\002\'\"%/v1/orgs/{o"
+  "rg_id}/entitlements:search\022\274\001\n\031SearchOrg"
+  "anizationTickets\0229.percona.platform.org."
+  "v1.SearchOrganizationTicketsRequest\032:.pe"
+  "rcona.platform.org.v1.SearchOrganization"
+  "TicketsResponse\"(\202\323\344\223\002\"\" /v1/orgs/{org_i"
+  "d}/tickets:search\022\233\001\n\021SearchUserCompany\022"
+  "1.percona.platform.org.v1.SearchUserComp"
+  "anyRequest\0322.percona.platform.org.v1.Sea"
+  "rchUserCompanyResponse\"\037\202\323\344\223\002\031\"\027/v1/orgs"
+  "/company:search\022\235\001\n\014UpdateMember\022,.perco"
+  "na.platform.org.v1.UpdateMemberRequest\032-"
+  ".percona.platform.org.v1.UpdateMemberRes"
+  "ponse\"0\202\323\344\223\002*\032%/v1/orgs/{org_id}/members"
+  "/{member_id}:\001*\022\203\001\n\014DeleteMember\022,.perco"
+  "na.platform.org.v1.DeleteMemberRequest\032\026"
+  ".google.protobuf.Empty\"-\202\323\344\223\002\'*%/v1/orgs"
+  "/{org_id}/members/{member_id}\022\204\001\n\nConnec"
+  "tPMM\022*.percona.platform.org.v1.ConnectPM"
+  "MRequest\032+.percona.platform.org.v1.Conne"
+  "ctPMMResponse\"\035\202\323\344\223\002\027\"\022/v1/orgs/inventor"
+  "y:\001*\022\202\001\n\rDisconnectPMM\022-.percona.platfor"
+  "m.org.v1.DisconnectPMMRequest\032\026.google.p"
+  "rotobuf.Empty\"*\202\323\344\223\002$*\"/v1/orgs/inventor"
+  "y/{pmm_server_id}\022\240\001\n\017SearchInventory\022/."
+  "percona.platform.org.v1.SearchInventoryR"
+  "equest\0320.percona.platform.org.v1.SearchI"
+  "nventoryResponse\"*\202\323\344\223\002$\"\"/v1/orgs/{org_"
+  "id}/inventory:searchB\014Z\n/org;orgv1b\006prot"
+  "o3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[5] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -997,7 +997,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 5888, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  false, false, 5882, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
   &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 36,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
@@ -8064,17 +8064,17 @@ void DeleteMemberRequest::InternalSwap(DeleteMemberRequest* other) {
 
 // ===================================================================
 
-class DeleteInventoryRequest::_Internal {
+class DisconnectPMMRequest::_Internal {
  public:
 };
 
-DeleteInventoryRequest::DeleteInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+DisconnectPMMRequest::DisconnectPMMRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.DisconnectPMMRequest)
 }
-DeleteInventoryRequest::DeleteInventoryRequest(const DeleteInventoryRequest& from)
+DisconnectPMMRequest::DisconnectPMMRequest(const DisconnectPMMRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   pmm_server_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -8082,36 +8082,36 @@ DeleteInventoryRequest::DeleteInventoryRequest(const DeleteInventoryRequest& fro
     pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pmm_server_id(), 
       GetArena());
   }
-  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.DisconnectPMMRequest)
 }
 
-void DeleteInventoryRequest::SharedCtor() {
+void DisconnectPMMRequest::SharedCtor() {
 pmm_server_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-DeleteInventoryRequest::~DeleteInventoryRequest() {
-  // @@protoc_insertion_point(destructor:percona.platform.org.v1.DeleteInventoryRequest)
+DisconnectPMMRequest::~DisconnectPMMRequest() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.DisconnectPMMRequest)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-void DeleteInventoryRequest::SharedDtor() {
+void DisconnectPMMRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   pmm_server_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void DeleteInventoryRequest::ArenaDtor(void* object) {
-  DeleteInventoryRequest* _this = reinterpret_cast< DeleteInventoryRequest* >(object);
+void DisconnectPMMRequest::ArenaDtor(void* object) {
+  DisconnectPMMRequest* _this = reinterpret_cast< DisconnectPMMRequest* >(object);
   (void)_this;
 }
-void DeleteInventoryRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void DisconnectPMMRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void DeleteInventoryRequest::SetCachedSize(int size) const {
+void DisconnectPMMRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DeleteInventoryRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.DeleteInventoryRequest)
+void DisconnectPMMRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.DisconnectPMMRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -8120,7 +8120,7 @@ void DeleteInventoryRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* DeleteInventoryRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DisconnectPMMRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -8132,7 +8132,7 @@ const char* DeleteInventoryRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_pmm_server_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -8158,9 +8158,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* DeleteInventoryRequest::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* DisconnectPMMRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.DisconnectPMMRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -8169,7 +8169,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_pmm_server_id().data(), static_cast<int>(this->_internal_pmm_server_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id");
+      "percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_pmm_server_id(), target);
   }
@@ -8178,12 +8178,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.DisconnectPMMRequest)
   return target;
 }
 
-size_t DeleteInventoryRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.DeleteInventoryRequest)
+size_t DisconnectPMMRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.DisconnectPMMRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -8206,23 +8206,23 @@ size_t DeleteInventoryRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void DeleteInventoryRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.DeleteInventoryRequest)
+void DisconnectPMMRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.DisconnectPMMRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  const DeleteInventoryRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<DeleteInventoryRequest>(
+  const DisconnectPMMRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<DisconnectPMMRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.DisconnectPMMRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.DisconnectPMMRequest)
     MergeFrom(*source);
   }
 }
 
-void DeleteInventoryRequest::MergeFrom(const DeleteInventoryRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.DeleteInventoryRequest)
+void DisconnectPMMRequest::MergeFrom(const DisconnectPMMRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.DisconnectPMMRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -8233,31 +8233,31 @@ void DeleteInventoryRequest::MergeFrom(const DeleteInventoryRequest& from) {
   }
 }
 
-void DeleteInventoryRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.DeleteInventoryRequest)
+void DisconnectPMMRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.DisconnectPMMRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void DeleteInventoryRequest::CopyFrom(const DeleteInventoryRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.DeleteInventoryRequest)
+void DisconnectPMMRequest::CopyFrom(const DisconnectPMMRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.DisconnectPMMRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DeleteInventoryRequest::IsInitialized() const {
+bool DisconnectPMMRequest::IsInitialized() const {
   return true;
 }
 
-void DeleteInventoryRequest::InternalSwap(DeleteInventoryRequest* other) {
+void DisconnectPMMRequest::InternalSwap(DisconnectPMMRequest* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   pmm_server_id_.Swap(&other->pmm_server_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata DeleteInventoryRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata DisconnectPMMRequest::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -9971,8 +9971,8 @@ template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UpdateMemberResponse*
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::DeleteMemberRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::DeleteMemberRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::DeleteMemberRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::DeleteInventoryRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::DeleteInventoryRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::percona::platform::org::v1::DeleteInventoryRequest >(arena);
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::DisconnectPMMRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::DisconnectPMMRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::DisconnectPMMRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchInventoryRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::SearchInventoryRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::SearchInventoryRequest >(arena);

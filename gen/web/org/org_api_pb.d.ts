@@ -696,19 +696,19 @@ export namespace DeleteMemberRequest {
   }
 }
 
-export class DeleteInventoryRequest extends jspb.Message {
+export class DisconnectPMMRequest extends jspb.Message {
   getPmmServerId(): string;
-  setPmmServerId(value: string): DeleteInventoryRequest;
+  setPmmServerId(value: string): DisconnectPMMRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): DeleteInventoryRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: DeleteInventoryRequest): DeleteInventoryRequest.AsObject;
-  static serializeBinaryToWriter(message: DeleteInventoryRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): DeleteInventoryRequest;
-  static deserializeBinaryFromReader(message: DeleteInventoryRequest, reader: jspb.BinaryReader): DeleteInventoryRequest;
+  toObject(includeInstance?: boolean): DisconnectPMMRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DisconnectPMMRequest): DisconnectPMMRequest.AsObject;
+  static serializeBinaryToWriter(message: DisconnectPMMRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DisconnectPMMRequest;
+  static deserializeBinaryFromReader(message: DisconnectPMMRequest, reader: jspb.BinaryReader): DisconnectPMMRequest;
 }
 
-export namespace DeleteInventoryRequest {
+export namespace DisconnectPMMRequest {
   export type AsObject = {
     pmmServerId: string,
   }

@@ -81,9 +81,6 @@ extern CreateOrganizationRequestDefaultTypeInternal _CreateOrganizationRequest_d
 class CreateOrganizationResponse;
 struct CreateOrganizationResponseDefaultTypeInternal;
 extern CreateOrganizationResponseDefaultTypeInternal _CreateOrganizationResponse_default_instance_;
-class DeleteInventoryRequest;
-struct DeleteInventoryRequestDefaultTypeInternal;
-extern DeleteInventoryRequestDefaultTypeInternal _DeleteInventoryRequest_default_instance_;
 class DeleteMemberRequest;
 struct DeleteMemberRequestDefaultTypeInternal;
 extern DeleteMemberRequestDefaultTypeInternal _DeleteMemberRequest_default_instance_;
@@ -93,6 +90,9 @@ extern DeleteOrganizationRequestDefaultTypeInternal _DeleteOrganizationRequest_d
 class DeleteOrganizationResponse;
 struct DeleteOrganizationResponseDefaultTypeInternal;
 extern DeleteOrganizationResponseDefaultTypeInternal _DeleteOrganizationResponse_default_instance_;
+class DisconnectPMMRequest;
+struct DisconnectPMMRequestDefaultTypeInternal;
+extern DisconnectPMMRequestDefaultTypeInternal _DisconnectPMMRequest_default_instance_;
 class GetOrganizationRequest;
 struct GetOrganizationRequestDefaultTypeInternal;
 extern GetOrganizationRequestDefaultTypeInternal _GetOrganizationRequest_default_instance_;
@@ -182,10 +182,10 @@ template<> ::percona::platform::org::v1::Contacts* Arena::CreateMaybeMessage<::p
 template<> ::percona::platform::org::v1::Contacts_CustomerSuccess* Arena::CreateMaybeMessage<::percona::platform::org::v1::Contacts_CustomerSuccess>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::CreateOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::CreateOrganizationResponse>(Arena*);
-template<> ::percona::platform::org::v1::DeleteInventoryRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteInventoryRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteMemberRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteMemberRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::DeleteOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::DeleteOrganizationResponse>(Arena*);
+template<> ::percona::platform::org::v1::DisconnectPMMRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::DisconnectPMMRequest>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationRequest* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationRequest>(Arena*);
 template<> ::percona::platform::org::v1::GetOrganizationResponse* Arena::CreateMaybeMessage<::percona::platform::org::v1::GetOrganizationResponse>(Arena*);
 template<> ::percona::platform::org::v1::Inventory* Arena::CreateMaybeMessage<::percona::platform::org::v1::Inventory>(Arena*);
@@ -4984,24 +4984,24 @@ class DeleteMemberRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class DeleteInventoryRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.DeleteInventoryRequest) */ {
+class DisconnectPMMRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:percona.platform.org.v1.DisconnectPMMRequest) */ {
  public:
-  inline DeleteInventoryRequest() : DeleteInventoryRequest(nullptr) {}
-  virtual ~DeleteInventoryRequest();
-  explicit constexpr DeleteInventoryRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline DisconnectPMMRequest() : DisconnectPMMRequest(nullptr) {}
+  virtual ~DisconnectPMMRequest();
+  explicit constexpr DisconnectPMMRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  DeleteInventoryRequest(const DeleteInventoryRequest& from);
-  DeleteInventoryRequest(DeleteInventoryRequest&& from) noexcept
-    : DeleteInventoryRequest() {
+  DisconnectPMMRequest(const DisconnectPMMRequest& from);
+  DisconnectPMMRequest(DisconnectPMMRequest&& from) noexcept
+    : DisconnectPMMRequest() {
     *this = ::std::move(from);
   }
 
-  inline DeleteInventoryRequest& operator=(const DeleteInventoryRequest& from) {
+  inline DisconnectPMMRequest& operator=(const DisconnectPMMRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline DeleteInventoryRequest& operator=(DeleteInventoryRequest&& from) noexcept {
+  inline DisconnectPMMRequest& operator=(DisconnectPMMRequest&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -5019,20 +5019,20 @@ class DeleteInventoryRequest PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const DeleteInventoryRequest& default_instance() {
+  static const DisconnectPMMRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const DeleteInventoryRequest* internal_default_instance() {
-    return reinterpret_cast<const DeleteInventoryRequest*>(
-               &_DeleteInventoryRequest_default_instance_);
+  static inline const DisconnectPMMRequest* internal_default_instance() {
+    return reinterpret_cast<const DisconnectPMMRequest*>(
+               &_DisconnectPMMRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     29;
 
-  friend void swap(DeleteInventoryRequest& a, DeleteInventoryRequest& b) {
+  friend void swap(DisconnectPMMRequest& a, DisconnectPMMRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeleteInventoryRequest* other) {
+  inline void Swap(DisconnectPMMRequest* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -5040,7 +5040,7 @@ class DeleteInventoryRequest PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(DeleteInventoryRequest* other) {
+  void UnsafeArenaSwap(DisconnectPMMRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -5048,17 +5048,17 @@ class DeleteInventoryRequest PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline DeleteInventoryRequest* New() const final {
-    return CreateMaybeMessage<DeleteInventoryRequest>(nullptr);
+  inline DisconnectPMMRequest* New() const final {
+    return CreateMaybeMessage<DisconnectPMMRequest>(nullptr);
   }
 
-  DeleteInventoryRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<DeleteInventoryRequest>(arena);
+  DisconnectPMMRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DisconnectPMMRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const DeleteInventoryRequest& from);
-  void MergeFrom(const DeleteInventoryRequest& from);
+  void CopyFrom(const DisconnectPMMRequest& from);
+  void MergeFrom(const DisconnectPMMRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -5072,13 +5072,13 @@ class DeleteInventoryRequest PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(DeleteInventoryRequest* other);
+  void InternalSwap(DisconnectPMMRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "percona.platform.org.v1.DeleteInventoryRequest";
+    return "percona.platform.org.v1.DisconnectPMMRequest";
   }
   protected:
-  explicit DeleteInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit DisconnectPMMRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -5115,7 +5115,7 @@ class DeleteInventoryRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_pmm_server_id();
   public:
 
-  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.DeleteInventoryRequest)
+  // @@protoc_insertion_point(class_scope:percona.platform.org.v1.DisconnectPMMRequest)
  private:
   class _Internal;
 
@@ -10183,59 +10183,59 @@ inline void DeleteMemberRequest::set_allocated_member_id(std::string* member_id)
 
 // -------------------------------------------------------------------
 
-// DeleteInventoryRequest
+// DisconnectPMMRequest
 
 // string pmm_server_id = 1 [(.validator.field) = {
-inline void DeleteInventoryRequest::clear_pmm_server_id() {
+inline void DisconnectPMMRequest::clear_pmm_server_id() {
   pmm_server_id_.ClearToEmpty();
 }
-inline const std::string& DeleteInventoryRequest::pmm_server_id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+inline const std::string& DisconnectPMMRequest::pmm_server_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
   return _internal_pmm_server_id();
 }
-inline void DeleteInventoryRequest::set_pmm_server_id(const std::string& value) {
+inline void DisconnectPMMRequest::set_pmm_server_id(const std::string& value) {
   _internal_set_pmm_server_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
 }
-inline std::string* DeleteInventoryRequest::mutable_pmm_server_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+inline std::string* DisconnectPMMRequest::mutable_pmm_server_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
   return _internal_mutable_pmm_server_id();
 }
-inline const std::string& DeleteInventoryRequest::_internal_pmm_server_id() const {
+inline const std::string& DisconnectPMMRequest::_internal_pmm_server_id() const {
   return pmm_server_id_.Get();
 }
-inline void DeleteInventoryRequest::_internal_set_pmm_server_id(const std::string& value) {
+inline void DisconnectPMMRequest::_internal_set_pmm_server_id(const std::string& value) {
   
   pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void DeleteInventoryRequest::set_pmm_server_id(std::string&& value) {
+inline void DisconnectPMMRequest::set_pmm_server_id(std::string&& value) {
   
   pmm_server_id_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
 }
-inline void DeleteInventoryRequest::set_pmm_server_id(const char* value) {
+inline void DisconnectPMMRequest::set_pmm_server_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
 }
-inline void DeleteInventoryRequest::set_pmm_server_id(const char* value,
+inline void DisconnectPMMRequest::set_pmm_server_id(const char* value,
     size_t size) {
   
   pmm_server_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
 }
-inline std::string* DeleteInventoryRequest::_internal_mutable_pmm_server_id() {
+inline std::string* DisconnectPMMRequest::_internal_mutable_pmm_server_id() {
   
   return pmm_server_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* DeleteInventoryRequest::release_pmm_server_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+inline std::string* DisconnectPMMRequest::release_pmm_server_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
   return pmm_server_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void DeleteInventoryRequest::set_allocated_pmm_server_id(std::string* pmm_server_id) {
+inline void DisconnectPMMRequest::set_allocated_pmm_server_id(std::string* pmm_server_id) {
   if (pmm_server_id != nullptr) {
     
   } else {
@@ -10243,7 +10243,7 @@ inline void DeleteInventoryRequest::set_allocated_pmm_server_id(std::string* pmm
   }
   pmm_server_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pmm_server_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DeleteInventoryRequest.pmm_server_id)
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.DisconnectPMMRequest.pmm_server_id)
 }
 
 // -------------------------------------------------------------------

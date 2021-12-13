@@ -270,7 +270,7 @@ func (this *DeleteMemberRequest) Validate() error {
 	}
 	return nil
 }
-func (this *DeleteInventoryRequest) Validate() error {
+func (this *DisconnectPMMRequest) Validate() error {
 	if this.PmmServerId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerId", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerId))
 	}
