@@ -16,13 +16,14 @@ require (
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
-	github.com/okta/okta-sdk-golang/v2 v2.9.1
+	github.com/okta/okta-sdk-golang/v2 v2.9.2
 	github.com/percona/promconfig v0.2.3
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.11.0
 	github.com/stretchr/testify v1.7.0
 	go.starlark.net v0.0.0-20210312235212-74c10e2c17dc
 	go.uber.org/zap v1.19.1
+	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
 	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
 	google.golang.org/grpc v1.42.0

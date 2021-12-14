@@ -13,6 +13,7 @@
 
 import * as grpcWeb from 'grpc-web';
 
+import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 import * as org_org_api_pb from '../org/org_api_pb';
 
 
@@ -315,6 +316,46 @@ export class OrgAPIClient {
     this.methodInfoSearchOrganizationEntitlements);
   }
 
+  methodInfoSearchOrganizationTickets = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchOrganizationTicketsResponse,
+    (request: org_org_api_pb.SearchOrganizationTicketsRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchOrganizationTicketsResponse.deserializeBinary
+  );
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchOrganizationTicketsResponse>;
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchOrganizationTicketsResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchOrganizationTicketsResponse>;
+
+  searchOrganizationTickets(
+    request: org_org_api_pb.SearchOrganizationTicketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchOrganizationTicketsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets',
+        request,
+        metadata || {},
+        this.methodInfoSearchOrganizationTickets,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets',
+    request,
+    metadata || {},
+    this.methodInfoSearchOrganizationTickets);
+  }
+
   methodInfoSearchUserCompany = new grpcWeb.AbstractClientBase.MethodInfo(
     org_org_api_pb.SearchUserCompanyResponse,
     (request: org_org_api_pb.SearchUserCompanyRequest) => {
@@ -395,6 +436,46 @@ export class OrgAPIClient {
     this.methodInfoUpdateMember);
   }
 
+  methodInfoDeleteMember = new grpcWeb.AbstractClientBase.MethodInfo(
+    google_protobuf_empty_pb.Empty,
+    (request: org_org_api_pb.DeleteMemberRequest) => {
+      return request.serializeBinary();
+    },
+    google_protobuf_empty_pb.Empty.deserializeBinary
+  );
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
+
+  deleteMember(
+    request: org_org_api_pb.DeleteMemberRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/DeleteMember',
+        request,
+        metadata || {},
+        this.methodInfoDeleteMember,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/DeleteMember',
+    request,
+    metadata || {},
+    this.methodInfoDeleteMember);
+  }
+
   methodInfoConnectPMM = new grpcWeb.AbstractClientBase.MethodInfo(
     org_org_api_pb.ConnectPMMResponse,
     (request: org_org_api_pb.ConnectPMMRequest) => {
@@ -433,6 +514,46 @@ export class OrgAPIClient {
     request,
     metadata || {},
     this.methodInfoConnectPMM);
+  }
+
+  methodInfoSearchInventory = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchInventoryResponse,
+    (request: org_org_api_pb.SearchInventoryRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchInventoryResponse.deserializeBinary
+  );
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchInventoryResponse>;
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchInventoryResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchInventoryResponse>;
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchInventoryResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchInventory',
+        request,
+        metadata || {},
+        this.methodInfoSearchInventory,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchInventory',
+    request,
+    metadata || {},
+    this.methodInfoSearchInventory);
   }
 
 }

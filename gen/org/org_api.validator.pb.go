@@ -11,6 +11,7 @@ import (
 	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "google.golang.org/protobuf/types/known/emptypb"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
@@ -73,6 +74,17 @@ func (this *CreateOrganizationResponse) Validate() error {
 	}
 	return nil
 }
+func (this *Contacts) Validate() error {
+	if this.CustomerSuccess != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CustomerSuccess); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CustomerSuccess", err)
+		}
+	}
+	return nil
+}
+func (this *Contacts_CustomerSuccess) Validate() error {
+	return nil
+}
 func (this *GetOrganizationRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
@@ -83,6 +95,11 @@ func (this *GetOrganizationResponse) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+		}
+	}
+	if this.Contacts != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Contacts); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Contacts", err)
 		}
 	}
 	return nil
@@ -240,6 +257,58 @@ func (this *UpdateMemberResponse) Validate() error {
 	if this.Member != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Member); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Member", err)
+		}
+	}
+	return nil
+}
+func (this *DeleteMemberRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	if this.MemberId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("MemberId", fmt.Errorf(`value '%v' must not be an empty string`, this.MemberId))
+	}
+	return nil
+}
+func (this *SearchInventoryRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	return nil
+}
+func (this *Inventory) Validate() error {
+	return nil
+}
+func (this *SearchInventoryResponse) Validate() error {
+	for _, item := range this.Inventory {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Inventory", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *SearchOrganizationTicketsRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	return nil
+}
+func (this *SearchOrganizationTicketsResponse) Validate() error {
+	for _, item := range this.Tickets {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Tickets", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *OrganizationTicket) Validate() error {
+	if this.CreateTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", err)
 		}
 	}
 	return nil

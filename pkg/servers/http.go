@@ -78,7 +78,7 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(shutdownCtx); err != nil {
+	if err := server.Shutdown(shutdownCtx); err != nil { //nolint:contextcheck //intended context switch
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()
@@ -101,7 +101,7 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 			rl = l
 		}
 
-		msg := "Received request"
+		msg := "Received request."
 		if rl.Core().Enabled(zap.DebugLevel) {
 			b, _ := httputil.DumpRequest(r, true)
 			if len(b) != 0 {
@@ -118,7 +118,7 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 		lrw := newLoggingResponseWriter(w)
 		next.ServeHTTP(lrw, r)
 
-		rl.Info("Request was processed",
+		rl.Info("Request was processed.",
 			zap.Int("code", lrw.StatusCode),
 			zap.Duration("duration", time.Since(startTime)),
 		)

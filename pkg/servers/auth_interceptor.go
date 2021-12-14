@@ -99,7 +99,7 @@ func perconaAuthHeadersMatcher(key string) bool {
 	return strings.HasPrefix(key, "Auth-")
 }
 
-func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor {
+func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryServerInterceptor { //nolint:cyclop, funlen
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
 	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
 
@@ -172,7 +172,7 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 	}
 }
 
-func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.StreamServerInterceptor {
+func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.StreamServerInterceptor { //nolint:cyclop, funlen
 	noAuthMethodsSet := make(map[string]struct{}, len(noAuthMethods))
 	mayUseAuthMethodsSet := make(map[string]struct{}, len(mayUseAuthMethods))
 
@@ -279,7 +279,7 @@ func handleAuthProxyError(md metadata.MD, l *zap.Logger) error {
 }
 
 // getAuthData extracts user email and session id from request metadata.
-func getAuthData(md metadata.MD) (*rdata.RequestData, error) {
+func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen, cyclop
 	username, err := getStringFromMetadata(md, AuthUsernameHeader)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUsernameHeader)
