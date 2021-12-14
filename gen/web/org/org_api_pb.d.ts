@@ -724,9 +724,6 @@ export class Inventory extends jspb.Message {
   getPmmServerUrl(): string;
   setPmmServerUrl(value: string): Inventory;
 
-  getOriginId(): string;
-  setOriginId(value: string): Inventory;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Inventory.AsObject;
   static toObject(includeInstance: boolean, msg: Inventory): Inventory.AsObject;
@@ -740,7 +737,6 @@ export namespace Inventory {
     pmmServerId: string,
     pmmServerName: string,
     pmmServerUrl: string,
-    originId: string,
   }
 }
 

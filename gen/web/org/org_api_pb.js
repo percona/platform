@@ -6127,8 +6127,7 @@ proto.percona.platform.org.v1.Inventory.toObject = function(includeInstance, msg
   var f, obj = {
     pmmServerId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     pmmServerName: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    pmmServerUrl: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    originId: jspb.Message.getFieldWithDefault(msg, 4, "")
+    pmmServerUrl: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -6177,10 +6176,6 @@ proto.percona.platform.org.v1.Inventory.deserializeBinaryFromReader = function(m
       var value = /** @type {string} */ (reader.readString());
       msg.setPmmServerUrl(value);
       break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setOriginId(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -6228,13 +6223,6 @@ proto.percona.platform.org.v1.Inventory.serializeBinaryToWriter = function(messa
   if (f.length > 0) {
     writer.writeString(
       3,
-      f
-    );
-  }
-  f = message.getOriginId();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
       f
     );
   }
@@ -6292,24 +6280,6 @@ proto.percona.platform.org.v1.Inventory.prototype.getPmmServerUrl = function() {
  */
 proto.percona.platform.org.v1.Inventory.prototype.setPmmServerUrl = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string origin_id = 4;
- * @return {string}
- */
-proto.percona.platform.org.v1.Inventory.prototype.getOriginId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.percona.platform.org.v1.Inventory} returns this
- */
-proto.percona.platform.org.v1.Inventory.prototype.setOriginId = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
