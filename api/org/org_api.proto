@@ -392,8 +392,6 @@ message Inventory {
   string pmm_server_name = 2;
   // User accessible address of PMM Server.
   string pmm_server_url = 3;
-  // Okta trusted origin ID
-  string origin_id = 4;
 }
 
 message SearchInventoryResponse {

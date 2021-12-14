@@ -5240,7 +5240,6 @@ class Inventory PROTOBUF_FINAL :
     kPmmServerIdFieldNumber = 1,
     kPmmServerNameFieldNumber = 2,
     kPmmServerUrlFieldNumber = 3,
-    kOriginIdFieldNumber = 4,
   };
   // string pmm_server_id = 1;
   void clear_pmm_server_id();
@@ -5290,22 +5289,6 @@ class Inventory PROTOBUF_FINAL :
   std::string* _internal_mutable_pmm_server_url();
   public:
 
-  // string origin_id = 4;
-  void clear_origin_id();
-  const std::string& origin_id() const;
-  void set_origin_id(const std::string& value);
-  void set_origin_id(std::string&& value);
-  void set_origin_id(const char* value);
-  void set_origin_id(const char* value, size_t size);
-  std::string* mutable_origin_id();
-  std::string* release_origin_id();
-  void set_allocated_origin_id(std::string* origin_id);
-  private:
-  const std::string& _internal_origin_id() const;
-  void _internal_set_origin_id(const std::string& value);
-  std::string* _internal_mutable_origin_id();
-  public:
-
   // @@protoc_insertion_point(class_scope:percona.platform.org.v1.Inventory)
  private:
   class _Internal;
@@ -5316,7 +5299,6 @@ class Inventory PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pmm_server_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pmm_server_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pmm_server_url_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr origin_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
 };
@@ -10301,67 +10283,6 @@ inline void Inventory::set_allocated_pmm_server_url(std::string* pmm_server_url)
   pmm_server_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pmm_server_url,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Inventory.pmm_server_url)
-}
-
-// string origin_id = 4;
-inline void Inventory::clear_origin_id() {
-  origin_id_.ClearToEmpty();
-}
-inline const std::string& Inventory::origin_id() const {
-  // @@protoc_insertion_point(field_get:percona.platform.org.v1.Inventory.origin_id)
-  return _internal_origin_id();
-}
-inline void Inventory::set_origin_id(const std::string& value) {
-  _internal_set_origin_id(value);
-  // @@protoc_insertion_point(field_set:percona.platform.org.v1.Inventory.origin_id)
-}
-inline std::string* Inventory::mutable_origin_id() {
-  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.Inventory.origin_id)
-  return _internal_mutable_origin_id();
-}
-inline const std::string& Inventory::_internal_origin_id() const {
-  return origin_id_.Get();
-}
-inline void Inventory::_internal_set_origin_id(const std::string& value) {
-  
-  origin_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
-}
-inline void Inventory::set_origin_id(std::string&& value) {
-  
-  origin_id_.Set(
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.Inventory.origin_id)
-}
-inline void Inventory::set_origin_id(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  origin_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.Inventory.origin_id)
-}
-inline void Inventory::set_origin_id(const char* value,
-    size_t size) {
-  
-  origin_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.Inventory.origin_id)
-}
-inline std::string* Inventory::_internal_mutable_origin_id() {
-  
-  return origin_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
-}
-inline std::string* Inventory::release_origin_id() {
-  // @@protoc_insertion_point(field_release:percona.platform.org.v1.Inventory.origin_id)
-  return origin_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Inventory::set_allocated_origin_id(std::string* origin_id) {
-  if (origin_id != nullptr) {
-    
-  } else {
-    
-  }
-  origin_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), origin_id,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.Inventory.origin_id)
 }
 
 // -------------------------------------------------------------------
