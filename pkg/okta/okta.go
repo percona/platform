@@ -587,14 +587,12 @@ var ErrOriginNotFound error = errors.New("trusted origin was not found")
 
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
-	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
-	origins, response, err := c.c.TrustedOrigin.ListOrigins(ctx, nil)
-	if response.HasNextPage() {
-		l.Warn("The list of origins is not complete. The trusted origins API got support for pagination!")
-	}
+	var origins []*okta.TrustedOrigin
+	err := c.DoRequest(ctx, "GET", fmt.Sprintf("/api/v1/trustedOrigins?q=%s", url.QueryEscape(origin)), nil, &origins)
 	if err != nil {
-		return "", errors.Wrap(err, "failed to check if origin is trusted")
+		return "", errors.Wrap(err, "failed to get origin")
 	}
+
 	for _, trusted := range origins {
 		if trusted.Origin == origin {
 			return trusted.Id, nil
