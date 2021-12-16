@@ -930,7 +930,7 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "ate\030\004 \001(\t\022/\n\013create_time\030\005 \001(\0132\032.google."
   "protobuf.Timestamp\022\022\n\ndepartment\030\006 \001(\t\022\021"
   "\n\trequester\030\007 \001(\t\022\021\n\ttask_type\030\010 \001(\t\022\013\n\003"
-  "url\030\t \001(\t2\240\021\n\006OrgAPI\022\222\001\n\022CreateOrganizat"
+  "url\030\t \001(\t2\314\021\n\006OrgAPI\022\222\001\n\022CreateOrganizat"
   "ion\0222.percona.platform.org.v1.CreateOrga"
   "nizationRequest\0323.percona.platform.org.v"
   "1.CreateOrganizationResponse\"\023\202\323\344\223\002\r\"\010/v"
@@ -974,19 +974,20 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "/{member_id}:\001*\022\203\001\n\014DeleteMember\022,.perco"
   "na.platform.org.v1.DeleteMemberRequest\032\026"
   ".google.protobuf.Empty\"-\202\323\344\223\002\'*%/v1/orgs"
-  "/{org_id}/members/{member_id}\022\204\001\n\nConnec"
+  "/{org_id}/members/{member_id}\022\245\001\n\nConnec"
   "tPMM\022*.percona.platform.org.v1.ConnectPM"
   "MRequest\032+.percona.platform.org.v1.Conne"
-  "ctPMMResponse\"\035\202\323\344\223\002\027\"\022/v1/orgs/inventor"
-  "y:\001*\022\202\001\n\rDisconnectPMM\022-.percona.platfor"
-  "m.org.v1.DisconnectPMMRequest\032\026.google.p"
-  "rotobuf.Empty\"*\202\323\344\223\002$*\"/v1/orgs/inventor"
-  "y/{pmm_server_id}\022\240\001\n\017SearchInventory\022/."
-  "percona.platform.org.v1.SearchInventoryR"
-  "equest\0320.percona.platform.org.v1.SearchI"
-  "nventoryResponse\"*\202\323\344\223\002$\"\"/v1/orgs/{org_"
-  "id}/inventory:searchB\014Z\n/org;orgv1b\006prot"
-  "o3"
+  "ctPMMResponse\">\202\323\344\223\0028\"\022/v1/orgs/inventor"
+  "y:\001*Z\037\"\032/v1/orgs/inventory:connect:\001*\022\215\001"
+  "\n\rDisconnectPMM\022-.percona.platform.org.v"
+  "1.DisconnectPMMRequest\032\026.google.protobuf"
+  ".Empty\"5\202\323\344\223\002/\"-/v1/orgs/inventory/{pmm_"
+  "server_id}:disconnect\022\240\001\n\017SearchInventor"
+  "y\022/.percona.platform.org.v1.SearchInvent"
+  "oryRequest\0320.percona.platform.org.v1.Sea"
+  "rchInventoryResponse\"*\202\323\344\223\002$\"\"/v1/orgs/{"
+  "org_id}/inventory:searchB\014Z\n/org;orgv1b\006"
+  "proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[5] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -997,7 +998,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 5882, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  false, false, 5926, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
   &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 36,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
