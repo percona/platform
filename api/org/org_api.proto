@@ -20,6 +20,14 @@ service OrgAPI {
     };
   }
 
+  // UpdateOrganization updates the organization with the given ID.
+  rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{org_id}"
+      body: "*"
+    };
+  }
+
   // GetOrganization fetches organization details by ID.
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {
@@ -34,7 +42,7 @@ service OrgAPI {
       body: "*"
     };
   }
-  
+
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
@@ -182,6 +190,25 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
+  Organization org = 1;
+}
+
+message UpdateOrganizationRequest {
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Organization name.
+  string name = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message UpdateOrganizationResponse {
   Organization org = 1;
 }
 

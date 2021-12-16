@@ -101,6 +101,31 @@ struct CreateOrganizationResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CreateOrganizationResponseDefaultTypeInternal _CreateOrganizationResponse_default_instance_;
+constexpr UpdateOrganizationRequest::UpdateOrganizationRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : org_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct UpdateOrganizationRequestDefaultTypeInternal {
+  constexpr UpdateOrganizationRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateOrganizationRequestDefaultTypeInternal() {}
+  union {
+    UpdateOrganizationRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateOrganizationRequestDefaultTypeInternal _UpdateOrganizationRequest_default_instance_;
+constexpr UpdateOrganizationResponse::UpdateOrganizationResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : org_(nullptr){}
+struct UpdateOrganizationResponseDefaultTypeInternal {
+  constexpr UpdateOrganizationResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateOrganizationResponseDefaultTypeInternal() {}
+  union {
+    UpdateOrganizationResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateOrganizationResponseDefaultTypeInternal _UpdateOrganizationResponse_default_instance_;
 constexpr Contacts_CustomerSuccess::Contacts_CustomerSuccess(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -496,7 +521,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OrganizationTicketDefaultTypeIn
 }  // namespace org
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[36];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[38];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_org_2forg_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_org_2forg_5fapi_2eproto = nullptr;
 
@@ -546,6 +571,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::CreateOrganizationResponse, org_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateOrganizationRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateOrganizationRequest, org_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateOrganizationRequest, name_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateOrganizationResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::UpdateOrganizationResponse, org_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::Contacts_CustomerSuccess, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -765,36 +803,38 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 24, -1, sizeof(::percona::platform::org::v1::Organization)},
   { 33, -1, sizeof(::percona::platform::org::v1::CreateOrganizationRequest)},
   { 39, -1, sizeof(::percona::platform::org::v1::CreateOrganizationResponse)},
-  { 45, -1, sizeof(::percona::platform::org::v1::Contacts_CustomerSuccess)},
-  { 52, -1, sizeof(::percona::platform::org::v1::Contacts)},
-  { 59, -1, sizeof(::percona::platform::org::v1::GetOrganizationRequest)},
-  { 65, -1, sizeof(::percona::platform::org::v1::GetOrganizationResponse)},
-  { 72, -1, sizeof(::percona::platform::org::v1::SearchOrganizationsRequest)},
-  { 77, -1, sizeof(::percona::platform::org::v1::SearchOrganizationsResponse)},
-  { 83, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationRequest)},
-  { 89, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationResponse)},
-  { 94, -1, sizeof(::percona::platform::org::v1::SearchOrganizationEntitlementsRequest)},
-  { 100, -1, sizeof(::percona::platform::org::v1::SearchOrganizationEntitlementsResponse)},
-  { 106, -1, sizeof(::percona::platform::org::v1::OrganizationEntitlement_Platform)},
-  { 113, -1, sizeof(::percona::platform::org::v1::OrganizationEntitlement)},
-  { 129, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyRequest)},
-  { 134, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyResponse)},
-  { 140, -1, sizeof(::percona::platform::org::v1::InviteMemberRequest)},
-  { 148, -1, sizeof(::percona::platform::org::v1::InviteMemberResponse)},
-  { 153, -1, sizeof(::percona::platform::org::v1::OrganizationMember)},
-  { 164, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest_UserFilter)},
-  { 170, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest)},
-  { 177, -1, sizeof(::percona::platform::org::v1::SearchMembersResponse)},
-  { 183, -1, sizeof(::percona::platform::org::v1::UpdateMemberRequest)},
-  { 191, -1, sizeof(::percona::platform::org::v1::UpdateMemberResponse)},
-  { 197, -1, sizeof(::percona::platform::org::v1::DeleteMemberRequest)},
-  { 204, -1, sizeof(::percona::platform::org::v1::DisconnectPMMRequest)},
-  { 210, -1, sizeof(::percona::platform::org::v1::SearchInventoryRequest)},
-  { 216, -1, sizeof(::percona::platform::org::v1::Inventory)},
-  { 224, -1, sizeof(::percona::platform::org::v1::SearchInventoryResponse)},
-  { 230, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsRequest)},
-  { 236, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsResponse)},
-  { 242, -1, sizeof(::percona::platform::org::v1::OrganizationTicket)},
+  { 45, -1, sizeof(::percona::platform::org::v1::UpdateOrganizationRequest)},
+  { 52, -1, sizeof(::percona::platform::org::v1::UpdateOrganizationResponse)},
+  { 58, -1, sizeof(::percona::platform::org::v1::Contacts_CustomerSuccess)},
+  { 65, -1, sizeof(::percona::platform::org::v1::Contacts)},
+  { 72, -1, sizeof(::percona::platform::org::v1::GetOrganizationRequest)},
+  { 78, -1, sizeof(::percona::platform::org::v1::GetOrganizationResponse)},
+  { 85, -1, sizeof(::percona::platform::org::v1::SearchOrganizationsRequest)},
+  { 90, -1, sizeof(::percona::platform::org::v1::SearchOrganizationsResponse)},
+  { 96, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationRequest)},
+  { 102, -1, sizeof(::percona::platform::org::v1::DeleteOrganizationResponse)},
+  { 107, -1, sizeof(::percona::platform::org::v1::SearchOrganizationEntitlementsRequest)},
+  { 113, -1, sizeof(::percona::platform::org::v1::SearchOrganizationEntitlementsResponse)},
+  { 119, -1, sizeof(::percona::platform::org::v1::OrganizationEntitlement_Platform)},
+  { 126, -1, sizeof(::percona::platform::org::v1::OrganizationEntitlement)},
+  { 142, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyRequest)},
+  { 147, -1, sizeof(::percona::platform::org::v1::SearchUserCompanyResponse)},
+  { 153, -1, sizeof(::percona::platform::org::v1::InviteMemberRequest)},
+  { 161, -1, sizeof(::percona::platform::org::v1::InviteMemberResponse)},
+  { 166, -1, sizeof(::percona::platform::org::v1::OrganizationMember)},
+  { 177, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest_UserFilter)},
+  { 183, -1, sizeof(::percona::platform::org::v1::SearchMembersRequest)},
+  { 190, -1, sizeof(::percona::platform::org::v1::SearchMembersResponse)},
+  { 196, -1, sizeof(::percona::platform::org::v1::UpdateMemberRequest)},
+  { 204, -1, sizeof(::percona::platform::org::v1::UpdateMemberResponse)},
+  { 210, -1, sizeof(::percona::platform::org::v1::DeleteMemberRequest)},
+  { 217, -1, sizeof(::percona::platform::org::v1::DisconnectPMMRequest)},
+  { 223, -1, sizeof(::percona::platform::org::v1::SearchInventoryRequest)},
+  { 229, -1, sizeof(::percona::platform::org::v1::Inventory)},
+  { 237, -1, sizeof(::percona::platform::org::v1::SearchInventoryResponse)},
+  { 243, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsRequest)},
+  { 249, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsResponse)},
+  { 255, -1, sizeof(::percona::platform::org::v1::OrganizationTicket)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -804,6 +844,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Organization_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_CreateOrganizationRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_CreateOrganizationResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateOrganizationRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_UpdateOrganizationResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Contacts_CustomerSuccess_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_Contacts_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_GetOrganizationRequest_default_instance_),
@@ -858,133 +900,141 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\031CreateOrganizationRequest\022\024\n\004name\030\001 \001(\t"
   "B\006\342\337\037\002X\001\"P\n\032CreateOrganizationResponse\0222"
   "\n\003org\030\001 \001(\0132%.percona.platform.org.v1.Or"
-  "ganization\"\237\001\n\010Contacts\022K\n\020customer_succ"
-  "ess\030\001 \001(\01321.percona.platform.org.v1.Cont"
-  "acts.CustomerSuccess\022\026\n\016new_ticket_url\030\002"
-  " \001(\t\032.\n\017CustomerSuccess\022\014\n\004name\030\001 \001(\t\022\r\n"
-  "\005email\030\002 \001(\t\"0\n\026GetOrganizationRequest\022\026"
-  "\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\"\202\001\n\027GetOrganizati"
-  "onResponse\0222\n\003org\030\001 \001(\0132%.percona.platfo"
-  "rm.org.v1.Organization\0223\n\010contacts\030\002 \001(\013"
-  "2!.percona.platform.org.v1.Contacts\"\034\n\032S"
-  "earchOrganizationsRequest\"R\n\033SearchOrgan"
-  "izationsResponse\0223\n\004orgs\030\001 \003(\0132%.percona"
-  ".platform.org.v1.Organization\"3\n\031DeleteO"
-  "rganizationRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002"
-  "X\001\"\034\n\032DeleteOrganizationResponse\"\?\n%Sear"
-  "chOrganizationEntitlementsRequest\022\026\n\006org"
-  "_id\030\001 \001(\tB\006\342\337\037\002X\001\"p\n&SearchOrganizationE"
-  "ntitlementsResponse\022F\n\014entitlements\030\001 \003("
-  "\01320.percona.platform.org.v1.Organization"
-  "Entitlement\"\321\004\n\027OrganizationEntitlement\022"
-  "\016\n\006number\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\017\n\007summary"
-  "\030\003 \001(\t\022*\n\004tier\030\004 \001(\0132\034.google.protobuf.S"
-  "tringValue\0221\n\013total_units\030\005 \001(\0132\034.google"
-  ".protobuf.StringValue\0223\n\017unlimited_units"
-  "\030\006 \001(\0132\032.google.protobuf.BoolValue\0223\n\rsu"
-  "pport_level\030\007 \001(\0132\034.google.protobuf.Stri"
-  "ngValue\022\031\n\021software_families\030\010 \003(\t\022.\n\nst"
-  "art_date\030\t \001(\0132\032.google.protobuf.Timesta"
-  "mp\022,\n\010end_date\030\n \001(\0132\032.google.protobuf.T"
-  "imestamp\022K\n\010platform\030\013 \001(\01329.percona.pla"
-  "tform.org.v1.OrganizationEntitlement.Pla"
-  "tform\032x\n\010Platform\0226\n\020security_advisor\030\001 "
-  "\001(\0132\034.google.protobuf.StringValue\0224\n\016con"
-  "fig_advisor\030\002 \001(\0132\034.google.protobuf.Stri"
-  "ngValue\"\032\n\030SearchUserCompanyRequest\")\n\031S"
-  "earchUserCompanyResponse\022\014\n\004name\030\001 \001(\t\"U"
-  "\n\023InviteMemberRequest\022\030\n\010username\030\001 \001(\tB"
-  "\006\342\337\037\002X\001\022\026\n\006org_id\030\002 \001(\tB\006\342\337\037\002X\001\022\014\n\004role\030"
-  "\003 \001(\t\"\026\n\024InviteMemberResponse\"~\n\022Organiz"
-  "ationMember\022\021\n\tmember_id\030\001 \001(\t\022\020\n\010userna"
-  "me\030\002 \001(\t\022\022\n\nfirst_name\030\003 \001(\t\022\021\n\tlast_nam"
-  "e\030\004 \001(\t\022\014\n\004role\030\005 \001(\t\022\016\n\006status\030\006 \001(\t\"\236\001"
-  "\n\024SearchMembersRequest\022\026\n\006org_id\030\001 \001(\tB\006"
-  "\342\337\037\002X\001\022F\n\004user\030\002 \001(\01328.percona.platform."
-  "org.v1.SearchMembersRequest.UserFilter\032&"
-  "\n\nUserFilter\022\030\n\010username\030\001 \001(\tB\006\342\337\037\002X\001\"U"
-  "\n\025SearchMembersResponse\022<\n\007members\030\001 \003(\013"
-  "2+.percona.platform.org.v1.OrganizationM"
-  "ember\"^\n\023UpdateMemberRequest\022\026\n\006org_id\030\001"
-  " \001(\tB\006\342\337\037\002X\001\022\031\n\tmember_id\030\002 \001(\tB\006\342\337\037\002X\001\022"
-  "\024\n\004role\030\003 \001(\tB\006\342\337\037\002X\001\"S\n\024UpdateMemberRes"
-  "ponse\022;\n\006member\030\001 \001(\0132+.percona.platform"
-  ".org.v1.OrganizationMember\"H\n\023DeleteMemb"
-  "erRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\022\031\n\tmem"
-  "ber_id\030\002 \001(\tB\006\342\337\037\002X\001\"5\n\024DisconnectPMMReq"
-  "uest\022\035\n\rpmm_server_id\030\001 \001(\tB\006\342\337\037\002X\001\"0\n\026S"
-  "earchInventoryRequest\022\026\n\006org_id\030\001 \001(\tB\006\342"
-  "\337\037\002X\001\"S\n\tInventory\022\025\n\rpmm_server_id\030\001 \001("
-  "\t\022\027\n\017pmm_server_name\030\002 \001(\t\022\026\n\016pmm_server"
-  "_url\030\003 \001(\t\"P\n\027SearchInventoryResponse\0225\n"
-  "\tinventory\030\001 \003(\0132\".percona.platform.org."
-  "v1.Inventory\":\n SearchOrganizationTicket"
-  "sRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\"a\n!Sear"
-  "chOrganizationTicketsResponse\022<\n\007tickets"
-  "\030\001 \003(\0132+.percona.platform.org.v1.Organiz"
-  "ationTicket\"\330\001\n\022OrganizationTicket\022\016\n\006nu"
-  "mber\030\001 \001(\t\022\031\n\021short_description\030\002 \001(\t\022\020\n"
-  "\010priority\030\003 \001(\t\022\r\n\005state\030\004 \001(\t\022/\n\013create"
-  "_time\030\005 \001(\0132\032.google.protobuf.Timestamp\022"
-  "\022\n\ndepartment\030\006 \001(\t\022\021\n\trequester\030\007 \001(\t\022\021"
-  "\n\ttask_type\030\010 \001(\t\022\013\n\003url\030\t \001(\t2\314\021\n\006OrgAP"
-  "I\022\222\001\n\022CreateOrganization\0222.percona.platf"
-  "orm.org.v1.CreateOrganizationRequest\0323.p"
-  "ercona.platform.org.v1.CreateOrganizatio"
-  "nResponse\"\023\202\323\344\223\002\r\"\010/v1/orgs:\001*\022\217\001\n\017GetOr"
-  "ganization\022/.percona.platform.org.v1.Get"
-  "OrganizationRequest\0320.percona.platform.o"
-  "rg.v1.GetOrganizationResponse\"\031\202\323\344\223\002\023\022\021/"
-  "v1/orgs/{org_id}\022\234\001\n\023SearchOrganizations"
-  "\0223.percona.platform.org.v1.SearchOrganiz"
-  "ationsRequest\0324.percona.platform.org.v1."
-  "SearchOrganizationsResponse\"\032\202\323\344\223\002\024\"\017/v1"
-  "/orgs:search:\001*\022\230\001\n\022DeleteOrganization\0222"
-  ".percona.platform.org.v1.DeleteOrganizat"
-  "ionRequest\0323.percona.platform.org.v1.Del"
-  "eteOrganizationResponse\"\031\202\323\344\223\002\023*\021/v1/org"
-  "s/{org_id}\022\221\001\n\014InviteMember\022,.percona.pl"
-  "atform.org.v1.InviteMemberRequest\032-.perc"
-  "ona.platform.org.v1.InviteMemberResponse"
-  "\"$\202\323\344\223\002\036\"\031/v1/orgs/{org_id}/members:\001*\022\233"
-  "\001\n\rSearchMembers\022-.percona.platform.org."
-  "v1.SearchMembersRequest\032..percona.platfo"
-  "rm.org.v1.SearchMembersResponse\"+\202\323\344\223\002%\""
-  " /v1/orgs/{org_id}/members:search:\001*\022\320\001\n"
-  "\036SearchOrganizationEntitlements\022>.percon"
-  "a.platform.org.v1.SearchOrganizationEnti"
-  "tlementsRequest\032\?.percona.platform.org.v"
-  "1.SearchOrganizationEntitlementsResponse"
-  "\"-\202\323\344\223\002\'\"%/v1/orgs/{org_id}/entitlements"
-  ":search\022\274\001\n\031SearchOrganizationTickets\0229."
-  "percona.platform.org.v1.SearchOrganizati"
-  "onTicketsRequest\032:.percona.platform.org."
-  "v1.SearchOrganizationTicketsResponse\"(\202\323"
-  "\344\223\002\"\" /v1/orgs/{org_id}/tickets:search\022\233"
-  "\001\n\021SearchUserCompany\0221.percona.platform."
-  "org.v1.SearchUserCompanyRequest\0322.percon"
-  "a.platform.org.v1.SearchUserCompanyRespo"
-  "nse\"\037\202\323\344\223\002\031\"\027/v1/orgs/company:search\022\235\001\n"
-  "\014UpdateMember\022,.percona.platform.org.v1."
-  "UpdateMemberRequest\032-.percona.platform.o"
-  "rg.v1.UpdateMemberResponse\"0\202\323\344\223\002*\032%/v1/"
-  "orgs/{org_id}/members/{member_id}:\001*\022\203\001\n"
-  "\014DeleteMember\022,.percona.platform.org.v1."
-  "DeleteMemberRequest\032\026.google.protobuf.Em"
-  "pty\"-\202\323\344\223\002\'*%/v1/orgs/{org_id}/members/{"
-  "member_id}\022\245\001\n\nConnectPMM\022*.percona.plat"
-  "form.org.v1.ConnectPMMRequest\032+.percona."
-  "platform.org.v1.ConnectPMMResponse\">\202\323\344\223"
-  "\0028\"\022/v1/orgs/inventory:\001*Z\037\"\032/v1/orgs/in"
-  "ventory:connect:\001*\022\215\001\n\rDisconnectPMM\022-.p"
-  "ercona.platform.org.v1.DisconnectPMMRequ"
-  "est\032\026.google.protobuf.Empty\"5\202\323\344\223\002/\"-/v1"
-  "/orgs/inventory/{pmm_server_id}:disconne"
-  "ct\022\240\001\n\017SearchInventory\022/.percona.platfor"
-  "m.org.v1.SearchInventoryRequest\0320.percon"
-  "a.platform.org.v1.SearchInventoryRespons"
-  "e\"*\202\323\344\223\002$\"\"/v1/orgs/{org_id}/inventory:s"
-  "earchB\014Z\n/org;orgv1b\006proto3"
+  "ganization\"I\n\031UpdateOrganizationRequest\022"
+  "\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\022\024\n\004name\030\002 \001(\tB\006\342"
+  "\337\037\002X\001\"P\n\032UpdateOrganizationResponse\0222\n\003o"
+  "rg\030\001 \001(\0132%.percona.platform.org.v1.Organ"
+  "ization\"\237\001\n\010Contacts\022K\n\020customer_success"
+  "\030\001 \001(\01321.percona.platform.org.v1.Contact"
+  "s.CustomerSuccess\022\026\n\016new_ticket_url\030\002 \001("
+  "\t\032.\n\017CustomerSuccess\022\014\n\004name\030\001 \001(\t\022\r\n\005em"
+  "ail\030\002 \001(\t\"0\n\026GetOrganizationRequest\022\026\n\006o"
+  "rg_id\030\001 \001(\tB\006\342\337\037\002X\001\"\202\001\n\027GetOrganizationR"
+  "esponse\0222\n\003org\030\001 \001(\0132%.percona.platform."
+  "org.v1.Organization\0223\n\010contacts\030\002 \001(\0132!."
+  "percona.platform.org.v1.Contacts\"\034\n\032Sear"
+  "chOrganizationsRequest\"R\n\033SearchOrganiza"
+  "tionsResponse\0223\n\004orgs\030\001 \003(\0132%.percona.pl"
+  "atform.org.v1.Organization\"3\n\031DeleteOrga"
+  "nizationRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\""
+  "\034\n\032DeleteOrganizationResponse\"\?\n%SearchO"
+  "rganizationEntitlementsRequest\022\026\n\006org_id"
+  "\030\001 \001(\tB\006\342\337\037\002X\001\"p\n&SearchOrganizationEnti"
+  "tlementsResponse\022F\n\014entitlements\030\001 \003(\01320"
+  ".percona.platform.org.v1.OrganizationEnt"
+  "itlement\"\321\004\n\027OrganizationEntitlement\022\016\n\006"
+  "number\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\017\n\007summary\030\003 "
+  "\001(\t\022*\n\004tier\030\004 \001(\0132\034.google.protobuf.Stri"
+  "ngValue\0221\n\013total_units\030\005 \001(\0132\034.google.pr"
+  "otobuf.StringValue\0223\n\017unlimited_units\030\006 "
+  "\001(\0132\032.google.protobuf.BoolValue\0223\n\rsuppo"
+  "rt_level\030\007 \001(\0132\034.google.protobuf.StringV"
+  "alue\022\031\n\021software_families\030\010 \003(\t\022.\n\nstart"
+  "_date\030\t \001(\0132\032.google.protobuf.Timestamp\022"
+  ",\n\010end_date\030\n \001(\0132\032.google.protobuf.Time"
+  "stamp\022K\n\010platform\030\013 \001(\01329.percona.platfo"
+  "rm.org.v1.OrganizationEntitlement.Platfo"
+  "rm\032x\n\010Platform\0226\n\020security_advisor\030\001 \001(\013"
+  "2\034.google.protobuf.StringValue\0224\n\016config"
+  "_advisor\030\002 \001(\0132\034.google.protobuf.StringV"
+  "alue\"\032\n\030SearchUserCompanyRequest\")\n\031Sear"
+  "chUserCompanyResponse\022\014\n\004name\030\001 \001(\t\"U\n\023I"
+  "nviteMemberRequest\022\030\n\010username\030\001 \001(\tB\006\342\337"
+  "\037\002X\001\022\026\n\006org_id\030\002 \001(\tB\006\342\337\037\002X\001\022\014\n\004role\030\003 \001"
+  "(\t\"\026\n\024InviteMemberResponse\"~\n\022Organizati"
+  "onMember\022\021\n\tmember_id\030\001 \001(\t\022\020\n\010username\030"
+  "\002 \001(\t\022\022\n\nfirst_name\030\003 \001(\t\022\021\n\tlast_name\030\004"
+  " \001(\t\022\014\n\004role\030\005 \001(\t\022\016\n\006status\030\006 \001(\t\"\236\001\n\024S"
+  "earchMembersRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037"
+  "\002X\001\022F\n\004user\030\002 \001(\01328.percona.platform.org"
+  ".v1.SearchMembersRequest.UserFilter\032&\n\nU"
+  "serFilter\022\030\n\010username\030\001 \001(\tB\006\342\337\037\002X\001\"U\n\025S"
+  "earchMembersResponse\022<\n\007members\030\001 \003(\0132+."
+  "percona.platform.org.v1.OrganizationMemb"
+  "er\"^\n\023UpdateMemberRequest\022\026\n\006org_id\030\001 \001("
+  "\tB\006\342\337\037\002X\001\022\031\n\tmember_id\030\002 \001(\tB\006\342\337\037\002X\001\022\024\n\004"
+  "role\030\003 \001(\tB\006\342\337\037\002X\001\"S\n\024UpdateMemberRespon"
+  "se\022;\n\006member\030\001 \001(\0132+.percona.platform.or"
+  "g.v1.OrganizationMember\"H\n\023DeleteMemberR"
+  "equest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\022\031\n\tmember"
+  "_id\030\002 \001(\tB\006\342\337\037\002X\001\"5\n\024DisconnectPMMReques"
+  "t\022\035\n\rpmm_server_id\030\001 \001(\tB\006\342\337\037\002X\001\"0\n\026Sear"
+  "chInventoryRequest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002"
+  "X\001\"S\n\tInventory\022\025\n\rpmm_server_id\030\001 \001(\t\022\027"
+  "\n\017pmm_server_name\030\002 \001(\t\022\026\n\016pmm_server_ur"
+  "l\030\003 \001(\t\"P\n\027SearchInventoryResponse\0225\n\tin"
+  "ventory\030\001 \003(\0132\".percona.platform.org.v1."
+  "Inventory\":\n SearchOrganizationTicketsRe"
+  "quest\022\026\n\006org_id\030\001 \001(\tB\006\342\337\037\002X\001\"a\n!SearchO"
+  "rganizationTicketsResponse\022<\n\007tickets\030\001 "
+  "\003(\0132+.percona.platform.org.v1.Organizati"
+  "onTicket\"\330\001\n\022OrganizationTicket\022\016\n\006numbe"
+  "r\030\001 \001(\t\022\031\n\021short_description\030\002 \001(\t\022\020\n\010pr"
+  "iority\030\003 \001(\t\022\r\n\005state\030\004 \001(\t\022/\n\013create_ti"
+  "me\030\005 \001(\0132\032.google.protobuf.Timestamp\022\022\n\n"
+  "department\030\006 \001(\t\022\021\n\trequester\030\007 \001(\t\022\021\n\tt"
+  "ask_type\030\010 \001(\t\022\013\n\003url\030\t \001(\t2\352\022\n\006OrgAPI\022\222"
+  "\001\n\022CreateOrganization\0222.percona.platform"
+  ".org.v1.CreateOrganizationRequest\0323.perc"
+  "ona.platform.org.v1.CreateOrganizationRe"
+  "sponse\"\023\202\323\344\223\002\r\"\010/v1/orgs:\001*\022\233\001\n\022UpdateOr"
+  "ganization\0222.percona.platform.org.v1.Upd"
+  "ateOrganizationRequest\0323.percona.platfor"
+  "m.org.v1.UpdateOrganizationResponse\"\034\202\323\344"
+  "\223\002\026\032\021/v1/orgs/{org_id}:\001*\022\217\001\n\017GetOrganiz"
+  "ation\022/.percona.platform.org.v1.GetOrgan"
+  "izationRequest\0320.percona.platform.org.v1"
+  ".GetOrganizationResponse\"\031\202\323\344\223\002\023\022\021/v1/or"
+  "gs/{org_id}\022\234\001\n\023SearchOrganizations\0223.pe"
+  "rcona.platform.org.v1.SearchOrganization"
+  "sRequest\0324.percona.platform.org.v1.Searc"
+  "hOrganizationsResponse\"\032\202\323\344\223\002\024\"\017/v1/orgs"
+  ":search:\001*\022\230\001\n\022DeleteOrganization\0222.perc"
+  "ona.platform.org.v1.DeleteOrganizationRe"
+  "quest\0323.percona.platform.org.v1.DeleteOr"
+  "ganizationResponse\"\031\202\323\344\223\002\023*\021/v1/orgs/{or"
+  "g_id}\022\221\001\n\014InviteMember\022,.percona.platfor"
+  "m.org.v1.InviteMemberRequest\032-.percona.p"
+  "latform.org.v1.InviteMemberResponse\"$\202\323\344"
+  "\223\002\036\"\031/v1/orgs/{org_id}/members:\001*\022\233\001\n\rSe"
+  "archMembers\022-.percona.platform.org.v1.Se"
+  "archMembersRequest\032..percona.platform.or"
+  "g.v1.SearchMembersResponse\"+\202\323\344\223\002%\" /v1/"
+  "orgs/{org_id}/members:search:\001*\022\320\001\n\036Sear"
+  "chOrganizationEntitlements\022>.percona.pla"
+  "tform.org.v1.SearchOrganizationEntitleme"
+  "ntsRequest\032\?.percona.platform.org.v1.Sea"
+  "rchOrganizationEntitlementsResponse\"-\202\323\344"
+  "\223\002\'\"%/v1/orgs/{org_id}/entitlements:sear"
+  "ch\022\274\001\n\031SearchOrganizationTickets\0229.perco"
+  "na.platform.org.v1.SearchOrganizationTic"
+  "ketsRequest\032:.percona.platform.org.v1.Se"
+  "archOrganizationTicketsResponse\"(\202\323\344\223\002\"\""
+  " /v1/orgs/{org_id}/tickets:search\022\233\001\n\021Se"
+  "archUserCompany\0221.percona.platform.org.v"
+  "1.SearchUserCompanyRequest\0322.percona.pla"
+  "tform.org.v1.SearchUserCompanyResponse\"\037"
+  "\202\323\344\223\002\031\"\027/v1/orgs/company:search\022\235\001\n\014Upda"
+  "teMember\022,.percona.platform.org.v1.Updat"
+  "eMemberRequest\032-.percona.platform.org.v1"
+  ".UpdateMemberResponse\"0\202\323\344\223\002*\032%/v1/orgs/"
+  "{org_id}/members/{member_id}:\001*\022\203\001\n\014Dele"
+  "teMember\022,.percona.platform.org.v1.Delet"
+  "eMemberRequest\032\026.google.protobuf.Empty\"-"
+  "\202\323\344\223\002\'*%/v1/orgs/{org_id}/members/{membe"
+  "r_id}\022\245\001\n\nConnectPMM\022*.percona.platform."
+  "org.v1.ConnectPMMRequest\032+.percona.platf"
+  "orm.org.v1.ConnectPMMResponse\">\202\323\344\223\0028\"\022/"
+  "v1/orgs/inventory:\001*Z\037\"\032/v1/orgs/invento"
+  "ry:connect:\001*\022\215\001\n\rDisconnectPMM\022-.percon"
+  "a.platform.org.v1.DisconnectPMMRequest\032\026"
+  ".google.protobuf.Empty\"5\202\323\344\223\002/\"-/v1/orgs"
+  "/inventory/{pmm_server_id}:disconnect\022\240\001"
+  "\n\017SearchInventory\022/.percona.platform.org"
+  ".v1.SearchInventoryRequest\0320.percona.pla"
+  "tform.org.v1.SearchInventoryResponse\"*\202\323"
+  "\344\223\002$\"\"/v1/orgs/{org_id}/inventory:search"
+  "B\014Z\n/org;orgv1b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[5] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -995,8 +1045,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 5907, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
-  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 36,
+  false, false, 6222, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 38,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
 };
@@ -2585,6 +2635,448 @@ void CreateOrganizationResponse::InternalSwap(CreateOrganizationResponse* other)
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateOrganizationResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class UpdateOrganizationRequest::_Internal {
+ public:
+};
+
+UpdateOrganizationRequest::UpdateOrganizationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.UpdateOrganizationRequest)
+}
+UpdateOrganizationRequest::UpdateOrganizationRequest(const UpdateOrganizationRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_org_id().empty()) {
+    org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_org_id(), 
+      GetArena());
+  }
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.UpdateOrganizationRequest)
+}
+
+void UpdateOrganizationRequest::SharedCtor() {
+org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+UpdateOrganizationRequest::~UpdateOrganizationRequest() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.UpdateOrganizationRequest)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void UpdateOrganizationRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  org_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void UpdateOrganizationRequest::ArenaDtor(void* object) {
+  UpdateOrganizationRequest* _this = reinterpret_cast< UpdateOrganizationRequest* >(object);
+  (void)_this;
+}
+void UpdateOrganizationRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateOrganizationRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateOrganizationRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  org_id_.ClearToEmpty();
+  name_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateOrganizationRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string org_id = 1 [(.validator.field) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_org_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UpdateOrganizationRequest.org_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string name = 2 [(.validator.field) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.UpdateOrganizationRequest.name"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UpdateOrganizationRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_org_id().data(), static_cast<int>(this->_internal_org_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.UpdateOrganizationRequest.org_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_org_id(), target);
+  }
+
+  // string name = 2 [(.validator.field) = {
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.UpdateOrganizationRequest.name");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_name(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.UpdateOrganizationRequest)
+  return target;
+}
+
+size_t UpdateOrganizationRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_org_id());
+  }
+
+  // string name = 2 [(.validator.field) = {
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateOrganizationRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UpdateOrganizationRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UpdateOrganizationRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.UpdateOrganizationRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.UpdateOrganizationRequest)
+    MergeFrom(*source);
+  }
+}
+
+void UpdateOrganizationRequest::MergeFrom(const UpdateOrganizationRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.org_id().size() > 0) {
+    _internal_set_org_id(from._internal_org_id());
+  }
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
+  }
+}
+
+void UpdateOrganizationRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateOrganizationRequest::CopyFrom(const UpdateOrganizationRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.UpdateOrganizationRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateOrganizationRequest::IsInitialized() const {
+  return true;
+}
+
+void UpdateOrganizationRequest::InternalSwap(UpdateOrganizationRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  org_id_.Swap(&other->org_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateOrganizationRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class UpdateOrganizationResponse::_Internal {
+ public:
+  static const ::percona::platform::org::v1::Organization& org(const UpdateOrganizationResponse* msg);
+};
+
+const ::percona::platform::org::v1::Organization&
+UpdateOrganizationResponse::_Internal::org(const UpdateOrganizationResponse* msg) {
+  return *msg->org_;
+}
+UpdateOrganizationResponse::UpdateOrganizationResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.UpdateOrganizationResponse)
+}
+UpdateOrganizationResponse::UpdateOrganizationResponse(const UpdateOrganizationResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_org()) {
+    org_ = new ::percona::platform::org::v1::Organization(*from.org_);
+  } else {
+    org_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.UpdateOrganizationResponse)
+}
+
+void UpdateOrganizationResponse::SharedCtor() {
+org_ = nullptr;
+}
+
+UpdateOrganizationResponse::~UpdateOrganizationResponse() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.UpdateOrganizationResponse)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void UpdateOrganizationResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance()) delete org_;
+}
+
+void UpdateOrganizationResponse::ArenaDtor(void* object) {
+  UpdateOrganizationResponse* _this = reinterpret_cast< UpdateOrganizationResponse* >(object);
+  (void)_this;
+}
+void UpdateOrganizationResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateOrganizationResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateOrganizationResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArena() == nullptr && org_ != nullptr) {
+    delete org_;
+  }
+  org_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateOrganizationResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .percona.platform.org.v1.Organization org = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_org(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* UpdateOrganizationResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::org(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.UpdateOrganizationResponse)
+  return target;
+}
+
+size_t UpdateOrganizationResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.Organization org = 1;
+  if (this->has_org()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *org_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UpdateOrganizationResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UpdateOrganizationResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UpdateOrganizationResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.UpdateOrganizationResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.UpdateOrganizationResponse)
+    MergeFrom(*source);
+  }
+}
+
+void UpdateOrganizationResponse::MergeFrom(const UpdateOrganizationResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_org()) {
+    _internal_mutable_org()->::percona::platform::org::v1::Organization::MergeFrom(from._internal_org());
+  }
+}
+
+void UpdateOrganizationResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UpdateOrganizationResponse::CopyFrom(const UpdateOrganizationResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.UpdateOrganizationResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateOrganizationResponse::IsInitialized() const {
+  return true;
+}
+
+void UpdateOrganizationResponse::InternalSwap(UpdateOrganizationResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(org_, other->org_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateOrganizationResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -9861,6 +10353,12 @@ template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::CreateOrganizationReq
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::CreateOrganizationResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::CreateOrganizationResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::CreateOrganizationResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UpdateOrganizationRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::UpdateOrganizationRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::UpdateOrganizationRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::UpdateOrganizationResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::UpdateOrganizationResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::UpdateOrganizationResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::Contacts_CustomerSuccess* Arena::CreateMaybeMessage< ::percona::platform::org::v1::Contacts_CustomerSuccess >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::Contacts_CustomerSuccess >(arena);

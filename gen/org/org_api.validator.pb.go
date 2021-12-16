@@ -74,6 +74,23 @@ func (this *CreateOrganizationResponse) Validate() error {
 	}
 	return nil
 }
+func (this *UpdateOrganizationRequest) Validate() error {
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	if this.Name == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	}
+	return nil
+}
+func (this *UpdateOrganizationResponse) Validate() error {
+	if this.Org != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+		}
+	}
+	return nil
+}
 func (this *Contacts) Validate() error {
 	if this.CustomerSuccess != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CustomerSuccess); err != nil {
