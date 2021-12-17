@@ -147,6 +147,8 @@ message ConnectPMMRequest {
 
 message ConnectPMMResponse {
   PMMServerSSODetails sso_details = 1;
+  // ID of the Organization to which the PMM server is connected.
+  string org_id = 2;
 }
 
 message Organization {
