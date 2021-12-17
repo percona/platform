@@ -100,6 +100,18 @@ service OrgAPI {
     option (google.api.http) = {
       post: "/v1/orgs/inventory"
       body: "*"
+      additional_bindings: {
+        post: "/v1/orgs/inventory:connect"
+        body: "*"
+      }
+    };
+  }
+
+  // DisconnectPMM deletes the PMM instance with the given pmm_server_id
+  // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+  rpc DisconnectPMM(DisconnectPMMRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/orgs/inventory/{pmm_server_id}:disconnect"
     };
   }
 
@@ -377,6 +389,15 @@ message DeleteMemberRequest {
   ];
 }
 
+message DisconnectPMMRequest {
+  // PMM server ID.
+  string pmm_server_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
 message SearchInventoryRequest {
   string org_id = 1 [
     (validator.field) = {
@@ -392,8 +413,6 @@ message Inventory {
   string pmm_server_name = 2;
   // User accessible address of PMM Server.
   string pmm_server_url = 3;
-  // Okta trusted origin ID
-  string origin_id = 4;
 }
 
 message SearchInventoryResponse {

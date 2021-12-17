@@ -696,6 +696,24 @@ export namespace DeleteMemberRequest {
   }
 }
 
+export class DisconnectPMMRequest extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): DisconnectPMMRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DisconnectPMMRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DisconnectPMMRequest): DisconnectPMMRequest.AsObject;
+  static serializeBinaryToWriter(message: DisconnectPMMRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DisconnectPMMRequest;
+  static deserializeBinaryFromReader(message: DisconnectPMMRequest, reader: jspb.BinaryReader): DisconnectPMMRequest;
+}
+
+export namespace DisconnectPMMRequest {
+  export type AsObject = {
+    pmmServerId: string,
+  }
+}
+
 export class SearchInventoryRequest extends jspb.Message {
   getOrgId(): string;
   setOrgId(value: string): SearchInventoryRequest;
@@ -724,9 +742,6 @@ export class Inventory extends jspb.Message {
   getPmmServerUrl(): string;
   setPmmServerUrl(value: string): Inventory;
 
-  getOriginId(): string;
-  setOriginId(value: string): Inventory;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Inventory.AsObject;
   static toObject(includeInstance: boolean, msg: Inventory): Inventory.AsObject;
@@ -740,7 +755,6 @@ export namespace Inventory {
     pmmServerId: string,
     pmmServerName: string,
     pmmServerUrl: string,
-    originId: string,
   }
 }
 

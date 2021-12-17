@@ -270,6 +270,12 @@ func (this *DeleteMemberRequest) Validate() error {
 	}
 	return nil
 }
+func (this *DisconnectPMMRequest) Validate() error {
+	if this.PmmServerId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("PmmServerId", fmt.Errorf(`value '%v' must not be an empty string`, this.PmmServerId))
+	}
+	return nil
+}
 func (this *SearchInventoryRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
