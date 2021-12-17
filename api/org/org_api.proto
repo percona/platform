@@ -107,7 +107,7 @@ service OrgAPI {
     };
   }
 
-  // DisconnectPMM deletes the PMM instance with ghe given pmm_server_id
+  // DisconnectPMM deletes the PMM instance with the given pmm_server_id
   // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
   rpc DisconnectPMM(DisconnectPMMRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
