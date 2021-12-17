@@ -45,7 +45,7 @@ type OrgAPIClient interface {
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error)
-	// DisconnectPMM deletes the PMM instance with ghe given pmm_server_id
+	// DisconnectPMM deletes the PMM instance with the given pmm_server_id
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	DisconnectPMM(ctx context.Context, in *DisconnectPMMRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
@@ -215,7 +215,7 @@ type OrgAPIServer interface {
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error)
-	// DisconnectPMM deletes the PMM instance with ghe given pmm_server_id
+	// DisconnectPMM deletes the PMM instance with the given pmm_server_id
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	DisconnectPMM(context.Context, *DisconnectPMMRequest) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
