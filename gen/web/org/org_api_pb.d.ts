@@ -696,6 +696,88 @@ export namespace DeleteMemberRequest {
   }
 }
 
+export class DisconnectPMMRequest extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): DisconnectPMMRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DisconnectPMMRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DisconnectPMMRequest): DisconnectPMMRequest.AsObject;
+  static serializeBinaryToWriter(message: DisconnectPMMRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DisconnectPMMRequest;
+  static deserializeBinaryFromReader(message: DisconnectPMMRequest, reader: jspb.BinaryReader): DisconnectPMMRequest;
+}
+
+export namespace DisconnectPMMRequest {
+  export type AsObject = {
+    pmmServerId: string,
+  }
+}
+
+export class SearchInventoryRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): SearchInventoryRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchInventoryRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchInventoryRequest): SearchInventoryRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchInventoryRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchInventoryRequest;
+  static deserializeBinaryFromReader(message: SearchInventoryRequest, reader: jspb.BinaryReader): SearchInventoryRequest;
+}
+
+export namespace SearchInventoryRequest {
+  export type AsObject = {
+    orgId: string,
+  }
+}
+
+export class Inventory extends jspb.Message {
+  getPmmServerId(): string;
+  setPmmServerId(value: string): Inventory;
+
+  getPmmServerName(): string;
+  setPmmServerName(value: string): Inventory;
+
+  getPmmServerUrl(): string;
+  setPmmServerUrl(value: string): Inventory;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Inventory.AsObject;
+  static toObject(includeInstance: boolean, msg: Inventory): Inventory.AsObject;
+  static serializeBinaryToWriter(message: Inventory, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Inventory;
+  static deserializeBinaryFromReader(message: Inventory, reader: jspb.BinaryReader): Inventory;
+}
+
+export namespace Inventory {
+  export type AsObject = {
+    pmmServerId: string,
+    pmmServerName: string,
+    pmmServerUrl: string,
+  }
+}
+
+export class SearchInventoryResponse extends jspb.Message {
+  getInventoryList(): Array<Inventory>;
+  setInventoryList(value: Array<Inventory>): SearchInventoryResponse;
+  clearInventoryList(): SearchInventoryResponse;
+  addInventory(value?: Inventory, index?: number): Inventory;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchInventoryResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchInventoryResponse): SearchInventoryResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchInventoryResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchInventoryResponse;
+  static deserializeBinaryFromReader(message: SearchInventoryResponse, reader: jspb.BinaryReader): SearchInventoryResponse;
+}
+
+export namespace SearchInventoryResponse {
+  export type AsObject = {
+    inventoryList: Array<Inventory.AsObject>,
+  }
+}
+
 export class SearchOrganizationTicketsRequest extends jspb.Message {
   getOrgId(): string;
   setOrgId(value: string): SearchOrganizationTicketsRequest;

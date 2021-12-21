@@ -516,5 +516,85 @@ export class OrgAPIClient {
     this.methodInfoConnectPMM);
   }
 
+  methodInfoDisconnectPMM = new grpcWeb.AbstractClientBase.MethodInfo(
+    google_protobuf_empty_pb.Empty,
+    (request: org_org_api_pb.DisconnectPMMRequest) => {
+      return request.serializeBinary();
+    },
+    google_protobuf_empty_pb.Empty.deserializeBinary
+  );
+
+  disconnectPMM(
+    request: org_org_api_pb.DisconnectPMMRequest,
+    metadata: grpcWeb.Metadata | null): Promise<google_protobuf_empty_pb.Empty>;
+
+  disconnectPMM(
+    request: org_org_api_pb.DisconnectPMMRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void): grpcWeb.ClientReadableStream<google_protobuf_empty_pb.Empty>;
+
+  disconnectPMM(
+    request: org_org_api_pb.DisconnectPMMRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: google_protobuf_empty_pb.Empty) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/DisconnectPMM',
+        request,
+        metadata || {},
+        this.methodInfoDisconnectPMM,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/DisconnectPMM',
+    request,
+    metadata || {},
+    this.methodInfoDisconnectPMM);
+  }
+
+  methodInfoSearchInventory = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.SearchInventoryResponse,
+    (request: org_org_api_pb.SearchInventoryRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.SearchInventoryResponse.deserializeBinary
+  );
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.SearchInventoryResponse>;
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchInventoryResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.SearchInventoryResponse>;
+
+  searchInventory(
+    request: org_org_api_pb.SearchInventoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.SearchInventoryResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/SearchInventory',
+        request,
+        metadata || {},
+        this.methodInfoSearchInventory,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/SearchInventory',
+    request,
+    metadata || {},
+    this.methodInfoSearchInventory);
+  }
+
 }
 
