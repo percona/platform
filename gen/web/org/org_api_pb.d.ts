@@ -163,8 +163,10 @@ export class UpdateOrganizationRequest extends jspb.Message {
   getOrgId(): string;
   setOrgId(value: string): UpdateOrganizationRequest;
 
-  getName(): string;
-  setName(value: string): UpdateOrganizationRequest;
+  getOrganization(): Organization | undefined;
+  setOrganization(value?: Organization): UpdateOrganizationRequest;
+  hasOrganization(): boolean;
+  clearOrganization(): UpdateOrganizationRequest;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UpdateOrganizationRequest.AsObject;
@@ -177,7 +179,7 @@ export class UpdateOrganizationRequest extends jspb.Message {
 export namespace UpdateOrganizationRequest {
   export type AsObject = {
     orgId: string,
-    name: string,
+    organization?: Organization.AsObject,
   }
 }
 

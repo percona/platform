@@ -2028,7 +2028,7 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.toObject = fun
 proto.percona.platform.org.v1.UpdateOrganizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     orgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    organization: (f = msg.getOrganization()) && proto.percona.platform.org.v1.Organization.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2070,8 +2070,9 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.deserializeBinaryFromRea
       msg.setOrgId(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      var value = new proto.percona.platform.org.v1.Organization;
+      reader.readMessage(value,proto.percona.platform.org.v1.Organization.deserializeBinaryFromReader);
+      msg.setOrganization(value);
       break;
     default:
       reader.skipField();
@@ -2109,11 +2110,12 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.serializeBinaryToWriter 
       f
     );
   }
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getOrganization();
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      proto.percona.platform.org.v1.Organization.serializeBinaryToWriter
     );
   }
 };
@@ -2138,20 +2140,39 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.setOrgId = fun
 
 
 /**
- * optional string name = 2;
- * @return {string}
+ * optional Organization organization = 2;
+ * @return {?proto.percona.platform.org.v1.Organization}
  */
-proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.getOrganization = function() {
+  return /** @type{?proto.percona.platform.org.v1.Organization} */ (
+    jspb.Message.getWrapperField(this, proto.percona.platform.org.v1.Organization, 2));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.percona.platform.org.v1.Organization|undefined} value
+ * @return {!proto.percona.platform.org.v1.UpdateOrganizationRequest} returns this
+*/
+proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.setOrganization = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.percona.platform.org.v1.UpdateOrganizationRequest} returns this
  */
-proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.setName = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.clearOrganization = function() {
+  return this.setOrganization(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.hasOrganization = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 

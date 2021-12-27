@@ -48,6 +48,9 @@ func (this *ConnectPMMResponse) Validate() error {
 	return nil
 }
 func (this *Organization) Validate() error {
+	if this.Name == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	}
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
@@ -78,8 +81,10 @@ func (this *UpdateOrganizationRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
 	}
-	if this.Name == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	if this.Organization != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Organization); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Organization", err)
+		}
 	}
 	return nil
 }
