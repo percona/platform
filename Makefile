@@ -20,6 +20,7 @@ gen:                                       ## Format, check, and generate code u
 	$(DOCKER_RUN_CMD) prototool break check api/auth -f api/auth/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
 	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
+	$(DOCKER_RUN_CMD) prototool break check api/org -f api/org/descriptor.bin
 
 	rm -rf gen
 	mkdir -p gen/cpp gen/web
