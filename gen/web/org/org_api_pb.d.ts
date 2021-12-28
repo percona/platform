@@ -160,9 +160,6 @@ export namespace CreateOrganizationResponse {
 }
 
 export class UpdateOrganizationRequest extends jspb.Message {
-  getOrgId(): string;
-  setOrgId(value: string): UpdateOrganizationRequest;
-
   getOrganization(): Organization | undefined;
   setOrganization(value?: Organization): UpdateOrganizationRequest;
   hasOrganization(): boolean;
@@ -178,7 +175,6 @@ export class UpdateOrganizationRequest extends jspb.Message {
 
 export namespace UpdateOrganizationRequest {
   export type AsObject = {
-    orgId: string,
     organization?: Organization.AsObject,
   }
 }

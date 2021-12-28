@@ -23,7 +23,7 @@ service OrgAPI {
   // UpdateOrganization updates the organization with the given ID.
   rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse) {
     option (google.api.http) = {
-      put: "/v1/orgs/{org_id}"
+      put: "/v1/orgs/{organization.id}"
       body: "organization"
     };
   }
@@ -171,7 +171,11 @@ message ConnectPMMResponse {
 
 message Organization {
   // Percona Portal Organization ID.
-  string id = 1;
+  string id = 1[
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
   // Percona Portal Organization Name.
   string name = 2[
     (validator.field) = {
@@ -198,13 +202,6 @@ message CreateOrganizationResponse {
 }
 
 message UpdateOrganizationRequest {
-  // Percona Portal Organization ID.
-  string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];
-
   // Percona Portal Organization
   Organization organization = 2;
 }

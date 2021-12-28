@@ -86,15 +86,15 @@ func request_OrgAPI_UpdateOrganization_0(ctx context.Context, marshaler runtime.
 		_   = err
 	)
 
-	val, ok = pathParams["org_id"]
+	val, ok = pathParams["organization.id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "organization.id")
 	}
 
-	protoReq.OrgId, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "organization.id", val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "organization.id", err)
 	}
 
 	msg, err := client.UpdateOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -121,15 +121,15 @@ func local_request_OrgAPI_UpdateOrganization_0(ctx context.Context, marshaler ru
 		_   = err
 	)
 
-	val, ok = pathParams["org_id"]
+	val, ok = pathParams["organization.id"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "organization.id")
 	}
 
-	protoReq.OrgId, err = runtime.String(val)
+	err = runtime.PopulateFieldFromPath(&protoReq, "organization.id", val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "organization.id", err)
 	}
 
 	msg, err := server.UpdateOrganization(ctx, &protoReq)
@@ -1630,7 +1630,7 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 var (
 	pattern_OrgAPI_CreateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_OrgAPI_UpdateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_OrgAPI_UpdateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "organization.id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, "", runtime.AssumeColonVerbOpt(true)))
 

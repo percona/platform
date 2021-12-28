@@ -2027,7 +2027,6 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.toObject = fun
  */
 proto.percona.platform.org.v1.UpdateOrganizationRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    orgId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     organization: (f = msg.getOrganization()) && proto.percona.platform.org.v1.Organization.toObject(includeInstance, f)
   };
 
@@ -2065,10 +2064,6 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.deserializeBinaryFromRea
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setOrgId(value);
-      break;
     case 2:
       var value = new proto.percona.platform.org.v1.Organization;
       reader.readMessage(value,proto.percona.platform.org.v1.Organization.deserializeBinaryFromReader);
@@ -2103,13 +2098,6 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.serializeBinar
  */
 proto.percona.platform.org.v1.UpdateOrganizationRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getOrgId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
   f = message.getOrganization();
   if (f != null) {
     writer.writeMessage(
@@ -2118,24 +2106,6 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.serializeBinaryToWriter 
       proto.percona.platform.org.v1.Organization.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional string org_id = 1;
- * @return {string}
- */
-proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.getOrgId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.percona.platform.org.v1.UpdateOrganizationRequest} returns this
- */
-proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.setOrgId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
