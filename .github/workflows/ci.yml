@@ -94,10 +94,9 @@ jobs:
       - name: Initialize CI environment
         run: make ci-init
 
-      - name: Generate API code using dev docker image
+      - name: Generate API code using buf
         run: |
-          make gen-dev
-          sudo chown -R runner:docker gen
+          make gen
 
       - name: Generate Go code
         run: make gen-code
@@ -242,32 +241,3 @@ jobs:
           go env
           pwd
           git status
-
-  docker:
-    name: Build Docker image
-    timeout-minutes: 10
-    needs: test
-    if: github.event_name == 'push'
-    runs-on: ubuntu-20.04
-
-    env:
-      GOFLAGS: -mod=readonly
-      GOPRIVATE: github.com/percona-platform
-
-    steps:
-      - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Enable experimental Docker features for --squash flag
-        run: sudo .github/workflows/enable-docker-experimental.sh
-
-      - name: Login in Docker registry
-        run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
-
-      - name: Build Docker image
-        run: make docker-build
-
-      - name: Tag and push Docker image
-        run: make docker-push

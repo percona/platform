@@ -6,12 +6,11 @@ package authv1
 import (
 	fmt "fmt"
 	math "math"
-
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/mwitkow/go-proto-validators"
-	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "github.com/percona-platform/platform/gen/validator"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
