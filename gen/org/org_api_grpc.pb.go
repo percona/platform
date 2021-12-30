@@ -22,6 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 type OrgAPIClient interface {
 	// CreateOrganization creates new organization with the given name and adds the user as org admin.
 	CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error)
+	// UpdateOrganization updates the organization with the given ID.
+	UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error)
 	// GetOrganization fetches organization details by ID.
 	GetOrganization(ctx context.Context, in *GetOrganizationRequest, opts ...grpc.CallOption) (*GetOrganizationResponse, error)
 	// SearchOrganizations fetches details of organization that a signed in user has permission to view.
@@ -63,6 +65,15 @@ func NewOrgAPIClient(cc grpc.ClientConnInterface) OrgAPIClient {
 func (c *orgAPIClient) CreateOrganization(ctx context.Context, in *CreateOrganizationRequest, opts ...grpc.CallOption) (*CreateOrganizationResponse, error) {
 	out := new(CreateOrganizationResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/CreateOrganization", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orgAPIClient) UpdateOrganization(ctx context.Context, in *UpdateOrganizationRequest, opts ...grpc.CallOption) (*UpdateOrganizationResponse, error) {
+	out := new(UpdateOrganizationResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -192,6 +203,8 @@ func (c *orgAPIClient) SearchInventory(ctx context.Context, in *SearchInventoryR
 type OrgAPIServer interface {
 	// CreateOrganization creates new organization with the given name and adds the user as org admin.
 	CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error)
+	// UpdateOrganization updates the organization with the given ID.
+	UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error)
 	// GetOrganization fetches organization details by ID.
 	GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error)
 	// SearchOrganizations fetches details of organization that a signed in user has permission to view.
@@ -229,6 +242,9 @@ type UnimplementedOrgAPIServer struct {
 
 func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
+}
+func (UnimplementedOrgAPIServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
 }
 func (UnimplementedOrgAPIServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
@@ -296,6 +312,24 @@ func _OrgAPI_CreateOrganization_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrgAPIServer).CreateOrganization(ctx, req.(*CreateOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrgAPI_UpdateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateOrganizationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).UpdateOrganization(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/UpdateOrganization",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).UpdateOrganization(ctx, req.(*UpdateOrganizationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -544,6 +578,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateOrganization",
 			Handler:    _OrgAPI_CreateOrganization_Handler,
+		},
+		{
+			MethodName: "UpdateOrganization",
+			Handler:    _OrgAPI_UpdateOrganization_Handler,
 		},
 		{
 			MethodName: "GetOrganization",

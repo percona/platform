@@ -39,7 +39,7 @@ func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 	resp, err := rt.rt.RoundTrip(req)
 
 	if err != nil { //nolint: nestif
-		rl.Error("Received error.", zap.Error(err))
+		rl.Error("Received error", zap.Error(err))
 	} else if resp != nil {
 		if rl.Core().Enabled(zap.DebugLevel) {
 			b, _ := httputil.DumpResponse(resp, true)
