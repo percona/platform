@@ -596,5 +596,45 @@ export class OrgAPIClient {
     this.methodInfoSearchInventory);
   }
 
+  methodInfoGetOrganizationInfo = new grpcWeb.AbstractClientBase.MethodInfo(
+    org_org_api_pb.GetOrganizationInternalInfoResponse,
+    (request: org_org_api_pb.GetOrganizationInternalInfoRequest) => {
+      return request.serializeBinary();
+    },
+    org_org_api_pb.GetOrganizationInternalInfoResponse.deserializeBinary
+  );
+
+  getOrganizationInfo(
+    request: org_org_api_pb.GetOrganizationInternalInfoRequest,
+    metadata: grpcWeb.Metadata | null): Promise<org_org_api_pb.GetOrganizationInternalInfoResponse>;
+
+  getOrganizationInfo(
+    request: org_org_api_pb.GetOrganizationInternalInfoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: org_org_api_pb.GetOrganizationInternalInfoResponse) => void): grpcWeb.ClientReadableStream<org_org_api_pb.GetOrganizationInternalInfoResponse>;
+
+  getOrganizationInfo(
+    request: org_org_api_pb.GetOrganizationInternalInfoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: org_org_api_pb.GetOrganizationInternalInfoResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.org.v1.OrgAPI/GetOrganizationInfo',
+        request,
+        metadata || {},
+        this.methodInfoGetOrganizationInfo,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.org.v1.OrgAPI/GetOrganizationInfo',
+    request,
+    metadata || {},
+    this.methodInfoGetOrganizationInfo);
+  }
+
 }
 

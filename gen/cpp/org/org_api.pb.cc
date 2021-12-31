@@ -492,11 +492,49 @@ struct OrganizationTicketDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OrganizationTicketDefaultTypeInternal _OrganizationTicket_default_instance_;
+constexpr GetOrganizationInternalInfoRequest::GetOrganizationInternalInfoRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : org_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct GetOrganizationInternalInfoRequestDefaultTypeInternal {
+  constexpr GetOrganizationInternalInfoRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetOrganizationInternalInfoRequestDefaultTypeInternal() {}
+  union {
+    GetOrganizationInternalInfoRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetOrganizationInternalInfoRequestDefaultTypeInternal _GetOrganizationInternalInfoRequest_default_instance_;
+constexpr GetOrganizationInternalInfoResponse::GetOrganizationInternalInfoResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : org_(nullptr){}
+struct GetOrganizationInternalInfoResponseDefaultTypeInternal {
+  constexpr GetOrganizationInternalInfoResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetOrganizationInternalInfoResponseDefaultTypeInternal() {}
+  union {
+    GetOrganizationInternalInfoResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetOrganizationInternalInfoResponseDefaultTypeInternal _GetOrganizationInternalInfoResponse_default_instance_;
+constexpr OrganizationInternalInfo::OrganizationInternalInfo(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , customer_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct OrganizationInternalInfoDefaultTypeInternal {
+  constexpr OrganizationInternalInfoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~OrganizationInternalInfoDefaultTypeInternal() {}
+  union {
+    OrganizationInternalInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OrganizationInternalInfoDefaultTypeInternal _OrganizationInternalInfo_default_instance_;
 }  // namespace v1
 }  // namespace org
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[36];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_org_2forg_5fapi_2eproto[39];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_org_2forg_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_org_2forg_5fapi_2eproto = nullptr;
 
@@ -757,6 +795,26 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_org_2forg_5fapi_2eproto::offse
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationTicket, requester_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationTicket, task_type_),
   PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationTicket, url_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationInternalInfoRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationInternalInfoRequest, org_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationInternalInfoResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::GetOrganizationInternalInfoResponse, org_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationInternalInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationInternalInfo, id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationInternalInfo, name_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::org::v1::OrganizationInternalInfo, customer_id_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::org::v1::PMMServerSSODetails)},
@@ -795,6 +853,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 230, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsRequest)},
   { 236, -1, sizeof(::percona::platform::org::v1::SearchOrganizationTicketsResponse)},
   { 242, -1, sizeof(::percona::platform::org::v1::OrganizationTicket)},
+  { 256, -1, sizeof(::percona::platform::org::v1::GetOrganizationInternalInfoRequest)},
+  { 262, -1, sizeof(::percona::platform::org::v1::GetOrganizationInternalInfoResponse)},
+  { 268, -1, sizeof(::percona::platform::org::v1::OrganizationInternalInfo)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -834,6 +895,9 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchOrganizationTicketsRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_SearchOrganizationTicketsResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_OrganizationTicket_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_GetOrganizationInternalInfoRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_GetOrganizationInternalInfoResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::org::v1::_OrganizationInternalInfo_default_instance_),
 };
 
 const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -927,7 +991,13 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "\010priority\030\003 \001(\t\022\r\n\005state\030\004 \001(\t\022/\n\013create"
   "_time\030\005 \001(\0132\032.google.protobuf.Timestamp\022"
   "\022\n\ndepartment\030\006 \001(\t\022\021\n\trequester\030\007 \001(\t\022\021"
-  "\n\ttask_type\030\010 \001(\t\022\013\n\003url\030\t \001(\t2\314\021\n\006OrgAP"
+  "\n\ttask_type\030\010 \001(\t\022\013\n\003url\030\t \001(\t\"<\n\"GetOrg"
+  "anizationInternalInfoRequest\022\026\n\006org_id\030\001"
+  " \001(\tB\006\342\337\037\002X\001\"e\n#GetOrganizationInternalI"
+  "nfoResponse\022>\n\003org\030\001 \001(\01321.percona.platf"
+  "orm.org.v1.OrganizationInternalInfo\"I\n\030O"
+  "rganizationInternalInfo\022\n\n\002id\030\001 \001(\t\022\014\n\004n"
+  "ame\030\002 \001(\t\022\023\n\013customer_id\030\003 \001(\t2\377\022\n\006OrgAP"
   "I\022\222\001\n\022CreateOrganization\0222.percona.platf"
   "orm.org.v1.CreateOrganizationRequest\0323.p"
   "ercona.platform.org.v1.CreateOrganizatio"
@@ -984,7 +1054,12 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "m.org.v1.SearchInventoryRequest\0320.percon"
   "a.platform.org.v1.SearchInventoryRespons"
   "e\"*\202\323\344\223\002$\"\"/v1/orgs/{org_id}/inventory:s"
-  "earchB\014Z\n/org;orgv1b\006proto3"
+  "earch\022\260\001\n\023GetOrganizationInfo\022;.percona."
+  "platform.org.v1.GetOrganizationInternalI"
+  "nfoRequest\032<.percona.platform.org.v1.Get"
+  "OrganizationInternalInfoResponse\"\036\202\323\344\223\002\030"
+  "\022\026/v1/orgs/info/{org_id}B\014Z\n/org;orgv1b\006"
+  "proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_org_2forg_5fapi_2eproto_deps[5] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
@@ -995,8 +1070,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_org_2forg_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_org_2forg_5fapi_2eproto = {
-  false, false, 5907, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
-  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 36,
+  false, false, 6326, descriptor_table_protodef_org_2forg_5fapi_2eproto, "org/org_api.proto", 
+  &descriptor_table_org_2forg_5fapi_2eproto_once, descriptor_table_org_2forg_5fapi_2eproto_deps, 5, 39,
   schemas, file_default_instances, TableStruct_org_2forg_5fapi_2eproto::offsets,
   file_level_metadata_org_2forg_5fapi_2eproto, file_level_enum_descriptors_org_2forg_5fapi_2eproto, file_level_service_descriptors_org_2forg_5fapi_2eproto,
 };
@@ -9838,6 +9913,686 @@ void OrganizationTicket::InternalSwap(OrganizationTicket* other) {
 }
 
 
+// ===================================================================
+
+class GetOrganizationInternalInfoRequest::_Internal {
+ public:
+};
+
+GetOrganizationInternalInfoRequest::GetOrganizationInternalInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+}
+GetOrganizationInternalInfoRequest::GetOrganizationInternalInfoRequest(const GetOrganizationInternalInfoRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_org_id().empty()) {
+    org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_org_id(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+}
+
+void GetOrganizationInternalInfoRequest::SharedCtor() {
+org_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+GetOrganizationInternalInfoRequest::~GetOrganizationInternalInfoRequest() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void GetOrganizationInternalInfoRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  org_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetOrganizationInternalInfoRequest::ArenaDtor(void* object) {
+  GetOrganizationInternalInfoRequest* _this = reinterpret_cast< GetOrganizationInternalInfoRequest* >(object);
+  (void)_this;
+}
+void GetOrganizationInternalInfoRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetOrganizationInternalInfoRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetOrganizationInternalInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  org_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetOrganizationInternalInfoRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string org_id = 1 [(.validator.field) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_org_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.GetOrganizationInternalInfoRequest.org_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetOrganizationInternalInfoRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_org_id().data(), static_cast<int>(this->_internal_org_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.GetOrganizationInternalInfoRequest.org_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_org_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  return target;
+}
+
+size_t GetOrganizationInternalInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string org_id = 1 [(.validator.field) = {
+  if (this->org_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_org_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetOrganizationInternalInfoRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetOrganizationInternalInfoRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetOrganizationInternalInfoRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+    MergeFrom(*source);
+  }
+}
+
+void GetOrganizationInternalInfoRequest::MergeFrom(const GetOrganizationInternalInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.org_id().size() > 0) {
+    _internal_set_org_id(from._internal_org_id());
+  }
+}
+
+void GetOrganizationInternalInfoRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetOrganizationInternalInfoRequest::CopyFrom(const GetOrganizationInternalInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.GetOrganizationInternalInfoRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetOrganizationInternalInfoRequest::IsInitialized() const {
+  return true;
+}
+
+void GetOrganizationInternalInfoRequest::InternalSwap(GetOrganizationInternalInfoRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  org_id_.Swap(&other->org_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetOrganizationInternalInfoRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class GetOrganizationInternalInfoResponse::_Internal {
+ public:
+  static const ::percona::platform::org::v1::OrganizationInternalInfo& org(const GetOrganizationInternalInfoResponse* msg);
+};
+
+const ::percona::platform::org::v1::OrganizationInternalInfo&
+GetOrganizationInternalInfoResponse::_Internal::org(const GetOrganizationInternalInfoResponse* msg) {
+  return *msg->org_;
+}
+GetOrganizationInternalInfoResponse::GetOrganizationInternalInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+}
+GetOrganizationInternalInfoResponse::GetOrganizationInternalInfoResponse(const GetOrganizationInternalInfoResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_org()) {
+    org_ = new ::percona::platform::org::v1::OrganizationInternalInfo(*from.org_);
+  } else {
+    org_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+}
+
+void GetOrganizationInternalInfoResponse::SharedCtor() {
+org_ = nullptr;
+}
+
+GetOrganizationInternalInfoResponse::~GetOrganizationInternalInfoResponse() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void GetOrganizationInternalInfoResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance()) delete org_;
+}
+
+void GetOrganizationInternalInfoResponse::ArenaDtor(void* object) {
+  GetOrganizationInternalInfoResponse* _this = reinterpret_cast< GetOrganizationInternalInfoResponse* >(object);
+  (void)_this;
+}
+void GetOrganizationInternalInfoResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetOrganizationInternalInfoResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetOrganizationInternalInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArena() == nullptr && org_ != nullptr) {
+    delete org_;
+  }
+  org_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetOrganizationInternalInfoResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // .percona.platform.org.v1.OrganizationInternalInfo org = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_org(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetOrganizationInternalInfoResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.OrganizationInternalInfo org = 1;
+  if (this->has_org()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::org(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  return target;
+}
+
+size_t GetOrganizationInternalInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .percona.platform.org.v1.OrganizationInternalInfo org = 1;
+  if (this->has_org()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *org_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetOrganizationInternalInfoResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetOrganizationInternalInfoResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetOrganizationInternalInfoResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+    MergeFrom(*source);
+  }
+}
+
+void GetOrganizationInternalInfoResponse::MergeFrom(const GetOrganizationInternalInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_org()) {
+    _internal_mutable_org()->::percona::platform::org::v1::OrganizationInternalInfo::MergeFrom(from._internal_org());
+  }
+}
+
+void GetOrganizationInternalInfoResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetOrganizationInternalInfoResponse::CopyFrom(const GetOrganizationInternalInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.GetOrganizationInternalInfoResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetOrganizationInternalInfoResponse::IsInitialized() const {
+  return true;
+}
+
+void GetOrganizationInternalInfoResponse::InternalSwap(GetOrganizationInternalInfoResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(org_, other->org_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetOrganizationInternalInfoResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class OrganizationInternalInfo::_Internal {
+ public:
+};
+
+OrganizationInternalInfo::OrganizationInternalInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.org.v1.OrganizationInternalInfo)
+}
+OrganizationInternalInfo::OrganizationInternalInfo(const OrganizationInternalInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_id().empty()) {
+    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
+      GetArena());
+  }
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  customer_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_customer_id().empty()) {
+    customer_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_customer_id(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.org.v1.OrganizationInternalInfo)
+}
+
+void OrganizationInternalInfo::SharedCtor() {
+id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+customer_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+OrganizationInternalInfo::~OrganizationInternalInfo() {
+  // @@protoc_insertion_point(destructor:percona.platform.org.v1.OrganizationInternalInfo)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void OrganizationInternalInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  customer_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void OrganizationInternalInfo::ArenaDtor(void* object) {
+  OrganizationInternalInfo* _this = reinterpret_cast< OrganizationInternalInfo* >(object);
+  (void)_this;
+}
+void OrganizationInternalInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void OrganizationInternalInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void OrganizationInternalInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.org.v1.OrganizationInternalInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  id_.ClearToEmpty();
+  name_.ClearToEmpty();
+  customer_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* OrganizationInternalInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.OrganizationInternalInfo.id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string name = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.OrganizationInternalInfo.name"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string customer_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_customer_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.org.v1.OrganizationInternalInfo.customer_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* OrganizationInternalInfo::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.org.v1.OrganizationInternalInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string id = 1;
+  if (this->id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_id().data(), static_cast<int>(this->_internal_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.OrganizationInternalInfo.id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_id(), target);
+  }
+
+  // string name = 2;
+  if (this->name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.OrganizationInternalInfo.name");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_name(), target);
+  }
+
+  // string customer_id = 3;
+  if (this->customer_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_customer_id().data(), static_cast<int>(this->_internal_customer_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.org.v1.OrganizationInternalInfo.customer_id");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_customer_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.org.v1.OrganizationInternalInfo)
+  return target;
+}
+
+size_t OrganizationInternalInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.org.v1.OrganizationInternalInfo)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string id = 1;
+  if (this->id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_id());
+  }
+
+  // string name = 2;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string customer_id = 3;
+  if (this->customer_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_customer_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void OrganizationInternalInfo::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.org.v1.OrganizationInternalInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  const OrganizationInternalInfo* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<OrganizationInternalInfo>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.org.v1.OrganizationInternalInfo)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.org.v1.OrganizationInternalInfo)
+    MergeFrom(*source);
+  }
+}
+
+void OrganizationInternalInfo::MergeFrom(const OrganizationInternalInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.org.v1.OrganizationInternalInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.id().size() > 0) {
+    _internal_set_id(from._internal_id());
+  }
+  if (from.name().size() > 0) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from.customer_id().size() > 0) {
+    _internal_set_customer_id(from._internal_customer_id());
+  }
+}
+
+void OrganizationInternalInfo::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.org.v1.OrganizationInternalInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void OrganizationInternalInfo::CopyFrom(const OrganizationInternalInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.org.v1.OrganizationInternalInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool OrganizationInternalInfo::IsInitialized() const {
+  return true;
+}
+
+void OrganizationInternalInfo::InternalSwap(OrganizationInternalInfo* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  customer_id_.Swap(&other->customer_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata OrganizationInternalInfo::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace v1
 }  // namespace org
@@ -9951,6 +10706,15 @@ template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::SearchOrganizationTic
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::OrganizationTicket* Arena::CreateMaybeMessage< ::percona::platform::org::v1::OrganizationTicket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::org::v1::OrganizationTicket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::GetOrganizationInternalInfoRequest* Arena::CreateMaybeMessage< ::percona::platform::org::v1::GetOrganizationInternalInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::GetOrganizationInternalInfoRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::GetOrganizationInternalInfoResponse* Arena::CreateMaybeMessage< ::percona::platform::org::v1::GetOrganizationInternalInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::GetOrganizationInternalInfoResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::org::v1::OrganizationInternalInfo* Arena::CreateMaybeMessage< ::percona::platform::org::v1::OrganizationInternalInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::org::v1::OrganizationInternalInfo >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

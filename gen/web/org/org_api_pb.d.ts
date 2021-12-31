@@ -868,3 +868,67 @@ export namespace OrganizationTicket {
   }
 }
 
+export class GetOrganizationInternalInfoRequest extends jspb.Message {
+  getOrgId(): string;
+  setOrgId(value: string): GetOrganizationInternalInfoRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationInternalInfoRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationInternalInfoRequest): GetOrganizationInternalInfoRequest.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationInternalInfoRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationInternalInfoRequest;
+  static deserializeBinaryFromReader(message: GetOrganizationInternalInfoRequest, reader: jspb.BinaryReader): GetOrganizationInternalInfoRequest;
+}
+
+export namespace GetOrganizationInternalInfoRequest {
+  export type AsObject = {
+    orgId: string,
+  }
+}
+
+export class GetOrganizationInternalInfoResponse extends jspb.Message {
+  getOrg(): OrganizationInternalInfo | undefined;
+  setOrg(value?: OrganizationInternalInfo): GetOrganizationInternalInfoResponse;
+  hasOrg(): boolean;
+  clearOrg(): GetOrganizationInternalInfoResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetOrganizationInternalInfoResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetOrganizationInternalInfoResponse): GetOrganizationInternalInfoResponse.AsObject;
+  static serializeBinaryToWriter(message: GetOrganizationInternalInfoResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetOrganizationInternalInfoResponse;
+  static deserializeBinaryFromReader(message: GetOrganizationInternalInfoResponse, reader: jspb.BinaryReader): GetOrganizationInternalInfoResponse;
+}
+
+export namespace GetOrganizationInternalInfoResponse {
+  export type AsObject = {
+    org?: OrganizationInternalInfo.AsObject,
+  }
+}
+
+export class OrganizationInternalInfo extends jspb.Message {
+  getId(): string;
+  setId(value: string): OrganizationInternalInfo;
+
+  getName(): string;
+  setName(value: string): OrganizationInternalInfo;
+
+  getCustomerId(): string;
+  setCustomerId(value: string): OrganizationInternalInfo;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OrganizationInternalInfo.AsObject;
+  static toObject(includeInstance: boolean, msg: OrganizationInternalInfo): OrganizationInternalInfo.AsObject;
+  static serializeBinaryToWriter(message: OrganizationInternalInfo, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OrganizationInternalInfo;
+  static deserializeBinaryFromReader(message: OrganizationInternalInfo, reader: jspb.BinaryReader): OrganizationInternalInfo;
+}
+
+export namespace OrganizationInternalInfo {
+  export type AsObject = {
+    id: string,
+    name: string,
+    customerId: string,
+  }
+}
+
