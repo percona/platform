@@ -56,6 +56,8 @@ type OrgAPIClient interface {
 	DisconnectPMM(ctx context.Context, in *DisconnectPMMRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(ctx context.Context, in *SearchInventoryRequest, opts ...grpc.CallOption) (*SearchInventoryResponse, error)
+	// GetOrganizationInfo fetches organization details by ID.
+	GetOrganizationInfo(ctx context.Context, in *GetOrganizationInternalInfoRequest, opts ...grpc.CallOption) (*GetOrganizationInternalInfoResponse, error)
 }
 
 type orgAPIClient struct {
@@ -201,6 +203,15 @@ func (c *orgAPIClient) SearchInventory(ctx context.Context, in *SearchInventoryR
 	return out, nil
 }
 
+func (c *orgAPIClient) GetOrganizationInfo(ctx context.Context, in *GetOrganizationInternalInfoRequest, opts ...grpc.CallOption) (*GetOrganizationInternalInfoResponse, error) {
+	out := new(GetOrganizationInternalInfoResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetOrganizationInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -237,6 +248,8 @@ type OrgAPIServer interface {
 	DisconnectPMM(context.Context, *DisconnectPMMRequest) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error)
+	// GetOrganizationInfo fetches organization details by ID.
+	GetOrganizationInfo(context.Context, *GetOrganizationInternalInfoRequest) (*GetOrganizationInternalInfoResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -288,6 +301,9 @@ func (UnimplementedOrgAPIServer) DisconnectPMM(context.Context, *DisconnectPMMRe
 }
 func (UnimplementedOrgAPIServer) SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchInventory not implemented")
+}
+func (UnimplementedOrgAPIServer) GetOrganizationInfo(context.Context, *GetOrganizationInternalInfoRequest) (*GetOrganizationInternalInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationInfo not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -572,6 +588,24 @@ func _OrgAPI_SearchInventory_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_GetOrganizationInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOrganizationInternalInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).GetOrganizationInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetOrganizationInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).GetOrganizationInfo(ctx, req.(*GetOrganizationInternalInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -638,6 +672,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchInventory",
 			Handler:    _OrgAPI_SearchInventory_Handler,
+		},
+		{
+			MethodName: "GetOrganizationInfo",
+			Handler:    _OrgAPI_GetOrganizationInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
