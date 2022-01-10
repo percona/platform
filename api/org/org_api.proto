@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package percona.platform.org.v1;
 
-option go_package = "/org;orgv1";
+option go_package = "github.com/percona-platform/platform/gen/org;orgv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";
@@ -34,7 +34,7 @@ service OrgAPI {
       body: "*"
     };
   }
-  
+
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {

@@ -374,7 +374,8 @@ const char descriptor_table_protodef_auth_2fauth_5fapi_2eproto[] PROTOBUF_SECTIO
   "ofile\022..percona.platform.auth.v1.UpdateP"
   "rofileRequest\032/.percona.platform.auth.v1"
   ".UpdateProfileResponse\"!\202\323\344\223\002\033\"\026/v1/auth"
-  "/UpdateProfile:\001*B\016Z\014/auth;authv1b\006proto"
+  "/UpdateProfile:\001*B6Z4github.com/percona-"
+  "platform/platform/gen/auth;authv1b\006proto"
   "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_auth_2fauth_5fapi_2eproto_deps[3] = {
@@ -384,7 +385,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_auth_2fauth_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_auth_2fauth_5fapi_2eproto = {
-  false, false, 1921, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
+  false, false, 1961, descriptor_table_protodef_auth_2fauth_5fapi_2eproto, "auth/auth_api.proto", 
   &descriptor_table_auth_2fauth_5fapi_2eproto_once, descriptor_table_auth_2fauth_5fapi_2eproto_deps, 3, 14,
   schemas, file_default_instances, TableStruct_auth_2fauth_5fapi_2eproto::offsets,
   file_level_metadata_auth_2fauth_5fapi_2eproto, file_level_enum_descriptors_auth_2fauth_5fapi_2eproto, file_level_service_descriptors_auth_2fauth_5fapi_2eproto,

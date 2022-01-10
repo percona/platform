@@ -23,7 +23,8 @@ namespace reporter {
 namespace v1 {
 constexpr ReportRequest::ReportRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : events_(){}
+  : events_()
+  , metrics_(){}
 struct ReportRequestDefaultTypeInternal {
   constexpr ReportRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -44,12 +45,44 @@ struct ReportResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReportResponseDefaultTypeInternal _ReportResponse_default_instance_;
+constexpr ServerMetric_Metric::ServerMetric_Metric(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct ServerMetric_MetricDefaultTypeInternal {
+  constexpr ServerMetric_MetricDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ServerMetric_MetricDefaultTypeInternal() {}
+  union {
+    ServerMetric_Metric _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ServerMetric_MetricDefaultTypeInternal _ServerMetric_Metric_default_instance_;
+constexpr ServerMetric::ServerMetric(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : metrics_()
+  , id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , pmm_server_telemetry_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , pmm_server_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , time_(nullptr)
+  , up_duration_(nullptr)
+  , distribution_method_(0)
+{}
+struct ServerMetricDefaultTypeInternal {
+  constexpr ServerMetricDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ServerMetricDefaultTypeInternal() {}
+  union {
+    ServerMetric _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ServerMetricDefaultTypeInternal _ServerMetric_default_instance_;
 }  // namespace v1
 }  // namespace reporter
 }  // namespace telemetry
 }  // namespace platform
 }  // namespace percona
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto[2];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto = nullptr;
 
@@ -60,20 +93,44 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_telemetry_2freporter_2freporte
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ReportRequest, events_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ReportRequest, metrics_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ReportResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric_Metric, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric_Metric, key_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric_Metric, value_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, time_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, pmm_server_telemetry_id_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, pmm_server_version_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, up_duration_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, distribution_method_),
+  PROTOBUF_FIELD_OFFSET(::percona::platform::telemetry::reporter::v1::ServerMetric, metrics_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::percona::platform::telemetry::reporter::v1::ReportRequest)},
-  { 6, -1, sizeof(::percona::platform::telemetry::reporter::v1::ReportResponse)},
+  { 7, -1, sizeof(::percona::platform::telemetry::reporter::v1::ReportResponse)},
+  { 12, -1, sizeof(::percona::platform::telemetry::reporter::v1::ServerMetric_Metric)},
+  { 19, -1, sizeof(::percona::platform::telemetry::reporter::v1::ServerMetric)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::telemetry::reporter::v1::_ReportRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::telemetry::reporter::v1::_ReportResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::telemetry::reporter::v1::_ServerMetric_Metric_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::percona::platform::telemetry::reporter::v1::_ServerMetric_default_instance_),
 };
 
 const char descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -81,25 +138,45 @@ const char descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2epro
   "&percona.platform.telemetry.reporter.v1\032"
   "6github.com/mwitkow/go-proto-validators/"
   "validator.proto\032\036telemetry/reporter/even"
-  "t.proto\032\034google/api/annotations.proto\"V\n"
-  "\rReportRequest\022E\n\006events\030\001 \003(\0132-.percona"
-  ".platform.telemetry.reporter.v1.EventB\006\342"
-  "\337\037\002`\001\"\020\n\016ReportResponse2\250\001\n\013ReporterAPI\022"
-  "\230\001\n\006Report\0225.percona.platform.telemetry."
-  "reporter.v1.ReportRequest\0326.percona.plat"
-  "form.telemetry.reporter.v1.ReportRespons"
-  "e\"\037\202\323\344\223\002\031\"\024/v1/telemetry/Report:\001*B Z\036/t"
-  "elemetry/reporter;reporterv1b\006proto3"
+  "t.proto\032.telemetry/events/pmm/server_upt"
+  "ime_event.proto\032\036google/protobuf/duratio"
+  "n.proto\032\034google/api/annotations.proto\032\037g"
+  "oogle/protobuf/timestamp.proto\"\225\001\n\rRepor"
+  "tRequest\022=\n\006events\030\001 \003(\0132-.percona.platf"
+  "orm.telemetry.reporter.v1.Event\022E\n\007metri"
+  "cs\030\002 \003(\01324.percona.platform.telemetry.re"
+  "porter.v1.ServerMetric\"\020\n\016ReportResponse"
+  "\"\263\003\n\014ServerMetric\022\023\n\002id\030\001 \001(\014B\007\342\337\037\003\200\001\020\0220"
+  "\n\004time\030\002 \001(\0132\032.google.protobuf.Timestamp"
+  "B\006\342\337\037\002 \001\022(\n\027pmm_server_telemetry_id\030\003 \001("
+  "\014B\007\342\337\037\003\200\001\020\022\"\n\022pmm_server_version\030\004 \001(\tB\006"
+  "\342\337\037\002p\004\0226\n\013up_duration\030\005 \001(\0132\031.google.pro"
+  "tobuf.DurationB\006\342\337\037\002 \001\022b\n\023distribution_m"
+  "ethod\030\006 \001(\0162<.percona.platform.telemetry"
+  ".events.pmm.v1.DistributionMethodB\007\342\337\037\003\210"
+  "\001\001\022L\n\007metrics\030\007 \003(\0132;.percona.platform.t"
+  "elemetry.reporter.v1.ServerMetric.Metric"
+  "\032$\n\006Metric\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t2\250"
+  "\001\n\013ReporterAPI\022\230\001\n\006Report\0225.percona.plat"
+  "form.telemetry.reporter.v1.ReportRequest"
+  "\0326.percona.platform.telemetry.reporter.v"
+  "1.ReportResponse\"\037\202\323\344\223\002\031\"\024/v1/telemetry/"
+  "Report:\001*BHZFgithub.com/percona-platform"
+  "/platform/gen/telemetry/reporter;reporte"
+  "rv1b\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps[3] = {
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps[6] = {
   &::descriptor_table_github_2ecom_2fmwitkow_2fgo_2dproto_2dvalidators_2fvalidator_2eproto,
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
+  &::descriptor_table_google_2fprotobuf_2fduration_2eproto,
+  &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
+  &::descriptor_table_telemetry_2fevents_2fpmm_2fserver_5fuptime_5fevent_2eproto,
   &::descriptor_table_telemetry_2freporter_2fevent_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto = {
-  false, false, 516, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 
-  &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 3, 2,
+  false, false, 1171, descriptor_table_protodef_telemetry_2freporter_2freporter_5fapi_2eproto, "telemetry/reporter/reporter_api.proto", 
+  &descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_once, descriptor_table_telemetry_2freporter_2freporter_5fapi_2eproto_deps, 6, 4,
   schemas, file_default_instances, TableStruct_telemetry_2freporter_2freporter_5fapi_2eproto::offsets,
   file_level_metadata_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_enum_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto, file_level_service_descriptors_telemetry_2freporter_2freporter_5fapi_2eproto,
 };
@@ -128,14 +205,16 @@ void ReportRequest::clear_events() {
 }
 ReportRequest::ReportRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  events_(arena) {
+  events_(arena),
+  metrics_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.reporter.v1.ReportRequest)
 }
 ReportRequest::ReportRequest(const ReportRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      events_(from.events_) {
+      events_(from.events_),
+      metrics_(from.metrics_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.ReportRequest)
 }
@@ -170,6 +249,7 @@ void ReportRequest::Clear() {
   (void) cached_has_bits;
 
   events_.Clear();
+  metrics_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -180,7 +260,7 @@ const char* ReportRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // repeated .percona.platform.telemetry.reporter.v1.Event events = 1 [(.validator.field) = {
+      // repeated .percona.platform.telemetry.reporter.v1.Event events = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr -= 1;
@@ -190,6 +270,18 @@ const char* ReportRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // repeated .percona.platform.telemetry.reporter.v1.ServerMetric metrics = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_metrics(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -220,12 +312,20 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .percona.platform.telemetry.reporter.v1.Event events = 1 [(.validator.field) = {
+  // repeated .percona.platform.telemetry.reporter.v1.Event events = 1;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_events_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, this->_internal_events(i), target, stream);
+  }
+
+  // repeated .percona.platform.telemetry.reporter.v1.ServerMetric metrics = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_metrics_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, this->_internal_metrics(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -244,9 +344,16 @@ size_t ReportRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .percona.platform.telemetry.reporter.v1.Event events = 1 [(.validator.field) = {
+  // repeated .percona.platform.telemetry.reporter.v1.Event events = 1;
   total_size += 1UL * this->_internal_events_size();
   for (const auto& msg : this->events_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .percona.platform.telemetry.reporter.v1.ServerMetric metrics = 2;
+  total_size += 1UL * this->_internal_metrics_size();
+  for (const auto& msg : this->metrics_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -283,6 +390,7 @@ void ReportRequest::MergeFrom(const ReportRequest& from) {
   (void) cached_has_bits;
 
   events_.MergeFrom(from.events_);
+  metrics_.MergeFrom(from.metrics_);
 }
 
 void ReportRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -307,6 +415,7 @@ void ReportRequest::InternalSwap(ReportRequest* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   events_.InternalSwap(&other->events_);
+  metrics_.InternalSwap(&other->metrics_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportRequest::GetMetadata() const {
@@ -471,6 +580,670 @@ void ReportResponse::InternalSwap(ReportResponse* other) {
 }
 
 
+// ===================================================================
+
+class ServerMetric_Metric::_Internal {
+ public:
+};
+
+ServerMetric_Metric::ServerMetric_Metric(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+}
+ServerMetric_Metric::ServerMetric_Metric(const ServerMetric_Metric& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_key().empty()) {
+    key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_key(), 
+      GetArena());
+  }
+  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_value().empty()) {
+    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+}
+
+void ServerMetric_Metric::SharedCtor() {
+key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ServerMetric_Metric::~ServerMetric_Metric() {
+  // @@protoc_insertion_point(destructor:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ServerMetric_Metric::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ServerMetric_Metric::ArenaDtor(void* object) {
+  ServerMetric_Metric* _this = reinterpret_cast< ServerMetric_Metric* >(object);
+  (void)_this;
+}
+void ServerMetric_Metric::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ServerMetric_Metric::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ServerMetric_Metric::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  key_.ClearToEmpty();
+  value_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ServerMetric_Metric::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string key = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_key();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.telemetry.reporter.v1.ServerMetric.Metric.key"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string value = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_value();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.telemetry.reporter.v1.ServerMetric.Metric.value"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ServerMetric_Metric::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string key = 1;
+  if (this->key().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_key().data(), static_cast<int>(this->_internal_key().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.telemetry.reporter.v1.ServerMetric.Metric.key");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_key(), target);
+  }
+
+  // string value = 2;
+  if (this->value().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_value().data(), static_cast<int>(this->_internal_value().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.telemetry.reporter.v1.ServerMetric.Metric.value");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_value(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  return target;
+}
+
+size_t ServerMetric_Metric::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string key = 1;
+  if (this->key().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_key());
+  }
+
+  // string value = 2;
+  if (this->value().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_value());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ServerMetric_Metric::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ServerMetric_Metric* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ServerMetric_Metric>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+    MergeFrom(*source);
+  }
+}
+
+void ServerMetric_Metric::MergeFrom(const ServerMetric_Metric& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.key().size() > 0) {
+    _internal_set_key(from._internal_key());
+  }
+  if (from.value().size() > 0) {
+    _internal_set_value(from._internal_value());
+  }
+}
+
+void ServerMetric_Metric::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerMetric_Metric::CopyFrom(const ServerMetric_Metric& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.telemetry.reporter.v1.ServerMetric.Metric)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerMetric_Metric::IsInitialized() const {
+  return true;
+}
+
+void ServerMetric_Metric::InternalSwap(ServerMetric_Metric* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  key_.Swap(&other->key_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  value_.Swap(&other->value_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ServerMetric_Metric::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class ServerMetric::_Internal {
+ public:
+  static const PROTOBUF_NAMESPACE_ID::Timestamp& time(const ServerMetric* msg);
+  static const PROTOBUF_NAMESPACE_ID::Duration& up_duration(const ServerMetric* msg);
+};
+
+const PROTOBUF_NAMESPACE_ID::Timestamp&
+ServerMetric::_Internal::time(const ServerMetric* msg) {
+  return *msg->time_;
+}
+const PROTOBUF_NAMESPACE_ID::Duration&
+ServerMetric::_Internal::up_duration(const ServerMetric* msg) {
+  return *msg->up_duration_;
+}
+void ServerMetric::clear_time() {
+  if (GetArena() == nullptr && time_ != nullptr) {
+    delete time_;
+  }
+  time_ = nullptr;
+}
+void ServerMetric::clear_up_duration() {
+  if (GetArena() == nullptr && up_duration_ != nullptr) {
+    delete up_duration_;
+  }
+  up_duration_ = nullptr;
+}
+ServerMetric::ServerMetric(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  metrics_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:percona.platform.telemetry.reporter.v1.ServerMetric)
+}
+ServerMetric::ServerMetric(const ServerMetric& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      metrics_(from.metrics_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_id().empty()) {
+    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
+      GetArena());
+  }
+  pmm_server_telemetry_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_pmm_server_telemetry_id().empty()) {
+    pmm_server_telemetry_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pmm_server_telemetry_id(), 
+      GetArena());
+  }
+  pmm_server_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_pmm_server_version().empty()) {
+    pmm_server_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pmm_server_version(), 
+      GetArena());
+  }
+  if (from._internal_has_time()) {
+    time_ = new PROTOBUF_NAMESPACE_ID::Timestamp(*from.time_);
+  } else {
+    time_ = nullptr;
+  }
+  if (from._internal_has_up_duration()) {
+    up_duration_ = new PROTOBUF_NAMESPACE_ID::Duration(*from.up_duration_);
+  } else {
+    up_duration_ = nullptr;
+  }
+  distribution_method_ = from.distribution_method_;
+  // @@protoc_insertion_point(copy_constructor:percona.platform.telemetry.reporter.v1.ServerMetric)
+}
+
+void ServerMetric::SharedCtor() {
+id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+pmm_server_telemetry_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+pmm_server_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&time_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&distribution_method_) -
+    reinterpret_cast<char*>(&time_)) + sizeof(distribution_method_));
+}
+
+ServerMetric::~ServerMetric() {
+  // @@protoc_insertion_point(destructor:percona.platform.telemetry.reporter.v1.ServerMetric)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void ServerMetric::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  pmm_server_telemetry_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  pmm_server_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete time_;
+  if (this != internal_default_instance()) delete up_duration_;
+}
+
+void ServerMetric::ArenaDtor(void* object) {
+  ServerMetric* _this = reinterpret_cast< ServerMetric* >(object);
+  (void)_this;
+}
+void ServerMetric::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ServerMetric::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ServerMetric::Clear() {
+// @@protoc_insertion_point(message_clear_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  metrics_.Clear();
+  id_.ClearToEmpty();
+  pmm_server_telemetry_id_.ClearToEmpty();
+  pmm_server_version_.ClearToEmpty();
+  if (GetArena() == nullptr && time_ != nullptr) {
+    delete time_;
+  }
+  time_ = nullptr;
+  if (GetArena() == nullptr && up_duration_ != nullptr) {
+    delete up_duration_;
+  }
+  up_duration_ = nullptr;
+  distribution_method_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ServerMetric::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bytes id = 1 [(.validator.field) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Timestamp time = 2 [(.validator.field) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_time(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes pmm_server_telemetry_id = 3 [(.validator.field) = {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_pmm_server_telemetry_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string pmm_server_version = 4 [(.validator.field) = {
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          auto str = _internal_mutable_pmm_server_version();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "percona.platform.telemetry.reporter.v1.ServerMetric.pmm_server_version"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .google.protobuf.Duration up_duration = 5 [(.validator.field) = {
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_up_duration(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .percona.platform.telemetry.events.pmm.v1.DistributionMethod distribution_method = 6 [(.validator.field) = {
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_distribution_method(static_cast<::percona::platform::telemetry::events::pmm::v1::DistributionMethod>(val));
+        } else goto handle_unusual;
+        continue;
+      // repeated .percona.platform.telemetry.reporter.v1.ServerMetric.Metric metrics = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_metrics(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ServerMetric::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes id = 1 [(.validator.field) = {
+  if (this->id().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_id(), target);
+  }
+
+  // .google.protobuf.Timestamp time = 2 [(.validator.field) = {
+  if (this->has_time()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::time(this), target, stream);
+  }
+
+  // bytes pmm_server_telemetry_id = 3 [(.validator.field) = {
+  if (this->pmm_server_telemetry_id().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        3, this->_internal_pmm_server_telemetry_id(), target);
+  }
+
+  // string pmm_server_version = 4 [(.validator.field) = {
+  if (this->pmm_server_version().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_pmm_server_version().data(), static_cast<int>(this->_internal_pmm_server_version().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "percona.platform.telemetry.reporter.v1.ServerMetric.pmm_server_version");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_pmm_server_version(), target);
+  }
+
+  // .google.protobuf.Duration up_duration = 5 [(.validator.field) = {
+  if (this->has_up_duration()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        5, _Internal::up_duration(this), target, stream);
+  }
+
+  // .percona.platform.telemetry.events.pmm.v1.DistributionMethod distribution_method = 6 [(.validator.field) = {
+  if (this->distribution_method() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_distribution_method(), target);
+  }
+
+  // repeated .percona.platform.telemetry.reporter.v1.ServerMetric.Metric metrics = 7;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_metrics_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, this->_internal_metrics(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:percona.platform.telemetry.reporter.v1.ServerMetric)
+  return target;
+}
+
+size_t ServerMetric::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .percona.platform.telemetry.reporter.v1.ServerMetric.Metric metrics = 7;
+  total_size += 1UL * this->_internal_metrics_size();
+  for (const auto& msg : this->metrics_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // bytes id = 1 [(.validator.field) = {
+  if (this->id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_id());
+  }
+
+  // bytes pmm_server_telemetry_id = 3 [(.validator.field) = {
+  if (this->pmm_server_telemetry_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_pmm_server_telemetry_id());
+  }
+
+  // string pmm_server_version = 4 [(.validator.field) = {
+  if (this->pmm_server_version().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_pmm_server_version());
+  }
+
+  // .google.protobuf.Timestamp time = 2 [(.validator.field) = {
+  if (this->has_time()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *time_);
+  }
+
+  // .google.protobuf.Duration up_duration = 5 [(.validator.field) = {
+  if (this->has_up_duration()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *up_duration_);
+  }
+
+  // .percona.platform.telemetry.events.pmm.v1.DistributionMethod distribution_method = 6 [(.validator.field) = {
+  if (this->distribution_method() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_distribution_method());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ServerMetric::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ServerMetric* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ServerMetric>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:percona.platform.telemetry.reporter.v1.ServerMetric)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:percona.platform.telemetry.reporter.v1.ServerMetric)
+    MergeFrom(*source);
+  }
+}
+
+void ServerMetric::MergeFrom(const ServerMetric& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  metrics_.MergeFrom(from.metrics_);
+  if (from.id().size() > 0) {
+    _internal_set_id(from._internal_id());
+  }
+  if (from.pmm_server_telemetry_id().size() > 0) {
+    _internal_set_pmm_server_telemetry_id(from._internal_pmm_server_telemetry_id());
+  }
+  if (from.pmm_server_version().size() > 0) {
+    _internal_set_pmm_server_version(from._internal_pmm_server_version());
+  }
+  if (from.has_time()) {
+    _internal_mutable_time()->PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_time());
+  }
+  if (from.has_up_duration()) {
+    _internal_mutable_up_duration()->PROTOBUF_NAMESPACE_ID::Duration::MergeFrom(from._internal_up_duration());
+  }
+  if (from.distribution_method() != 0) {
+    _internal_set_distribution_method(from._internal_distribution_method());
+  }
+}
+
+void ServerMetric::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerMetric::CopyFrom(const ServerMetric& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:percona.platform.telemetry.reporter.v1.ServerMetric)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerMetric::IsInitialized() const {
+  return true;
+}
+
+void ServerMetric::InternalSwap(ServerMetric* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  metrics_.InternalSwap(&other->metrics_);
+  id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  pmm_server_telemetry_id_.Swap(&other->pmm_server_telemetry_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  pmm_server_version_.Swap(&other->pmm_server_version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ServerMetric, distribution_method_)
+      + sizeof(ServerMetric::distribution_method_)
+      - PROTOBUF_FIELD_OFFSET(ServerMetric, time_)>(
+          reinterpret_cast<char*>(&time_),
+          reinterpret_cast<char*>(&other->time_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ServerMetric::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace v1
 }  // namespace reporter
@@ -483,6 +1256,12 @@ template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::Repor
 }
 template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::ReportResponse* Arena::CreateMaybeMessage< ::percona::platform::telemetry::reporter::v1::ReportResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::percona::platform::telemetry::reporter::v1::ReportResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::ServerMetric_Metric* Arena::CreateMaybeMessage< ::percona::platform::telemetry::reporter::v1::ServerMetric_Metric >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::telemetry::reporter::v1::ServerMetric_Metric >(arena);
+}
+template<> PROTOBUF_NOINLINE ::percona::platform::telemetry::reporter::v1::ServerMetric* Arena::CreateMaybeMessage< ::percona::platform::telemetry::reporter::v1::ServerMetric >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::percona::platform::telemetry::reporter::v1::ServerMetric >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
