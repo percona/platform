@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package percona.platform.org.v1;
 
-option go_package = "/org;orgv1";
+option go_package = "github.com/percona-platform/platform/gen/org;orgv1";
 
 import "validator/validator.proto";
 import "google/api/annotations.proto";
