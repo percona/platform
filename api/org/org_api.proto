@@ -203,7 +203,7 @@ message CreateOrganizationResponse {
 
 message UpdateOrganizationRequest {
   // Percona Portal Organization
-  Organization organization = 2;
+  Organization organization = 1;
 }
 
 message UpdateOrganizationResponse {

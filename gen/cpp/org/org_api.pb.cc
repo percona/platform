@@ -899,7 +899,7 @@ const char descriptor_table_protodef_org_2forg_5fapi_2eproto[] PROTOBUF_SECTION_
   "st\022\024\n\004name\030\001 \001(\tB\006\342\337\037\002X\001\"P\n\032CreateOrgani"
   "zationResponse\0222\n\003org\030\001 \001(\0132%.percona.pl"
   "atform.org.v1.Organization\"X\n\031UpdateOrga"
-  "nizationRequest\022;\n\014organization\030\002 \001(\0132%."
+  "nizationRequest\022;\n\014organization\030\001 \001(\0132%."
   "percona.platform.org.v1.Organization\"P\n\032"
   "UpdateOrganizationResponse\0222\n\003org\030\001 \001(\0132"
   "%.percona.platform.org.v1.Organization\"\237"
@@ -2711,9 +2711,9 @@ const char* UpdateOrganizationRequest::_InternalParse(const char* ptr, ::PROTOBU
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // .percona.platform.org.v1.Organization organization = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+      // .percona.platform.org.v1.Organization organization = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_organization(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -2746,12 +2746,12 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.Organization organization = 2;
+  // .percona.platform.org.v1.Organization organization = 1;
   if (this->has_organization()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::organization(this), target, stream);
+        1, _Internal::organization(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2770,7 +2770,7 @@ size_t UpdateOrganizationRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .percona.platform.org.v1.Organization organization = 2;
+  // .percona.platform.org.v1.Organization organization = 1;
   if (this->has_organization()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
