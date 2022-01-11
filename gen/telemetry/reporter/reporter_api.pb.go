@@ -7,14 +7,12 @@
 package reporterv1
 
 import (
-	reflect "reflect"
-	sync "sync"
-
+	_ "github.com/percona-platform/platform/gen/validator"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-
-	_ "github.com/percona-platform/platform/gen/validator"
+	reflect "reflect"
+	sync "sync"
 )
 
 const (

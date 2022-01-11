@@ -6,13 +6,11 @@ package reporterv1
 import (
 	fmt "fmt"
 	math "math"
-	regexp "regexp"
-
 	proto "github.com/golang/protobuf/proto"
-	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
-	_ "google.golang.org/protobuf/types/known/timestamppb"
-
 	_ "github.com/percona-platform/platform/gen/validator"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
+	regexp "regexp"
+	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
