@@ -2064,7 +2064,7 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.deserializeBinaryFromRea
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 2:
+    case 1:
       var value = new proto.percona.platform.org.v1.Organization;
       reader.readMessage(value,proto.percona.platform.org.v1.Organization.deserializeBinaryFromReader);
       msg.setOrganization(value);
@@ -2101,7 +2101,7 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.serializeBinaryToWriter 
   f = message.getOrganization();
   if (f != null) {
     writer.writeMessage(
-      2,
+      1,
       f,
       proto.percona.platform.org.v1.Organization.serializeBinaryToWriter
     );
@@ -2110,12 +2110,12 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.serializeBinaryToWriter 
 
 
 /**
- * optional Organization organization = 2;
+ * optional Organization organization = 1;
  * @return {?proto.percona.platform.org.v1.Organization}
  */
 proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.getOrganization = function() {
   return /** @type{?proto.percona.platform.org.v1.Organization} */ (
-    jspb.Message.getWrapperField(this, proto.percona.platform.org.v1.Organization, 2));
+    jspb.Message.getWrapperField(this, proto.percona.platform.org.v1.Organization, 1));
 };
 
 
@@ -2124,7 +2124,7 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.getOrganizatio
  * @return {!proto.percona.platform.org.v1.UpdateOrganizationRequest} returns this
 */
 proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.setOrganization = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
@@ -2142,7 +2142,7 @@ proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.clearOrganizat
  * @return {boolean}
  */
 proto.percona.platform.org.v1.UpdateOrganizationRequest.prototype.hasOrganization = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 1) != null;
 };
 
 

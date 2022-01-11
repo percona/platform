@@ -1375,9 +1375,9 @@ class UpdateOrganizationRequest PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOrganizationFieldNumber = 2,
+    kOrganizationFieldNumber = 1,
   };
-  // .percona.platform.org.v1.Organization organization = 2;
+  // .percona.platform.org.v1.Organization organization = 1;
   bool has_organization() const;
   private:
   bool _internal_has_organization() const;
@@ -7502,7 +7502,7 @@ inline void CreateOrganizationResponse::set_allocated_org(::percona::platform::o
 
 // UpdateOrganizationRequest
 
-// .percona.platform.org.v1.Organization organization = 2;
+// .percona.platform.org.v1.Organization organization = 1;
 inline bool UpdateOrganizationRequest::_internal_has_organization() const {
   return this != internal_default_instance() && organization_ != nullptr;
 }
