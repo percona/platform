@@ -13,6 +13,7 @@ ci-init:                                   ## Initialize CI environment
 gen:                                       ## Format, check, and generate code using buf; TODO Add lint and break commands
 	rm -rf gen
 	bin/buf generate
+	make format
 
 gen-dev:                                   ## Keep it to make the CI green, TODO remove it in the next PR
 	make gen
