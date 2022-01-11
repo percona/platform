@@ -7,13 +7,15 @@
 package pmmv1
 
 import (
-	_ "github.com/percona-platform/platform/gen/validator"
+	reflect "reflect"
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
-	reflect "reflect"
-	sync "sync"
+
+	_ "github.com/percona-platform/platform/gen/validator"
 )
 
 const (
