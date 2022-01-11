@@ -190,5 +190,4 @@ func main() {
 		flag.PrintDefaults()
 		log.Fatal("Provide the target project name")
 	}
-
 }
