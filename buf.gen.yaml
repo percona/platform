@@ -10,16 +10,20 @@ plugins:
     out: gen
     opt:
       - paths=source_relative
+    path: bin/protoc-gen-go
   - name: go-grpc
     out: gen
     opt:
       - paths=source_relative
+    path: bin/protoc-gen-go-grpc
   - name: grpc-gateway
     out: gen
     opt:
       - paths=source_relative
+    path: bin/protoc-gen-grpc-gateway
   - name: govalidators
     out: gen
     opt:
       - paths=source_relative
       - lang=go
+    path: bin/protoc-gen-govalidators

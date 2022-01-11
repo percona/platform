@@ -9,7 +9,6 @@ init:                                      ## Install development tools
 	cd tools && go generate -x -tags=tools
 
 ci-init:                                   ## Initialize CI environment
-	cp ./bin/* /usr/local/bin
 
 gen:                                       ## Format, check, and generate code using buf; TODO Add lint and break commands
 	rm -rf gen
