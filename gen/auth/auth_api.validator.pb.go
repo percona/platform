@@ -7,9 +7,9 @@ import (
 	fmt "fmt"
 	math "math"
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/percona-platform/platform/gen/validator"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "github.com/percona-platform/platform/gen/validator"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 )
 
