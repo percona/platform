@@ -20,6 +20,14 @@ service OrgAPI {
     };
   }
 
+  // UpdateOrganization updates the organization with the given ID.
+  rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{organization.id}"
+      body: "organization"
+    };
+  }
+
   // GetOrganization fetches organization details by ID.
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {
@@ -34,7 +42,7 @@ service OrgAPI {
       body: "*"
     };
   }
-  
+
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
@@ -163,9 +171,17 @@ message ConnectPMMResponse {
 
 message Organization {
   // Percona Portal Organization ID.
-  string id = 1;
+  string id = 1[
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
   // Percona Portal Organization Name.
-  string name = 2;
+  string name = 2[
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
   // Timestamp of organization creation.
   google.protobuf.Timestamp created_at = 3;
   // Timestamp when organization was last updated.
@@ -182,6 +198,15 @@ message CreateOrganizationRequest {
 }
 
 message CreateOrganizationResponse {
+  Organization org = 1;
+}
+
+message UpdateOrganizationRequest {
+  // Percona Portal Organization
+  Organization organization = 1;
+}
+
+message UpdateOrganizationResponse {
   Organization org = 1;
 }
 

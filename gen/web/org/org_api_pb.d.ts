@@ -159,6 +159,46 @@ export namespace CreateOrganizationResponse {
   }
 }
 
+export class UpdateOrganizationRequest extends jspb.Message {
+  getOrganization(): Organization | undefined;
+  setOrganization(value?: Organization): UpdateOrganizationRequest;
+  hasOrganization(): boolean;
+  clearOrganization(): UpdateOrganizationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateOrganizationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateOrganizationRequest): UpdateOrganizationRequest.AsObject;
+  static serializeBinaryToWriter(message: UpdateOrganizationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateOrganizationRequest;
+  static deserializeBinaryFromReader(message: UpdateOrganizationRequest, reader: jspb.BinaryReader): UpdateOrganizationRequest;
+}
+
+export namespace UpdateOrganizationRequest {
+  export type AsObject = {
+    organization?: Organization.AsObject,
+  }
+}
+
+export class UpdateOrganizationResponse extends jspb.Message {
+  getOrg(): Organization | undefined;
+  setOrg(value?: Organization): UpdateOrganizationResponse;
+  hasOrg(): boolean;
+  clearOrg(): UpdateOrganizationResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateOrganizationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateOrganizationResponse): UpdateOrganizationResponse.AsObject;
+  static serializeBinaryToWriter(message: UpdateOrganizationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateOrganizationResponse;
+  static deserializeBinaryFromReader(message: UpdateOrganizationResponse, reader: jspb.BinaryReader): UpdateOrganizationResponse;
+}
+
+export namespace UpdateOrganizationResponse {
+  export type AsObject = {
+    org?: Organization.AsObject,
+  }
+}
+
 export class Contacts extends jspb.Message {
   getCustomerSuccess(): Contacts.CustomerSuccess | undefined;
   setCustomerSuccess(value?: Contacts.CustomerSuccess): Contacts;
