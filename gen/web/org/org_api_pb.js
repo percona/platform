@@ -896,7 +896,8 @@ proto.percona.platform.org.v1.PMMServerSSODetails.toObject = function(includeIns
     clientId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     clientSecret: jspb.Message.getFieldWithDefault(msg, 2, ""),
     issuerUrl: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    scope: jspb.Message.getFieldWithDefault(msg, 4, "")
+    scope: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    organizationId: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -948,6 +949,10 @@ proto.percona.platform.org.v1.PMMServerSSODetails.deserializeBinaryFromReader = 
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setScope(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOrganizationId(value);
       break;
     default:
       reader.skipField();
@@ -1003,6 +1008,13 @@ proto.percona.platform.org.v1.PMMServerSSODetails.serializeBinaryToWriter = func
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getOrganizationId();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -1078,6 +1090,24 @@ proto.percona.platform.org.v1.PMMServerSSODetails.prototype.getScope = function(
  */
 proto.percona.platform.org.v1.PMMServerSSODetails.prototype.setScope = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string organization_id = 5;
+ * @return {string}
+ */
+proto.percona.platform.org.v1.PMMServerSSODetails.prototype.getOrganizationId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.org.v1.PMMServerSSODetails} returns this
+ */
+proto.percona.platform.org.v1.PMMServerSSODetails.prototype.setOrganizationId = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 

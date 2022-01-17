@@ -20,6 +20,9 @@ export class PMMServerSSODetails extends jspb.Message {
   getScope(): string;
   setScope(value: string): PMMServerSSODetails;
 
+  getOrganizationId(): string;
+  setOrganizationId(value: string): PMMServerSSODetails;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): PMMServerSSODetails.AsObject;
   static toObject(includeInstance: boolean, msg: PMMServerSSODetails): PMMServerSSODetails.AsObject;
@@ -34,6 +37,7 @@ export namespace PMMServerSSODetails {
     clientSecret: string,
     issuerUrl: string,
     scope: string,
+    organizationId: string,
   }
 }
 

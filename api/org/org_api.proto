@@ -136,6 +136,7 @@ message PMMServerSSODetails {
   string client_secret = 2;
   string issuer_url = 3;
   string scope = 4;
+  string organization_id = 5;
 }
 
 message ConnectPMMRequest {
