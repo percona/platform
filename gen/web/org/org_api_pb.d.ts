@@ -20,9 +20,6 @@ export class PMMServerSSODetails extends jspb.Message {
   getScope(): string;
   setScope(value: string): PMMServerSSODetails;
 
-  getOrganizationId(): string;
-  setOrganizationId(value: string): PMMServerSSODetails;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): PMMServerSSODetails.AsObject;
   static toObject(includeInstance: boolean, msg: PMMServerSSODetails): PMMServerSSODetails.AsObject;
@@ -37,7 +34,6 @@ export namespace PMMServerSSODetails {
     clientSecret: string,
     issuerUrl: string,
     scope: string,
-    organizationId: string,
   }
 }
 
@@ -77,6 +73,9 @@ export class ConnectPMMResponse extends jspb.Message {
   hasSsoDetails(): boolean;
   clearSsoDetails(): ConnectPMMResponse;
 
+  getOrganizationId(): string;
+  setOrganizationId(value: string): ConnectPMMResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ConnectPMMResponse.AsObject;
   static toObject(includeInstance: boolean, msg: ConnectPMMResponse): ConnectPMMResponse.AsObject;
@@ -88,6 +87,7 @@ export class ConnectPMMResponse extends jspb.Message {
 export namespace ConnectPMMResponse {
   export type AsObject = {
     ssoDetails?: PMMServerSSODetails.AsObject,
+    organizationId: string,
   }
 }
 
