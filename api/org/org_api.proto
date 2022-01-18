@@ -167,7 +167,7 @@ message ConnectPMMRequest {
 
 message ConnectPMMResponse {
   PMMServerSSODetails sso_details = 1;
-  string organization_id = 2;
+  string org_id = 2;
 }
 
 message Organization {

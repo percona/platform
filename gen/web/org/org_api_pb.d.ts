@@ -73,8 +73,8 @@ export class ConnectPMMResponse extends jspb.Message {
   hasSsoDetails(): boolean;
   clearSsoDetails(): ConnectPMMResponse;
 
-  getOrganizationId(): string;
-  setOrganizationId(value: string): ConnectPMMResponse;
+  getOrgId(): string;
+  setOrgId(value: string): ConnectPMMResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ConnectPMMResponse.AsObject;
@@ -87,7 +87,7 @@ export class ConnectPMMResponse extends jspb.Message {
 export namespace ConnectPMMResponse {
   export type AsObject = {
     ssoDetails?: PMMServerSSODetails.AsObject,
-    organizationId: string,
+    orgId: string,
   }
 }
 
