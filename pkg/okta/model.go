@@ -11,6 +11,14 @@ type User struct {
 	Status    string
 }
 
+// UpdateUserParams parameters set to update a user.
+type UpdateUserParams struct {
+	PortalAdminOrgsToAdd    []string
+	PortalAdminOrgsToRemove []string
+	Lastname                string
+	Firstname               string
+}
+
 // Group represents user group structure.
 type Group struct {
 	ID          string
