@@ -1,8 +1,3 @@
-DOCKER_DEV_IMAGE  = percona-platform-prototool:dev
-DOCKER_RUN_IMAGE ?= ghcr.io/percona-platform/platform/prototool:latest
-DOCKER_RUN_CMD    = docker run --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_RUN_IMAGE)
-PROTOC_ARGS = -I api -I /usr/local/include --cpp_out=gen/cpp --govalidators_out=gen --grpc-web_out=import_style=typescript,mode=grpcwebtext:gen/web --grpc-gateway_out=logtostderr=true,paths=source_relative:gen --js_out=import_style=commonjs,binary:gen/web --go_out=gen --go_opt=paths=source_relative --go-grpc_out=gen --go-grpc_opt=paths=source_relative
-
 default: help
 
 help:                                      ## Display this help message
@@ -14,29 +9,14 @@ init:                                      ## Install development tools
 	cd tools && go generate -x -tags=tools
 
 ci-init:                                   ## Initialize CI environment
-	# nothing there yet
 
-gen:                                       ## Format, check, and generate code using prototool Docker image
-	$(DOCKER_RUN_CMD) prototool break check api/auth -f api/auth/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break check api/check/retrieval -f api/check/retrieval/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break check api/telemetry -f api/telemetry/descriptor.bin
-
+gen:                                       ## Format, check, and generate code using buf; TODO Add lint and break commands
 	rm -rf gen
-	mkdir -p gen/cpp gen/web
+	bin/buf generate
+	make format
 
-	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/auth/auth_api.proto
-	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/check/retrieval/retrieval_api.proto
-	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/org/org_api.proto
-	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/reporter/*.proto
-	$(DOCKER_RUN_CMD) protoc $(PROTOC_ARGS) api/telemetry/events/pmm/server_uptime_event.proto
-
-	$(DOCKER_RUN_CMD) gofumpt -w .
-	$(DOCKER_RUN_CMD) goimports -local github.com/percona-platform/platform -w .
-
-	$(DOCKER_RUN_CMD) go run post-processing.go -patch-ui
-
-gen-dev: docker-build                      ## Same as `gen` but with DEV prototool Docker image
-	env DOCKER_RUN_IMAGE=$(DOCKER_DEV_IMAGE) make gen
+gen-dev:                                   ## Keep it to make the CI green, TODO remove it in the next PR
+	make gen
 
 gen-code:                                  ## Generate code
 	go generate ./...
@@ -60,27 +40,10 @@ test-crosscover:                           ## Run tests and collect cross-packag
 	go test -race -timeout=10m -count=1 -coverprofile=crosscover.out -covermode=atomic -p=1 -coverpkg=./... ./...
 
 descriptors:                               ## Update files used for breaking changes detection
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/auth -o api/auth/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/check/retrieval -o api/check/retrieval/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/telemetry -o api/telemetry/descriptor.bin
-	$(DOCKER_RUN_CMD) prototool break descriptor-set api/org -o api/org/descriptor.bin
-
-docker-build:                              ## Build prototool Docker dev image
-	docker build --pull --squash --tag $(DOCKER_DEV_IMAGE) -f Dockerfile .
-
-docker-push:                               ## Tag and push prototool Docker image
-	docker tag $(DOCKER_DEV_IMAGE) $(DOCKER_RUN_IMAGE)
-	docker push $(DOCKER_RUN_IMAGE)
-
-run-dev:                                   ## Run bash in prototool Docker dev image
-	# the same as DOCKER_RUN_CMD but with `-it` and dev image
-	docker run -it --rm --mount='type=bind,src=$(PWD),dst=/work' $(DOCKER_DEV_IMAGE) /bin/bash
+	bin/buf build -o platform.bin --as-file-descriptor-set
 
 saas:                                      ## Extract public APIs and generated files into ../saas
 	go run post-processing.go -project saas
-
-saas-ui:                                   ## Extract generated JS/TS files into ../saas-ui
-	go run post-processing.go -project saas-ui
 
 fuzz-check-build:
 	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check

@@ -9,15 +9,18 @@ import (
 	regexp "regexp"
 
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
+
+	_ "github.com/percona-platform/platform/gen/validator"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+var (
+	_ = proto.Marshal
+	_ = fmt.Errorf
+	_ = math.Inf
+)
 
 var _regex_AnyEvent_TypeUrl = regexp.MustCompile(`^percona\.platform\.telemetry\.events\.\w+\.v1\.\w+Event$`)
 
@@ -27,6 +30,7 @@ func (this *AnyEvent) Validate() error {
 	}
 	return nil
 }
+
 func (this *Event) Validate() error {
 	if !(len(this.Id) == 16) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must have a length equal to '16'`, this.Id))

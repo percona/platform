@@ -237,51 +237,64 @@ type OrgAPIServer interface {
 }
 
 // UnimplementedOrgAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedOrgAPIServer struct {
-}
+type UnimplementedOrgAPIServer struct{}
 
 func (UnimplementedOrgAPIServer) CreateOrganization(context.Context, *CreateOrganizationRequest) (*CreateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
 }
+
 func (UnimplementedOrgAPIServer) UpdateOrganization(context.Context, *UpdateOrganizationRequest) (*UpdateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
 }
+
 func (UnimplementedOrgAPIServer) GetOrganization(context.Context, *GetOrganizationRequest) (*GetOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchOrganizations(context.Context, *SearchOrganizationsRequest) (*SearchOrganizationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizations not implemented")
 }
+
 func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOrganization not implemented")
 }
+
 func (UnimplementedOrgAPIServer) InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteMember not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchMembers not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchOrganizationTickets(context.Context, *SearchOrganizationTicketsRequest) (*SearchOrganizationTicketsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationTickets not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserCompany not implemented")
 }
+
 func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
 }
+
 func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
 }
+
 func (UnimplementedOrgAPIServer) ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectPMM not implemented")
 }
+
 func (UnimplementedOrgAPIServer) DisconnectPMM(context.Context, *DisconnectPMMRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DisconnectPMM not implemented")
 }
+
 func (UnimplementedOrgAPIServer) SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchInventory not implemented")
 }

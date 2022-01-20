@@ -13,25 +13,25 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/golang/protobuf/descriptor"
-	"github.com/golang/protobuf/proto"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = descriptor.ForMessage
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_AuthAPI_SignUp_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq SignUpRequest
@@ -47,7 +47,6 @@ func request_AuthAPI_SignUp_0(ctx context.Context, marshaler runtime.Marshaler, 
 
 	msg, err := client.SignUp(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_SignUp_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -64,7 +63,6 @@ func local_request_AuthAPI_SignUp_0(ctx context.Context, marshaler runtime.Marsh
 
 	msg, err := server.SignUp(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_SignIn_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -81,7 +79,6 @@ func request_AuthAPI_SignIn_0(ctx context.Context, marshaler runtime.Marshaler, 
 
 	msg, err := client.SignIn(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_SignIn_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -98,7 +95,6 @@ func local_request_AuthAPI_SignIn_0(ctx context.Context, marshaler runtime.Marsh
 
 	msg, err := server.SignIn(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_SignOut_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -115,7 +111,6 @@ func request_AuthAPI_SignOut_0(ctx context.Context, marshaler runtime.Marshaler,
 
 	msg, err := client.SignOut(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_SignOut_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -132,7 +127,6 @@ func local_request_AuthAPI_SignOut_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := server.SignOut(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_RefreshSession_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -149,7 +143,6 @@ func request_AuthAPI_RefreshSession_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.RefreshSession(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_RefreshSession_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -166,7 +159,6 @@ func local_request_AuthAPI_RefreshSession_0(ctx context.Context, marshaler runti
 
 	msg, err := server.RefreshSession(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_ResetPassword_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -183,7 +175,6 @@ func request_AuthAPI_ResetPassword_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.ResetPassword(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_ResetPassword_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -200,7 +191,6 @@ func local_request_AuthAPI_ResetPassword_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.ResetPassword(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_GetProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -217,7 +207,6 @@ func request_AuthAPI_GetProfile_0(ctx context.Context, marshaler runtime.Marshal
 
 	msg, err := client.GetProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_GetProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -234,7 +223,6 @@ func local_request_AuthAPI_GetProfile_0(ctx context.Context, marshaler runtime.M
 
 	msg, err := server.GetProfile(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_AuthAPI_UpdateProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -251,7 +239,6 @@ func request_AuthAPI_UpdateProfile_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.UpdateProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_AuthAPI_UpdateProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -268,7 +255,6 @@ func local_request_AuthAPI_UpdateProfile_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.UpdateProfile(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterAuthAPIHandlerServer registers the http handlers for service AuthAPI to "mux".
@@ -276,14 +262,13 @@ func local_request_AuthAPI_UpdateProfile_0(ctx context.Context, marshaler runtim
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterAuthAPIHandlerFromEndpoint instead.
 func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server AuthAPIServer) error {
-
 	mux.Handle("POST", pattern_AuthAPI_SignUp_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -297,7 +282,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_SignUp_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_SignIn_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -306,7 +290,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -320,7 +304,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_SignIn_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_SignOut_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -329,7 +312,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -343,7 +326,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_SignOut_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_RefreshSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -352,7 +334,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -366,7 +348,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_RefreshSession_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_ResetPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -375,7 +356,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -389,7 +370,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_ResetPassword_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_GetProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -398,7 +378,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -412,7 +392,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_GetProfile_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_UpdateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -421,7 +400,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -435,7 +414,6 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_AuthAPI_UpdateProfile_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -478,12 +456,11 @@ func RegisterAuthAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "AuthAPIClient" to call the correct interceptors.
 func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client AuthAPIClient) error {
-
 	mux.Handle("POST", pattern_AuthAPI_SignUp_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -496,14 +473,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_SignUp_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_SignIn_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -516,14 +492,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_SignIn_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_SignOut_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -536,14 +511,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_SignOut_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_RefreshSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -556,14 +530,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_RefreshSession_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_ResetPassword_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -576,14 +549,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_ResetPassword_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_GetProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -596,14 +568,13 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_GetProfile_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_AuthAPI_UpdateProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -616,26 +587,25 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_AuthAPI_UpdateProfile_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
 }
 
 var (
-	pattern_AuthAPI_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignUp"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignUp"}, ""))
 
-	pattern_AuthAPI_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignIn"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignIn"}, ""))
 
-	pattern_AuthAPI_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignOut"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_SignOut_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "SignOut"}, ""))
 
-	pattern_AuthAPI_RefreshSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "RefreshSession"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_RefreshSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "RefreshSession"}, ""))
 
-	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "ResetPassword"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_ResetPassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "ResetPassword"}, ""))
 
-	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "GetProfile"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "GetProfile"}, ""))
 
-	pattern_AuthAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "UpdateProfile"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_AuthAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "UpdateProfile"}, ""))
 )
 
 var (
