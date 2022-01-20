@@ -737,8 +737,25 @@ class ConnectPMMResponse PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kOrgIdFieldNumber = 2,
     kSsoDetailsFieldNumber = 1,
   };
+  // string org_id = 2;
+  void clear_org_id();
+  const std::string& org_id() const;
+  void set_org_id(const std::string& value);
+  void set_org_id(std::string&& value);
+  void set_org_id(const char* value);
+  void set_org_id(const char* value, size_t size);
+  std::string* mutable_org_id();
+  std::string* release_org_id();
+  void set_allocated_org_id(std::string* org_id);
+  private:
+  const std::string& _internal_org_id() const;
+  void _internal_set_org_id(const std::string& value);
+  std::string* _internal_mutable_org_id();
+  public:
+
   // .percona.platform.org.v1.PMMServerSSODetails sso_details = 1;
   bool has_sso_details() const;
   private:
@@ -764,6 +781,7 @@ class ConnectPMMResponse PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr org_id_;
   ::percona::platform::org::v1::PMMServerSSODetails* sso_details_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_org_2forg_5fapi_2eproto;
@@ -7064,6 +7082,67 @@ inline void ConnectPMMResponse::set_allocated_sso_details(::percona::platform::o
   }
   sso_details_ = sso_details;
   // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.ConnectPMMResponse.sso_details)
+}
+
+// string org_id = 2;
+inline void ConnectPMMResponse::clear_org_id() {
+  org_id_.ClearToEmpty();
+}
+inline const std::string& ConnectPMMResponse::org_id() const {
+  // @@protoc_insertion_point(field_get:percona.platform.org.v1.ConnectPMMResponse.org_id)
+  return _internal_org_id();
+}
+inline void ConnectPMMResponse::set_org_id(const std::string& value) {
+  _internal_set_org_id(value);
+  // @@protoc_insertion_point(field_set:percona.platform.org.v1.ConnectPMMResponse.org_id)
+}
+inline std::string* ConnectPMMResponse::mutable_org_id() {
+  // @@protoc_insertion_point(field_mutable:percona.platform.org.v1.ConnectPMMResponse.org_id)
+  return _internal_mutable_org_id();
+}
+inline const std::string& ConnectPMMResponse::_internal_org_id() const {
+  return org_id_.Get();
+}
+inline void ConnectPMMResponse::_internal_set_org_id(const std::string& value) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ConnectPMMResponse::set_org_id(std::string&& value) {
+  
+  org_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:percona.platform.org.v1.ConnectPMMResponse.org_id)
+}
+inline void ConnectPMMResponse::set_org_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:percona.platform.org.v1.ConnectPMMResponse.org_id)
+}
+inline void ConnectPMMResponse::set_org_id(const char* value,
+    size_t size) {
+  
+  org_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:percona.platform.org.v1.ConnectPMMResponse.org_id)
+}
+inline std::string* ConnectPMMResponse::_internal_mutable_org_id() {
+  
+  return org_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ConnectPMMResponse::release_org_id() {
+  // @@protoc_insertion_point(field_release:percona.platform.org.v1.ConnectPMMResponse.org_id)
+  return org_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ConnectPMMResponse::set_allocated_org_id(std::string* org_id) {
+  if (org_id != nullptr) {
+    
+  } else {
+    
+  }
+  org_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), org_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:percona.platform.org.v1.ConnectPMMResponse.org_id)
 }
 
 // -------------------------------------------------------------------

@@ -1333,7 +1333,8 @@ proto.percona.platform.org.v1.ConnectPMMResponse.prototype.toObject = function(o
  */
 proto.percona.platform.org.v1.ConnectPMMResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    ssoDetails: (f = msg.getSsoDetails()) && proto.percona.platform.org.v1.PMMServerSSODetails.toObject(includeInstance, f)
+    ssoDetails: (f = msg.getSsoDetails()) && proto.percona.platform.org.v1.PMMServerSSODetails.toObject(includeInstance, f),
+    orgId: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1375,6 +1376,10 @@ proto.percona.platform.org.v1.ConnectPMMResponse.deserializeBinaryFromReader = f
       reader.readMessage(value,proto.percona.platform.org.v1.PMMServerSSODetails.deserializeBinaryFromReader);
       msg.setSsoDetails(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOrgId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1410,6 +1415,13 @@ proto.percona.platform.org.v1.ConnectPMMResponse.serializeBinaryToWriter = funct
       1,
       f,
       proto.percona.platform.org.v1.PMMServerSSODetails.serializeBinaryToWriter
+    );
+  }
+  f = message.getOrgId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
     );
   }
 };
@@ -1449,6 +1461,24 @@ proto.percona.platform.org.v1.ConnectPMMResponse.prototype.clearSsoDetails = fun
  */
 proto.percona.platform.org.v1.ConnectPMMResponse.prototype.hasSsoDetails = function() {
   return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional string org_id = 2;
+ * @return {string}
+ */
+proto.percona.platform.org.v1.ConnectPMMResponse.prototype.getOrgId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.org.v1.ConnectPMMResponse} returns this
+ */
+proto.percona.platform.org.v1.ConnectPMMResponse.prototype.setOrgId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
