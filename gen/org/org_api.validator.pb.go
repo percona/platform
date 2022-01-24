@@ -48,6 +48,12 @@ func (this *ConnectPMMResponse) Validate() error {
 	return nil
 }
 func (this *Organization) Validate() error {
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
+	}
+	if this.Name == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	}
 	if this.CreatedAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
@@ -67,6 +73,22 @@ func (this *CreateOrganizationRequest) Validate() error {
 	return nil
 }
 func (this *CreateOrganizationResponse) Validate() error {
+	if this.Org != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
+		}
+	}
+	return nil
+}
+func (this *UpdateOrganizationRequest) Validate() error {
+	if this.Organization != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Organization); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Organization", err)
+		}
+	}
+	return nil
+}
+func (this *UpdateOrganizationResponse) Validate() error {
 	if this.Org != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Org); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Org", err)
