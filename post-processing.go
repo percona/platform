@@ -22,17 +22,12 @@ const (
 	platformRepo = "github.com/percona-platform/platform"
 	saasRepo     = "github.com/percona-platform/saas"
 	saasRoot     = "../saas"
-	saasUiRoot   = "../saas-ui/src/core"
 )
 
 var generatedImportRe = regexp.MustCompile(`(?mi)[\n]^.*github_com_mwitkow.*$`)
 
 func saasFilePatch(content []byte) []byte {
 	return bytes.Replace(content, []byte(platformRepo), []byte(saasRepo), -1)
-}
-
-func saasUiFilePatch(content []byte) []byte {
-	return generatedImportRe.ReplaceAll(content, []byte(""))
 }
 
 // copyAndPatchFile copies a file src to dst, applying a specified patch function
@@ -123,8 +118,7 @@ func processSaas() {
 	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"})
 
 	walk(processDirsFunc,
-		"api/auth", "api/check", "api/telemetry",
-		"gen/auth", "gen/check", "gen/telemetry",
+		"api/telemetry", "gen/telemetry", "gen/validator",
 		"pkg/check", "pkg/logger", "pkg/starlark",
 		"pkg/alert", "pkg/common",
 	)
@@ -166,36 +160,15 @@ func processSaas() {
 	}
 }
 
-func processSaasUi() {
-	if _, err := os.Stat(saasUiRoot); err != nil {
-		log.Fatal(err)
-	}
-
-	removeDirs(saasUiRoot, "gen")
-
-	processDirsFunc := makeProcessDirsFunc(saasUiRoot, saasUiFilePatch, []string{".js", ".ts"}, nil)
-
-	walk(processDirsFunc, "gen/web/auth")
-}
-
-func processUiFilesLocally() {
-	processDirsFunc := makeProcessDirsFunc("./", saasUiFilePatch, []string{".js", ".ts"}, nil)
-
-	walk(processDirsFunc, "gen/web/auth")
-}
-
 func main() {
 	const saasProject = "saas"
-	const saasUiProject = "saas-ui"
 
 	availableProjects := []string{
 		saasProject,
-		saasUiProject,
 	}
 
 	availableProjectsStr := strings.Join(availableProjects, " | ")
 
-	patchUi := flag.Bool("patch-ui", false, "patch front end code (remove Go imports)")
 	project := flag.String("project", "", fmt.Sprintf("project to run post-processing for (%s)", availableProjectsStr))
 
 	flag.Parse()
@@ -210,17 +183,11 @@ func main() {
 		log.Fatal("You have to provide one argument")
 	}
 
-	if *patchUi {
-		processUiFilesLocally()
-	} else {
-		switch *project {
-		case saasProject:
-			processSaas()
-		case saasUiProject:
-			processSaasUi()
-		default:
-			flag.PrintDefaults()
-			log.Fatal("Provide the target project name")
-		}
+	switch *project {
+	case saasProject:
+		processSaas()
+	default:
+		flag.PrintDefaults()
+		log.Fatal("Provide the target project name")
 	}
 }
