@@ -145,7 +145,7 @@ func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUse
 			return nil, convertOktaError(oErr)
 		}
 
-		return nil, errors.Wrapf(err, "failed to find user")
+		return nil, errors.Wrap(err, "failed to find user")
 	}
 
 	// apply params
