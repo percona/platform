@@ -136,7 +136,12 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 // Returns the updated User and an error.
 func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
 	l := extractLogger(ctx)
-	l.Info("Updating Okta user profile.", zap.String("userID", userID))
+
+	zapVal := zap.Skip()
+	if l.Core().Enabled(zap.DebugLevel) {
+		zapVal = zap.Any("params", params)
+	}
+	l.Info("Updating Okta user profile.", zap.String("userID", userID), zapVal)
 
 	userToUpdate, _, err := c.c.User.GetUser(ctx, url.QueryEscape(userID))
 	if err != nil {
