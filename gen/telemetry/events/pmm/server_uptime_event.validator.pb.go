@@ -8,10 +8,11 @@ import (
 	math "math"
 
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/protobuf/types/known/durationpb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
+
+	_ "github.com/percona-platform/platform/gen/validator"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
