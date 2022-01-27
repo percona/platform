@@ -154,8 +154,7 @@ func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUse
 	}
 
 	// apply params
-	user := *userToUpdate
-	newProfile := applyUpdateProfileParams(*user.Profile, params)
+	newProfile := updatedProfile(*userToUpdate.Profile, params)
 	userToUpdate.Profile = &newProfile
 
 	// update user
@@ -854,39 +853,6 @@ func extractLogger(ctx context.Context) *zap.Logger {
 	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
 }
 
-// method removes the toRemove values from the source then adds the toAdd values to the source if they are not already presented.
-func updateStringSlice(source, toRemove, toAdd []string) []string {
-	// result slice with the sufficient capacity
-	newSlice := make([]string, 0, len(source)+len(toAdd))
-
-	// for fast access: map of the objects to remove
-	toRemoveMap := map[string]struct{}{}
-	for _, value := range toRemove {
-		toRemoveMap[value] = struct{}{}
-	}
-
-	// for fast access: a map of all existing values
-	allValuesMap := map[string]struct{}{}
-
-	// copy the values from the original slice to the new slice if they are not in the toRemoveMap
-	for _, value := range source {
-		if _, ok := toRemoveMap[value]; !ok {
-			newSlice = append(newSlice, value)
-			allValuesMap[value] = struct{}{}
-		}
-	}
-
-	// copy to the new slice values from toAdd if they are not already presented in the new slice
-	for _, value := range toAdd {
-		if _, ok := allValuesMap[value]; !ok {
-			newSlice = append(newSlice, value)
-			allValuesMap[value] = struct{}{}
-		}
-	}
-
-	return newSlice
-}
-
 func convertUser(oktaUser *okta.User) (*User, error) {
 	userLogin, err := getUserLogin(oktaUser)
 	if err != nil {
@@ -912,22 +878,16 @@ func convertUser(oktaUser *okta.User) (*User, error) {
 	}, nil
 }
 
-func applyUpdateProfileParams(profile okta.UserProfile, params UpdateUserParams) okta.UserProfile {
-	orgIDs, ok := profile[profilePortalAdminOrgs].([]string)
-	if !ok {
-		orgIDs = []string{}
+func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.UserProfile {
+	if params.PortalAdminOrgs != nil {
+		profile[profilePortalAdminOrgs] = params.PortalAdminOrgs
 	}
 
-	if len(params.PortalAdminOrgsToAdd) != 0 || len(params.PortalAdminOrgsToRemove) != 0 {
-		orgIDs = updateStringSlice(orgIDs, params.PortalAdminOrgsToRemove, params.PortalAdminOrgsToAdd)
-		profile[profilePortalAdminOrgs] = orgIDs
-	}
-
-	if params.Firstname != "" {
+	if params.Firstname != nil {
 		profile[profileFirstName] = params.Firstname
 	}
 
-	if params.Lastname != "" {
+	if params.Lastname != nil {
 		profile[profileLastName] = params.Lastname
 	}
 

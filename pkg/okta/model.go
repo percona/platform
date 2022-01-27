@@ -4,19 +4,19 @@ package okta
 
 // User represents user structure.
 type User struct {
-	ID        string
-	Login     string
-	FirstName string
-	LastName  string
-	Status    string
+	ID              string
+	Login           string
+	FirstName       string
+	LastName        string
+	Status          string
+	PortalAdminOrgs []string
 }
 
 // UpdateUserParams parameters set to update a user.
 type UpdateUserParams struct {
-	PortalAdminOrgsToAdd    []string
-	PortalAdminOrgsToRemove []string
-	Lastname                string
-	Firstname               string
+	PortalAdminOrgs *[]string
+	Lastname        *string
+	Firstname       *string
 }
 
 // Group represents user group structure.

@@ -461,7 +461,9 @@ func TestUpdateUser(t *testing.T) {
 	t.Run("user doesn't exists", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := s.UpdateUser(context.Background(), "unknown", UpdateUserParams{Firstname: "firstName", Lastname: "lastName"})
+		otherFirstName := "firstName"
+		otherLastName := "lastName"
+		_, err := s.UpdateUser(context.Background(), "unknown", UpdateUserParams{Firstname: &otherFirstName, Lastname: &otherLastName})
 		require.EqualError(t, err, "not found")
 	})
 
@@ -474,7 +476,7 @@ func TestUpdateUser(t *testing.T) {
 
 		newFirstName := gofakeit.FirstName()
 		newLastName := gofakeit.LastName()
-		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{Firstname: newFirstName, Lastname: newLastName})
+		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{Firstname: &newFirstName, Lastname: &newLastName})
 		require.NoError(t, err)
 
 		require.Equal(t, user.ID, updatedUser.ID)
@@ -490,7 +492,7 @@ func TestUpdateUser(t *testing.T) {
 		t.Log(user.FirstName, user.LastName, user.Login, user.ID)
 
 		newID := uuid.NewString()
-		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgsToAdd: []string{newID}})
+		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgs: &[]string{newID}})
 		require.NoError(t, err)
 
 		require.Equal(t, user.ID, updatedUser.ID)
@@ -630,7 +632,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		toRemove := []string{"1"}
 		toAdd := []string{"4"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"2", "3", "4"})
 	})
 
@@ -639,7 +641,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		toRemove := []string{"3"}
 		toAdd := []string{"4"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "2", "4"})
 	})
 
@@ -648,7 +650,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		toRemove := []string{"1", "2", "3"}
 		toAdd := []string{"3"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"3"})
 	})
 
@@ -657,7 +659,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		toAdd := []string{"3"}
 		var toRemove []string
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "2", "3"})
 	})
 
@@ -666,7 +668,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		var toAdd []string
 		var toRemove []string
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "2", "3"})
 	})
 
@@ -675,7 +677,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		var toAdd []string
 		toRemove := []string{"4"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "2", "3"})
 	})
 
@@ -684,7 +686,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		source := []string{"1", "2", "3"}
 		var toAdd []string
 		toRemove := []string{"2"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "3"})
 	})
 
@@ -693,7 +695,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var source []string
 		var toAdd []string
 		toRemove := []string{"2"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{})
 	})
 
@@ -702,7 +704,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var source []string
 		toRemove := []string{"2"}
 		toAdd := []string{"1", "2"}
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{"1", "2"})
 	})
 
@@ -711,7 +713,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var source []string
 		var toRemove []string
 		var toAdd []string
-		result := updateStringSlice(source, toRemove, toAdd)
+		result := UpdateStringsSet(source, toRemove, toAdd)
 		assert.Equal(t, result, []string{})
 	})
 }
