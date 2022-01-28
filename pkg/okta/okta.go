@@ -11,6 +11,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/google/uuid"
+
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/pkg/errors"
@@ -141,8 +143,14 @@ func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUse
 	if l.Core().Enabled(zap.DebugLevel) {
 		zapVal = zap.Any("params", params)
 	}
-	l.Info("Updating Okta user profile.", zap.String("userID", userID), zapVal)
 
+	l.Info("Validating params for Okta user profile update", zap.String("userID", userID), zapVal)
+	err := validateUpdateUserParams(params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to validate params")
+	}
+
+	l.Info("Updating Okta user profile.", zap.String("userID", userID))
 	userToUpdate, _, err := c.c.User.GetUser(ctx, url.QueryEscape(userID))
 	if err != nil {
 		var oErr *okta.Error
@@ -892,4 +900,36 @@ func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.User
 	}
 
 	return profile
+}
+
+func validateUpdateUserParams(params UpdateUserParams) error {
+	if params.PortalAdminOrgs != nil {
+		ids := *params.PortalAdminOrgs
+
+		// map to check duplicates
+		duplMap := map[string]struct{}{}
+
+		for _, val := range ids {
+			_, err := uuid.Parse(val)
+			if err != nil {
+				return ErrInvalidPortalAdminOrgs
+			}
+
+			if _, ok := duplMap[val]; ok {
+				return ErrDuplicatedPortalAdminOrgs
+			}
+
+			duplMap[val] = struct{}{}
+		}
+	}
+
+	if params.Firstname != nil && *params.Firstname == "" {
+		return ErrEmptyFirstName
+	}
+
+	if params.Lastname != nil && *params.Lastname == "" {
+		return ErrEmptyLastName
+	}
+
+	return nil
 }

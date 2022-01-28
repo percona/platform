@@ -717,3 +717,89 @@ func TestUpdateStringSlice(t *testing.T) {
 		assert.Equal(t, result, []string{})
 	})
 }
+
+func TestValidateUpdateParams(t *testing.T) {
+	t.Parallel()
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"aaa"},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, ErrInvalidPortalAdminOrgs, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002"},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.NoError(t, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := "John"
+		lastName := "Doe"
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", "ebe890cc-800f-11ec-a8a3-0242ac120005"},
+			Lastname:        &lastName,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.NoError(t, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := "John"
+		lastName := "Doe"
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"aaa", "aaa"},
+			Lastname:        &lastName,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", ""},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		lastName := ""
+		params := UpdateUserParams{
+			PortalAdminOrgs: nil,
+			Lastname:        &lastName,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrEmptyLastName)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := ""
+		params := UpdateUserParams{
+			PortalAdminOrgs: nil,
+			Lastname:        nil,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrEmptyFirstName)
+	})
+}
