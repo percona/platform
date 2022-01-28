@@ -308,9 +308,12 @@ func TestFindUser(t *testing.T) {
 	t.Run("user exists", func(t *testing.T) {
 		t.Parallel()
 
-		userID, err := s.FindUser(context.Background(), email)
+		foundUser, err := s.FindUser(context.Background(), email)
 		require.NoError(t, err)
-		require.NotEmpty(t, userID)
+		require.NotEmpty(t, foundUser)
+		require.Equal(t, []string{}, foundUser.PortalAdminOrgs)
+		require.Equal(t, firstName, foundUser.FirstName)
+		require.Equal(t, lastName, foundUser.LastName)
 	})
 }
 
@@ -492,9 +495,10 @@ func TestUpdateUser(t *testing.T) {
 		t.Log(user.FirstName, user.LastName, user.Login, user.ID)
 
 		newID := uuid.NewString()
-		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgs: &[]string{newID}})
+		ids := []string{newID}
+		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgs: &ids})
 		require.NoError(t, err)
-
+		require.Equal(t, ids, updatedUser.PortalAdminOrgs)
 		require.Equal(t, user.ID, updatedUser.ID)
 	})
 }

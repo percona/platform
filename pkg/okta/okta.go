@@ -510,12 +510,12 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 
 	res := make([]User, 0, len(users))
 	for _, user := range users {
-		login, err := getUserLogin(user)
+		resultUser, err := convertUser(user)
 		if err != nil {
-			l.Warn(fmt.Sprintf("User %s has bad profile.", user.Id), zap.Error(err))
+			return nil, errors.Wrap(err, "failed to convert user type")
 		}
 
-		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})
+		res = append(res, *resultUser)
 	}
 
 	return res, nil
@@ -837,6 +837,31 @@ func getUserLastName(user *okta.User) (string, error) {
 	return name.(string), nil
 }
 
+func getPortalAdminOrgs(user *okta.User) ([]string, error) {
+	if user.Profile == nil {
+		return nil, errors.New("missing user profile")
+	}
+
+	result := []string{}
+
+	profile := *user.Profile
+	orgsRaw, ok := profile[profilePortalAdminOrgs]
+	if !ok {
+		return result, nil
+	}
+
+	orgsSlice, ok := orgsRaw.([]interface{})
+	if !ok {
+		return result, nil
+	}
+
+	for _, val := range orgsSlice {
+		result = append(result, val.(string))
+	}
+
+	return result, nil
+}
+
 func convertOktaError(err *okta.Error) error {
 	switch err.ErrorCode {
 	case "E0000001":
@@ -877,12 +902,18 @@ func convertUser(oktaUser *okta.User) (*User, error) {
 		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
 	}
 
+	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
 	return &User{
-		ID:        oktaUser.Id,
-		Login:     userLogin,
-		FirstName: firstName,
-		LastName:  lastName,
-		Status:    oktaUser.Status,
+		ID:              oktaUser.Id,
+		Login:           userLogin,
+		FirstName:       firstName,
+		LastName:        lastName,
+		Status:          oktaUser.Status,
+		PortalAdminOrgs: portalAdminOrgs,
 	}, nil
 }
 
