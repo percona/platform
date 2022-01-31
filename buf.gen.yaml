@@ -27,3 +27,6 @@ plugins:
       - paths=source_relative
       - lang=go
     path: bin/protoc-gen-govalidators
+  - name: openapiv2
+    out: gen
+    path: bin/protoc-gen-openapiv2

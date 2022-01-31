@@ -9,14 +9,65 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Organization API";
+  };
+  extensions: {
+    key: "x-readme";
+    value:{
+      struct_value: {
+        fields: {
+          key: "samples-languages"
+          value: {
+            list_value: {
+              values: {
+                string_value: "curl";
+              }
+              values: {
+                string_value: "go";
+              }
+              values: {
+                string_value: "node";
+              }
+              values: {
+                string_value: "python";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "Provides API for organization management for Percona services.";
+  };
+
   // CreateOrganization creates new organization with the given name and adds the user as org admin.
   rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
     option (google.api.http) = {
       post: "/v1/orgs"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Create a new organization with the given name and adds the user as org admin. In case the Percona customer is found by requestor's e-mail it will be linked with ServiceNow.";
+      summary: "Create organization";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
     };
   }
 
@@ -26,12 +77,42 @@ service OrgAPI {
       put: "/v1/orgs/{organization.id}"
       body: "organization"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update organization info.";
+      summary: "Update organization";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
+    };
   }
 
   // GetOrganization fetches organization details by ID.
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {
       get: "/v1/orgs/{org_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Get organization info by ID.";
+      summary: "Get organization info";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
     };
   }
 
@@ -41,12 +122,36 @@ service OrgAPI {
       post: "/v1/orgs:search"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search for organizations where the user is a member.";
+      summary: "Search user's organizations";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"orgs": [{"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}]}'
+          }
+        };
+      };
+    };
   }
 
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
       delete: "/v1/orgs/{org_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete organization by ID.";
+      summary: "Delete organization";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
     };
   }
 
@@ -56,6 +161,15 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/members"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Invite a new member to organization with defined role.";
+      summary: "Invite organization member";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
   }
 
   // SearchMembers lists members of a Percona Portal Organization.
@@ -64,12 +178,42 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/members:search"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization members.";
+      summary: "Search organization members";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+          }
+        };
+      };
+    };
   }
 
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/{org_id}/entitlements:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization entitlements. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).";
+      summary: "Search organization entitlements";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"entitlements":[{"number":"ENTLMT0001026","name":"Unmeasured MySQL Support - Premium - ENTLMT0001026","summary":"3 MySQL Servers","tier":"","total_units":"3","unlimited_units":false,"support_level":"","software_families":["MySQL"],"start_date":"2019-10-28T00:00:00Z","end_date":"2021-07-01T00:00:00Z","platform":{"security_advisor":"","config_advisor":""}}]}'
+          }
+        };
+      };
     };
   }
 
@@ -78,12 +222,42 @@ service OrgAPI {
     option (google.api.http) = {
       post: "/v1/orgs/{org_id}/tickets:search"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization tickets. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).";
+      summary: "Search organization tickets";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"tickets":[{"number":"TIME0001218","short_description":"Percona SANDBOX Percona Managed Database Services for PostgreSQL - ENTLMT0003359","priority":"P3 - Normal","state":"Open","create_time":"2022-01-14T20:53:22Z","department":"Managed Services","requester":"","task_type":"Internal Tracking","url":"https://perconadev.service-now.com/percona?id=percona_ticket&table=u_internal_tracking&sys_id=b2a175a587098d508d75c9d8cebb35a8"}]}'
+          }
+        };
+      };
+    };
   }
 
   // SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
   rpc SearchUserCompany(SearchUserCompanyRequest) returns (SearchUserCompanyResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/company:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search Percona customer by User's email. This method returns info only in case the user is related to real Percona customer.";
+      summary: "Search organization tickets";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"name":"Percona SANDBOX"}'
+          }
+        };
+      };
     };
   }
 
@@ -93,12 +267,36 @@ service OrgAPI {
       put: "/v1/orgs/{org_id}/members/{member_id}"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update organization member's role.";
+      summary: "Update organization member";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"member": {"member_id":"1a8e7b33-59bc-42a5-b1a8-2180576badde","username":"admin@org.com","first_name":"First Name","last_name":"Last Name","role":"Admin","status":"ACTIVE"}}'
+          }
+        };
+      };
+    };
   }
 
   // DeleteMember deletes a Percona Portal Organization Member with the given ID.
   rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/orgs/{org_id}/members/{member_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete member from organization.";
+      summary: "Delete organization member";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
     };
   }
 
@@ -113,6 +311,21 @@ service OrgAPI {
         body: "*"
       }
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Connect PMM Server to organization.";
+      summary: "Connect PMM Server";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"sso_details":{"client_id":"bdheuwort62379fwbeui","client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
+          }
+        };
+      };
+    };
   }
 
   // DisconnectPMM deletes the PMM instance with the given pmm_server_id
@@ -121,12 +334,36 @@ service OrgAPI {
     option (google.api.http) = {
       post: "/v1/orgs/inventory/{pmm_server_id}:disconnect"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Disconnect PMM Server from organization.";
+      summary: "Disconnect PMM Server";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
   }
 
   // SearchInventory returns the inventory list of the given organization
   rpc SearchInventory(SearchInventoryRequest) returns (SearchInventoryResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/{org_id}/inventory:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search all connected to organization PMM Servers.";
+      summary: "Search connected PMM Servers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"inventory": [{"pmm_server_id":"ded64cd9-2f9e-78ac-247a-d98ad1f95e85","pmm_server_name":"Small Rubber Shoes","pmm_server_url":"https://laverna.biz"}]}'
+          }
+        };
+      };
     };
   }
 }
@@ -193,7 +430,9 @@ message CreateOrganizationRequest {
   string name = 1 [
     (validator.field) = {
       string_not_empty: true
-    }
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ['name']}
   ];
 }
 

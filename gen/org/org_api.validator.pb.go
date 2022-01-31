@@ -14,6 +14,7 @@ import (
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 
+	_ "github.com/percona-platform/platform/gen/protoc-gen-openapiv2/options"
 	_ "github.com/percona-platform/platform/gen/validator"
 )
 
