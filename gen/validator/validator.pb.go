@@ -402,16 +402,13 @@ func file_validator_validator_proto_rawDescGZIP() []byte {
 	return file_validator_validator_proto_rawDescData
 }
 
-var (
-	file_validator_validator_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-	file_validator_validator_proto_goTypes  = []interface{}{
-		(*FieldValidator)(nil),            // 0: validator.FieldValidator
-		(*OneofValidator)(nil),            // 1: validator.OneofValidator
-		(*descriptorpb.FieldOptions)(nil), // 2: google.protobuf.FieldOptions
-		(*descriptorpb.OneofOptions)(nil), // 3: google.protobuf.OneofOptions
-	}
-)
-
+var file_validator_validator_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_validator_validator_proto_goTypes = []interface{}{
+	(*FieldValidator)(nil),            // 0: validator.FieldValidator
+	(*OneofValidator)(nil),            // 1: validator.OneofValidator
+	(*descriptorpb.FieldOptions)(nil), // 2: google.protobuf.FieldOptions
+	(*descriptorpb.OneofOptions)(nil), // 3: google.protobuf.OneofOptions
+}
 var file_validator_validator_proto_depIdxs = []int32{
 	2, // 0: validator.field:extendee -> google.protobuf.FieldOptions
 	3, // 1: validator.oneof:extendee -> google.protobuf.OneofOptions

@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/brianvoe/gofakeit/v6"
+	"github.com/google/uuid"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
@@ -307,9 +308,12 @@ func TestFindUser(t *testing.T) {
 	t.Run("user exists", func(t *testing.T) {
 		t.Parallel()
 
-		userID, err := s.FindUser(context.Background(), email)
+		foundUser, err := s.FindUser(context.Background(), email)
 		require.NoError(t, err)
-		require.NotEmpty(t, userID)
+		require.NotEmpty(t, foundUser)
+		require.Equal(t, []string{}, foundUser.PortalAdminOrgs)
+		require.Equal(t, firstName, foundUser.FirstName)
+		require.Equal(t, lastName, foundUser.LastName)
 	})
 }
 
@@ -445,7 +449,7 @@ func TestDeleteUser(t *testing.T) {
 	})
 }
 
-func TestUpdateProfile(t *testing.T) {
+func TestUpdateUser(t *testing.T) {
 	t.Parallel()
 
 	s, err := createOktaService(t)
@@ -460,11 +464,13 @@ func TestUpdateProfile(t *testing.T) {
 	t.Run("user doesn't exists", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := s.UpdateProfile(context.Background(), &User{ID: "unknown", Login: "login", Status: "status"}, "firstName", "lastName")
+		otherFirstName := "firstName"
+		otherLastName := "lastName"
+		_, err := s.UpdateUser(context.Background(), "unknown", UpdateUserParams{Firstname: &otherFirstName, Lastname: &otherLastName})
 		require.EqualError(t, err, "not found")
 	})
 
-	t.Run("user exists update successful", func(t *testing.T) {
+	t.Run("user exists update lastname firstname successful", func(t *testing.T) {
 		t.Parallel()
 
 		user, err := s.FindUser(context.Background(), testUser.Login)
@@ -473,12 +479,27 @@ func TestUpdateProfile(t *testing.T) {
 
 		newFirstName := gofakeit.FirstName()
 		newLastName := gofakeit.LastName()
-		updatedUser, err := s.UpdateProfile(context.Background(), user, newFirstName, newLastName)
+		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{Firstname: &newFirstName, Lastname: &newLastName})
 		require.NoError(t, err)
 
 		require.Equal(t, user.ID, updatedUser.ID)
 		require.Equal(t, newFirstName, updatedUser.FirstName)
 		require.Equal(t, newLastName, updatedUser.LastName)
+	})
+
+	t.Run("user exists update portalAdminOrgs successful", func(t *testing.T) {
+		t.Parallel()
+
+		user, err := s.FindUser(context.Background(), testUser.Login)
+		require.NoError(t, err)
+		t.Log(user.FirstName, user.LastName, user.Login, user.ID)
+
+		newID := uuid.NewString()
+		ids := []string{newID}
+		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgs: &ids})
+		require.NoError(t, err)
+		require.Equal(t, ids, updatedUser.PortalAdminOrgs)
+		require.Equal(t, user.ID, updatedUser.ID)
 	})
 }
 
@@ -605,4 +626,184 @@ func TestTrustedOrigin(t *testing.T) {
 	id, err = s.GetTrustedOriginID(ctx, origin)
 	require.ErrorIs(t, err, ErrOriginNotFound)
 	assert.Empty(t, id)
+}
+
+func TestUpdateStringSlice(t *testing.T) {
+	t.Parallel()
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		toRemove := []string{"1"}
+		toAdd := []string{"4"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"2", "3", "4"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		toRemove := []string{"3"}
+		toAdd := []string{"4"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "2", "4"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		toRemove := []string{"1", "2", "3"}
+		toAdd := []string{"3"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"3"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		toAdd := []string{"3"}
+		var toRemove []string
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "2", "3"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		var toAdd []string
+		var toRemove []string
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "2", "3"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		var toAdd []string
+		toRemove := []string{"4"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "2", "3"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		source := []string{"1", "2", "3"}
+		var toAdd []string
+		toRemove := []string{"2"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "3"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		var source []string
+		var toAdd []string
+		toRemove := []string{"2"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		var source []string
+		toRemove := []string{"2"}
+		toAdd := []string{"1", "2"}
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{"1", "2"})
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		var source []string
+		var toRemove []string
+		var toAdd []string
+		result := UpdateStringsSet(source, toRemove, toAdd)
+		assert.Equal(t, result, []string{})
+	})
+}
+
+func TestValidateUpdateParams(t *testing.T) {
+	t.Parallel()
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"aaa"},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, ErrInvalidPortalAdminOrgs, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002"},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.NoError(t, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := "John"
+		lastName := "Doe"
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", "ebe890cc-800f-11ec-a8a3-0242ac120005"},
+			Lastname:        &lastName,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.NoError(t, err)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := "John"
+		lastName := "Doe"
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"aaa", "aaa"},
+			Lastname:        &lastName,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", ""},
+			Lastname:        nil,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		lastName := ""
+		params := UpdateUserParams{
+			PortalAdminOrgs: nil,
+			Lastname:        &lastName,
+			Firstname:       nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrEmptyLastName)
+	})
+
+	t.Run("", func(t *testing.T) {
+		t.Parallel()
+		firstName := ""
+		params := UpdateUserParams{
+			PortalAdminOrgs: nil,
+			Lastname:        nil,
+			Firstname:       &firstName,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrEmptyFirstName)
+	})
 }

@@ -7,12 +7,14 @@ import (
 )
 
 var (
-	ErrEmptyLogin     = &AuthError{msg: "login is empty"} //nolint:revive
-	ErrEmptyFirstName = &AuthError{msg: "firstName is empty"}
-	ErrEmptyLastName  = &AuthError{msg: "lastName is empty"}
-	ErrEmptyPassword  = &AuthError{msg: "password is empty"}
-	ErrAuthentication = &AuthError{msg: "authentication error"}
-	ErrNotFound       = &AuthError{msg: "not found"}
+	ErrEmptyLogin                = &AuthError{msg: "login is empty"} //nolint:revive
+	ErrEmptyFirstName            = &AuthError{msg: "firstName is empty"}
+	ErrEmptyLastName             = &AuthError{msg: "lastName is empty"}
+	ErrEmptyPassword             = &AuthError{msg: "password is empty"}
+	ErrAuthentication            = &AuthError{msg: "authentication error"}
+	ErrNotFound                  = &AuthError{msg: "not found"}
+	ErrInvalidPortalAdminOrgs    = &AuthError{msg: "portalAdminOrgs contains invalid uuid"}
+	ErrDuplicatedPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains duplicated values"}
 )
 
 // AuthError represents authentication/authorisation errors. It contains message that describes
