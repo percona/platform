@@ -266,17 +266,14 @@ func file_telemetry_events_pmm_server_uptime_event_proto_rawDescGZIP() []byte {
 	return file_telemetry_events_pmm_server_uptime_event_proto_rawDescData
 }
 
-var (
-	file_telemetry_events_pmm_server_uptime_event_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-	file_telemetry_events_pmm_server_uptime_event_proto_msgTypes  = make([]protoimpl.MessageInfo, 1)
-	file_telemetry_events_pmm_server_uptime_event_proto_goTypes   = []interface{}{
-		(DistributionMethod)(0),      // 0: percona.platform.telemetry.events.pmm.v1.DistributionMethod
-		(*ServerUptimeEvent)(nil),    // 1: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent
-		(*durationpb.Duration)(nil),  // 2: google.protobuf.Duration
-		(*wrapperspb.BoolValue)(nil), // 3: google.protobuf.BoolValue
-	}
-)
-
+var file_telemetry_events_pmm_server_uptime_event_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_telemetry_events_pmm_server_uptime_event_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_telemetry_events_pmm_server_uptime_event_proto_goTypes = []interface{}{
+	(DistributionMethod)(0),      // 0: percona.platform.telemetry.events.pmm.v1.DistributionMethod
+	(*ServerUptimeEvent)(nil),    // 1: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent
+	(*durationpb.Duration)(nil),  // 2: google.protobuf.Duration
+	(*wrapperspb.BoolValue)(nil), // 3: google.protobuf.BoolValue
+}
 var file_telemetry_events_pmm_server_uptime_event_proto_depIdxs = []int32{
 	2, // 0: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.up_duration:type_name -> google.protobuf.Duration
 	0, // 1: percona.platform.telemetry.events.pmm.v1.ServerUptimeEvent.distribution_method:type_name -> percona.platform.telemetry.events.pmm.v1.DistributionMethod

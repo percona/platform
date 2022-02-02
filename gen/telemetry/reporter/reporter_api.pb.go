@@ -177,15 +177,12 @@ func file_telemetry_reporter_reporter_api_proto_rawDescGZIP() []byte {
 	return file_telemetry_reporter_reporter_api_proto_rawDescData
 }
 
-var (
-	file_telemetry_reporter_reporter_api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-	file_telemetry_reporter_reporter_api_proto_goTypes  = []interface{}{
-		(*ReportRequest)(nil),  // 0: percona.platform.telemetry.reporter.v1.ReportRequest
-		(*ReportResponse)(nil), // 1: percona.platform.telemetry.reporter.v1.ReportResponse
-		(*Event)(nil),          // 2: percona.platform.telemetry.reporter.v1.Event
-	}
-)
-
+var file_telemetry_reporter_reporter_api_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_telemetry_reporter_reporter_api_proto_goTypes = []interface{}{
+	(*ReportRequest)(nil),  // 0: percona.platform.telemetry.reporter.v1.ReportRequest
+	(*ReportResponse)(nil), // 1: percona.platform.telemetry.reporter.v1.ReportResponse
+	(*Event)(nil),          // 2: percona.platform.telemetry.reporter.v1.Event
+}
 var file_telemetry_reporter_reporter_api_proto_depIdxs = []int32{
 	2, // 0: percona.platform.telemetry.reporter.v1.ReportRequest.events:type_name -> percona.platform.telemetry.reporter.v1.Event
 	0, // 1: percona.platform.telemetry.reporter.v1.ReporterAPI.Report:input_type -> percona.platform.telemetry.reporter.v1.ReportRequest

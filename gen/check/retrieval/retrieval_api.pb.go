@@ -295,16 +295,13 @@ func file_check_retrieval_retrieval_api_proto_rawDescGZIP() []byte {
 	return file_check_retrieval_retrieval_api_proto_rawDescData
 }
 
-var (
-	file_check_retrieval_retrieval_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-	file_check_retrieval_retrieval_api_proto_goTypes  = []interface{}{
-		(*GetAllChecksRequest)(nil),              // 0: percona.platform.check.retrieval.v1.GetAllChecksRequest
-		(*GetAllChecksResponse)(nil),             // 1: percona.platform.check.retrieval.v1.GetAllChecksResponse
-		(*GetAllAlertRuleTemplatesRequest)(nil),  // 2: percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest
-		(*GetAllAlertRuleTemplatesResponse)(nil), // 3: percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse
-	}
-)
-
+var file_check_retrieval_retrieval_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_check_retrieval_retrieval_api_proto_goTypes = []interface{}{
+	(*GetAllChecksRequest)(nil),              // 0: percona.platform.check.retrieval.v1.GetAllChecksRequest
+	(*GetAllChecksResponse)(nil),             // 1: percona.platform.check.retrieval.v1.GetAllChecksResponse
+	(*GetAllAlertRuleTemplatesRequest)(nil),  // 2: percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest
+	(*GetAllAlertRuleTemplatesResponse)(nil), // 3: percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesResponse
+}
 var file_check_retrieval_retrieval_api_proto_depIdxs = []int32{
 	0, // 0: percona.platform.check.retrieval.v1.RetrievalAPI.GetAllChecks:input_type -> percona.platform.check.retrieval.v1.GetAllChecksRequest
 	2, // 1: percona.platform.check.retrieval.v1.RetrievalAPI.GetAllAlertRuleTemplates:input_type -> percona.platform.check.retrieval.v1.GetAllAlertRuleTemplatesRequest
