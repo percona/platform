@@ -18,7 +18,7 @@ require (
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
 	golang.org/x/tools v0.1.9-0.20211228192929-ee1ca4ffc4da
-	google.golang.org/grpc v1.43.0
+	google.golang.org/grpc v1.44.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
 	mvdan.cc/gofumpt v0.2.1
