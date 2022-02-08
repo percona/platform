@@ -15,7 +15,6 @@ var (
 	ErrNotFound                  = &AuthError{msg: "not found"}
 	ErrInvalidPortalAdminOrgs    = &AuthError{msg: "portalAdminOrgs contains invalid uuid"}
 	ErrDuplicatedPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains duplicated values"}
-	ErrEmptyPortalAdminOrgs      = &AuthError{msg: "portalAdminOrgs field is nil"}
 )
 
 // AuthError represents authentication/authorisation errors. It contains message that describes

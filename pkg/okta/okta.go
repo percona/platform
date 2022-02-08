@@ -147,11 +147,10 @@ func (c *Client) InviteUser(ctx context.Context, params InviteUserParams) (*User
 
 	activate := true
 	profile := okta.UserProfile{
-		profileLogin:           params.Login,
-		profileEmail:           params.Login,
-		profileFirstName:       "",
-		profileLastName:        "",
-		profilePortalAdminOrgs: params.PortalAdminOrgs,
+		profileLogin:     params.Login,
+		profileEmail:     params.Login,
+		profileFirstName: "",
+		profileLastName:  "",
 	}
 
 	var cErr *okta.Error
@@ -1009,15 +1008,6 @@ func validatePortalAdminOrgs(ids []string) error {
 func validateInviteUserParams(params InviteUserParams) error {
 	if params.Login == "" {
 		return ErrEmptyLogin
-	}
-
-	if params.PortalAdminOrgs == nil {
-		return ErrEmptyPortalAdminOrgs
-	}
-
-	err := validatePortalAdminOrgs(params.PortalAdminOrgs)
-	if err != nil {
-		return err
 	}
 
 	return nil
