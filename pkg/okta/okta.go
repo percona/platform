@@ -134,6 +134,36 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 	return convertUser(user)
 }
 
+// InviteUser invites okta user and returns user.
+func (c *Client) InviteUser(ctx context.Context, params InviteUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	err := validateInviteUserParams(params)
+	if err != nil {
+		return nil, err
+	}
+
+	l.Info("Inviting Okta user.", zap.String("login", params.Login))
+
+	activate := true
+	profile := okta.UserProfile{
+		profileLogin:           params.Login,
+		profileEmail:           params.Login,
+		profileFirstName:       "",
+		profileLastName:        "",
+		profilePortalAdminOrgs: params.PortalAdminOrgs,
+	}
+
+	var cErr *okta.Error
+	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
+	errors.As(err, &cErr)
+	if cErr != nil {
+		return nil, convertOktaError(cErr)
+	}
+
+	return convertUser(user)
+}
+
 // UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
 // Returns the updated User and an error.
 func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
@@ -856,7 +886,7 @@ func getPortalAdminOrgs(user *okta.User) ([]string, error) {
 	}
 
 	for _, val := range orgsSlice {
-		result = append(result, val.(string))
+		result = append(result, val.(string)) // nolint: forcetypeassert
 	}
 
 	return result, nil
@@ -870,6 +900,8 @@ func convertOktaError(err *okta.Error) error {
 			return NewError("invalid password", err)
 		case "Api validation failed: login":
 			return NewError("invalid login", err)
+		case "login: An object with this field already exists in the current organization":
+			return NewError("user already exist", err)
 		default:
 			return err
 		}
@@ -937,20 +969,9 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 	if params.PortalAdminOrgs != nil {
 		ids := *params.PortalAdminOrgs
 
-		// map to check duplicates
-		duplMap := map[string]struct{}{}
-
-		for _, val := range ids {
-			_, err := uuid.Parse(val)
-			if err != nil {
-				return ErrInvalidPortalAdminOrgs
-			}
-
-			if _, ok := duplMap[val]; ok {
-				return ErrDuplicatedPortalAdminOrgs
-			}
-
-			duplMap[val] = struct{}{}
+		err := validatePortalAdminOrgs(ids)
+		if err != nil {
+			return err
 		}
 	}
 
@@ -960,6 +981,43 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 
 	if params.Lastname != nil && *params.Lastname == "" {
 		return ErrEmptyLastName
+	}
+
+	return nil
+}
+
+func validatePortalAdminOrgs(ids []string) error {
+	// map to check duplicates
+	duplMap := map[string]struct{}{}
+
+	for _, val := range ids {
+		_, err := uuid.Parse(val)
+		if err != nil {
+			return ErrInvalidPortalAdminOrgs
+		}
+
+		if _, ok := duplMap[val]; ok {
+			return ErrDuplicatedPortalAdminOrgs
+		}
+
+		duplMap[val] = struct{}{}
+	}
+
+	return nil
+}
+
+func validateInviteUserParams(params InviteUserParams) error {
+	if params.Login == "" {
+		return ErrEmptyLogin
+	}
+
+	if params.PortalAdminOrgs == nil {
+		return ErrEmptyPortalAdminOrgs
+	}
+
+	err := validatePortalAdminOrgs(params.PortalAdminOrgs)
+	if err != nil {
+		return err
 	}
 
 	return nil
