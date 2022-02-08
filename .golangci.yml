@@ -39,6 +39,7 @@ linters:
     - wsl              # too annoying
     - varnamelen       # doesn't match the go codestyle
     - ireturn          # incompatible with the codebase
+    - maintidx         # disable for compatability
 
 issues:
   exclude-use-default: false
