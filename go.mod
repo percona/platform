@@ -5,7 +5,7 @@ go 1.17
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/aws/aws-sdk-go v1.42.45
+	github.com/aws/aws-sdk-go v1.42.48
 	github.com/brianvoe/gofakeit/v6 v6.14.5
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
