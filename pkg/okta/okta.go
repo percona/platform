@@ -147,10 +147,11 @@ func (c *Client) InviteUser(ctx context.Context, params InviteUserParams) (*User
 
 	activate := true
 	profile := okta.UserProfile{
-		profileLogin:     params.Login,
-		profileEmail:     params.Login,
-		profileFirstName: "",
-		profileLastName:  "",
+		profileLogin:           params.Login,
+		profileEmail:           params.Login,
+		profileFirstName:       "",
+		profileLastName:        "",
+		profilePortalAdminOrgs: []string{},
 	}
 
 	var cErr *okta.Error
