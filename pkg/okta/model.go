@@ -21,8 +21,7 @@ type UpdateUserParams struct {
 
 // InviteUserParams parameters set to invite a user.
 type InviteUserParams struct {
-	PortalAdminOrgs []string
-	Login           string
+	Login string
 }
 
 // Group represents user group structure.
