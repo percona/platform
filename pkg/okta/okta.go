@@ -856,7 +856,9 @@ func getPortalAdminOrgs(user *okta.User) ([]string, error) {
 	}
 
 	for _, val := range orgsSlice {
-		result = append(result, val.(string))
+		if str, ok := val.(string); ok {
+			result = append(result, str)
+		}
 	}
 
 	return result, nil
