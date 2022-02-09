@@ -902,8 +902,6 @@ func convertOktaError(err *okta.Error) error {
 			return NewError("invalid password", err)
 		case "Api validation failed: login":
 			return NewError("invalid login", err)
-		case "login: An object with this field already exists in the current organization":
-			return NewError("user already exist", err)
 		default:
 			return err
 		}
