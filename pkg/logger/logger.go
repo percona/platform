@@ -20,7 +20,7 @@ func GetLoggerFromContext(ctx context.Context) *zap.Logger {
 		return l
 	}
 
-	return v.(*zap.Logger)
+	return v.(*zap.Logger) //nolint: forcetypeassert
 }
 
 // GetContextWithLogger returns derived context with given logger set.
