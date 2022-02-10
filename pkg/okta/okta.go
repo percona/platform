@@ -154,11 +154,15 @@ func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*
 		profilePortalAdminOrgs: []string{},
 	}
 
-	var cErr *okta.Error
 	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
-	errors.As(err, &cErr)
-	if cErr != nil {
-		return nil, convertOktaError(cErr)
+	if err != nil {
+		var cErr *okta.Error
+		errors.As(err, &cErr)
+		if cErr != nil {
+			return nil, convertOktaError(cErr)
+		}
+
+		return nil, errors.Wrapf(err, "failed to register user")
 	}
 
 	return convertUser(user)
