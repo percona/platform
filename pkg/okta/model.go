@@ -19,8 +19,8 @@ type UpdateUserParams struct {
 	Firstname       *string
 }
 
-// InviteUserParams parameters set to invite a user.
-type InviteUserParams struct {
+// RegisterUserParams parameters set to invite a user.
+type RegisterUserParams struct {
 	Login string
 }
 

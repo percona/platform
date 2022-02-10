@@ -317,7 +317,7 @@ func TestFindUser(t *testing.T) {
 	})
 }
 
-func TestInviteUser(t *testing.T) {
+func TestRegisterUser(t *testing.T) {
 	t.Parallel()
 
 	s, err := createOktaService(t)
@@ -327,7 +327,7 @@ func TestInviteUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		u, err := s.InviteUser(context.Background(), InviteUserParams{Login: email})
+		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.NoError(t, err)
 		require.Equal(t, u.Login, email)
 
@@ -339,7 +339,7 @@ func TestInviteUser(t *testing.T) {
 	t.Run("invalid email", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := s.InviteUser(context.Background(), InviteUserParams{Login: "not_an_email"})
+		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: "not_an_email"})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
 	})
 
@@ -352,7 +352,7 @@ func TestInviteUser(t *testing.T) {
 			DeleteUser(t, user.ID)
 		})
 
-		_, err := s.InviteUser(context.Background(), InviteUserParams{Login: email})
+		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
 	})
 }

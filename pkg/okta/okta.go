@@ -134,11 +134,11 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 	return convertUser(user)
 }
 
-// InviteUser invites okta user and returns user.
-func (c *Client) InviteUser(ctx context.Context, params InviteUserParams) (*User, error) {
+// RegisterUser invites okta user and returns user.
+func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*User, error) {
 	l := extractLogger(ctx)
 
-	err := validateInviteUserParams(params)
+	err := validateRegisterUserParams(params)
 	if err != nil {
 		return nil, err
 	}
@@ -1006,7 +1006,7 @@ func validatePortalAdminOrgs(ids []string) error {
 	return nil
 }
 
-func validateInviteUserParams(params InviteUserParams) error {
+func validateRegisterUserParams(params RegisterUserParams) error {
 	if params.Login == "" {
 		return ErrEmptyLogin
 	}
