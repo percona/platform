@@ -57,7 +57,7 @@ var protoMarshalOpts = protojson.MarshalOptions{
 // GRPCMessageDumper helper struct for dumping gRPC message using zap logger.
 type GRPCMessageDumper struct {
 	msg       interface{}
-	ctx       context.Context
+	ctx       context.Context //nolint: containedctx
 	info      *grpc.UnaryServerInfo
 	isRequest bool
 }
