@@ -157,8 +157,7 @@ func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*
 	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
 	if err != nil {
 		var cErr *okta.Error
-		errors.As(err, &cErr)
-		if cErr != nil {
+		if errors.As(err, &cErr) {
 			return nil, convertOktaError(cErr)
 		}
 
