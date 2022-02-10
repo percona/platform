@@ -327,7 +327,7 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})	
+		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.NoError(t, err)
 		t.Cleanup(func() {
 			DeleteUser(t, u.ID)
