@@ -988,8 +988,9 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 
 func validatePortalAdminOrgs(ids []string) error {
 	// map to check duplicates
-	duplMap := map[string]struct{}{}
-        var err error
+	duplMap := make(map[string]struct{}, len(ids))
+	var err error
+
 	for _, val := range ids {
 		_, err = uuid.Parse(val)
 		if err != nil {
