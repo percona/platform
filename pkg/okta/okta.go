@@ -823,7 +823,7 @@ func getUserLogin(user *okta.User) (string, error) {
 		return "", errors.New("missing user login")
 	}
 
-	return login.(string), nil
+	return login.(string), nil //nolint: forcetypeassert
 }
 
 func getUserFirstName(user *okta.User) (string, error) {
@@ -837,7 +837,7 @@ func getUserFirstName(user *okta.User) (string, error) {
 		return "", errors.New("missing user firstName")
 	}
 
-	return name.(string), nil
+	return name.(string), nil //nolint: forcetypeassert
 }
 
 func getUserLastName(user *okta.User) (string, error) {
@@ -851,7 +851,7 @@ func getUserLastName(user *okta.User) (string, error) {
 		return "", errors.New("missing user lastName")
 	}
 
-	return name.(string), nil
+	return name.(string), nil //nolint: forcetypeassert
 }
 
 func convertOktaError(err *okta.Error) error {
