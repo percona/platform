@@ -6,6 +6,7 @@ help:                                      ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                                      ## Install development tools
+	rm -rf bin
 	cd tools && go generate -x -tags=tools
 
 ci-init:                                   ## Initialize CI environment
