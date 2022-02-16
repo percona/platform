@@ -134,6 +134,39 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 	return convertUser(user)
 }
 
+// RegisterUser invites okta user and returns user.
+func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	err := validateRegisterUserParams(params)
+	if err != nil {
+		return nil, err
+	}
+
+	l.Info("Inviting Okta user.", zap.String("login", params.Login))
+
+	activate := true
+	profile := okta.UserProfile{
+		profileLogin:           params.Login,
+		profileEmail:           params.Login,
+		profileFirstName:       "",
+		profileLastName:        "",
+		profilePortalAdminOrgs: []string{},
+	}
+
+	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
+	if err != nil {
+		var cErr *okta.Error
+		if errors.As(err, &cErr) {
+			return nil, convertOktaError(cErr)
+		}
+
+		return nil, errors.Wrapf(err, "failed to register user")
+	}
+
+	return convertUser(user)
+}
+
 // UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
 // Returns the updated User and an error.
 func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
@@ -939,20 +972,9 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 	if params.PortalAdminOrgs != nil {
 		ids := *params.PortalAdminOrgs
 
-		// map to check duplicates
-		duplMap := map[string]struct{}{}
-
-		for _, val := range ids {
-			_, err := uuid.Parse(val)
-			if err != nil {
-				return ErrInvalidPortalAdminOrgs
-			}
-
-			if _, ok := duplMap[val]; ok {
-				return ErrDuplicatedPortalAdminOrgs
-			}
-
-			duplMap[val] = struct{}{}
+		err := validatePortalAdminOrgs(ids)
+		if err != nil {
+			return err
 		}
 	}
 
@@ -962,6 +984,35 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 
 	if params.Lastname != nil && *params.Lastname == "" {
 		return ErrEmptyLastName
+	}
+
+	return nil
+}
+
+func validatePortalAdminOrgs(ids []string) error {
+	// map to check duplicates
+	duplMap := make(map[string]struct{}, len(ids))
+	var err error
+
+	for _, val := range ids {
+		_, err = uuid.Parse(val)
+		if err != nil {
+			return ErrInvalidPortalAdminOrgs
+		}
+
+		if _, ok := duplMap[val]; ok {
+			return ErrDuplicatedPortalAdminOrgs
+		}
+
+		duplMap[val] = struct{}{}
+	}
+
+	return nil
+}
+
+func validateRegisterUserParams(params RegisterUserParams) error {
+	if params.Login == "" {
+		return ErrEmptyLogin
 	}
 
 	return nil

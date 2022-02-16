@@ -19,6 +19,11 @@ type UpdateUserParams struct {
 	Firstname       *string
 }
 
+// RegisterUserParams parameters set to invite a user.
+type RegisterUserParams struct {
+	Login string
+}
+
 // Group represents user group structure.
 type Group struct {
 	ID          string
