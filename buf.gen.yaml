@@ -6,6 +6,12 @@ managed:
     except:
       - buf.build/googleapis/googleapis
 plugins:
+  - name: gen-validate
+    out: gen
+    opt:
+      - lang=go
+      - paths=source_relative
+    path: bin/protoc-gen-validate
   - name: go
     out: gen
     opt:
@@ -21,9 +27,3 @@ plugins:
     opt:
       - paths=source_relative
     path: bin/protoc-gen-grpc-gateway
-  - name: govalidators
-    out: gen
-    opt:
-      - paths=source_relative
-      - lang=go
-    path: bin/protoc-gen-govalidators

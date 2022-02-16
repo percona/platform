@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package percona.platform.telemetry.events.pmm.v1;
 
-option go_package = "github.com/percona-platform/platform/gen/telemetry/events/pmm;pmmv1";
+option go_package = "/telemetry/events/pmm;pmmv1";
 
-import "validator/validator.proto";
+import "validate/validate.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -29,26 +29,26 @@ enum DistributionMethod {
 message ServerUptimeEvent {
   // PMM Server unique identifier.
   bytes id = 1 [
-    (validator.field) = {
-      length_eq: 16
+    (validate.rules).bytes = {
+      len: 16
     }
   ];
   // PMM Server version.
   string version = 2 [
-    (validator.field) = {
-      length_gt: 4
+    (validate.rules).string = {
+      len: 4
     }
   ];
   // PMM Server uptime.
   google.protobuf.Duration up_duration = 3 [
-    (validator.field) = {
-      msg_exists: true
+    (validate.rules).duration = {
+      required: true
     }
   ];
   // PMM Server distribution method.
   DistributionMethod distribution_method = 4 [
-    (validator.field) = {
-      is_in_enum: true
+    (validate.rules).enum = {
+      defined_only: true
     }
   ];
   // PMM Server STT enabled.

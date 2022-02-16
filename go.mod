@@ -14,7 +14,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.9.0 // indirect
-	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/okta/okta-sdk-golang/v2 v2.10.1
 	github.com/percona/promconfig v0.2.3
 	github.com/pkg/errors v0.9.1

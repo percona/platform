@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package percona.platform.org.v1;
 
-option go_package = "github.com/percona-platform/platform/gen/org;orgv1";
+option go_package = "/org;orgv1";
 
-import "validator/validator.proto";
+import "validate/validate.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -149,26 +149,26 @@ message PMMServerSSODetails {
 message ConnectPMMRequest {
   // Unique PMM Server ID.
   string pmm_server_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
   // User defined human readable PMM Server Name.
   string pmm_server_name = 2 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
   // User accessible address of PMM Server.
   string pmm_server_url = 3 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
   // URL for oauth callback.
   string pmm_server_oauth_callback_url = 4 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -181,14 +181,14 @@ message ConnectPMMResponse {
 message Organization {
   // Percona Portal Organization ID.
   string id = 1[
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
   // Percona Portal Organization Name.
   string name = 2[
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
   // Timestamp of organization creation.
@@ -200,8 +200,8 @@ message Organization {
 message CreateOrganizationRequest {
   // Organization name.
   string name = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -234,8 +234,8 @@ message Contacts {
 message GetOrganizationRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -254,8 +254,8 @@ message SearchOrganizationsResponse {
 message DeleteOrganizationRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -265,8 +265,8 @@ message DeleteOrganizationResponse {}
 message SearchOrganizationEntitlementsRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -319,15 +319,15 @@ message SearchUserCompanyResponse {
 message InviteMemberRequest {
   // Percona Portal username to invite to the Organziation.
   string username = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
   // Percona Portal Organization ID to which to invite the user to.
   string org_id = 2 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
@@ -360,8 +360,8 @@ message OrganizationMember {
 message SearchMembersRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
@@ -369,8 +369,8 @@ message SearchMembersRequest {
   message UserFilter {
     // Organization member username.
     string username = 1 [
-      (validator.field) = {
-        string_not_empty: true
+      (validate.rules).string = {
+        pattern: "^\\S+"
       }
     ];
   }
@@ -384,21 +384,21 @@ message SearchMembersResponse {
 
 message UpdateMemberRequest {
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
   string member_id = 2 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
   // Organization member role.
   string role = 3 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -410,15 +410,15 @@ message UpdateMemberResponse {
 message DeleteMemberRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 
   // Percona Portal Member ID.
   string member_id = 2 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -426,16 +426,16 @@ message DeleteMemberRequest {
 message DisconnectPMMRequest {
   // PMM server ID.
   string pmm_server_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
 
 message SearchInventoryRequest {
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -456,8 +456,8 @@ message SearchInventoryResponse {
 message SearchOrganizationTicketsRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
@@ -492,8 +492,8 @@ message OrganizationTicket {
 message GetOrganizationInternalInfoRequest {
   // Percona Portal Organization ID.
   string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
+    (validate.rules).string = {
+      pattern: "^\\S+"
     }
   ];
 }
