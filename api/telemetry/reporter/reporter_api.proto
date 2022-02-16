@@ -4,9 +4,12 @@ package percona.platform.telemetry.reporter.v1;
 
 option go_package = "/telemetry/reporter;reporterv1";
 
-import "validator/validator.proto";
+import "validate/validate.proto";
 import "telemetry/reporter/event.proto";
+import "telemetry/events/pmm/server_uptime_event.proto";
+import "google/protobuf/duration.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 // ReporterAPI describes server API for reporting telemetry events.
 service ReporterAPI {
@@ -22,8 +25,8 @@ service ReporterAPI {
 message ReportRequest {
   // One or more events to report.
   repeated Event events = 1 [
-    (validator.field) = {
-      repeated_count_min: 1
+    (validate.rules).repeated = {
+      min_items: 1
     }
   ];
 }

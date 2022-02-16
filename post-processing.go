@@ -118,17 +118,17 @@ func processSaas() {
 	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"})
 
 	walk(processDirsFunc,
-		"api/telemetry", "gen/telemetry", "gen/validator",
+		"api/telemetry", "gen/telemetry", "gen/validate", "gen/check",
 		"pkg/check", "pkg/logger", "pkg/starlark",
 		"pkg/alert", "pkg/common",
 	)
 
 	// install and tidy to check if we have anything
-	_, err := runInDir(saasRoot, "go", "install", "-v", "./...")
+	_, err := runInDir(saasRoot, "go", "mod", "tidy")
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = runInDir(saasRoot, "go", "mod", "tidy")
+	_, err = runInDir(saasRoot, "go", "install", "-v", "./...")
 	if err != nil {
 		log.Fatal(err)
 	}
