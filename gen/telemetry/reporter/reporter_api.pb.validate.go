@@ -35,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = pmmv1.telemetry / events / pmm / server_uptime_event.proto_DistributionMethod(0)
 )
 
 // Validate checks the field values on ReportRequest with the rules defined in
