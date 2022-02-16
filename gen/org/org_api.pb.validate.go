@@ -350,6 +350,8 @@ func (m *ConnectPMMResponse) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for OrgId
+
 	if len(errors) > 0 {
 		return ConnectPMMResponseMultiError(errors)
 	}
