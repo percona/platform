@@ -51,10 +51,11 @@ func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *
 
 	u := okta.CreateUserRequest{ //nolint:exhaustivestruct
 		Profile: &okta.UserProfile{
-			"email":     email,
-			"login":     email,
-			"firstName": firstName,
-			"lastName":  lastName,
+			profileEmail:           email,
+			profileLogin:           email,
+			profileFirstName:       firstName,
+			profileLastName:        lastName,
+			profilePortalAdminOrgs: []string{},
 		},
 		Credentials: &okta.UserCredentials{
 			Password: &okta.PasswordCredential{
@@ -66,14 +67,10 @@ func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *
 	testUser, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
 	require.NoError(t, err)
 
-	nLogin, err := getUserLogin(testUser)
+	converterUser, err := convertUser(testUser)
 	require.NoError(t, err)
 
-	return &User{
-		ID:     testUser.Id,
-		Login:  nLogin,
-		Status: testUser.Status,
-	}
+	return converterUser
 }
 
 // GenCredentials create test user email and password.
