@@ -5,7 +5,7 @@ go 1.16
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/bufbuild/buf v0.56.0
+	github.com/bufbuild/buf v1.0.0-rc12
 	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
 	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/fullstorydev/grpcurl v1.7.0 // indirect; https://github.com/uber/prototool/issues/559
@@ -17,7 +17,7 @@ require (
 	github.com/reviewdog/reviewdog v0.14.0
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/uber/prototool v1.10.0
-	golang.org/x/tools v0.1.9-0.20211228192929-ee1ca4ffc4da
+	golang.org/x/tools v0.1.9
 	google.golang.org/grpc v1.44.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.27.1
