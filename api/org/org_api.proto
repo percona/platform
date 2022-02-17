@@ -381,6 +381,13 @@ service OrgAPI {
       };
     };
   }
+
+  // GetOrganizationInfo fetches organization details by ID.
+  rpc GetOrganizationInfo(GetOrganizationInternalInfoRequest) returns (GetOrganizationInternalInfoResponse) {
+    option (google.api.http) = {
+      get: "/v1/orgs/info/{org_id}"
+    };
+  }
 }
 
 message PMMServerSSODetails {
@@ -733,4 +740,26 @@ message OrganizationTicket {
   string task_type = 8;
   // Ticket URL.
   string url = 9;
+}
+
+message GetOrganizationInternalInfoRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message GetOrganizationInternalInfoResponse {
+  OrganizationInternalInfo org = 1;
+}
+
+message OrganizationInternalInfo {
+  // Percona Portal Organization ID.
+  string id = 1;
+  // Percona Portal Organization Name.
+  string name = 2;
+  // Percona Customer ID.
+  string customer_id = 3;
 }
