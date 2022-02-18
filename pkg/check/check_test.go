@@ -351,7 +351,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "clickhouse_show",
+			name: "clickhouse show",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -364,8 +364,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unknown check type: CLICKHOUSE_SHOW",
 		}, {
-			name: "empty_version",
+			name: "empty version",
 			check: &Check{
+				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
@@ -374,6 +375,19 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "unexpected version 0",
+		}, {
+			name: "unknown version",
+			check: &Check{
+				Version:     123,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "unexpected version 123",
 		}, {
 			name: "empty_name",
 			check: &Check{
@@ -442,7 +456,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unknown check interval: unknown",
 		}, {
-			name: "empty_tier",
+			name: "empty tier",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -454,7 +468,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "invalid_tier",
+			name: "invalid tier",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -467,7 +481,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unknown check tier: \"invalid\"",
 		}, {
-			name: "empty_type",
+			name: "empty type",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -480,7 +494,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "check type is empty",
 		}, {
-			name: "empty_query",
+			name: "empty query",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -491,9 +505,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "",
 				Script:      "def func(args): pass",
 			},
-			errStr: "check query is empty",
+			errStr: "query is empty",
 		}, {
-			name: "non_empty_query_for_postgresql_show",
+			name: "non empty query for postgresql show",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -504,9 +518,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
 			},
-			errStr: "POSTGRESQL_SHOW check type should have empty query",
+			errStr: "query should be empty for POSTGRESQL_SHOW type",
 		}, {
-			name: "non_empty_query_for_mongodb_get_parameter",
+			name: "non empty query for mongodb get parameter",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -517,9 +531,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "MONGODB_GETPARAMETER check type should have empty query",
+			errStr: "query should be empty for MONGODB_GETPARAMETER type",
 		}, {
-			name: "non_empty_query_for_mongodb_build_info",
+			name: "non empty query for mongodb build info",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -530,9 +544,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "MONGODB_BUILDINFO check type should have empty query",
+			errStr: "query should be empty for MONGODB_BUILDINFO type",
 		}, {
-			name: "non_empty_query_for_mongodb_get_cmd_line_opts",
+			name: "non empty query for mongodb get cmd line opts",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -543,9 +557,9 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "MONGODB_GETCMDLINEOPTS check type should have empty query",
+			errStr: "query should be empty for MONGODB_GETCMDLINEOPTS type",
 		}, {
-			name: "empty_script",
+			name: "empty script",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -558,7 +572,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "check script is empty",
 		}, {
-			name: "empty_summary",
+			name: "empty summary",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -571,7 +585,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "summary is empty",
 		}, {
-			name: "empty_summary",
+			name: "empty summary",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -584,7 +598,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "description is empty",
 		}, {
-			name: "script_with_tabs",
+			name: "script with tabs",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -596,6 +610,195 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args):\tpass",
 			},
 			errStr: "script should use spaces for indentation, not tabs",
+		}, {
+			name: "mysql family check v2",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+					{
+						Type:  MySQLSelect,
+						Query: "id, name FROM table WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "postgresql family check v2",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type: PostgreSQLShow,
+					},
+					{
+						Type:  PostgreSQLSelect,
+						Query: "id, name FROM table WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "mongodb family check v2",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Queries: []Query{
+					{
+						Type: MongoDBGetCmdLineOpts,
+					},
+					{
+						Type: MongoDBGetParameter,
+					},
+					{
+						Type: MongoDBBuildInfo,
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "unsupported query type for given family",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+					{
+						Type:  PostgreSQLSelect,
+						Query: "id, name FROM table WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "unsupported query type for mySQL family POSTGRESQL_SELECT",
+		}, {
+			name: "missing queries",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Queries:     []Query{},
+				Script:      "def func(args): pass",
+			},
+			errStr: "check should have at least one query",
+		}, {
+			name: "unknown check family",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      Family("unknown"),
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "unknown check family: unknown",
+		}, {
+			name: "mixing check format v1 with family field from v2",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Family:      MySQL,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "field 'family' is part of check format version 2 and can't be used in version 1",
+		}, {
+			name: "mixing check format v1 with queries field from v2",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				}, Script: "def func(args): pass",
+			},
+			errStr: "field 'queries' is part of check format version 2 and can't be used in version 1",
+		}, {
+			name: "mixing check format v1 with type field from v2",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Type:        MySQLShow,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "field 'type' is part of check format version 1 and can't be used in version 2",
+		}, {
+			name: "mixing check format v2 with query field from v1",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Query:       "some query",
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "field 'query' is part of check format version 1 and can't be used in version 2",
 		},
 	}
 	for _, tt := range tests {
