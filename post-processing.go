@@ -125,11 +125,11 @@ func processSaas() {
 	)
 
 	// install and tidy to check if we have anything
-	_, err := runInDir(saasRoot, "go", "install", "-v", "./...")
+	_, err := runInDir(saasRoot, "go", "mod", "tidy")
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = runInDir(saasRoot, "go", "mod", "tidy")
+	_, err = runInDir(saasRoot, "go", "install", "-v", "./...")
 	if err != nil {
 		log.Fatal(err)
 	}
