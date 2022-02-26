@@ -129,13 +129,6 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/inventory:search"
     };
   }
-
-  // GetOrganizationInfo fetches organization details by ID.
-  rpc GetOrganizationInfo(GetOrganizationInternalInfoRequest) returns (GetOrganizationInternalInfoResponse) {
-    option (google.api.http) = {
-      get: "/v1/orgs/info/{org_id}"
-    };
-  }
 }
 
 message PMMServerSSODetails {
@@ -194,6 +187,8 @@ message Organization {
   google.protobuf.Timestamp created_at = 3;
   // Timestamp when organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
+  // Percona Customer ID.
+  string customer_id = 5;
 }
 
 message CreateOrganizationRequest {
@@ -495,17 +490,4 @@ message GetOrganizationInternalInfoRequest {
       string_not_empty: true
     }
   ];
-}
-
-message GetOrganizationInternalInfoResponse {
-  OrganizationInternalInfo org = 1;
-}
-
-message OrganizationInternalInfo {
-  // Percona Portal Organization ID.
-  string id = 1;
-  // Percona Portal Organization Name.
-  string name = 2;
-  // Percona Customer ID.
-  string customer_id = 3;
 }
