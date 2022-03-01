@@ -11,6 +11,8 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/google/uuid"
+
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 	"github.com/pkg/errors"
@@ -26,6 +28,14 @@ type Client struct {
 	oktaHost     string
 	oktaAPIToken string
 }
+
+const (
+	profileLastName        = "lastName"
+	profileFirstName       = "firstName"
+	profileEmail           = "email"
+	profileLogin           = "login"
+	profilePortalAdminOrgs = "portalAdminOrgs"
+)
 
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
@@ -73,10 +83,10 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 	u := okta.CreateUserRequest{
 		Profile: &okta.UserProfile{
-			"email":     login,
-			"login":     login,
-			"firstName": firstName,
-			"lastName":  lastName,
+			profileLogin:     login,
+			profileEmail:     login,
+			profileFirstName: firstName,
+			profileLastName:  lastName,
 		},
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
@@ -121,28 +131,85 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 		return nil, errors.Wrapf(err, "failed to find user")
 	}
 
-	userLogin, err := getUserLogin(user)
+	return convertUser(user)
+}
+
+// RegisterUser invites okta user and returns user.
+func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	err := validateRegisterUserParams(params)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+		return nil, err
 	}
 
-	firstName, err := getUserFirstName(user)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+	l.Info("Inviting Okta user.", zap.String("login", params.Login))
+
+	activate := true
+	profile := okta.UserProfile{
+		profileLogin:           params.Login,
+		profileEmail:           params.Login,
+		profileFirstName:       "",
+		profileLastName:        "",
+		profilePortalAdminOrgs: []string{},
 	}
 
-	lastName, err := getUserLastName(user)
+	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+		var cErr *okta.Error
+		if errors.As(err, &cErr) {
+			return nil, convertOktaError(cErr)
+		}
+
+		return nil, errors.Wrapf(err, "failed to register user")
 	}
 
-	return &User{
-		ID:        user.Id,
-		Login:     userLogin,
-		FirstName: firstName,
-		LastName:  lastName,
-		Status:    user.Status,
-	}, nil
+	return convertUser(user)
+}
+
+// UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
+// Returns the updated User and an error.
+func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	zapVal := zap.Skip()
+	if l.Core().Enabled(zap.DebugLevel) {
+		zapVal = zap.Any("params", params)
+	}
+
+	l.Info("Validating params for Okta user profile update", zap.String("userID", userID), zapVal)
+	err := validateUpdateUserParams(params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to validate params")
+	}
+
+	l.Info("Updating Okta user profile.", zap.String("userID", userID))
+	userToUpdate, _, err := c.c.User.GetUser(ctx, url.QueryEscape(userID))
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, convertOktaError(oErr)
+		}
+
+		return nil, errors.Wrap(err, "failed to find user")
+	}
+
+	// apply params
+	newProfile := updatedProfile(*userToUpdate.Profile, params)
+	userToUpdate.Profile = &newProfile
+
+	// update user
+	updatedUser, _, err := c.c.User.UpdateUser(ctx, userID, *userToUpdate, nil)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, convertOktaError(oErr)
+		}
+
+		return nil, errors.Wrap(err, "failed to find user")
+	}
+
+	return convertUser(updatedUser)
 }
 
 // SignIn returns user id and session oktaAPIToken. Returns AuthError in case of invalid login or password.
@@ -221,57 +288,6 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 	}
 
 	return nil
-}
-
-// UpdateProfile updates user's profile.
-func (c *Client) UpdateProfile(ctx context.Context, user *User, firstName, lastName string) (*User, error) {
-	l := extractLogger(ctx)
-	l.Info("Updating Okta user profile.", zap.String("userID", user.ID))
-
-	// The okta-go-sdk implementation differs slightly from the API docs where it uses
-	// PUT instead of POST for this endpoint. In case of PUT (used by the SDK) it requires
-	// both the email and login fields to be non-empty, so we send the original login to prevent
-	// the request from returning an error.
-	body := okta.User{ //nolint:exhaustivestruct
-		Profile: &okta.UserProfile{
-			"firstName": firstName,
-			"lastName":  lastName,
-			"login":     user.Login,
-			"email":     user.Login,
-		},
-	}
-	u, _, err := c.c.User.UpdateUser(ctx, user.ID, body, nil)
-	if err != nil {
-		var oErr *okta.Error
-		if errors.As(err, &oErr) {
-			return nil, convertOktaError(oErr)
-		}
-
-		return nil, errors.Wrapf(err, "failed to update user profile")
-	}
-
-	userLogin, err := getUserLogin(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	fName, err := getUserFirstName(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	lName, err := getUserLastName(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	return &User{
-		ID:        u.Id,
-		Login:     userLogin,
-		FirstName: fName,
-		LastName:  lName,
-		Status:    u.Status,
-	}, nil
 }
 
 func (c *Client) deactivateUser(ctx context.Context, userID string) error {
@@ -527,12 +543,12 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 
 	res := make([]User, 0, len(users))
 	for _, user := range users {
-		login, err := getUserLogin(user)
+		resultUser, err := convertUser(user)
 		if err != nil {
-			l.Warn(fmt.Sprintf("User %s has bad profile.", user.Id), zap.Error(err))
+			return nil, errors.Wrap(err, "failed to convert user type")
 		}
 
-		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})
+		res = append(res, *resultUser)
 	}
 
 	return res, nil
@@ -818,9 +834,9 @@ func getUserLogin(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	login, ok := profile["login"]
+	login, ok := profile[profileLogin]
 	if !ok {
-		return "", errors.New("missing user login")
+		return "", errors.New("missing user " + profileLogin)
 	}
 
 	return login.(string), nil //nolint: forcetypeassert
@@ -832,9 +848,9 @@ func getUserFirstName(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	name, ok := profile["firstName"]
+	name, ok := profile[profileFirstName]
 	if !ok {
-		return "", errors.New("missing user firstName")
+		return "", errors.New("missing user " + profileFirstName)
 	}
 
 	return name.(string), nil //nolint: forcetypeassert
@@ -846,12 +862,39 @@ func getUserLastName(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	name, ok := profile["lastName"]
+	name, ok := profile[profileLastName]
 	if !ok {
-		return "", errors.New("missing user lastName")
+		return "", errors.New("missing user " + profileLastName)
 	}
 
 	return name.(string), nil //nolint: forcetypeassert
+}
+
+func getPortalAdminOrgs(user *okta.User) ([]string, error) {
+	if user.Profile == nil {
+		return nil, errors.New("missing user profile")
+	}
+
+	result := []string{}
+
+	profile := *user.Profile
+	orgsRaw, ok := profile[profilePortalAdminOrgs]
+	if !ok {
+		return result, nil
+	}
+
+	orgsSlice, ok := orgsRaw.([]interface{})
+	if !ok {
+		return result, nil
+	}
+
+	for _, val := range orgsSlice {
+		if str, ok := val.(string); ok {
+			result = append(result, str)
+		}
+	}
+
+	return result, nil
 }
 
 func convertOktaError(err *okta.Error) error {
@@ -876,4 +919,101 @@ func convertOktaError(err *okta.Error) error {
 
 func extractLogger(ctx context.Context) *zap.Logger {
 	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
+}
+
+func convertUser(oktaUser *okta.User) (*User, error) {
+	userLogin, err := getUserLogin(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	firstName, err := getUserFirstName(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	lastName, err := getUserLastName(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	return &User{
+		ID:              oktaUser.Id,
+		Login:           userLogin,
+		FirstName:       firstName,
+		LastName:        lastName,
+		Status:          oktaUser.Status,
+		PortalAdminOrgs: portalAdminOrgs,
+	}, nil
+}
+
+func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.UserProfile {
+	if params.PortalAdminOrgs != nil {
+		profile[profilePortalAdminOrgs] = params.PortalAdminOrgs
+	}
+
+	if params.Firstname != nil {
+		profile[profileFirstName] = params.Firstname
+	}
+
+	if params.Lastname != nil {
+		profile[profileLastName] = params.Lastname
+	}
+
+	return profile
+}
+
+func validateUpdateUserParams(params UpdateUserParams) error {
+	if params.PortalAdminOrgs != nil {
+		ids := *params.PortalAdminOrgs
+
+		err := validatePortalAdminOrgs(ids)
+		if err != nil {
+			return err
+		}
+	}
+
+	if params.Firstname != nil && *params.Firstname == "" {
+		return ErrEmptyFirstName
+	}
+
+	if params.Lastname != nil && *params.Lastname == "" {
+		return ErrEmptyLastName
+	}
+
+	return nil
+}
+
+func validatePortalAdminOrgs(ids []string) error {
+	// map to check duplicates
+	duplMap := make(map[string]struct{}, len(ids))
+	var err error
+
+	for _, val := range ids {
+		_, err = uuid.Parse(val)
+		if err != nil {
+			return ErrInvalidPortalAdminOrgs
+		}
+
+		if _, ok := duplMap[val]; ok {
+			return ErrDuplicatedPortalAdminOrgs
+		}
+
+		duplMap[val] = struct{}{}
+	}
+
+	return nil
+}
+
+func validateRegisterUserParams(params RegisterUserParams) error {
+	if params.Login == "" {
+		return ErrEmptyLogin
+	}
+
+	return nil
 }

@@ -885,6 +885,9 @@
       "properties": {
         "ssoDetails": {
           "$ref": "#/definitions/v1PMMServerSSODetails"
+        },
+        "orgId": {
+          "type": "string"
         }
       }
     },

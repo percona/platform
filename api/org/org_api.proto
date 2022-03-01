@@ -404,6 +404,7 @@ message ConnectPMMRequest {
 
 message ConnectPMMResponse {
   PMMServerSSODetails sso_details = 1;
+  string org_id = 2;
 }
 
 message Organization {
