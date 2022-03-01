@@ -57,7 +57,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -89,7 +89,7 @@
           }
         },
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -137,7 +137,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Inventory Management"
         ],
         "produces": [
           "application/json"
@@ -173,7 +173,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Inventory Management"
         ],
         "produces": [
           "application/json"
@@ -221,7 +221,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Inventory Management"
         ],
         "produces": [
           "application/json"
@@ -267,7 +267,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -301,7 +301,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -361,7 +361,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -407,7 +407,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Inventory Management"
         ],
         "produces": [
           "application/json"
@@ -461,7 +461,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Member Management"
         ],
         "produces": [
           "application/json"
@@ -504,7 +504,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Member Management"
         ],
         "produces": [
           "application/json"
@@ -569,7 +569,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Member Management"
         ],
         "produces": [
           "application/json"
@@ -632,7 +632,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Member Management"
         ],
         "produces": [
           "application/json"
@@ -685,7 +685,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -740,7 +740,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
@@ -789,7 +789,7 @@
           }
         ],
         "tags": [
-          "OrgAPI"
+          "Organization Management"
         ],
         "produces": [
           "application/json"
