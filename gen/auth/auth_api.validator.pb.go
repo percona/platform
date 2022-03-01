@@ -12,6 +12,7 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 
+	_ "github.com/percona-platform/platform/gen/protoc-gen-openapiv2/options"
 	_ "github.com/percona-platform/platform/gen/validator"
 )
 

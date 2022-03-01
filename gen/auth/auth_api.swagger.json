@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "auth/auth_api.proto",
+    "title": "Auth API",
     "version": "version not set"
   },
   "tags": [
@@ -18,7 +18,8 @@
   "paths": {
     "/v1/auth/GetProfile": {
       "post": {
-        "summary": "GetProfile returns user's email, first name and last name.",
+        "summary": "GetProfile",
+        "description": "GetProfile returns user's email, first name and last name.",
         "operationId": "AuthAPI_GetProfile",
         "responses": {
           "200": {
@@ -46,12 +47,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/RefreshSession": {
       "post": {
-        "summary": "RefreshSession refreshes session timeout.",
+        "summary": "RefreshSession",
+        "description": "RefreshSession refreshes session timeout.",
         "operationId": "AuthAPI_RefreshSession",
         "responses": {
           "200": {
@@ -79,12 +84,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/ResetPassword": {
       "post": {
-        "summary": "ResetPassword initiates user's password reset procedure.",
+        "summary": "ResetPassword",
+        "description": "ResetPassword initiates user's password reset procedure.",
         "operationId": "AuthAPI_ResetPassword",
         "responses": {
           "200": {
@@ -112,12 +121,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/SignIn": {
       "post": {
-        "summary": "SignIn checks user authentication, creates session and returns session ID.",
+        "summary": "SignIn",
+        "description": "SignIn checks user authentication, creates session and returns session ID.",
         "operationId": "AuthAPI_SignIn",
         "responses": {
           "200": {
@@ -145,12 +158,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/SignOut": {
       "post": {
-        "summary": "SignOut terminates user session.",
+        "summary": "SignOut",
+        "description": "SignOut terminates user session.",
         "operationId": "AuthAPI_SignOut",
         "responses": {
           "200": {
@@ -178,12 +195,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/SignUp": {
       "post": {
-        "summary": "SignUp creates new user with given email and password.",
+        "summary": "SignUp",
+        "description": "SignUp creates new user with given email and password.",
         "operationId": "AuthAPI_SignUp",
         "responses": {
           "200": {
@@ -211,12 +232,16 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/auth/UpdateProfile": {
       "post": {
-        "summary": "UpdateProfile updates user's first name and last name.",
+        "summary": "UpdateProfile",
+        "description": "UpdateProfile updates user's first name and last name.",
         "operationId": "AuthAPI_UpdateProfile",
         "responses": {
           "200": {
@@ -244,6 +269,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     }
@@ -411,5 +439,13 @@
     "v1UpdateProfileResponse": {
       "type": "object"
     }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
   }
 }

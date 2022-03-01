@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "telemetry/reporter/reporter_api.proto",
+    "title": "Reporter API",
     "version": "version not set"
   },
   "tags": [
@@ -18,13 +18,17 @@
   "paths": {
     "/v1/telemetry/Report": {
       "post": {
-        "summary": "Report submits several telemetry events to the server.",
+        "summary": "Report",
+        "description": "Report is used to submit telemetry events to telemetryd service.",
         "operationId": "ReporterAPI_Report",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1ReportResponse"
+            },
+            "examples": {
+              "application/json": {}
             }
           },
           "default": {
@@ -46,6 +50,9 @@
         ],
         "tags": [
           "ReporterAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     }
@@ -132,5 +139,13 @@
     "v1ReportResponse": {
       "type": "object"
     }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
   }
 }

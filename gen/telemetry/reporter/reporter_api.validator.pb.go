@@ -11,6 +11,7 @@ import (
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 
+	_ "github.com/percona-platform/platform/gen/protoc-gen-openapiv2/options"
 	_ "github.com/percona-platform/platform/gen/validator"
 )
 

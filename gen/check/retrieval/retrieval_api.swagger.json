@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "check/retrieval/retrieval_api.proto",
+    "title": "Retrieval API",
     "version": "version not set"
   },
   "tags": [
@@ -18,7 +18,8 @@
   "paths": {
     "/v1/check/GetAllAlertRuleTemplates": {
       "post": {
-        "summary": "GetAllAlertRuleTemplates returns all available IA rule templates.",
+        "summary": "Get all alert rule templates",
+        "description": "Retrieves all alert rule templates a user is entitled to according to the tier.",
         "operationId": "RetrievalAPI_GetAllAlertRuleTemplates",
         "responses": {
           "200": {
@@ -46,12 +47,16 @@
         ],
         "tags": [
           "RetrievalAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     },
     "/v1/check/GetAllChecks": {
       "post": {
-        "summary": "GetAllChecks returns all available STT checks.",
+        "summary": "Get all checks",
+        "description": "Retrieves all check scripts a user is entitled to according to the tier.",
         "operationId": "RetrievalAPI_GetAllChecks",
         "responses": {
           "200": {
@@ -79,6 +84,9 @@
         ],
         "tags": [
           "RetrievalAPI"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     }
@@ -149,5 +157,13 @@
         }
       }
     }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
   }
 }
