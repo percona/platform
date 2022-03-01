@@ -202,6 +202,47 @@ service OrgAPI {
     };
   }
 
+  // UpdateMember updates user to a Percona Portal Organization.
+  rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{org_id}/members/{member_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update organization member's role.";
+      summary: "Update organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"member": {"member_id":"1a8e7b33-59bc-42a5-b1a8-2180576badde","username":"admin@org.com","first_name":"First Name","last_name":"Last Name","role":"Admin","status":"ACTIVE"}}'
+          }
+        };
+      };
+    };
+  }
+
+  // DeleteMember deletes a Percona Portal Organization Member with the given ID.
+  rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/{org_id}/members/{member_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete member from organization.";
+      summary: "Delete organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
+  }
+
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
@@ -267,47 +308,6 @@ service OrgAPI {
             value: '{"name":"Percona SANDBOX"}'
           }
         };
-      };
-    };
-  }
-
-  // UpdateMember updates user to a Percona Portal Organization.
-  rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse) {
-    option (google.api.http) = {
-      put: "/v1/orgs/{org_id}/members/{member_id}"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Update organization member's role.";
-      summary: "Update organization member";
-      tags: "Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {
-        key: "200";
-        value: {
-          examples: {
-            key: "application/json"
-            value: '{"member": {"member_id":"1a8e7b33-59bc-42a5-b1a8-2180576badde","username":"admin@org.com","first_name":"First Name","last_name":"Last Name","role":"Admin","status":"ACTIVE"}}'
-          }
-        };
-      };
-    };
-  }
-
-  // DeleteMember deletes a Percona Portal Organization Member with the given ID.
-  rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      delete: "/v1/orgs/{org_id}/members/{member_id}"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Delete member from organization.";
-      summary: "Delete organization member";
-      tags: "Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {
-        key: "200";
       };
     };
   }
