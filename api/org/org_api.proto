@@ -45,7 +45,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
-    description: "Provides API for organization management for Percona services.";
+    description: "Provides API to manage the organizations available for your Percona services.";
   };
 
   // CreateOrganization creates new organization with the given name and adds the user as org admin.
@@ -55,7 +55,7 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Create a new organization with the given name and adds the user as org admin. In case the Percona customer is found by requestor's e-mail it will be linked with ServiceNow.";
+      description: "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.";
       summary: "Create organization";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -123,8 +123,8 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search for organizations where the user is a member.";
-      summary: "Search user's organizations";
+      description: "Search for organizations that the user is a member of.";
+      summary: "Search organizations";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -162,7 +162,7 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Invite a new member to organization with defined role.";
+      description: "Invite users to the organization and specify their member roles.";
       summary: "Invite organization member";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -201,7 +201,7 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/entitlements:search"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search organization entitlements. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).";
+      description: "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
       summary: "Search organization entitlements";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -223,7 +223,7 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/tickets:search"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search organization tickets. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).";
+      description: "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
       summary: "Search organization tickets";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -245,7 +245,7 @@ service OrgAPI {
       post: "/v1/orgs/company:search"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search Percona customer by User's email. This method returns info only in case the user is related to real Percona customer.";
+      description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.";
       summary: "Search organization tickets";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -351,7 +351,7 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/inventory:search"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search all connected to organization PMM Servers.";
+      description: "Search all PMM servers connected to an organization.";
       summary: "Search connected PMM Servers";
       consumes: ["application/json"];
       produces: ["application/json"];

@@ -7,7 +7,7 @@
   "tags": [
     {
       "name": "OrgAPI",
-      "description": "Provides API for organization management for Percona services."
+      "description": "Provides API to manage the organizations available for your Percona services."
     }
   ],
   "consumes": [
@@ -20,7 +20,7 @@
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
-        "description": "Create a new organization with the given name and adds the user as org admin. In case the Percona customer is found by requestor's e-mail it will be linked with ServiceNow.",
+        "description": "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.",
         "operationId": "OrgAPI_CreateOrganization",
         "responses": {
           "200": {
@@ -67,7 +67,7 @@
     "/v1/orgs/company:search": {
       "post": {
         "summary": "Search organization tickets",
-        "description": "Search Percona customer by User's email. This method returns info only in case the user is related to real Percona customer.",
+        "description": "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.",
         "operationId": "OrgAPI_SearchUserCompany",
         "responses": {
           "200": {
@@ -311,7 +311,7 @@
     "/v1/orgs/{orgId}/entitlements:search": {
       "post": {
         "summary": "Search organization entitlements",
-        "description": "Search organization entitlements. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).",
+        "description": "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.",
         "operationId": "OrgAPI_SearchOrganizationEntitlements",
         "responses": {
           "200": {
@@ -371,7 +371,7 @@
     "/v1/orgs/{orgId}/inventory:search": {
       "post": {
         "summary": "Search connected PMM Servers",
-        "description": "Search all connected to organization PMM Servers.",
+        "description": "Search all PMM servers connected to an organization.",
         "operationId": "OrgAPI_SearchInventory",
         "responses": {
           "200": {
@@ -417,7 +417,7 @@
     "/v1/orgs/{orgId}/members": {
       "post": {
         "summary": "Invite organization member",
-        "description": "Invite a new member to organization with defined role.",
+        "description": "Invite users to the organization and specify their member roles.",
         "operationId": "OrgAPI_InviteMember",
         "responses": {
           "200": {
@@ -642,7 +642,7 @@
     "/v1/orgs/{orgId}/tickets:search": {
       "post": {
         "summary": "Search organization tickets",
-        "description": "Search organization tickets. This method returns info only in case the organization is related to real Percona customer (linked to ServiceNow).",
+        "description": "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.",
         "operationId": "OrgAPI_SearchOrganizationTickets",
         "responses": {
           "200": {
@@ -749,8 +749,8 @@
     },
     "/v1/orgs:search": {
       "post": {
-        "summary": "Search user's organizations",
-        "description": "Search for organizations where the user is a member.",
+        "summary": "Search organizations",
+        "description": "Search for organizations that the user is a member of.",
         "operationId": "OrgAPI_SearchOrganizations",
         "responses": {
           "200": {
