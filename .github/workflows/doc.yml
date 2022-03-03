@@ -7,25 +7,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
+  sync:
     steps:
-      - uses: percona-platform/checkout@v2
-      - uses: percona-platform/github-readme-sync@v2
+      - name: Sync Org API docs
+        uses: percona-platform/checkout@v2
+        uses: percona-platform/github-readme-sync@v2
         with:
           readme-oas-key: ${{ secrets.README_TOKEN }}
-
-          # OPTIONAL CONFIG, use if necessary
-          # oas-file-path: "./gen/org/org_api.swagger.json"
+          oas-file-path: "./gen/org/org_api.swagger.json"
           api-version: "v1.0"
-
-      - uses: percona-platform/setup-node@v2
+      - name: Sync Auth API docs
+        uses: percona-platform/checkout@v2
+        uses: percona-platform/github-readme-sync@v2
         with:
-          node-version: "14"
-          cache: "npm"
-
-      # Install dependencies
-      - run: npm install -g rdme
-
-      # Convert
-      - run: rdme docs markdowns --version=v1.0 --key=${{ secrets.README_TOKEN }}
+          readme-oas-key: ${{ secrets.README_TOKEN }}
+          oas-file-path: "./gen/auth/auth_api.swagger.json"
+          api-version: "v1.0"
+      - name: Sync Check Retrieval API docs
+        uses: percona-platform/checkout@v2
+        uses: percona-platform/github-readme-sync@v2
+        with:
+          readme-oas-key: ${{ secrets.README_TOKEN }}
+          oas-file-path: "./gen/check/retrieval/retrieval_api.swagger.json"
+          api-version: "v1.0"
+      - name: Sync Telemetry Reporter API docs
+        uses: percona-platform/checkout@v2
+        uses: percona-platform/github-readme-sync@v2
+        with:
+          readme-oas-key: ${{ secrets.README_TOKEN }}
+          oas-file-path: "./gen/telemetry/reporter/reporter_api.swagger.json"
+          api-version: "v1.0"
