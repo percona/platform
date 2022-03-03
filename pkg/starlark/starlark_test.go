@@ -56,15 +56,12 @@ def check_context(rows, context):
 	t.Run("NoResults", func(t *testing.T) {
 		t.Parallel()
 
-		data := []map[string]interface{}{
+		input := []map[string]interface{}{
 			{"Variable_name": "have_openssl", "Value": "YES"},
 			{"Variable_name": "have_ssl", "Value": "YES"},
 		}
 
-		addToFuzzCorpus(t.Name(), script, data)
-		input, err := PrepareInput(data)
-		require.NoError(t, err)
-
+		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		assert.Empty(t, res)
@@ -73,15 +70,12 @@ def check_context(rows, context):
 	t.Run("SingleResult", func(t *testing.T) {
 		t.Parallel()
 
-		data := []map[string]interface{}{
+		input := []map[string]interface{}{
 			{"Variable_name": "have_ssl", "Value": "YES"},
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
-		addToFuzzCorpus(t.Name(), script, data)
-		input, err := PrepareInput(data)
-		require.NoError(t, err)
-
+		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
@@ -97,15 +91,12 @@ def check_context(rows, context):
 	t.Run("MultipleResults", func(t *testing.T) {
 		t.Parallel()
 
-		data := []map[string]interface{}{
+		input := []map[string]interface{}{
 			{"Variable_name": "have_ssl", "Value": "NO"},
 			{"Variable_name": "have_openssl", "Value": "NO"},
 		}
 
-		addToFuzzCorpus(t.Name(), script, data)
-		input, err := PrepareInput(data)
-		require.NoError(t, err)
-
+		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
 		expected := []check.Result{{
@@ -416,15 +407,12 @@ def check_context(rows, context):
     return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
 		`) + "\n"
 
-		data := []map[string]interface{}{
+		input := []map[string]interface{}{
 			{"foo": "bar"},
 			{"foo": "baz"},
 		}
 
-		addToFuzzCorpus(t.Name(), script, data)
-		input, err := PrepareInput(data)
-		require.NoError(t, err)
-
+		addToFuzzCorpus(t.Name(), script, input)
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
@@ -448,10 +436,8 @@ def check_context(rows, context):
     return [{"summary": repr(pairs(*rows)), "severity": "notice"}]
 		`) + "\n"
 
-		data := []map[string]interface{}{}
-		addToFuzzCorpus(t.Name(), script, data)
-		input, err := PrepareInput(data)
-		require.NoError(t, err)
+		input := []map[string]interface{}{}
+		addToFuzzCorpus(t.Name(), script, input)
 
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
@@ -517,15 +503,12 @@ def check_context(rows, context):
 	return [{"summary": concat(*rows), "severity": "notice"}]
 		`) + "\n"
 
-	data := []map[string]interface{}{
+	input := []map[string]interface{}{
 		{"foo": "bar"},
 		{"foo": "baz"},
 	}
 
-	addToFuzzCorpus(t.Name(), script, data)
-	input, err := PrepareInput(data)
-	require.NoError(t, err)
-
+	addToFuzzCorpus(t.Name(), script, input)
 	env, err := NewEnv(t.Name(), script, nil)
 	require.NoError(t, err)
 

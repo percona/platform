@@ -133,10 +133,11 @@ func (env *Env) run(funcName string, args starlark.Tuple, threadName string, pri
 // Run executes function 'check_context' with given query results and additional funcs known as 'context'.
 // Id is used to separate that execution from other and used only for debugging.
 // print is a user-suplied Starlark 'print' function implementation.
-func (env *Env) Run(id string, input starlark.Value, contextFuncs map[string]GoFunc, printFunc PrintFunc) ([]check.Result, error) {
+func (env *Env) Run(id string, input interface{}, contextFuncs map[string]GoFunc, printFunc PrintFunc) ([]check.Result, error) {
 	var err error
-	if input == nil {
-		input = starlark.None
+	rows, err := prepareInput(input)
+	if err != nil {
+		return nil, errors.Wrapf(err, "thread %s", id)
 	}
 	context := starlark.NewDict(len(contextFuncs))
 	for n, f := range contextFuncs {
@@ -147,7 +148,7 @@ func (env *Env) Run(id string, input starlark.Value, contextFuncs map[string]GoF
 	context.Freeze()
 
 	var output starlark.Value
-	output, err = env.run("check_context", starlark.Tuple{input, context}, id, printFunc)
+	output, err = env.run("check_context", starlark.Tuple{rows, context}, id, printFunc)
 	if err != nil {
 		// thread id is already present
 		return nil, err
@@ -161,8 +162,8 @@ func (env *Env) Run(id string, input starlark.Value, contextFuncs map[string]GoF
 	return res, nil
 }
 
-// PrepareInput convert go types to starlark types.
-func PrepareInput(input interface{}) (starlark.Value, error) {
+// prepareInput converts go types to starlark types.
+func prepareInput(input interface{}) (starlark.Value, error) {
 	l, err := goToStarlark(input)
 	if err != nil {
 		return nil, err
