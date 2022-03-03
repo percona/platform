@@ -7,34 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  runs-on: ubuntu-latest
-  sync:
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: Sync Org API docs
+      - name: Checkout the code
         uses: percona-platform/checkout@v2
-        uses: percona-platform/github-readme-sync@v2
+
+      - name: Build OAS specs
+        run: |
+          make init
+          make gen
+
+      - name: Upload Org API
+        uses: percona-platform/rdme@v6
         with:
-          readme-oas-key: ${{ secrets.README_TOKEN }}
-          oas-file-path: "./gen/org/org_api.swagger.json"
-          api-version: "v1.0"
-      - name: Sync Auth API docs
-        uses: percona-platform/checkout@v2
-        uses: percona-platform/github-readme-sync@v2
+          rdme: openapi ./gen/org/org_api.swagger.json --id=orgapi --key=${{ secrets.README_TOKEN }}
+
+      - name: Install NodeJS
+        uses: percona-platform/setup-node@v2
         with:
-          readme-oas-key: ${{ secrets.README_TOKEN }}
-          oas-file-path: "./gen/auth/auth_api.swagger.json"
-          api-version: "v1.0"
-      - name: Sync Check Retrieval API docs
-        uses: percona-platform/checkout@v2
-        uses: percona-platform/github-readme-sync@v2
-        with:
-          readme-oas-key: ${{ secrets.README_TOKEN }}
-          oas-file-path: "./gen/check/retrieval/retrieval_api.swagger.json"
-          api-version: "v1.0"
-      - name: Sync Telemetry Reporter API docs
-        uses: percona-platform/checkout@v2
-        uses: percona-platform/github-readme-sync@v2
-        with:
-          readme-oas-key: ${{ secrets.README_TOKEN }}
-          oas-file-path: "./gen/telemetry/reporter/reporter_api.swagger.json"
-          api-version: "v1.0"
+          node-version: "14"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install -g rdme
+
+      - name: Sync the folder with *.md files to Readme
+        run: rdme docs markdown --version=v1.0 --key=${{ secrets.README_TOKEN }}
