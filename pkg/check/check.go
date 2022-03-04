@@ -375,7 +375,7 @@ func validateMySQLCompatibleQueries(queries []Query) error {
 		case MySQLShow:
 		case MySQLSelect:
 		default:
-			return errors.Errorf("unsupported query type for mySQL family %s", q.Type)
+			return errors.Errorf("unsupported query type '%s' for mySQL family", q.Type)
 		}
 
 		if err = validateQuery(q.Type, q.Query); err != nil {
@@ -397,7 +397,7 @@ func validatePostgreSQLCompatibleQueries(queries []Query) error {
 		case PostgreSQLShow:
 		case PostgreSQLSelect:
 		default:
-			return errors.Errorf("unsupported query type for postreSQL family %s", q.Type)
+			return errors.Errorf("unsupported query type '%s' for postgreSQL family", q.Type)
 		}
 
 		if err = validateQuery(q.Type, q.Query); err != nil {
@@ -420,7 +420,7 @@ func validateMongoDBCompatibleQueries(queries []Query) error {
 		case MongoDBBuildInfo:
 		case MongoDBGetCmdLineOpts:
 		default:
-			return errors.Errorf("unsupported query type for mongoDB family %s", q.Type)
+			return errors.Errorf("unsupported query type '%s' for mongoDB family", q.Type)
 		}
 
 		if err = validateQuery(q.Type, q.Query); err != nil {
