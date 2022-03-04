@@ -697,7 +697,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				},
 				Script: "def func(args): pass",
 			},
-			errStr: "unsupported query type for mySQL family POSTGRESQL_SELECT",
+			errStr: "unsupported query type 'POSTGRESQL_SELECT' for mySQL family",
 		}, {
 			name: "missing queries",
 			check: &Check{
