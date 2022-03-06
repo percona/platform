@@ -8,9 +8,8 @@ import (
 	math "math"
 
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
-
-	_ "github.com/percona-platform/platform/gen/protoc-gen-openapiv2/options"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

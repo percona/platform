@@ -10,6 +10,7 @@ import (
 	reflect "reflect"
 	sync "sync"
 
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -17,7 +18,6 @@ import (
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 
-	_ "github.com/percona-platform/platform/gen/protoc-gen-openapiv2/options"
 	_ "github.com/percona-platform/platform/gen/validator"
 )
 
