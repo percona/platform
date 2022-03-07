@@ -34,7 +34,6 @@ jobs:
         uses: percona-platform/setup-node@v2
         with:
           node-version: "14"
-          cache: "npm"
 
       - name: Install dependencies
         run: npm install -g rdme
