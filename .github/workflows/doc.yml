@@ -10,14 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the code
-        uses: percona-platform/checkout@v2
-
-      - name: Build OAS specs
-        run: |
-          make init
-          make gen
-
       - name: Sync Org API
         uses: percona-platform/rdme@v6
         with:
