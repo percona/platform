@@ -436,7 +436,7 @@
         "parameters": [
           {
             "name": "orgId",
-            "description": "Percona Portal Organization ID to which to invite the user to.",
+            "description": "Percona Portal organization ID to which to invite the user to.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -454,7 +454,7 @@
                 },
                 "role": {
                   "type": "string",
-                  "description": "Percona Portal Organization Role to be granted to invited user."
+                  "description": "Percona Portal organization role to be granted to the invited user."
                 }
               }
             }
@@ -724,7 +724,7 @@
         "parameters": [
           {
             "name": "organization.id",
-            "description": "Percona Portal Organization ID.",
+            "description": "Percona Portal organization ID.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -830,7 +830,7 @@
           "description": "Organization member username."
         }
       },
-      "description": "Optional filter to be used by PMM to get current user info."
+      "description": "Optional filter that PMM uses to get information about the current user."
     },
     "protobufAny": {
       "type": "object",
@@ -864,15 +864,15 @@
       "properties": {
         "pmmServerId": {
           "type": "string",
-          "description": "Unique PMM Server ID."
+          "description": "PMM Server unique ID."
         },
         "pmmServerName": {
           "type": "string",
-          "description": "User defined human readable PMM Server Name."
+          "description": "User-defined human-readable PMM Server name."
         },
         "pmmServerUrl": {
           "type": "string",
-          "description": "User accessible address of PMM Server."
+          "description": "PMM Server address accessible to users."
         },
         "pmmServerOauthCallbackUrl": {
           "type": "string",
@@ -896,7 +896,7 @@
       "properties": {
         "customerSuccess": {
           "$ref": "#/definitions/ContactsCustomerSuccess",
-          "description": "Contact information of the customer success employee assigned to a customer's account."
+          "description": "Contact information of the Customer Success employee assigned to a customer's account."
         },
         "newTicketUrl": {
           "type": "string",
@@ -950,11 +950,11 @@
         },
         "pmmServerName": {
           "type": "string",
-          "description": "User defined human readable PMM Server Name."
+          "description": "User-defined, human-readable PMM Server name."
         },
         "pmmServerUrl": {
           "type": "string",
-          "description": "User accessible address of PMM Server."
+          "description": "PMM Server address accessible to the users."
         }
       }
     },
@@ -966,21 +966,21 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "Percona Portal Organization ID."
+          "description": "Percona Portal organization ID."
         },
         "name": {
           "type": "string",
-          "description": "Percona Portal Organization Name."
+          "description": "Percona Portal organization name."
         },
         "createdAt": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp of organization creation."
+          "description": "Timestamp when the organization was created."
         },
         "updatedAt": {
           "type": "string",
           "format": "date-time",
-          "description": "Timestamp when organization was last updated."
+          "description": "Timestamp when the organization was last updated."
         }
       }
     },
@@ -1034,10 +1034,10 @@
         },
         "platform": {
           "$ref": "#/definitions/OrganizationEntitlementPlatform",
-          "description": "Platform specific options covered by this entitlement."
+          "description": "Platform-specific options covered by this entitlement."
         }
       },
-      "description": "Contains information about Organization entitlement."
+      "description": "Contains information about the organization entitlement."
     },
     "v1OrganizationMember": {
       "type": "object",
@@ -1060,7 +1060,7 @@
         },
         "role": {
           "type": "string",
-          "description": "Percona Portal Organization Role of the member."
+          "description": "Percona Portal organization role of the member."
         },
         "status": {
           "type": "string",
@@ -1106,10 +1106,10 @@
         },
         "url": {
           "type": "string",
-          "description": "Ticket url."
+          "description": "Ticket URL."
         }
       },
-      "description": "Contains information about ticket."
+      "description": "Contains information about the ticket."
     },
     "v1PMMServerSSODetails": {
       "type": "object",

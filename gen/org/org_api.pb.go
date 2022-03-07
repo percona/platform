@@ -104,11 +104,11 @@ type ConnectPMMRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Unique PMM Server ID.
+	// PMM Server unique ID.
 	PmmServerId string `protobuf:"bytes,1,opt,name=pmm_server_id,json=pmmServerId,proto3" json:"pmm_server_id,omitempty"`
-	// User defined human readable PMM Server Name.
+	// User-defined human-readable PMM Server name.
 	PmmServerName string `protobuf:"bytes,2,opt,name=pmm_server_name,json=pmmServerName,proto3" json:"pmm_server_name,omitempty"`
-	// User accessible address of PMM Server.
+	// PMM Server address accessible to users.
 	PmmServerUrl string `protobuf:"bytes,3,opt,name=pmm_server_url,json=pmmServerUrl,proto3" json:"pmm_server_url,omitempty"`
 	// URL for oauth callback.
 	PmmServerOauthCallbackUrl string `protobuf:"bytes,4,opt,name=pmm_server_oauth_callback_url,json=pmmServerOauthCallbackUrl,proto3" json:"pmm_server_oauth_callback_url,omitempty"`
@@ -234,13 +234,13 @@ type Organization struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Percona Portal Organization ID.
+	// Percona Portal organization ID.
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	// Percona Portal Organization Name.
+	// Percona Portal organization name.
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	// Timestamp of organization creation.
+	// Timestamp when the organization was created.
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	// Timestamp when organization was last updated.
+	// Timestamp when the organization was last updated.
 	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 }
 
@@ -499,7 +499,7 @@ type Contacts struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Contact information of the customer success employee assigned to a customer's account.
+	// Contact information of the Customer Success employee assigned to a customer's account.
 	CustomerSuccess *Contacts_CustomerSuccess `protobuf:"bytes,1,opt,name=customer_success,json=customerSuccess,proto3" json:"customer_success,omitempty"`
 	// Ticket URL.
 	NewTicketUrl string `protobuf:"bytes,2,opt,name=new_ticket_url,json=newTicketUrl,proto3" json:"new_ticket_url,omitempty"`
@@ -920,7 +920,7 @@ func (x *SearchOrganizationEntitlementsResponse) GetEntitlements() []*Organizati
 	return nil
 }
 
-// Contains information about Organization entitlement.
+// Contains information about the organization entitlement.
 type OrganizationEntitlement struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -948,7 +948,7 @@ type OrganizationEntitlement struct {
 	// Entitlement end date.
 	// Note: only date is used here but not time.
 	EndDate *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=end_date,json=endDate,proto3" json:"end_date,omitempty"`
-	// Platform specific options covered by this entitlement.
+	// Platform-specific options covered by this entitlement.
 	Platform *OrganizationEntitlement_Platform `protobuf:"bytes,11,opt,name=platform,proto3" json:"platform,omitempty"`
 }
 
@@ -1154,9 +1154,9 @@ type InviteMemberRequest struct {
 
 	// Percona Portal username to invite to the Organziation.
 	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	// Percona Portal Organization ID to which to invite the user to.
+	// Percona Portal organization ID to which to invite the user to.
 	OrgId string `protobuf:"bytes,2,opt,name=org_id,json=orgId,proto3" json:"org_id,omitempty"`
-	// Percona Portal Organization Role to be granted to invited user.
+	// Percona Portal organization role to be granted to the invited user.
 	Role string `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
 }
 
@@ -1264,7 +1264,7 @@ type OrganizationMember struct {
 	FirstName string `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
 	// Last name of the organization member.
 	LastName string `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	// Percona Portal Organization Role of the member.
+	// Percona Portal organization role of the member.
 	Role string `protobuf:"bytes,5,opt,name=role,proto3" json:"role,omitempty"`
 	// Okta Account Status of the organization member.
 	Status string `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
@@ -1717,9 +1717,9 @@ type Inventory struct {
 
 	// PMM Server ID
 	PmmServerId string `protobuf:"bytes,1,opt,name=pmm_server_id,json=pmmServerId,proto3" json:"pmm_server_id,omitempty"`
-	// User defined human readable PMM Server Name.
+	// User-defined, human-readable PMM Server name.
 	PmmServerName string `protobuf:"bytes,2,opt,name=pmm_server_name,json=pmmServerName,proto3" json:"pmm_server_name,omitempty"`
-	// User accessible address of PMM Server.
+	// PMM Server address accessible to the users.
 	PmmServerUrl string `protobuf:"bytes,3,opt,name=pmm_server_url,json=pmmServerUrl,proto3" json:"pmm_server_url,omitempty"`
 }
 
@@ -1919,7 +1919,7 @@ func (x *SearchOrganizationTicketsResponse) GetTickets() []*OrganizationTicket {
 	return nil
 }
 
-// Contains information about ticket.
+// Contains information about the ticket.
 type OrganizationTicket struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1941,7 +1941,7 @@ type OrganizationTicket struct {
 	Requester string `protobuf:"bytes,7,opt,name=requester,proto3" json:"requester,omitempty"`
 	// Task type.
 	TaskType string `protobuf:"bytes,8,opt,name=task_type,json=taskType,proto3" json:"task_type,omitempty"`
-	// Ticket url.
+	// Ticket URL.
 	Url string `protobuf:"bytes,9,opt,name=url,proto3" json:"url,omitempty"`
 }
 
@@ -2152,7 +2152,7 @@ func (x *OrganizationEntitlement_Platform) GetConfigAdvisor() *wrapperspb.String
 	return nil
 }
 
-// Optional filter to be used by PMM to get current user info.
+// Optional filter that PMM uses to get information about the current user.
 type SearchMembersRequest_UserFilter struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
