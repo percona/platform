@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
   workflow_dispatch:
 
@@ -14,7 +15,7 @@ jobs:
         uses: percona-platform/checkout@v2    
     
       - name: Sync Org API
-        uses: percona-platform/rdme@6.5.0
+        uses: percona-platform/rdme@v6
         with:
           rdme: openapi ./gen/org/org_api.swagger.json --id=orgapi --key=${{ secrets.README_TOKEN }}
 
@@ -33,10 +34,10 @@ jobs:
         with:
           rdme: openapi ./gen/telemetry/reporter/reporter_api.swagger.json --id=reporterapi --key=${{ secrets.README_TOKEN }}
 
-      - name: Install NodeJS
-        uses: percona-platform/setup-node@v2
-        with:
-          node-version: "14"
+#       - name: Install NodeJS
+#         uses: percona-platform/setup-node@v2
+#         with:
+#           node-version: "14"
 
       - name: Install dependencies
         run: npm install -g rdme
