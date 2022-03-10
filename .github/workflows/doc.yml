@@ -39,8 +39,10 @@ jobs:
       #         with:
       #           node-version: "14"
 
-      - name: Install dependencies
-        run: npm install -g rdme
+      # - name: Install dependencies
+      #   run: npm install -g rdme
 
       - name: Sync the folder with *.md files to Readme
-        run: rdme docs markdown --version=v1.0 --key=${{ secrets.README_TOKEN }}
+        uses: percona-platform/rdme@6.5.0
+        with:
+          rdme: docs markdown --version=v1.0 --key=${{ secrets.README_TOKEN }}
