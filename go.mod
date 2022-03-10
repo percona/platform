@@ -5,8 +5,8 @@ go 1.17
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/aws/aws-sdk-go v1.42.53
-	github.com/brianvoe/gofakeit/v6 v6.14.5
+	github.com/aws/aws-sdk-go v1.43.14
+	github.com/brianvoe/gofakeit/v6 v6.15.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
@@ -15,7 +15,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/okta/okta-sdk-golang/v2 v2.10.1
+	github.com/okta/okta-sdk-golang/v2 v2.11.0
 	github.com/percona/promconfig v0.2.3
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.12.1
@@ -52,8 +52,8 @@ require (
 	github.com/prometheus/procfs v0.7.3 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
+	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/square/go-jose.v2 v2.5.1 // indirect
 )
