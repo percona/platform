@@ -263,7 +263,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 		errStr string
 	}{
 		{
-			name: "mysql_show",
+			name: "mysql show",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -276,7 +276,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "mysql_select",
+			name: "mysql select",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -289,7 +289,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "postgresql_show",
+			name: "postgresql show",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -302,7 +302,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "postgresql_select",
+			name: "postgresql select",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -315,7 +315,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "mongodb_get_parameter",
+			name: "mongodb getParameter",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -327,7 +327,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "mongodb_build_info",
+			name: "mongodb buildInfo",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -339,7 +339,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
-			name: "mongodb_get_cmd_line_opts",
+			name: "mongodb getCmdLineOpts",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
@@ -347,6 +347,30 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
 				Type:        MongoDBGetCmdLineOpts,
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "mongodb replSetGetStatus",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBReplSetGetStatus,
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "mongodb getDiagnosticData",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetDiagnosticData,
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
@@ -389,7 +413,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unexpected version 123",
 		}, {
-			name: "empty_name",
+			name: "empty name",
 			check: &Check{
 				Version:     1,
 				Summary:     "Test Check",
@@ -558,6 +582,32 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "query should be empty for MONGODB_GETCMDLINEOPTS type",
+		}, {
+			name: "non-empty query for mongodb replSetGetStatus",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBReplSetGetStatus,
+				Query:       "some query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "query should be empty for MONGODB_REPLSETGETSTATUS type",
+		}, {
+			name: "non-empty query for mongodb getDiagnosticData",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetDiagnosticData,
+				Query:       "some query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "query should be empty for MONGODB_GETDIAGNOSTICDATA type",
 		}, {
 			name: "empty script",
 			check: &Check{
