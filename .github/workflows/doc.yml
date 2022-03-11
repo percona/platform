@@ -34,7 +34,7 @@ jobs:
           rdme: openapi ./gen/telemetry/reporter/reporter_api.swagger.json --id=reporterapi --key=${{ secrets.README_TOKEN }}
 
       - name: Install NodeJS
-        uses: percona-platform/setup-node@v2
+        uses: percona-platform/setup-node@v3
         with:
           node-version: "14"
 
