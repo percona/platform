@@ -351,6 +351,30 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
+			name: "mongodb_repl_set_get_status",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBReplSetGetStatus,
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "mongodb_get_diagnostic_data",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetDiagnosticData,
+				Script:      "def func(args): pass",
+			},
+			errStr: "",
+		}, {
 			name: "clickhouse_show",
 			check: &Check{
 				Version:     1,
@@ -544,6 +568,32 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "MONGODB_GETCMDLINEOPTS check type should have empty query",
+		}, {
+			name: "non_empty_query_for_mongodb_repl_set_get_status",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBReplSetGetStatus,
+				Query:       "some query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "MONGODB_REPLSETGETSTATUS check type should have empty query",
+		}, {
+			name: "non_empty_query_for_mongodb_get_diagnostic_data",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Type:        MongoDBGetDiagnosticData,
+				Query:       "some query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "MONGODB_GETDIAGNOSTICDATA check type should have empty query",
 		}, {
 			name: "empty_script",
 			check: &Check{
