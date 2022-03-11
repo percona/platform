@@ -4,3 +4,4 @@
 fuzzdata/
 *.zip
 *.out
+*.swagger.json

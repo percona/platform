@@ -31,7 +31,7 @@ func New(iamUserAcessKey, iamUserAccessSecret, region, senderEmail string) *Clie
 
 // Params contains details about the email to be sent to the user.
 type Params struct {
-	To      string
+	To      []string
 	Subject string
 	Body    string
 }
@@ -40,7 +40,7 @@ type Params struct {
 func (c *Client) SendEmail(email *Params) error {
 	emailInput := &ses.SendEmailInput{
 		Destination: &ses.Destination{
-			ToAddresses: []*string{aws.String(email.To)},
+			ToAddresses: aws.StringSlice(email.To),
 		},
 		Message: &ses.Message{
 			Body: &ses.Body{
