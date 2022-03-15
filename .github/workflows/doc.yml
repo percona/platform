@@ -15,14 +15,18 @@ jobs:
         uses: percona-platform/checkout@v2
 
       - name: Sync Org API
-        uses: percona-platform/rdme@6.5.0
+        uses: percona-platform/github-readme-sync@v2
         with:
-          rdme: openapi ./gen/org/org_api.swagger.json --id=orgapi --key=${{ secrets.README_TOKEN }}
+          readme-oas-key: ${{ secrets.README_TOKEN }}:orgapi
+          oas-file-path: ./gen/org/org_api.swagger.json
+          api-version: "v1.0.0"
 
       - name: Sync Auth API
-        uses: percona-platform/rdme@6.5.0
+        uses: percona-platform/github-readme-sync@v2
         with:
-          rdme: openapi ./gen/auth/auth_api.swagger.json --id=authapi --key=${{ secrets.README_TOKEN }}
+          readme-oas-key: ${{ secrets.README_TOKEN }}:authapi
+          oas-file-path: ./gen/auth/auth_api.swagger.json
+          api-version: "v1.0.0"
 
       - name: Sync Check Retrieval API
         uses: percona-platform/rdme@6.5.0
@@ -34,13 +38,13 @@ jobs:
         with:
           rdme: openapi ./gen/telemetry/reporter/reporter_api.swagger.json --id=reporterapi --key=${{ secrets.README_TOKEN }}
 
-      #       - name: Install NodeJS
-      #         uses: percona-platform/setup-node@v2
-      #         with:
-      #           node-version: "14"
+      - name: Install NodeJS
+        uses: percona-platform/setup-node@v2
+        with:
+          node-version: "16"
 
-      # - name: Install dependencies
-      #   run: npm install -g rdme
+      - name: Install dependencies
+        run: npm install -g rdme
 
       - name: Sync the folder with *.md files to Readme
         uses: percona-platform/rdme@6.5.0
