@@ -42,11 +42,6 @@ jobs:
           oas-file-path: ./gen/telemetry/reporter/reporter_api.swagger.json
           api-version: "v1.0.0"
 
-      - name: Install NodeJS
-        uses: percona-platform/setup-node@v2
-        with:
-          node-version: "16"
-
       - name: Install dependencies
         run: npm install -g rdme
 
