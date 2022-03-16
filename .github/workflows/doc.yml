@@ -51,6 +51,6 @@ jobs:
         run: npm install -g rdme
 
       - name: Sync the folder with *.md files to Readme
-        uses: percona-platform/rdme@6.5.0
+        uses: percona-platform/rdme@7.0.0
         with:
           rdme: docs markdown --version=v1.0 --key=${{ secrets.README_TOKEN }}
