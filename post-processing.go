@@ -119,7 +119,7 @@ func processSaas() {
 
 	walk(processDirsFunc,
 		"api/auth", "api/check", "api/telemetry",
-		"gen/auth", "gen/check", "gen/telemetry", "gen/validator",
+		"gen/auth", "gen/check", "gen/telemetry",
 		"pkg/check", "pkg/logger", "pkg/starlark",
 		"pkg/alert", "pkg/common",
 	)
