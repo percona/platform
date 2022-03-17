@@ -17,7 +17,6 @@ import (
 	_ "github.com/mwitkow/go-proto-validators/protoc-gen-govalidators"
 	_ "github.com/quasilyte/go-consistent"
 	_ "github.com/reviewdog/reviewdog/cmd/reviewdog"
-	_ "github.com/uber/prototool/cmd/prototool"
 	_ "golang.org/x/tools/cmd/goimports"
 	_ "golang.org/x/tools/cmd/stringer"
 	_ "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
@@ -40,7 +39,6 @@ import (
 //go:generate go build -o ../bin/protoc-gen-govalidators github.com/mwitkow/go-proto-validators/protoc-gen-govalidators
 //go:generate go build -o ../bin/protoc-gen-grpc-gateway github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
 //go:generate go build -o ../bin/protoc-gen-openapiv2 github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
-//go:generate go build -o ../bin/prototool github.com/uber/prototool/cmd/prototool
 //go:generate go build -o ../bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
 //go:generate go build -o ../bin/stringer golang.org/x/tools/cmd/stringer
 //go:generate go build -o ../bin/buf github.com/bufbuild/buf/cmd/buf

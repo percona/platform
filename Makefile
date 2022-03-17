@@ -6,18 +6,16 @@ help:                                      ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                                      ## Install development tools
+	rm -rf bin
 	cd tools && go generate -x -tags=tools
 
 ci-init:                                   ## Initialize CI environment
 
 gen:                                       ## Format, check, and generate code using buf; TODO Add lint and break commands
 	rm -rf gen
-	bin/buf generate -v
-	bin/buf breaking --against platform.bin
+	bin/buf generate -v api
 	make format
-
-gen-dev:                                   ## Keep it to make the CI green, TODO remove it in the next PR
-	make gen
+	bin/buf breaking --against platform.bin api
 
 gen-code:                                  ## Generate code
 	go generate ./...
@@ -41,7 +39,7 @@ test-crosscover:                           ## Run tests and collect cross-packag
 	go test -race -timeout=10m -count=1 -coverprofile=crosscover.out -covermode=atomic -p=1 -coverpkg=./... ./...
 
 descriptors:                               ## Update files used for breaking changes detection
-	bin/buf build -o platform.bin --as-file-descriptor-set
+	bin/buf build -o platform.bin --as-file-descriptor-set api
 
 saas:                                      ## Extract public APIs and generated files into ../saas
 	go run post-processing.go -project saas
