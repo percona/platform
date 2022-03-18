@@ -715,13 +715,12 @@ func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Po
 const createOAuthAppRequestBody = `
 {
     "name": "oidc_client",
-    "label": "PMM-{{ .PMMServerID }}",
+    "label": "PMM-Grafana-{{ .PMMServerID }}",
     "status": "ACTIVE",
     "signOnMode": "OPENID_CONNECT",
     "credentials": {
         "oauthClient": {
-            "autoKeyRotation": true,
-            "token_endpoint_auth_method": "client_secret_basic"
+            "token_endpoint_auth_method": "none"
         }
     },
     "settings": {
@@ -736,13 +735,11 @@ const createOAuthAppRequestBody = `
                 "code"
             ],
             "grant_types": [
-                "client_credentials",
                 "authorization_code",
                 "refresh_token"
             ],
-            "application_type": "web",
-            "consent_method": "REQUIRED",
-            "issuer_mode": "CUSTOM_URL"
+            "application_type": "browser",
+            "consent_method": "REQUIRED"
         }
     },
     "profile": {
@@ -755,16 +752,56 @@ const createOAuthAppRequestBody = `
     }
 }`
 
-var createOAuthAppRequestBodyTmpl = template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody)) //nolint:gochecknoglobals
+const createMachineAuthAppRequestBody = `
+{
+    "name": "oidc_client",
+    "label": "PMM-Managed-{{ .PMMServerID }}",
+    "signOnMode": "OPENID_CONNECT",
+    "credentials": {
+        "oauthClient": {
+            "token_endpoint_auth_method": "client_secret_basic"
+        }
+    },
+    "settings": {
+        "oauthClient": {
+            "response_types": [
+                "token"
+            ],
+            "grant_types": [
+                "client_credentials",
+            ],
+            "application_type": "service",
+            "consent_method": "REQUIRED"
+        }
+    },
+    "profile": {
+        "percona": {
+            "portal": {
+                "orgId": "{{ .OrgID }}",
+                "invId": "{{ .InventoryID }}"
+            }
+        }
+    }
+}`
 
 // OAuthApp represents an oauth app.
 type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
+			ClientID string `json:"client_id"` // nolint:tagliatelle
+		} `json:"oauthClient"`
+	} `json:"credentials"`
+}
+
+// MachineAuthApp represents a machine-to-machine authorized app.
+type MachineAuthApp struct {
+	AppID       string `json:"id"`
+	Credentials struct {
+		MachineAuthClient struct {
 			ClientID     string `json:"client_id"`     // nolint:tagliatelle
 			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
-		} `json:"oauthClient"`
+		} `json:"machineAuthClient"`
 	} `json:"credentials"`
 }
 
@@ -777,15 +814,40 @@ type OAuthAppParams struct {
 	InventoryID          string
 }
 
+// MachineAuthAppParams contains values needed when creating a new machine-to-machine app.
+type MachineAuthAppParams struct {
+	PMMServerID string
+	OrgID       string
+	InventoryID string
+}
+
 // CreateOAuthApp creates a new OAuth app.
 func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
 	var request bytes.Buffer
-	err := createOAuthAppRequestBodyTmpl.Execute(&request, params)
+	tmpl := template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
+	err := tmpl.Execute(&request, params)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
 	}
 
 	var result OAuthApp
+	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")
+	}
+	return &result, nil
+}
+
+// CreateMachineAuthApp creates a new OAuth app.
+func (c *Client) CreateMachineAuthApp(ctx context.Context, params *MachineAuthAppParams) (*MachineAuthApp, error) {
+	var request bytes.Buffer
+	tmpl := template.Must(template.New("CreateMachineAuthAppRequest").Parse(createMachineAuthAppRequestBody))
+	err := tmpl.Execute(&request, params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
+	}
+
+	var result MachineAuthApp
 	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
 	if err != nil {
 		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")

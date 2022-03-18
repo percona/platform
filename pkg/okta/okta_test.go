@@ -577,7 +577,6 @@ func TestAppLifecycle(t *testing.T) {
 	require.NotNil(t, app.Credentials)
 	require.NotNil(t, app.Credentials.OAuthClient)
 	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
-	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
 
 	name, err := randomHex(8)
 	require.NoError(t, err)
