@@ -437,8 +437,8 @@ def check_context(rows, context):
 		`) + "\n"
 
 		input := []map[string]interface{}{}
-
 		addToFuzzCorpus(t.Name(), script, input)
+
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
