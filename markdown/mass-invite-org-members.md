@@ -32,9 +32,11 @@ chmod +x invite-members.sh
 
 ### Define the parameters to be passed to the script
 
+```bash
 orgId="a9c55b07-9962-490e-950a-7c4fb51081c9"
 invitees=("john.doe@acme.com" "phillip.myers@acme.com" "jessica.whales@acme.com")
 token="<ACCESS_TOKEN>"
+```
 
 Please note that you can get your acceess token by logging in to Percona Platform Portal and extracting the access token by running
 the following chunk of code in the browser Dev Tools' `Console` tab:
