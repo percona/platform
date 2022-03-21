@@ -736,12 +736,3 @@ message OrganizationTicket {
   // Ticket URL.
   string url = 9;
 }
-
-message GetOrganizationInternalInfoRequest {
-  // Percona Portal Organization ID.
-  string org_id = 1 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];
-}

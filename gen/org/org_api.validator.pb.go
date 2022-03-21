@@ -342,9 +342,3 @@ func (this *OrganizationTicket) Validate() error {
 	}
 	return nil
 }
-func (this *GetOrganizationInternalInfoRequest) Validate() error {
-	if this.OrgId == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
-	}
-	return nil
-}
