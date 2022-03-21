@@ -15,11 +15,14 @@ jobs:
         uses: percona-platform/checkout@v2
 
       - name: Sync Org API
-        uses: percona-platform/github-readme-sync@v2
+        uses: percona-platform/rdme@7.0.0
         with:
-          readme-oas-key: ${{ secrets.README_TOKEN }}:61b8821d25989c0010a34938
-          oas-file-path: ./gen/org/org_api.swagger.json
-          api-version: "v1.0.0"
+          rdme: openapi ./gen/org/org_api.swagger.json --id=61b8821d25989c0010a34938 --key=${{ secrets.README_TOKEN }}
+        # uses: percona-platform/github-readme-sync@v2
+        # with:
+        #   readme-oas-key: ${{ secrets.README_TOKEN }}:61b8821d25989c0010a34938
+        #   oas-file-path: ./gen/org/org_api.swagger.json
+        #   api-version: "v1.0.0"
 
       - name: Sync Auth API
         uses: percona-platform/github-readme-sync@v2
