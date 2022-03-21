@@ -4,10 +4,9 @@ slug: 'orgapi_invitemember'
 
 ## How to invite several users to an organization
 
-If you need to invite more than one user to an organization, you can definitely leverage the `InviteMember` API. To do that, a simple bash script would do the job by calling that endpoint for each invitee.
+If you need to invite more than one user to an organization, you can leverage the `InviteMember` API. To do that, a simple bash script will do the job by calling that endpoint for each invitee.
 
-First, you'll create a bash script which will accept some parameters. Please note, this endpoint requires three attributes to be able to properly construct the payload: orgId, the user role, the user email and the access token, which we need to pass at runtime. So let's break
-this down to three simple steps:
+First, you'll create a bash script which will accept some parameters. This endpoint requires several parameters to be able to properly construct the payload: orgId, the user role, the user email and the access token, which we need to pass at runtime. So let's break this down to three simple steps:
 
 ### Create a bash script
 
