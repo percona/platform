@@ -730,29 +730,12 @@
             "type": "string"
           },
           {
-            "name": "organization",
+            "name": "body",
             "description": "Percona Portal Organization",
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Percona Portal organization name."
-                },
-                "createdAt": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "Timestamp when the organization was created."
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "Timestamp when the organization was last updated."
-                }
-              },
-              "title": "Percona Portal Organization"
+              "$ref": "#/definitions/v1Organization"
             }
           }
         ],
@@ -998,6 +981,10 @@
           "type": "string",
           "format": "date-time",
           "description": "Timestamp when the organization was last updated."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Percona Customer ID."
         }
       }
     },
