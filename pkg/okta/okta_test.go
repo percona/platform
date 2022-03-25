@@ -846,3 +846,54 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.ErrorIs(t, err, ErrEmptyFirstName)
 	})
 }
+
+func TestCreateOAuthApp(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+	pmmServerID := gofakeit.UUID()
+
+	params := &OAuthAppParams{
+		PMMServerID:          pmmServerID,
+		PMMServerURL:         "https://localhost/graph",
+		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
+		OrgID:                uuid.NewString(),
+		InventoryID:          pmmServerID,
+	}
+
+	app, err := s.CreateOAuthApp(ctx, params)
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.DeleteApp(ctx, app.AppID) //nolint:errcheck,gosec
+	})
+	require.NotNil(t, app)
+	require.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
+}
+
+func TestCreateMachineAuthApp(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+	pmmServerID := uuid.NewString()
+
+	params := &MachineAuthAppParams{
+		PMMServerID: pmmServerID,
+		OrgID:       uuid.NewString(),
+		InventoryID: pmmServerID,
+	}
+
+	app, err := s.CreateMachineAuthApp(ctx, params)
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.DeleteApp(ctx, app.AppID) //nolint:errcheck,gosec
+	})
+	require.NotNil(t, app)
+	require.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
+	require.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+}

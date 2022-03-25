@@ -764,14 +764,14 @@ const createMachineAuthAppRequestBody = `
     },
     "settings": {
         "oauthClient": {
+            "application_type": "service",
+            "consent_method": "REQUIRED",
+            "grant_types": [
+                "client_credentials"
+            ],
             "response_types": [
                 "token"
-            ],
-            "grant_types": [
-                "client_credentials",
-            ],
-            "application_type": "service",
-            "consent_method": "REQUIRED"
+            ]
         }
     },
     "profile": {
@@ -798,10 +798,10 @@ type OAuthApp struct {
 type MachineAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
-		MachineAuthClient struct {
+		OAuthClient struct {
 			ClientID     string `json:"client_id"`     // nolint:tagliatelle
 			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
-		} `json:"machineAuthClient"`
+		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
 
