@@ -439,6 +439,8 @@ message Organization {
   google.protobuf.Timestamp created_at = 3;
   // Timestamp when the organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
+  // Percona Customer ID.
+  string customer_id = 5;
 }
 
 message CreateOrganizationRequest {

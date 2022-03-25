@@ -58,6 +58,17 @@
     }
   },
   "definitions": {
+    "ServerMetricMetric": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -104,6 +115,19 @@
       },
       "description": "AnyEvent represents a serialized telemetry event from the events sub-packages.\nIt is similar to any.Any, but:\n* is not a well-known type, so no special support from the library (it is a good thing in our case);\n* may contain a JSON variant of serialization."
     },
+    "v1DistributionMethod": {
+      "type": "string",
+      "enum": [
+        "DISTRIBUTION_METHOD_INVALID",
+        "DOCKER",
+        "OVF",
+        "AMI",
+        "AZURE",
+        "DO"
+      ],
+      "default": "DISTRIBUTION_METHOD_INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - DISTRIBUTION_METHOD_INVALID: DISTRIBUTION_METHOD_INVALID represents unknown distribution method.\n - DOCKER: DOCKER represents Docker distribution method.\n - OVF: OVF represents Open Virtualization Format / Open Virtual Appliance distribution method.\n - AMI: AMI represents Amazon Machine Image distribution method.\n - AZURE: AZURE represents Azure distribution method.\n - DO: DO represents Digital Ocean distribution method."
+    },
     "v1Event": {
       "type": "object",
       "properties": {
@@ -133,11 +157,58 @@
             "$ref": "#/definitions/v1Event"
           },
           "description": "One or more events to report."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ServerMetric"
+          },
+          "description": "One or more metrics events to report.\nOnly 'events' or 'metrics' field must be set."
         }
       }
     },
     "v1ReportResponse": {
       "type": "object"
+    },
+    "v1ServerMetric": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "byte",
+          "description": "Event UUID."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was received by the sender."
+        },
+        "pmmServerTelemetryId": {
+          "type": "string",
+          "format": "byte",
+          "description": "PMM Server unique Telemetry identifier.\nMandatory."
+        },
+        "pmmServerVersion": {
+          "type": "string",
+          "description": "PMM Server version.\nMandatory."
+        },
+        "upDuration": {
+          "type": "string",
+          "description": "PMM Server uptime.\nMandatory."
+        },
+        "distributionMethod": {
+          "$ref": "#/definitions/v1DistributionMethod",
+          "description": "PMM Server distribution method.\nMandatory."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServerMetricMetric"
+          },
+          "description": "PMM server metrics collection.\nOptional."
+        }
+      },
+      "description": "ServerMetrics contains PMM Server metrics.\nThere are mandatory metrics and optional metric pairs.\nThe exact metrics pairs (metric name, metric value) is defined by PMM Server."
     }
   },
   "x-readme": {

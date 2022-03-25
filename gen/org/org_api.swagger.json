@@ -750,6 +750,10 @@
                   "type": "string",
                   "format": "date-time",
                   "description": "Timestamp when the organization was last updated."
+                },
+                "customerId": {
+                  "type": "string",
+                  "description": "Percona Customer ID."
                 }
               },
               "title": "Percona Portal Organization"
@@ -998,6 +1002,10 @@
           "type": "string",
           "format": "date-time",
           "description": "Timestamp when the organization was last updated."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Percona Customer ID."
         }
       }
     },
