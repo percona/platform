@@ -1230,7 +1230,7 @@
         "PAID"
       ],
       "default": "UNKNOWN",
-      "description": "DistributionMethod represents PMM Server distribution method.\n\n - UNKNOWN: UNKNOWN used when invalid value is used.\n - FREE: FREE represents account that is not registered on Portal.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - UNKNOWN: UNKNOWN used for unsupported values.\n - FREE: FREE represents account that is not registered on Portal.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
     },
     "v1UpdateMemberResponse": {
       "type": "object",

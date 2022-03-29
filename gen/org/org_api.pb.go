@@ -31,7 +31,7 @@ const (
 type Tier int32
 
 const (
-	// UNKNOWN used when invalid value is used.
+	// UNKNOWN used for unsupported values.
 	Tier_UNKNOWN Tier = 0
 	// FREE represents account that is not registered on Portal.
 	Tier_FREE Tier = 1

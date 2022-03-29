@@ -13,7 +13,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // DistributionMethod represents PMM Server distribution method.
 enum Tier {
-  // UNKNOWN used when invalid value is used.
+  // UNKNOWN used for unsupported values.
   UNKNOWN = 0;
   // FREE represents account that is not registered on Portal.
   FREE = 1;
