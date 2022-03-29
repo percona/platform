@@ -11,6 +11,18 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
+// DistributionMethod represents PMM Server distribution method.
+enum Tier {
+  // UNKNOWN used when invalid value is used.
+  UNKNOWN = 0;
+  // FREE represents account that is not registered on Portal.
+  FREE = 1;
+  // REGISTERED represents account that is registered on Portal.
+  REGISTERED = 2;
+  // PAID represents paid account.
+  PAID = 3;
+}
+
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Organization API";
@@ -440,7 +452,11 @@ message Organization {
   // Timestamp when the organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
   // Flag indicates that organization is linked to Percona customer.
-  google.protobuf.BoolValue is_customer = 5;
+  Tier tier = 5 [
+    (validator.field) = {
+      is_in_enum: true
+    }
+  ];
 }
 
 message CreateOrganizationRequest {
