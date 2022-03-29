@@ -65,6 +65,11 @@ func (this *Organization) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("UpdatedAt", err)
 		}
 	}
+	if this.IsCustomer != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.IsCustomer); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("IsCustomer", err)
+		}
+	}
 	return nil
 }
 func (this *CreateOrganizationRequest) Validate() error {

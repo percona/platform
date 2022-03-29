@@ -751,9 +751,9 @@
                   "format": "date-time",
                   "description": "Timestamp when the organization was last updated."
                 },
-                "customerId": {
-                  "type": "string",
-                  "description": "Percona Customer ID."
+                "isCustomer": {
+                  "type": "boolean",
+                  "description": "Organization is linked to Percona customer."
                 }
               },
               "title": "Percona Portal Organization"
@@ -1003,9 +1003,9 @@
           "format": "date-time",
           "description": "Timestamp when the organization was last updated."
         },
-        "customerId": {
-          "type": "string",
-          "description": "Percona Customer ID."
+        "isCustomer": {
+          "type": "boolean",
+          "description": "Organization is linked to Percona customer."
         }
       }
     },
