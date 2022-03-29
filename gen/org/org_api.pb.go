@@ -241,7 +241,7 @@ type Organization struct {
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// Timestamp when the organization was last updated.
 	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	// Organization is linked to Percona customer.
+	// Flag indicates that organization is linked to Percona customer.
 	IsCustomer *wrapperspb.BoolValue `protobuf:"bytes,5,opt,name=is_customer,json=isCustomer,proto3" json:"is_customer,omitempty"`
 }
 

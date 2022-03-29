@@ -753,7 +753,7 @@
                 },
                 "isCustomer": {
                   "type": "boolean",
-                  "description": "Organization is linked to Percona customer."
+                  "description": "Flag indicates that organization is linked to Percona customer."
                 }
               },
               "title": "Percona Portal Organization"
@@ -1005,7 +1005,7 @@
         },
         "isCustomer": {
           "type": "boolean",
-          "description": "Organization is linked to Percona customer."
+          "description": "Flag indicates that organization is linked to Percona customer."
         }
       }
     },

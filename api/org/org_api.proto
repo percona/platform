@@ -439,7 +439,7 @@ message Organization {
   google.protobuf.Timestamp created_at = 3;
   // Timestamp when the organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
-  // Organization is linked to Percona customer.
+  // Flag indicates that organization is linked to Percona customer.
   google.protobuf.BoolValue is_customer = 5;
 }
 
