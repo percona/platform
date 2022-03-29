@@ -451,7 +451,7 @@ message Organization {
   google.protobuf.Timestamp created_at = 3;
   // Timestamp when the organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
-  // Flag indicates that organization is linked to Percona customer.
+  // Tier of the client linked to the organization.
   Tier tier = 5 [
     (validator.field) = {
       is_in_enum: true

@@ -298,7 +298,7 @@ type Organization struct {
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// Timestamp when the organization was last updated.
 	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	// Flag indicates that organization is linked to Percona customer.
+	// Tier of the client linked to the organization.
 	Tier Tier `protobuf:"varint,5,opt,name=tier,proto3,enum=percona.platform.org.v1.Tier" json:"tier,omitempty"`
 }
 

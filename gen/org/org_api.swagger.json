@@ -753,7 +753,7 @@
                 },
                 "tier": {
                   "$ref": "#/definitions/v1Tier",
-                  "description": "Flag indicates that organization is linked to Percona customer."
+                  "description": "Tier of the client linked to the organization."
                 }
               },
               "title": "Percona Portal Organization"
@@ -1005,7 +1005,7 @@
         },
         "tier": {
           "$ref": "#/definitions/v1Tier",
-          "description": "Flag indicates that organization is linked to Percona customer."
+          "description": "Tier of the client linked to the organization."
         }
       }
     },
