@@ -1150,6 +1150,15 @@
         },
         "scope": {
           "type": "string"
+        },
+        "grafanaClientId": {
+          "type": "string"
+        },
+        "pmmManagedClientId": {
+          "type": "string"
+        },
+        "pmmManagedClientSecret": {
+          "type": "string"
         }
       }
     },
