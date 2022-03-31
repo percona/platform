@@ -65,6 +65,9 @@ func (this *Organization) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("UpdatedAt", err)
 		}
 	}
+	if _, ok := Tier_name[int32(this.Tier)]; !ok {
+		return github_com_mwitkow_go_proto_validators.FieldError("Tier", fmt.Errorf(`value '%v' must be a valid Tier field`, this.Tier))
+	}
 	return nil
 }
 func (this *CreateOrganizationRequest) Validate() error {
