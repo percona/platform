@@ -334,7 +334,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"sso_details":{"client_id":"bdheuwort62379fwbeui","client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
+            value: '{"sso_details":{"grafana_client_id":"bdheuwort62379fwbeui","pmm_managed_client_id":"bdheuwort62379fwbeui","pmm_managed_client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
           }
         };
       };
