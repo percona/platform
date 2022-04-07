@@ -1,3 +1,4 @@
+// Package grpcutils contains gRPC helpers.
 package grpcutils
 
 import (
