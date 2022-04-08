@@ -13,14 +13,12 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // DistributionMethod represents PMM Server distribution method.
 enum Tier {
-  // UNKNOWN used for unsupported values.
-  UNKNOWN = 0;
-  // FREE represents account that is not registered on Portal.
-  FREE = 1;
+  // INVALID used for unsupported values.
+  INVALID = 0;
   // REGISTERED represents account that is registered on Portal.
-  REGISTERED = 2;
+  REGISTERED = 1;
   // PAID represents paid account.
-  PAID = 3;
+  PAID = 2;
 }
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
@@ -346,7 +344,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"sso_details":{"client_id":"bdheuwort62379fwbeui","client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
+            value: '{"sso_details":{"grafana_client_id":"bdheuwort62379fwbeui","pmm_managed_client_id":"bdheuwort62379fwbeui","pmm_managed_client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
           }
         };
       };

@@ -110,8 +110,9 @@
             "examples": {
               "application/json": {
                 "sso_details": {
-                  "client_id": "bdheuwort62379fwbeui",
-                  "client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
+                  "grafana_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
                   "issuer_url": "https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1",
                   "scope": "percona"
                 },
@@ -194,8 +195,9 @@
             "examples": {
               "application/json": {
                 "sso_details": {
-                  "client_id": "bdheuwort62379fwbeui",
-                  "client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
+                  "grafana_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
                   "issuer_url": "https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1",
                   "scope": "percona"
                 },
@@ -1233,13 +1235,12 @@
     "v1Tier": {
       "type": "string",
       "enum": [
-        "UNKNOWN",
-        "FREE",
+        "INVALID",
         "REGISTERED",
         "PAID"
       ],
-      "default": "UNKNOWN",
-      "description": "DistributionMethod represents PMM Server distribution method.\n\n - UNKNOWN: UNKNOWN used for unsupported values.\n - FREE: FREE represents account that is not registered on Portal.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
+      "default": "INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
     },
     "v1UpdateMemberResponse": {
       "type": "object",
