@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: percona-platform/checkout@v2
+        uses: percona-platform/checkout@v3
 
       - name: Sync Org API
         uses: percona-platform/rdme@7.0.0
