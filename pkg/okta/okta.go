@@ -2,12 +2,16 @@
 package okta
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
+	"text/template"
 	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
@@ -20,16 +24,21 @@ import (
 // Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
 type Client struct {
-	l            *zap.SugaredLogger
 	c            *okta.Client
 	oktaHost     string
 	oktaAPIToken string
 }
 
+const (
+	profileLastName        = "lastName"
+	profileFirstName       = "firstName"
+	profileEmail           = "email"
+	profileLogin           = "login"
+	profilePortalAdminOrgs = "portalAdminOrgs"
+)
+
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
-	l := zap.L().Named("okta").Sugar()
-
 	u := url.URL{Scheme: "https", Host: host}
 
 	_, client, err := okta.NewClient(
@@ -37,7 +46,7 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 		okta.WithOrgUrl(u.String()),
 		okta.WithToken(token),
 		okta.WithHttpClientPtr(&http.Client{
-			Transport: logger.HTTP(http.DefaultTransport, l.Debugf),
+			Transport: logger.HTTP(http.DefaultTransport, "oktaClient"),
 		}),
 		okta.WithCache(false),
 	)
@@ -46,7 +55,6 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 	}
 
 	return &Client{
-		l:            l,
 		c:            client,
 		oktaHost:     host,
 		oktaAPIToken: token,
@@ -58,6 +66,9 @@ func New(ctx context.Context, host, token string) (*Client, error) {
 // Once the user sets the password the state changes to "ACTIVE" in Okta.
 // Returns AuthError when login, firstName and lastName violates validation rules, also when login already exists.
 func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) (*User, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating new Okta user.", zap.String("login", login))
+
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
@@ -72,10 +83,10 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 	u := okta.CreateUserRequest{
 		Profile: &okta.UserProfile{
-			"email":     login,
-			"login":     login,
-			"firstName": firstName,
-			"lastName":  lastName,
+			profileLogin:     login,
+			profileEmail:     login,
+			profileFirstName: firstName,
+			profileLastName:  lastName,
 		},
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
@@ -103,9 +114,13 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 // FindUser searches user either by login or okta user ID and returns user.
 func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta user by username.", zap.String("username", login))
+
 	if login == "" {
 		return nil, ErrEmptyLogin
 	}
+
 	user, _, err := c.c.User.GetUser(ctx, url.QueryEscape(login))
 	if err != nil {
 		var oErr *okta.Error
@@ -116,32 +131,92 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 		return nil, errors.Wrapf(err, "failed to find user")
 	}
 
-	userLogin, err := getUserLogin(user)
+	return convertUser(user)
+}
+
+// RegisterUser invites okta user and returns user.
+func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	err := validateRegisterUserParams(params)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+		return nil, err
 	}
 
-	firstName, err := getUserFirstName(user)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+	l.Info("Inviting Okta user.", zap.String("login", params.Login))
+
+	activate := true
+	profile := okta.UserProfile{
+		profileLogin:           params.Login,
+		profileEmail:           params.Login,
+		profileFirstName:       "",
+		profileLastName:        "",
+		profilePortalAdminOrgs: []string{},
 	}
 
-	lastName, err := getUserLastName(user)
+	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
+		var cErr *okta.Error
+		if errors.As(err, &cErr) {
+			return nil, convertOktaError(cErr)
+		}
+
+		return nil, errors.Wrapf(err, "failed to register user")
 	}
 
-	return &User{
-		ID:        user.Id,
-		Login:     userLogin,
-		FirstName: firstName,
-		LastName:  lastName,
-		Status:    user.Status,
-	}, nil
+	return convertUser(user)
+}
+
+// UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
+// Returns the updated User and an error.
+func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
+	l := extractLogger(ctx)
+
+	zapVal := zap.Skip()
+	if l.Core().Enabled(zap.DebugLevel) {
+		zapVal = zap.Any("params", params)
+	}
+
+	l.Info("Validating params for Okta user profile update", zap.String("userID", userID), zapVal)
+	err := validateUpdateUserParams(params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to validate params")
+	}
+
+	l.Info("Updating Okta user profile.", zap.String("userID", userID))
+	userToUpdate, _, err := c.c.User.GetUser(ctx, url.QueryEscape(userID))
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, convertOktaError(oErr)
+		}
+
+		return nil, errors.Wrap(err, "failed to find user")
+	}
+
+	// apply params
+	newProfile := updatedProfile(*userToUpdate.Profile, params)
+	userToUpdate.Profile = &newProfile
+
+	// update user
+	updatedUser, _, err := c.c.User.UpdateUser(ctx, userID, *userToUpdate, nil)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, convertOktaError(oErr)
+		}
+
+		return nil, errors.Wrap(err, "failed to find user")
+	}
+
+	return convertUser(updatedUser)
 }
 
 // SignIn returns user id and session oktaAPIToken. Returns AuthError in case of invalid login or password.
 func (c *Client) SignIn(ctx context.Context, login, password string) (string, string, error) {
+	l := extractLogger(ctx)
+	l.Info("Signin in Okta user.", zap.String("username", login))
+
 	if password == "" {
 		return "", "", ErrEmptyPassword
 	}
@@ -184,8 +259,12 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 
 // DeleteUser deactivates and deletes user.
 func (c *Client) DeleteUser(ctx context.Context, userID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting Okta user by ID.", zap.String("userID", userID))
+
 	err := c.deactivateUser(ctx, userID)
 	if err != nil && !errors.Is(err, ErrNotFound) {
+		l.Error("Okta user is not found.", zap.Error(err))
 		return err
 	}
 
@@ -193,6 +272,7 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 		nCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
 		defer cancel()
 		if err := c.waitForDeactivation(nCtx, userID); err != nil {
+			l.Error("User deactivation failed.", zap.Error(err))
 			return err
 		}
 	}
@@ -208,54 +288,6 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 	}
 
 	return nil
-}
-
-// UpdateProfile updates user's profile.
-func (c *Client) UpdateProfile(ctx context.Context, user *User, firstName, lastName string) (*User, error) {
-	// The okta-go-sdk implementation differs slightly from the API docs where it uses
-	// PUT instead of POST for this endpoint. In case of PUT (used by the SDK) it requires
-	// both the email and login fields to be non-empty, so we send the original login to prevent
-	// the request from returning an error.
-	body := okta.User{ //nolint:exhaustivestruct
-		Profile: &okta.UserProfile{
-			"firstName": firstName,
-			"lastName":  lastName,
-			"login":     user.Login,
-			"email":     user.Login,
-		},
-	}
-	u, _, err := c.c.User.UpdateUser(ctx, user.ID, body, nil)
-	if err != nil {
-		var oErr *okta.Error
-		if errors.As(err, &oErr) {
-			return nil, convertOktaError(oErr)
-		}
-
-		return nil, errors.Wrapf(err, "failed to update user profile")
-	}
-
-	userLogin, err := getUserLogin(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	fName, err := getUserFirstName(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	lName, err := getUserLastName(u)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", u.Id)
-	}
-
-	return &User{
-		ID:        u.Id,
-		Login:     userLogin,
-		FirstName: fName,
-		LastName:  lName,
-		Status:    u.Status,
-	}, nil
 }
 
 func (c *Client) deactivateUser(ctx context.Context, userID string) error {
@@ -302,6 +334,9 @@ func (c *Client) waitForDeactivation(ctx context.Context, userID string) error {
 
 // GetRegisteredUsersCount returns number of regustered users.
 func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
+	l := extractLogger(ctx)
+	l.Info("Getting registered users count from Okta.")
+
 	qp := query.NewQueryParams(query.WithQ("Everyone"), query.WithFilter("type eq \"BUILT_IN\""))
 	groups, _, err := c.c.Group.ListGroups(ctx, qp)
 	if err != nil {
@@ -354,6 +389,8 @@ func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
 
 // CreateSession creates session and returns session id and expiration date.
 func (c *Client) CreateSession(ctx context.Context, sessionToken string) (string, time.Time, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating Okta user session.")
 	session, _, err := c.c.Session.CreateSession(ctx, okta.CreateSessionRequest{SessionToken: sessionToken})
 	if err != nil {
 		return "", time.Time{}, errors.Wrap(err, "failed to create session")
@@ -364,6 +401,8 @@ func (c *Client) CreateSession(ctx context.Context, sessionToken string) (string
 
 // CheckSession returns user login if session exists and active.
 func (c *Client) CheckSession(ctx context.Context, sessionID string) (string, error) {
+	l := extractLogger(ctx)
+	l.Info("Checking Okta user session.")
 	if sessionID == "" {
 		return "", ErrNotFound
 	}
@@ -383,6 +422,9 @@ func (c *Client) CheckSession(ctx context.Context, sessionID string) (string, er
 
 // RefreshSession resets session timeout and returns new expiration date.
 func (c *Client) RefreshSession(ctx context.Context, sessionID string) (time.Time, error) {
+	l := extractLogger(ctx)
+	l.Info("Refreshing Okta user session.")
+
 	session, _, err := c.c.Session.RefreshSession(ctx, sessionID)
 	if err != nil || session.ExpiresAt == nil {
 		var oErr *okta.Error
@@ -398,6 +440,9 @@ func (c *Client) RefreshSession(ctx context.Context, sessionID string) (time.Tim
 
 // CloseSession terminates user session.
 func (c *Client) CloseSession(ctx context.Context, sessionID string) error {
+	l := extractLogger(ctx)
+	l.Info("Closing Okta user session.")
+
 	_, err := c.c.Session.EndSession(ctx, sessionID)
 	if err != nil {
 		var oErr *okta.Error
@@ -413,6 +458,9 @@ func (c *Client) CloseSession(ctx context.Context, sessionID string) error {
 
 // CreateGroup creates group with provided name and description.
 func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Group, error) {
+	l := extractLogger(ctx)
+	l.Info("Creating Okta group.", zap.String("oktaGroupName", name))
+
 	req := okta.Group{
 		Profile: &okta.GroupProfile{
 			Name:        name,
@@ -434,6 +482,9 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 
 // GroupExists finds whether okta group with the provided name exists.
 func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta group by name.", zap.String("oktaGroupName", name))
+
 	var g []okta.Group
 	params := url.Values{}
 	params.Add("q", name)
@@ -460,6 +511,9 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 
 // DeleteGroup delete group with provided ID.
 func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting Okta group by ID.", zap.String("oktaGroupID", groupID))
+
 	_, err := c.c.Group.DeleteGroup(ctx, groupID)
 	if err != nil {
 		var oErr *okta.Error
@@ -475,6 +529,9 @@ func (c *Client) DeleteGroup(ctx context.Context, groupID string) error {
 
 // GetGroupMembers returns list of group members.
 func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int, cursor string) ([]User, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta group members.", zap.String("groupID", groupID))
+
 	params := query.Params{
 		Limit:  int64(limit),
 		Cursor: cursor,
@@ -486,12 +543,12 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 
 	res := make([]User, 0, len(users))
 	for _, user := range users {
-		login, err := getUserLogin(user)
+		resultUser, err := convertUser(user)
 		if err != nil {
-			c.l.Warnf("User %s has bad profile, reason: %+v.", user.Id, err)
+			return nil, errors.Wrap(err, "failed to convert user type")
 		}
 
-		res = append(res, User{ID: user.Id, Login: login, Status: user.Status})
+		res = append(res, *resultUser)
 	}
 
 	return res, nil
@@ -499,6 +556,12 @@ func (c *Client) GetGroupMembers(ctx context.Context, groupID string, limit int,
 
 // AddUserToGroup add user to group.
 func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Adding user to Okta group.",
+		zap.String("oktaUserID", userID),
+		zap.String("groupID", groupID),
+	)
+
 	_, err := c.c.Group.AddUserToGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
@@ -507,8 +570,81 @@ func (c *Client) AddUserToGroup(ctx context.Context, userID, groupID string) err
 	return nil
 }
 
+// IsAppAssignedToGroup returns true if app is assigned to given group, false otherwise - not found error. Also false in case of any other error.
+func (c *Client) IsAppAssignedToGroup(ctx context.Context, appID, groupID string) bool {
+	if err := c.DoRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil); err != nil {
+		return false
+	}
+	return true
+}
+
+// AddAppToGroup adds app to group.
+func (c *Client) AddAppToGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodPut, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to add app to the group")
+	}
+
+	return nil
+}
+
+// RemoveAppFromGroup removes app from group.
+func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) error {
+	err := c.DoRequest(ctx, http.MethodDelete, fmt.Sprintf("/api/v1/apps/%s/groups/%s", appID, groupID), nil, nil)
+	if err != nil {
+		return errors.Wrap(err, "failed to remove app from the group")
+	}
+
+	return nil
+}
+
+// ErrOriginNotFound means operation on origin failed because it does not exist.
+var ErrOriginNotFound error = errors.New("trusted origin was not found")
+
+// GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
+func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
+	var origins []*okta.TrustedOrigin
+	err := c.DoRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/trustedOrigins?q=%s", url.QueryEscape(origin)), nil, &origins)
+	if err != nil {
+		return "", errors.Wrap(err, "failed to get origin")
+	}
+
+	for _, trusted := range origins {
+		if trusted.Origin == origin {
+			return trusted.Id, nil
+		}
+	}
+	return "", ErrOriginNotFound
+}
+
+// CreateTrustedOrigin makes the given origin trusted and returns it's id.
+func (c *Client) CreateTrustedOrigin(ctx context.Context, origin string) (string, error) {
+	trusted, _, err := c.c.TrustedOrigin.CreateOrigin(ctx, okta.TrustedOrigin{
+		Name:   origin,
+		Origin: origin,
+		Scopes: []*okta.Scope{
+			{Type: "REDIRECT"},
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+	return trusted.Id, nil
+}
+
+// DeleteTrustedOrigin deletes the given trusted origin.
+func (c *Client) DeleteTrustedOrigin(ctx context.Context, originID string) error {
+	_, err := c.c.TrustedOrigin.DeleteOrigin(ctx, originID)
+	return err
+}
+
 // RemoveUserFromGroup remove user from group.
 func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string) error {
+	l := extractLogger(ctx)
+	l.Info("Deleting user from Okta group.",
+		zap.String("oktaUserID", userID),
+		zap.String("groupID", groupID),
+	)
 	_, err := c.c.Group.RemoveUserFromGroup(ctx, groupID, userID)
 	if err != nil {
 		return errors.Wrap(err, "failed to add user to group")
@@ -519,6 +655,9 @@ func (c *Client) RemoveUserFromGroup(ctx context.Context, userID, groupID string
 
 // ResetPassword resets user password and sends email for setting new one.
 func (c *Client) ResetPassword(ctx context.Context, userID string) error {
+	l := extractLogger(ctx)
+	l.Info("Resetting password for Okta user.", zap.String("oktaUserID", userID))
+
 	qp := query.NewQueryParams(query.WithSendEmail(true))
 	_, _, err := c.c.User.ResetPassword(ctx, userID, qp)
 	if err != nil {
@@ -535,6 +674,12 @@ func (c *Client) ResetPassword(ctx context.Context, userID string) error {
 
 // UpdateSchema updates schema for provided type.
 func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema) (*Schema, error) {
+	l := extractLogger(ctx)
+	l.Info("Updating Okta user profile schema.",
+		zap.String("typeID", typeID),
+		zap.String("schemaID", schema.ID),
+	)
+
 	var res Schema
 	err := c.DoRequest(ctx, "POST", "/api/v1/meta/schemas/user/"+typeID, schema, &res)
 	if err != nil {
@@ -546,6 +691,8 @@ func (c *Client) UpdateSchema(ctx context.Context, typeID string, schema *Schema
 
 // GetSchema returns schema for provided type.
 func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta user profile schema.", zap.String("typeID", typeID))
 	var schema Schema
 	err := c.DoRequest(ctx, "GET", "/api/v1/meta/schemas/user/"+typeID, nil, &schema)
 	if err != nil {
@@ -555,12 +702,175 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 	return &schema, nil
 }
 
-func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) {
+func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) { //nolint:revive
+	l := extractLogger(ctx)
+	l.Info("Looking for Okta policies.")
 	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return nil, err
 	}
 	return policies, err
+}
+
+const createOAuthAppRequestBody = `
+{
+    "name": "oidc_client",
+    "label": "PMM-Grafana-{{ .PMMServerID }}",
+    "status": "ACTIVE",
+    "signOnMode": "OPENID_CONNECT",
+    "credentials": {
+        "oauthClient": {
+            "token_endpoint_auth_method": "none"
+        }
+    },
+    "settings": {
+        "oauthClient": {
+            "redirect_uris": [
+                "{{ .PMMServerCallbackURL }}"
+            ],
+            "post_logout_redirect_uris": [
+                "{{ .PMMServerURL }}"
+            ],
+            "response_types": [
+                "code"
+            ],
+            "grant_types": [
+                "authorization_code",
+                "refresh_token"
+            ],
+            "application_type": "browser",
+            "consent_method": "REQUIRED"
+        }
+    },
+    "profile": {
+        "percona": {
+            "portal": {
+                "orgId": "{{ .OrgID }}",
+                "invId": "{{ .InventoryID }}"
+            }
+        }
+    }
+}`
+
+const createMachineAuthAppRequestBody = `
+{
+    "name": "oidc_client",
+    "label": "PMM-Managed-{{ .PMMServerID }}",
+    "signOnMode": "OPENID_CONNECT",
+    "credentials": {
+        "oauthClient": {
+            "token_endpoint_auth_method": "client_secret_basic"
+        }
+    },
+    "settings": {
+        "oauthClient": {
+            "application_type": "service",
+            "consent_method": "REQUIRED",
+            "grant_types": [
+                "client_credentials"
+            ],
+            "response_types": [
+                "token"
+            ]
+        }
+    },
+    "profile": {
+        "percona": {
+            "portal": {
+                "orgId": "{{ .OrgID }}",
+                "invId": "{{ .InventoryID }}"
+            }
+        }
+    }
+}`
+
+// OAuthApp represents an oauth app.
+type OAuthApp struct {
+	AppID       string `json:"id"`
+	Credentials struct {
+		OAuthClient struct {
+			ClientID string `json:"client_id"` // nolint:tagliatelle
+		} `json:"oauthClient"`
+	} `json:"credentials"`
+}
+
+// MachineAuthApp represents a machine-to-machine authorized app.
+type MachineAuthApp struct {
+	AppID       string `json:"id"`
+	Credentials struct {
+		OAuthClient struct {
+			ClientID     string `json:"client_id"`     // nolint:tagliatelle
+			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
+		} `json:"oauthClient"`
+	} `json:"credentials"`
+}
+
+// OAuthAppParams contains values needed when creating a new OAuth app.
+type OAuthAppParams struct {
+	PMMServerID          string
+	PMMServerURL         string
+	PMMServerCallbackURL string
+	OrgID                string
+	InventoryID          string
+}
+
+// MachineAuthAppParams contains values needed when creating a new machine-to-machine app.
+type MachineAuthAppParams struct {
+	PMMServerID string
+	OrgID       string
+	InventoryID string
+}
+
+// CreateOAuthApp creates a new OAuth app.
+func (c *Client) CreateOAuthApp(ctx context.Context, params *OAuthAppParams) (*OAuthApp, error) {
+	var request bytes.Buffer
+	tmpl := template.Must(template.New("CreateOAuthAppRequest").Parse(createOAuthAppRequestBody))
+	err := tmpl.Execute(&request, params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
+	}
+
+	var result OAuthApp
+	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")
+	}
+	return &result, nil
+}
+
+// CreateMachineAuthApp creates a new OAuth app.
+func (c *Client) CreateMachineAuthApp(ctx context.Context, params *MachineAuthAppParams) (*MachineAuthApp, error) {
+	var request bytes.Buffer
+	tmpl := template.Must(template.New("CreateMachineAuthAppRequest").Parse(createMachineAuthAppRequestBody))
+	err := tmpl.Execute(&request, params)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to construct request body for adding the OAuth App")
+	}
+
+	var result MachineAuthApp
+	err = c.DoRequest(ctx, "POST", "/api/v1/apps", &request, &result)
+	if err != nil {
+		return nil, errors.Wrap(err, "adding OAuth APP to Okta failed")
+	}
+	return &result, nil
+}
+
+// DeleteApp deletes an app with given appID.
+func (c *Client) DeleteApp(ctx context.Context, appID string) error {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	_, err := c.c.Application.DeactivateApplication(ctx, appID)
+	if err != nil {
+		return errors.Wrap(err, "failed to deactivate app before deleting it")
+	}
+
+	if _, err = c.c.Application.DeleteApplication(ctx, appID); err != nil {
+		_, e := c.c.Application.ActivateApplication(ctx, appID)
+		if e != nil {
+			l.Error("Failed to re-activate app after deleting failed, manual intervention in Okta required", zap.Error(e))
+		}
+		return err
+	}
+	return nil
 }
 
 // DoRequest makes HTTP requests to okta endpoints.
@@ -586,12 +896,12 @@ func getUserLogin(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	login, ok := profile["login"]
+	login, ok := profile[profileLogin]
 	if !ok {
-		return "", errors.New("missing user login")
+		return "", errors.New("missing user " + profileLogin)
 	}
 
-	return login.(string), nil
+	return login.(string), nil //nolint: forcetypeassert
 }
 
 func getUserFirstName(user *okta.User) (string, error) {
@@ -600,12 +910,12 @@ func getUserFirstName(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	name, ok := profile["firstName"]
+	name, ok := profile[profileFirstName]
 	if !ok {
-		return "", errors.New("missing user firstName")
+		return "", errors.New("missing user " + profileFirstName)
 	}
 
-	return name.(string), nil
+	return name.(string), nil //nolint: forcetypeassert
 }
 
 func getUserLastName(user *okta.User) (string, error) {
@@ -614,12 +924,39 @@ func getUserLastName(user *okta.User) (string, error) {
 	}
 
 	profile := *user.Profile
-	name, ok := profile["lastName"]
+	name, ok := profile[profileLastName]
 	if !ok {
-		return "", errors.New("missing user lastName")
+		return "", errors.New("missing user " + profileLastName)
 	}
 
-	return name.(string), nil
+	return name.(string), nil //nolint: forcetypeassert
+}
+
+func getPortalAdminOrgs(user *okta.User) ([]string, error) {
+	if user.Profile == nil {
+		return nil, errors.New("missing user profile")
+	}
+
+	result := []string{}
+
+	profile := *user.Profile
+	orgsRaw, ok := profile[profilePortalAdminOrgs]
+	if !ok {
+		return result, nil
+	}
+
+	orgsSlice, ok := orgsRaw.([]interface{})
+	if !ok {
+		return result, nil
+	}
+
+	for _, val := range orgsSlice {
+		if str, ok := val.(string); ok {
+			result = append(result, str)
+		}
+	}
+
+	return result, nil
 }
 
 func convertOktaError(err *okta.Error) error {
@@ -640,4 +977,105 @@ func convertOktaError(err *okta.Error) error {
 	default:
 		return err
 	}
+}
+
+func extractLogger(ctx context.Context) *zap.Logger {
+	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
+}
+
+func convertUser(oktaUser *okta.User) (*User, error) {
+	userLogin, err := getUserLogin(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	firstName, err := getUserFirstName(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	lastName, err := getUserLastName(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
+	if err != nil {
+		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+	}
+
+	return &User{
+		ID:              oktaUser.Id,
+		Login:           userLogin,
+		FirstName:       firstName,
+		LastName:        lastName,
+		Status:          oktaUser.Status,
+		PortalAdminOrgs: portalAdminOrgs,
+	}, nil
+}
+
+func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.UserProfile {
+	if params.PortalAdminOrgs != nil {
+		profile[profilePortalAdminOrgs] = params.PortalAdminOrgs
+	}
+
+	if params.Firstname != nil {
+		profile[profileFirstName] = params.Firstname
+	}
+
+	if params.Lastname != nil {
+		profile[profileLastName] = params.Lastname
+	}
+
+	return profile
+}
+
+func validateUpdateUserParams(params UpdateUserParams) error {
+	if params.PortalAdminOrgs != nil {
+		ids := *params.PortalAdminOrgs
+
+		err := validatePortalAdminOrgs(ids)
+		if err != nil {
+			return err
+		}
+	}
+
+	if params.Firstname != nil && *params.Firstname == "" {
+		return ErrEmptyFirstName
+	}
+
+	if params.Lastname != nil && *params.Lastname == "" {
+		return ErrEmptyLastName
+	}
+
+	return nil
+}
+
+func validatePortalAdminOrgs(ids []string) error {
+	// map to check duplicates
+	duplMap := make(map[string]struct{}, len(ids))
+	var err error
+
+	for _, val := range ids {
+		_, err = uuid.Parse(val)
+		if err != nil {
+			return ErrInvalidPortalAdminOrgs
+		}
+
+		if _, ok := duplMap[val]; ok {
+			return ErrDuplicatedPortalAdminOrgs
+		}
+
+		duplMap[val] = struct{}{}
+	}
+
+	return nil
+}
+
+func validateRegisterUserParams(params RegisterUserParams) error {
+	if params.Login == "" {
+		return ErrEmptyLogin
+	}
+
+	return nil
 }

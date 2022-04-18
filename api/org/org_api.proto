@@ -6,16 +6,103 @@ option go_package = "/org;orgv1";
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
+// DistributionMethod represents PMM Server distribution method.
+enum Tier {
+  // INVALID used for unsupported values.
+  INVALID = 0;
+  // REGISTERED represents account that is registered on Portal.
+  REGISTERED = 1;
+  // PAID represents paid account.
+  PAID = 2;
+}
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Organization API";
+  };
+  extensions: {
+    key: "x-readme";
+    value:{
+      struct_value: {
+        fields: {
+          key: "samples-languages"
+          value: {
+            list_value: {
+              values: {
+                string_value: "curl";
+              }
+              values: {
+                string_value: "go";
+              }
+              values: {
+                string_value: "node";
+              }
+              values: {
+                string_value: "python";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    description: "Provides API to manage the organizations available for your Percona services.";
+  };
+
   // CreateOrganization creates new organization with the given name and adds the user as org admin.
   rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
     option (google.api.http) = {
       post: "/v1/orgs"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.";
+      summary: "Create organization";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
+    };
+  }
+
+  // UpdateOrganization updates the organization with the given ID.
+  rpc UpdateOrganization(UpdateOrganizationRequest) returns (UpdateOrganizationResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{organization.id}"
+      body: "organization"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update organization info.";
+      summary: "Update organization";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
     };
   }
 
@@ -23,6 +110,22 @@ service OrgAPI {
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {
       get: "/v1/orgs/{org_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Get organization info by ID.";
+      summary: "Get organization info";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
+          }
+        };
+      };
     };
   }
 
@@ -32,12 +135,38 @@ service OrgAPI {
       post: "/v1/orgs:search"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search for organizations that the user is a member of.";
+      summary: "Search organizations";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"orgs": [{"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}]}'
+          }
+        };
+      };
+    };
   }
-  
+
   // DeleteOrganization deletes organization and its members for the given organization ID.
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {
       delete: "/v1/orgs/{org_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete organization by ID.";
+      summary: "Delete organization";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
     };
   }
 
@@ -47,6 +176,16 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/members"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Invite users to the organization and specify their member roles.";
+      summary: "Invite organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
   }
 
   // SearchMembers lists members of a Percona Portal Organization.
@@ -55,12 +194,108 @@ service OrgAPI {
       post: "/v1/orgs/{org_id}/members:search"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization members.";
+      summary: "Search organization members";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+          }
+        };
+      };
+    };
+  }
+
+  // UpdateMember updates user to a Percona Portal Organization.
+  rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse) {
+    option (google.api.http) = {
+      put: "/v1/orgs/{org_id}/members/{member_id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update organization member's role.";
+      summary: "Update organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"member": {"member_id":"1a8e7b33-59bc-42a5-b1a8-2180576badde","username":"admin@org.com","first_name":"First Name","last_name":"Last Name","role":"Admin","status":"ACTIVE"}}'
+          }
+        };
+      };
+    };
+  }
+
+  // DeleteMember deletes a Percona Portal Organization Member with the given ID.
+  rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/orgs/{org_id}/members/{member_id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete member from organization.";
+      summary: "Delete organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
   }
 
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/{org_id}/entitlements:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
+      summary: "Search organization entitlements";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"entitlements":[{"number":"ENTLMT0001026","name":"Unmeasured MySQL Support - Premium - ENTLMT0001026","summary":"3 MySQL Servers","tier":"","total_units":"3","unlimited_units":false,"support_level":"","software_families":["MySQL"],"start_date":"2019-10-28T00:00:00Z","end_date":"2021-07-01T00:00:00Z","platform":{"security_advisor":"","config_advisor":""}}]}'
+          }
+        };
+      };
+    };
+  }
+
+  // SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
+  rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/tickets:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
+      summary: "Search organization tickets";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"tickets":[{"number":"TIME0001218","short_description":"Percona SANDBOX Percona Managed Database Services for PostgreSQL - ENTLMT0003359","priority":"P3 - Normal","state":"Open","create_time":"2022-01-14T20:53:22Z","department":"Managed Services","requester":"","task_type":"Internal Tracking","url":"https://perconadev.service-now.com/percona?id=percona_ticket&table=u_internal_tracking&sys_id=b2a175a587098d508d75c9d8cebb35a8"}]}'
+          }
+        };
+      };
     };
   }
 
@@ -69,18 +304,160 @@ service OrgAPI {
     option (google.api.http) = {
       post: "/v1/orgs/company:search"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.";
+      summary: "Search organization tickets";
+      tags: "Organization Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"name":"Percona SANDBOX"}'
+          }
+        };
+      };
+    };
+  }
+
+  // ConnectPMM adds PMM into inventory and returns SSO details.
+  // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+  rpc ConnectPMM(ConnectPMMRequest) returns (ConnectPMMResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/inventory"
+      body: "*"
+      additional_bindings: {
+        post: "/v1/orgs/inventory:connect"
+        body: "*"
+      }
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Connect PMM Server to organization.";
+      summary: "Connect PMM Server";
+      tags: "Inventory Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"sso_details":{"grafana_client_id":"bdheuwort62379fwbeui","pmm_managed_client_id":"bdheuwort62379fwbeui","pmm_managed_client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
+          }
+        };
+      };
+    };
+  }
+
+  // DisconnectPMM deletes the PMM instance with the given pmm_server_id
+  // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
+  rpc DisconnectPMM(DisconnectPMMRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/orgs/inventory/{pmm_server_id}:disconnect"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Disconnect PMM Server from organization.";
+      summary: "Disconnect PMM Server";
+      tags: "Inventory Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
+  }
+
+  // SearchInventory returns the inventory list of the given organization
+  rpc SearchInventory(SearchInventoryRequest) returns (SearchInventoryResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/inventory:search"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Search all PMM servers connected to an organization.";
+      summary: "Search connected PMM Servers";
+      tags: "Inventory Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"inventory": [{"pmm_server_id":"ded64cd9-2f9e-78ac-247a-d98ad1f95e85","pmm_server_name":"Small Rubber Shoes","pmm_server_url":"https://laverna.biz"}]}'
+          }
+        };
+      };
+    };
   }
 }
 
+message PMMServerSSODetails {
+  string client_id = 1 [deprecated = true];
+  string client_secret = 2 [deprecated = true];
+  string issuer_url = 3;
+  string scope = 4;
+  string grafana_client_id = 5;
+  string pmm_managed_client_id = 6;
+  string pmm_managed_client_secret = 7;
+}
+
+message ConnectPMMRequest {
+  // PMM Server unique ID.
+  string pmm_server_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User-defined human-readable PMM Server name.
+  string pmm_server_name = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // PMM Server address accessible to users.
+  string pmm_server_url = 3 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // URL for oauth callback.
+  string pmm_server_oauth_callback_url = 4 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message ConnectPMMResponse {
+  PMMServerSSODetails sso_details = 1;
+  string org_id = 2;
+}
+
 message Organization {
-  // Percona Portal Organization ID.
-  string id = 1;
-  // Percona Portal Organization Name.
-  string name = 2;
-  // Timestamp of organization creation.
+  // Percona Portal organization ID.
+  string id = 1[
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // Percona Portal organization name.
+  string name = 2[
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // Timestamp when the organization was created.
   google.protobuf.Timestamp created_at = 3;
-  // Timestamp when organization was last updated.
+  // Timestamp when the organization was last updated.
   google.protobuf.Timestamp updated_at = 4;
+  // Tier of the client linked to the organization.
+  Tier tier = 5 [
+    (validator.field) = {
+      is_in_enum: true
+    }
+  ];
 }
 
 message CreateOrganizationRequest {
@@ -88,12 +465,35 @@ message CreateOrganizationRequest {
   string name = 1 [
     (validator.field) = {
       string_not_empty: true
-    }
+    },
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ['name']}
   ];
 }
 
 message CreateOrganizationResponse {
   Organization org = 1;
+}
+
+message UpdateOrganizationRequest {
+  // Percona Portal Organization
+  Organization organization = 1;
+}
+
+message UpdateOrganizationResponse {
+  Organization org = 1;
+}
+
+message Contacts {
+  message CustomerSuccess {
+    string name = 1;
+    string email = 2;
+  }
+
+  // Contact information of the Customer Success employee assigned to a customer's account.
+  CustomerSuccess customer_success = 1;
+  // Ticket URL.
+  string new_ticket_url = 2;
 }
 
 message GetOrganizationRequest {
@@ -107,6 +507,7 @@ message GetOrganizationRequest {
 
 message GetOrganizationResponse {
   Organization org = 1;
+  Contacts contacts = 2;
 }
 
 message SearchOrganizationsRequest {}
@@ -139,7 +540,7 @@ message SearchOrganizationEntitlementsResponse {
   repeated OrganizationEntitlement entitlements = 1;
 }
 
-// Contains information about Organization entitlement.
+// Contains information about the organization entitlement.
 message OrganizationEntitlement {
   message Platform {
     // Flag indicates that security advisors are covered by this entitlement.
@@ -169,7 +570,7 @@ message OrganizationEntitlement {
   // Entitlement end date.
   // Note: only date is used here but not time.
   google.protobuf.Timestamp end_date = 10;
-  // Platform specific options covered by this entitlement.
+  // Platform-specific options covered by this entitlement.
   Platform platform = 11;
 }
 
@@ -188,14 +589,14 @@ message InviteMemberRequest {
     }
   ];
 
-  // Percona Portal Organization ID to which to invite the user to.
+  // Percona Portal organization ID to which to invite the user to.
   string org_id = 2 [
     (validator.field) = {
       string_not_empty: true
     }
   ];
 
-  // Percona Portal Organization Role to be granted to invited user.
+  // Percona Portal organization role to be granted to the invited user.
   string role = 3;
 }
 
@@ -214,7 +615,7 @@ message OrganizationMember {
   // Last name of the organization member.
   string last_name = 4;
 
-  // Percona Portal Organization Role of the member.
+  // Percona Portal organization role of the member.
   string role = 5;
 
   // Okta Account Status of the organization member.
@@ -229,7 +630,7 @@ message SearchMembersRequest {
     }
   ];
 
-  // Optional filter to be used by PMM to get current user info.
+  // Optional filter that PMM uses to get information about the current user.
   message UserFilter {
     // Organization member username.
     string username = 1 [
@@ -244,4 +645,111 @@ message SearchMembersRequest {
 
 message SearchMembersResponse {
   repeated OrganizationMember members = 1;
+}
+
+message UpdateMemberRequest {
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  string member_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Organization member role.
+  string role = 3 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message UpdateMemberResponse {
+  OrganizationMember member = 1;
+}
+
+message DeleteMemberRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Percona Portal Member ID.
+  string member_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message DisconnectPMMRequest {
+  // PMM server ID.
+  string pmm_server_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchInventoryRequest {
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message Inventory {
+  // PMM Server ID
+  string pmm_server_id = 1;
+  // User-defined, human-readable PMM Server name.
+  string pmm_server_name = 2;
+  // PMM Server address accessible to the users.
+  string pmm_server_url = 3;
+}
+
+message SearchInventoryResponse {
+  repeated Inventory inventory = 1;
+}
+
+message SearchOrganizationTicketsRequest {
+  // Percona Portal Organization ID.
+  string org_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchOrganizationTicketsResponse {
+  // Organization tickets matching the request.
+  repeated OrganizationTicket tickets = 1;
+}
+
+// Contains information about the ticket.
+message OrganizationTicket {
+  // Ticket number.
+  string number = 1;
+  // Ticket short description.
+  string short_description = 2;
+  // Ticket priority.
+  string priority = 3;
+  // Ticket state.
+  string state = 4;
+  // Ticket creation time.
+  google.protobuf.Timestamp create_time = 5;
+  // Department.
+  string department = 6;
+  // Ticket requester.
+  string requester = 7;
+  // Task type.
+  string task_type = 8;
+  // Ticket URL.
+  string url = 9;
 }

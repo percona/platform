@@ -31,12 +31,12 @@ type RunDebugServerOpts struct {
 
 // RunDebugServer runs debug server with given options until ctx is canceled.
 // All errors cause panic.
-func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen
+func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen, cyclop
 	if opts == nil {
 		opts = new(RunDebugServerOpts)
 	}
 
-	l := zap.L().Named("platform.servers.debug").Sugar()
+	l := zap.L().Named("servers.debug").Sugar()
 
 	if opts.Addr == "" {
 		l.Panic("No Addr set.")
@@ -134,8 +134,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 
 		// propagate ctx cancellation signals and pass logger to handlers
 		ConnContext: func(connCtx context.Context, _ net.Conn) context.Context {
-			c, _ := getCtxForRequest(connCtx)
-			return c
+			return getCtxForRequest(connCtx)
 		},
 
 		// Handler defaults to http.DefaultServeMux
@@ -154,7 +153,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(shutdownCtx); err != nil {
+	if err := server.Shutdown(shutdownCtx); err != nil { //nolint:contextcheck //intended context switch
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()
