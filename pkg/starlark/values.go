@@ -74,14 +74,14 @@ func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop
 
 // starlarkToGo converts Starlark value to Go value.
 // Supported types:
-//  * NoneType -> nil;
-//  * bool -> bool;
-//  * int -> int64 or uint64;
-//  * float -> float64;
-//  * string -> string;
-//  * tuple -> []interface{}
-//  * list -> []interface{}
-//  * dict (with string keys) -> map[string]interface{}.
+//   - NoneType -> nil;
+//   - bool -> bool;
+//   - int -> int64 or uint64;
+//   - float -> float64;
+//   - string -> string;
+//   - tuple -> []interface{}
+//   - list -> []interface{}
+//   - dict (with string keys) -> map[string]interface{}.
 func starlarkToGo(v starlark.Value) (interface{}, error) { //nolint:funlen, cyclop
 	switch v := v.(type) {
 	case starlark.NoneType:
