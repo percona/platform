@@ -873,12 +873,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_CreateOrganization_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_CreateOrganization_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -896,12 +897,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_UpdateOrganization_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_UpdateOrganization_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -919,12 +921,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_GetOrganization_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_GetOrganization_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -942,12 +945,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchOrganizations_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchOrganizations_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -965,12 +969,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_DeleteOrganization_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_DeleteOrganization_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -988,12 +993,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_InviteMember_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_InviteMember_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1011,12 +1017,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchMembers_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchMembers_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1034,12 +1041,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_UpdateMember_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_UpdateMember_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1057,12 +1065,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_DeleteMember_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_DeleteMember_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1080,12 +1089,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchOrganizationEntitlements_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchOrganizationEntitlements_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1103,12 +1113,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchOrganizationTickets_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchOrganizationTickets_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1126,12 +1137,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchUserCompany_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchUserCompany_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1149,12 +1161,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_ConnectPMM_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_ConnectPMM_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1172,12 +1185,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_ConnectPMM_1(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_ConnectPMM_1(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1195,12 +1209,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_DisconnectPMM_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_DisconnectPMM_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1218,12 +1233,13 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
+		var err error
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_SearchInventory_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_SearchInventory_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1280,12 +1296,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_CreateOrganization_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_CreateOrganization_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1300,12 +1317,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_UpdateOrganization_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_UpdateOrganization_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1320,12 +1338,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_GetOrganization_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_GetOrganization_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1340,12 +1359,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchOrganizations_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchOrganizations_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1360,12 +1380,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_DeleteOrganization_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_DeleteOrganization_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1380,12 +1401,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_InviteMember_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_InviteMember_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1400,12 +1422,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchMembers_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchMembers_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1420,12 +1443,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_UpdateMember_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_UpdateMember_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1440,12 +1464,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_DeleteMember_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_DeleteMember_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1460,12 +1485,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchOrganizationEntitlements_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchOrganizationEntitlements_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1480,12 +1506,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchOrganizationTickets_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchOrganizationTickets_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1500,12 +1527,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchUserCompany_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchUserCompany_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1520,12 +1548,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_ConnectPMM_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_ConnectPMM_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1540,12 +1569,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_ConnectPMM_1(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_ConnectPMM_1(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1560,12 +1590,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_DisconnectPMM_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_DisconnectPMM_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -1580,12 +1611,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
+		var err error
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_SearchInventory_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_SearchInventory_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
