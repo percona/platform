@@ -27,7 +27,7 @@ format:                                    ## Format source code
 
 check:                                     ## Run checks/linters for the whole project
 	bin/go-consistent -exclude=tools -pedantic ./...
-	bin/golangci-lint run
+	LOG_LEVEL=error bin/golangci-lint run
 
 test:                                      ## Run tests
 	go test -race ./...

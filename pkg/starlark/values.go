@@ -9,14 +9,14 @@ import (
 
 // goToStarlark converts Go value to Starlark value.
 // Supported types:
-//  * nil -> NoneType (None);
-//  * bool -> bool;
-//  * int64, uint64 -> int;
-//  * float64 -> float;
-//  * string, []byte -> string;
-//  * time.Time -> int (UNIX timestamp in nanoseconds);
-//  * []interface{} -> list;
-//  * map[string]interface{} -> dict.
+//   - nil -> NoneType (None);
+//   - bool -> bool;
+//   - int64, uint64 -> int;
+//   - float64 -> float;
+//   - string, []byte -> string;
+//   - time.Time -> int (UNIX timestamp in nanoseconds);
+//   - []interface{} -> list;
+//   - map[string]interface{} -> dict.
 func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop
 	switch v := v.(type) {
 	case nil:

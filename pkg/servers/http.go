@@ -78,7 +78,7 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 	}
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), opts.ShutdownTimeout)
-	if err := server.Shutdown(shutdownCtx); err != nil { //nolint:contextcheck //intended context switch
+	if err := server.Shutdown(shutdownCtx); err != nil {
 		l.Errorf("Failed to shutdown gracefully: %s", err)
 	}
 	shutdownCancel()
