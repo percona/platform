@@ -20,7 +20,7 @@ require (
 	google.golang.org/grpc v1.45.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.0
-	mvdan.cc/gofumpt v0.3.0
+	mvdan.cc/gofumpt v0.3.1
 )
 
 // indirect dependency replaced because of security vulnerability
