@@ -669,6 +669,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
 				Family:      MySQL,
+				Category:    "test",
 				Queries: []Query{
 					{
 						Type:  MySQLShow,
@@ -691,6 +692,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
 				Family:      PostgreSQL,
+				Category:    "test",
 				Queries: []Query{
 					{
 						Type: PostgreSQLShow,
@@ -712,6 +714,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Description: "Check Description",
 				Tiers:       []common.Tier{common.Anonymous},
 				Family:      MongoDB,
+				Category:    "test",
 				Queries: []Query{
 					{
 						Type: MongoDBGetCmdLineOpts,
@@ -849,6 +852,24 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script: "def func(args): pass",
 			},
 			errStr: "field 'query' is part of check format version 1 and can't be used in version 2",
+		}, {
+			name: "category is empty for v2",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MySQL,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "category is empty",
 		},
 	}
 	for _, tt := range tests {
