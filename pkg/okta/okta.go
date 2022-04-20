@@ -112,7 +112,7 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 	}, nil
 }
 
-// FindUser searches user by login and returns user.
+// FindUser searches user either by login or okta user ID and returns user.
 func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 	l := extractLogger(ctx)
 	l.Info("Looking for Okta user by username.", zap.String("username", login))

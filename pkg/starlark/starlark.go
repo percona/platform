@@ -297,6 +297,7 @@ func CheckGlobals(c *check.Check, predeclaredFuncs map[string]GoFunc) error {
 }
 
 // modify unavoidable global state once on package initialization to avoid race conditions
+//
 //nolint:gochecknoinits
 func init() {
 	resolve.AllowFloat = true
