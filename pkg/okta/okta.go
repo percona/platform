@@ -705,10 +705,25 @@ func (c *Client) GetSchema(ctx context.Context, typeID string) (*Schema, error) 
 func (c *Client) ListPolicies(ctx context.Context, qp *query.Params) ([]*okta.Policy, error) { //nolint:revive
 	l := extractLogger(ctx)
 	l.Info("Looking for Okta policies.")
-	policies, _, err := c.c.Policy.ListPolicies(ctx, qp)
+	policyInterfaces, _, err := c.c.Policy.ListPolicies(ctx, qp)
 	if err != nil {
 		return nil, err
 	}
+
+	policies := make([]*okta.Policy, 0, len(policyInterfaces))
+	for _, policyInterface := range policyInterfaces {
+		if !policyInterface.IsPolicyInstance() {
+			continue
+		}
+
+		policy, ok := policyInterface.(*okta.Policy)
+		if !ok {
+			continue
+		}
+
+		policies = append(policies, policy)
+	}
+
 	return policies, err
 }
 
