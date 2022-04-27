@@ -453,7 +453,7 @@ func validateParametersForMetricsRangeQuery(params map[Parameter]string) error {
 	return nil
 }
 
-func (c *Check) validateQueries() error { //nolint:cyclop
+func (c *Check) validateQueries() error {
 	if len(c.Queries) == 0 {
 		return errors.New("check should have at least one query")
 	}
