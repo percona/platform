@@ -475,20 +475,14 @@ func (c *Check) validateQueries() error { //nolint:cyclop
 
 	switch c.Family {
 	case MySQL:
-		err = checkQueryForCompatibilityWithMySQLFamily(c.Queries)
+		return checkQueryForCompatibilityWithMySQLFamily(c.Queries)
 	case PostgreSQL:
-		err = checkQueryForCompatibilityWithPostgreSQLFamily(c.Queries)
+		return checkQueryForCompatibilityWithPostgreSQLFamily(c.Queries)
 	case MongoDB:
-		err = checkQueryForCompatibilityWithMonogDBFamily(c.Queries)
+		return checkQueryForCompatibilityWithMonogDBFamily(c.Queries)
 	default:
 		return errors.Errorf("unknown check family: %s", c.Family)
 	}
-
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func checkQueryForCompatibilityWithMySQLFamily(queries []Query) error {
