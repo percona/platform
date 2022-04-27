@@ -385,7 +385,7 @@ func validateQuery(typ Type, query string) error { // nolint:cyclop
 	return nil
 }
 
-func validateQueryParameters(typ Type, params map[Parameter]string) error {
+func validateQueryParameters(typ Type, params map[Parameter]string) error { //nolint:cyclop
 	switch typ {
 	case PostgreSQLShow:
 		fallthrough
@@ -453,7 +453,7 @@ func validateParametersForMetricsRangeQuery(params map[Parameter]string) error {
 	return nil
 }
 
-func (c *Check) validateQueries() error {
+func (c *Check) validateQueries() error { //nolint:cyclop
 	if len(c.Queries) == 0 {
 		return errors.New("check should have at least one query")
 	}
