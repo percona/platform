@@ -11,7 +11,6 @@ import (
 	_ "github.com/bufbuild/buf/cmd/protoc-gen-buf-lint"
 	_ "github.com/dvyukov/go-fuzz/go-fuzz"
 	_ "github.com/dvyukov/go-fuzz/go-fuzz-build"
-	_ "github.com/golang/protobuf/protoc-gen-go"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
@@ -35,7 +34,6 @@ import (
 //go:generate go build -o ../bin/gofumpt mvdan.cc/gofumpt
 //go:generate go build -o ../bin/goimports golang.org/x/tools/cmd/goimports
 //go:generate go build -o ../bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
-//go:generate go build -o ../bin/protoc-gen-go github.com/golang/protobuf/protoc-gen-go
 //go:generate go build -o ../bin/protoc-gen-go google.golang.org/protobuf/cmd/protoc-gen-go
 //go:generate go build -o ../bin/protoc-gen-go-grpc google.golang.org/grpc/cmd/protoc-gen-go-grpc
 //go:generate go build -o ../bin/protoc-gen-govalidators github.com/mwitkow/go-proto-validators/protoc-gen-govalidators

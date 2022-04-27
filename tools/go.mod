@@ -7,7 +7,6 @@ go 1.18
 require (
 	github.com/bufbuild/buf v1.3.1
 	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
-	github.com/golang/protobuf v1.5.2
 	github.com/golangci/golangci-lint v1.45.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
 	github.com/mwitkow/go-proto-validators v0.3.2
@@ -79,6 +78,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golangci/check v0.0.0-20180506172741-cfe4005ccda2 // indirect
 	github.com/golangci/dupl v0.0.0-20180902072040-3e9179ac440a // indirect
 	github.com/golangci/go-misc v0.0.0-20180628070357-927a3d87b613 // indirect
