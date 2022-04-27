@@ -602,6 +602,31 @@ def check_context(rows, context):
 			},
 			errStr: "",
 		},
+		{
+			name: "valid check version 2",
+			check: &check.Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      check.MySQL,
+				Category:    "configuration",
+				Queries: []check.Query{
+					{
+						Type:  check.MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+
+				Script: strings.TrimSpace(`
+def check_context(rows, context):
+    """Check Description"""
+    pass
+                `),
+			},
+			errStr: "",
+		},
 	}
 
 	for _, tt := range tests {

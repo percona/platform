@@ -542,7 +542,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for POSTGRESQL_SHOW type",
+			errStr: "query should be empty for 'POSTGRESQL_SHOW' type",
 		}, {
 			name: "non empty query for mongodb get parameter",
 			check: &Check{
@@ -555,7 +555,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for MONGODB_GETPARAMETER type",
+			errStr: "query should be empty for 'MONGODB_GETPARAMETER' type",
 		}, {
 			name: "non empty query for mongodb build info",
 			check: &Check{
@@ -568,7 +568,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for MONGODB_BUILDINFO type",
+			errStr: "query should be empty for 'MONGODB_BUILDINFO' type",
 		}, {
 			name: "non empty query for mongodb get cmd line opts",
 			check: &Check{
@@ -581,7 +581,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for MONGODB_GETCMDLINEOPTS type",
+			errStr: "query should be empty for 'MONGODB_GETCMDLINEOPTS' type",
 		}, {
 			name: "non-empty query for mongodb replSetGetStatus",
 			check: &Check{
@@ -594,7 +594,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for MONGODB_REPLSETGETSTATUS type",
+			errStr: "query should be empty for 'MONGODB_REPLSETGETSTATUS' type",
 		}, {
 			name: "non-empty query for mongodb getDiagnosticData",
 			check: &Check{
@@ -607,7 +607,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
-			errStr: "query should be empty for MONGODB_GETDIAGNOSTICDATA type",
+			errStr: "query should be empty for 'MONGODB_GETDIAGNOSTICDATA' type",
 		}, {
 			name: "empty script",
 			check: &Check{
@@ -729,6 +729,204 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script: "def func(args): pass",
 			},
 			errStr: "",
+		}, {
+			name: "metrics instant",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsInstant,
+						Query: "instant query",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "metrics instant with params",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsInstant,
+						Query: "instant query",
+						Parameters: map[Parameter]string{
+							Lookback: "5m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "metrics range",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsRange,
+						Query: "range query",
+						Parameters: map[Parameter]string{
+							Range: "20m",
+							Step:  "5m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "metrics range with all params",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsRange,
+						Query: "range query",
+						Parameters: map[Parameter]string{
+							Lookback: "1h",
+							Range:    "20m",
+							Step:     "5m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "metrics range with unknown parameter",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsRange,
+						Query: "instant query",
+						Parameters: map[Parameter]string{
+							Parameter("unknown"): "20m",
+							Step:                 "5m",
+							Range:                "20m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "unsupported parameter 'unknown' for range metris query",
+		}, {
+			name: "metrics range without required parameter",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsRange,
+						Query: "range query",
+						Parameters: map[Parameter]string{
+							Step: "5m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query parameter 'range' is required for metrics range queries",
+		}, {
+			name: "metrics instant with bad lookback parameter value",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsInstant,
+						Query: "instant query",
+						Parameters: map[Parameter]string{
+							Lookback: "invalid",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "failed to parse loopback parameter value 'invalid', it should be a duration: time: invalid duration \"invalid\"",
+		}, {
+			name: "metrics instant with empty query",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsInstant,
+						Query: "",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query is empty",
+		}, {
+			name: "metrics range with empty query",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      MongoDB,
+				Category:    "test",
+				Queries: []Query{
+					{
+						Type:  MetricsRange,
+						Query: "",
+						Parameters: map[Parameter]string{
+							Range: "20m",
+							Step:  "5m",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query is empty",
 		}, {
 			name: "unsupported query type for given family",
 			check: &Check{
