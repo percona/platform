@@ -5,7 +5,7 @@ go 1.18
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/bufbuild/buf v1.3.1
+	github.com/bufbuild/buf v1.4.0
 	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
 	github.com/golangci/golangci-lint v1.45.2
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
@@ -105,7 +105,7 @@ require (
 	github.com/jdxcode/netrc v0.0.0-20210204082910-926c7f70242a // indirect
 	github.com/jgautheron/goconst v1.5.1 // indirect
 	github.com/jhump/protocompile v0.0.0-20220216033700-d705409f108f // indirect
-	github.com/jhump/protoreflect v1.11.1-0.20220213155251-0c2aedc66cf4 // indirect
+	github.com/jhump/protoreflect v1.12.1-0.20220417024638-438db461d753 // indirect
 	github.com/jingyugao/rowserrcheck v1.1.1 // indirect
 	github.com/jirfag/go-printf-func-name v0.0.0-20200119135958-7558a9eaa5af // indirect
 	github.com/julz/importas v0.1.0 // indirect
@@ -197,17 +197,17 @@ require (
 	golang.org/x/build v0.0.0-20200616162219-07bebbe343e9 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/net v0.0.0-20220325170049-de3da57026de // indirect
+	golang.org/x/net v0.0.0-20220412020605-290c469a71a5 // indirect
 	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220328115105-d36c6a25d886 // indirect
-	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
+	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	golang.org/x/term v0.0.0-20220411215600-e5f449aeb171 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	golang.org/x/xerrors v0.0.0-20220411194840-2f41105eb62f // indirect
 	google.golang.org/api v0.74.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20220413183235-5e96e2839df9 // indirect
+	google.golang.org/genproto v0.0.0-20220414192740-2d67ff6cf2b4 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
