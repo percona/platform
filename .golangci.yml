@@ -40,6 +40,9 @@ linters:
     - varnamelen       # doesn't match the go codestyle
     - ireturn          # incompatible with the codebase
     - maintidx         # disable for compatability
+    - execinquery      # annoing
+    - exhaustruct      # verbose style
+    - nonamedreturns   # named returns improves readability
 
 issues:
   exclude-use-default: false
