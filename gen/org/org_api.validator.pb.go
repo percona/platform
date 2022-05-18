@@ -238,16 +238,16 @@ func (this *InviteMemberResponse) Validate() error {
 	return nil
 }
 func (this *BulkInviteMembersRequest) Validate() error {
-	if len(this.Members) < 1 {
-		return github_com_mwitkow_go_proto_validators.FieldError("Members", fmt.Errorf(`value '%v' must contain at least 1 elements`, this.Members))
+	if len(this.Users) < 1 {
+		return github_com_mwitkow_go_proto_validators.FieldError("Users", fmt.Errorf(`value '%v' must contain at least 1 elements`, this.Users))
 	}
-	if len(this.Members) > 10 {
-		return github_com_mwitkow_go_proto_validators.FieldError("Members", fmt.Errorf(`value '%v' must contain at most 10 elements`, this.Members))
+	if len(this.Users) > 10 {
+		return github_com_mwitkow_go_proto_validators.FieldError("Users", fmt.Errorf(`value '%v' must contain at most 10 elements`, this.Users))
 	}
-	for _, item := range this.Members {
+	for _, item := range this.Users {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Members", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Users", err)
 			}
 		}
 	}

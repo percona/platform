@@ -600,7 +600,7 @@
         "parameters": [
           {
             "name": "orgId",
-            "description": "Percona Portal Organization ID to which to invite the user to.",
+            "description": "Percona Portal Organization ID to which to invite users to.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -612,12 +612,12 @@
             "schema": {
               "type": "object",
               "properties": {
-                "members": {
+                "users": {
                   "type": "array",
                   "items": {
                     "$ref": "#/definitions/v1OrganizationInvitee"
                   },
-                  "description": "Array of members to invite to the Organization."
+                  "description": "Array of users to invite to the Organization."
                 }
               }
             }

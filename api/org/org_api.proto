@@ -621,15 +621,15 @@ message InviteMemberRequest {
 message InviteMemberResponse {}
 
 message BulkInviteMembersRequest {
-  // Array of members to invite to the Organization.
-  repeated OrganizationInvitee members = 1 [
+  // Array of users to invite to the Organization.
+  repeated OrganizationInvitee users = 1 [
     (validator.field) = {
       repeated_count_min: 1
       repeated_count_max: 10
     }
   ];
 
-  // Percona Portal Organization ID to which to invite the user to.
+  // Percona Portal Organization ID to which to invite users to.
   string org_id = 2 [
     (validator.field) = {
       string_not_empty: true
