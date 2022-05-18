@@ -196,7 +196,7 @@ service OrgAPI {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Invite users to the organization and specify their member roles.";
-      summary: "Invite organization member";
+      summary: "Bulk invite organization members";
       tags: "Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -653,13 +653,17 @@ message OrganizationInvitee {
 }
 
 message BulkInviteMembersResponse {
-  // Invitees statuses
-  repeated InviteeStatus invitees = 1;
+  repeated UsersStatuses users = 1;
 }
 
-message InviteeStatus {
+message UsersStatuses {
+  // Percona Portal username that was attempted to invite to the Organization
   string username = 1;
+
+  // Status of an attempt. May be FAILED or SUCCESS
   string status = 2;
+
+  // Error if an attempt has FAILED status
   string error = 3;
 }
 

@@ -580,7 +580,7 @@
     },
     "/v1/orgs/{orgId}/members:bulk": {
       "post": {
-        "summary": "Invite organization member",
+        "summary": "Bulk invite organization members",
         "description": "Invite users to the organization and specify their member roles.",
         "operationId": "OrgAPI_BulkInviteMembers",
         "responses": {
@@ -917,12 +917,11 @@
     "v1BulkInviteMembersResponse": {
       "type": "object",
       "properties": {
-        "invitees": {
+        "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1InviteeStatus"
-          },
-          "title": "Invitees statuses"
+            "$ref": "#/definitions/v1UsersStatuses"
+          }
         }
       }
     },
@@ -1027,20 +1026,6 @@
     },
     "v1InviteMemberResponse": {
       "type": "object"
-    },
-    "v1InviteeStatus": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "error": {
-          "type": "string"
-        }
-      }
     },
     "v1Organization": {
       "type": "object",
@@ -1326,6 +1311,23 @@
       "properties": {
         "org": {
           "$ref": "#/definitions/v1Organization"
+        }
+      }
+    },
+    "v1UsersStatuses": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Percona Portal username that was attempted to invite to the Organization"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status of an attempt. May be FAILED or SUCCESS"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error if an attempt has FAILED status"
         }
       }
     }

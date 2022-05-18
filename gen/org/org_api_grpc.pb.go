@@ -32,7 +32,7 @@ type OrgAPIClient interface {
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(ctx context.Context, in *InviteMemberRequest, opts ...grpc.CallOption) (*InviteMemberResponse, error)
-	// InviteMember invites users to a Percona Portal Organization.
+	// BulkInviteMembers invites users to a Percona Portal Organization.
 	BulkInviteMembers(ctx context.Context, in *BulkInviteMembersRequest, opts ...grpc.CallOption) (*BulkInviteMembersResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
@@ -224,7 +224,7 @@ type OrgAPIServer interface {
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error)
-	// InviteMember invites users to a Percona Portal Organization.
+	// BulkInviteMembers invites users to a Percona Portal Organization.
 	BulkInviteMembers(context.Context, *BulkInviteMembersRequest) (*BulkInviteMembersResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
