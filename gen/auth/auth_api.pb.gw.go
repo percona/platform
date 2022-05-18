@@ -281,13 +281,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_SignUp_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_SignUp_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -305,13 +304,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_SignIn_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_SignIn_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -329,13 +327,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_SignOut_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_SignOut_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -353,13 +350,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_RefreshSession_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_RefreshSession_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -377,13 +373,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_ResetPassword_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_ResetPassword_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -401,13 +396,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_GetProfile_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_GetProfile_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -425,13 +419,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_UpdateProfile_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_UpdateProfile_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -488,13 +481,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignUp", runtime.WithHTTPPathPattern("/v1/auth/SignUp"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_SignUp_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_SignUp_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -509,13 +501,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignIn", runtime.WithHTTPPathPattern("/v1/auth/SignIn"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_SignIn_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_SignIn_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -530,13 +521,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SignOut", runtime.WithHTTPPathPattern("/v1/auth/SignOut"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_SignOut_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_SignOut_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -551,13 +541,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/RefreshSession", runtime.WithHTTPPathPattern("/v1/auth/RefreshSession"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_RefreshSession_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_RefreshSession_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -572,13 +561,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/ResetPassword", runtime.WithHTTPPathPattern("/v1/auth/ResetPassword"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_ResetPassword_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_ResetPassword_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -593,13 +581,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetProfile", runtime.WithHTTPPathPattern("/v1/auth/GetProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_GetProfile_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_GetProfile_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -614,13 +601,12 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/auth/UpdateProfile"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_UpdateProfile_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_UpdateProfile_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)

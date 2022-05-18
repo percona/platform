@@ -578,6 +578,59 @@
         ]
       }
     },
+    "/v1/orgs/{orgId}/members:bulk": {
+      "post": {
+        "summary": "Invite organization member",
+        "description": "Invite users to the organization and specify their member roles.",
+        "operationId": "OrgAPI_BulkInviteMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1BulkInviteMembersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID to which to invite the user to.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "members": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/v1OrganizationInvitee"
+                  },
+                  "description": "Array of members to invite to the Organization."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Member Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs/{orgId}/members:search": {
       "post": {
         "summary": "Search organization members",
@@ -732,33 +785,12 @@
             "type": "string"
           },
           {
-            "name": "organization",
+            "name": "body",
             "description": "Percona Portal Organization",
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Percona Portal organization name."
-                },
-                "createdAt": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "Timestamp when the organization was created."
-                },
-                "updatedAt": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "Timestamp when the organization was last updated."
-                },
-                "tier": {
-                  "$ref": "#/definitions/v1Tier",
-                  "description": "Tier of the client linked to the organization."
-                }
-              },
-              "title": "Percona Portal Organization"
+              "$ref": "#/definitions/v1Organization"
             }
           }
         ],
@@ -882,6 +914,18 @@
         }
       }
     },
+    "v1BulkInviteMembersResponse": {
+      "type": "object",
+      "properties": {
+        "invitees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1InviteeStatus"
+          },
+          "title": "Invitees statuses"
+        }
+      }
+    },
     "v1ConnectPMMRequest": {
       "type": "object",
       "properties": {
@@ -984,6 +1028,20 @@
     "v1InviteMemberResponse": {
       "type": "object"
     },
+    "v1InviteeStatus": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
     "v1Organization": {
       "type": "object",
       "properties": {
@@ -1065,6 +1123,19 @@
         }
       },
       "description": "Contains information about the organization entitlement."
+    },
+    "v1OrganizationInvitee": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username to invite to the Organziation."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal Organization Role to be granted to invited user."
+        }
+      }
     },
     "v1OrganizationMember": {
       "type": "object",

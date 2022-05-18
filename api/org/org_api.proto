@@ -188,6 +188,24 @@ service OrgAPI {
     };
   }
 
+  // BulkInviteMembers invites users to a Percona Portal Organization.
+  rpc BulkInviteMembers(BulkInviteMembersRequest) returns (BulkInviteMembersResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/members:bulk"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Invite users to the organization and specify their member roles.";
+      summary: "Invite organization member";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+      };
+    };
+  }
+
   // SearchMembers lists members of a Percona Portal Organization.
   rpc SearchMembers(SearchMembersRequest) returns (SearchMembersResponse) {
     option (google.api.http) = {
@@ -601,6 +619,49 @@ message InviteMemberRequest {
 }
 
 message InviteMemberResponse {}
+
+message BulkInviteMembersRequest {
+  // Array of members to invite to the Organization.
+  repeated OrganizationInvitee members = 1 [
+    (validator.field) = {
+      repeated_count_min: 1
+      repeated_count_max: 10
+    }
+  ];
+
+  // Percona Portal Organization ID to which to invite the user to.
+  string org_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+message OrganizationInvitee {
+  // Percona Portal username to invite to the Organziation.
+  string username = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  // Percona Portal Organization Role to be granted to invited user.
+  string role = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message BulkInviteMembersResponse {
+  // Invitees statuses
+  repeated InviteeStatus invitees = 1;
+}
+
+message InviteeStatus {
+  string username = 1;
+  string status = 2;
+  string error = 3;
+}
 
 message OrganizationMember {
   // Percona Portal member UUID.
