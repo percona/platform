@@ -266,16 +266,16 @@ func (this *OrganizationInvitee) Validate() error {
 	return nil
 }
 func (this *BulkInviteMembersResponse) Validate() error {
-	for _, item := range this.Users {
+	for _, item := range this.Statuses {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Users", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Statuses", err)
 			}
 		}
 	}
 	return nil
 }
-func (this *UsersStatuses) Validate() error {
+func (this *InviteStatus) Validate() error {
 	return nil
 }
 func (this *OrganizationMember) Validate() error {
