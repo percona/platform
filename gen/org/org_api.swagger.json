@@ -785,12 +785,33 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "organization",
             "description": "Percona Portal Organization",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1Organization"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Percona Portal organization name."
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the organization was created."
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the organization was last updated."
+                },
+                "tier": {
+                  "$ref": "#/definitions/v1Tier",
+                  "description": "Tier of the client linked to the organization."
+                }
+              },
+              "title": "Percona Portal Organization"
             }
           }
         ],
