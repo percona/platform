@@ -14,26 +14,26 @@ jobs:
         uses: percona-platform/checkout@v3
 
       - name: Sync Org API
-        uses: percona-platform/rdme@7.0.3
+        uses: percona-platform/rdme@7.2.0
         with:
           rdme: openapi ./gen/org/org_api.swagger.json --id=61b8821d25989c0010a34938 --key=${{ secrets.README_TOKEN }}
 
       - name: Sync Auth API
-        uses: percona-platform/rdme@7.0.3
+        uses: percona-platform/rdme@7.2.0
         with:
           rdme: openapi ./gen/auth/auth_api.swagger.json --id=6230a5e21b6a79029641026f --key=${{ secrets.README_TOKEN }}
 
       - name: Sync Check Retrieval API
-        uses: percona-platform/rdme@7.0.3
+        uses: percona-platform/rdme@7.2.0
         with:
           rdme: openapi ./gen/check/retrieval/retrieval_api.swagger.json --id=6231a58f3c2121030871d47e --key=${{ secrets.README_TOKEN }}
 
       - name: Sync Telemetry Reporter API
-        uses: percona-platform/rdme@7.0.3
+        uses: percona-platform/rdme@7.2.0
         with:
           rdme: openapi ./gen/telemetry/reporter/reporter_api.swagger.json --id=6231a6332b447a002e8da843 --key=${{ secrets.README_TOKEN }}
 
       - name: Sync the folder with *.md files to Readme
-        uses: percona-platform/rdme@7.0.3
+        uses: percona-platform/rdme@7.2.0
         with:
           rdme: docs markdown --version=v1.0 --key=${{ secrets.README_TOKEN }}
