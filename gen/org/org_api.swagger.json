@@ -938,10 +938,10 @@
     "v1BulkInviteMembersResponse": {
       "type": "object",
       "properties": {
-        "statuses": {
+        "errors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1InviteStatus"
+            "$ref": "#/definitions/v1InviteError"
           }
         }
       }
@@ -1045,10 +1045,7 @@
         }
       }
     },
-    "v1InviteMemberResponse": {
-      "type": "object"
-    },
-    "v1InviteStatus": {
+    "v1InviteError": {
       "type": "object",
       "properties": {
         "username": {
@@ -1057,9 +1054,12 @@
         },
         "error": {
           "type": "string",
-          "title": "Error if an attempt failed"
+          "title": "Error message"
         }
       }
+    },
+    "v1InviteMemberResponse": {
+      "type": "object"
     },
     "v1Organization": {
       "type": "object",

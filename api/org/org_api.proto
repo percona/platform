@@ -653,14 +653,14 @@ message OrganizationInvitee {
 }
 
 message BulkInviteMembersResponse {
-  repeated InviteStatus statuses = 1;
+  repeated InviteError errors = 1;
 }
 
-message InviteStatus {
+message InviteError {
   // Percona Portal username that was attempted to invite to the Organization
   string username = 1;
 
-  // Error if an attempt failed
+  // Error message
   string error = 2;
 }
 
