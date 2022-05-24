@@ -202,6 +202,12 @@ service OrgAPI {
       produces: ["application/json"];
       responses: {
         key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"errors":[{"username":"mark.doe@gmail.com","error":"Invalid organization member role."},{"username":"john.doe@gmail.com","error":"User is already a member of this organization."}]}'
+          }
+        };
       };
     };
   }

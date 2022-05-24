@@ -588,6 +588,20 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1BulkInviteMembersResponse"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "username": "mark.doe@gmail.com",
+                    "error": "Invalid organization member role."
+                  },
+                  {
+                    "username": "john.doe@gmail.com",
+                    "error": "User is already a member of this organization."
+                  }
+                ]
+              }
             }
           },
           "default": {
