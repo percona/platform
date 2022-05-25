@@ -581,13 +581,13 @@
     "/v1/orgs/{orgId}/members:bulk": {
       "post": {
         "summary": "Bulk invite organization members",
-        "description": "Invite users to the organization and specify their member roles.",
-        "operationId": "OrgAPI_BulkInviteMembers",
+        "description": "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.",
+        "operationId": "OrgAPI_InviteMembers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1BulkInviteMembersResponse"
+              "$ref": "#/definitions/v1InviteMembersResponse"
             },
             "examples": {
               "application/json": {
@@ -598,7 +598,7 @@
                   },
                   {
                     "username": "john.doe@gmail.com",
-                    "error": "User is already a member of this organization."
+                    "error": "User is already a member of another organization."
                   }
                 ]
               }
@@ -949,17 +949,6 @@
         }
       }
     },
-    "v1BulkInviteMembersResponse": {
-      "type": "object",
-      "properties": {
-        "errors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1InviteError"
-          }
-        }
-      }
-    },
     "v1ConnectPMMRequest": {
       "type": "object",
       "properties": {
@@ -1074,6 +1063,17 @@
     },
     "v1InviteMemberResponse": {
       "type": "object"
+    },
+    "v1InviteMembersResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1InviteError"
+          }
+        }
+      }
     },
     "v1Organization": {
       "type": "object",

@@ -188,14 +188,14 @@ service OrgAPI {
     };
   }
 
-  // BulkInviteMembers invites users to a Percona Portal Organization.
-  rpc BulkInviteMembers(BulkInviteMembersRequest) returns (BulkInviteMembersResponse) {
+  // InviteMembers invites users to a Percona Portal Organization.
+  rpc InviteMembers(InviteMembersRequest) returns (InviteMembersResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/{org_id}/members:bulk"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Invite users to the organization and specify their member roles.";
+      description: "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.";
       summary: "Bulk invite organization members";
       tags: "Member Management";
       consumes: ["application/json"];
@@ -205,7 +205,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"errors":[{"username":"mark.doe@gmail.com","error":"Invalid organization member role."},{"username":"john.doe@gmail.com","error":"User is already a member of this organization."}]}'
+            value: '{"errors":[{"username":"mark.doe@gmail.com","error":"Invalid organization member role."},{"username":"john.doe@gmail.com","error":"User is already a member of another organization."}]}'
           }
         };
       };
@@ -626,7 +626,7 @@ message InviteMemberRequest {
 
 message InviteMemberResponse {}
 
-message BulkInviteMembersRequest {
+message InviteMembersRequest {
   // Array of users to invite to the Organization.
   repeated OrganizationInvitee users = 1 [
     (validator.field) = {
@@ -658,7 +658,7 @@ message OrganizationInvitee {
   ];
 }
 
-message BulkInviteMembersResponse {
+message InviteMembersResponse {
   repeated InviteError errors = 1;
 }
 

@@ -237,7 +237,7 @@ func (this *InviteMemberRequest) Validate() error {
 func (this *InviteMemberResponse) Validate() error {
 	return nil
 }
-func (this *BulkInviteMembersRequest) Validate() error {
+func (this *InviteMembersRequest) Validate() error {
 	if len(this.Users) < 1 {
 		return github_com_mwitkow_go_proto_validators.FieldError("Users", fmt.Errorf(`value '%v' must contain at least 1 elements`, this.Users))
 	}
@@ -265,7 +265,7 @@ func (this *OrganizationInvitee) Validate() error {
 	}
 	return nil
 }
-func (this *BulkInviteMembersResponse) Validate() error {
+func (this *InviteMembersResponse) Validate() error {
 	for _, item := range this.Errors {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
