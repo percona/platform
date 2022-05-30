@@ -16,6 +16,43 @@
     "application/json"
   ],
   "paths": {
+    "/v1/check/GetAllAdvisors": {
+      "post": {
+        "summary": "Get all checks",
+        "description": "Retrieves all advisors grouped by their tiers and the customer tier.",
+        "operationId": "RetrievalAPI_GetAllAdvisors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/check/GetAllAlertRuleTemplates": {
       "post": {
         "summary": "Get all alert rule templates",
@@ -119,6 +156,123 @@
         }
       }
     },
+    "v1Advisor": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AdvisorType"
+        },
+        "category": {
+          "type": "string"
+        },
+        "family": {
+          "$ref": "#/definitions/v1AdvisorFamily"
+        },
+        "interval": {
+          "$ref": "#/definitions/v1AdvisorInterval"
+        },
+        "query": {
+          "type": "string"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AdvisorQuery"
+          }
+        },
+        "script": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AdvisorFamily": {
+      "type": "string",
+      "enum": [
+        "MYSQL",
+        "MONGODB",
+        "POSTGRESQL"
+      ],
+      "default": "MYSQL"
+    },
+    "v1AdvisorInterval": {
+      "type": "string",
+      "enum": [
+        "STANDARD",
+        "FREQUENT",
+        "RARE"
+      ],
+      "default": "STANDARD"
+    },
+    "v1AdvisorQuery": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/v1AdvisorType"
+        }
+      }
+    },
+    "v1AdvisorType": {
+      "type": "string",
+      "enum": [
+        "MYSQL_SHOW",
+        "MYSQL_SELECT",
+        "POSTGRESQL_SHOW",
+        "POSTGRESQL_SELECT",
+        "MONGODB_GET_PARAMETER",
+        "MONGODB_BUILD_INFO",
+        "MONGODB_GET_CMDLINE_OPTS",
+        "MONGODB_REPLSET_GET_STATUS",
+        "MONGODB_GET_DIAGNOSTIC_DATA",
+        "METRICS_INSTANT",
+        "METRICS_RANGE"
+      ],
+      "default": "MYSQL_SHOW"
+    },
+    "v1GetAllAdvisorsRequest": {
+      "type": "object"
+    },
+    "v1GetAllAdvisorsResponse": {
+      "type": "object",
+      "properties": {
+        "anonymousAdvisor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
+          }
+        },
+        "registeredAdvisor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
+          }
+        },
+        "paidAdvisor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
+          }
+        },
+        "customerTier": {
+          "$ref": "#/definitions/v1Tier"
+        }
+      }
+    },
     "v1GetAllAlertRuleTemplatesRequest": {
       "type": "object"
     },
@@ -156,6 +310,17 @@
           "description": "Checks signatures."
         }
       }
+    },
+    "v1Tier": {
+      "type": "string",
+      "enum": [
+        "INVALID",
+        "REGISTERED",
+        "PAID",
+        "ANONYMOUS"
+      ],
+      "default": "INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account.\n - ANONYMOUS: ANONYMOUS represents users that don't have a Portal account.option"
     }
   },
   "x-readme": {

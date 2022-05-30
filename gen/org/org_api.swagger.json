@@ -1237,10 +1237,11 @@
       "enum": [
         "INVALID",
         "REGISTERED",
-        "PAID"
+        "PAID",
+        "ANONYMOUS"
       ],
       "default": "INVALID",
-      "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account.\n - ANONYMOUS: ANONYMOUS represents users that don't have a Portal account.option"
     },
     "v1UpdateMemberResponse": {
       "type": "object",

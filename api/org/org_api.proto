@@ -19,6 +19,8 @@ enum Tier {
   REGISTERED = 1;
   // PAID represents paid account.
   PAID = 2;
+  // ANONYMOUS represents users that don't have a Portal account.option
+  ANONYMOUS = 3;
 }
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
