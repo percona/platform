@@ -33,6 +33,7 @@ func (this *GetAllAlertRuleTemplatesResponse) Validate() error {
 	return nil
 }
 func (this *AdvisorQuery) Validate() error {
+	// Validation of proto3 map<> fields is unsupported.
 	return nil
 }
 func (this *Advisor) Validate() error {

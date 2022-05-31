@@ -103,36 +103,10 @@ message GetAllAlertRuleTemplatesResponse {
   repeated string signatures = 2;
 }
 
-enum AdvisorType {
-  MYSQL_SHOW = 0;
-  MYSQL_SELECT = 1;
-  POSTGRESQL_SHOW = 2;
-  POSTGRESQL_SELECT = 3;
-  MONGODB_GET_PARAMETER = 4;
-  MONGODB_BUILD_INFO = 5;
-  MONGODB_GET_CMDLINE_OPTS = 6;
-  MONGODB_REPLSET_GET_STATUS = 7;
-  MONGODB_GET_DIAGNOSTIC_DATA = 8;
-  METRICS_INSTANT = 9;
-  METRICS_RANGE = 10;
-}
-
-enum AdvisorFamily {
-  MYSQL = 0;
-  MONGODB = 1;
-  POSTGRESQL = 3;
-}
-
-enum AdvisorInterval {
-  STANDARD = 0;
-  FREQUENT = 1;
-  RARE = 2;
-}
-
 message AdvisorQuery {
   string query = 1;
-  AdvisorType type = 2;
-  // TODO add params
+  string type = 2;
+  map<string, string> parameters = 3;
 }
 
 message Advisor {
@@ -140,10 +114,10 @@ message Advisor {
   string name = 2;
   string summary = 3;
   string description = 4;
-  AdvisorType type = 5;
+  string type = 5;
   string category = 6;
-  AdvisorFamily family = 7;
-  AdvisorInterval interval = 8;
+  string family = 7;
+  string interval = 8;
   string query = 9;
   repeated AdvisorQuery queries = 10;
   string script = 11;

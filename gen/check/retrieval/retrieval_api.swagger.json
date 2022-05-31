@@ -173,16 +173,16 @@
           "type": "string"
         },
         "type": {
-          "$ref": "#/definitions/v1AdvisorType"
+          "type": "string"
         },
         "category": {
           "type": "string"
         },
         "family": {
-          "$ref": "#/definitions/v1AdvisorFamily"
+          "type": "string"
         },
         "interval": {
-          "$ref": "#/definitions/v1AdvisorInterval"
+          "type": "string"
         },
         "query": {
           "type": "string"
@@ -198,24 +198,6 @@
         }
       }
     },
-    "v1AdvisorFamily": {
-      "type": "string",
-      "enum": [
-        "MYSQL",
-        "MONGODB",
-        "POSTGRESQL"
-      ],
-      "default": "MYSQL"
-    },
-    "v1AdvisorInterval": {
-      "type": "string",
-      "enum": [
-        "STANDARD",
-        "FREQUENT",
-        "RARE"
-      ],
-      "default": "STANDARD"
-    },
     "v1AdvisorQuery": {
       "type": "object",
       "properties": {
@@ -223,26 +205,15 @@
           "type": "string"
         },
         "type": {
-          "$ref": "#/definitions/v1AdvisorType"
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
-    },
-    "v1AdvisorType": {
-      "type": "string",
-      "enum": [
-        "MYSQL_SHOW",
-        "MYSQL_SELECT",
-        "POSTGRESQL_SHOW",
-        "POSTGRESQL_SELECT",
-        "MONGODB_GET_PARAMETER",
-        "MONGODB_BUILD_INFO",
-        "MONGODB_GET_CMDLINE_OPTS",
-        "MONGODB_REPLSET_GET_STATUS",
-        "MONGODB_GET_DIAGNOSTIC_DATA",
-        "METRICS_INSTANT",
-        "METRICS_RANGE"
-      ],
-      "default": "MYSQL_SHOW"
     },
     "v1GetAllAdvisorsRequest": {
       "type": "object"
