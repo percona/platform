@@ -238,6 +238,47 @@ func (this *InviteMemberRequest) Validate() error {
 func (this *InviteMemberResponse) Validate() error {
 	return nil
 }
+func (this *InviteMembersRequest) Validate() error {
+	if len(this.Users) < 1 {
+		return github_com_mwitkow_go_proto_validators.FieldError("Users", fmt.Errorf(`value '%v' must contain at least 1 elements`, this.Users))
+	}
+	if len(this.Users) > 10 {
+		return github_com_mwitkow_go_proto_validators.FieldError("Users", fmt.Errorf(`value '%v' must contain at most 10 elements`, this.Users))
+	}
+	for _, item := range this.Users {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Users", err)
+			}
+		}
+	}
+	if this.OrgId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
+	}
+	return nil
+}
+func (this *InviteMembersRequest_Invitee) Validate() error {
+	if this.Username == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
+	}
+	if this.Role == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Role", fmt.Errorf(`value '%v' must not be an empty string`, this.Role))
+	}
+	return nil
+}
+func (this *InviteMembersResponse) Validate() error {
+	for _, item := range this.Errors {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Errors", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *InviteMembersResponse_Error) Validate() error {
+	return nil
+}
 func (this *OrganizationMember) Validate() error {
 	return nil
 }

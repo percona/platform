@@ -437,8 +437,8 @@ def check_context(rows, context):
 		`) + "\n"
 
 		input := []map[string]interface{}{}
-
 		addToFuzzCorpus(t.Name(), script, input)
+
 		env, err := NewEnv(t.Name(), script, map[string]GoFunc{"pairs": pairs})
 		require.NoError(t, err)
 
@@ -595,6 +595,31 @@ def check(rows):
 def check(rows):
     return check_context(rows, {})
 
+def check_context(rows, context):
+    """Check Description"""
+    pass
+                `),
+			},
+			errStr: "",
+		},
+		{
+			name: "valid check version 2",
+			check: &check.Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Family:      check.MySQL,
+				Category:    "configuration",
+				Queries: []check.Query{
+					{
+						Type:  check.MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+				},
+
+				Script: strings.TrimSpace(`
 def check_context(rows, context):
     """Check Description"""
     pass

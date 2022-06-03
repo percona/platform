@@ -188,6 +188,30 @@ service OrgAPI {
     };
   }
 
+  // InviteMembers invites users to a Percona Portal Organization.
+  rpc InviteMembers(InviteMembersRequest) returns (InviteMembersResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/members:bulk"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.";
+      summary: "Bulk invite organization members";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"errors":[{"username":"mark.doe@gmail.com","error":"Invalid organization member role."},{"username":"john.doe@gmail.com","error":"User is already a member of another organization."}]}'
+          }
+        };
+      };
+    };
+  }
+
   // SearchMembers lists members of a Percona Portal Organization.
   rpc SearchMembers(SearchMembersRequest) returns (SearchMembersResponse) {
     option (google.api.http) = {
@@ -601,6 +625,53 @@ message InviteMemberRequest {
 }
 
 message InviteMemberResponse {}
+
+message InviteMembersRequest {
+  // Array of users to invite to the Organization.
+  repeated Invitee users = 1 [
+    (validator.field) = {
+      repeated_count_min: 1
+      repeated_count_max: 10
+    }
+  ];
+
+  // Percona Portal Organization ID to which to invite users to.
+  string org_id = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+
+  message Invitee {
+    // Percona Portal username to invite to the Organziation.
+    string username = 1 [
+      (validator.field) = {
+        string_not_empty: true
+      }
+    ];
+
+    // Percona Portal Organization Role to be granted to invited user.
+    string role = 2 [
+      (validator.field) = {
+        string_not_empty: true
+      }
+    ];
+  }
+}
+
+message InviteMembersResponse {
+  repeated Error errors = 1;
+
+  message Error {
+    // Percona Portal username that was attempted to invite to the Organization
+    string username = 1;
+
+    // Error message
+    string error = 2;
+  }
+}
+
+
 
 message OrganizationMember {
   // Percona Portal member UUID.

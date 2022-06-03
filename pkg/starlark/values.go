@@ -17,7 +17,7 @@ import (
 //   - time.Time -> int (UNIX timestamp in nanoseconds);
 //   - []interface{} -> list;
 //   - map[string]interface{} -> dict.
-func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop
+func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop,funlen
 	switch v := v.(type) {
 	case nil:
 		return starlark.None, nil
@@ -44,6 +44,28 @@ func goToStarlark(v interface{}) (starlark.Value, error) { //nolint: cyclop
 		return starlark.MakeInt64(v.UnixNano()), nil
 
 	case []interface{}:
+		res := make([]starlark.Value, len(v))
+		for i, el := range v {
+			sv, err := goToStarlark(el)
+			if err != nil {
+				return nil, err
+			}
+			res[i] = sv
+		}
+		return starlark.NewList(res), nil
+
+	case []map[string]interface{}:
+		res := make([]starlark.Value, len(v))
+		for i, el := range v {
+			sv, err := goToStarlark(el)
+			if err != nil {
+				return nil, err
+			}
+			res[i] = sv
+		}
+		return starlark.NewList(res), nil
+
+	case [][]map[string]interface{}:
 		res := make([]starlark.Value, len(v))
 		for i, el := range v {
 			sv, err := goToStarlark(el)
