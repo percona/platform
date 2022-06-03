@@ -628,7 +628,7 @@ message InviteMemberResponse {}
 
 message InviteMembersRequest {
   // Array of users to invite to the Organization.
-  repeated OrganizationInvitee users = 1 [
+  repeated Invitee users = 1 [
     (validator.field) = {
       repeated_count_min: 1
       repeated_count_max: 10
@@ -641,34 +641,37 @@ message InviteMembersRequest {
       string_not_empty: true
     }
   ];
-}
-message OrganizationInvitee {
-  // Percona Portal username to invite to the Organziation.
-  string username = 1 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];
 
-  // Percona Portal Organization Role to be granted to invited user.
-  string role = 2 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];
+  message Invitee {
+    // Percona Portal username to invite to the Organziation.
+    string username = 1 [
+      (validator.field) = {
+        string_not_empty: true
+      }
+    ];
+
+    // Percona Portal Organization Role to be granted to invited user.
+    string role = 2 [
+      (validator.field) = {
+        string_not_empty: true
+      }
+    ];
+  }
 }
 
 message InviteMembersResponse {
-  repeated InviteError errors = 1;
+  repeated Error errors = 1;
+
+  message Error {
+    // Percona Portal username that was attempted to invite to the Organization
+    string username = 1;
+
+    // Error message
+    string error = 2;
+  }
 }
 
-message InviteError {
-  // Percona Portal username that was attempted to invite to the Organization
-  string username = 1;
 
-  // Error message
-  string error = 2;
-}
 
 message OrganizationMember {
   // Percona Portal member UUID.

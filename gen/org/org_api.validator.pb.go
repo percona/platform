@@ -256,7 +256,7 @@ func (this *InviteMembersRequest) Validate() error {
 	}
 	return nil
 }
-func (this *OrganizationInvitee) Validate() error {
+func (this *InviteMembersRequest_Invitee) Validate() error {
 	if this.Username == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Username", fmt.Errorf(`value '%v' must not be an empty string`, this.Username))
 	}
@@ -275,7 +275,7 @@ func (this *InviteMembersResponse) Validate() error {
 	}
 	return nil
 }
-func (this *InviteError) Validate() error {
+func (this *InviteMembersResponse_Error) Validate() error {
 	return nil
 }
 func (this *OrganizationMember) Validate() error {

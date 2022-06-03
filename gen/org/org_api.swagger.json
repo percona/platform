@@ -629,7 +629,7 @@
                 "users": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/v1OrganizationInvitee"
+                    "$ref": "#/definitions/InviteMembersRequestInvitee"
                   },
                   "description": "Array of users to invite to the Organization."
                 }
@@ -899,6 +899,32 @@
         }
       }
     },
+    "InviteMembersRequestInvitee": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username to invite to the Organziation."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal Organization Role to be granted to invited user."
+        }
+      }
+    },
+    "InviteMembersResponseError": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Percona Portal username that was attempted to invite to the Organization"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error message"
+        }
+      }
+    },
     "OrganizationEntitlementPlatform": {
       "type": "object",
       "properties": {
@@ -1048,19 +1074,6 @@
         }
       }
     },
-    "v1InviteError": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string",
-          "title": "Percona Portal username that was attempted to invite to the Organization"
-        },
-        "error": {
-          "type": "string",
-          "title": "Error message"
-        }
-      }
-    },
     "v1InviteMemberResponse": {
       "type": "object"
     },
@@ -1070,7 +1083,7 @@
         "errors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1InviteError"
+            "$ref": "#/definitions/InviteMembersResponseError"
           }
         }
       }
@@ -1156,19 +1169,6 @@
         }
       },
       "description": "Contains information about the organization entitlement."
-    },
-    "v1OrganizationInvitee": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string",
-          "description": "Percona Portal username to invite to the Organziation."
-        },
-        "role": {
-          "type": "string",
-          "description": "Percona Portal Organization Role to be granted to invited user."
-        }
-      }
     },
     "v1OrganizationMember": {
       "type": "object",
