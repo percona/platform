@@ -578,6 +578,73 @@
         ]
       }
     },
+    "/v1/orgs/{orgId}/members:bulk": {
+      "post": {
+        "summary": "Bulk invite organization members",
+        "description": "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.",
+        "operationId": "OrgAPI_InviteMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InviteMembersResponse"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "username": "mark.doe@gmail.com",
+                    "error": "Invalid organization member role."
+                  },
+                  {
+                    "username": "john.doe@gmail.com",
+                    "error": "User is already a member of another organization."
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID to which to invite users to.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/InviteMembersRequestInvitee"
+                  },
+                  "description": "Array of users to invite to the Organization."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Member Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs/{orgId}/members:search": {
       "post": {
         "summary": "Search organization members",
@@ -832,6 +899,32 @@
         }
       }
     },
+    "InviteMembersRequestInvitee": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username to invite to the Organziation."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal Organization Role to be granted to invited user."
+        }
+      }
+    },
+    "InviteMembersResponseError": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Percona Portal username that was attempted to invite to the Organization"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error message"
+        }
+      }
+    },
     "OrganizationEntitlementPlatform": {
       "type": "object",
       "properties": {
@@ -983,6 +1076,17 @@
     },
     "v1InviteMemberResponse": {
       "type": "object"
+    },
+    "v1InviteMembersResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InviteMembersResponseError"
+          }
+        }
+      }
     },
     "v1Organization": {
       "type": "object",

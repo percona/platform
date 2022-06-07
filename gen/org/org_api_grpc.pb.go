@@ -36,6 +36,8 @@ type OrgAPIClient interface {
 	DeleteOrganization(ctx context.Context, in *DeleteOrganizationRequest, opts ...grpc.CallOption) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(ctx context.Context, in *InviteMemberRequest, opts ...grpc.CallOption) (*InviteMemberResponse, error)
+	// InviteMembers invites users to a Percona Portal Organization.
+	InviteMembers(ctx context.Context, in *InviteMembersRequest, opts ...grpc.CallOption) (*InviteMembersResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
@@ -114,6 +116,15 @@ func (c *orgAPIClient) DeleteOrganization(ctx context.Context, in *DeleteOrganiz
 func (c *orgAPIClient) InviteMember(ctx context.Context, in *InviteMemberRequest, opts ...grpc.CallOption) (*InviteMemberResponse, error) {
 	out := new(InviteMemberResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/InviteMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orgAPIClient) InviteMembers(ctx context.Context, in *InviteMembersRequest, opts ...grpc.CallOption) (*InviteMembersResponse, error) {
+	out := new(InviteMembersResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/InviteMembers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -217,6 +228,8 @@ type OrgAPIServer interface {
 	DeleteOrganization(context.Context, *DeleteOrganizationRequest) (*DeleteOrganizationResponse, error)
 	// InviteMember invites users to a Percona Portal Organization.
 	InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error)
+	// InviteMembers invites users to a Percona Portal Organization.
+	InviteMembers(context.Context, *InviteMembersRequest) (*InviteMembersResponse, error)
 	// SearchMembers lists members of a Percona Portal Organization.
 	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
@@ -261,6 +274,9 @@ func (UnimplementedOrgAPIServer) DeleteOrganization(context.Context, *DeleteOrga
 }
 func (UnimplementedOrgAPIServer) InviteMember(context.Context, *InviteMemberRequest) (*InviteMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteMember not implemented")
+}
+func (UnimplementedOrgAPIServer) InviteMembers(context.Context, *InviteMembersRequest) (*InviteMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InviteMembers not implemented")
 }
 func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchMembers not implemented")
@@ -406,6 +422,24 @@ func _OrgAPI_InviteMember_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrgAPIServer).InviteMember(ctx, req.(*InviteMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrgAPI_InviteMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InviteMembersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).InviteMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/InviteMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).InviteMembers(ctx, req.(*InviteMembersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -602,6 +636,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InviteMember",
 			Handler:    _OrgAPI_InviteMember_Handler,
+		},
+		{
+			MethodName: "InviteMembers",
+			Handler:    _OrgAPI_InviteMembers_Handler,
 		},
 		{
 			MethodName: "SearchMembers",
