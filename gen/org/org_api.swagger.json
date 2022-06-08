@@ -565,6 +565,14 @@
                 "role": {
                   "type": "string",
                   "description": "Organization member role."
+                },
+                "firstname": {
+                  "type": "string",
+                  "title": "Organization member firstname"
+                },
+                "lastname": {
+                  "type": "string",
+                  "title": "Organization member lastname"
                 }
               }
             }

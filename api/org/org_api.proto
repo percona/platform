@@ -737,6 +737,12 @@ message UpdateMemberRequest {
       string_not_empty: true
     }
   ];
+
+  // Organization member firstname
+  optional string firstname = 4;
+
+  // Organization member lastname
+  optional string lastname = 5;
 }
 
 message UpdateMemberResponse {
