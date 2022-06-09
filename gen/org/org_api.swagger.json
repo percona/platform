@@ -17,6 +17,112 @@
     "application/json"
   ],
   "paths": {
+    "/v1/dbaas/cluster/civo": {
+      "post": {
+        "summary": "Create kubernetes cluster",
+        "description": "Creates a kubernetes cluster on Civo that can be used to run DBaaS.",
+        "operationId": "OrgAPI_CreateCivoCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateCivoClusterResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "DBaaS helpers"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/dbaas/cluster/civo/{clusterId}": {
+      "get": {
+        "summary": "Get cluster status",
+        "description": "Returns the status of the cluster from Civo.",
+        "operationId": "OrgAPI_GetCivoClusterStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCivoClusterStatusResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "clusterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DBaaS helpers"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/dbaas/cluster/civo/{clusterId}/config": {
+      "get": {
+        "summary": "Download cluster kubeconfig",
+        "description": "Returns the kubeconfig of the cluster from Civo once it is READY.",
+        "operationId": "OrgAPI_DownloadCivoKubeconfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DownloadCivoKubeconfigResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "clusterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DBaaS helpers"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
@@ -1020,6 +1126,14 @@
         }
       }
     },
+    "v1CreateCivoClusterResponse": {
+      "type": "object",
+      "properties": {
+        "clusterId": {
+          "type": "string"
+        }
+      }
+    },
     "v1CreateOrganizationRequest": {
       "type": "object",
       "properties": {
@@ -1045,6 +1159,22 @@
     },
     "v1DeleteOrganizationResponse": {
       "type": "object"
+    },
+    "v1DownloadCivoKubeconfigResponse": {
+      "type": "object",
+      "properties": {
+        "kubeconfig": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetCivoClusterStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      }
     },
     "v1GetOrganizationResponse": {
       "type": "object",
