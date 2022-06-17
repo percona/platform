@@ -83,7 +83,7 @@ func TestSignUp(t *testing.T) {
 		defer DeleteUser(t, user.ID)
 
 		require.Equal(t, email, user.Login)
-		require.Equal(t, user.Status, "PROVISIONED")
+		require.Equal(t, UserStatusProvisioned, user.Status)
 		require.NotEmpty(t, user.ID)
 	})
 }
@@ -485,6 +485,56 @@ func TestDeleteUser(t *testing.T) {
 		t.Parallel()
 
 		err = s.DeleteUser(context.Background(), "unknown-id")
+		require.Equal(t, ErrNotFound, err)
+	})
+}
+
+func TestSuspendUser(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("user suspended", func(t *testing.T) {
+		t.Parallel()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		user := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, user.ID)
+		})
+
+		err = s.SuspendUser(context.Background(), user.ID)
+		require.NoError(t, err)
+
+		usr, err := s.FindUser(context.Background(), user.Login)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusSuspended, usr.Status)
+	})
+
+	t.Run("suspended user can't login", func(t *testing.T) {
+		t.Parallel()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		user := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, user.ID)
+		})
+
+		err = s.SuspendUser(context.Background(), user.ID)
+		require.NoError(t, err)
+
+		userID, sessionToken, err := s.SignIn(context.Background(), email, password)
+		require.Equal(t, ErrAuthentication, err)
+		require.IsType(t, authErrorType, err)
+		require.Empty(t, sessionToken)
+		require.Empty(t, userID)
+	})
+
+	t.Run("non existing user can't be suspended", func(t *testing.T) {
+		t.Parallel()
+
+		err = s.SuspendUser(context.Background(), "unknown-id")
 		require.Equal(t, ErrNotFound, err)
 	})
 }
