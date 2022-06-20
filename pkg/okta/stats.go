@@ -1,5 +1,4 @@
 // Package okta implements methods for interacting with Okta API.
-
 package okta
 
 import (
@@ -57,7 +56,7 @@ func (c *Client) GetDeactivatedUsersCount(ctx context.Context, since, until time
 }
 
 // getTopLoginAttempts returns top 'limit' user login attempts.
-func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time, limit int, filter string) ([]Stat, error) { //nolint:dupl
+func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time, limit int, filter string) ([]Stat, error) {
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
@@ -81,12 +80,12 @@ func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time
 }
 
 // GetTopLoginSuccessfulAttempts returns top 'limit' user login successful attempts.
-func (c *Client) GetTopLoginSuccessfulAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) { //nolint:dupl
+func (c *Client) GetTopLoginSuccessfulAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) {
 	return c.getTopLoginAttempts(ctx, since, until, limit, "SUCCESS")
 }
 
 // GetTopLoginFailedAttempts returns top 'limit' user login failed attempts.
-func (c *Client) GetTopLoginFailedAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) { //nolint:dupl
+func (c *Client) GetTopLoginFailedAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) {
 	return c.getTopLoginAttempts(ctx, since, until, limit, "FAILURE")
 }
 
