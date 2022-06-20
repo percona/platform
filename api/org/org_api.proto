@@ -440,10 +440,10 @@ service OrgAPI {
 
   rpc GetCivoClusterStatus(GetCivoClusterStatusRequest) returns (GetCivoClusterStatusResponse) {
     option (google.api.http) = {
-      get: "/v1/dbaas/cluster/civo/{cluster_id}"
+      get: "/v1/dbaas/cluster/civo"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the status of the cluster from Civo.";
+      description: "Returns the status and ID of the CIVO cluster created by the current logged in user.";
       summary: "Get cluster status";
       tags: "DBaaS helpers";
       consumes: ["application/json"];
@@ -453,7 +453,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{}'
+            value: '{"cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f", "status": "ACTIVE"}'
           }
         };
       };
@@ -465,7 +465,7 @@ service OrgAPI {
       get: "/v1/dbaas/cluster/civo/{cluster_id}/config"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the kubeconfig of the cluster from Civo once it is READY.";
+      description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
       summary: "Download cluster kubeconfig";
       tags: "DBaaS helpers";
       consumes: ["application/json"];
@@ -475,7 +475,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{}'
+            value: '{"kubeconfig": ""}'
           }
         };
       };
@@ -897,11 +897,10 @@ message CreateCivoClusterResponse {
   string cluster_id = 1;
 }
 
-message GetCivoClusterStatusRequest {
-  string cluster_id = 1;
-}
+message GetCivoClusterStatusRequest {}
 
 message GetCivoClusterStatusResponse {
+  string cluster_id = 1;
   string status = 2;
 }
 

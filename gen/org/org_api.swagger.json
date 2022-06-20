@@ -18,6 +18,37 @@
   ],
   "paths": {
     "/v1/dbaas/cluster/civo": {
+      "get": {
+        "summary": "Get cluster status",
+        "description": "Returns the status and ID of the CIVO cluster created by the current logged in user.",
+        "operationId": "OrgAPI_GetCivoClusterStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCivoClusterStatusResponse"
+            },
+            "examples": {
+              "application/json": {
+                "cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f",
+                "status": "ACTIVE"
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "DBaaS helpers"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
       "post": {
         "summary": "Create kubernetes cluster",
         "description": "Creates a kubernetes cluster on Civo that can be used to run DBaaS.",
@@ -47,48 +78,10 @@
         ]
       }
     },
-    "/v1/dbaas/cluster/civo/{clusterId}": {
-      "get": {
-        "summary": "Get cluster status",
-        "description": "Returns the status of the cluster from Civo.",
-        "operationId": "OrgAPI_GetCivoClusterStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCivoClusterStatusResponse"
-            },
-            "examples": {
-              "application/json": {}
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "clusterId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DBaaS helpers"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
     "/v1/dbaas/cluster/civo/{clusterId}/config": {
       "get": {
         "summary": "Download cluster kubeconfig",
-        "description": "Returns the kubeconfig of the cluster from Civo once it is READY.",
+        "description": "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.",
         "operationId": "OrgAPI_DownloadCivoKubeconfig",
         "responses": {
           "200": {
@@ -97,7 +90,9 @@
               "$ref": "#/definitions/v1DownloadCivoKubeconfigResponse"
             },
             "examples": {
-              "application/json": {}
+              "application/json": {
+                "kubeconfig": ""
+              }
             }
           },
           "default": {
@@ -1171,6 +1166,9 @@
     "v1GetCivoClusterStatusResponse": {
       "type": "object",
       "properties": {
+        "clusterId": {
+          "type": "string"
+        },
         "status": {
           "type": "string"
         }
