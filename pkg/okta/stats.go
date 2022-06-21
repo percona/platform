@@ -126,7 +126,8 @@ func (c *Client) GetTotalUsersCount(ctx context.Context) (int, error) {
 	if len(c.oktaEveryoneGroupID) == 0 {
 		qp := query.NewQueryParams(
 			query.WithQ("Everyone"),
-			query.WithFilter("type eq \"BUILT_IN\""))
+			query.WithFilter("type eq \"BUILT_IN\""),
+		)
 		groups, _, err := c.c.Group.ListGroups(ctx, qp)
 		if err != nil {
 			var oErr *okta.Error
