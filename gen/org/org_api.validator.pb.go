@@ -387,3 +387,21 @@ func (this *OrganizationTicket) Validate() error {
 	}
 	return nil
 }
+func (this *CreateCivoClusterRequest) Validate() error {
+	return nil
+}
+func (this *CreateCivoClusterResponse) Validate() error {
+	return nil
+}
+func (this *GetCivoClusterStatusRequest) Validate() error {
+	return nil
+}
+func (this *GetCivoClusterStatusResponse) Validate() error {
+	return nil
+}
+func (this *DownloadCivoKubeconfigRequest) Validate() error {
+	return nil
+}
+func (this *DownloadCivoKubeconfigResponse) Validate() error {
+	return nil
+}

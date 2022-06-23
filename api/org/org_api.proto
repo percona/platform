@@ -415,6 +415,72 @@ service OrgAPI {
       };
     };
   }
+
+  rpc CreateCivoCluster(CreateCivoClusterRequest) returns (CreateCivoClusterResponse) {
+    option (google.api.http) = {
+      post: "/v1/dbaas/cluster/civo"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Creates a kubernetes cluster on Civo that can be used to run DBaaS.";
+      summary: "Create kubernetes cluster";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
+  rpc GetCivoClusterStatus(GetCivoClusterStatusRequest) returns (GetCivoClusterStatusResponse) {
+    option (google.api.http) = {
+      get: "/v1/dbaas/cluster/civo"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the status and ID of the CIVO cluster created by the current logged in user.";
+      summary: "Get cluster status";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f", "status": "ACTIVE"}'
+          }
+        };
+      };
+    };
+  }
+
+  rpc DownloadCivoKubeconfig(DownloadCivoKubeconfigRequest) returns (DownloadCivoKubeconfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/dbaas/cluster/civo/{cluster_id}/config"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
+      summary: "Download cluster kubeconfig";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"kubeconfig": ""}'
+          }
+        };
+      };
+    };
+  }
 }
 
 message PMMServerSSODetails {
@@ -823,4 +889,25 @@ message OrganizationTicket {
   string task_type = 8;
   // Ticket URL.
   string url = 9;
+}
+
+message CreateCivoClusterRequest {}
+
+message CreateCivoClusterResponse {
+  string cluster_id = 1;
+}
+
+message GetCivoClusterStatusRequest {}
+
+message GetCivoClusterStatusResponse {
+  string cluster_id = 1;
+  string status = 2;
+}
+
+message DownloadCivoKubeconfigRequest {
+  string cluster_id = 1;
+}
+
+message DownloadCivoKubeconfigResponse {
+  string kubeconfig = 1;
 }
