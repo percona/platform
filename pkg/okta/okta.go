@@ -257,6 +257,21 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 	return resp.Embedded.User.ID, resp.SessionToken, nil
 }
 
+// SuspendUser set user status in Okta to SUSPENDED.
+func (c *Client) SuspendUser(ctx context.Context, userID string) error {
+	_, err := c.c.User.SuspendUser(ctx, userID)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return convertOktaError(oErr)
+		}
+
+		return errors.Wrap(err, "failed to suspend user")
+	}
+
+	return nil
+}
+
 // DeleteUser deactivates and deletes user.
 func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 	l := extractLogger(ctx)
