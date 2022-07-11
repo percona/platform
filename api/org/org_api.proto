@@ -330,7 +330,7 @@ service OrgAPI {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.";
-      summary: "Search organization tickets";
+      summary: "Search user company";
       tags: "Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];

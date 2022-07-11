@@ -24,9 +24,10 @@ import (
 // Client implements methods for interacting with Okta Identity Service API.
 // Some methods can return AuthError which indicates on authentication/authorisation problems.
 type Client struct {
-	c            *okta.Client
-	oktaHost     string
-	oktaAPIToken string
+	c                   *okta.Client
+	oktaHost            string
+	oktaAPIToken        string
+	oktaEveryoneGroupID string
 }
 
 const (
@@ -347,7 +348,7 @@ func (c *Client) waitForDeactivation(ctx context.Context, userID string) error {
 	}
 }
 
-// GetRegisteredUsersCount returns number of regustered users.
+// GetRegisteredUsersCount returns number of registered users.
 func (c *Client) GetRegisteredUsersCount(ctx context.Context) (float64, error) {
 	l := extractLogger(ctx)
 	l.Info("Getting registered users count from Okta.")
@@ -987,26 +988,6 @@ func getPortalAdminOrgs(user *okta.User) ([]string, error) {
 	}
 
 	return result, nil
-}
-
-func convertOktaError(err *okta.Error) error {
-	switch err.ErrorCode {
-	case "E0000001":
-		switch err.ErrorSummary {
-		case "Api validation failed: password":
-			return NewError("invalid password", err)
-		case "Api validation failed: login":
-			return NewError("invalid login", err)
-		default:
-			return err
-		}
-	case "E0000004":
-		return ErrAuthentication
-	case "E0000007":
-		return ErrNotFound
-	default:
-		return err
-	}
 }
 
 func extractLogger(ctx context.Context) *zap.Logger {
