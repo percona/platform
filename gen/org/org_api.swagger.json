@@ -82,7 +82,7 @@
     },
     "/v1/dbaas/cluster/civo/{clusterId}/config": {
       "get": {
-        "summary": "Download cluster kubeconfig",
+        "summary": "Get cluster kubeconfig",
         "description": "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.",
         "operationId": "OrgAPI_GetCivoKubeconfig",
         "responses": {
