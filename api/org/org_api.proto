@@ -431,7 +431,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{}'
+            value: '{"cluster_id": "eed64cd9-2f9e-78ac-247a-d98ad1f95e87"}'
           }
         };
       };
@@ -460,13 +460,13 @@ service OrgAPI {
     };
   }
 
-  rpc DownloadCivoKubeconfig(DownloadCivoKubeconfigRequest) returns (DownloadCivoKubeconfigResponse) {
+  rpc GetCivoKubeconfig(GetCivoKubeconfigRequest) returns (GetCivoKubeconfigResponse) {
     option (google.api.http) = {
       get: "/v1/dbaas/cluster/civo/{cluster_id}/config"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
-      summary: "Download cluster kubeconfig";
+      summary: "Get cluster kubeconfig";
       tags: "DBaaS helpers";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -897,6 +897,7 @@ message CreateCivoClusterResponse {
   string cluster_id = 1;
 }
 
+// we only provide one cluster per user.
 message GetCivoClusterStatusRequest {}
 
 message GetCivoClusterStatusResponse {
@@ -904,10 +905,10 @@ message GetCivoClusterStatusResponse {
   string status = 2;
 }
 
-message DownloadCivoKubeconfigRequest {
+message GetCivoKubeconfigRequest {
   string cluster_id = 1;
 }
 
-message DownloadCivoKubeconfigResponse {
+message GetCivoKubeconfigResponse {
   string kubeconfig = 1;
 }

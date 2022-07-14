@@ -60,7 +60,7 @@ type OrgAPIClient interface {
 	SearchInventory(ctx context.Context, in *SearchInventoryRequest, opts ...grpc.CallOption) (*SearchInventoryResponse, error)
 	CreateCivoCluster(ctx context.Context, in *CreateCivoClusterRequest, opts ...grpc.CallOption) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(ctx context.Context, in *GetCivoClusterStatusRequest, opts ...grpc.CallOption) (*GetCivoClusterStatusResponse, error)
-	DownloadCivoKubeconfig(ctx context.Context, in *DownloadCivoKubeconfigRequest, opts ...grpc.CallOption) (*DownloadCivoKubeconfigResponse, error)
+	GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error)
 }
 
 type orgAPIClient struct {
@@ -233,9 +233,9 @@ func (c *orgAPIClient) GetCivoClusterStatus(ctx context.Context, in *GetCivoClus
 	return out, nil
 }
 
-func (c *orgAPIClient) DownloadCivoKubeconfig(ctx context.Context, in *DownloadCivoKubeconfigRequest, opts ...grpc.CallOption) (*DownloadCivoKubeconfigResponse, error) {
-	out := new(DownloadCivoKubeconfigResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DownloadCivoKubeconfig", in, out, opts...)
+func (c *orgAPIClient) GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error) {
+	out := new(GetCivoKubeconfigResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +282,7 @@ type OrgAPIServer interface {
 	SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error)
 	CreateCivoCluster(context.Context, *CreateCivoClusterRequest) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error)
-	DownloadCivoKubeconfig(context.Context, *DownloadCivoKubeconfigRequest) (*DownloadCivoKubeconfigResponse, error)
+	GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -344,8 +344,8 @@ func (UnimplementedOrgAPIServer) CreateCivoCluster(context.Context, *CreateCivoC
 func (UnimplementedOrgAPIServer) GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCivoClusterStatus not implemented")
 }
-func (UnimplementedOrgAPIServer) DownloadCivoKubeconfig(context.Context, *DownloadCivoKubeconfigRequest) (*DownloadCivoKubeconfigResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DownloadCivoKubeconfig not implemented")
+func (UnimplementedOrgAPIServer) GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCivoKubeconfig not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -684,20 +684,20 @@ func _OrgAPI_GetCivoClusterStatus_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrgAPI_DownloadCivoKubeconfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DownloadCivoKubeconfigRequest)
+func _OrgAPI_GetCivoKubeconfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCivoKubeconfigRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrgAPIServer).DownloadCivoKubeconfig(ctx, in)
+		return srv.(OrgAPIServer).GetCivoKubeconfig(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.org.v1.OrgAPI/DownloadCivoKubeconfig",
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgAPIServer).DownloadCivoKubeconfig(ctx, req.(*DownloadCivoKubeconfigRequest))
+		return srv.(OrgAPIServer).GetCivoKubeconfig(ctx, req.(*GetCivoKubeconfigRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -782,8 +782,8 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrgAPI_GetCivoClusterStatus_Handler,
 		},
 		{
-			MethodName: "DownloadCivoKubeconfig",
-			Handler:    _OrgAPI_DownloadCivoKubeconfig_Handler,
+			MethodName: "GetCivoKubeconfig",
+			Handler:    _OrgAPI_GetCivoKubeconfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
