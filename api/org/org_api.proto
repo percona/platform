@@ -466,7 +466,7 @@ service OrgAPI {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
-      summary: "Download cluster kubeconfig";
+      summary: "Get cluster kubeconfig";
       tags: "DBaaS helpers";
       consumes: ["application/json"];
       produces: ["application/json"];
