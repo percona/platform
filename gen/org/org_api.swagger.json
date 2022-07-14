@@ -60,7 +60,9 @@
               "$ref": "#/definitions/v1CreateCivoClusterResponse"
             },
             "examples": {
-              "application/json": {}
+              "application/json": {
+                "cluster_id": "eed64cd9-2f9e-78ac-247a-d98ad1f95e87"
+              }
             }
           },
           "default": {
@@ -82,12 +84,12 @@
       "get": {
         "summary": "Download cluster kubeconfig",
         "description": "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.",
-        "operationId": "OrgAPI_DownloadCivoKubeconfig",
+        "operationId": "OrgAPI_GetCivoKubeconfig",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DownloadCivoKubeconfigResponse"
+              "$ref": "#/definitions/v1GetCivoKubeconfigResponse"
             },
             "examples": {
               "application/json": {
@@ -1155,14 +1157,6 @@
     "v1DeleteOrganizationResponse": {
       "type": "object"
     },
-    "v1DownloadCivoKubeconfigResponse": {
-      "type": "object",
-      "properties": {
-        "kubeconfig": {
-          "type": "string"
-        }
-      }
-    },
     "v1GetCivoClusterStatusResponse": {
       "type": "object",
       "properties": {
@@ -1170,6 +1164,14 @@
           "type": "string"
         },
         "status": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetCivoKubeconfigResponse": {
+      "type": "object",
+      "properties": {
+        "kubeconfig": {
           "type": "string"
         }
       }

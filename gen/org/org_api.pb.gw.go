@@ -965,8 +965,8 @@ func local_request_OrgAPI_GetCivoClusterStatus_0(ctx context.Context, marshaler 
 
 }
 
-func request_OrgAPI_DownloadCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DownloadCivoKubeconfigRequest
+func request_OrgAPI_GetCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetCivoKubeconfigRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -986,13 +986,13 @@ func request_OrgAPI_DownloadCivoKubeconfig_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cluster_id", err)
 	}
 
-	msg, err := client.DownloadCivoKubeconfig(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetCivoKubeconfig(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_OrgAPI_DownloadCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DownloadCivoKubeconfigRequest
+func local_request_OrgAPI_GetCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetCivoKubeconfigRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -1012,7 +1012,7 @@ func local_request_OrgAPI_DownloadCivoKubeconfig_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cluster_id", err)
 	}
 
-	msg, err := server.DownloadCivoKubeconfig(ctx, &protoReq)
+	msg, err := server.GetCivoKubeconfig(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1479,19 +1479,19 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 
 	})
 
-	mux.Handle("GET", pattern_OrgAPI_DownloadCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DownloadCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_OrgAPI_DownloadCivoKubeconfig_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_OrgAPI_GetCivoKubeconfig_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -1499,7 +1499,7 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			return
 		}
 
-		forward_OrgAPI_DownloadCivoKubeconfig_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_OrgAPI_GetCivoKubeconfig_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1943,24 +1943,24 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 
 	})
 
-	mux.Handle("GET", pattern_OrgAPI_DownloadCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DownloadCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_OrgAPI_DownloadCivoKubeconfig_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_OrgAPI_GetCivoKubeconfig_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_OrgAPI_DownloadCivoKubeconfig_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_OrgAPI_GetCivoKubeconfig_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2006,7 +2006,7 @@ var (
 
 	pattern_OrgAPI_GetCivoClusterStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "dbaas", "cluster", "civo"}, ""))
 
-	pattern_OrgAPI_DownloadCivoKubeconfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "dbaas", "cluster", "civo", "cluster_id", "config"}, ""))
+	pattern_OrgAPI_GetCivoKubeconfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "dbaas", "cluster", "civo", "cluster_id", "config"}, ""))
 )
 
 var (
@@ -2048,5 +2048,5 @@ var (
 
 	forward_OrgAPI_GetCivoClusterStatus_0 = runtime.ForwardResponseMessage
 
-	forward_OrgAPI_DownloadCivoKubeconfig_0 = runtime.ForwardResponseMessage
+	forward_OrgAPI_GetCivoKubeconfig_0 = runtime.ForwardResponseMessage
 )

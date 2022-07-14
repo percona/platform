@@ -398,9 +398,9 @@ func (this *GetCivoClusterStatusRequest) Validate() error {
 func (this *GetCivoClusterStatusResponse) Validate() error {
 	return nil
 }
-func (this *DownloadCivoKubeconfigRequest) Validate() error {
+func (this *GetCivoKubeconfigRequest) Validate() error {
 	return nil
 }
-func (this *DownloadCivoKubeconfigResponse) Validate() error {
+func (this *GetCivoKubeconfigResponse) Validate() error {
 	return nil
 }
