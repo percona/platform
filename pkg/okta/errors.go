@@ -48,3 +48,23 @@ func (e *AuthError) Error() string {
 func (e *AuthError) Unwrap() error {
 	return e.origin
 }
+
+func convertOktaError(err *okta.Error) error {
+	switch err.ErrorCode {
+	case "E0000001":
+		switch err.ErrorSummary {
+		case "Api validation failed: password":
+			return NewError("invalid password", err)
+		case "Api validation failed: login":
+			return NewError("invalid login", err)
+		default:
+			return err
+		}
+	case "E0000004":
+		return ErrAuthentication
+	case "E0000007":
+		return ErrNotFound
+	default:
+		return err
+	}
+}
