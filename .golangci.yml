@@ -43,6 +43,7 @@ linters:
     - execinquery      # annoing
     - exhaustruct      # verbose style
     - nonamedreturns   # named returns improves readability
+    - nosnakecase      # snake case is used in the codebase
 
 issues:
   exclude-use-default: false

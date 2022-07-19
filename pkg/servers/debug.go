@@ -29,6 +29,8 @@ type RunDebugServerOpts struct {
 	Readyz          func() error
 }
 
+const readHeaderTimeout = 2 * time.Second
+
 // RunDebugServer runs debug server with given options until ctx is canceled.
 // All errors cause panic.
 func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen, cyclop
@@ -126,6 +128,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 			"platform.servers.debug.Server",
 			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
 		),
+		ReadHeaderTimeout: readHeaderTimeout,
 
 		// propagate ctx cancellation signals to handlers
 		BaseContext: func(net.Listener) context.Context {
