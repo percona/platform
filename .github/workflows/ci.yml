@@ -116,7 +116,7 @@ jobs:
           make test-crosscover
 
       - name: Upload coverage results
-        uses: percona-platform/codecov-action@v1
+        uses: percona-platform/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: crosscover.out
