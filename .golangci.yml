@@ -43,6 +43,8 @@ linters:
     - execinquery      # annoing
     - exhaustruct      # verbose style
     - nonamedreturns   # named returns improves readability
+    - ifshort          # irrelevant; short syntax is sometimes profitable
+    - tagliatelle      # json syntax used in different packages varies;
 
 issues:
   exclude-use-default: false
