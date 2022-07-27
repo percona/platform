@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package percona.platform.event.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "utils/fsp/fsp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "/event;eventv1";
+
+// ActionType represents audit events' action types.
+enum ActionType {
+  // TYPE_UNDEFINED represents unknown action type.
+  TYPE_UNDEFINED = 0;
+  // TYPE_CREATE represents action type = CREATE.
+  TYPE_CREATE = 1;
+  // TYPE_UPDATE represents action type = UPDATE.
+  TYPE_UPDATE = 2;
+  // TYPE_DELETE represents action type = DELETE.
+  TYPE_DELETE = 3;
+}
+
+// ActionStatusCode codifies result of an action.
+enum ActionStatusCode {
+  // STATUS_UNDEFINED for non-passed value.
+  STATUS_UNDEFINED = 0;
+  // STATUS_SUCCESS represents SUCCESS action status.
+  STATUS_SUCCESS = 1;
+  // STATUS_FAILURE represents FAILURE action status.
+  STATUS_FAILURE = 2;
+}
+
+// ActionStatus represents a result of an action.
+message ActionStatus {
+  // Code assigned to this status.
+  ActionStatusCode code = 1;
+  // Message to elaborate the reason of action failure or details of successful completion.
+  string message = 2;
+}
+
+// AuditObject represents object with it's attributes that is affected by user action.
+message AuditObject {
+  // Object ID.
+  string id = 1;
+  // Object name.
+  string name = 2;
+  // Object type.
+  string type = 3;
+  // Object's initial attribute states that have been affected by user.
+  google.protobuf.Struct initial_state = 5;
+  // Object's resulted attribute states that have been affected by user.
+  google.protobuf.Struct result_state = 6;
+}
+
+// Event represents full audit event.
+message AuditEvent {
+  // Audit event ID.
+  string id = 1;
+  // Account ID that initiated the action (user id or application name).
+  string account_id = 2;
+  // Unique ID assigned to each request.
+  string request_id = 3;
+  // Account's remote IP address (user ip or nil).
+  string account_ip = 4;
+  // Organization ID that affected object belongs to.
+  string organization_id = 5;
+  // Action type
+  ActionType action_type = 6;
+  // Timestamp when the event occurred.
+  google.protobuf.Timestamp timestamp = 7;
+  // The source module/service that triggered audit event (might be equal to account_id for events not related to user action).
+  string event_source = 8;
+  // The status of action execution.
+  ActionStatus action_status = 9;
+  // The information about affected objects in the system.
+  repeated AuditObject objects = 10;
+}
+
+// EventAPI provides API for creating and viewing events.
+service EventAPI {
+  // CreateAuditEvent submits audit event to server.
+  rpc CreateAuditEvent(CreateAuditEventRequest) returns (CreateAuditEventResponse) {
+    option (google.api.http) = {
+      post: "/v1/events"
+      body: "*"
+    };
+  }
+
+  // ListAuditEvents returns the list of audit events using filters.
+  rpc ListAuditEvents(ListAuditEventsRequest) returns (ListAuditEventsResponse) {
+    option (google.api.http) = {
+      post: "/v1/events:search"
+      body: "*"
+    };
+  }
+}
+
+// CreateAuditEventRequest to be used to store event in persistent storage.
+message CreateAuditEventRequest {
+  AuditEvent event = 1;
+}
+
+message CreateAuditEventResponse {}
+
+// ListAuditEventsRequest to view events that were previously saved.
+message ListAuditEventsRequest {
+  // fsp used for filtering/sorting/paginating the request. Optional param.
+  utils.fsp.FilteringSortingPagination fsp = 1;
+}
+
+// ListAuditEventsResponse lists stored events.
+message ListAuditEventsResponse {
+  // list of events.
+  repeated AuditEvent events = 1;
+  // pagination details.
+  utils.fsp.PageTotals page_totals = 2;
+}
+
