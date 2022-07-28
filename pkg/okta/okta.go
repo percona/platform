@@ -36,6 +36,8 @@ const (
 	profileEmail           = "email"
 	profileLogin           = "login"
 	profilePortalAdminOrgs = "portalAdminOrgs"
+	tos                    = "tos"
+	marketing              = "marketing"
 )
 
 // New returns new Service instance.
@@ -1051,6 +1053,14 @@ func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.User
 
 	if params.Lastname != nil {
 		profile[profileLastName] = params.Lastname
+	}
+
+	if params.Tos != nil {
+		profile[tos] = params.Tos
+	}
+
+	if params.Marketing != nil {
+		profile[marketing] = params.Marketing
 	}
 
 	return profile
