@@ -887,6 +887,53 @@
           "application/json"
         ]
       }
+    },
+    "/v1/profiles/me": {
+      "put": {
+        "summary": "Update the current user Okta profile.",
+        "description": "Update the current user Okta profile.",
+        "operationId": "OrgAPI_UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileResponse"
+            },
+            "examples": {
+              "application/json": {
+                "profile": {
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "tos": true,
+                  "marketing": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Profile Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -1270,6 +1317,27 @@
         }
       }
     },
+    "v1Profile": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "title": "Okta profile's First name"
+        },
+        "lastName": {
+          "type": "string",
+          "title": "Okta profile's Last name"
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
     "v1SearchInventoryResponse": {
       "type": "object",
       "properties": {
@@ -1361,6 +1429,36 @@
       "properties": {
         "org": {
           "$ref": "#/definitions/v1Organization"
+        }
+      }
+    },
+    "v1UpdateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "title": "Okta profile's First name"
+        },
+        "lastName": {
+          "type": "string",
+          "title": "Okta profile's Last name"
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      },
+      "title": "Each field can be empty which means the field is skipped by update"
+    },
+    "v1UpdateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/v1Profile"
         }
       }
     }

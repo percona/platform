@@ -328,6 +328,20 @@ func (this *UpdateMemberResponse) Validate() error {
 	}
 	return nil
 }
+func (this *UpdateProfileRequest) Validate() error {
+	return nil
+}
+func (this *UpdateProfileResponse) Validate() error {
+	if this.Profile != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Profile); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Profile", err)
+		}
+	}
+	return nil
+}
+func (this *Profile) Validate() error {
+	return nil
+}
 func (this *DeleteMemberRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))
