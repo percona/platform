@@ -17,6 +17,53 @@
     "application/json"
   ],
   "paths": {
+    "/v1/me": {
+      "put": {
+        "summary": "Update the current user Okta profile.",
+        "description": "Update the current user Okta profile.",
+        "operationId": "OrgAPI_UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileResponse"
+            },
+            "examples": {
+              "application/json": {
+                "profile": {
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "tos": true,
+                  "marketing": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Profile Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
@@ -882,53 +929,6 @@
         ],
         "tags": [
           "Organization Management"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
-    "/v1/profiles/me": {
-      "put": {
-        "summary": "Update the current user Okta profile.",
-        "description": "Update the current user Okta profile.",
-        "operationId": "OrgAPI_UpdateProfile",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateProfileResponse"
-            },
-            "examples": {
-              "application/json": {
-                "profile": {
-                  "firstName": "John",
-                  "lastName": "Doe",
-                  "tos": true,
-                  "marketing": true
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateProfileRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Profile Management"
         ],
         "produces": [
           "application/json"

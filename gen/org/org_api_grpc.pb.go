@@ -42,7 +42,7 @@ type OrgAPIClient interface {
 	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
-	// UpdateMember updates user to a Percona Portal Organization.
+	// UpdateProfile updates the current user Okta profile.
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -245,7 +245,7 @@ type OrgAPIServer interface {
 	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
-	// UpdateMember updates user to a Percona Portal Organization.
+	// UpdateProfile updates the current user Okta profile.
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error)

@@ -1192,7 +1192,7 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/profiles/me"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/me"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1636,7 +1636,7 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/profiles/me"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateProfile", runtime.WithHTTPPathPattern("/v1/me"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1842,7 +1842,7 @@ var (
 
 	pattern_OrgAPI_UpdateMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
 
-	pattern_OrgAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "profiles", "me"}, ""))
+	pattern_OrgAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "me"}, ""))
 
 	pattern_OrgAPI_DeleteMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
 

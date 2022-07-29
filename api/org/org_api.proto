@@ -260,10 +260,10 @@ service OrgAPI {
     };
   }
 
-  // UpdateMember updates user to a Percona Portal Organization.
+  // UpdateProfile updates the current user Okta profile.
   rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
     option (google.api.http) = {
-      put: "/v1/profiles/me"
+      put: "/v1/me"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
