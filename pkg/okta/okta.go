@@ -945,7 +945,7 @@ func getUserLogin(user *okta.User) (string, error) {
 func getString(profile okta.UserProfile, fieldName string) (*string, error) {
 	str, ok := profile[fieldName]
 	if !ok {
-		return nil, nil
+		return nil, nil //nolint: nilnil
 	}
 
 	result, ok := str.(string)
@@ -959,7 +959,7 @@ func getString(profile okta.UserProfile, fieldName string) (*string, error) {
 func getBool(profile okta.UserProfile, fieldName string) (*bool, error) {
 	name, ok := profile[fieldName]
 	if !ok {
-		return nil, nil
+		return nil, nil //nolint: nilnil
 	}
 
 	result, ok := name.(bool)
@@ -1001,7 +1001,7 @@ func extractLogger(ctx context.Context) *zap.Logger {
 	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
 }
 
-func convertUser(oktaUser *okta.User) (*User, error) {
+func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 	errWrapper := func(err error) error {
 		return errors.Wrapf(err, "user %s has an invalid profile", oktaUser.Id)
 	}
