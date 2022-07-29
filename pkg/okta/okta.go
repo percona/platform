@@ -942,42 +942,32 @@ func getUserLogin(user *okta.User) (string, error) {
 	return result, nil
 }
 
-func getString(user *okta.User, fieldName string) (string, error) {
-	if user.Profile == nil {
-		return "", errors.New("missing user profile")
-	}
-
-	profile := *user.Profile
+func getString(profile okta.UserProfile, fieldName string) (*string, error) {
 	str, ok := profile[fieldName]
 	if !ok {
-		return "", errors.New("missing field " + fieldName)
+		return nil, nil
 	}
 
 	result, ok := str.(string)
 	if !ok {
-		result = ""
+		return nil, errors.New("unexpected field type")
 	}
 
-	return result, nil
+	return &result, nil
 }
 
-func getBool(user *okta.User, fieldName string) (bool, error) {
-	if user.Profile == nil {
-		return false, errors.New("missing user profile")
-	}
-
-	profile := *user.Profile
+func getBool(profile okta.UserProfile, fieldName string) (*bool, error) {
 	name, ok := profile[fieldName]
 	if !ok {
-		return false, errors.New("missing field " + fieldName)
+		return nil, nil
 	}
 
 	result, ok := name.(bool)
 	if !ok {
-		result = false
+		return nil, errors.New("unexpected field type")
 	}
 
-	return result, nil
+	return &result, nil
 }
 
 func getPortalAdminOrgs(user *okta.User) ([]string, error) {
@@ -1016,46 +1006,61 @@ func convertUser(oktaUser *okta.User) (*User, error) {
 		return errors.Wrapf(err, "user %s has an invalid profile", oktaUser.Id)
 	}
 
+	if oktaUser.Profile == nil {
+		return nil, errors.New("missing user profile")
+	}
+	profile := *oktaUser.Profile
+
+	user := User{
+		ID:     oktaUser.Id,
+		Status: oktaUser.Status,
+	}
+
 	userLogin, err := getUserLogin(oktaUser)
 	if err != nil {
 		return nil, errWrapper(err)
 	}
+	user.Login = userLogin
 
-	firstName, err := getString(oktaUser, profileFirstName)
+	firstName, err := getString(profile, profileFirstName)
 	if err != nil {
 		return nil, errWrapper(err)
 	}
+	if firstName != nil {
+		user.FirstName = *firstName
+	}
 
-	lastName, err := getString(oktaUser, profileLastName)
+	lastName, err := getString(profile, profileLastName)
 	if err != nil {
 		return nil, errWrapper(err)
 	}
-
-	tos, err := getBool(oktaUser, profileTos)
-	if err != nil {
-		return nil, errWrapper(err)
-	}
-
-	marketing, err := getBool(oktaUser, profileMarketing)
-	if err != nil {
-		return nil, errWrapper(err)
+	if lastName != nil {
+		user.LastName = *lastName
 	}
 
 	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
 	if err != nil {
 		return nil, errWrapper(err)
 	}
+	user.PortalAdminOrgs = portalAdminOrgs
 
-	return &User{
-		ID:              oktaUser.Id,
-		Login:           userLogin,
-		FirstName:       firstName,
-		LastName:        lastName,
-		Status:          oktaUser.Status,
-		PortalAdminOrgs: portalAdminOrgs,
-		Tos:             tos,
-		Marketing:       marketing,
-	}, nil
+	tos, err := getBool(profile, profileTos)
+	if err != nil {
+		return nil, errWrapper(err)
+	}
+	if tos != nil {
+		user.Tos = *tos
+	}
+
+	marketing, err := getBool(profile, profileMarketing)
+	if err != nil {
+		return nil, errWrapper(err)
+	}
+	if marketing != nil {
+		user.Marketing = *marketing
+	}
+
+	return &user, nil
 }
 
 func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.UserProfile {
