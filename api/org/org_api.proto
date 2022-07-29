@@ -770,16 +770,16 @@ message UpdateMemberResponse {
 // Each field can be empty which means the field is skipped by update
 message UpdateProfileRequest {
   // Okta profile's First name
-  string firstName = 1;
+  optional string firstName = 1;
 
   // Okta profile's Last name
-  string lastName = 2;
+  optional string lastName = 2;
 
   // Flag shows if the Terms of Service are accepted
-  bool tos = 3;
+  optional bool tos = 3;
 
   // Flag shows if the Marketing consent is given
-  bool marketing = 4;
+  optional bool marketing = 4;
 }
 
 message UpdateProfileResponse {

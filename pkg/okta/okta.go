@@ -36,8 +36,8 @@ const (
 	profileEmail           = "email"
 	profileLogin           = "login"
 	profilePortalAdminOrgs = "portalAdminOrgs"
-	tos                    = "tos"
-	marketing              = "marketing"
+	profileTos             = "tos"
+	profileMarketing       = "marketing"
 )
 
 // New returns new Service instance.
@@ -170,7 +170,7 @@ func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*
 	return convertUser(user)
 }
 
-// UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
+// UpdateUser updates the Okta user. It takes UpdateUserParams and apply them to the user with the given userID.
 // Returns the updated User and an error.
 func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
 	l := extractLogger(ctx)
@@ -942,18 +942,18 @@ func getUserLogin(user *okta.User) (string, error) {
 	return result, nil
 }
 
-func getUserFirstName(user *okta.User) (string, error) {
+func getString(user *okta.User, fieldName string) (string, error) {
 	if user.Profile == nil {
 		return "", errors.New("missing user profile")
 	}
 
 	profile := *user.Profile
-	name, ok := profile[profileFirstName]
+	str, ok := profile[fieldName]
 	if !ok {
-		return "", errors.New("missing user " + profileFirstName)
+		return "", errors.New("missing field " + fieldName)
 	}
 
-	result, ok := name.(string)
+	result, ok := str.(string)
 	if !ok {
 		result = ""
 	}
@@ -961,20 +961,20 @@ func getUserFirstName(user *okta.User) (string, error) {
 	return result, nil
 }
 
-func getUserLastName(user *okta.User) (string, error) {
+func getBool(user *okta.User, fieldName string) (bool, error) {
 	if user.Profile == nil {
-		return "", errors.New("missing user profile")
+		return false, errors.New("missing user profile")
 	}
 
 	profile := *user.Profile
-	name, ok := profile[profileLastName]
+	name, ok := profile[fieldName]
 	if !ok {
-		return "", errors.New("missing user " + profileLastName)
+		return false, errors.New("missing field " + fieldName)
 	}
 
-	result, ok := name.(string)
+	result, ok := name.(bool)
 	if !ok {
-		result = ""
+		result = false
 	}
 
 	return result, nil
@@ -1012,24 +1012,38 @@ func extractLogger(ctx context.Context) *zap.Logger {
 }
 
 func convertUser(oktaUser *okta.User) (*User, error) {
+	errWrapper := func(err error) error {
+		return errors.Wrapf(err, "user %s has an invalid profile", oktaUser.Id)
+	}
+
 	userLogin, err := getUserLogin(oktaUser)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+		return nil, errWrapper(err)
 	}
 
-	firstName, err := getUserFirstName(oktaUser)
+	firstName, err := getString(oktaUser, profileFirstName)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+		return nil, errWrapper(err)
 	}
 
-	lastName, err := getUserLastName(oktaUser)
+	lastName, err := getString(oktaUser, profileLastName)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+		return nil, errWrapper(err)
+	}
+
+	tos, err := getBool(oktaUser, profileTos)
+	if err != nil {
+		return nil, errWrapper(err)
+	}
+
+	marketing, err := getBool(oktaUser, profileMarketing)
+	if err != nil {
+		return nil, errWrapper(err)
 	}
 
 	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
 	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", oktaUser.Id)
+		return nil, errWrapper(err)
 	}
 
 	return &User{
@@ -1039,6 +1053,8 @@ func convertUser(oktaUser *okta.User) (*User, error) {
 		LastName:        lastName,
 		Status:          oktaUser.Status,
 		PortalAdminOrgs: portalAdminOrgs,
+		Tos:             tos,
+		Marketing:       marketing,
 	}, nil
 }
 
@@ -1056,11 +1072,11 @@ func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.User
 	}
 
 	if params.Tos != nil {
-		profile[tos] = params.Tos
+		profile[profileTos] = params.Tos
 	}
 
 	if params.Marketing != nil {
-		profile[marketing] = params.Marketing
+		profile[profileMarketing] = params.Marketing
 	}
 
 	return profile
