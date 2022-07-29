@@ -614,6 +614,25 @@ func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) 
 	return nil
 }
 
+// ReactivateUser sends an email to the user to activate their account.
+func (c *Client) SendActivationMail(ctx context.Context, userID string) error {
+	l := extractLogger(ctx)
+	l.Info("Resetting password for Okta user.", zap.String("oktaUserID", userID))
+
+	qp := query.NewQueryParams(query.WithSendEmail(true))
+	_, _, err := c.c.User.ReactivateUser(ctx, userID, qp)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return convertOktaError(oErr)
+		}
+
+		return errors.Wrap(err, "failed to reactivate user")
+	}
+
+	return nil
+}
+
 // ErrOriginNotFound means operation on origin failed because it does not exist.
 var ErrOriginNotFound error = errors.New("trusted origin was not found") //nolint:revive
 
