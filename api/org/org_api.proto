@@ -260,30 +260,6 @@ service OrgAPI {
     };
   }
 
-  // UpdateProfile updates the current user Okta profile.
-  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse) {
-    option (google.api.http) = {
-      put: "/v1/me"
-      body: "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Update the current user Okta profile.";
-      summary: "Update the current user Okta profile.";
-      tags: "Profile Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {
-        key: "200";
-        value: {
-          examples: {
-            key: "application/json"
-            value: '{"firstName":"John","lastName":"Doe","tos":true,"marketing":true}'
-          }
-        };
-      };
-    };
-  }
-
   // DeleteMember deletes a Percona Portal Organization Member with the given ID.
   rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
@@ -765,39 +741,6 @@ message UpdateMemberRequest {
 
 message UpdateMemberResponse {
   OrganizationMember member = 1;
-}
-
-// Each field can be empty which means the field is skipped by update
-message UpdateProfileRequest {
-  // Okta profile's First name
-  optional string firstName = 1;
-
-  // Okta profile's Last name
-  optional string lastName = 2;
-
-  // Flag shows if the Terms of Service are accepted
-  optional bool tos = 3;
-
-  // Flag shows if the Marketing consent is given
-  optional bool marketing = 4;
-}
-
-message UpdateProfileResponse {
-  Profile profile = 1;
-}
-
-message Profile {
-  // Okta profile's First name
-  string firstName = 1;
-
-  // Okta profile's Last name
-  string lastName = 2;
-
-  // Flag shows if the Terms of Service are accepted
-  bool tos = 3;
-
-  // Flag shows if the Marketing consent is given
-  bool marketing = 4;
 }
 
 message DeleteMemberRequest {

@@ -42,8 +42,6 @@ type OrgAPIClient interface {
 	SearchMembers(ctx context.Context, in *SearchMembersRequest, opts ...grpc.CallOption) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
-	// UpdateProfile updates the current user Okta profile.
-	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
@@ -151,15 +149,6 @@ func (c *orgAPIClient) UpdateMember(ctx context.Context, in *UpdateMemberRequest
 	return out, nil
 }
 
-func (c *orgAPIClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error) {
-	out := new(UpdateProfileResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/UpdateProfile", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *orgAPIClient) DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/DeleteMember", in, out, opts...)
@@ -245,8 +234,6 @@ type OrgAPIServer interface {
 	SearchMembers(context.Context, *SearchMembersRequest) (*SearchMembersResponse, error)
 	// UpdateMember updates user to a Percona Portal Organization.
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
-	// UpdateProfile updates the current user Okta profile.
-	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
@@ -296,9 +283,6 @@ func (UnimplementedOrgAPIServer) SearchMembers(context.Context, *SearchMembersRe
 }
 func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMember not implemented")
-}
-func (UnimplementedOrgAPIServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
 }
 func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
@@ -496,24 +480,6 @@ func _OrgAPI_UpdateMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrgAPI_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProfileRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrgAPIServer).UpdateProfile(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/percona.platform.org.v1.OrgAPI/UpdateProfile",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgAPIServer).UpdateProfile(ctx, req.(*UpdateProfileRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _OrgAPI_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteMemberRequest)
 	if err := dec(in); err != nil {
@@ -682,10 +648,6 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateMember",
 			Handler:    _OrgAPI_UpdateMember_Handler,
-		},
-		{
-			MethodName: "UpdateProfile",
-			Handler:    _OrgAPI_UpdateProfile_Handler,
 		},
 		{
 			MethodName: "DeleteMember",
