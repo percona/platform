@@ -277,7 +277,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"profile": {"firstName":"John","lastName":"Doe","tos":true,"marketing":true}}'
+            value: '{"firstName":"John","lastName":"Doe","tos":true,"marketing":true}'
           }
         };
       };

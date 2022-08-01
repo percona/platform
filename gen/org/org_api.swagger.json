@@ -30,12 +30,10 @@
             },
             "examples": {
               "application/json": {
-                "profile": {
-                  "firstName": "John",
-                  "lastName": "Doe",
-                  "tos": true,
-                  "marketing": true
-                }
+                "firstName": "John",
+                "lastName": "Doe",
+                "tos": true,
+                "marketing": true
               }
             }
           },
