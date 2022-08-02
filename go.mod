@@ -6,7 +6,7 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.44.58
-	github.com/brianvoe/gofakeit/v6 v6.17.0
+	github.com/brianvoe/gofakeit/v6 v6.18.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
