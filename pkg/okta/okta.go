@@ -967,6 +967,9 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 	}
 	profile := *oktaUser.Profile
 
+	errorWrapper := func(err error, field string) error {
+		return errors.Wrapf(err, "user %s has invalid %s", oktaUser.Id, field)
+	}
 	user := User{
 		ID:     oktaUser.Id,
 		Status: oktaUser.Status,
@@ -974,7 +977,7 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 
 	userLogin, err := getValue[string](profile, profileLogin)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid login", oktaUser.Id)
+		return nil, errorWrapper(err, profileLogin)
 	}
 	if userLogin != nil {
 		user.Login = *userLogin
@@ -982,7 +985,7 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 
 	firstName, err := getValue[string](profile, profileFirstName)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid first name", oktaUser.Id)
+		return nil, errorWrapper(err, profileFirstName)
 	}
 	if firstName != nil {
 		user.FirstName = *firstName
@@ -990,7 +993,7 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 
 	lastName, err := getValue[string](profile, profileLastName)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid last name", oktaUser.Id)
+		return nil, errorWrapper(err, profileLastName)
 	}
 	if lastName != nil {
 		user.LastName = *lastName
@@ -998,13 +1001,13 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 
 	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid portalAdminOrgs field", oktaUser.Id)
+		return nil, errorWrapper(err, profilePortalAdminOrgs)
 	}
 	user.PortalAdminOrgs = portalAdminOrgs
 
 	tos, err := getValue[bool](profile, profileTos)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid tos field", oktaUser.Id)
+		return nil, errorWrapper(err, profileTos)
 	}
 	if tos != nil {
 		user.Tos = *tos
@@ -1012,7 +1015,7 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 
 	marketing, err := getValue[bool](profile, profileMarketing)
 	if err != nil && !errors.Is(err, errNotFound) {
-		return nil, errors.Wrapf(err, "user %s has invalid marketing field", oktaUser.Id)
+		return nil, errorWrapper(err, profileMarketing)
 	}
 	if marketing != nil {
 		user.Marketing = *marketing
