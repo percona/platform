@@ -40,6 +40,8 @@ const (
 	profileMarketing       = "marketing"
 )
 
+var errNotFound = errors.New("not found")
+
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
 	u := url.URL{Scheme: "https", Host: host}
@@ -103,16 +105,7 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 		return nil, errors.Wrap(err, "failed to sign up user")
 	}
 
-	nLogin, err := getUserLogin(user)
-	if err != nil {
-		return nil, errors.Wrapf(err, "user %s has bad profile", user.Id)
-	}
-
-	return &User{
-		ID:     user.Id,
-		Login:  nLogin,
-		Status: user.Status,
-	}, nil
+	return convertUser(user)
 }
 
 // FindUser searches user either by login or okta user ID and returns user.
@@ -923,46 +916,13 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 	return err
 }
 
-func getUserLogin(user *okta.User) (string, error) {
-	if user.Profile == nil {
-		return "", errors.New("missing user profile")
-	}
-
-	profile := *user.Profile
-	login, ok := profile[profileLogin]
-	if !ok {
-		return "", errors.New("missing user " + profileLogin)
-	}
-
-	result, ok := login.(string)
-	if !ok {
-		result = ""
-	}
-
-	return result, nil
-}
-
-func getString(profile okta.UserProfile, fieldName string) (*string, error) {
-	str, ok := profile[fieldName]
-	if !ok {
-		return nil, nil //nolint: nilnil
-	}
-
-	result, ok := str.(string)
-	if !ok {
-		return nil, errors.New("unexpected field type")
-	}
-
-	return &result, nil
-}
-
-func getBool(profile okta.UserProfile, fieldName string) (*bool, error) {
+func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
 	name, ok := profile[fieldName]
 	if !ok {
-		return nil, nil //nolint: nilnil
+		return nil, errNotFound
 	}
 
-	result, ok := name.(bool)
+	result, ok := name.(T)
 	if !ok {
 		return nil, errors.New("unexpected field type")
 	}
@@ -980,7 +940,7 @@ func getPortalAdminOrgs(user *okta.User) ([]string, error) {
 	profile := *user.Profile
 	orgsRaw, ok := profile[profilePortalAdminOrgs]
 	if !ok {
-		return result, nil
+		return nil, errNotFound
 	}
 
 	orgsSlice, ok := orgsRaw.([]interface{})
@@ -1002,10 +962,6 @@ func extractLogger(ctx context.Context) *zap.Logger {
 }
 
 func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
-	errWrapper := func(err error) error {
-		return errors.Wrapf(err, "user %s has an invalid profile", oktaUser.Id)
-	}
-
 	if oktaUser.Profile == nil {
 		return nil, errors.New("missing user profile")
 	}
@@ -1016,45 +972,47 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 		Status: oktaUser.Status,
 	}
 
-	userLogin, err := getUserLogin(oktaUser)
-	if err != nil {
-		return nil, errWrapper(err)
+	userLogin, err := getValue[string](profile, profileLogin)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid login", oktaUser.Id)
 	}
-	user.Login = userLogin
+	if userLogin != nil {
+		user.Login = *userLogin
+	}
 
-	firstName, err := getString(profile, profileFirstName)
-	if err != nil {
-		return nil, errWrapper(err)
+	firstName, err := getValue[string](profile, profileFirstName)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid first name", oktaUser.Id)
 	}
 	if firstName != nil {
 		user.FirstName = *firstName
 	}
 
-	lastName, err := getString(profile, profileLastName)
-	if err != nil {
-		return nil, errWrapper(err)
+	lastName, err := getValue[string](profile, profileLastName)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid last name", oktaUser.Id)
 	}
 	if lastName != nil {
 		user.LastName = *lastName
 	}
 
 	portalAdminOrgs, err := getPortalAdminOrgs(oktaUser)
-	if err != nil {
-		return nil, errWrapper(err)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid portalAdminOrgs field", oktaUser.Id)
 	}
 	user.PortalAdminOrgs = portalAdminOrgs
 
-	tos, err := getBool(profile, profileTos)
-	if err != nil {
-		return nil, errWrapper(err)
+	tos, err := getValue[bool](profile, profileTos)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid tos field", oktaUser.Id)
 	}
 	if tos != nil {
 		user.Tos = *tos
 	}
 
-	marketing, err := getBool(profile, profileMarketing)
-	if err != nil {
-		return nil, errWrapper(err)
+	marketing, err := getValue[bool](profile, profileMarketing)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errors.Wrapf(err, "user %s has invalid marketing field", oktaUser.Id)
 	}
 	if marketing != nil {
 		user.Marketing = *marketing
