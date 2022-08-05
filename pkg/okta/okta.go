@@ -905,16 +905,16 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 }
 
 // GetActivationLink returns activation url for users that are not activated yet.
-func (c *Client) GetActivationLink(ctx context.Context, userID string) (*string, error) {
+func (c *Client) GetActivationLink(ctx context.Context, userID string) (string, error) {
 	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	sendEmail := false
 	activationInfo, _, err := c.c.User.ActivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
 	if err != nil {
 		l.Error("Failed to get activation link", zap.Error(err))
-		return nil, errors.Wrap(err, "failed to activate user")
+		return "", errors.Wrap(err, "failed to activate user")
 	}
 
-	return &activationInfo.ActivationUrl, nil
+	return activationInfo.ActivationUrl, nil
 }
 
 // DoRequest makes HTTP requests to okta endpoints.
