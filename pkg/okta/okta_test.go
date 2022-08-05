@@ -986,6 +986,6 @@ func TestGetActivationLink(t *testing.T) {
 
 		link, err := s.GetActivationLink(ctx, testUser.ID)
 		assert.NotNil(t, err)
-		assert.Nil(t, link)
+		assert.Empty(t, link)
 	})
 }
