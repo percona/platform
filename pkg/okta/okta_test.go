@@ -985,7 +985,80 @@ func TestGetActivationLink(t *testing.T) {
 		})
 
 		link, err := s.GetActivationLink(ctx, testUser.ID)
-		assert.NotNil(t, err)
+		assert.ErrorContains(t, err, "Activation failed because the user is already active")
 		assert.Empty(t, link)
+	})
+}
+
+func TestGetReactivationLink(t *testing.T) {
+	t.Parallel()
+
+	t.Run("error: user status ACTIVE", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName, true)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+		require.Equal(t, UserStatusActive, testUser.Status)
+
+		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		assert.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
+		assert.Empty(t, link)
+	})
+
+	t.Run("success: user status PROVISIONED", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+
+		testUser := CreateTestUser(t, email, password, firstName, lastName, false)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+		require.Equal(t, UserStatusStaged, testUser.Status)
+
+		activationLink, err := s.GetActivationLink(ctx, testUser.ID)
+		require.NoError(t, err)
+		require.NotEmpty(t, activationLink)
+
+		/* updatedUser, _, err := s.c.User.GetUser(ctx, testUser.ID)
+		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
+
+		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		require.Nil(t, err)
+		require.NotEmpty(t, link) */
+	})
+
+	t.Run("error: user status STAGED", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName, false)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		require.Equal(t, UserStatusStaged, testUser.Status)
+
+		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
+		require.Empty(t, link)
 	})
 }
