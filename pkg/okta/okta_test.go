@@ -7,6 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/google/uuid"
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -1021,9 +1023,21 @@ func TestGetReactivationLink(t *testing.T) {
 
 		ctx := context.Background()
 
-		email, password, firstName, lastName := GenCredentials(t)
+		email, _, _, _ := GenCredentials(t)
 
-		testUser := CreateTestUser(t, email, password, firstName, lastName, false)
+		u := okta.CreateUserRequest{ //nolint:exhaustivestruct
+			Profile: &okta.UserProfile{
+				profileEmail: email,
+				profileLogin: email,
+			},
+		}
+		qp := query.NewQueryParams(query.WithActivate(false))
+		user, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
+		require.NoError(t, err)
+
+		testUser, err := convertUser(user)
+		require.NoError(t, err)
+
 		t.Cleanup(func() {
 			DeleteUser(t, testUser.ID)
 		})
@@ -1033,12 +1047,13 @@ func TestGetReactivationLink(t *testing.T) {
 		require.NoError(t, err)
 		require.NotEmpty(t, activationLink)
 
-		/* updatedUser, _, err := s.c.User.GetUser(ctx, testUser.ID)
+		updatedUser, _, err := s.c.User.GetUser(ctx, testUser.ID)
 		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
+		require.NoError(t, err)
 
 		link, err := s.GetReactivationLink(ctx, testUser.ID)
 		require.Nil(t, err)
-		require.NotEmpty(t, link) */
+		require.NotEmpty(t, link)
 	})
 
 	t.Run("error: user status STAGED", func(t *testing.T) {
