@@ -137,6 +137,15 @@ func (c *Client) FindUser(ctx context.Context, login string) (*User, error) {
 
 // RegisterUser invites okta user and returns user.
 func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*User, error) {
+	return c.registerUser(ctx, params, true)
+}
+
+// RegisterInactiveUser creates an okta user but not activates them.
+func (c *Client) RegisterInactiveUser(ctx context.Context, params RegisterUserParams) (*User, error) {
+	return c.registerUser(ctx, params, false)
+}
+
+func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, activate bool) (*User, error) {
 	l := extractLogger(ctx)
 
 	err := validateRegisterUserParams(params)
@@ -146,7 +155,6 @@ func (c *Client) RegisterUser(ctx context.Context, params RegisterUserParams) (*
 
 	l.Info("Inviting Okta user.", zap.String("login", params.Login))
 
-	activate := false
 	profile := okta.UserProfile{
 		profileLogin:           params.Login,
 		profileEmail:           params.Login,
