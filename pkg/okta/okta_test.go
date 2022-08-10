@@ -1035,7 +1035,7 @@ func TestGetReactivationLink(t *testing.T) {
 		ctx := context.Background()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateTestUser(t, email, password, firstName, lastName, true)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, testUser.ID)
 		})
@@ -1096,7 +1096,7 @@ func TestGetReactivationLink(t *testing.T) {
 		ctx := context.Background()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateTestUser(t, email, password, firstName, lastName, false)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, testUser.ID)
 		})
