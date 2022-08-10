@@ -95,7 +95,7 @@ func TestSignIn(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -157,7 +157,7 @@ func TestSessions(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -201,7 +201,7 @@ func TestSessionRefresh(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -239,7 +239,7 @@ func TestCloseSession(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -292,7 +292,7 @@ func TestFindUser(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -327,11 +327,17 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
+		ctx := context.Background()
+
+		u, err := s.RegisterUser(ctx, RegisterUserParams{Login: email})
 		require.NoError(t, err)
 		t.Cleanup(func() {
 			DeleteUser(t, u.ID)
 		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusProvisioned, user.Status)
 
 		require.Equal(t, u.Login, email)
 	})
@@ -347,13 +353,38 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		user := CreateTestUser(t, email, password, firstName, lastName, true)
+		user := CreateTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, user.ID)
 		})
 
 		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
+	})
+}
+
+func TestRegisterInactiveUser(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("success", func(t *testing.T) {
+		t.Parallel()
+		email, _, _, _ := GenCredentials(t)
+		ctx := context.Background()
+
+		u, err := s.RegisterInactiveUser(ctx, RegisterUserParams{Login: email})
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			DeleteUser(t, u.ID)
+		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusStaged, user.Status)
+
+		require.Equal(t, u.Login, email)
 	})
 }
 
@@ -364,7 +395,7 @@ func TestPasswordReset(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -386,7 +417,7 @@ func TestGroups(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	user := CreateTestUser(t, email, password, firstName, lastName, true)
+	user := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, user.ID)
 	})
@@ -499,7 +530,7 @@ func TestSuspendUser(t *testing.T) {
 		t.Parallel()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		user := CreateTestUser(t, email, password, firstName, lastName, true)
+		user := CreateTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, user.ID)
 		})
@@ -516,7 +547,7 @@ func TestSuspendUser(t *testing.T) {
 		t.Parallel()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		user := CreateTestUser(t, email, password, firstName, lastName, true)
+		user := CreateTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, user.ID)
 		})
@@ -546,7 +577,7 @@ func TestUpdateUser(t *testing.T) {
 	require.NoError(t, err)
 
 	email, password, firstName, lastName := GenCredentials(t)
-	testUser := CreateTestUser(t, email, password, firstName, lastName, true)
+	testUser := CreateTestUser(t, email, password, firstName, lastName)
 	t.Cleanup(func() {
 		DeleteUser(t, testUser.ID)
 	})
@@ -960,7 +991,7 @@ func TestGetActivationLink(t *testing.T) {
 		ctx := context.Background()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateTestUser(t, email, password, firstName, lastName, false)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, testUser.ID)
 		})
@@ -979,7 +1010,7 @@ func TestGetActivationLink(t *testing.T) {
 		ctx := context.Background()
 
 		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateTestUser(t, email, password, firstName, lastName, true)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, testUser.ID)
 		})
