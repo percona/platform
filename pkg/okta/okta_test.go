@@ -1085,6 +1085,10 @@ func TestGetReactivationLink(t *testing.T) {
 		link, err := s.GetReactivationLink(ctx, testUser.ID)
 		require.Nil(t, err)
 		require.NotEmpty(t, link)
+
+		user, _, err = s.c.User.GetUser(ctx, testUser.ID)
+		require.Equal(t, UserStatusProvisioned, user.Status)
+		require.NoError(t, err)
 	})
 
 	t.Run("error: user status STAGED", func(t *testing.T) {
