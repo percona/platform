@@ -218,6 +218,10 @@ message GetProfileResponse {
   string first_name = 2;
   // User last name.
   string last_name = 3;
+  // Flag shows if the Terms of Service are accepted
+  bool tos = 4;
+  // Flag shows if the Marketing consent is given
+  bool marketing = 5;
 }
 
 message UpdateProfileRequest {
@@ -233,6 +237,12 @@ message UpdateProfileRequest {
       string_not_empty: true
     }
   ];
+
+  // Flag shows if the Terms of Service are accepted
+  optional bool tos = 3;
+
+  // Flag shows if the Marketing consent is given
+  optional bool marketing = 4;
 }
 
 message UpdateProfileResponse {}
