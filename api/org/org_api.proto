@@ -277,6 +277,29 @@ service OrgAPI {
     };
   }
 
+  // ReactivateMember reactivates an organization member that has been in Pending state.
+  rpc ReactivateMember(ReactivateMemberRequest) returns (ReactivateMemberResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/members/{member_id}:reactivate"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Reactivates an organization member that has been in Pending state";
+      summary: "ReactivateMember";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
@@ -912,3 +935,11 @@ message GetCivoKubeconfigRequest {
 message GetCivoKubeconfigResponse {
   string kubeconfig = 1;
 }
+message ReactivateMemberRequest {
+  // Organization ID.
+  string org_id = 1;
+  // ID of the member to be reactivated.
+  string member_id = 2;
+}
+
+message ReactivateMemberResponse {}

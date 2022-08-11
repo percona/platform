@@ -683,6 +683,52 @@
         ]
       }
     },
+    "/v1/orgs/{orgId}/members/{memberId}:reactivate": {
+      "post": {
+        "summary": "ReactivateMember",
+        "description": "Reactivates an organization member that has been in Pending state",
+        "operationId": "OrgAPI_ReactivateMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReactivateMemberResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberId",
+            "description": "ID of the member to be reactivated.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Member Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs/{orgId}/members:bulk": {
       "post": {
         "summary": "Bulk invite organization members",
@@ -1399,6 +1445,9 @@
           "type": "string"
         }
       }
+    },
+    "v1ReactivateMemberResponse": {
+      "type": "object"
     },
     "v1SearchInventoryResponse": {
       "type": "object",

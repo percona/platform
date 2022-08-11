@@ -618,7 +618,7 @@ func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) 
 }
 
 // ErrOriginNotFound means operation on origin failed because it does not exist.
-var ErrOriginNotFound error = errors.New("trusted origin was not found") //nolint:revive
+var ErrOriginNotFound error = errors.New("trusted origin was not found")
 
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
@@ -823,7 +823,7 @@ type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID string `json:"client_id"` // nolint:tagliatelle
+			ClientID string `json:"client_id"` //nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
@@ -833,8 +833,8 @@ type MachineAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID     string `json:"client_id"`     // nolint:tagliatelle
-			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
+			ClientID     string `json:"client_id"`     //nolint:tagliatelle
+			ClientSecret string `json:"client_secret"` //nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
@@ -915,6 +915,19 @@ func (c *Client) GetActivationLink(ctx context.Context, userID string) (string, 
 	if err != nil {
 		l.Error("Failed to get activation link", zap.Error(err))
 		return "", errors.Wrap(err, "failed to activate user")
+	}
+
+	return activationInfo.ActivationUrl, nil
+}
+
+// GetReactivationLink returns re-activation url for users that are in the PROVISIONED status.
+func (c *Client) GetReactivationLink(ctx context.Context, userID string) (string, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	sendEmail := false
+	activationInfo, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
+	if err != nil {
+		l.Error("Failed to get re-activation link", zap.Error(err))
+		return "", errors.Wrap(err, "failed to re-activate user")
 	}
 
 	return activationInfo.ActivationUrl, nil
