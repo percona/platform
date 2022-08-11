@@ -623,7 +623,7 @@ func (c *Client) RemoveAppFromGroup(ctx context.Context, appID, groupID string) 
 }
 
 // ErrOriginNotFound means operation on origin failed because it does not exist.
-var ErrOriginNotFound error = errors.New("trusted origin was not found") //nolint:revive
+var ErrOriginNotFound error = errors.New("trusted origin was not found")
 
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
@@ -828,7 +828,7 @@ type OAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID string `json:"client_id"` // nolint:tagliatelle
+			ClientID string `json:"client_id"` //nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }
@@ -838,8 +838,8 @@ type MachineAuthApp struct {
 	AppID       string `json:"id"`
 	Credentials struct {
 		OAuthClient struct {
-			ClientID     string `json:"client_id"`     // nolint:tagliatelle
-			ClientSecret string `json:"client_secret"` // nolint:tagliatelle
+			ClientID     string `json:"client_id"`     //nolint:tagliatelle
+			ClientSecret string `json:"client_secret"` //nolint:tagliatelle
 		} `json:"oauthClient"`
 	} `json:"credentials"`
 }

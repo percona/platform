@@ -31,7 +31,7 @@ func Context() context.Context {
 	go func() {
 		s := <-signals
 		signal.Stop(signals)
-		l.Sugar().Warnf("Got %s, shutting down...", unix.SignalName(s.(unix.Signal))) // nolint: forcetypeassert
+		l.Sugar().Warnf("Got %s, shutting down...", unix.SignalName(s.(unix.Signal))) //nolint: forcetypeassert
 		cancel()
 	}()
 
