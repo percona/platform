@@ -171,7 +171,7 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 	return convertUser(user)
 }
 
-// UpdateUser updates the Okta user. It takes UpdateUserParams and apply them to the user with the given userID.
+// UpdateUser updates the Okta user. It takes UpdateProfileParams and apply them to the user with the given userID.
 // Returns the updated User and an error.
 func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUserParams) (*User, error) {
 	l := extractLogger(ctx)
@@ -949,6 +949,7 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 
 	return err
 }
+
 
 func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
 	name, ok := profile[fieldName]
