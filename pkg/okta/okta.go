@@ -950,7 +950,6 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 	return err
 }
 
-
 func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
 	name, ok := profile[fieldName]
 	if !ok {
