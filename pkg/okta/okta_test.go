@@ -1066,27 +1066,24 @@ func TestGetReactivationLink(t *testing.T) {
 		user, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
 		require.NoError(t, err)
 
-		testUser, err := convertUser(user)
-		require.NoError(t, err)
-
 		t.Cleanup(func() {
-			DeleteUser(t, testUser.ID)
+			DeleteUser(t, user.Id)
 		})
-		require.Equal(t, UserStatusStaged, testUser.Status)
+		require.Equal(t, UserStatusStaged, user.Status)
 
-		activationLink, err := s.GetActivationLink(ctx, testUser.ID)
+		activationLink, err := s.GetActivationLink(ctx, user.Id)
 		require.NoError(t, err)
 		require.NotEmpty(t, activationLink)
 
-		updatedUser, _, err := s.c.User.GetUser(ctx, testUser.ID)
+		updatedUser, _, err := s.c.User.GetUser(ctx, user.Id)
 		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
 		require.NoError(t, err)
 
-		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		link, err := s.GetReactivationLink(ctx, user.Id)
 		require.Nil(t, err)
 		require.NotEmpty(t, link)
 
-		user, _, err = s.c.User.GetUser(ctx, testUser.ID)
+		user, _, err = s.c.User.GetUser(ctx, user.Id)
 		require.Equal(t, UserStatusProvisioned, user.Status)
 		require.NoError(t, err)
 	})
