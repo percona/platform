@@ -904,6 +904,24 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 	return nil
 }
 
+// GetLogs gets events from okta system log.
+func (c *Client) GetLogs(ctx context.Context, params *query.Params) ([]*okta.LogEvent, *okta.Response, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+
+	l.Info("Getting okta system logs", zap.Any("params", params))
+	logs, resp, err := c.c.LogEvent.GetLogs(ctx, params)
+	if err != nil {
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, nil, convertOktaError(oErr)
+		}
+
+		return nil, nil, errors.Wrap(err, "failed to get system logs")
+	}
+
+	return logs, resp, nil
+}
+
 // DoRequest makes HTTP requests to okta endpoints.
 func (c *Client) DoRequest(ctx context.Context, method, path string, body, v interface{}) error {
 	requestExecutor := c.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
