@@ -45,6 +45,7 @@ linters:
     - nonamedreturns   # named returns improves readability
     - ifshort          # irrelevant; short syntax is sometimes profitable
     - tagliatelle      # json syntax used in different packages varies;
+    - nosnakecase      # snake case is used in the codebase
 
 issues:
   exclude-use-default: false
