@@ -32,9 +32,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
+require github.com/Masterminds/squirrel v1.5.3
+
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
-	github.com/Masterminds/squirrel v1.5.3 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/beorn7/perks v1.0.1 // indirect

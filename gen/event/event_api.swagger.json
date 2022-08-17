@@ -37,6 +37,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "CreateAuditEventRequest to be used to store event in persistent storage.",
             "in": "body",
             "required": true,
             "schema": {
@@ -70,6 +71,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "ListAuditEventsRequest to view events that were previously saved.",
             "in": "body",
             "required": true,
             "schema": {
