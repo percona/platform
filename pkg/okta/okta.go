@@ -920,6 +920,19 @@ func (c *Client) GetActivationLink(ctx context.Context, userID string) (string, 
 	return activationInfo.ActivationUrl, nil
 }
 
+// GetReactivationLink returns re-activation url for users that are in the PROVISIONED status.
+func (c *Client) GetReactivationLink(ctx context.Context, userID string) (string, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+	sendEmail := false
+	activationInfo, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
+	if err != nil {
+		l.Error("Failed to get re-activation link", zap.Error(err))
+		return "", errors.Wrap(err, "failed to re-activate user")
+	}
+
+	return activationInfo.ActivationUrl, nil
+}
+
 // DoRequest makes HTTP requests to okta endpoints.
 func (c *Client) DoRequest(ctx context.Context, method, path string, body, v interface{}) error {
 	requestExecutor := c.c.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
