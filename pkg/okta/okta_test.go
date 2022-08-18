@@ -9,9 +9,10 @@ import (
 
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
 
+	"github.com/okta/okta-sdk-golang/v2/okta"
+
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/google/uuid"
-	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -451,47 +452,6 @@ func TestGroups(t *testing.T) {
 	exists, err = s.GroupExists(context.Background(), "non-existent-group")
 	require.NoError(t, err)
 	assert.False(t, exists)
-}
-
-func TestGetUserLogin(t *testing.T) {
-	t.Parallel()
-
-	t.Run("valid", func(t *testing.T) {
-		t.Parallel()
-
-		login := "test"
-		user := okta.User{
-			Profile: &okta.UserProfile{
-				"login": login,
-			},
-		}
-
-		actual, err := getUserLogin(&user)
-		require.NoError(t, err)
-		require.Equal(t, login, actual)
-	})
-
-	t.Run("missing login", func(t *testing.T) {
-		t.Parallel()
-
-		user := okta.User{
-			Profile: new(okta.UserProfile),
-		}
-
-		login, err := getUserLogin(&user)
-		require.EqualError(t, err, "missing user login")
-		require.Empty(t, login)
-	})
-
-	t.Run("missing user profile", func(t *testing.T) {
-		t.Parallel()
-
-		var user okta.User
-
-		login, err := getUserLogin(&user)
-		require.EqualError(t, err, "missing user profile")
-		require.Empty(t, login)
-	})
 }
 
 func TestDeleteUser(t *testing.T) {
@@ -1018,8 +978,51 @@ func TestGetActivationLink(t *testing.T) {
 		})
 
 		link, err := s.GetActivationLink(ctx, testUser.ID)
-		assert.ErrorContains(t, err, "Activation failed because the user is already active")
+		assert.NotNil(t, err)
 		assert.Empty(t, link)
+	})
+}
+
+func TestGetValue(t *testing.T) {
+	t.Parallel()
+
+	t.Run("valid values", func(t *testing.T) {
+		t.Parallel()
+
+		login := "test"
+
+		profile := okta.UserProfile{
+			profileLogin:     login,
+			profileMarketing: true,
+		}
+
+		valueStr, err := getValue[string](profile, profileLogin)
+		require.NoError(t, err)
+		require.Equal(t, login, *valueStr)
+
+		valueBool, err := getValue[bool](profile, profileMarketing)
+		require.NoError(t, err)
+		require.Equal(t, true, *valueBool)
+
+		valueStr, err = getValue[string](profile, profileFirstName)
+		require.ErrorIs(t, err, errNotFound)
+		require.Nil(t, valueStr)
+	})
+
+	t.Run("wrong field format", func(t *testing.T) {
+		t.Parallel()
+
+		profile := okta.UserProfile{
+			profileLogin: []string{},
+		}
+
+		valueStr, err := getValue[string](profile, profileLogin)
+		require.EqualError(t, err, "unexpected field type")
+		require.Nil(t, valueStr)
+
+		valueBool, err := getValue[bool](profile, profileLogin)
+		require.EqualError(t, err, "unexpected field type")
+		require.Nil(t, valueBool)
 	})
 }
 
