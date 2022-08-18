@@ -328,11 +328,17 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
+		ctx := context.Background()
+
+		u, err := s.RegisterUser(ctx, RegisterUserParams{Login: email})
 		require.NoError(t, err)
 		t.Cleanup(func() {
 			DeleteUser(t, u.ID)
 		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusProvisioned, user.Status)
 
 		require.Equal(t, u.Login, email)
 	})
@@ -355,6 +361,31 @@ func TestRegisterUser(t *testing.T) {
 
 		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
+	})
+}
+
+func TestRegisterInactiveUser(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("success", func(t *testing.T) {
+		t.Parallel()
+		email, _, _, _ := GenCredentials(t)
+		ctx := context.Background()
+
+		u, err := s.RegisterInactiveUser(ctx, RegisterUserParams{Login: email})
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			DeleteUser(t, u.ID)
+		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusStaged, user.Status)
+
+		require.Equal(t, u.Login, email)
 	})
 }
 
@@ -906,6 +937,48 @@ func TestCreateMachineAuthApp(t *testing.T) {
 	require.NotNil(t, app)
 	require.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
 	require.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
+}
+
+func TestGetActivationLink(t *testing.T) {
+	t.Parallel()
+
+	t.Run("not activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NoError(t, err)
+		assert.NotEmpty(t, link)
+	})
+
+	t.Run("activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NotNil(t, err)
+		assert.Empty(t, link)
+	})
 }
 
 func TestGetValue(t *testing.T) {
