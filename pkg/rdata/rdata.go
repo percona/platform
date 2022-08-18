@@ -3,11 +3,6 @@ package rdata
 
 import (
 	"context"
-	"github.com/percona-platform/platform/pkg/servers"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
-	"strconv"
-
 	"github.com/pkg/errors"
 )
 
@@ -45,16 +40,6 @@ type RequestData struct {
 	// Keep for backward compatibility
 	UserEmail string
 	SessionID string
-}
-
-// AuthMetadata returns auth headers
-func (r *RequestData) AuthMetadata() metadata.MD {
-	return metadata.Pairs(
-		servers.AuthStatusHeader, strconv.Itoa(int(codes.OK)),
-		servers.AuthTokenHeader, r.AuthToken,
-		servers.AuthUsernameHeader, r.Username,
-		servers.AuthSessionHeader, r.SessionID,
-	)
 }
 
 // AddToContext adds session id and user email to request context.
