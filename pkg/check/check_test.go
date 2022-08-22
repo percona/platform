@@ -71,7 +71,7 @@ checks:
 		DisallowInvalidChecks: true,
 	}
 
-	for name, document := range map[string]string{"mono-document": monoDocument, "multi-document": multiDocument} { //nolint: paralleltest
+	for name, document := range map[string]string{"mono-document": monoDocument, "multi-document": multiDocument} {
 		name, document := name, document
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
