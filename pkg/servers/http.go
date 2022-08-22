@@ -51,6 +51,7 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 			"platform.servers.http.Server",
 			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
 		),
+		ReadHeaderTimeout: readHeaderTimeout,
 
 		// propagate ctx cancellation signals to handlers
 		BaseContext: func(net.Listener) context.Context {

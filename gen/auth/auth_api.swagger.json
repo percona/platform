@@ -321,6 +321,14 @@
         "lastName": {
           "type": "string",
           "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
         }
       }
     },
@@ -433,6 +441,14 @@
         "lastName": {
           "type": "string",
           "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
         }
       }
     },

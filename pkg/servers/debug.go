@@ -29,6 +29,8 @@ type RunDebugServerOpts struct {
 	Readyz          func() error
 }
 
+const readHeaderTimeout = 2 * time.Second
+
 // RunDebugServer runs debug server with given options until ctx is canceled.
 // All errors cause panic.
 func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:funlen, cyclop
@@ -55,13 +57,13 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		err := opts.Healthz()
 		if err != nil {
 			l.Errorf("Healthz: %+v.", err)
-			rw.WriteHeader(500)
+			rw.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprint(rw, err)
 			return
 		}
 
 		l.Debug("Healthz: ok.")
-		rw.WriteHeader(200)
+		rw.WriteHeader(http.StatusOK)
 	}
 	http.Handle("/debug/healthz", http.HandlerFunc(healthzHandler))
 
@@ -69,13 +71,13 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		err := opts.Readyz()
 		if err != nil {
 			l.Warnf("Readyz: %+v.", err)
-			rw.WriteHeader(500)
+			rw.WriteHeader(http.StatusInternalServerError)
 			fmt.Fprint(rw, err)
 			return
 		}
 
 		l.Debug("Readyz: ok.")
-		rw.WriteHeader(200)
+		rw.WriteHeader(http.StatusOK)
 	}
 	http.Handle("/debug/readyz", http.HandlerFunc(readyzHandler))
 
@@ -126,6 +128,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 			"platform.servers.debug.Server",
 			log.Ldate|log.Lmicroseconds|log.Lshortfile|log.Lmsgprefix,
 		),
+		ReadHeaderTimeout: readHeaderTimeout,
 
 		// propagate ctx cancellation signals to handlers
 		BaseContext: func(net.Listener) context.Context {

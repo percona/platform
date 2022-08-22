@@ -404,3 +404,9 @@ func (this *GetCivoKubeconfigRequest) Validate() error {
 func (this *GetCivoKubeconfigResponse) Validate() error {
 	return nil
 }
+func (this *ReactivateMemberRequest) Validate() error {
+	return nil
+}
+func (this *ReactivateMemberResponse) Validate() error {
+	return nil
+}

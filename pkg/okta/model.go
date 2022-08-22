@@ -10,6 +10,8 @@ type User struct {
 	LastName        string
 	Status          string
 	PortalAdminOrgs []string
+	Tos             bool
+	Marketing       bool
 }
 
 // UpdateUserParams parameters set to update a user.
@@ -17,6 +19,8 @@ type UpdateUserParams struct {
 	PortalAdminOrgs *[]string
 	Lastname        *string
 	Firstname       *string
+	Tos             *bool
+	Marketing       *bool
 }
 
 // RegisterUserParams parameters set to invite a user.
