@@ -7,13 +7,13 @@ const (
 	Equal FilterType = "EQUAL"
 	// NotEqual is for SQL "<>" if single value is provided, SQL "NOT IN" if array of values are provided.
 	NotEqual FilterType = "NOT_EQUAL"
-	// Greater is for SQL >
+	// Greater is for SQL >.
 	Greater FilterType = "GREATER"
-	// GreaterOrEqual is for SQL >=
+	// GreaterOrEqual is for SQL >=.
 	GreaterOrEqual FilterType = "GREATER_OR_EQUAL"
-	// Less is for SQL <
+	// Less is for SQL <.
 	Less FilterType = "LESS"
-	// LessOrEqual is for SQL <=
+	// LessOrEqual is for SQL <=.
 	LessOrEqual FilterType = "LESS_OR_EQUAL"
 )
 
