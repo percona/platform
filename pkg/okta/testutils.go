@@ -48,6 +48,17 @@ func createOktaClient(t *testing.T) *okta.Client {
 // since we need a user with a set password in our tests.
 func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *User {
 	t.Helper()
+	return createTestUser(t, email, password, firstName, lastName, true)
+}
+
+// CreateInactivatedTestUser signs up an okta user with a password but not activates them.
+func CreateInactivatedTestUser(t *testing.T, email, password, firstName, lastName string) *User {
+	t.Helper()
+	return createTestUser(t, email, password, firstName, lastName, false)
+}
+
+func createTestUser(t *testing.T, email, password, firstName, lastName string, activate bool) *User {
+	t.Helper()
 
 	u := okta.CreateUserRequest{ //nolint:exhaustivestruct
 		Profile: &okta.UserProfile{
@@ -63,7 +74,7 @@ func CreateTestUser(t *testing.T, email, password, firstName, lastName string) *
 			},
 		},
 	}
-	qp := query.NewQueryParams(query.WithActivate(true))
+	qp := query.NewQueryParams(query.WithActivate(activate))
 	testUser, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
 	require.NoError(t, err)
 

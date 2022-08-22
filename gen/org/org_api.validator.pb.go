@@ -386,3 +386,9 @@ func (this *OrganizationTicket) Validate() error {
 	}
 	return nil
 }
+func (this *ReactivateMemberRequest) Validate() error {
+	return nil
+}
+func (this *ReactivateMemberResponse) Validate() error {
+	return nil
+}

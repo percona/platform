@@ -44,6 +44,8 @@ type OrgAPIClient interface {
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// ReactivateMember reactivates an organization member that has been in Pending state.
+	ReactivateMember(ctx context.Context, in *ReactivateMemberRequest, opts ...grpc.CallOption) (*ReactivateMemberResponse, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
 	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
@@ -158,6 +160,15 @@ func (c *orgAPIClient) DeleteMember(ctx context.Context, in *DeleteMemberRequest
 	return out, nil
 }
 
+func (c *orgAPIClient) ReactivateMember(ctx context.Context, in *ReactivateMemberRequest, opts ...grpc.CallOption) (*ReactivateMemberResponse, error) {
+	out := new(ReactivateMemberResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/ReactivateMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orgAPIClient) SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error) {
 	out := new(SearchOrganizationEntitlementsResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", in, out, opts...)
@@ -236,6 +247,8 @@ type OrgAPIServer interface {
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error)
+	// ReactivateMember reactivates an organization member that has been in Pending state.
+	ReactivateMember(context.Context, *ReactivateMemberRequest) (*ReactivateMemberResponse, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
 	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
@@ -286,6 +299,9 @@ func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequ
 }
 func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
+}
+func (UnimplementedOrgAPIServer) ReactivateMember(context.Context, *ReactivateMemberRequest) (*ReactivateMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReactivateMember not implemented")
 }
 func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
@@ -498,6 +514,24 @@ func _OrgAPI_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_ReactivateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReactivateMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).ReactivateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/ReactivateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).ReactivateMember(ctx, req.(*ReactivateMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrgAPI_SearchOrganizationEntitlements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchOrganizationEntitlementsRequest)
 	if err := dec(in); err != nil {
@@ -652,6 +686,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteMember",
 			Handler:    _OrgAPI_DeleteMember_Handler,
+		},
+		{
+			MethodName: "ReactivateMember",
+			Handler:    _OrgAPI_ReactivateMember_Handler,
 		},
 		{
 			MethodName: "SearchOrganizationEntitlements",

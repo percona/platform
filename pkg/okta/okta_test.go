@@ -7,6 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/okta/okta-sdk-golang/v2/okta/query"
+
 	"github.com/okta/okta-sdk-golang/v2/okta"
 
 	"github.com/brianvoe/gofakeit/v6"
@@ -328,11 +330,17 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		u, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
+		ctx := context.Background()
+
+		u, err := s.RegisterUser(ctx, RegisterUserParams{Login: email})
 		require.NoError(t, err)
 		t.Cleanup(func() {
 			DeleteUser(t, u.ID)
 		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusProvisioned, user.Status)
 
 		require.Equal(t, u.Login, email)
 	})
@@ -355,6 +363,31 @@ func TestRegisterUser(t *testing.T) {
 
 		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
+	})
+}
+
+func TestRegisterInactiveUser(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("success", func(t *testing.T) {
+		t.Parallel()
+		email, _, _, _ := GenCredentials(t)
+		ctx := context.Background()
+
+		u, err := s.RegisterInactiveUser(ctx, RegisterUserParams{Login: email})
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			DeleteUser(t, u.ID)
+		})
+
+		user, _, err := s.c.User.GetUser(ctx, u.ID)
+		require.NoError(t, err)
+		require.Equal(t, UserStatusStaged, user.Status)
+
+		require.Equal(t, u.Login, email)
 	})
 }
 
@@ -908,6 +941,48 @@ func TestCreateMachineAuthApp(t *testing.T) {
 	require.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
 }
 
+func TestGetActivationLink(t *testing.T) {
+	t.Parallel()
+
+	t.Run("not activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NoError(t, err)
+		assert.NotEmpty(t, link)
+	})
+
+	t.Run("activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NotNil(t, err)
+		assert.Empty(t, link)
+	})
+}
+
 func TestGetValue(t *testing.T) {
 	t.Parallel()
 
@@ -948,5 +1023,92 @@ func TestGetValue(t *testing.T) {
 		valueBool, err := getValue[bool](profile, profileLogin)
 		require.EqualError(t, err, "unexpected field type")
 		require.Nil(t, valueBool)
+	})
+}
+
+func TestGetReactivationLink(t *testing.T) {
+	t.Parallel()
+
+	t.Run("error: user status ACTIVE", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+		require.Equal(t, UserStatusActive, testUser.Status)
+
+		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		assert.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
+		assert.Empty(t, link)
+	})
+
+	t.Run("success: user status PROVISIONED", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, _, _, _ := GenCredentials(t)
+
+		u := okta.CreateUserRequest{ //nolint:exhaustivestruct
+			Profile: &okta.UserProfile{
+				profileEmail: email,
+				profileLogin: email,
+			},
+		}
+		qp := query.NewQueryParams(query.WithActivate(false))
+		user, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
+		require.NoError(t, err)
+
+		t.Cleanup(func() {
+			DeleteUser(t, user.Id)
+		})
+		require.Equal(t, UserStatusStaged, user.Status)
+
+		activationLink, err := s.GetActivationLink(ctx, user.Id)
+		require.NoError(t, err)
+		require.NotEmpty(t, activationLink)
+
+		updatedUser, _, err := s.c.User.GetUser(ctx, user.Id)
+		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
+		require.NoError(t, err)
+
+		link, err := s.GetReactivationLink(ctx, user.Id)
+		require.Nil(t, err)
+		require.NotEmpty(t, link)
+
+		user, _, err = s.c.User.GetUser(ctx, user.Id)
+		require.Equal(t, UserStatusProvisioned, user.Status)
+		require.NoError(t, err)
+	})
+
+	t.Run("error: user status STAGED", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		require.Equal(t, UserStatusStaged, testUser.Status)
+
+		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
+		require.Empty(t, link)
 	})
 }
