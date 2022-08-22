@@ -2,19 +2,20 @@ package fsp
 
 import sq "github.com/Masterminds/squirrel"
 
-//revive:disable
 const (
 	// Equal is for SQL "=" if single value is provided, SQL "IN" if array of values are provided.
 	Equal FilterType = "EQUAL"
 	// NotEqual is for SQL "<>" if single value is provided, SQL "NOT IN" if array of values are provided.
-	NotEqual       FilterType = "NOT_EQUAL"
-	Greater        FilterType = "GREATER"
+	NotEqual FilterType = "NOT_EQUAL"
+	// Greater is for SQL >
+	Greater FilterType = "GREATER"
+	// GreaterOrEqual is for SQL >=
 	GreaterOrEqual FilterType = "GREATER_OR_EQUAL"
-	Less           FilterType = "LESS"
-	LessOrEqual    FilterType = "LESS_OR_EQUAL"
+	// Less is for SQL <
+	Less FilterType = "LESS"
+	// LessOrEqual is for SQL <=
+	LessOrEqual FilterType = "LESS_OR_EQUAL"
 )
-
-//revive:enable
 
 //nolint:gochecknoglobals
 var (
