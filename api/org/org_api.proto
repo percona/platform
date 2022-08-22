@@ -431,7 +431,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"cluster_id": "eed64cd9-2f9e-78ac-247a-d98ad1f95e87"}'
+            value: '{}'
           }
         };
       };
@@ -893,9 +893,7 @@ message OrganizationTicket {
 
 message CreateCivoClusterRequest {}
 
-message CreateCivoClusterResponse {
-  string cluster_id = 1;
-}
+message CreateCivoClusterResponse {}
 
 // we only provide one cluster per user.
 message GetCivoClusterStatusRequest {}

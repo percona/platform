@@ -60,9 +60,7 @@
               "$ref": "#/definitions/v1CreateCivoClusterResponse"
             },
             "examples": {
-              "application/json": {
-                "cluster_id": "eed64cd9-2f9e-78ac-247a-d98ad1f95e87"
-              }
+              "application/json": {}
             }
           },
           "default": {
@@ -257,6 +255,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
+              "type": "object",
               "properties": {}
             }
           },
@@ -582,6 +581,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
+              "type": "object",
               "properties": {}
             }
           },
@@ -1124,12 +1124,7 @@
       }
     },
     "v1CreateCivoClusterResponse": {
-      "type": "object",
-      "properties": {
-        "clusterId": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "v1CreateOrganizationRequest": {
       "type": "object",
