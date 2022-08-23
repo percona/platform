@@ -24,14 +24,21 @@ func NewPageTotals(apiModel *api.FilteringSortingPagination, totalItems uint32) 
 // NewFSP is a primary constructor of FilteringSortingPagination struct that is used by storage layer.
 func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.FilteringSortingPagination, error) {
 	var err error
-	out := &fsp.FilteringSortingPagination{
-		Filters:          newFilters(apiModel.GetFilters()),
-		PaginationParams: newPageParams(apiModel.GetPageParams()),
+	out := new(fsp.FilteringSortingPagination)
+
+	if apiModel.GetFilters() != nil {
+		out.Filters = newFilters(apiModel.GetFilters())
 	}
 
-	out.SortingParams, err = newSortingParams(apiModel.GetSortingParams(), cfg.AllowedSortingColumns)
-	if err != nil {
-		return nil, err
+	if apiModel.GetPageParams() != nil {
+		out.PaginationParams = newPageParams(apiModel.GetPageParams())
+	}
+
+	if apiModel.GetSortingParams() != nil {
+		out.SortingParams, err = newSortingParams(apiModel.GetSortingParams(), cfg.AllowedSortingColumns)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return out, nil
