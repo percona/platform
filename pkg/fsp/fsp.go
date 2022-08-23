@@ -16,7 +16,7 @@ type Config struct {
 
 // FilteringSortingPagination is an object that is expected on any API that returns list of items from postgres.
 // This struct applies where/order by/limit&offset clauses to SQL queries.
-// Constructing of this struct is done from gRPC model, see fspconv.NewFSP
+// Constructing of this struct is done from gRPC model, see fspconv.NewFSP.
 type FilteringSortingPagination struct {
 	Filters          []Filter
 	SortingParams    *SortingParams
