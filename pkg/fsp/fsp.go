@@ -9,10 +9,14 @@ type Config struct {
 	// AllowedSortingColumns must be provided to enable sorting. Only columns from this map keys
 	// will be allowed for sorting of query results.
 	AllowedSortingColumns map[string]struct{}
+
+	// MaxLimit if set will enforce this value as a maximum limit for getting results from database.
+	MaxLimit uint32
 }
 
 // FilteringSortingPagination is an object that is expected on any API that returns list of items from postgres.
 // This struct applies where/order by/limit&offset clauses to SQL queries.
+// Constructing of this struct is done from gRPC model, see fspconv.NewFSP
 type FilteringSortingPagination struct {
 	Filters          []Filter
 	SortingParams    *SortingParams

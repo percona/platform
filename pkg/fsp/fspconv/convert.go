@@ -22,6 +22,7 @@ func NewPageTotals(apiModel *api.FilteringSortingPagination, totalItems uint32) 
 }
 
 // NewFSP is a primary constructor of FilteringSortingPagination struct that is used by storage layer.
+// cfg must not be nil
 func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.FilteringSortingPagination, error) {
 	var err error
 	out := new(fsp.FilteringSortingPagination)
@@ -31,7 +32,9 @@ func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.Fil
 	}
 
 	if apiModel.GetPageParams() != nil {
-		out.PaginationParams = newPageParams(apiModel.GetPageParams())
+		out.PaginationParams = newPageParamsWithMaxLimit(apiModel.GetPageParams(), cfg.MaxLimit)
+	} else if cfg.MaxLimit != 0 {
+		out.PaginationParams = newDefaultPageParams(cfg.MaxLimit)
 	}
 
 	if apiModel.GetSortingParams() != nil {
@@ -46,6 +49,18 @@ func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.Fil
 
 func newPageParams(apiModel *api.PageParams) *fsp.PaginationParams {
 	return fsp.NewPaginationParams(apiModel.GetPageSize(), apiModel.GetIndex())
+}
+
+func newDefaultPageParams(maxLimit uint32) *fsp.PaginationParams {
+	return fsp.NewPaginationParams(maxLimit, 0)
+}
+
+func newPageParamsWithMaxLimit(apiModel *api.PageParams, maxLimit uint32) *fsp.PaginationParams {
+	limit := apiModel.GetPageSize()
+	if limit > maxLimit {
+		limit = maxLimit
+	}
+	return fsp.NewPaginationParams(limit, apiModel.GetIndex())
 }
 
 func newSortingParams(apiModel *api.SortingParams, allowedColumns map[string]struct{}) (*fsp.SortingParams, error) {
