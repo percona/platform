@@ -76,7 +76,7 @@ const (
 
 var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
 
-// AuthMetadata returns auth headers
+// AuthMetadata returns auth headers.
 func AuthMetadata(r *rdata.RequestData) metadata.MD {
 	return metadata.Pairs(
 		AuthStatusHeader, strconv.Itoa(int(codes.OK)),
