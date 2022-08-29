@@ -5,6 +5,7 @@ go 1.18
 // some dependecies should be synced with Dockerfile
 
 require (
+	github.com/Masterminds/squirrel v1.5.3
 	github.com/aws/aws-sdk-go v1.44.82
 	github.com/brianvoe/gofakeit/v6 v6.18.0
 	github.com/golang/protobuf v1.5.2
@@ -31,8 +32,6 @@ require (
 	gopkg.in/reform.v1 v1.5.1
 	gopkg.in/yaml.v3 v3.0.1
 )
-
-require github.com/Masterminds/squirrel v1.5.3
 
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect

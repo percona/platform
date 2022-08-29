@@ -16,40 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/v1/events": {
-      "post": {
-        "summary": "CreateAuditEvent submits audit event to server.",
-        "operationId": "EventAPI_CreateAuditEvent",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateAuditEventResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "CreateAuditEventRequest to be used to store event in persistent storage.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateAuditEventRequest"
-            }
-          }
-        ],
-        "tags": [
-          "EventAPI"
-        ]
-      }
-    },
     "/v1/events:search": {
       "post": {
         "summary": "ListAuditEvents returns the list of audit events using filters.",
@@ -347,15 +313,6 @@
         }
       },
       "description": "AuditObject represents object with it's attributes that is affected by user action."
-    },
-    "v1CreateAuditEventRequest": {
-      "type": "object",
-      "properties": {
-        "event": {
-          "$ref": "#/definitions/v1AuditEvent"
-        }
-      },
-      "description": "CreateAuditEventRequest to be used to store event in persistent storage."
     },
     "v1CreateAuditEventResponse": {
       "type": "object"

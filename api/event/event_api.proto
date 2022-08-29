@@ -85,10 +85,6 @@ message AuditEvent {
 service EventAPI {
   // CreateAuditEvent submits audit event to server.
   rpc CreateAuditEvent(CreateAuditEventRequest) returns (CreateAuditEventResponse) {
-    option (google.api.http) = {
-      post: "/v1/events"
-      body: "*"
-    };
   }
 
   // ListAuditEvents returns the list of audit events using filters.

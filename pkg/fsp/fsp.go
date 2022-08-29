@@ -8,6 +8,7 @@ import sq "github.com/Masterminds/squirrel"
 type Config struct {
 	// AllowedSortingColumns must be provided to enable sorting. Only columns from this map keys
 	// will be allowed for sorting of query results.
+	// If nil provided - any columns can be used for sorting.
 	AllowedSortingColumns map[string]struct{}
 
 	// MaxLimit if set will enforce this value as a maximum limit for getting results from database.
