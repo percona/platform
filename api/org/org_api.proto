@@ -923,8 +923,15 @@ message CreateCivoClusterResponse {}
 message GetCivoClusterStatusRequest {}
 
 message GetCivoClusterStatusResponse {
+  // ID of the Civo cluster.
   string cluster_id = 1;
+  // Current status of the cluster.
   string status = 2;
+  // Timestamp at which the cluster was created.
+  google.protobuf.Timestamp created_at = 3;
+  // Timestamp at which the user can create another cluster.
+  // This value is created_at + 24 hours.
+  google.protobuf.Timestamp daily_limit_ends_at = 4;
 }
 
 message GetCivoKubeconfigRequest {
