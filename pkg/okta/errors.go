@@ -7,13 +7,21 @@ import (
 )
 
 var (
-	ErrEmptyLogin                = &AuthError{msg: "login is empty"} //nolint:revive
-	ErrEmptyFirstName            = &AuthError{msg: "firstName is empty"}
-	ErrEmptyLastName             = &AuthError{msg: "lastName is empty"}
-	ErrEmptyPassword             = &AuthError{msg: "password is empty"}
-	ErrAuthentication            = &AuthError{msg: "authentication error"}
-	ErrNotFound                  = &AuthError{msg: "not found"}
-	ErrInvalidPortalAdminOrgs    = &AuthError{msg: "portalAdminOrgs contains invalid uuid"}
+	// ErrEmptyLogin appears when the login is empty.
+	ErrEmptyLogin = &AuthError{msg: "login is empty"}
+	// ErrEmptyFirstName appears when the firstName is empty.
+	ErrEmptyFirstName = &AuthError{msg: "firstName is empty"}
+	// ErrEmptyLastName appears when the lastName is empty.
+	ErrEmptyLastName = &AuthError{msg: "lastName is empty"}
+	// ErrEmptyPassword appears when the password is empty.
+	ErrEmptyPassword = &AuthError{msg: "password is empty"}
+	// ErrAuthentication appears when there is an authentication error.
+	ErrAuthentication = &AuthError{msg: "authentication error"}
+	// ErrNotFound appears when the object is not found.
+	ErrNotFound = &AuthError{msg: "not found"}
+	// ErrInvalidPortalAdminOrgs appears when the portalAdminOrgs contains invalid values.
+	ErrInvalidPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains invalid uuid"}
+	// ErrDuplicatedPortalAdminOrgs appears when the portalAdminOrgs contains duplicated values.
 	ErrDuplicatedPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains duplicated values"}
 )
 
