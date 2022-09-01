@@ -44,6 +44,8 @@ type OrgAPIClient interface {
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(ctx context.Context, in *DeleteMemberRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// ReactivateMember reactivates an organization member that has been in Pending state.
+	ReactivateMember(ctx context.Context, in *ReactivateMemberRequest, opts ...grpc.CallOption) (*ReactivateMemberResponse, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
 	SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
@@ -58,6 +60,9 @@ type OrgAPIClient interface {
 	DisconnectPMM(ctx context.Context, in *DisconnectPMMRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(ctx context.Context, in *SearchInventoryRequest, opts ...grpc.CallOption) (*SearchInventoryResponse, error)
+	CreateCivoCluster(ctx context.Context, in *CreateCivoClusterRequest, opts ...grpc.CallOption) (*CreateCivoClusterResponse, error)
+	GetCivoClusterStatus(ctx context.Context, in *GetCivoClusterStatusRequest, opts ...grpc.CallOption) (*GetCivoClusterStatusResponse, error)
+	GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error)
 }
 
 type orgAPIClient struct {
@@ -158,6 +163,15 @@ func (c *orgAPIClient) DeleteMember(ctx context.Context, in *DeleteMemberRequest
 	return out, nil
 }
 
+func (c *orgAPIClient) ReactivateMember(ctx context.Context, in *ReactivateMemberRequest, opts ...grpc.CallOption) (*ReactivateMemberResponse, error) {
+	out := new(ReactivateMemberResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/ReactivateMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orgAPIClient) SearchOrganizationEntitlements(ctx context.Context, in *SearchOrganizationEntitlementsRequest, opts ...grpc.CallOption) (*SearchOrganizationEntitlementsResponse, error) {
 	out := new(SearchOrganizationEntitlementsResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", in, out, opts...)
@@ -212,6 +226,33 @@ func (c *orgAPIClient) SearchInventory(ctx context.Context, in *SearchInventoryR
 	return out, nil
 }
 
+func (c *orgAPIClient) CreateCivoCluster(ctx context.Context, in *CreateCivoClusterRequest, opts ...grpc.CallOption) (*CreateCivoClusterResponse, error) {
+	out := new(CreateCivoClusterResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/CreateCivoCluster", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orgAPIClient) GetCivoClusterStatus(ctx context.Context, in *GetCivoClusterStatusRequest, opts ...grpc.CallOption) (*GetCivoClusterStatusResponse, error) {
+	out := new(GetCivoClusterStatusResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orgAPIClient) GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error) {
+	out := new(GetCivoKubeconfigResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrgAPIServer is the server API for OrgAPI service.
 // All implementations must embed UnimplementedOrgAPIServer
 // for forward compatibility
@@ -236,6 +277,8 @@ type OrgAPIServer interface {
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
 	// DeleteMember deletes a Percona Portal Organization Member with the given ID.
 	DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error)
+	// ReactivateMember reactivates an organization member that has been in Pending state.
+	ReactivateMember(context.Context, *ReactivateMemberRequest) (*ReactivateMemberResponse, error)
 	// SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
 	SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error)
 	// SearchOrganizationTickets fetches details of organization's tickets for the given organization ID.
@@ -250,6 +293,9 @@ type OrgAPIServer interface {
 	DisconnectPMM(context.Context, *DisconnectPMMRequest) (*emptypb.Empty, error)
 	// SearchInventory returns the inventory list of the given organization
 	SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error)
+	CreateCivoCluster(context.Context, *CreateCivoClusterRequest) (*CreateCivoClusterResponse, error)
+	GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error)
+	GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -287,6 +333,9 @@ func (UnimplementedOrgAPIServer) UpdateMember(context.Context, *UpdateMemberRequ
 func (UnimplementedOrgAPIServer) DeleteMember(context.Context, *DeleteMemberRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMember not implemented")
 }
+func (UnimplementedOrgAPIServer) ReactivateMember(context.Context, *ReactivateMemberRequest) (*ReactivateMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReactivateMember not implemented")
+}
 func (UnimplementedOrgAPIServer) SearchOrganizationEntitlements(context.Context, *SearchOrganizationEntitlementsRequest) (*SearchOrganizationEntitlementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganizationEntitlements not implemented")
 }
@@ -304,6 +353,15 @@ func (UnimplementedOrgAPIServer) DisconnectPMM(context.Context, *DisconnectPMMRe
 }
 func (UnimplementedOrgAPIServer) SearchInventory(context.Context, *SearchInventoryRequest) (*SearchInventoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchInventory not implemented")
+}
+func (UnimplementedOrgAPIServer) CreateCivoCluster(context.Context, *CreateCivoClusterRequest) (*CreateCivoClusterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCivoCluster not implemented")
+}
+func (UnimplementedOrgAPIServer) GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCivoClusterStatus not implemented")
+}
+func (UnimplementedOrgAPIServer) GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCivoKubeconfig not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -498,6 +556,24 @@ func _OrgAPI_DeleteMember_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_ReactivateMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReactivateMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).ReactivateMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/ReactivateMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).ReactivateMember(ctx, req.(*ReactivateMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrgAPI_SearchOrganizationEntitlements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchOrganizationEntitlementsRequest)
 	if err := dec(in); err != nil {
@@ -606,6 +682,60 @@ func _OrgAPI_SearchInventory_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_CreateCivoCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCivoClusterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).CreateCivoCluster(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/CreateCivoCluster",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).CreateCivoCluster(ctx, req.(*CreateCivoClusterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrgAPI_GetCivoClusterStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCivoClusterStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).GetCivoClusterStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).GetCivoClusterStatus(ctx, req.(*GetCivoClusterStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrgAPI_GetCivoKubeconfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCivoKubeconfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).GetCivoKubeconfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).GetCivoKubeconfig(ctx, req.(*GetCivoKubeconfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrgAPI_ServiceDesc is the grpc.ServiceDesc for OrgAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -654,6 +784,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrgAPI_DeleteMember_Handler,
 		},
 		{
+			MethodName: "ReactivateMember",
+			Handler:    _OrgAPI_ReactivateMember_Handler,
+		},
+		{
 			MethodName: "SearchOrganizationEntitlements",
 			Handler:    _OrgAPI_SearchOrganizationEntitlements_Handler,
 		},
@@ -676,6 +810,18 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchInventory",
 			Handler:    _OrgAPI_SearchInventory_Handler,
+		},
+		{
+			MethodName: "CreateCivoCluster",
+			Handler:    _OrgAPI_CreateCivoCluster_Handler,
+		},
+		{
+			MethodName: "GetCivoClusterStatus",
+			Handler:    _OrgAPI_GetCivoClusterStatus_Handler,
+		},
+		{
+			MethodName: "GetCivoKubeconfig",
+			Handler:    _OrgAPI_GetCivoKubeconfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

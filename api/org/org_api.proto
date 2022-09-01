@@ -277,6 +277,29 @@ service OrgAPI {
     };
   }
 
+  // ReactivateMember reactivates an organization member that has been in Pending state.
+  rpc ReactivateMember(ReactivateMemberRequest) returns (ReactivateMemberResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/{org_id}/members/{member_id}:reactivate"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Reactivates an organization member that has been in Pending state";
+      summary: "ReactivateMember";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
   // SearchOrganizationEntitlements fetches details of organization's entitlements for the given organization ID.
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {
@@ -410,6 +433,72 @@ service OrgAPI {
           examples: {
             key: "application/json"
             value: '{"inventory": [{"pmm_server_id":"ded64cd9-2f9e-78ac-247a-d98ad1f95e85","pmm_server_name":"Small Rubber Shoes","pmm_server_url":"https://laverna.biz"}]}'
+          }
+        };
+      };
+    };
+  }
+
+  rpc CreateCivoCluster(CreateCivoClusterRequest) returns (CreateCivoClusterResponse) {
+    option (google.api.http) = {
+      post: "/v1/dbaas/cluster/civo"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Creates a kubernetes cluster on Civo that can be used to run DBaaS.";
+      summary: "Create kubernetes cluster";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
+  rpc GetCivoClusterStatus(GetCivoClusterStatusRequest) returns (GetCivoClusterStatusResponse) {
+    option (google.api.http) = {
+      get: "/v1/dbaas/cluster/civo"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the status and ID of the CIVO cluster created by the current logged in user.";
+      summary: "Get cluster status";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f", "status": "ACTIVE"}'
+          }
+        };
+      };
+    };
+  }
+
+  rpc GetCivoKubeconfig(GetCivoKubeconfigRequest) returns (GetCivoKubeconfigResponse) {
+    option (google.api.http) = {
+      get: "/v1/dbaas/cluster/civo/{cluster_id}/config"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
+      summary: "Get cluster kubeconfig";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"kubeconfig": ""}'
           }
         };
       };
@@ -824,3 +913,33 @@ message OrganizationTicket {
   // Ticket URL.
   string url = 9;
 }
+
+
+message CreateCivoClusterRequest {}
+
+message CreateCivoClusterResponse {}
+
+// we only provide one cluster per user.
+message GetCivoClusterStatusRequest {}
+
+message GetCivoClusterStatusResponse {
+  string cluster_id = 1;
+  string status = 2;
+}
+
+message GetCivoKubeconfigRequest {
+  string cluster_id = 1;
+}
+
+message GetCivoKubeconfigResponse {
+  string kubeconfig = 1;
+}
+
+message ReactivateMemberRequest {
+  // Organization ID.
+  string org_id = 1;
+  // ID of the member to be reactivated.
+  string member_id = 2;
+}
+
+message ReactivateMemberResponse {}
