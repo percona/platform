@@ -7,8 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
+
+	"github.com/okta/okta-sdk-golang/v2/okta"
 
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/google/uuid"
@@ -940,6 +941,48 @@ func TestCreateMachineAuthApp(t *testing.T) {
 	require.NotEmpty(t, app.Credentials.OAuthClient.ClientSecret)
 }
 
+func TestGetActivationLink(t *testing.T) {
+	t.Parallel()
+
+	t.Run("not activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NoError(t, err)
+		assert.NotEmpty(t, link)
+	})
+
+	t.Run("activated user", func(t *testing.T) {
+		t.Parallel()
+
+		s, err := createOktaService(t)
+		require.NoError(t, err)
+
+		ctx := context.Background()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		testUser := CreateTestUser(t, email, password, firstName, lastName)
+		t.Cleanup(func() {
+			DeleteUser(t, testUser.ID)
+		})
+
+		link, err := s.GetActivationLink(ctx, testUser.ID)
+		assert.NotNil(t, err)
+		assert.Empty(t, link)
+	})
+}
+
 func TestGetValue(t *testing.T) {
 	t.Parallel()
 
@@ -980,48 +1023,6 @@ func TestGetValue(t *testing.T) {
 		valueBool, err := getValue[bool](profile, profileLogin)
 		require.EqualError(t, err, "unexpected field type")
 		require.Nil(t, valueBool)
-	})
-}
-
-func TestGetActivationLink(t *testing.T) {
-	t.Parallel()
-
-	t.Run("not activated user", func(t *testing.T) {
-		t.Parallel()
-
-		s, err := createOktaService(t)
-		require.NoError(t, err)
-
-		ctx := context.Background()
-
-		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
-		t.Cleanup(func() {
-			DeleteUser(t, testUser.ID)
-		})
-
-		link, err := s.GetActivationLink(ctx, testUser.ID)
-		assert.NoError(t, err)
-		assert.NotEmpty(t, link)
-	})
-
-	t.Run("activated user", func(t *testing.T) {
-		t.Parallel()
-
-		s, err := createOktaService(t)
-		require.NoError(t, err)
-
-		ctx := context.Background()
-
-		email, password, firstName, lastName := GenCredentials(t)
-		testUser := CreateTestUser(t, email, password, firstName, lastName)
-		t.Cleanup(func() {
-			DeleteUser(t, testUser.ID)
-		})
-
-		link, err := s.GetActivationLink(ctx, testUser.ID)
-		assert.NotNil(t, err)
-		assert.Empty(t, link)
 	})
 }
 

@@ -914,6 +914,7 @@ message OrganizationTicket {
   string url = 9;
 }
 
+
 message CreateCivoClusterRequest {}
 
 message CreateCivoClusterResponse {}
@@ -933,6 +934,7 @@ message GetCivoKubeconfigRequest {
 message GetCivoKubeconfigResponse {
   string kubeconfig = 1;
 }
+
 message ReactivateMemberRequest {
   // Organization ID.
   string org_id = 1;
