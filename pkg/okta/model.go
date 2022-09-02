@@ -21,6 +21,7 @@ type UpdateUserParams struct {
 	Firstname       *string
 	Tos             *bool
 	Marketing       *bool
+	Password        *string
 }
 
 // RegisterUserParams parameters set to invite a user.

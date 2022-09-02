@@ -202,6 +202,12 @@ func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUse
 	newProfile := updatedProfile(*userToUpdate.Profile, params)
 	userToUpdate.Profile = &newProfile
 
+	if params.Password != nil {
+		userToUpdate.Credentials.Password = &okta.PasswordCredential{
+			Value: *params.Password,
+		}
+	}
+
 	// update user
 	updatedUser, _, err := c.c.User.UpdateUser(ctx, userID, *userToUpdate, nil)
 	if err != nil {
