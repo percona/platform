@@ -15,6 +15,8 @@ var (
 	ErrEmptyLastName = &AuthError{msg: "lastName is empty"}
 	// ErrEmptyPassword appears when the password is empty.
 	ErrEmptyPassword = &AuthError{msg: "password is empty"}
+	// ErrEmptyToken appears when the password is empty.
+	ErrEmptyToken = &AuthError{msg: "token is empty"}
 	// ErrAuthentication appears when there is an authentication error.
 	ErrAuthentication = &AuthError{msg: "authentication error"}
 	// ErrNotFound appears when the object is not found.

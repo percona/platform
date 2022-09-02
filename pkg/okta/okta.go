@@ -237,28 +237,64 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 		Password: password,
 	}
 
-	resp := struct {
-		ExpiresAt    string `json:"expiresAt"`
-		Status       string `json:"status"`
-		SessionToken string `json:"sessionToken"`
-		Embedded     struct {
-			User struct {
-				ID string `json:"id"`
-			} `json:"user"`
-		} `json:"_embedded"` //nolint:tagliatelle
-	}{}
+	info, err := c.authenticate(ctx, data)
+	if err != nil {
+		return "", "", err
+	}
+
+	return info.Embedded.User.ID, info.SessionToken, nil
+}
+
+// SignInByToken signs in using the activation token.
+func (c *Client) SignInByToken(ctx context.Context, token string) (*AuthenticatedInfo, error) {
+	l := extractLogger(ctx)
+	l.Info("SignIn using activation token.")
+
+	if token == "" {
+		return nil, ErrEmptyToken
+	}
+
+	data := struct {
+		Token string `json:"token"`
+	}{
+		Token: token,
+	}
+
+	return c.authenticate(ctx, data)
+}
+
+// AuthenticatedInfo the object that received from the okta's "api/v1/authn" endpoint.
+type AuthenticatedInfo struct {
+	ExpiresAt    string `json:"expiresAt"`
+	Status       string `json:"status"`
+	SessionToken string `json:"sessionToken"`
+	Embedded     struct {
+		User struct {
+			ID      string `json:"id"`
+			Profile struct {
+				FirstName string `json:"firstName"`
+				LastName  string `json:"lastName"`
+				Tos       *bool  `json:"tos"`
+				Marketing *bool  `json:"marketing"`
+			} `json:"profile"`
+		} `json:"user"`
+	} `json:"_embedded"` //nolint:tagliatelle
+}
+
+func (c *Client) authenticate(ctx context.Context, data interface{}) (*AuthenticatedInfo, error) {
+	resp := AuthenticatedInfo{}
 
 	err := c.DoRequest(ctx, "POST", "/api/v1/authn", data, &resp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
-			return "", "", convertOktaError(oErr)
+			return nil, convertOktaError(oErr)
 		}
 
-		return "", "", errors.Wrap(err, "failed to authenticate user")
+		return nil, errors.Wrap(err, "failed to authenticate user")
 	}
 
-	return resp.Embedded.User.ID, resp.SessionToken, nil
+	return &resp, nil
 }
 
 // SuspendUser set user status in Okta to SUSPENDED.
