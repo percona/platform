@@ -5,6 +5,7 @@ go 1.18
 // some dependecies should be synced with Dockerfile
 
 require (
+	github.com/Masterminds/squirrel v1.5.3
 	github.com/aws/aws-sdk-go v1.44.89
 	github.com/brianvoe/gofakeit/v6 v6.18.0
 	github.com/golang/protobuf v1.5.2
@@ -43,6 +44,8 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0 // indirect
+	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
+	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/patrickmn/go-cache v0.0.0-20180815053127-5633e0862627 // indirect
