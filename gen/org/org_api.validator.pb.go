@@ -397,6 +397,16 @@ func (this *GetCivoClusterStatusRequest) Validate() error {
 	return nil
 }
 func (this *GetCivoClusterStatusResponse) Validate() error {
+	if this.CreatedAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreatedAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreatedAt", err)
+		}
+	}
+	if this.DailyLimitEndsAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.DailyLimitEndsAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("DailyLimitEndsAt", err)
+		}
+	}
 	return nil
 }
 func (this *GetCivoKubeconfigRequest) Validate() error {
