@@ -958,9 +958,9 @@ func TestGetActivationLink(t *testing.T) {
 			DeleteUser(t, testUser.ID)
 		})
 
-		link, err := s.GetActivationLink(ctx, testUser.ID)
+		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		assert.NoError(t, err)
-		assert.NotEmpty(t, link)
+		assert.NotEmpty(t, info)
 	})
 
 	t.Run("activated user", func(t *testing.T) {
@@ -977,9 +977,9 @@ func TestGetActivationLink(t *testing.T) {
 			DeleteUser(t, testUser.ID)
 		})
 
-		link, err := s.GetActivationLink(ctx, testUser.ID)
+		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		assert.NotNil(t, err)
-		assert.Empty(t, link)
+		assert.Empty(t, info)
 	})
 }
 
@@ -1074,9 +1074,9 @@ func TestGetReactivationLink(t *testing.T) {
 		})
 		require.Equal(t, UserStatusStaged, user.Status)
 
-		activationLink, err := s.GetActivationLink(ctx, user.Id)
+		activationInfo, err := s.GetActivationInfo(ctx, user.Id)
 		require.NoError(t, err)
-		require.NotEmpty(t, activationLink)
+		require.NotEmpty(t, activationInfo)
 
 		updatedUser, _, err := s.c.User.GetUser(ctx, user.Id)
 		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
