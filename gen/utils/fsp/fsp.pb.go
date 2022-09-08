@@ -31,11 +31,15 @@ const (
 	FilterType_EQUAL FilterType = 0
 	// In case single value is provided, NOT EQUAL will trigger "<>" SQL behaviour.
 	// If array of values provided, EQUAL will trigger "NOT IN" SQL behaviour.
-	FilterType_NOT_EQUAL        FilterType = 1
-	FilterType_GREATER          FilterType = 2
+	FilterType_NOT_EQUAL FilterType = 1
+	// GREATER is mapped to SQL '>'.
+	FilterType_GREATER FilterType = 2
+	// GREATER_OR_EQUAL is mapped to SQL '>='.
 	FilterType_GREATER_OR_EQUAL FilterType = 3
-	FilterType_LESS             FilterType = 4
-	FilterType_LESS_OR_EQUAL    FilterType = 5
+	// LESS is mapped to SQL '<'.
+	FilterType_LESS FilterType = 4
+	// LESS_OR_EQUAL is mapped to SQL '<='.
+	FilterType_LESS_OR_EQUAL FilterType = 5
 )
 
 // Enum value maps for FilterType.
