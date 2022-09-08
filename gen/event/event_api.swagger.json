@@ -90,7 +90,7 @@
         "LESS_OR_EQUAL"
       ],
       "default": "EQUAL",
-      "description": "FilterType represents type of filter that will be applied to SQL query.\n\n - EQUAL: In case single value is provided, EQUAL will trigger \"=\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"IN\" SQL behaviour.\n - NOT_EQUAL: In case single value is provided, NOT EQUAL will trigger \"\u003c\u003e\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"NOT IN\" SQL behaviour."
+      "description": "FilterType represents type of filter that will be applied to SQL query.\n\n - EQUAL: In case single value is provided, EQUAL will trigger \"=\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"IN\" SQL behaviour.\n - NOT_EQUAL: In case single value is provided, NOT EQUAL will trigger \"\u003c\u003e\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"NOT IN\" SQL behaviour.\n - GREATER: GREATER is mapped to SQL '\u003e'.\n - GREATER_OR_EQUAL: GREATER_OR_EQUAL is mapped to SQL '\u003e='.\n - LESS: LESS is mapped to SQL '\u003c'.\n - LESS_OR_EQUAL: LESS_OR_EQUAL is mapped to SQL '\u003c='."
     },
     "fspFilteringSortingPagination": {
       "type": "object",
