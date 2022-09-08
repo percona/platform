@@ -76,6 +76,16 @@ const (
 
 var errAuthenticationFail = status.Error(codes.Unauthenticated, "Authentication fail.")
 
+// AuthMetadata returns auth headers.
+func AuthMetadata(r *rdata.RequestData) metadata.MD {
+	return metadata.Pairs(
+		AuthStatusHeader, strconv.Itoa(int(codes.OK)),
+		AuthTokenHeader, r.AuthToken,
+		AuthUsernameHeader, r.Username,
+		AuthSessionHeader, r.SessionID,
+	)
+}
+
 // PerconaHeaderMatcher preserves the Auth-* headers added by /forwardauth in Authed service
 // after the HTTP request is received by grpc-gateway and are forwarded as-is
 // to the grpc server.
