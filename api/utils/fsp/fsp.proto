@@ -14,9 +14,13 @@ enum FilterType {
   // In case single value is provided, NOT EQUAL will trigger "<>" SQL behaviour.
   // If array of values provided, EQUAL will trigger "NOT IN" SQL behaviour.
   NOT_EQUAL = 1;
+  // GREATER is mapped to SQL '>'.
   GREATER = 2;
+  // GREATER_OR_EQUAL is mapped to SQL '>='.
   GREATER_OR_EQUAL = 3;
+  // LESS is mapped to SQL '<'.
   LESS = 4;
+  // LESS_OR_EQUAL is mapped to SQL '<='.
   LESS_OR_EQUAL = 5;
 }
 
