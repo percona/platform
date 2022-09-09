@@ -1069,7 +1069,7 @@ func TestGetValue(t *testing.T) {
 	})
 }
 
-func TestGetReactivationLink(t *testing.T) {
+func TestGetReactivationInfo(t *testing.T) {
 	t.Parallel()
 
 	t.Run("error: user status ACTIVE", func(t *testing.T) {
@@ -1087,7 +1087,7 @@ func TestGetReactivationLink(t *testing.T) {
 		})
 		require.Equal(t, UserStatusActive, testUser.Status)
 
-		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		link, err := s.GetReactivationInfo(ctx, testUser.ID)
 		assert.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
 		assert.Empty(t, link)
 	})
@@ -1125,7 +1125,7 @@ func TestGetReactivationLink(t *testing.T) {
 		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
 		require.NoError(t, err)
 
-		link, err := s.GetReactivationLink(ctx, user.Id)
+		link, err := s.GetReactivationInfo(ctx, user.Id)
 		require.Nil(t, err)
 		require.NotEmpty(t, link)
 
@@ -1150,7 +1150,7 @@ func TestGetReactivationLink(t *testing.T) {
 
 		require.Equal(t, UserStatusStaged, testUser.Status)
 
-		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		link, err := s.GetReactivationInfo(ctx, testUser.ID)
 		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
 		require.Empty(t, link)
 	})
