@@ -91,3 +91,29 @@ func (this *UpdateProfileRequest) Validate() error {
 func (this *UpdateProfileResponse) Validate() error {
 	return nil
 }
+func (this *ActivateProfileRequest) Validate() error {
+	if this.Profile != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Profile); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Profile", err)
+		}
+	}
+	if this.Token == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Token", fmt.Errorf(`value '%v' must not be an empty string`, this.Token))
+	}
+	if this.Password == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Password", fmt.Errorf(`value '%v' must not be an empty string`, this.Password))
+	}
+	return nil
+}
+func (this *ActivateProfileRequest_Profile) Validate() error {
+	if this.FirstName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("FirstName", fmt.Errorf(`value '%v' must not be an empty string`, this.FirstName))
+	}
+	if this.LastName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("LastName", fmt.Errorf(`value '%v' must not be an empty string`, this.LastName))
+	}
+	return nil
+}
+func (this *ActivateProfileResponse) Validate() error {
+	return nil
+}

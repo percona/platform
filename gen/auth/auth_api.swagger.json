@@ -16,6 +16,43 @@
     "application/json"
   ],
   "paths": {
+    "/v1/auth/ActivateProfile": {
+      "post": {
+        "summary": "UpdateProfile",
+        "description": "ActivateProfile activates user account.",
+        "operationId": "AuthAPI_ActivateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/auth/GetProfile": {
       "post": {
         "summary": "GetProfile",
@@ -277,6 +314,27 @@
     }
   },
   "definitions": {
+    "ActivateProfileRequestProfile": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -303,6 +361,23 @@
           }
         }
       }
+    },
+    "v1ActivateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/ActivateProfileRequestProfile"
+        },
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ActivateProfileResponse": {
+      "type": "object"
     },
     "v1GetProfileRequest": {
       "type": "object"
