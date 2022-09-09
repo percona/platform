@@ -18,7 +18,7 @@
   "paths": {
     "/v1/auth/ActivateProfile": {
       "post": {
-        "summary": "UpdateProfile",
+        "summary": "ActivateProfile",
         "description": "ActivateProfile activates user account.",
         "operationId": "AuthAPI_ActivateProfile",
         "responses": {

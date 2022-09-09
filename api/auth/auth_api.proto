@@ -170,7 +170,7 @@ service AuthAPI {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "ActivateProfile activates user account.";
-      summary: "UpdateProfile";
+      summary: "ActivateProfile";
       consumes: [
         "application/json"
       ];
