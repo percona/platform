@@ -971,17 +971,20 @@ func (c *Client) GetActivationInfo(ctx context.Context, userID string) (*Activat
 	}, nil
 }
 
-// GetReactivationLink returns re-activation url for users that are in the PROVISIONED status.
-func (c *Client) GetReactivationLink(ctx context.Context, userID string) (string, error) {
+// GetReactivationInfo returns re-activation information for users that are in the PROVISIONED status.
+func (c *Client) GetReactivationInfo(ctx context.Context, userID string) (*ActivationInfo, error) {
 	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	sendEmail := false
-	activationInfo, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
+	info, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
 	if err != nil {
 		l.Error("Failed to get re-activation link", zap.Error(err))
-		return "", errors.Wrap(err, "failed to re-activate user")
+		return nil, errors.Wrap(err, "failed to re-activate user")
 	}
 
-	return activationInfo.ActivationUrl, nil
+	return &ActivationInfo{
+		URL:   info.ActivationUrl,
+		Token: info.ActivationToken,
+	}, nil
 }
 
 // GetLogs gets events from okta system log.
