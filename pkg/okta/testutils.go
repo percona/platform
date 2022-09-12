@@ -57,6 +57,18 @@ func CreateInactivatedTestUser(t *testing.T, email, password, firstName, lastNam
 	return createTestUser(t, email, password, firstName, lastName, false)
 }
 
+// ActivateUser activates an existing user.
+func ActivateUser(t *testing.T, id string) string {
+	t.Helper()
+
+	qp := query.NewQueryParams(query.WithSendEmail(false))
+	tokenInfo, _, err := createOktaClient(t).User.ActivateUser(context.Background(), id, qp)
+	require.NoError(t, err)
+	require.NotEmpty(t, tokenInfo)
+
+	return tokenInfo.ActivationToken
+}
+
 func createTestUser(t *testing.T, email, password, firstName, lastName string, activate bool) *User {
 	t.Helper()
 

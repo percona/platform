@@ -37,6 +37,8 @@ type AuthAPIClient interface {
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*GetProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
+	// UpdateProfile updates user's first name and last name.
+	ActivateProfile(ctx context.Context, in *ActivateProfileRequest, opts ...grpc.CallOption) (*ActivateProfileResponse, error)
 }
 
 type authAPIClient struct {
@@ -110,6 +112,15 @@ func (c *authAPIClient) UpdateProfile(ctx context.Context, in *UpdateProfileRequ
 	return out, nil
 }
 
+func (c *authAPIClient) ActivateProfile(ctx context.Context, in *ActivateProfileRequest, opts ...grpc.CallOption) (*ActivateProfileResponse, error) {
+	out := new(ActivateProfileResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.auth.v1.AuthAPI/ActivateProfile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthAPIServer is the server API for AuthAPI service.
 // All implementations must embed UnimplementedAuthAPIServer
 // for forward compatibility
@@ -128,6 +139,8 @@ type AuthAPIServer interface {
 	GetProfile(context.Context, *GetProfileRequest) (*GetProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
+	// UpdateProfile updates user's first name and last name.
+	ActivateProfile(context.Context, *ActivateProfileRequest) (*ActivateProfileResponse, error)
 	mustEmbedUnimplementedAuthAPIServer()
 }
 
@@ -155,6 +168,9 @@ func (UnimplementedAuthAPIServer) GetProfile(context.Context, *GetProfileRequest
 }
 func (UnimplementedAuthAPIServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
+}
+func (UnimplementedAuthAPIServer) ActivateProfile(context.Context, *ActivateProfileRequest) (*ActivateProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateProfile not implemented")
 }
 func (UnimplementedAuthAPIServer) mustEmbedUnimplementedAuthAPIServer() {}
 
@@ -295,6 +311,24 @@ func _AuthAPI_UpdateProfile_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthAPI_ActivateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateProfileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthAPIServer).ActivateProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.auth.v1.AuthAPI/ActivateProfile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthAPIServer).ActivateProfile(ctx, req.(*ActivateProfileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthAPI_ServiceDesc is the grpc.ServiceDesc for AuthAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -329,6 +363,10 @@ var AuthAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateProfile",
 			Handler:    _AuthAPI_UpdateProfile_Handler,
+		},
+		{
+			MethodName: "ActivateProfile",
+			Handler:    _AuthAPI_ActivateProfile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

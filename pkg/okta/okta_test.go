@@ -153,6 +153,49 @@ func TestSignIn(t *testing.T) {
 	})
 }
 
+func TestSignInByToken(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("successful login", func(t *testing.T) {
+		t.Parallel()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		user := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+
+		t.Cleanup(func() {
+			DeleteUser(t, user.ID)
+		})
+
+		token := ActivateUser(t, user.ID)
+
+		authInfo, err := s.SignInByToken(context.Background(), token)
+		require.NoError(t, err)
+		require.NotEmpty(t, authInfo)
+		require.Equal(t, user.ID, authInfo.Embedded.User.ID)
+	})
+
+	t.Run("wrong token", func(t *testing.T) {
+		t.Parallel()
+
+		email, password, firstName, lastName := GenCredentials(t)
+		user := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+
+		t.Cleanup(func() {
+			DeleteUser(t, user.ID)
+		})
+
+		ActivateUser(t, user.ID)
+
+		authInfo, err := s.SignInByToken(context.Background(), gofakeit.UUID())
+		require.NotNil(t, err)
+		require.ErrorContains(t, err, "authentication error")
+		require.Empty(t, authInfo)
+	})
+}
+
 func TestSessions(t *testing.T) {
 	t.Parallel()
 
@@ -958,9 +1001,9 @@ func TestGetActivationLink(t *testing.T) {
 			DeleteUser(t, testUser.ID)
 		})
 
-		link, err := s.GetActivationLink(ctx, testUser.ID)
+		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		assert.NoError(t, err)
-		assert.NotEmpty(t, link)
+		assert.NotEmpty(t, info)
 	})
 
 	t.Run("activated user", func(t *testing.T) {
@@ -977,9 +1020,9 @@ func TestGetActivationLink(t *testing.T) {
 			DeleteUser(t, testUser.ID)
 		})
 
-		link, err := s.GetActivationLink(ctx, testUser.ID)
+		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		assert.NotNil(t, err)
-		assert.Empty(t, link)
+		assert.Empty(t, info)
 	})
 }
 
@@ -1026,7 +1069,7 @@ func TestGetValue(t *testing.T) {
 	})
 }
 
-func TestGetReactivationLink(t *testing.T) {
+func TestGetReactivationInfo(t *testing.T) {
 	t.Parallel()
 
 	t.Run("error: user status ACTIVE", func(t *testing.T) {
@@ -1044,7 +1087,7 @@ func TestGetReactivationLink(t *testing.T) {
 		})
 		require.Equal(t, UserStatusActive, testUser.Status)
 
-		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		link, err := s.GetReactivationInfo(ctx, testUser.ID)
 		assert.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
 		assert.Empty(t, link)
 	})
@@ -1074,15 +1117,15 @@ func TestGetReactivationLink(t *testing.T) {
 		})
 		require.Equal(t, UserStatusStaged, user.Status)
 
-		activationLink, err := s.GetActivationLink(ctx, user.Id)
+		activationInfo, err := s.GetActivationInfo(ctx, user.Id)
 		require.NoError(t, err)
-		require.NotEmpty(t, activationLink)
+		require.NotEmpty(t, activationInfo)
 
 		updatedUser, _, err := s.c.User.GetUser(ctx, user.Id)
 		require.Equal(t, UserStatusProvisioned, updatedUser.Status)
 		require.NoError(t, err)
 
-		link, err := s.GetReactivationLink(ctx, user.Id)
+		link, err := s.GetReactivationInfo(ctx, user.Id)
 		require.Nil(t, err)
 		require.NotEmpty(t, link)
 
@@ -1107,7 +1150,7 @@ func TestGetReactivationLink(t *testing.T) {
 
 		require.Equal(t, UserStatusStaged, testUser.Status)
 
-		link, err := s.GetReactivationLink(ctx, testUser.ID)
+		link, err := s.GetReactivationInfo(ctx, testUser.ID)
 		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
 		require.Empty(t, link)
 	})

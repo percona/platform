@@ -42,6 +42,12 @@ const (
 
 var errNotFound = errors.New("not found")
 
+// ActivationInfo struct that represents the data needed for a user account activation.
+type ActivationInfo struct {
+	URL   string
+	Token string
+}
+
 // New returns new Service instance.
 func New(ctx context.Context, host, token string) (*Client, error) {
 	u := url.URL{Scheme: "https", Host: host}
@@ -202,6 +208,12 @@ func (c *Client) UpdateUser(ctx context.Context, userID string, params UpdateUse
 	newProfile := updatedProfile(*userToUpdate.Profile, params)
 	userToUpdate.Profile = &newProfile
 
+	if params.Password != nil {
+		userToUpdate.Credentials.Password = &okta.PasswordCredential{
+			Value: *params.Password,
+		}
+	}
+
 	// update user
 	updatedUser, _, err := c.c.User.UpdateUser(ctx, userID, *userToUpdate, nil)
 	if err != nil {
@@ -237,28 +249,64 @@ func (c *Client) SignIn(ctx context.Context, login, password string) (string, st
 		Password: password,
 	}
 
-	resp := struct {
-		ExpiresAt    string `json:"expiresAt"`
-		Status       string `json:"status"`
-		SessionToken string `json:"sessionToken"`
-		Embedded     struct {
-			User struct {
-				ID string `json:"id"`
-			} `json:"user"`
-		} `json:"_embedded"` //nolint:tagliatelle
-	}{}
+	info, err := c.authenticate(ctx, data)
+	if err != nil {
+		return "", "", err
+	}
+
+	return info.Embedded.User.ID, info.SessionToken, nil
+}
+
+// SignInByToken signs in using the activation token.
+func (c *Client) SignInByToken(ctx context.Context, token string) (*AuthenticatedInfo, error) {
+	l := extractLogger(ctx)
+	l.Info("SignIn using activation token.")
+
+	if token == "" {
+		return nil, ErrEmptyToken
+	}
+
+	data := struct {
+		Token string `json:"token"`
+	}{
+		Token: token,
+	}
+
+	return c.authenticate(ctx, data)
+}
+
+// AuthenticatedInfo the object that received from the okta's "api/v1/authn" endpoint.
+type AuthenticatedInfo struct {
+	ExpiresAt    string `json:"expiresAt"`
+	Status       string `json:"status"`
+	SessionToken string `json:"sessionToken"`
+	Embedded     struct {
+		User struct {
+			ID      string `json:"id"`
+			Profile struct {
+				FirstName string `json:"firstName"`
+				LastName  string `json:"lastName"`
+				Tos       *bool  `json:"tos"`
+				Marketing *bool  `json:"marketing"`
+			} `json:"profile"`
+		} `json:"user"`
+	} `json:"_embedded"` //nolint:tagliatelle
+}
+
+func (c *Client) authenticate(ctx context.Context, data interface{}) (*AuthenticatedInfo, error) {
+	resp := AuthenticatedInfo{}
 
 	err := c.DoRequest(ctx, "POST", "/api/v1/authn", data, &resp)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
-			return "", "", convertOktaError(oErr)
+			return nil, convertOktaError(oErr)
 		}
 
-		return "", "", errors.Wrap(err, "failed to authenticate user")
+		return nil, errors.Wrap(err, "failed to authenticate user")
 	}
 
-	return resp.Embedded.User.ID, resp.SessionToken, nil
+	return &resp, nil
 }
 
 // SuspendUser set user status in Okta to SUSPENDED.
@@ -907,30 +955,36 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 	return nil
 }
 
-// GetActivationLink returns activation url for users that are not activated yet.
-func (c *Client) GetActivationLink(ctx context.Context, userID string) (string, error) {
+// GetActivationInfo returns activation url for users that are not activated yet.
+func (c *Client) GetActivationInfo(ctx context.Context, userID string) (*ActivationInfo, error) {
 	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	sendEmail := false
-	activationInfo, _, err := c.c.User.ActivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
+	info, _, err := c.c.User.ActivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
 	if err != nil {
 		l.Error("Failed to get activation link", zap.Error(err))
-		return "", errors.Wrap(err, "failed to activate user")
+		return nil, errors.Wrap(err, "failed to activate user")
 	}
 
-	return activationInfo.ActivationUrl, nil
+	return &ActivationInfo{
+		URL:   info.ActivationUrl,
+		Token: info.ActivationToken,
+	}, nil
 }
 
-// GetReactivationLink returns re-activation url for users that are in the PROVISIONED status.
-func (c *Client) GetReactivationLink(ctx context.Context, userID string) (string, error) {
+// GetReactivationInfo returns re-activation information for users that are in the PROVISIONED status.
+func (c *Client) GetReactivationInfo(ctx context.Context, userID string) (*ActivationInfo, error) {
 	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
 	sendEmail := false
-	activationInfo, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
+	info, _, err := c.c.User.ReactivateUser(ctx, userID, &query.Params{SendEmail: &sendEmail})
 	if err != nil {
 		l.Error("Failed to get re-activation link", zap.Error(err))
-		return "", errors.Wrap(err, "failed to re-activate user")
+		return nil, errors.Wrap(err, "failed to re-activate user")
 	}
 
-	return activationInfo.ActivationUrl, nil
+	return &ActivationInfo{
+		URL:   info.ActivationUrl,
+		Token: info.ActivationToken,
+	}, nil
 }
 
 // GetLogs gets events from okta system log.
