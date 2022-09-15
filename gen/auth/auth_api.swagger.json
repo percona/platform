@@ -56,7 +56,7 @@
     "/v1/auth/GetProfile": {
       "post": {
         "summary": "GetProfile",
-        "description": "GetProfile returns user's email, first name and last name.",
+        "description": "GetProfile returns user's email, name and some additional information.",
         "operationId": "AuthAPI_GetProfile",
         "responses": {
           "200": {
@@ -79,6 +79,43 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1GetProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/GetUserProfileData": {
+      "post": {
+        "summary": "GetUserProfileData",
+        "description": "GetUserProfileData returns user's email, first name and last name.",
+        "operationId": "AuthAPI_GetUserProfileData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetUserProfileDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetUserProfileDataRequest"
             }
           }
         ],
@@ -400,6 +437,48 @@
         "tos": {
           "type": "boolean",
           "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
+    "v1GetUserProfileDataRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email whose profile is requested."
+        }
+      }
+    },
+    "v1GetUserProfileDataResponse": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username which is the user's primary email."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "primaryEmail": {
+          "type": "string",
+          "description": "User primary email."
+        },
+        "secondaryEmail": {
+          "type": "string",
+          "description": "User secondary email."
+        },
+        "mobilePhone": {
+          "type": "string",
+          "description": "User mobile phone number."
         },
         "marketing": {
           "type": "boolean",

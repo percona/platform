@@ -78,6 +78,15 @@ func (this *GetProfileRequest) Validate() error {
 func (this *GetProfileResponse) Validate() error {
 	return nil
 }
+func (this *GetUserProfileDataRequest) Validate() error {
+	if this.Email == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
+	}
+	return nil
+}
+func (this *GetUserProfileDataResponse) Validate() error {
+	return nil
+}
 func (this *UpdateProfileRequest) Validate() error {
 	if this.FirstName == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("FirstName", fmt.Errorf(`value '%v' must not be an empty string`, this.FirstName))

@@ -127,15 +127,32 @@ service AuthAPI {
       ];
     };
   }
-  // GetProfile returns user's email, first name and last name.
+  // GetProfile returns user's email, name and some additional information.
   rpc GetProfile(GetProfileRequest) returns (GetProfileResponse) {
     option (google.api.http) = {
       post: "/v1/auth/GetProfile"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "GetProfile returns user's email, first name and last name.";
+      description: "GetProfile returns user's email, name and some additional information.";
       summary: "GetProfile";
+      consumes: [
+        "application/json"
+      ];
+      produces: [
+        "application/json"
+      ];
+    };
+  }
+  // GetUserProfileData returns user's email, first name and last name.
+  rpc GetUserProfileData(GetUserProfileDataRequest) returns (GetUserProfileDataResponse) {
+    option (google.api.http) = {
+      post: "/v1/auth/GetUserProfileData"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "GetUserProfileData returns user's email, first name and last name.";
+      summary: "GetUserProfileData";
       consumes: [
         "application/json"
       ];
@@ -259,6 +276,30 @@ message GetProfileResponse {
   bool tos = 4;
   // Flag shows if the Marketing consent is given
   bool marketing = 5;
+}
+
+message GetUserProfileDataRequest {
+  // User email whose profile is requested.
+  string email = 1 [(validator.field) = {
+    string_not_empty: true
+  }];
+}
+
+message GetUserProfileDataResponse {
+  // Username which is the user's primary email.
+  string username = 1;
+  // User first name.
+  string first_name = 2;
+  // User last name.
+  string last_name = 3;
+  // User primary email.
+  string primary_email = 4;
+  // User secondary email.
+  string secondary_email = 5;
+  // User mobile phone number.
+  string mobile_phone = 6;
+  // Flag shows if the Marketing consent is given
+  bool marketing = 7;
 }
 
 message UpdateProfileRequest {

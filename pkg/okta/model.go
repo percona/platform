@@ -9,6 +9,8 @@ type User struct {
 	FirstName       string
 	LastName        string
 	Status          string
+	SecondaryEmail  string
+	MobilePhone     string
 	PortalAdminOrgs []string
 	Tos             bool
 	Marketing       bool

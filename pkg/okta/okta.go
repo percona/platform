@@ -34,6 +34,8 @@ const (
 	profileLastName        = "lastName"
 	profileFirstName       = "firstName"
 	profileEmail           = "email"
+	profileSecondaryEmail  = "secondEmail"
+	profileMobilePhone     = "mobilePhone"
 	profileLogin           = "login"
 	profilePortalAdminOrgs = "portalAdminOrgs"
 	profileTos             = "tos"
@@ -1125,6 +1127,22 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 	}
 	if marketing != nil {
 		user.Marketing = *marketing
+	}
+
+	secondaryEmail, err := getValue[string](profile, profileSecondaryEmail)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errorWrapper(err, profileSecondaryEmail)
+	}
+	if secondaryEmail != nil {
+		user.SecondaryEmail = *secondaryEmail
+	}
+
+	mobilePhone, err := getValue[string](profile, profileMobilePhone)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errorWrapper(err, profileMobilePhone)
+	}
+	if mobilePhone != nil {
+		user.MobilePhone = *mobilePhone
 	}
 
 	return &user, nil
