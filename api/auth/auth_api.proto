@@ -144,15 +144,15 @@ service AuthAPI {
       ];
     };
   }
-  // GetUserProfileData returns user's email, first name and last name.
-  rpc GetUserProfileData(GetUserProfileDataRequest) returns (GetUserProfileDataResponse) {
+  // SearchUserProfile returns the requested user's profile data.
+  rpc SearchUserProfile(SearchUserProfileRequest) returns (SearchUserProfileResponse) {
     option (google.api.http) = {
-      post: "/v1/auth/GetUserProfileData"
+      post: "/v1/auth/users/profile:search"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "GetUserProfileData returns user's email, first name and last name.";
-      summary: "GetUserProfileData";
+      description: "SearchUserProfile returns the requested user's profile data.";
+      summary: "SearchUserProfile";
       consumes: [
         "application/json"
       ];
@@ -278,14 +278,14 @@ message GetProfileResponse {
   bool marketing = 5;
 }
 
-message GetUserProfileDataRequest {
+message SearchUserProfileRequest {
   // User email whose profile is requested.
   string email = 1 [(validator.field) = {
     string_not_empty: true
   }];
 }
 
-message GetUserProfileDataResponse {
+message SearchUserProfileResponse {
   // Username which is the user's primary email.
   string username = 1;
   // User first name.

@@ -35,8 +35,8 @@ type AuthAPIClient interface {
 	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ResetPasswordResponse, error)
 	// GetProfile returns user's email, name and some additional information.
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*GetProfileResponse, error)
-	// GetUserProfileData returns user's email, first name and last name.
-	GetUserProfileData(ctx context.Context, in *GetUserProfileDataRequest, opts ...grpc.CallOption) (*GetUserProfileDataResponse, error)
+	// SearchUserProfile returns the requested user's profile data.
+	SearchUserProfile(ctx context.Context, in *SearchUserProfileRequest, opts ...grpc.CallOption) (*SearchUserProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
 	UpdateProfile(ctx context.Context, in *UpdateProfileRequest, opts ...grpc.CallOption) (*UpdateProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
@@ -105,9 +105,9 @@ func (c *authAPIClient) GetProfile(ctx context.Context, in *GetProfileRequest, o
 	return out, nil
 }
 
-func (c *authAPIClient) GetUserProfileData(ctx context.Context, in *GetUserProfileDataRequest, opts ...grpc.CallOption) (*GetUserProfileDataResponse, error) {
-	out := new(GetUserProfileDataResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.auth.v1.AuthAPI/GetUserProfileData", in, out, opts...)
+func (c *authAPIClient) SearchUserProfile(ctx context.Context, in *SearchUserProfileRequest, opts ...grpc.CallOption) (*SearchUserProfileResponse, error) {
+	out := new(SearchUserProfileResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.auth.v1.AuthAPI/SearchUserProfile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -148,8 +148,8 @@ type AuthAPIServer interface {
 	ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
 	// GetProfile returns user's email, name and some additional information.
 	GetProfile(context.Context, *GetProfileRequest) (*GetProfileResponse, error)
-	// GetUserProfileData returns user's email, first name and last name.
-	GetUserProfileData(context.Context, *GetUserProfileDataRequest) (*GetUserProfileDataResponse, error)
+	// SearchUserProfile returns the requested user's profile data.
+	SearchUserProfile(context.Context, *SearchUserProfileRequest) (*SearchUserProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
 	UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error)
 	// UpdateProfile updates user's first name and last name.
@@ -179,8 +179,8 @@ func (UnimplementedAuthAPIServer) ResetPassword(context.Context, *ResetPasswordR
 func (UnimplementedAuthAPIServer) GetProfile(context.Context, *GetProfileRequest) (*GetProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProfile not implemented")
 }
-func (UnimplementedAuthAPIServer) GetUserProfileData(context.Context, *GetUserProfileDataRequest) (*GetUserProfileDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUserProfileData not implemented")
+func (UnimplementedAuthAPIServer) SearchUserProfile(context.Context, *SearchUserProfileRequest) (*SearchUserProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchUserProfile not implemented")
 }
 func (UnimplementedAuthAPIServer) UpdateProfile(context.Context, *UpdateProfileRequest) (*UpdateProfileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfile not implemented")
@@ -309,20 +309,20 @@ func _AuthAPI_GetProfile_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthAPI_GetUserProfileData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserProfileDataRequest)
+func _AuthAPI_SearchUserProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchUserProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthAPIServer).GetUserProfileData(ctx, in)
+		return srv.(AuthAPIServer).SearchUserProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.auth.v1.AuthAPI/GetUserProfileData",
+		FullMethod: "/percona.platform.auth.v1.AuthAPI/SearchUserProfile",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthAPIServer).GetUserProfileData(ctx, req.(*GetUserProfileDataRequest))
+		return srv.(AuthAPIServer).SearchUserProfile(ctx, req.(*SearchUserProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -395,8 +395,8 @@ var AuthAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthAPI_GetProfile_Handler,
 		},
 		{
-			MethodName: "GetUserProfileData",
-			Handler:    _AuthAPI_GetUserProfileData_Handler,
+			MethodName: "SearchUserProfile",
+			Handler:    _AuthAPI_SearchUserProfile_Handler,
 		},
 		{
 			MethodName: "UpdateProfile",

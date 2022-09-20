@@ -90,43 +90,6 @@
         ]
       }
     },
-    "/v1/auth/GetUserProfileData": {
-      "post": {
-        "summary": "GetUserProfileData",
-        "description": "GetUserProfileData returns user's email, first name and last name.",
-        "operationId": "AuthAPI_GetUserProfileData",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetUserProfileDataResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1GetUserProfileDataRequest"
-            }
-          }
-        ],
-        "tags": [
-          "AuthAPI"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
     "/v1/auth/RefreshSession": {
       "post": {
         "summary": "RefreshSession",
@@ -348,6 +311,43 @@
           "application/json"
         ]
       }
+    },
+    "/v1/auth/users/profile:search": {
+      "post": {
+        "summary": "SearchUserProfile",
+        "description": "SearchUserProfile returns the requested user's profile data.",
+        "operationId": "AuthAPI_SearchUserProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -444,7 +444,36 @@
         }
       }
     },
-    "v1GetUserProfileDataRequest": {
+    "v1RefreshSessionRequest": {
+      "type": "object"
+    },
+    "v1RefreshSessionResponse": {
+      "type": "object",
+      "properties": {
+        "expireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Session expiration time."
+        },
+        "email": {
+          "type": "string",
+          "description": "User email."
+        }
+      }
+    },
+    "v1ResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email."
+        }
+      }
+    },
+    "v1ResetPasswordResponse": {
+      "type": "object"
+    },
+    "v1SearchUserProfileRequest": {
       "type": "object",
       "properties": {
         "email": {
@@ -453,7 +482,7 @@
         }
       }
     },
-    "v1GetUserProfileDataResponse": {
+    "v1SearchUserProfileResponse": {
       "type": "object",
       "properties": {
         "username": {
@@ -485,35 +514,6 @@
           "title": "Flag shows if the Marketing consent is given"
         }
       }
-    },
-    "v1RefreshSessionRequest": {
-      "type": "object"
-    },
-    "v1RefreshSessionResponse": {
-      "type": "object",
-      "properties": {
-        "expireTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Session expiration time."
-        },
-        "email": {
-          "type": "string",
-          "description": "User email."
-        }
-      }
-    },
-    "v1ResetPasswordRequest": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string",
-          "description": "User email."
-        }
-      }
-    },
-    "v1ResetPasswordResponse": {
-      "type": "object"
     },
     "v1SignInRequest": {
       "type": "object",

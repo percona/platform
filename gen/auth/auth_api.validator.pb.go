@@ -78,13 +78,13 @@ func (this *GetProfileRequest) Validate() error {
 func (this *GetProfileResponse) Validate() error {
 	return nil
 }
-func (this *GetUserProfileDataRequest) Validate() error {
+func (this *SearchUserProfileRequest) Validate() error {
 	if this.Email == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
 	}
 	return nil
 }
-func (this *GetUserProfileDataResponse) Validate() error {
+func (this *SearchUserProfileResponse) Validate() error {
 	return nil
 }
 func (this *UpdateProfileRequest) Validate() error {

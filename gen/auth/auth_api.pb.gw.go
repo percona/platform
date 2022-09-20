@@ -235,8 +235,8 @@ func local_request_AuthAPI_GetProfile_0(ctx context.Context, marshaler runtime.M
 
 }
 
-func request_AuthAPI_GetUserProfileData_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetUserProfileDataRequest
+func request_AuthAPI_SearchUserProfile_0(ctx context.Context, marshaler runtime.Marshaler, client AuthAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq SearchUserProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -247,13 +247,13 @@ func request_AuthAPI_GetUserProfileData_0(ctx context.Context, marshaler runtime
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetUserProfileData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.SearchUserProfile(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AuthAPI_GetUserProfileData_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetUserProfileDataRequest
+func local_request_AuthAPI_SearchUserProfile_0(ctx context.Context, marshaler runtime.Marshaler, server AuthAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq SearchUserProfileRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -264,7 +264,7 @@ func local_request_AuthAPI_GetUserProfileData_0(ctx context.Context, marshaler r
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetUserProfileData(ctx, &protoReq)
+	msg, err := server.SearchUserProfile(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -493,7 +493,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 
 	})
 
-	mux.Handle("POST", pattern_AuthAPI_GetUserProfileData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AuthAPI_SearchUserProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -501,12 +501,12 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetUserProfileData", runtime.WithHTTPPathPattern("/v1/auth/GetUserProfileData"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SearchUserProfile", runtime.WithHTTPPathPattern("/v1/auth/users/profile:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AuthAPI_GetUserProfileData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AuthAPI_SearchUserProfile_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -514,7 +514,7 @@ func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			return
 		}
 
-		forward_AuthAPI_GetUserProfileData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AuthAPI_SearchUserProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -741,25 +741,25 @@ func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 
 	})
 
-	mux.Handle("POST", pattern_AuthAPI_GetUserProfileData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AuthAPI_SearchUserProfile_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/GetUserProfileData", runtime.WithHTTPPathPattern("/v1/auth/GetUserProfileData"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.auth.v1.AuthAPI/SearchUserProfile", runtime.WithHTTPPathPattern("/v1/auth/users/profile:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AuthAPI_GetUserProfileData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AuthAPI_SearchUserProfile_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AuthAPI_GetUserProfileData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AuthAPI_SearchUserProfile_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -823,7 +823,7 @@ var (
 
 	pattern_AuthAPI_GetProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "GetProfile"}, ""))
 
-	pattern_AuthAPI_GetUserProfileData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "GetUserProfileData"}, ""))
+	pattern_AuthAPI_SearchUserProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "auth", "users", "profile"}, "search"))
 
 	pattern_AuthAPI_UpdateProfile_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "auth", "UpdateProfile"}, ""))
 
@@ -843,7 +843,7 @@ var (
 
 	forward_AuthAPI_GetProfile_0 = runtime.ForwardResponseMessage
 
-	forward_AuthAPI_GetUserProfileData_0 = runtime.ForwardResponseMessage
+	forward_AuthAPI_SearchUserProfile_0 = runtime.ForwardResponseMessage
 
 	forward_AuthAPI_UpdateProfile_0 = runtime.ForwardResponseMessage
 
