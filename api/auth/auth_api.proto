@@ -279,8 +279,8 @@ message GetProfileResponse {
 }
 
 message SearchUserProfileRequest {
-  // User email whose profile is requested.
-  string email = 1 [(validator.field) = {
+  // Okta user ID whose profile is requested.
+  string okta_user_id = 1 [(validator.field) = {
     string_not_empty: true
   }];
 }

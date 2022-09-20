@@ -476,9 +476,9 @@
     "v1SearchUserProfileRequest": {
       "type": "object",
       "properties": {
-        "email": {
+        "oktaUserId": {
           "type": "string",
-          "description": "User email whose profile is requested."
+          "description": "Okta user ID whose profile is requested."
         }
       }
     },
