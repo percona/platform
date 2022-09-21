@@ -96,10 +96,12 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 	u := okta.CreateUserRequest{
 		Profile: &okta.UserProfile{
-			profileLogin:     login,
-			profileEmail:     login,
-			profileFirstName: firstName,
-			profileLastName:  lastName,
+			profileLogin:          login,
+			profileEmail:          login,
+			profileFirstName:      firstName,
+			profileLastName:       lastName,
+			profileSecondaryEmail: "",
+			profileMobilePhone:    "",
 		},
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
@@ -164,6 +166,8 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 		profileFirstName:       "",
 		profileLastName:        "",
 		profilePortalAdminOrgs: []string{},
+		profileSecondaryEmail:  "",
+		profileMobilePhone:     "",
 	}
 
 	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})

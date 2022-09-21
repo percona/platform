@@ -79,6 +79,8 @@ func createTestUser(t *testing.T, email, password, firstName, lastName string, a
 			profileFirstName:       firstName,
 			profileLastName:        lastName,
 			profilePortalAdminOrgs: []string{},
+			profileSecondaryEmail:  "a@gmail.com",
+			profileMobilePhone:     "12321313123",
 		},
 		Credentials: &okta.UserCredentials{
 			Password: &okta.PasswordCredential{
