@@ -1073,7 +1073,7 @@ func extractLogger(ctx context.Context) *zap.Logger {
 	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
 }
 
-func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
+func convertUser(oktaUser *okta.User) (*User, error) { //nolint:gocognit,cyclop
 	if oktaUser.Profile == nil {
 		return nil, errors.New("missing user profile")
 	}
