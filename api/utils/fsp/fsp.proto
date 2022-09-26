@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package utils.fsp;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "/utils/fsp;fspv1";
+
+// FilterType represents type of filter that will be applied to SQL query.
+enum FilterType {
+  // In case single value is provided, EQUAL will trigger "=" SQL behaviour.
+  // If array of values provided, EQUAL will trigger "IN" SQL behaviour.
+  EQUAL = 0;
+  // In case single value is provided, NOT EQUAL will trigger "<>" SQL behaviour.
+  // If array of values provided, EQUAL will trigger "NOT IN" SQL behaviour.
+  NOT_EQUAL = 1;
+  // GREATER is mapped to SQL '>'.
+  GREATER = 2;
+  // GREATER_OR_EQUAL is mapped to SQL '>='.
+  GREATER_OR_EQUAL = 3;
+  // LESS is mapped to SQL '<'.
+  LESS = 4;
+  // LESS_OR_EQUAL is mapped to SQL '<='.
+  LESS_OR_EQUAL = 5;
+}
+
+enum SortingOrder {
+  // ASC is for ascending sorting order.
+  ASC = 0;
+  // DESC is for descending sorting order.
+  DESC = 1;
+}
+
+// FilteringSortingPagination aggregates params for filtering, sorting and pagination.
+message FilteringSortingPagination {
+  // filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic.
+  repeated Filter filters = 1;
+  // sorting_params are optional. No sorting will be applied if absent.
+  SortingParams sorting_params = 2;
+  // page_params are optional. No pagination will be applied if absent.
+  PageParams page_params = 3;
+}
+
+// Filter is used to filter results for endpoints that return list of values.
+message Filter {
+  // filter_type defines logic of the filter.
+  FilterType filter_type = 1;
+  // field defines based on which data filtering must occur.
+  Field field = 2;
+}
+
+// Field of an object.
+message Field {
+  // Name of the field (name of the column when applicable to SQL).
+  string name = 1;
+  // Value of the field.
+  google.protobuf.Value value = 2;
+}
+
+// SortingParams are used to sort results for endpoints that return list of values.
+message SortingParams {
+  string field_name = 1;
+  SortingOrder order = 2;
+}
+
+// PageParams represents page request parameters for pagination.
+message PageParams {
+  // Maximum number of results per page.
+  uint32 page_size = 1;
+  // Index of the requested page, starts from 0.
+  uint32 index = 2;
+}
+
+// PageTotals represents total values for pagination and are included in paginated responses.
+message PageTotals {
+  // Total number of results.
+  uint32 total_items = 1;
+  // Total number of pages.
+  uint32 total_pages = 2;
+}
