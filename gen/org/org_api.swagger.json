@@ -1199,10 +1199,22 @@
       "type": "object",
       "properties": {
         "clusterId": {
-          "type": "string"
+          "type": "string",
+          "description": "ID of the Civo cluster."
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "Current status of the cluster."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp at which the cluster was created."
+        },
+        "dailyLimitEndsAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp at which the user can create another cluster.\nThis value is created_at + 24 hours."
         }
       }
     },
