@@ -79,6 +79,15 @@ func (this *GetProfileRequest) Validate() error {
 func (this *GetProfileResponse) Validate() error {
 	return nil
 }
+func (this *SearchUserProfileRequest) Validate() error {
+	if this.OktaUserId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("OktaUserId", fmt.Errorf(`value '%v' must not be an empty string`, this.OktaUserId))
+	}
+	return nil
+}
+func (this *SearchUserProfileResponse) Validate() error {
+	return nil
+}
 func (this *UpdateProfileRequest) Validate() error {
 	if this.FirstName == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("FirstName", fmt.Errorf(`value '%v' must not be an empty string`, this.FirstName))

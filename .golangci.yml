@@ -46,6 +46,7 @@ linters:
     - ifshort          # irrelevant; short syntax is sometimes profitable
     - tagliatelle      # json syntax used in different packages varies;
     - nosnakecase      # snake case is used in the codebase
+    - funlen           # annoying
 
 issues:
   exclude-use-default: false
