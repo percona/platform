@@ -1030,7 +1030,7 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 
 func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
 	name, ok := profile[fieldName]
-	// some fields like mobilePhone are be present by deafult as profile map keys
+	// some fields like mobilePhone are be present by defult as profile map keys
 	// but may not be set in that case we get a nil value from the map which will
 	// fail during the type assertion below, hence we add a nil check and return early.
 	if !ok || name == nil {
