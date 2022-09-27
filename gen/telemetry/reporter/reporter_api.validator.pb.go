@@ -13,8 +13,10 @@ import (
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	_ "google.golang.org/protobuf/types/known/durationpb"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
 
 	_ "github.com/percona-platform/platform/gen/telemetry/events/pmm"
+	_ "github.com/percona-platform/platform/gen/utils/fsp"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -40,5 +42,37 @@ func (this *ReportRequest) Validate() error {
 	return nil
 }
 func (this *ReportResponse) Validate() error {
+	return nil
+}
+func (this *PMMMetricEvent) Validate() error {
+	if this.Time != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Time); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Time", err)
+		}
+	}
+	return nil
+}
+func (this *SearchEventsRequest) Validate() error {
+	if this.Fsp != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Fsp); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
+		}
+	}
+	if this.MetricName == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("MetricName", fmt.Errorf(`value '%v' must not be an empty string`, this.MetricName))
+	}
+	return nil
+}
+func (this *SearchEventsResponse) Validate() error {
+	if this.Event != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Event); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Event", err)
+		}
+	}
+	if this.PageTotals != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.PageTotals); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("PageTotals", err)
+		}
+	}
 	return nil
 }
