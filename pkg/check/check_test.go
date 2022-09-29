@@ -725,6 +725,12 @@ func TestCheck_CheckValidate(t *testing.T) {
 					{
 						Type: MongoDBBuildInfo,
 					},
+					{
+						Type: MongoDBGetDiagnosticData,
+					},
+					{
+						Type: MongoDBReplSetGetStatus,
+					},
 				},
 				Script: "def func(args): pass",
 			},
