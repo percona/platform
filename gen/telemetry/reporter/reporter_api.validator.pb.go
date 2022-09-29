@@ -52,7 +52,7 @@ func (this *PMMMetricEvent) Validate() error {
 	}
 	return nil
 }
-func (this *SearchEventsRequest) Validate() error {
+func (this *SearchEventRequest) Validate() error {
 	if this.Fsp != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Fsp); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
@@ -63,7 +63,7 @@ func (this *SearchEventsRequest) Validate() error {
 	}
 	return nil
 }
-func (this *SearchEventsResponse) Validate() error {
+func (this *SearchEventResponse) Validate() error {
 	if this.Event != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Event); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Event", err)

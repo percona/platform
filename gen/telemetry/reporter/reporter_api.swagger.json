@@ -58,17 +58,14 @@
     },
     "/v1/telemetry/events:search": {
       "post": {
-        "summary": "Report",
-        "description": "Report is used to submit telemetry events to telemetryd service.",
-        "operationId": "ReporterAPI_SearchEvents",
+        "summary": "SearchEvent",
+        "description": "SearchEvent searches for a specific metric in telemetry events and returns them to the client.",
+        "operationId": "ReporterAPI_SearchEvent",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SearchEventsResponse"
-            },
-            "examples": {
-              "application/json": {}
+              "$ref": "#/definitions/v1SearchEventResponse"
             }
           },
           "default": {
@@ -84,7 +81,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1SearchEventsRequest"
+              "$ref": "#/definitions/v1SearchEventRequest"
             }
           }
         ],
@@ -315,17 +312,14 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "byte",
           "description": "PMM Metric Event UUID."
         },
         "pmmServerTelemetryId": {
           "type": "string",
-          "format": "byte",
           "description": "PMM Server UUID."
         },
         "portalOrgId": {
           "type": "string",
-          "format": "byte",
           "description": "Portal Organization UUID (Can be null)."
         },
         "customerTier": {
@@ -370,7 +364,7 @@
     "v1ReportResponse": {
       "type": "object"
     },
-    "v1SearchEventsRequest": {
+    "v1SearchEventRequest": {
       "type": "object",
       "properties": {
         "fsp": {
@@ -383,7 +377,7 @@
         }
       }
     },
-    "v1SearchEventsResponse": {
+    "v1SearchEventResponse": {
       "type": "object",
       "properties": {
         "event": {

@@ -70,27 +70,18 @@ service ReporterAPI {
     };
   }
 
-  // SearchEvents searches for a specific metric in telemetry events and returns them to the client.
+  // SearchEvent searches for a specific metric in telemetry events and returns them to the client.
   // Can only be used by SuperAdmins.
-  rpc SearchEvents(SearchEventsRequest) returns (SearchEventsResponse) {
+  rpc SearchEvent(SearchEventRequest) returns (SearchEventResponse) {
     option (google.api.http) = {
         post: "/v1/telemetry/events:search"
         body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Report is used to submit telemetry events to telemetryd service.";
-      summary: "Report";
+      description: "SearchEvent searches for a specific metric in telemetry events and returns them to the client.";
+      summary: "SearchEvent";
       consumes: ["application/json"];
       produces: ["application/json"];
-      responses: {
-        key: "200";
-        value: {
-          examples: {
-            key: "application/json"
-            value: '{}'
-          }
-        };
-      };
     };
   }
 }
@@ -109,11 +100,11 @@ message ReportResponse {}
 // PMMMetricEvent represents telemetry event containing metrics sent by PMM.
 message PMMMetricEvent {
   // PMM Metric Event UUID.
-  bytes id = 1;
+  string id = 1;
   // PMM Server UUID.
-  bytes pmm_server_telemetry_id = 2;
+  string pmm_server_telemetry_id = 2;
   // Portal Organization UUID (Can be null).
-  bytes portal_org_id = 3;
+  string portal_org_id = 3;
   // Portal customer tier.
   string customer_tier = 4;
   // Name of the metric requested by the client.
@@ -124,7 +115,7 @@ message PMMMetricEvent {
   google.protobuf.Timestamp time = 7;
 }
 
-message SearchEventsRequest {
+message SearchEventRequest {
   // fsp used for filtering/sorting/paginating the request. Optional param.
   utils.fsp.FilteringSortingPagination fsp = 1;
   // Name of the metric requested by the client.
@@ -133,7 +124,7 @@ message SearchEventsRequest {
   }];
 }
 
-message SearchEventsResponse {
+message SearchEventResponse {
   // PMM metric event.
   PMMMetricEvent event = 1;
   // pagination details.

@@ -25,9 +25,9 @@ const _ = grpc.SupportPackageIsVersion7
 type ReporterAPIClient interface {
 	// Report submits several telemetry events to the server.
 	Report(ctx context.Context, in *ReportRequest, opts ...grpc.CallOption) (*ReportResponse, error)
-	// SearchEvents searches for a specific metric in telemetry events and returns them to the client.
+	// SearchEvent searches for a specific metric in telemetry events and returns them to the client.
 	// Can only be used by SuperAdmins.
-	SearchEvents(ctx context.Context, in *SearchEventsRequest, opts ...grpc.CallOption) (*SearchEventsResponse, error)
+	SearchEvent(ctx context.Context, in *SearchEventRequest, opts ...grpc.CallOption) (*SearchEventResponse, error)
 }
 
 type reporterAPIClient struct {
@@ -47,9 +47,9 @@ func (c *reporterAPIClient) Report(ctx context.Context, in *ReportRequest, opts 
 	return out, nil
 }
 
-func (c *reporterAPIClient) SearchEvents(ctx context.Context, in *SearchEventsRequest, opts ...grpc.CallOption) (*SearchEventsResponse, error) {
-	out := new(SearchEventsResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.telemetry.reporter.v1.ReporterAPI/SearchEvents", in, out, opts...)
+func (c *reporterAPIClient) SearchEvent(ctx context.Context, in *SearchEventRequest, opts ...grpc.CallOption) (*SearchEventResponse, error) {
+	out := new(SearchEventResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.telemetry.reporter.v1.ReporterAPI/SearchEvent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,9 +62,9 @@ func (c *reporterAPIClient) SearchEvents(ctx context.Context, in *SearchEventsRe
 type ReporterAPIServer interface {
 	// Report submits several telemetry events to the server.
 	Report(context.Context, *ReportRequest) (*ReportResponse, error)
-	// SearchEvents searches for a specific metric in telemetry events and returns them to the client.
+	// SearchEvent searches for a specific metric in telemetry events and returns them to the client.
 	// Can only be used by SuperAdmins.
-	SearchEvents(context.Context, *SearchEventsRequest) (*SearchEventsResponse, error)
+	SearchEvent(context.Context, *SearchEventRequest) (*SearchEventResponse, error)
 	mustEmbedUnimplementedReporterAPIServer()
 }
 
@@ -75,8 +75,8 @@ type UnimplementedReporterAPIServer struct {
 func (UnimplementedReporterAPIServer) Report(context.Context, *ReportRequest) (*ReportResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Report not implemented")
 }
-func (UnimplementedReporterAPIServer) SearchEvents(context.Context, *SearchEventsRequest) (*SearchEventsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchEvents not implemented")
+func (UnimplementedReporterAPIServer) SearchEvent(context.Context, *SearchEventRequest) (*SearchEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchEvent not implemented")
 }
 func (UnimplementedReporterAPIServer) mustEmbedUnimplementedReporterAPIServer() {}
 
@@ -109,20 +109,20 @@ func _ReporterAPI_Report_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ReporterAPI_SearchEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchEventsRequest)
+func _ReporterAPI_SearchEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchEventRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReporterAPIServer).SearchEvents(ctx, in)
+		return srv.(ReporterAPIServer).SearchEvent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.telemetry.reporter.v1.ReporterAPI/SearchEvents",
+		FullMethod: "/percona.platform.telemetry.reporter.v1.ReporterAPI/SearchEvent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReporterAPIServer).SearchEvents(ctx, req.(*SearchEventsRequest))
+		return srv.(ReporterAPIServer).SearchEvent(ctx, req.(*SearchEventRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -139,8 +139,8 @@ var ReporterAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ReporterAPI_Report_Handler,
 		},
 		{
-			MethodName: "SearchEvents",
-			Handler:    _ReporterAPI_SearchEvents_Handler,
+			MethodName: "SearchEvent",
+			Handler:    _ReporterAPI_SearchEvent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
