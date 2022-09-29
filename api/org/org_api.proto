@@ -369,6 +369,28 @@ service OrgAPI {
     };
   }
 
+  rpc OnboardMember(OnboardMemberRequest) returns (OnboardMemberResponse) {
+    option (google.api.http) = {
+      post: "/v1/orgs/members:onboard"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Onboards a user to Platform.";
+      summary: "Onboards a user to Platform.";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
   // ConnectPMM adds PMM into inventory and returns SSO details.
   // Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
   rpc ConnectPMM(ConnectPMMRequest) returns (ConnectPMMResponse) {
@@ -950,3 +972,53 @@ message ReactivateMemberRequest {
 }
 
 message ReactivateMemberResponse {}
+
+message OnboardMemberRequest {
+  // User's email.
+  string email = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+  // User's first name.
+  string first_name = 2;
+  // User's last name.
+  string last_name = 3;
+  // If user is org admin flag.
+  bool admin = 4;
+  // If user is a technical user flag.
+  bool technical = 5;
+  // If user is active in ServiceNow flag.
+  bool active = 6;
+  // Date when user was created in ServiceNow.
+  string created_at = 7;
+  // Information about ServiceNow account (org) of this user.
+  ServiceNowAccount account = 8;
+}
+
+// ServiceNowAccount describes an account (organization) in ServiceNow.
+message ServiceNowAccount {
+  ServiceNowAccountIDs ids = 1;
+  // If account (org) is active.
+  bool active = 2;
+  // Name of an account (org).
+  string name = 3;
+  // Date when account was created in ServiceNow.
+  string created_at = 4;
+  // Date when account was last updated in ServiceNow.
+  string updated_at = 5;
+}
+
+// ServiceNowAccountIDs lists IDs of an account (org) in different systems.
+message ServiceNowAccountIDs {
+  string salesforce = 1;
+  string servicenow = 2 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];;
+  string platform = 3;
+}
+
+message OnboardMemberResponse {}
+
