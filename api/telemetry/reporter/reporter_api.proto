@@ -103,7 +103,7 @@ message PMMMetricEvent {
   string id = 1;
   // PMM Server UUID.
   string pmm_server_telemetry_id = 2;
-  // Portal Organization UUID (Can be null).
+  // Portal Organization UUID (Can be empty).
   string portal_org_id = 3;
   // Portal customer tier.
   string customer_tier = 4;

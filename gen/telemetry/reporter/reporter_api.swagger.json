@@ -320,7 +320,7 @@
         },
         "portalOrgId": {
           "type": "string",
-          "description": "Portal Organization UUID (Can be null)."
+          "description": "Portal Organization UUID (Can be empty)."
         },
         "customerTier": {
           "type": "string",

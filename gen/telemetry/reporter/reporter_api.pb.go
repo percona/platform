@@ -135,7 +135,7 @@ type PMMMetricEvent struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// PMM Server UUID.
 	PmmServerTelemetryId string `protobuf:"bytes,2,opt,name=pmm_server_telemetry_id,json=pmmServerTelemetryId,proto3" json:"pmm_server_telemetry_id,omitempty"`
-	// Portal Organization UUID (Can be null).
+	// Portal Organization UUID (Can be empty).
 	PortalOrgId string `protobuf:"bytes,3,opt,name=portal_org_id,json=portalOrgId,proto3" json:"portal_org_id,omitempty"`
 	// Portal customer tier.
 	CustomerTier string `protobuf:"bytes,4,opt,name=customer_tier,json=customerTier,proto3" json:"customer_tier,omitempty"`
