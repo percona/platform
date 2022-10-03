@@ -322,6 +322,10 @@
           "type": "string",
           "description": "Portal Organization UUID (Can be empty)."
         },
+        "portalOrgName": {
+          "type": "string",
+          "description": "Portal Organization Name."
+        },
         "customerTier": {
           "type": "string",
           "description": "Portal customer tier."
