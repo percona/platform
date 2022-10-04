@@ -569,7 +569,7 @@ func (c *Client) FindGroupByName(ctx context.Context, name string) ([]Group, err
 		return nil, errors.Wrap(err, "failed to search for group")
 	}
 
-	out := make([]Group, len(groups))
+	out := make([]Group, 0, len(groups))
 
 	for _, g := range groups {
 		out = append(out, Group{
