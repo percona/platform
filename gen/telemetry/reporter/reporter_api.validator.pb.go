@@ -64,9 +64,11 @@ func (this *SearchEventRequest) Validate() error {
 	return nil
 }
 func (this *SearchEventResponse) Validate() error {
-	if this.Event != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Event); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Event", err)
+	for _, item := range this.Events {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Events", err)
+			}
 		}
 	}
 	if this.PageTotals != nil {

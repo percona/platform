@@ -384,9 +384,12 @@
     "v1SearchEventResponse": {
       "type": "object",
       "properties": {
-        "event": {
-          "$ref": "#/definitions/v1PMMMetricEvent",
-          "description": "PMM metric event."
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMMetricEvent"
+          },
+          "description": "PMM metric events."
         },
         "pageTotals": {
           "$ref": "#/definitions/fspPageTotals",

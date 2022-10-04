@@ -127,8 +127,8 @@ message SearchEventRequest {
 }
 
 message SearchEventResponse {
-  // PMM metric event.
-  PMMMetricEvent event = 1;
+  // PMM metric events.
+  repeated PMMMetricEvent events = 1;
   // pagination details.
   utils.fsp.PageTotals page_totals = 2;
 }
