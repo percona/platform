@@ -163,8 +163,8 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 	profile := okta.UserProfile{
 		profileLogin:           params.Login,
 		profileEmail:           params.Login,
-		profileFirstName:       "",
-		profileLastName:        "",
+		profileFirstName:       params.FirstName,
+		profileLastName:        params.LastName,
 		profilePortalAdminOrgs: []string{},
 		profileSecondaryEmail:  "",
 		profileMobilePhone:     "",
