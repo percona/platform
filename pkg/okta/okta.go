@@ -553,6 +553,35 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 	}, nil
 }
 
+// FindGroupByName returns groups with the name.
+func (c *Client) FindGroupByName(ctx context.Context, name string) ([]Group, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking Okta groups.", zap.String("oktaGroupName", name))
+
+	// https://developer.okta.com/docs/reference/api/groups/#request-parameters-3
+	// okta list groups API looks for groups with name provided in 'q' param
+	qp := query.NewQueryParams(
+		query.WithQ(name),
+	)
+
+	groups, _, err := c.c.Group.ListGroups(ctx, qp)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to search for group")
+	}
+
+	out := make([]Group, len(groups))
+
+	for _, g := range groups {
+		out = append(out, Group{
+			ID:          g.Id,
+			Name:        g.Profile.Name,
+			Description: g.Profile.Description,
+		})
+	}
+
+	return out, nil
+}
+
 // GroupExists finds whether okta group with the provided name exists.
 func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 	l := extractLogger(ctx)
