@@ -998,7 +998,7 @@ message OnboardMemberRequest {
 
 // ServiceNowAccount describes an account (organization) in ServiceNow.
 message ServiceNowAccount {
-  ServiceNowAccountIDs ids = 1;
+  AccountIDs ids = 1;
   // If account (org) is active.
   bool active = 2;
   // Name of an account (org).
@@ -1010,7 +1010,7 @@ message ServiceNowAccount {
 }
 
 // ServiceNowAccountIDs lists IDs of an account (org) in different systems.
-message ServiceNowAccountIDs {
+message AccountIDs {
   string salesforce = 1;
   string servicenow = 2 [
     (validator.field) = {

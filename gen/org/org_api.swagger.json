@@ -1251,6 +1251,21 @@
         }
       }
     },
+    "v1AccountIDs": {
+      "type": "object",
+      "properties": {
+        "salesforce": {
+          "type": "string"
+        },
+        "servicenow": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        }
+      },
+      "description": "ServiceNowAccountIDs lists IDs of an account (org) in different systems."
+    },
     "v1ConnectPMMRequest": {
       "type": "object",
       "properties": {
@@ -1653,7 +1668,7 @@
       "type": "object",
       "properties": {
         "ids": {
-          "$ref": "#/definitions/v1ServiceNowAccountIDs"
+          "$ref": "#/definitions/v1AccountIDs"
         },
         "active": {
           "type": "boolean",
@@ -1673,21 +1688,6 @@
         }
       },
       "description": "ServiceNowAccount describes an account (organization) in ServiceNow."
-    },
-    "v1ServiceNowAccountIDs": {
-      "type": "object",
-      "properties": {
-        "salesforce": {
-          "type": "string"
-        },
-        "servicenow": {
-          "type": "string"
-        },
-        "platform": {
-          "type": "string"
-        }
-      },
-      "description": "ServiceNowAccountIDs lists IDs of an account (org) in different systems."
     },
     "v1Tier": {
       "type": "string",

@@ -439,7 +439,7 @@ func (this *ServiceNowAccount) Validate() error {
 	}
 	return nil
 }
-func (this *ServiceNowAccountIDs) Validate() error {
+func (this *AccountIDs) Validate() error {
 	if this.Servicenow == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("Servicenow", fmt.Errorf(`value '%v' must not be an empty string`, this.Servicenow))
 	}
