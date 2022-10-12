@@ -34,6 +34,8 @@ const (
 	profileLastName        = "lastName"
 	profileFirstName       = "firstName"
 	profileEmail           = "email"
+	profileSecondaryEmail  = "secondEmail"
+	profileMobilePhone     = "mobilePhone"
 	profileLogin           = "login"
 	profilePortalAdminOrgs = "portalAdminOrgs"
 	profileTos             = "tos"
@@ -94,10 +96,12 @@ func (c *Client) SignUp(ctx context.Context, login, firstName, lastName string) 
 
 	u := okta.CreateUserRequest{
 		Profile: &okta.UserProfile{
-			profileLogin:     login,
-			profileEmail:     login,
-			profileFirstName: firstName,
-			profileLastName:  lastName,
+			profileLogin:          login,
+			profileEmail:          login,
+			profileFirstName:      firstName,
+			profileLastName:       lastName,
+			profileSecondaryEmail: "",
+			profileMobilePhone:    "",
 		},
 	}
 	qp := query.NewQueryParams(query.WithActivate(true))
@@ -162,6 +166,8 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 		profileFirstName:       "",
 		profileLastName:        "",
 		profilePortalAdminOrgs: []string{},
+		profileSecondaryEmail:  "",
+		profileMobilePhone:     "",
 	}
 
 	user, _, err := c.c.User.CreateUser(ctx, okta.CreateUserRequest{Profile: &profile}, &query.Params{Activate: &activate})
@@ -1024,7 +1030,10 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 
 func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
 	name, ok := profile[fieldName]
-	if !ok {
+	// some fields like mobilePhone are be present by defult as profile map keys
+	// but may not be set in that case we get a nil value from the map which will
+	// fail during the type assertion below, hence we add a nil check and return early.
+	if !ok || name == nil {
 		return nil, errNotFound
 	}
 
@@ -1067,7 +1076,7 @@ func extractLogger(ctx context.Context) *zap.Logger {
 	return logger.GetLoggerFromContext(ctx).Named("oktaClient")
 }
 
-func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
+func convertUser(oktaUser *okta.User) (*User, error) { //nolint:gocognit,cyclop
 	if oktaUser.Profile == nil {
 		return nil, errors.New("missing user profile")
 	}
@@ -1125,6 +1134,22 @@ func convertUser(oktaUser *okta.User) (*User, error) { //nolint:cyclop
 	}
 	if marketing != nil {
 		user.Marketing = *marketing
+	}
+
+	secondaryEmail, err := getValue[string](profile, profileSecondaryEmail)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errorWrapper(err, profileSecondaryEmail)
+	}
+	if secondaryEmail != nil {
+		user.SecondaryEmail = *secondaryEmail
+	}
+
+	mobilePhone, err := getValue[string](profile, profileMobilePhone)
+	if err != nil && !errors.Is(err, errNotFound) {
+		return nil, errorWrapper(err, profileMobilePhone)
+	}
+	if mobilePhone != nil {
+		user.MobilePhone = *mobilePhone
 	}
 
 	return &user, nil
