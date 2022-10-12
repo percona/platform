@@ -9,6 +9,8 @@ import "telemetry/reporter/event.proto";
 import "telemetry/events/pmm/server_uptime_event.proto";
 import "google/protobuf/duration.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "utils/fsp/fsp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
@@ -67,6 +69,21 @@ service ReporterAPI {
       };
     };
   }
+
+  // SearchEvent searches for a specific metric in telemetry events and returns them to the client.
+  // Can only be used by SuperAdmins.
+  rpc SearchEvent(SearchEventRequest) returns (SearchEventResponse) {
+    option (google.api.http) = {
+        post: "/v1/telemetry/events:search"
+        body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "SearchEvent searches for a specific metric in telemetry events and returns them to the client.";
+      summary: "SearchEvent";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+    };
+  }
 }
 
 message ReportRequest {
@@ -79,3 +96,39 @@ message ReportRequest {
 }
 
 message ReportResponse {}
+
+// PMMMetricEvent represents telemetry event containing metrics sent by PMM.
+message PMMMetricEvent {
+  // PMM Metric Event UUID.
+  string id = 1;
+  // PMM Server UUID.
+  string pmm_server_telemetry_id = 2;
+  // Portal Organization UUID (Can be empty).
+  string portal_org_id = 3;
+  // Portal Organization Name.
+  string portal_org_name = 4;
+  // Portal customer tier.
+  string customer_tier = 5;
+  // Name of the metric requested by the client.
+  string metric_name = 6;
+  // Value of the metric requested by the client.
+  string metric_value = 7;
+  // Time when this event was created and received.
+  google.protobuf.Timestamp time = 8;
+}
+
+message SearchEventRequest {
+  // fsp used for filtering/sorting/paginating the request. Optional param.
+  utils.fsp.FilteringSortingPagination fsp = 1;
+  // Name of the metric requested by the client.
+  string metric_name = 2 [(validator.field) = {
+    string_not_empty: true
+  }];
+}
+
+message SearchEventResponse {
+  // PMM metric events.
+  repeated PMMMetricEvent events = 1;
+  // pagination details.
+  utils.fsp.PageTotals page_totals = 2;
+}

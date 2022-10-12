@@ -55,6 +55,43 @@
           "application/json"
         ]
       }
+    },
+    "/v1/telemetry/events:search": {
+      "post": {
+        "summary": "SearchEvent",
+        "description": "SearchEvent searches for a specific metric in telemetry events and returns them to the client.",
+        "operationId": "ReporterAPI_SearchEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -69,6 +106,120 @@
         }
       }
     },
+    "fspField": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the field (name of the column when applicable to SQL)."
+        },
+        "value": {
+          "description": "Value of the field."
+        }
+      },
+      "description": "Field of an object."
+    },
+    "fspFilter": {
+      "type": "object",
+      "properties": {
+        "filterType": {
+          "$ref": "#/definitions/fspFilterType",
+          "description": "filter_type defines logic of the filter."
+        },
+        "field": {
+          "$ref": "#/definitions/fspField",
+          "description": "field defines based on which data filtering must occur."
+        }
+      },
+      "description": "Filter is used to filter results for endpoints that return list of values."
+    },
+    "fspFilterType": {
+      "type": "string",
+      "enum": [
+        "EQUAL",
+        "NOT_EQUAL",
+        "GREATER",
+        "GREATER_OR_EQUAL",
+        "LESS",
+        "LESS_OR_EQUAL"
+      ],
+      "default": "EQUAL",
+      "description": "FilterType represents type of filter that will be applied to SQL query.\n\n - EQUAL: In case single value is provided, EQUAL will trigger \"=\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"IN\" SQL behaviour.\n - NOT_EQUAL: In case single value is provided, NOT EQUAL will trigger \"\u003c\u003e\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"NOT IN\" SQL behaviour.\n - GREATER: GREATER is mapped to SQL '\u003e'.\n - GREATER_OR_EQUAL: GREATER_OR_EQUAL is mapped to SQL '\u003e='.\n - LESS: LESS is mapped to SQL '\u003c'.\n - LESS_OR_EQUAL: LESS_OR_EQUAL is mapped to SQL '\u003c='."
+    },
+    "fspFilteringSortingPagination": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fspFilter"
+          },
+          "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
+        },
+        "sortingParams": {
+          "$ref": "#/definitions/fspSortingParams",
+          "description": "sorting_params are optional. No sorting will be applied if absent."
+        },
+        "pageParams": {
+          "$ref": "#/definitions/fspPageParams",
+          "description": "page_params are optional. No pagination will be applied if absent."
+        }
+      },
+      "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
+    },
+    "fspPageParams": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum number of results per page."
+        },
+        "index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Index of the requested page, starts from 0."
+        }
+      },
+      "description": "PageParams represents page request parameters for pagination."
+    },
+    "fspPageTotals": {
+      "type": "object",
+      "properties": {
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of results."
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of pages."
+        }
+      },
+      "description": "PageTotals represents total values for pagination and are included in paginated responses."
+    },
+    "fspSortingOrder": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "default": "ASC",
+      "description": " - ASC: ASC is for ascending sorting order.\n - DESC: DESC is for descending sorting order."
+    },
+    "fspSortingParams": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string"
+        },
+        "order": {
+          "$ref": "#/definitions/fspSortingOrder"
+        }
+      },
+      "description": "SortingParams are used to sort results for endpoints that return list of values."
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -77,6 +228,14 @@
         }
       },
       "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
     },
     "rpcStatus": {
       "type": "object",
@@ -148,6 +307,45 @@
       },
       "description": "Event contains original event and additional information added by the sender."
     },
+    "v1PMMMetricEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "PMM Metric Event UUID."
+        },
+        "pmmServerTelemetryId": {
+          "type": "string",
+          "description": "PMM Server UUID."
+        },
+        "portalOrgId": {
+          "type": "string",
+          "description": "Portal Organization UUID (Can be empty)."
+        },
+        "portalOrgName": {
+          "type": "string",
+          "description": "Portal Organization Name."
+        },
+        "customerTier": {
+          "type": "string",
+          "description": "Portal customer tier."
+        },
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric requested by the client."
+        },
+        "metricValue": {
+          "type": "string",
+          "description": "Value of the metric requested by the client."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was created and received."
+        }
+      },
+      "description": "PMMMetricEvent represents telemetry event containing metrics sent by PMM."
+    },
     "v1ReportRequest": {
       "type": "object",
       "properties": {
@@ -169,6 +367,35 @@
     },
     "v1ReportResponse": {
       "type": "object"
+    },
+    "v1SearchEventRequest": {
+      "type": "object",
+      "properties": {
+        "fsp": {
+          "$ref": "#/definitions/fspFilteringSortingPagination",
+          "description": "fsp used for filtering/sorting/paginating the request. Optional param."
+        },
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric requested by the client."
+        }
+      }
+    },
+    "v1SearchEventResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMMetricEvent"
+          },
+          "description": "PMM metric events."
+        },
+        "pageTotals": {
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
+        }
+      }
     },
     "v1ServerMetric": {
       "type": "object",
