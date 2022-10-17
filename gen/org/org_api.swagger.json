@@ -1411,7 +1411,12 @@
       }
     },
     "v1OnboardMemberResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "platformOrgId": {
+          "type": "string"
+        }
+      }
     },
     "v1Organization": {
       "type": "object",

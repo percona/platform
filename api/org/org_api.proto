@@ -1020,5 +1020,7 @@ message AccountIDs {
   string platform = 3;
 }
 
-message OnboardMemberResponse {}
+message OnboardMemberResponse {
+  string platform_org_id = 1;
+}
 
