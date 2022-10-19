@@ -69,12 +69,10 @@
       "type": "object",
       "properties": {
         "filterType": {
-          "$ref": "#/definitions/fspFilterType",
-          "description": "filter_type defines logic of the filter."
+          "$ref": "#/definitions/fspFilterType"
         },
         "field": {
-          "$ref": "#/definitions/fspField",
-          "description": "field defines based on which data filtering must occur."
+          "$ref": "#/definitions/fspField"
         }
       },
       "description": "Filter is used to filter results for endpoints that return list of values."
@@ -103,12 +101,10 @@
           "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
         },
         "sortingParams": {
-          "$ref": "#/definitions/fspSortingParams",
-          "description": "sorting_params are optional. No sorting will be applied if absent."
+          "$ref": "#/definitions/fspSortingParams"
         },
         "pageParams": {
-          "$ref": "#/definitions/fspPageParams",
-          "description": "page_params are optional. No pagination will be applied if absent."
+          "$ref": "#/definitions/fspPageParams"
         }
       },
       "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
@@ -207,8 +203,7 @@
       "type": "object",
       "properties": {
         "code": {
-          "$ref": "#/definitions/v1ActionStatusCode",
-          "description": "Code assigned to this status."
+          "$ref": "#/definitions/v1ActionStatusCode"
         },
         "message": {
           "type": "string",
@@ -262,8 +257,7 @@
           "description": "Organization ID that affected object belongs to."
         },
         "actionType": {
-          "$ref": "#/definitions/v1ActionType",
-          "title": "Action type"
+          "$ref": "#/definitions/v1ActionType"
         },
         "timestamp": {
           "type": "string",
@@ -275,8 +269,7 @@
           "description": "The source module/service that triggered audit event (might be equal to account_id for events not related to user action)."
         },
         "actionStatus": {
-          "$ref": "#/definitions/v1ActionStatus",
-          "description": "The status of action execution."
+          "$ref": "#/definitions/v1ActionStatus"
         },
         "objects": {
           "type": "array",
@@ -321,8 +314,7 @@
       "type": "object",
       "properties": {
         "fsp": {
-          "$ref": "#/definitions/fspFilteringSortingPagination",
-          "description": "fsp used for filtering/sorting/paginating the request. Optional param."
+          "$ref": "#/definitions/fspFilteringSortingPagination"
         }
       },
       "description": "ListAuditEventsRequest to view events that were previously saved."
@@ -338,8 +330,7 @@
           "description": "list of events."
         },
         "pageTotals": {
-          "$ref": "#/definitions/fspPageTotals",
-          "description": "pagination details."
+          "$ref": "#/definitions/fspPageTotals"
         }
       },
       "description": "ListAuditEventsResponse lists stored events."
