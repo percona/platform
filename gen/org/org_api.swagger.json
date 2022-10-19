@@ -970,8 +970,7 @@
                   "description": "Timestamp when the organization was last updated."
                 },
                 "tier": {
-                  "$ref": "#/definitions/v1Tier",
-                  "description": "Tier of the client linked to the organization."
+                  "$ref": "#/definitions/v1Tier"
                 }
               },
               "title": "Percona Portal Organization"
@@ -1160,8 +1159,7 @@
       "type": "object",
       "properties": {
         "customerSuccess": {
-          "$ref": "#/definitions/ContactsCustomerSuccess",
-          "description": "Contact information of the Customer Success employee assigned to a customer's account."
+          "$ref": "#/definitions/ContactsCustomerSuccess"
         },
         "newTicketUrl": {
           "type": "string",
@@ -1290,8 +1288,7 @@
           "description": "Timestamp when the organization was last updated."
         },
         "tier": {
-          "$ref": "#/definitions/v1Tier",
-          "description": "Tier of the client linked to the organization."
+          "$ref": "#/definitions/v1Tier"
         }
       }
     },
@@ -1344,8 +1341,7 @@
           "description": "Entitlement end date.\nNote: only date is used here but not time."
         },
         "platform": {
-          "$ref": "#/definitions/OrganizationEntitlementPlatform",
-          "description": "Platform-specific options covered by this entitlement."
+          "$ref": "#/definitions/OrganizationEntitlementPlatform"
         }
       },
       "description": "Contains information about the organization entitlement."
