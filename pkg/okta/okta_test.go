@@ -180,18 +180,52 @@ func TestSignInByToken(t *testing.T) {
 	t.Run("wrong token", func(t *testing.T) {
 		t.Parallel()
 
-		email, password, firstName, lastName := GenCredentials(t)
-		user := CreateInactivatedTestUser(t, email, password, firstName, lastName)
+		authInfo, err := s.SignInByToken(context.Background(), gofakeit.UUID())
+		require.NotNil(t, err)
+		require.ErrorContains(t, err, "authentication error")
+		require.Empty(t, authInfo)
+	})
+}
 
+func TestSignInByStateToken(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	t.Run("successful login", func(t *testing.T) {
+		t.Parallel()
+
+		email, _, firstName, lastName := GenCredentials(t)
+		user := CreateInactivatedTestUser(t, email, "", firstName, lastName)
 		t.Cleanup(func() {
 			DeleteUser(t, user.ID)
 		})
 
-		ActivateUser(t, user.ID)
+		activationToken := ActivateUser(t, user.ID)
 
-		authInfo, err := s.SignInByToken(context.Background(), gofakeit.UUID())
+		data := struct {
+			Token string `json:"token"`
+		}{Token: activationToken}
+
+		resp := AuthenticatedInfo{}
+		client := createOktaClient(t)
+		err = oktaAPIRequest(client, "POST", "/api/v1/authn", data, &resp)
+		assert.NoError(t, err)
+		assert.NotEmpty(t, resp.StateToken)
+
+		authInfo, err := s.SignInByStateToken(context.Background(), resp.StateToken)
+		require.NoError(t, err)
+		require.NotEmpty(t, authInfo)
+		require.Equal(t, user.ID, authInfo.Embedded.User.ID)
+	})
+
+	t.Run("wrong token", func(t *testing.T) {
+		t.Parallel()
+
+		authInfo, err := s.SignInByStateToken(context.Background(), gofakeit.UUID())
 		require.NotNil(t, err)
-		require.ErrorContains(t, err, "authentication error")
+		require.ErrorContains(t, err, "Invalid token provided")
 		require.Empty(t, authInfo)
 	})
 }

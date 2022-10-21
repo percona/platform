@@ -281,11 +281,30 @@ func (c *Client) SignInByToken(ctx context.Context, token string) (*Authenticate
 	return c.authenticate(ctx, data)
 }
 
+// SignInByStateToken signs in using the state token.
+func (c *Client) SignInByStateToken(ctx context.Context, token string) (*AuthenticatedInfo, error) {
+	l := extractLogger(ctx)
+	l.Info("SignIn using state token.")
+
+	if token == "" {
+		return nil, ErrEmptyToken
+	}
+
+	data := struct {
+		StateToken string `json:"stateToken"`
+	}{
+		StateToken: token,
+	}
+
+	return c.authenticate(ctx, data)
+}
+
 // AuthenticatedInfo the object that received from the okta's "api/v1/authn" endpoint.
 type AuthenticatedInfo struct {
 	ExpiresAt    string `json:"expiresAt"`
 	Status       string `json:"status"`
 	SessionToken string `json:"sessionToken"`
+	StateToken   string `json:"stateToken"`
 	Embedded     struct {
 		User struct {
 			ID      string `json:"id"`
