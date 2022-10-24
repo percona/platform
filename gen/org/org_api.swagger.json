@@ -356,99 +356,12 @@
         },
         "parameters": [
           {
-            "name": "email",
-            "description": "User's email.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "firstName",
-            "description": "User's first name.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "lastName",
-            "description": "User's last name.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "admin",
-            "description": "If user is org admin flag.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "technical",
-            "description": "If user is a technical user flag.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "active",
-            "description": "If user is active in ServiceNow flag.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "createdAt",
-            "description": "Date when user was created in ServiceNow.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.ids.salesforce",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.ids.servicenow",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.ids.platform",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.active",
-            "description": "If account (org) is active.",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "account.name",
-            "description": "Name of an account (org).",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.createdAt",
-            "description": "Date when account was created in ServiceNow.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "account.updatedAt",
-            "description": "Date when account was last updated in ServiceNow.",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1OnboardMemberRequest"
+            }
           }
         ],
         "tags": [
@@ -1407,6 +1320,43 @@
           "items": {
             "$ref": "#/definitions/InviteMembersResponseError"
           }
+        }
+      }
+    },
+    "v1OnboardMemberRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User's email."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User's last name."
+        },
+        "admin": {
+          "type": "boolean",
+          "description": "If user is org admin flag."
+        },
+        "technical": {
+          "type": "boolean",
+          "description": "If user is a technical user flag."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "If user is active in ServiceNow flag."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date when user was created in ServiceNow."
+        },
+        "account": {
+          "$ref": "#/definitions/v1ServiceNowAccount",
+          "description": "Information about ServiceNow account (org) of this user."
         }
       }
     },

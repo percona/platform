@@ -372,6 +372,7 @@ service OrgAPI {
   rpc OnboardMember(OnboardMemberRequest) returns (OnboardMemberResponse) {
     option (google.api.http) = {
       post: "/v1/orgs/members:onboard"
+      body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Onboards a user to Platform.";
