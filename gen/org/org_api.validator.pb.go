@@ -421,9 +421,6 @@ func (this *ReactivateMemberResponse) Validate() error {
 	return nil
 }
 func (this *OnboardMemberRequest) Validate() error {
-	if this.Email == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Email", fmt.Errorf(`value '%v' must not be an empty string`, this.Email))
-	}
 	if this.Account != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Account); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Account", err)
@@ -440,9 +437,6 @@ func (this *ServiceNowAccount) Validate() error {
 	return nil
 }
 func (this *AccountIDs) Validate() error {
-	if this.Servicenow == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("Servicenow", fmt.Errorf(`value '%v' must not be an empty string`, this.Servicenow))
-	}
 	return nil
 }
 func (this *OnboardMemberResponse) Validate() error {
