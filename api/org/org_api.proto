@@ -975,11 +975,7 @@ message ReactivateMemberResponse {}
 
 message OnboardMemberRequest {
   // User's email.
-  string email = 1 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];
+  string email = 1;
   // User's first name.
   string first_name = 2;
   // User's last name.
@@ -1012,11 +1008,7 @@ message ServiceNowAccount {
 // ServiceNowAccountIDs lists IDs of an account (org) in different systems.
 message AccountIDs {
   string salesforce = 1;
-  string servicenow = 2 [
-    (validator.field) = {
-      string_not_empty: true
-    }
-  ];;
+  string servicenow = 2;
   string platform = 3;
 }
 
