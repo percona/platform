@@ -6,13 +6,13 @@ go 1.18
 
 require (
 	github.com/Masterminds/squirrel v1.5.3
-	github.com/aws/aws-sdk-go v1.44.113
+	github.com/aws/aws-sdk-go v1.44.114
 	github.com/brianvoe/gofakeit/v6 v6.19.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
@@ -25,8 +25,8 @@ require (
 	go.uber.org/zap v1.23.0
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 	golang.org/x/sys v0.0.0-20220808155132-1c4a2a72c664
-	google.golang.org/genproto v0.0.0-20220822174746-9e6da59bd2fc
-	google.golang.org/grpc v1.49.0
+	google.golang.org/genproto v0.0.0-20221014213838-99cd37c6964a
+	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.5.1
@@ -55,8 +55,8 @@ require (
 	github.com/prometheus/procfs v0.8.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/net v0.0.0-20220809184613-07c6da5e1ced // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
+	golang.org/x/text v0.3.8 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )

@@ -123,12 +123,10 @@
       "type": "object",
       "properties": {
         "filterType": {
-          "$ref": "#/definitions/fspFilterType",
-          "description": "filter_type defines logic of the filter."
+          "$ref": "#/definitions/fspFilterType"
         },
         "field": {
-          "$ref": "#/definitions/fspField",
-          "description": "field defines based on which data filtering must occur."
+          "$ref": "#/definitions/fspField"
         }
       },
       "description": "Filter is used to filter results for endpoints that return list of values."
@@ -157,12 +155,10 @@
           "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
         },
         "sortingParams": {
-          "$ref": "#/definitions/fspSortingParams",
-          "description": "sorting_params are optional. No sorting will be applied if absent."
+          "$ref": "#/definitions/fspSortingParams"
         },
         "pageParams": {
-          "$ref": "#/definitions/fspPageParams",
-          "description": "page_params are optional. No pagination will be applied if absent."
+          "$ref": "#/definitions/fspPageParams"
         }
       },
       "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
@@ -301,8 +297,7 @@
           "description": "Time when this event was received by the sender."
         },
         "event": {
-          "$ref": "#/definitions/v1AnyEvent",
-          "description": "Original event with a well-known type URL."
+          "$ref": "#/definitions/v1AnyEvent"
         }
       },
       "description": "Event contains original event and additional information added by the sender."
@@ -372,8 +367,7 @@
       "type": "object",
       "properties": {
         "fsp": {
-          "$ref": "#/definitions/fspFilteringSortingPagination",
-          "description": "fsp used for filtering/sorting/paginating the request. Optional param."
+          "$ref": "#/definitions/fspFilteringSortingPagination"
         },
         "metricName": {
           "type": "string",
@@ -392,8 +386,7 @@
           "description": "PMM metric events."
         },
         "pageTotals": {
-          "$ref": "#/definitions/fspPageTotals",
-          "description": "pagination details."
+          "$ref": "#/definitions/fspPageTotals"
         }
       }
     },
@@ -424,8 +417,7 @@
           "description": "PMM Server uptime.\nMandatory."
         },
         "distributionMethod": {
-          "$ref": "#/definitions/v1DistributionMethod",
-          "description": "PMM Server distribution method.\nMandatory."
+          "$ref": "#/definitions/v1DistributionMethod"
         },
         "metrics": {
           "type": "array",
