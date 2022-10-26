@@ -33,6 +33,12 @@ type RequestData struct {
 	// PortalOrgID Percona Portal Organization ID (equal to Okta Group ID).
 	PortalOrgID string
 
+	// PortalUserOrgID Percona Portal Organization ID.
+	PortalUserOrgID string
+
+	// PortalUserRole Percona Portal User role.
+	PortalUserRole string
+
 	// AuthToken holds OAuth2 access_token that was used for request authentication.
 	// Is used for token propagation to outgoing requests since 'Authorization'
 	// HTTP header is removed by Traefik after request authentication.

@@ -31,6 +31,12 @@ const (
 	// Note: Percona Account is handled by Okta so ID comes from Okta as well.
 	AuthUserIDHeader = "Auth-User-ID"
 
+	// AuthUserOrgIDHeader Current percona Portal Organization ID.
+	AuthUserOrgIDHeader = "Auth-User-Org-ID"
+
+	// AuthUserRoleHeader Current Percona Portal user role.
+	AuthUserRoleHeader = "Auth-User-Role"
+
 	// AuthAppIDHeader Application ID in Okta.
 	// Note: Application is handled by Okta so ID comes from Okta as well.
 	AuthAppIDHeader = "Auth-App-ID"
@@ -315,6 +321,16 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthPortalOrgIDHeader)
 	}
 
+	userPortalOrgID, err := getStringFromMetadata(md, AuthUserOrgIDHeader)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUserOrgIDHeader)
+	}
+
+	userPortalRole, err := getStringFromMetadata(md, AuthUserRoleHeader)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthUserRoleHeader)
+	}
+
 	authToken, err := getStringFromMetadata(md, AuthTokenHeader)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthTokenHeader)
@@ -347,6 +363,8 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		AppID:              appID,
 		IsPortalSuperAdmin: isPortalSuperAdmin,
 		PortalOrgID:        portalOrgID,
+		PortalUserOrgID:    userPortalOrgID,
+		PortalUserRole:     userPortalRole,
 		AuthToken:          authToken,
 		UserEmail:          email,
 		SessionID:          sessionID,
