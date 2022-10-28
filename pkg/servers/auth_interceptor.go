@@ -32,6 +32,7 @@ const (
 	AuthUserIDHeader = "Auth-User-ID"
 
 	// AuthUserOrgIDHeader Current percona Portal Organization ID.
+	// Presented in user context in case the authenticated user has a Portal org.
 	AuthUserOrgIDHeader = "Auth-User-Org-ID"
 
 	// AuthUserRoleHeader Current Percona Portal user role.
@@ -46,6 +47,7 @@ const (
 	AuthSuperAdminHeader = "Auth-Portal-Super-Admin"
 
 	// AuthPortalOrgIDHeader Percona Portal Organization ID (equal to Okta Group ID).
+	// Presented in machine context.
 	AuthPortalOrgIDHeader = "Auth-Portal-Org-ID"
 
 	// AuthTokenHeader holds OAuth2 access_token that was used for request authentication.
