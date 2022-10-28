@@ -6,7 +6,7 @@ go 1.18
 
 require (
 	github.com/Masterminds/squirrel v1.5.3
-	github.com/aws/aws-sdk-go v1.44.114
+	github.com/aws/aws-sdk-go v1.44.118
 	github.com/brianvoe/gofakeit/v6 v6.19.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
