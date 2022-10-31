@@ -13,35 +13,40 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "/event;eventv1";
 
-// ActionType represents audit events' action types.
-enum ActionType {
-  // TYPE_UNDEFINED represents unknown action type.
-  TYPE_UNDEFINED = 0;
-  // TYPE_CREATE represents action type = CREATE.
-  TYPE_CREATE = 1;
-  // TYPE_UPDATE represents action type = UPDATE.
-  TYPE_UPDATE = 2;
-  // TYPE_DELETE represents action type = DELETE.
-  TYPE_DELETE = 3;
+message ActionTypeMessage {
+  // ActionType represents audit events' action types.
+  enum ActionType {
+    // UNSPECIFIED represents unknown action type.
+    UNSPECIFIED = 0;
+    // CREATE represents action type = CREATE.
+    CREATE = 1;
+    // UPDATE represents action type = UPDATE.
+    UPDATE = 2;
+    // DELETE represents action type = DELETE.
+    DELETE = 3;
+  }
 }
 
-// ActionStatusCode codifies result of an action.
-enum ActionStatusCode {
-  // STATUS_UNDEFINED for non-passed value.
-  STATUS_UNDEFINED = 0;
-  // STATUS_SUCCESS represents SUCCESS action status.
-  STATUS_SUCCESS = 1;
-  // STATUS_FAILURE represents FAILURE action status.
-  STATUS_FAILURE = 2;
+message ActionStatusMessage {
+  // ActionStatusCode codifies result of an action.
+  enum ActionStatusCode {
+    // UNSPECIFIED for non-passed value or ambiguous result of the operation.
+    UNSPECIFIED = 0;
+    // SUCCESS represents SUCCESS action status.
+    SUCCESS = 1;
+    // FAILURE represents FAILURE action status.
+    FAILURE = 2;
+  }
+
+  // ActionStatus represents a result of an action.
+  message ActionStatus {
+    // Code assigned to this status.
+    ActionStatusCode code = 1;
+    // Message to elaborate the reason of action failure or details of successful completion.
+    string message = 2;
+  }
 }
 
-// ActionStatus represents a result of an action.
-message ActionStatus {
-  // Code assigned to this status.
-  ActionStatusCode code = 1;
-  // Message to elaborate the reason of action failure or details of successful completion.
-  string message = 2;
-}
 
 // AuditObject represents object with it's attributes that is affected by user action.
 message AuditObject {
@@ -61,24 +66,28 @@ message AuditObject {
 message AuditEvent {
   // Audit event ID.
   string id = 1;
-  // Account ID that initiated the action (user id or application name).
-  string account_id = 2;
+  // User's okta ID is an ID that user has in Okta.
+  string okta_user_id = 2;
   // Unique ID assigned to each request.
   string request_id = 3;
-  // Account's remote IP address (user ip or nil).
-  string account_ip = 4;
+  // User's remote IP address.
+  string user_ip_address = 4;
+  // User agent of user's browser.
+  string user_agent = 5;
+  // User's role in Portal.
+  string user_role = 6;
   // Organization ID that affected object belongs to.
-  string organization_id = 5;
+  string organization_id = 7;
   // Action type
-  ActionType action_type = 6;
+  ActionTypeMessage.ActionType action_type = 8;
   // Timestamp when the event occurred.
-  google.protobuf.Timestamp timestamp = 7;
+  google.protobuf.Timestamp timestamp = 9;
   // The source module/service that triggered audit event (might be equal to account_id for events not related to user action).
-  string event_source = 8;
+  string event_source = 10;
   // The status of action execution.
-  ActionStatus action_status = 9;
+  ActionStatusMessage.ActionStatus action_status = 11;
   // The information about affected objects in the system.
-  repeated AuditObject objects = 10;
+  repeated AuditObject objects = 12;
 }
 
 // EventAPI provides API for creating and viewing events.
