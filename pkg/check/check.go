@@ -521,6 +521,8 @@ func checkQueryForCompatibilityWithMonogDBFamily(queries []Query) error {
 		case MongoDBGetParameter:
 		case MongoDBBuildInfo:
 		case MongoDBGetCmdLineOpts:
+		case MongoDBGetDiagnosticData:
+		case MongoDBReplSetGetStatus:
 		case MetricsInstant:
 		case MetricsRange:
 		default:
