@@ -6,7 +6,7 @@ go 1.18
 
 require (
 	github.com/Masterminds/squirrel v1.5.3
-	github.com/aws/aws-sdk-go v1.44.114
+	github.com/aws/aws-sdk-go v1.44.118
 	github.com/brianvoe/gofakeit/v6 v6.19.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
@@ -20,11 +20,11 @@ require (
 	github.com/percona/promconfig v0.2.5
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.13.0
-	github.com/stretchr/testify v1.8.0
-	go.starlark.net v0.0.0-20220714194419-4cadf0a12139
+	github.com/stretchr/testify v1.8.1
+	go.starlark.net v0.0.0-20210312235212-74c10e2c17dc
 	go.uber.org/zap v1.23.0
-	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
-	golang.org/x/sys v0.0.0-20220808155132-1c4a2a72c664
+	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
+	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10
 	google.golang.org/genproto v0.0.0-20221014213838-99cd37c6964a
 	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1

@@ -3,14 +3,6 @@ package fsp
 
 import sq "github.com/Masterminds/squirrel"
 
-// SQLDialect of the underlying database.
-type SQLDialect string
-
-const (
-	Postgres   SQLDialect = "postgres"
-	Clickhouse SQLDialect = "clickhouse"
-)
-
 // Config for filtering, sorting, pagination. This config is used to modify the behaviour inside an
 // application that is using FilteringSortingPagination.
 type Config struct {
@@ -21,9 +13,6 @@ type Config struct {
 
 	// MaxLimit if set will enforce this value as a maximum limit for getting results from database.
 	MaxLimit uint32
-
-	// Dialect represents the SQL dialect used by the underlying DB.
-	Dialect SQLDialect
 }
 
 // FilteringSortingPagination is an object that is expected on any API that returns list of items from postgres.
