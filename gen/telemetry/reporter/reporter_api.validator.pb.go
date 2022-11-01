@@ -45,9 +45,9 @@ func (this *ReportResponse) Validate() error {
 	return nil
 }
 func (this *PMMMetricEvent) Validate() error {
-	if this.Time != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Time); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Time", err)
+	if this.EventTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.EventTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("EventTime", err)
 		}
 	}
 	return nil

@@ -100,7 +100,7 @@ message ReportResponse {}
 // PMMMetricEvent represents telemetry event containing metrics sent by PMM.
 message PMMMetricEvent {
   // PMM Metric Event UUID.
-  string id = 1;
+  string event_id = 1;
   // PMM Server UUID.
   string pmm_server_telemetry_id = 2;
   // Portal Organization UUID (Can be empty).
@@ -108,13 +108,13 @@ message PMMMetricEvent {
   // Portal Organization Name.
   string portal_org_name = 4;
   // Portal customer tier.
-  string customer_tier = 5;
+  string percona_customer_tier = 5;
   // Name of the metric requested by the client.
   string metric_name = 6;
   // Value of the metric requested by the client.
   string metric_value = 7;
   // Time when this event was created and received.
-  google.protobuf.Timestamp time = 8;
+  google.protobuf.Timestamp event_time = 8;
 }
 
 message SearchEventRequest {

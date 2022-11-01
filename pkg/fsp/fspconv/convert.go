@@ -32,9 +32,9 @@ func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.Fil
 	}
 
 	if apiModel.GetPageParams() != nil {
-		out.PaginationParams = newPageParamsWithMaxLimit(apiModel.GetPageParams(), cfg.MaxLimit)
+		out.PaginationParams = newPageParamsWithMaxLimit(apiModel.GetPageParams(), cfg.MaxLimit, cfg.Dialect)
 	} else if cfg.MaxLimit != 0 {
-		out.PaginationParams = newDefaultPageParams(cfg.MaxLimit)
+		out.PaginationParams = newDefaultPageParams(cfg.MaxLimit, cfg.Dialect)
 	}
 
 	if apiModel.GetSortingParams() != nil {
@@ -47,16 +47,16 @@ func NewFSP(apiModel *api.FilteringSortingPagination, cfg *fsp.Config) (*fsp.Fil
 	return out, nil
 }
 
-func newDefaultPageParams(maxLimit uint32) *fsp.PaginationParams {
-	return fsp.NewPaginationParams(maxLimit, 0)
+func newDefaultPageParams(maxLimit uint32, dialect fsp.SQLDialect) *fsp.PaginationParams {
+	return fsp.NewPaginationParams(maxLimit, 0, dialect)
 }
 
-func newPageParamsWithMaxLimit(apiModel *api.PageParams, maxLimit uint32) *fsp.PaginationParams {
+func newPageParamsWithMaxLimit(apiModel *api.PageParams, maxLimit uint32, dialect fsp.SQLDialect) *fsp.PaginationParams {
 	limit := apiModel.GetPageSize()
 	if limit > maxLimit {
 		limit = maxLimit
 	}
-	return fsp.NewPaginationParams(limit, apiModel.GetIndex())
+	return fsp.NewPaginationParams(limit, apiModel.GetIndex(), dialect)
 }
 
 func newSortingParams(apiModel *api.SortingParams, allowedColumns map[string]struct{}) (*fsp.SortingParams, error) {

@@ -305,7 +305,7 @@
     "v1PMMMetricEvent": {
       "type": "object",
       "properties": {
-        "id": {
+        "eventId": {
           "type": "string",
           "description": "PMM Metric Event UUID."
         },
@@ -321,7 +321,7 @@
           "type": "string",
           "description": "Portal Organization Name."
         },
-        "customerTier": {
+        "perconaCustomerTier": {
           "type": "string",
           "description": "Portal customer tier."
         },
@@ -333,7 +333,7 @@
           "type": "string",
           "description": "Value of the metric requested by the client."
         },
-        "time": {
+        "eventTime": {
           "type": "string",
           "format": "date-time",
           "description": "Time when this event was created and received."
