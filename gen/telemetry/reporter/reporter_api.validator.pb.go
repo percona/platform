@@ -53,6 +53,9 @@ func (this *PMMMetricEvent) Validate() error {
 	return nil
 }
 func (this *SearchEventRequest) Validate() error {
+	if nil == this.Fsp {
+		return github_com_mwitkow_go_proto_validators.FieldError("Fsp", fmt.Errorf("message must exist"))
+	}
 	if this.Fsp != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Fsp); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
