@@ -497,6 +497,33 @@ func TestGroups(t *testing.T) {
 	assert.False(t, exists)
 }
 
+func TestFindGroup(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	name := gofakeit.LastName() + ", " + gofakeit.LastName() + " and " + gofakeit.LastName()
+	description := "Test group"
+
+	groups, err := s.FindGroupByName(ctx, name)
+	require.NoError(t, err)
+	require.Equal(t, 0, len(groups))
+
+	group, err := s.CreateGroup(ctx, name, description)
+	t.Cleanup(func() {
+		DeleteGroup(t, group.ID)
+	})
+	require.NoError(t, err)
+
+	groups, err = s.FindGroupByName(ctx, name)
+	require.NoError(t, err)
+	require.Equal(t, 1, len(groups))
+	require.Equal(t, name, groups[0].Name)
+	require.Equal(t, description, groups[0].Description)
+}
+
 func TestDeleteUser(t *testing.T) {
 	t.Parallel()
 
