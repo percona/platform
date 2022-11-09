@@ -52,6 +52,40 @@
     }
   },
   "definitions": {
+    "ActionStatusMessageActionStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ActionStatusMessageActionStatusCode"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message to elaborate the reason of action failure or details of successful completion."
+        }
+      },
+      "description": "ActionStatus represents a result of an action."
+    },
+    "ActionStatusMessageActionStatusCode": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionStatusCode codifies result of an action.\n\n - UNSPECIFIED: UNSPECIFIED for non-passed value or ambiguous result of the operation.\n - SUCCESS: SUCCESS represents SUCCESS action status.\n - FAILURE: FAILURE represents FAILURE action status."
+    },
+    "ActionTypeMessageActionType": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "CREATE",
+        "UPDATE",
+        "DELETE"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE."
+    },
     "fspField": {
       "type": "object",
       "properties": {
@@ -199,40 +233,6 @@
         }
       }
     },
-    "v1ActionStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "$ref": "#/definitions/v1ActionStatusCode"
-        },
-        "message": {
-          "type": "string",
-          "description": "Message to elaborate the reason of action failure or details of successful completion."
-        }
-      },
-      "description": "ActionStatus represents a result of an action."
-    },
-    "v1ActionStatusCode": {
-      "type": "string",
-      "enum": [
-        "STATUS_UNDEFINED",
-        "STATUS_SUCCESS",
-        "STATUS_FAILURE"
-      ],
-      "default": "STATUS_UNDEFINED",
-      "description": "ActionStatusCode codifies result of an action.\n\n - STATUS_UNDEFINED: STATUS_UNDEFINED for non-passed value.\n - STATUS_SUCCESS: STATUS_SUCCESS represents SUCCESS action status.\n - STATUS_FAILURE: STATUS_FAILURE represents FAILURE action status."
-    },
-    "v1ActionType": {
-      "type": "string",
-      "enum": [
-        "TYPE_UNDEFINED",
-        "TYPE_CREATE",
-        "TYPE_UPDATE",
-        "TYPE_DELETE"
-      ],
-      "default": "TYPE_UNDEFINED",
-      "description": "ActionType represents audit events' action types.\n\n - TYPE_UNDEFINED: TYPE_UNDEFINED represents unknown action type.\n - TYPE_CREATE: TYPE_CREATE represents action type = CREATE.\n - TYPE_UPDATE: TYPE_UPDATE represents action type = UPDATE.\n - TYPE_DELETE: TYPE_DELETE represents action type = DELETE."
-    },
     "v1AuditEvent": {
       "type": "object",
       "properties": {
@@ -240,24 +240,32 @@
           "type": "string",
           "description": "Audit event ID."
         },
-        "accountId": {
+        "oktaUserId": {
           "type": "string",
-          "description": "Account ID that initiated the action (user id or application name)."
+          "description": "User's okta ID is an ID that user has in Okta."
         },
         "requestId": {
           "type": "string",
           "description": "Unique ID assigned to each request."
         },
-        "accountIp": {
+        "userIpAddress": {
           "type": "string",
-          "description": "Account's remote IP address (user ip or nil)."
+          "description": "User's remote IP address."
+        },
+        "userAgent": {
+          "type": "string",
+          "description": "User agent of user's browser."
+        },
+        "userRole": {
+          "type": "string",
+          "description": "User's role in Portal."
         },
         "organizationId": {
           "type": "string",
           "description": "Organization ID that affected object belongs to."
         },
         "actionType": {
-          "$ref": "#/definitions/v1ActionType"
+          "$ref": "#/definitions/ActionTypeMessageActionType"
         },
         "timestamp": {
           "type": "string",
@@ -269,7 +277,7 @@
           "description": "The source module/service that triggered audit event (might be equal to account_id for events not related to user action)."
         },
         "actionStatus": {
-          "$ref": "#/definitions/v1ActionStatus"
+          "$ref": "#/definitions/ActionStatusMessageActionStatus"
         },
         "objects": {
           "type": "array",
