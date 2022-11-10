@@ -381,7 +381,7 @@
         "fsp": {
           "$ref": "#/definitions/fspFilteringSortingPagination"
         },
-        "metricName": {
+        "metrics": {
           "type": "array",
           "items": {
             "type": "string"

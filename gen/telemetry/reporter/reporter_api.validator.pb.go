@@ -71,8 +71,6 @@ func (this *SearchEventRequest) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
 		}
 	}
-	for _, item := range this.MetricName {
-	}
 	return nil
 }
 func (this *SearchEventResponse) Validate() error {

@@ -131,9 +131,7 @@ message SearchEventRequest {
     msg_exists: true
   }];
   // Metrics requested by the client.
-  repeated string metric_name = 2 [(validator.field) = {
-    msg_exists: true
-  }];
+  repeated string metrics = 2;
 }
 
 message SearchEventResponse {
