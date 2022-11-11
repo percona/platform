@@ -97,6 +97,13 @@ message ReportRequest {
 
 message ReportResponse {}
 
+message PMMServerMetric {
+  // Name of the metric requested by the client.
+  string metric_name = 1;
+  // Value of the metric requested by the client.
+  string metric_value = 2;
+}
+
 // PMMMetricEvent represents telemetry event containing metrics sent by PMM.
 message PMMMetricEvent {
   // PMM Metric Event UUID.
@@ -109,12 +116,10 @@ message PMMMetricEvent {
   string portal_org_name = 4;
   // Portal customer tier.
   string percona_customer_tier = 5;
-  // Name of the metric requested by the client.
-  string metric_name = 6;
-  // Value of the metric requested by the client.
-  string metric_value = 7;
   // Time when this event was created and received.
-  google.protobuf.Timestamp event_time = 8;
+  google.protobuf.Timestamp event_time = 6;
+  // Array of server metrics requested by the client.
+  repeated PMMServerMetric metrics = 7;
 }
 
 message SearchEventRequest {
@@ -125,10 +130,8 @@ message SearchEventRequest {
   utils.fsp.FilteringSortingPagination fsp = 1 [(validator.field) = {
     msg_exists: true
   }];
-  // Name of the metric requested by the client.
-  string metric_name = 2 [(validator.field) = {
-    string_not_empty: true
-  }];
+  // Metrics requested by the client.
+  repeated string metrics = 2;
 }
 
 message SearchEventResponse {

@@ -91,7 +91,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Name of the field (name of the column when applicable to SQL)."
+          "description": "Name of the field (name of the column when applicable to SQL).\nIf a filter exists then the name field must not be empty since that\ncan result in an invalid SQL query and lead to non-descriptive errors."
         },
         "value": {
           "description": "Value of the field."

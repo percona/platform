@@ -111,7 +111,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "Name of the field (name of the column when applicable to SQL)."
+          "description": "Name of the field (name of the column when applicable to SQL).\nIf a filter exists then the name field must not be empty since that\ncan result in an invalid SQL query and lead to non-descriptive errors."
         },
         "value": {
           "description": "Value of the field."
@@ -325,6 +325,24 @@
           "type": "string",
           "description": "Portal customer tier."
         },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was created and received."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMServerMetric"
+          },
+          "description": "Array of server metrics requested by the client."
+        }
+      },
+      "description": "PMMMetricEvent represents telemetry event containing metrics sent by PMM."
+    },
+    "v1PMMServerMetric": {
+      "type": "object",
+      "properties": {
         "metricName": {
           "type": "string",
           "description": "Name of the metric requested by the client."
@@ -332,14 +350,8 @@
         "metricValue": {
           "type": "string",
           "description": "Value of the metric requested by the client."
-        },
-        "eventTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time when this event was created and received."
         }
-      },
-      "description": "PMMMetricEvent represents telemetry event containing metrics sent by PMM."
+      }
     },
     "v1ReportRequest": {
       "type": "object",
@@ -369,9 +381,12 @@
         "fsp": {
           "$ref": "#/definitions/fspFilteringSortingPagination"
         },
-        "metricName": {
-          "type": "string",
-          "description": "Name of the metric requested by the client."
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Metrics requested by the client."
         }
       }
     },

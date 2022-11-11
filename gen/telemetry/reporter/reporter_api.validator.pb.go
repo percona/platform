@@ -44,10 +44,20 @@ func (this *ReportRequest) Validate() error {
 func (this *ReportResponse) Validate() error {
 	return nil
 }
+func (this *PMMServerMetric) Validate() error {
+	return nil
+}
 func (this *PMMMetricEvent) Validate() error {
 	if this.EventTime != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.EventTime); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("EventTime", err)
+		}
+	}
+	for _, item := range this.Metrics {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Metrics", err)
+			}
 		}
 	}
 	return nil
@@ -60,9 +70,6 @@ func (this *SearchEventRequest) Validate() error {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Fsp); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
 		}
-	}
-	if this.MetricName == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("MetricName", fmt.Errorf(`value '%v' must not be an empty string`, this.MetricName))
 	}
 	return nil
 }
