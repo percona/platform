@@ -25,7 +25,13 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-func (this *ActionStatus) Validate() error {
+func (this *ActionTypeMessage) Validate() error {
+	return nil
+}
+func (this *ActionStatusMessage) Validate() error {
+	return nil
+}
+func (this *ActionStatusMessage_ActionStatus) Validate() error {
 	return nil
 }
 func (this *AuditObject) Validate() error {
