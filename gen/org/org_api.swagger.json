@@ -1010,7 +1010,8 @@
                   "description": "Timestamp when the organization was last updated."
                 },
                 "tier": {
-                  "$ref": "#/definitions/v1Tier"
+                  "$ref": "#/definitions/v1Tier",
+                  "description": "Tier of the client linked to the organization."
                 }
               },
               "title": "Percona Portal Organization"
@@ -1214,7 +1215,8 @@
       "type": "object",
       "properties": {
         "customerSuccess": {
-          "$ref": "#/definitions/ContactsCustomerSuccess"
+          "$ref": "#/definitions/ContactsCustomerSuccess",
+          "description": "Contact information of the Customer Success employee assigned to a customer's account."
         },
         "newTicketUrl": {
           "type": "string",
@@ -1353,7 +1355,8 @@
           "description": "Date when user was created in ServiceNow."
         },
         "account": {
-          "$ref": "#/definitions/v1ServiceNowAccount"
+          "$ref": "#/definitions/v1ServiceNowAccount",
+          "description": "Information about ServiceNow account (org) of this user."
         }
       }
     },
@@ -1387,7 +1390,8 @@
           "description": "Timestamp when the organization was last updated."
         },
         "tier": {
-          "$ref": "#/definitions/v1Tier"
+          "$ref": "#/definitions/v1Tier",
+          "description": "Tier of the client linked to the organization."
         }
       }
     },
@@ -1440,7 +1444,8 @@
           "description": "Entitlement end date.\nNote: only date is used here but not time."
         },
         "platform": {
-          "$ref": "#/definitions/OrganizationEntitlementPlatform"
+          "$ref": "#/definitions/OrganizationEntitlementPlatform",
+          "description": "Platform-specific options covered by this entitlement."
         }
       },
       "description": "Contains information about the organization entitlement."
