@@ -63,8 +63,6 @@ func (this *PMMMetricEvent) Validate() error {
 	return nil
 }
 func (this *SearchEventRequest) Validate() error {
-	for _, item := range this.Metrics {
-	}
 	if this.StartsAt != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StartsAt); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("StartsAt", err)

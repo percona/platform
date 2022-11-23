@@ -124,11 +124,7 @@ message PMMMetricEvent {
 
 message SearchEventRequest {
   // List of metrics requested by the client.
-  repeated string metrics = 1[
-    (validator.field) = {
-      msg_exists : true
-    }
-  ];
+  repeated string metrics = 1;
   // Time range of events to search between.
   google.protobuf.Timestamp starts_at = 2;
   google.protobuf.Timestamp ends_at = 3;
