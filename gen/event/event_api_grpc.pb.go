@@ -27,7 +27,7 @@ type EventAPIClient interface {
 	CreateAuditEvent(ctx context.Context, in *CreateAuditEventRequest, opts ...grpc.CallOption) (*CreateAuditEventResponse, error)
 	// ListAuditEvents returns the list of audit events using filters.
 	ListAuditEvents(ctx context.Context, in *ListAuditEventsRequest, opts ...grpc.CallOption) (*ListAuditEventsResponse, error)
-	// ListAuditEventTypes returns the list of the known audit events types.
+	// ListAuditEventTypes returns the list of audit events using filters.
 	ListAuditEventTypes(ctx context.Context, in *ListAuditEventTypesRequest, opts ...grpc.CallOption) (*ListAuditEventTypesResponse, error)
 }
 
