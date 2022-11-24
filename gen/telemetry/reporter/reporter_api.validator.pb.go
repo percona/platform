@@ -63,12 +63,19 @@ func (this *PMMMetricEvent) Validate() error {
 	return nil
 }
 func (this *SearchEventRequest) Validate() error {
-	if nil == this.Fsp {
-		return github_com_mwitkow_go_proto_validators.FieldError("Fsp", fmt.Errorf("message must exist"))
+	if this.StartsAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.StartsAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("StartsAt", err)
+		}
 	}
-	if this.Fsp != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Fsp); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Fsp", err)
+	if this.EndsAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.EndsAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("EndsAt", err)
+		}
+	}
+	if this.Pagination != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Pagination); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("Pagination", err)
 		}
 	}
 	return nil

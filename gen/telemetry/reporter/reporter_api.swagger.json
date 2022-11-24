@@ -106,63 +106,6 @@
         }
       }
     },
-    "fspField": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Name of the field (name of the column when applicable to SQL).\nIf a filter exists then the name field must not be empty since that\ncan result in an invalid SQL query and lead to non-descriptive errors."
-        },
-        "value": {
-          "description": "Value of the field."
-        }
-      },
-      "description": "Field of an object."
-    },
-    "fspFilter": {
-      "type": "object",
-      "properties": {
-        "filterType": {
-          "$ref": "#/definitions/fspFilterType"
-        },
-        "field": {
-          "$ref": "#/definitions/fspField"
-        }
-      },
-      "description": "Filter is used to filter results for endpoints that return list of values."
-    },
-    "fspFilterType": {
-      "type": "string",
-      "enum": [
-        "EQUAL",
-        "NOT_EQUAL",
-        "GREATER",
-        "GREATER_OR_EQUAL",
-        "LESS",
-        "LESS_OR_EQUAL"
-      ],
-      "default": "EQUAL",
-      "description": "FilterType represents type of filter that will be applied to SQL query.\n\n - EQUAL: In case single value is provided, EQUAL will trigger \"=\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"IN\" SQL behaviour.\n - NOT_EQUAL: In case single value is provided, NOT EQUAL will trigger \"\u003c\u003e\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"NOT IN\" SQL behaviour.\n - GREATER: GREATER is mapped to SQL '\u003e'.\n - GREATER_OR_EQUAL: GREATER_OR_EQUAL is mapped to SQL '\u003e='.\n - LESS: LESS is mapped to SQL '\u003c'.\n - LESS_OR_EQUAL: LESS_OR_EQUAL is mapped to SQL '\u003c='."
-    },
-    "fspFilteringSortingPagination": {
-      "type": "object",
-      "properties": {
-        "filters": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/fspFilter"
-          },
-          "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
-        },
-        "sortingParams": {
-          "$ref": "#/definitions/fspSortingParams"
-        },
-        "pageParams": {
-          "$ref": "#/definitions/fspPageParams"
-        }
-      },
-      "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
-    },
     "fspPageParams": {
       "type": "object",
       "properties": {
@@ -195,27 +138,6 @@
       },
       "description": "PageTotals represents total values for pagination and are included in paginated responses."
     },
-    "fspSortingOrder": {
-      "type": "string",
-      "enum": [
-        "ASC",
-        "DESC"
-      ],
-      "default": "ASC",
-      "description": " - ASC: ASC is for ascending sorting order.\n - DESC: DESC is for descending sorting order."
-    },
-    "fspSortingParams": {
-      "type": "object",
-      "properties": {
-        "fieldName": {
-          "type": "string"
-        },
-        "order": {
-          "$ref": "#/definitions/fspSortingOrder"
-        }
-      },
-      "description": "SortingParams are used to sort results for endpoints that return list of values."
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -224,14 +146,6 @@
         }
       },
       "additionalProperties": {}
-    },
-    "protobufNullValue": {
-      "type": "string",
-      "enum": [
-        "NULL_VALUE"
-      ],
-      "default": "NULL_VALUE",
-      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
     },
     "rpcStatus": {
       "type": "object",
@@ -379,15 +293,24 @@
     "v1SearchEventRequest": {
       "type": "object",
       "properties": {
-        "fsp": {
-          "$ref": "#/definitions/fspFilteringSortingPagination"
-        },
         "metrics": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Metrics requested by the client."
+          "description": "List of metrics requested by the client."
+        },
+        "startsAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time range of events to search between."
+        },
+        "endsAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pagination": {
+          "$ref": "#/definitions/fspPageParams"
         }
       }
     },

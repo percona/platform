@@ -123,15 +123,12 @@ message PMMMetricEvent {
 }
 
 message SearchEventRequest {
-  // fsp used for filtering/sorting/paginating the request
-  // This param is compulsory because not doing so would allow
-  // users to query all telemetry records which can be in millions
-  // and create a lot of load on the DB.
-  utils.fsp.FilteringSortingPagination fsp = 1 [(validator.field) = {
-    msg_exists: true
-  }];
-  // Metrics requested by the client.
-  repeated string metrics = 2;
+  // List of metrics requested by the client.
+  repeated string metrics = 1;
+  // Time range of events to search between.
+  google.protobuf.Timestamp starts_at = 2;
+  google.protobuf.Timestamp ends_at = 3;
+  utils.fsp.PageParams pagination = 4;
 }
 
 message SearchEventResponse {
