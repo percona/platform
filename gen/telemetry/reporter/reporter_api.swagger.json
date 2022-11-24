@@ -220,10 +220,6 @@
     "v1PMMMetricEvent": {
       "type": "object",
       "properties": {
-        "eventId": {
-          "type": "string",
-          "description": "PMM Metric Event UUID."
-        },
         "pmmServerTelemetryId": {
           "type": "string",
           "description": "PMM Server UUID."
@@ -231,14 +227,6 @@
         "portalOrgId": {
           "type": "string",
           "description": "Portal Organization UUID (Can be empty)."
-        },
-        "portalOrgName": {
-          "type": "string",
-          "description": "Portal Organization Name."
-        },
-        "perconaCustomerTier": {
-          "type": "string",
-          "description": "Portal customer tier."
         },
         "eventTime": {
           "type": "string",
