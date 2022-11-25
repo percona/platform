@@ -73,9 +73,9 @@ func (this *SearchEventRequest) Validate() error {
 			return github_com_mwitkow_go_proto_validators.FieldError("EndsAt", err)
 		}
 	}
-	if this.Pagination != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Pagination); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Pagination", err)
+	if this.PageParams != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.PageParams); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("PageParams", err)
 		}
 	}
 	return nil
