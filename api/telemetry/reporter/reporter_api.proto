@@ -122,7 +122,7 @@ message SearchEventRequest {
   // Time range of events to search between.
   google.protobuf.Timestamp starts_at = 2;
   google.protobuf.Timestamp ends_at = 3;
-  utils.fsp.PageParams pagination = 4;
+  utils.fsp.PageParams page_params = 4;
 }
 
 message SearchEventResponse {

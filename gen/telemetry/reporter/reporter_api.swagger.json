@@ -297,7 +297,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "pagination": {
+        "pageParams": {
           "$ref": "#/definitions/fspPageParams"
         }
       }
