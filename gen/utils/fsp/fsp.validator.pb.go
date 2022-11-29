@@ -8,6 +8,7 @@ import (
 	math "math"
 
 	proto "github.com/golang/protobuf/proto"
+	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/protobuf/types/known/structpb"
 )
@@ -46,6 +47,9 @@ func (this *Filter) Validate() error {
 	return nil
 }
 func (this *Field) Validate() error {
+	if this.Name == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Name", fmt.Errorf(`value '%v' must not be an empty string`, this.Name))
+	}
 	if this.Value != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Value); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Value", err)
