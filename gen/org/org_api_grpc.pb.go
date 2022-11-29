@@ -52,6 +52,7 @@ type OrgAPIClient interface {
 	SearchOrganizationTickets(ctx context.Context, in *SearchOrganizationTicketsRequest, opts ...grpc.CallOption) (*SearchOrganizationTicketsResponse, error)
 	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
 	SearchUserCompany(ctx context.Context, in *SearchUserCompanyRequest, opts ...grpc.CallOption) (*SearchUserCompanyResponse, error)
+	OnboardMember(ctx context.Context, in *OnboardMemberRequest, opts ...grpc.CallOption) (*OnboardMemberResponse, error)
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error)
@@ -199,6 +200,15 @@ func (c *orgAPIClient) SearchUserCompany(ctx context.Context, in *SearchUserComp
 	return out, nil
 }
 
+func (c *orgAPIClient) OnboardMember(ctx context.Context, in *OnboardMemberRequest, opts ...grpc.CallOption) (*OnboardMemberResponse, error) {
+	out := new(OnboardMemberResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/OnboardMember", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *orgAPIClient) ConnectPMM(ctx context.Context, in *ConnectPMMRequest, opts ...grpc.CallOption) (*ConnectPMMResponse, error) {
 	out := new(ConnectPMMResponse)
 	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/ConnectPMM", in, out, opts...)
@@ -285,6 +295,7 @@ type OrgAPIServer interface {
 	SearchOrganizationTickets(context.Context, *SearchOrganizationTicketsRequest) (*SearchOrganizationTicketsResponse, error)
 	// SearchUserCompany fetches details of Percona Customer(ServiceNow) by user that calls this endpoint.
 	SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error)
+	OnboardMember(context.Context, *OnboardMemberRequest) (*OnboardMemberResponse, error)
 	// ConnectPMM adds PMM into inventory and returns SSO details.
 	// Right now, orgId is determined by user that calls this API endpoint. Now, user can be a member of one organization only.
 	ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error)
@@ -344,6 +355,9 @@ func (UnimplementedOrgAPIServer) SearchOrganizationTickets(context.Context, *Sea
 }
 func (UnimplementedOrgAPIServer) SearchUserCompany(context.Context, *SearchUserCompanyRequest) (*SearchUserCompanyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserCompany not implemented")
+}
+func (UnimplementedOrgAPIServer) OnboardMember(context.Context, *OnboardMemberRequest) (*OnboardMemberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OnboardMember not implemented")
 }
 func (UnimplementedOrgAPIServer) ConnectPMM(context.Context, *ConnectPMMRequest) (*ConnectPMMResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectPMM not implemented")
@@ -628,6 +642,24 @@ func _OrgAPI_SearchUserCompany_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrgAPI_OnboardMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OnboardMemberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrgAPIServer).OnboardMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.org.v1.OrgAPI/OnboardMember",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrgAPIServer).OnboardMember(ctx, req.(*OnboardMemberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrgAPI_ConnectPMM_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ConnectPMMRequest)
 	if err := dec(in); err != nil {
@@ -798,6 +830,10 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchUserCompany",
 			Handler:    _OrgAPI_SearchUserCompany_Handler,
+		},
+		{
+			MethodName: "OnboardMember",
+			Handler:    _OrgAPI_OnboardMember_Handler,
 		},
 		{
 			MethodName: "ConnectPMM",
