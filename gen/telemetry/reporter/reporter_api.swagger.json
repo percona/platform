@@ -313,7 +313,8 @@
           "description": "PMM metric events."
         },
         "pageTotals": {
-          "$ref": "#/definitions/fspPageTotals"
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
         }
       }
     },
