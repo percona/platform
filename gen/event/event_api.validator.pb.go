@@ -101,3 +101,9 @@ func (this *ListAuditEventsResponse) Validate() error {
 	}
 	return nil
 }
+func (this *ListAuditEventTypesRequest) Validate() error {
+	return nil
+}
+func (this *ListAuditEventTypesResponse) Validate() error {
+	return nil
+}

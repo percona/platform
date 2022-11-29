@@ -8,8 +8,8 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "utils/fsp/fsp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
+import "utils/fsp/fsp.proto";
 
 option go_package = "/event;eventv1";
 
@@ -103,6 +103,13 @@ service EventAPI {
       body: "*"
     };
   }
+
+  // ListAuditEventTypes returns the list of audit events using filters.
+  rpc ListAuditEventTypes(ListAuditEventTypesRequest) returns (ListAuditEventTypesResponse) {
+    option (google.api.http) = {
+      get: "/v1/events/types"
+    };
+  }
 }
 
 // CreateAuditEventRequest to be used to store event in persistent storage.
@@ -126,3 +133,13 @@ message ListAuditEventsResponse {
   utils.fsp.PageTotals page_totals = 2;
 }
 
+// ListAuditEventTypesRequest
+message ListAuditEventTypesRequest {}
+
+// ListAuditEventTypesResponse lists known events and objects types
+message ListAuditEventTypesResponse {
+  // list of known action_types.
+  repeated string action_types = 1;
+  // list of known action_types.
+  repeated string object_types = 2;
+}
