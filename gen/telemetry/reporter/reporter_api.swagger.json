@@ -211,8 +211,7 @@
           "description": "Time when this event was received by the sender."
         },
         "event": {
-          "$ref": "#/definitions/v1AnyEvent",
-          "description": "Original event with a well-known type URL."
+          "$ref": "#/definitions/v1AnyEvent"
         }
       },
       "description": "Event contains original event and additional information added by the sender."
@@ -344,8 +343,7 @@
           "description": "PMM Server uptime.\nMandatory."
         },
         "distributionMethod": {
-          "$ref": "#/definitions/v1DistributionMethod",
-          "description": "PMM Server distribution method.\nMandatory."
+          "$ref": "#/definitions/v1DistributionMethod"
         },
         "metrics": {
           "type": "array",
