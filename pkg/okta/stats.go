@@ -60,7 +60,10 @@ func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
-	params.Add("filter", fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter))
+	params.Add(
+		"filter",
+		fmt.Sprintf("eventType eq \"user.session.start\" and not (actor.alternateId ew \"@percona.com\") and outcome.result eq \"%s\"", filter),
+	)
 	params.Add("limit", fmt.Sprintf("%d", limit))
 	params.Add("field", "actor.alternateId")
 
@@ -94,7 +97,10 @@ func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until ti
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
-	params.Add("filter", fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter))
+	params.Add(
+		"filter",
+		fmt.Sprintf("eventType eq \"user.session.start\" and not (actor.alternateId ew \"@percona.com\") and outcome.result eq \"%s\"", filter),
+	)
 
 	path := fmt.Sprintf("/sage/api/v1/logs/count?%s", params.Encode())
 	var result []Stat
