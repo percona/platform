@@ -52,12 +52,47 @@
     }
   },
   "definitions": {
+    "ActionStatusMessageActionStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ActionStatusMessageActionStatusCode",
+          "description": "Code assigned to this status."
+        },
+        "message": {
+          "type": "string",
+          "description": "Message to elaborate the reason of action failure or details of successful completion."
+        }
+      },
+      "description": "ActionStatus represents a result of an action."
+    },
+    "ActionStatusMessageActionStatusCode": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionStatusCode codifies result of an action.\n\n - UNSPECIFIED: UNSPECIFIED for non-passed value or ambiguous result of the operation.\n - SUCCESS: SUCCESS represents SUCCESS action status.\n - FAILURE: FAILURE represents FAILURE action status."
+    },
+    "ActionTypeMessageActionType": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "CREATE",
+        "UPDATE",
+        "DELETE"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE."
+    },
     "fspField": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "description": "Name of the field (name of the column when applicable to SQL)."
+          "description": "Name of the field (name of the column when applicable to SQL).\nIf a filter exists then the name field must not be empty since that\ncan result in an invalid SQL query and lead to non-descriptive errors."
         },
         "value": {
           "description": "Value of the field."
@@ -69,10 +104,12 @@
       "type": "object",
       "properties": {
         "filterType": {
-          "$ref": "#/definitions/fspFilterType"
+          "$ref": "#/definitions/fspFilterType",
+          "description": "filter_type defines logic of the filter."
         },
         "field": {
-          "$ref": "#/definitions/fspField"
+          "$ref": "#/definitions/fspField",
+          "description": "field defines based on which data filtering must occur."
         }
       },
       "description": "Filter is used to filter results for endpoints that return list of values."
@@ -101,10 +138,12 @@
           "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
         },
         "sortingParams": {
-          "$ref": "#/definitions/fspSortingParams"
+          "$ref": "#/definitions/fspSortingParams",
+          "description": "sorting_params are optional. No sorting will be applied if absent."
         },
         "pageParams": {
-          "$ref": "#/definitions/fspPageParams"
+          "$ref": "#/definitions/fspPageParams",
+          "description": "page_params are optional. No pagination will be applied if absent."
         }
       },
       "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
@@ -199,40 +238,6 @@
         }
       }
     },
-    "v1ActionStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "$ref": "#/definitions/v1ActionStatusCode"
-        },
-        "message": {
-          "type": "string",
-          "description": "Message to elaborate the reason of action failure or details of successful completion."
-        }
-      },
-      "description": "ActionStatus represents a result of an action."
-    },
-    "v1ActionStatusCode": {
-      "type": "string",
-      "enum": [
-        "STATUS_UNDEFINED",
-        "STATUS_SUCCESS",
-        "STATUS_FAILURE"
-      ],
-      "default": "STATUS_UNDEFINED",
-      "description": "ActionStatusCode codifies result of an action.\n\n - STATUS_UNDEFINED: STATUS_UNDEFINED for non-passed value.\n - STATUS_SUCCESS: STATUS_SUCCESS represents SUCCESS action status.\n - STATUS_FAILURE: STATUS_FAILURE represents FAILURE action status."
-    },
-    "v1ActionType": {
-      "type": "string",
-      "enum": [
-        "TYPE_UNDEFINED",
-        "TYPE_CREATE",
-        "TYPE_UPDATE",
-        "TYPE_DELETE"
-      ],
-      "default": "TYPE_UNDEFINED",
-      "description": "ActionType represents audit events' action types.\n\n - TYPE_UNDEFINED: TYPE_UNDEFINED represents unknown action type.\n - TYPE_CREATE: TYPE_CREATE represents action type = CREATE.\n - TYPE_UPDATE: TYPE_UPDATE represents action type = UPDATE.\n - TYPE_DELETE: TYPE_DELETE represents action type = DELETE."
-    },
     "v1AuditEvent": {
       "type": "object",
       "properties": {
@@ -240,24 +245,33 @@
           "type": "string",
           "description": "Audit event ID."
         },
-        "accountId": {
+        "oktaUserId": {
           "type": "string",
-          "description": "Account ID that initiated the action (user id or application name)."
+          "description": "User's okta ID is an ID that user has in Okta."
         },
         "requestId": {
           "type": "string",
           "description": "Unique ID assigned to each request."
         },
-        "accountIp": {
+        "userIpAddress": {
           "type": "string",
-          "description": "Account's remote IP address (user ip or nil)."
+          "description": "User's remote IP address."
+        },
+        "userAgent": {
+          "type": "string",
+          "description": "User agent of user's browser."
+        },
+        "userRole": {
+          "type": "string",
+          "description": "User's role in Portal."
         },
         "organizationId": {
           "type": "string",
           "description": "Organization ID that affected object belongs to."
         },
         "actionType": {
-          "$ref": "#/definitions/v1ActionType"
+          "$ref": "#/definitions/ActionTypeMessageActionType",
+          "title": "Action type"
         },
         "timestamp": {
           "type": "string",
@@ -269,7 +283,8 @@
           "description": "The source module/service that triggered audit event (might be equal to account_id for events not related to user action)."
         },
         "actionStatus": {
-          "$ref": "#/definitions/v1ActionStatus"
+          "$ref": "#/definitions/ActionStatusMessageActionStatus",
+          "description": "The status of action execution."
         },
         "objects": {
           "type": "array",
@@ -314,7 +329,8 @@
       "type": "object",
       "properties": {
         "fsp": {
-          "$ref": "#/definitions/fspFilteringSortingPagination"
+          "$ref": "#/definitions/fspFilteringSortingPagination",
+          "description": "fsp used for filtering/sorting/paginating the request. Optional param."
         }
       },
       "description": "ListAuditEventsRequest to view events that were previously saved."
@@ -330,7 +346,8 @@
           "description": "list of events."
         },
         "pageTotals": {
-          "$ref": "#/definitions/fspPageTotals"
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
         }
       },
       "description": "ListAuditEventsResponse lists stored events."

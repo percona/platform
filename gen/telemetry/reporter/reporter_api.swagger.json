@@ -55,6 +55,43 @@
           "application/json"
         ]
       }
+    },
+    "/v1/telemetry/events:search": {
+      "post": {
+        "summary": "SearchEvent",
+        "description": "SearchEvent searches for a specific metric in telemetry events and returns them to the client.",
+        "operationId": "ReporterAPI_SearchEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -68,6 +105,38 @@
           "type": "string"
         }
       }
+    },
+    "fspPageParams": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum number of results per page."
+        },
+        "index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Index of the requested page, starts from 0."
+        }
+      },
+      "description": "PageParams represents page request parameters for pagination."
+    },
+    "fspPageTotals": {
+      "type": "object",
+      "properties": {
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of results."
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of pages."
+        }
+      },
+      "description": "PageTotals represents total values for pagination and are included in paginated responses."
     },
     "protobufAny": {
       "type": "object",
@@ -142,10 +211,50 @@
           "description": "Time when this event was received by the sender."
         },
         "event": {
-          "$ref": "#/definitions/v1AnyEvent"
+          "$ref": "#/definitions/v1AnyEvent",
+          "description": "Original event with a well-known type URL."
         }
       },
       "description": "Event contains original event and additional information added by the sender."
+    },
+    "v1PMMMetricEvent": {
+      "type": "object",
+      "properties": {
+        "pmmServerTelemetryId": {
+          "type": "string",
+          "description": "PMM Server UUID."
+        },
+        "portalOrgId": {
+          "type": "string",
+          "description": "Portal Organization UUID (Can be empty)."
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was created and received."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMServerMetric"
+          },
+          "description": "Array of server metrics requested by the client."
+        }
+      },
+      "description": "PMMMetricEvent represents telemetry event containing metrics sent by PMM."
+    },
+    "v1PMMServerMetric": {
+      "type": "object",
+      "properties": {
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric requested by the client."
+        },
+        "metricValue": {
+          "type": "string",
+          "description": "Value of the metric requested by the client."
+        }
+      }
     },
     "v1ReportRequest": {
       "type": "object",
@@ -168,6 +277,46 @@
     },
     "v1ReportResponse": {
       "type": "object"
+    },
+    "v1SearchEventRequest": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of metrics requested by the client."
+        },
+        "startsAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time range of events to search between."
+        },
+        "endsAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pageParams": {
+          "$ref": "#/definitions/fspPageParams"
+        }
+      }
+    },
+    "v1SearchEventResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMMetricEvent"
+          },
+          "description": "PMM metric events."
+        },
+        "pageTotals": {
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
+        }
+      }
     },
     "v1ServerMetric": {
       "type": "object",
@@ -196,7 +345,8 @@
           "description": "PMM Server uptime.\nMandatory."
         },
         "distributionMethod": {
-          "$ref": "#/definitions/v1DistributionMethod"
+          "$ref": "#/definitions/v1DistributionMethod",
+          "description": "PMM Server distribution method.\nMandatory."
         },
         "metrics": {
           "type": "array",

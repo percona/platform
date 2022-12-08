@@ -4,7 +4,6 @@ package fuzz
 import (
 	"crypto/sha1" //nolint:gosec
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -38,7 +37,7 @@ func AddToCorpus(prefix string, b []byte) {
 	}
 
 	path := filepath.Join(dir, file)
-	if err := ioutil.WriteFile(path, b, 0o640); err != nil { //nolint:gosec
+	if err := os.WriteFile(path, b, 0o640); err != nil { //nolint:gosec
 		panic(err)
 	}
 }

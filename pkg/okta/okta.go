@@ -163,8 +163,8 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 	profile := okta.UserProfile{
 		profileLogin:           params.Login,
 		profileEmail:           params.Login,
-		profileFirstName:       "",
-		profileLastName:        "",
+		profileFirstName:       params.FirstName,
+		profileLastName:        params.LastName,
 		profilePortalAdminOrgs: []string{},
 		profileSecondaryEmail:  "",
 		profileMobilePhone:     "",
@@ -570,6 +570,35 @@ func (c *Client) CreateGroup(ctx context.Context, name, description string) (*Gr
 		Name:        group.Profile.Name,
 		Description: group.Profile.Description,
 	}, nil
+}
+
+// FindGroupByName returns groups with the name.
+func (c *Client) FindGroupByName(ctx context.Context, name string) ([]Group, error) {
+	l := extractLogger(ctx)
+	l.Info("Looking Okta groups.", zap.String("oktaGroupName", name))
+
+	// https://developer.okta.com/docs/reference/api/groups/#request-parameters-3
+	// okta list groups API looks for groups with name provided in 'q' param
+	qp := query.NewQueryParams(
+		query.WithQ(name),
+	)
+
+	groups, _, err := c.c.Group.ListGroups(ctx, qp)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to search for group")
+	}
+
+	out := make([]Group, 0, len(groups))
+
+	for _, g := range groups {
+		out = append(out, Group{
+			ID:          g.Id,
+			Name:        g.Profile.Name,
+			Description: g.Profile.Description,
+		})
+	}
+
+	return out, nil
 }
 
 // GroupExists finds whether okta group with the provided name exists.
