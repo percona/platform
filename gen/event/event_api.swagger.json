@@ -49,6 +49,40 @@
           "EventAPI"
         ]
       }
+    },
+    "/v1/hook/events": {
+      "post": {
+        "summary": "CreateHookEvent submits an okta log event to server.",
+        "operationId": "EventAPI_CreateHookEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "CreateHookEventRequest to be used to store okta event in persistent storage.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventAPI"
+        ]
+      }
     }
   },
   "definitions": {
@@ -324,6 +358,22 @@
     },
     "v1CreateAuditEventResponse": {
       "type": "object"
+    },
+    "v1CreateHookEventRequest": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "$ref": "#/definitions/v1IdpEvent"
+        }
+      },
+      "description": "CreateHookEventRequest to be used to store okta event in persistent storage."
+    },
+    "v1CreateHookEventResponse": {
+      "type": "object"
+    },
+    "v1IdpEvent": {
+      "type": "object",
+      "title": "to be described"
     },
     "v1ListAuditEventsRequest": {
       "type": "object",

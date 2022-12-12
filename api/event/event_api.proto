@@ -103,6 +103,14 @@ service EventAPI {
       body: "*"
     };
   }
+
+  // CreateHookEvent submits an okta log event to server.
+  rpc CreateHookEvent(CreateHookEventRequest) returns (CreateHookEventResponse) {
+    option (google.api.http) = {
+      post: "/v1/hook/events"
+      body: "*"
+    };
+  }
 }
 
 // CreateAuditEventRequest to be used to store event in persistent storage.
@@ -126,3 +134,13 @@ message ListAuditEventsResponse {
   utils.fsp.PageTotals page_totals = 2;
 }
 
+// CreateHookEventRequest to be used to store okta event in persistent storage.
+message CreateHookEventRequest {
+  IdpEvent event = 1;
+}
+
+message CreateHookEventResponse {}
+
+message IdpEvent {
+  //to be described
+}
