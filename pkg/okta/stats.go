@@ -57,20 +57,12 @@ func (c *Client) GetDeactivatedUsersCount(ctx context.Context, since, until time
 
 // getTopLoginAttempts returns top 'limit' user login attempts.
 func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time, limit int, filter string, filterEmailDomains []string) ([]Stat, error) {
-	var filterEmailDomainsString string
-	if len(filterEmailDomains) != 0 {
-		for i, s := range filterEmailDomains {
-			if i != 0 {
-				filterEmailDomainsString += " or "
-			}
-			filterEmailDomainsString += fmt.Sprintf("actor.alternateId ew \"%s\"", s)
-		}
-	}
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
 	filterParam := fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter)
-	if len(filterEmailDomainsString) > 0 {
+
+	if filterEmailDomainsString := buildEmailDomainsFilter(filterEmailDomains); len(filterEmailDomainsString) > 0 {
 		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
 	}
 	params.Add("filter", filterParam)
@@ -104,20 +96,12 @@ func (c *Client) GetTopLoginFailedAttempts(ctx context.Context, since, until tim
 
 // getLoginTotalAttemptsCount returns total number of login attempts.
 func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until time.Time, filter string, filterEmailDomains []string) (int, error) {
-	var filterEmailDomainsString string
-	if len(filterEmailDomains) != 0 {
-		for i, s := range filterEmailDomains {
-			if i != 0 {
-				filterEmailDomainsString += " or "
-			}
-			filterEmailDomainsString += fmt.Sprintf("actor.alternateId ew \"%s\"", s)
-		}
-	}
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
 	filterParam := fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter)
-	if len(filterEmailDomainsString) > 0 {
+
+	if filterEmailDomainsString := buildEmailDomainsFilter(filterEmailDomains); len(filterEmailDomainsString) > 0 {
 		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
 	}
 	params.Add("filter", filterParam)
@@ -185,4 +169,17 @@ func (c *Client) GetTotalUsersCount(ctx context.Context) (int, error) {
 	}
 
 	return groupStats.Count, nil
+}
+
+func buildEmailDomainsFilter(filterEmailDomains []string) string {
+	var filterEmailDomainsString string
+	if len(filterEmailDomains) != 0 {
+		for i, s := range filterEmailDomains {
+			if i != 0 {
+				filterEmailDomainsString += " or "
+			}
+			filterEmailDomainsString += fmt.Sprintf("actor.alternateId ew \"%s\"", s)
+		}
+	}
+	return filterEmailDomainsString
 }
