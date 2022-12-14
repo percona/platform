@@ -528,16 +528,10 @@ service OrgAPI {
     };
   }
 
-  // SearchMemberByUserID returns the Percona Portal Organization member corresponding to the given UserID
-  // No org_id required, this is how this method is different from the SearchMembers method,
-  // so the method is assumed to be performed by a SuperAdmin user.
-  rpc SearchMemberByUserID(SearchMemberByUserIDRequest) returns (SearchMemberByUserIDResponse) {
-    option (google.api.http) = {
-      post: "/v1/members:search"
-      body: "*"
-    };
+  // GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
+  rpc GetRoleByUserID(GetOrgRoleByUserIDRequest) returns (GetOrgRoleByUserIDResponse) {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the Percona Portal Organization member corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
+      description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
       summary: "Search organization member by UserID";
       tags: "Member Management";
       consumes: ["application/json"];
@@ -831,7 +825,7 @@ message OrganizationMember {
   string status = 6;
 }
 
-message SearchMemberByUserIDRequest {
+message GetOrgRoleByUserIDRequest {
   // Organization member userID.
   string userID = 1 [
     (validator.field) = {
@@ -840,8 +834,12 @@ message SearchMemberByUserIDRequest {
   ];
 }
 
-message SearchMemberByUserIDResponse {
-  OrganizationMember member = 1;
+message GetOrgRoleByUserIDResponse {
+  // Percona Portal organization id.
+  string org_id = 1;
+
+  // Percona Portal organization role of the member.
+  string role = 5;
 }
 
 message SearchMembersRequest {

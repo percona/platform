@@ -118,55 +118,6 @@
         ]
       }
     },
-    "/v1/members:search": {
-      "post": {
-        "summary": "Search organization member by UserID",
-        "description": "Returns the Percona Portal Organization member corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.",
-        "operationId": "OrgAPI_SearchMemberByUserID",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1SearchMemberByUserIDResponse"
-            },
-            "examples": {
-              "application/json": {
-                "member": {
-                  "member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef",
-                  "username": "test@org.com",
-                  "first_name": "First Name",
-                  "last_name": "Last Name",
-                  "role": "OrgAdmin",
-                  "status": "ACTIVE"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1SearchMemberByUserIDRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Member Management"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
@@ -1330,6 +1281,19 @@
         }
       }
     },
+    "v1GetOrgRoleByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "orgId": {
+          "type": "string",
+          "description": "Percona Portal organization id."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal organization role of the member."
+        }
+      }
+    },
     "v1GetOrganizationResponse": {
       "type": "object",
       "properties": {
@@ -1608,23 +1572,6 @@
           "items": {
             "$ref": "#/definitions/v1Inventory"
           }
-        }
-      }
-    },
-    "v1SearchMemberByUserIDRequest": {
-      "type": "object",
-      "properties": {
-        "userID": {
-          "type": "string",
-          "description": "Organization member userID."
-        }
-      }
-    },
-    "v1SearchMemberByUserIDResponse": {
-      "type": "object",
-      "properties": {
-        "member": {
-          "$ref": "#/definitions/v1OrganizationMember"
         }
       }
     },
