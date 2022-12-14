@@ -3,6 +3,7 @@ syntax = "proto3";
 package utils.fsp;
 
 import "google/protobuf/struct.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 option go_package = "/utils/fsp;fspv1";
 
@@ -52,7 +53,11 @@ message Filter {
 // Field of an object.
 message Field {
   // Name of the field (name of the column when applicable to SQL).
-  string name = 1;
+  // If a filter exists then the name field must not be empty since that
+  // can result in an invalid SQL query and lead to non-descriptive errors.
+  string name = 1[(validator.field) = {
+    string_not_empty: true
+  }];
   // Value of the field.
   google.protobuf.Value value = 2;
 }
