@@ -64,10 +64,10 @@ type OrgAPIClient interface {
 	CreateCivoCluster(ctx context.Context, in *CreateCivoClusterRequest, opts ...grpc.CallOption) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(ctx context.Context, in *GetCivoClusterStatusRequest, opts ...grpc.CallOption) (*GetCivoClusterStatusResponse, error)
 	GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error)
-	// SearchMembersByUserID returns the list of Percona Portal Organization members corresponding to the given UserID
+	// SearchMemberByUserID returns the Percona Portal Organization member corresponding to the given UserID
 	// No org_id required, this is how this method is different from the SearchMembers method,
 	// so the method is assumed to be performed by a SuperAdmin user.
-	SearchMembersByUserID(ctx context.Context, in *SearchMembersByUserIDRequest, opts ...grpc.CallOption) (*SearchMembersByUserIDResponse, error)
+	SearchMemberByUserID(ctx context.Context, in *SearchMemberByUserIDRequest, opts ...grpc.CallOption) (*SearchMemberByUserIDResponse, error)
 }
 
 type orgAPIClient struct {
@@ -267,9 +267,9 @@ func (c *orgAPIClient) GetCivoKubeconfig(ctx context.Context, in *GetCivoKubecon
 	return out, nil
 }
 
-func (c *orgAPIClient) SearchMembersByUserID(ctx context.Context, in *SearchMembersByUserIDRequest, opts ...grpc.CallOption) (*SearchMembersByUserIDResponse, error) {
-	out := new(SearchMembersByUserIDResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchMembersByUserID", in, out, opts...)
+func (c *orgAPIClient) SearchMemberByUserID(ctx context.Context, in *SearchMemberByUserIDRequest, opts ...grpc.CallOption) (*SearchMemberByUserIDResponse, error) {
+	out := new(SearchMemberByUserIDResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/SearchMemberByUserID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -320,10 +320,10 @@ type OrgAPIServer interface {
 	CreateCivoCluster(context.Context, *CreateCivoClusterRequest) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error)
 	GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error)
-	// SearchMembersByUserID returns the list of Percona Portal Organization members corresponding to the given UserID
+	// SearchMemberByUserID returns the Percona Portal Organization member corresponding to the given UserID
 	// No org_id required, this is how this method is different from the SearchMembers method,
 	// so the method is assumed to be performed by a SuperAdmin user.
-	SearchMembersByUserID(context.Context, *SearchMembersByUserIDRequest) (*SearchMembersByUserIDResponse, error)
+	SearchMemberByUserID(context.Context, *SearchMemberByUserIDRequest) (*SearchMemberByUserIDResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -394,8 +394,8 @@ func (UnimplementedOrgAPIServer) GetCivoClusterStatus(context.Context, *GetCivoC
 func (UnimplementedOrgAPIServer) GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCivoKubeconfig not implemented")
 }
-func (UnimplementedOrgAPIServer) SearchMembersByUserID(context.Context, *SearchMembersByUserIDRequest) (*SearchMembersByUserIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchMembersByUserID not implemented")
+func (UnimplementedOrgAPIServer) SearchMemberByUserID(context.Context, *SearchMemberByUserIDRequest) (*SearchMemberByUserIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchMemberByUserID not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -788,20 +788,20 @@ func _OrgAPI_GetCivoKubeconfig_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrgAPI_SearchMembersByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SearchMembersByUserIDRequest)
+func _OrgAPI_SearchMemberByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchMemberByUserIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrgAPIServer).SearchMembersByUserID(ctx, in)
+		return srv.(OrgAPIServer).SearchMemberByUserID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchMembersByUserID",
+		FullMethod: "/percona.platform.org.v1.OrgAPI/SearchMemberByUserID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgAPIServer).SearchMembersByUserID(ctx, req.(*SearchMembersByUserIDRequest))
+		return srv.(OrgAPIServer).SearchMemberByUserID(ctx, req.(*SearchMemberByUserIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -898,8 +898,8 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrgAPI_GetCivoKubeconfig_Handler,
 		},
 		{
-			MethodName: "SearchMembersByUserID",
-			Handler:    _OrgAPI_SearchMembersByUserID_Handler,
+			MethodName: "SearchMemberByUserID",
+			Handler:    _OrgAPI_SearchMemberByUserID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

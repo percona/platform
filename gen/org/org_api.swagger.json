@@ -120,27 +120,25 @@
     },
     "/v1/members:search": {
       "post": {
-        "summary": "Search organization members by UserID",
-        "description": "Returns the list of Percona Portal Organization members corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.",
-        "operationId": "OrgAPI_SearchMembersByUserID",
+        "summary": "Search organization member by UserID",
+        "description": "Returns the Percona Portal Organization member corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.",
+        "operationId": "OrgAPI_SearchMemberByUserID",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SearchMembersByUserIDResponse"
+              "$ref": "#/definitions/v1SearchMemberByUserIDResponse"
             },
             "examples": {
               "application/json": {
-                "members": [
-                  {
-                    "member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef",
-                    "username": "test@org.com",
-                    "first_name": "First Name",
-                    "last_name": "Last Name",
-                    "role": "OrgAdmin",
-                    "status": "ACTIVE"
-                  }
-                ]
+                "member": {
+                  "member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef",
+                  "username": "test@org.com",
+                  "first_name": "First Name",
+                  "last_name": "Last Name",
+                  "role": "OrgAdmin",
+                  "status": "ACTIVE"
+                }
               }
             }
           },
@@ -157,7 +155,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1SearchMembersByUserIDRequest"
+              "$ref": "#/definitions/v1SearchMemberByUserIDRequest"
             }
           }
         ],
@@ -1613,7 +1611,7 @@
         }
       }
     },
-    "v1SearchMembersByUserIDRequest": {
+    "v1SearchMemberByUserIDRequest": {
       "type": "object",
       "properties": {
         "userID": {
@@ -1622,14 +1620,11 @@
         }
       }
     },
-    "v1SearchMembersByUserIDResponse": {
+    "v1SearchMemberByUserIDResponse": {
       "type": "object",
       "properties": {
-        "members": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1OrganizationMember"
-          }
+        "member": {
+          "$ref": "#/definitions/v1OrganizationMember"
         }
       }
     },

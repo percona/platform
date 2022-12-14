@@ -528,17 +528,17 @@ service OrgAPI {
     };
   }
 
-  // SearchMembersByUserID returns the list of Percona Portal Organization members corresponding to the given UserID
+  // SearchMemberByUserID returns the Percona Portal Organization member corresponding to the given UserID
   // No org_id required, this is how this method is different from the SearchMembers method,
   // so the method is assumed to be performed by a SuperAdmin user.
-  rpc SearchMembersByUserID(SearchMembersByUserIDRequest) returns (SearchMembersByUserIDResponse) {
+  rpc SearchMemberByUserID(SearchMemberByUserIDRequest) returns (SearchMemberByUserIDResponse) {
     option (google.api.http) = {
       post: "/v1/members:search"
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the list of Percona Portal Organization members corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
-      summary: "Search organization members by UserID";
+      description: "Returns the Percona Portal Organization member corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
+      summary: "Search organization member by UserID";
       tags: "Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -547,7 +547,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+            value: '{"member": {"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}}'
           }
         };
       };
@@ -831,7 +831,7 @@ message OrganizationMember {
   string status = 6;
 }
 
-message SearchMembersByUserIDRequest {
+message SearchMemberByUserIDRequest {
   // Organization member userID.
   string userID = 1 [
     (validator.field) = {
@@ -840,8 +840,8 @@ message SearchMembersByUserIDRequest {
   ];
 }
 
-message SearchMembersByUserIDResponse {
-  repeated OrganizationMember members = 1;
+message SearchMemberByUserIDResponse {
+  OrganizationMember member = 1;
 }
 
 message SearchMembersRequest {
