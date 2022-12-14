@@ -529,7 +529,7 @@ service OrgAPI {
   }
 
   // GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
-  rpc GetRoleByUserID(GetOrgRoleByUserIDRequest) returns (GetOrgRoleByUserIDResponse) {
+  rpc GetRoleByUserID(GetRoleByUserIDRequest) returns (GetRoleByUserIDResponse) {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
       summary: "Search organization member by UserID";
@@ -825,7 +825,7 @@ message OrganizationMember {
   string status = 6;
 }
 
-message GetOrgRoleByUserIDRequest {
+message GetRoleByUserIDRequest {
   // Organization member userID.
   string userID = 1 [
     (validator.field) = {
@@ -834,7 +834,7 @@ message GetOrgRoleByUserIDRequest {
   ];
 }
 
-message GetOrgRoleByUserIDResponse {
+message GetRoleByUserIDResponse {
   // Percona Portal organization id.
   string org_id = 1;
 

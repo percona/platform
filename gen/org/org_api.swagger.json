@@ -1281,7 +1281,18 @@
         }
       }
     },
-    "v1GetOrgRoleByUserIDResponse": {
+    "v1GetOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "$ref": "#/definitions/v1Organization"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        }
+      }
+    },
+    "v1GetRoleByUserIDResponse": {
       "type": "object",
       "properties": {
         "orgId": {
@@ -1291,17 +1302,6 @@
         "role": {
           "type": "string",
           "description": "Percona Portal organization role of the member."
-        }
-      }
-    },
-    "v1GetOrganizationResponse": {
-      "type": "object",
-      "properties": {
-        "org": {
-          "$ref": "#/definitions/v1Organization"
-        },
-        "contacts": {
-          "$ref": "#/definitions/v1Contacts"
         }
       }
     },
