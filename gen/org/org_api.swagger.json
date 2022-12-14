@@ -118,6 +118,57 @@
         ]
       }
     },
+    "/v1/members:search": {
+      "post": {
+        "summary": "Search organization members by UserID",
+        "description": "Returns the list of Percona Portal Organization members corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.",
+        "operationId": "OrgAPI_SearchMembersByUserID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchMembersByUserIDResponse"
+            },
+            "examples": {
+              "application/json": {
+                "members": [
+                  {
+                    "member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef",
+                    "username": "test@org.com",
+                    "first_name": "First Name",
+                    "last_name": "Last Name",
+                    "role": "OrgAdmin",
+                    "status": "ACTIVE"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchMembersByUserIDRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Member Management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
@@ -1558,6 +1609,26 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Inventory"
+          }
+        }
+      }
+    },
+    "v1SearchMembersByUserIDRequest": {
+      "type": "object",
+      "properties": {
+        "userID": {
+          "type": "string",
+          "description": "Organization member userID."
+        }
+      }
+    },
+    "v1SearchMembersByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrganizationMember"
           }
         }
       }

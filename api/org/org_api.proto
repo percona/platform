@@ -527,6 +527,32 @@ service OrgAPI {
       };
     };
   }
+
+  // SearchMembersByUserID returns the list of Percona Portal Organization members corresponding to the given UserID
+  // No org_id required, this is how this method is different from the SearchMembers method,
+  // so the method is assumed to be performed by a SuperAdmin user.
+  rpc SearchMembersByUserID(SearchMembersByUserIDRequest) returns (SearchMembersByUserIDResponse) {
+    option (google.api.http) = {
+      post: "/v1/members:search"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the list of Percona Portal Organization members corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
+      summary: "Search organization members by UserID";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+          }
+        };
+      };
+    };
+  }
 }
 
 message PMMServerSSODetails {
@@ -803,6 +829,19 @@ message OrganizationMember {
 
   // Okta Account Status of the organization member.
   string status = 6;
+}
+
+message SearchMembersByUserIDRequest {
+  // Organization member userID.
+  string userID = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message SearchMembersByUserIDResponse {
+  repeated OrganizationMember members = 1;
 }
 
 message SearchMembersRequest {
