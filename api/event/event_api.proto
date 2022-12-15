@@ -141,6 +141,63 @@ message CreateHookEventRequest {
 
 message CreateHookEventResponse {}
 
+// Okta event example https://developer.okta.com/docs/concepts/event-hooks/#sample-event-delivery-payload
 message IdpEvent {
-  //to be described
+  string event_type = 1;
+  string event_type_version = 2;
+  string cloud_events_version = 3;
+  string content_type = 4;
+  string event_id = 5;
+  string event_time = 6;
+  string source = 7;
+  IdPEventData data = 8;
+
+  message IdPEventData {
+    repeated Event events = 1;
+
+    message Event {
+      string version = 1;
+      string severity = 2;
+      Client client = 3;
+      Actor actor = 4;
+      Outcome outcome = 5;
+      string uuid = 6;
+      string published = 7;
+      string event_type = 8;
+      string display_message = 9;
+      Transaction transaction = 10;
+      AuthContext authentication_context = 11;
+
+      message Client {
+        string zone = 1;
+        string device = 2;
+        string ip_address = 3;
+        UserAgent user_agent = 4;
+
+        message UserAgent {
+          string os = 1;
+          string browser = 2;
+          string rawUserAgent = 3;
+        }
+      }
+      message Actor {
+        string id = 1;
+        string type = 2;
+        string alternate_id = 3;
+        string display_name = 4;
+      }
+      message Outcome {
+        string result = 1;
+        string reason = 2;
+      }
+      message Transaction {
+        string type = 1;
+        string id = 2;
+      }
+      message AuthContext {
+        string authentication_context = 1;
+        string external_session_id = 2;
+      }
+    }
+  }
 }
