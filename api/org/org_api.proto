@@ -229,7 +229,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "Admin", "status": "ACTIVE"}]}'
           }
         };
       };
@@ -541,7 +541,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"member": {"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}}'
+            value: '{"org_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "role": "Admin"}'
           }
         };
       };
@@ -827,7 +827,7 @@ message OrganizationMember {
 
 message GetRoleByUserIDRequest {
   // Organization member userID.
-  string userID = 1 [
+  string user_id = 1 [
     (validator.field) = {
       string_not_empty: true
     }

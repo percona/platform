@@ -52,13 +52,16 @@
     },
     "/v1/hook/events": {
       "post": {
-        "summary": "CreateHookEvent submits an okta log event to server.",
+        "summary": "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.",
         "operationId": "EventAPI_CreateHookEvent",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1CreateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
             }
           },
           "default": {
@@ -80,7 +83,10 @@
           }
         ],
         "tags": [
-          "EventAPI"
+          "Events management"
+        ],
+        "produces": [
+          "application/json"
         ]
       }
     }

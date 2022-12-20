@@ -86,6 +86,7 @@ func AuthMetadata(r *rdata.RequestData) metadata.MD {
 		AuthTokenHeader, r.AuthToken,
 		AuthUsernameHeader, r.Username,
 		AuthSessionHeader, r.SessionID,
+		AuthHook, strconv.FormatBool(r.Hook),
 	)
 }
 

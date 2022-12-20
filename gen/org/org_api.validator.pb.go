@@ -282,8 +282,8 @@ func (this *OrganizationMember) Validate() error {
 	return nil
 }
 func (this *GetRoleByUserIDRequest) Validate() error {
-	if this.UserID == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("UserID", fmt.Errorf(`value '%v' must not be an empty string`, this.UserID))
+	if this.UserId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("UserId", fmt.Errorf(`value '%v' must not be an empty string`, this.UserId))
 	}
 	return nil
 }

@@ -110,6 +110,23 @@ service EventAPI {
       post: "/v1/hook/events"
       body: "*"
     };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "";
+      summary: "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.";
+      tags: "Events management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
   }
 }
 
