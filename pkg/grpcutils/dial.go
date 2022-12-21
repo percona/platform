@@ -23,3 +23,17 @@ func Dial(ctx context.Context, address, userAgent string) (grpc.ClientConnInterf
 
 	return conn, nil
 }
+
+// NonblockingDial creates a non-blocking gRPC connection for a given address.
+func NonblockingDial(ctx context.Context, address, userAgent string) (*grpc.ClientConn, error) {
+	opts := []grpc.DialOption{
+		grpc.WithUserAgent(userAgent),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	conn, err := grpc.DialContext(ctx, address, opts...)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to dial %s", address)
+	}
+
+	return conn, nil
+}
