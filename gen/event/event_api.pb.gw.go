@@ -138,7 +138,7 @@ func RegisterEventAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.event.v1.EventAPI/CreateHookEvent", runtime.WithHTTPPathPattern("/v1/hook/events"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.event.v1.EventAPI/CreateHookEvent", runtime.WithHTTPPathPattern("/v1/hooks/events"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -224,7 +224,7 @@ func RegisterEventAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.event.v1.EventAPI/CreateHookEvent", runtime.WithHTTPPathPattern("/v1/hook/events"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.event.v1.EventAPI/CreateHookEvent", runtime.WithHTTPPathPattern("/v1/hooks/events"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -246,7 +246,7 @@ func RegisterEventAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 var (
 	pattern_EventAPI_ListAuditEvents_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "events"}, "search"))
 
-	pattern_EventAPI_CreateHookEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "hook", "events"}, ""))
+	pattern_EventAPI_CreateHookEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "hooks", "events"}, ""))
 )
 
 var (

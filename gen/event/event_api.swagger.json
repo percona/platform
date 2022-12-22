@@ -50,7 +50,7 @@
         ]
       }
     },
-    "/v1/hook/events": {
+    "/v1/hooks/events": {
       "post": {
         "summary": "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.",
         "operationId": "EventAPI_CreateHookEvent",
