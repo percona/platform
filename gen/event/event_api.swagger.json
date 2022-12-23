@@ -16,6 +16,29 @@
     "application/json"
   ],
   "paths": {
+    "/v1/events/types": {
+      "get": {
+        "summary": "ListAuditEventTypes returns the list of audit events using filters.",
+        "operationId": "EventAPI_ListAuditEventTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListAuditEventTypesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EventAPI"
+        ]
+      }
+    },
     "/v1/events:search": {
       "post": {
         "summary": "ListAuditEvents returns the list of audit events using filters.",
@@ -324,6 +347,26 @@
     },
     "v1CreateAuditEventResponse": {
       "type": "object"
+    },
+    "v1ListAuditEventTypesResponse": {
+      "type": "object",
+      "properties": {
+        "actionTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "list of known action_types."
+        },
+        "objectTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "list of known action_types."
+        }
+      },
+      "title": "ListAuditEventTypesResponse lists known events and objects types"
     },
     "v1ListAuditEventsRequest": {
       "type": "object",
