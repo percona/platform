@@ -312,6 +312,43 @@
         ]
       }
     },
+    "/v1/auth/ValidateToken": {
+      "post": {
+        "summary": "ValidateToken",
+        "description": "Validates a one-time activationToken and returns 5-min living stateToken",
+        "operationId": "AuthAPI_ValidateToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ValidateTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/auth/users/profile:search": {
       "post": {
         "summary": "SearchUserProfile",
@@ -608,6 +645,22 @@
     },
     "v1UpdateProfileResponse": {
       "type": "object"
+    },
+    "v1ValidateTokenRequest": {
+      "type": "object",
+      "properties": {
+        "activationToken": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ValidateTokenResponse": {
+      "type": "object",
+      "properties": {
+        "stateToken": {
+          "type": "string"
+        }
+      }
     }
   },
   "x-readme": {

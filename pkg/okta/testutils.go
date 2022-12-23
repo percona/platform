@@ -82,12 +82,15 @@ func createTestUser(t *testing.T, email, password, firstName, lastName string, a
 			profileSecondaryEmail:  gofakeit.Email(),
 			profileMobilePhone:     gofakeit.Phone(),
 		},
-		Credentials: &okta.UserCredentials{
+	}
+	if password != "" {
+		u.Credentials = &okta.UserCredentials{
 			Password: &okta.PasswordCredential{
 				Value: password,
 			},
-		},
+		}
 	}
+
 	qp := query.NewQueryParams(query.WithActivate(activate))
 	testUser, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
 	require.NoError(t, err)
@@ -129,4 +132,20 @@ func DeleteGroup(t *testing.T, groupID string) {
 
 	_, err := createOktaClient(t).Group.DeleteGroup(context.Background(), groupID)
 	assert.NoError(t, err)
+}
+
+func oktaAPIRequest(oktaClient *okta.Client, method, path string, body, v interface{}) error {
+	requestExecutor := oktaClient.CloneRequestExecutor().WithAccept("application/json").WithContentType("application/json")
+	req, err := requestExecutor.NewRequest(method, path, body)
+	if err != nil {
+		return err
+	}
+
+	resp, err := requestExecutor.Do(context.Background(), req, v)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close() //nolint:errcheck
+
+	return err
 }
