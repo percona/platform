@@ -853,7 +853,7 @@
                     "username": "test@org.com",
                     "first_name": "First Name",
                     "last_name": "Last Name",
-                    "role": "OrgAdmin",
+                    "role": "Admin",
                     "status": "ACTIVE"
                   }
                 ]
@@ -1289,6 +1289,19 @@
         },
         "contacts": {
           "$ref": "#/definitions/v1Contacts"
+        }
+      }
+    },
+    "v1GetRoleByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "orgId": {
+          "type": "string",
+          "description": "Percona Portal organization id."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal organization role of the member."
         }
       }
     },

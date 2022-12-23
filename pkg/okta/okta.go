@@ -318,6 +318,14 @@ type AuthenticatedInfo struct {
 	} `json:"_embedded"` //nolint:tagliatelle
 }
 
+// ApplicationSecret the object that received from the okta's "api/v1/apps/{app_id}/credentials/secrets" endpoint.
+type ApplicationSecret struct {
+	ID           string `json:"id"`
+	ClientSecret string `json:"client_secret"`
+	SecretHash   string `json:"secret_hash"`
+	Status       string `json:"status"` //nolint:tagliatelle
+}
+
 func (c *Client) authenticate(ctx context.Context, data interface{}) (*AuthenticatedInfo, error) {
 	resp := AuthenticatedInfo{}
 
@@ -1007,6 +1015,32 @@ func (c *Client) DeleteApp(ctx context.Context, appID string) error {
 		return err
 	}
 	return nil
+}
+
+// GetAppSecret returns client secret by appID.
+func (c *Client) GetAppSecret(ctx context.Context, appID string) (*string, error) {
+	l := logger.GetLoggerFromContext(ctx).Named("oktaClient")
+
+	resp := new([]ApplicationSecret)
+	path := fmt.Sprintf("/api/v1/apps/%s/credentials/secrets", appID)
+	err := c.DoRequest(ctx, "GET", path, nil, &resp)
+	if err != nil {
+		l.Error("Okta request failed", zap.Error(err))
+		var oErr *okta.Error
+		if errors.As(err, &oErr) {
+			return nil, convertOktaError(oErr)
+		}
+
+		return nil, errors.Wrap(err, "failed to authenticate user")
+	}
+
+	var secret string
+	secrets := *resp
+	if len(secrets) != 0 {
+		secret = secrets[0].ClientSecret
+	}
+
+	return &secret, nil
 }
 
 // GetActivationInfo returns activation url for users that are not activated yet.
