@@ -187,3 +187,9 @@ func (this *IdpEvent_IdPEventData_Event_Transaction) Validate() error {
 func (this *IdpEvent_IdPEventData_Event_AuthContext) Validate() error {
 	return nil
 }
+func (this *ValidateHookEventRequest) Validate() error {
+	return nil
+}
+func (this *ValidateHookEventResponse) Validate() error {
+	return nil
+}

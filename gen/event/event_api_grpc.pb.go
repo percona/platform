@@ -31,6 +31,8 @@ type EventAPIClient interface {
 	ListAuditEventTypes(ctx context.Context, in *ListAuditEventTypesRequest, opts ...grpc.CallOption) (*ListAuditEventTypesResponse, error)
 	// CreateHookEvent submits an okta log event to server.
 	CreateHookEvent(ctx context.Context, in *CreateHookEventRequest, opts ...grpc.CallOption) (*CreateHookEventResponse, error)
+	// ValidateHook validates hook ownership.
+	ValidateHook(ctx context.Context, in *ValidateHookEventRequest, opts ...grpc.CallOption) (*ValidateHookEventResponse, error)
 }
 
 type eventAPIClient struct {
@@ -77,6 +79,15 @@ func (c *eventAPIClient) CreateHookEvent(ctx context.Context, in *CreateHookEven
 	return out, nil
 }
 
+func (c *eventAPIClient) ValidateHook(ctx context.Context, in *ValidateHookEventRequest, opts ...grpc.CallOption) (*ValidateHookEventResponse, error) {
+	out := new(ValidateHookEventResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.event.v1.EventAPI/ValidateHook", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventAPIServer is the server API for EventAPI service.
 // All implementations must embed UnimplementedEventAPIServer
 // for forward compatibility
@@ -89,6 +100,8 @@ type EventAPIServer interface {
 	ListAuditEventTypes(context.Context, *ListAuditEventTypesRequest) (*ListAuditEventTypesResponse, error)
 	// CreateHookEvent submits an okta log event to server.
 	CreateHookEvent(context.Context, *CreateHookEventRequest) (*CreateHookEventResponse, error)
+	// ValidateHook validates hook ownership.
+	ValidateHook(context.Context, *ValidateHookEventRequest) (*ValidateHookEventResponse, error)
 	mustEmbedUnimplementedEventAPIServer()
 }
 
@@ -107,6 +120,9 @@ func (UnimplementedEventAPIServer) ListAuditEventTypes(context.Context, *ListAud
 }
 func (UnimplementedEventAPIServer) CreateHookEvent(context.Context, *CreateHookEventRequest) (*CreateHookEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateHookEvent not implemented")
+}
+func (UnimplementedEventAPIServer) ValidateHook(context.Context, *ValidateHookEventRequest) (*ValidateHookEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateHook not implemented")
 }
 func (UnimplementedEventAPIServer) mustEmbedUnimplementedEventAPIServer() {}
 
@@ -193,6 +209,24 @@ func _EventAPI_CreateHookEvent_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventAPI_ValidateHook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateHookEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventAPIServer).ValidateHook(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.event.v1.EventAPI/ValidateHook",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventAPIServer).ValidateHook(ctx, req.(*ValidateHookEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventAPI_ServiceDesc is the grpc.ServiceDesc for EventAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -215,6 +249,10 @@ var EventAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateHookEvent",
 			Handler:    _EventAPI_CreateHookEvent_Handler,
+		},
+		{
+			MethodName: "ValidateHook",
+			Handler:    _EventAPI_ValidateHook_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

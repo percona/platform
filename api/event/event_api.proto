@@ -135,6 +135,30 @@ service EventAPI {
       };
     };
   }
+
+  // ValidateHook validates hook ownership.
+  rpc ValidateHook(ValidateHookEventRequest) returns (ValidateHookEventResponse) {
+    option (google.api.http) = {
+      get: "/v1/hooks/events"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Hook handler validation";
+      summary: "Okta sends the one-time validation request to verify the hook handler ownership";
+      tags: "Events management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
 }
 
 // CreateAuditEventRequest to be used to store event in persistent storage.
@@ -234,4 +258,10 @@ message IdpEvent {
       }
     }
   }
+}
+
+message ValidateHookEventRequest {}
+
+message ValidateHookEventResponse {
+  string verification = 1;
 }

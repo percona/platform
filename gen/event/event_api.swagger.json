@@ -74,6 +74,34 @@
       }
     },
     "/v1/hooks/events": {
+      "get": {
+        "summary": "Okta sends the one-time validation request to verify the hook handler ownership",
+        "description": "Hook handler validation",
+        "operationId": "EventAPI_ValidateHook",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Events management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
       "post": {
         "summary": "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.",
         "operationId": "EventAPI_CreateHookEvent",
@@ -606,6 +634,14 @@
         }
       },
       "description": "ListAuditEventsResponse lists stored events."
+    },
+    "v1ValidateHookEventResponse": {
+      "type": "object",
+      "properties": {
+        "verification": {
+          "type": "string"
+        }
+      }
     }
   }
 }
