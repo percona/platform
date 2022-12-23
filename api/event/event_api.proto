@@ -8,8 +8,8 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "utils/fsp/fsp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
+import "utils/fsp/fsp.proto";
 
 option go_package = "/event;eventv1";
 
@@ -104,6 +104,13 @@ service EventAPI {
     };
   }
 
+  // ListAuditEventTypes returns the list of audit events using filters.
+  rpc ListAuditEventTypes(ListAuditEventTypesRequest) returns (ListAuditEventTypesResponse) {
+    option (google.api.http) = {
+      get: "/v1/events/types"
+    };
+  }
+
   // CreateHookEvent submits an okta log event to server.
   rpc CreateHookEvent(CreateHookEventRequest) returns (CreateHookEventResponse) {
     option (google.api.http) = {
@@ -151,6 +158,16 @@ message ListAuditEventsResponse {
   utils.fsp.PageTotals page_totals = 2;
 }
 
+// ListAuditEventTypesRequest
+message ListAuditEventTypesRequest {}
+
+// ListAuditEventTypesResponse lists known events and objects types
+message ListAuditEventTypesResponse {
+  // list of known action_types.
+  repeated string action_types = 1;
+  // list of known action_types.
+  repeated string object_types = 2;
+}
 // CreateHookEventRequest to be used to store okta event in persistent storage.
 message CreateHookEventRequest {
   IdpEvent event = 1;

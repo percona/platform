@@ -27,8 +27,8 @@ type EventAPIClient interface {
 	CreateAuditEvent(ctx context.Context, in *CreateAuditEventRequest, opts ...grpc.CallOption) (*CreateAuditEventResponse, error)
 	// ListAuditEvents returns the list of audit events using filters.
 	ListAuditEvents(ctx context.Context, in *ListAuditEventsRequest, opts ...grpc.CallOption) (*ListAuditEventsResponse, error)
-	// CreateHookEvent submits an okta log event to server.
-	CreateHookEvent(ctx context.Context, in *CreateHookEventRequest, opts ...grpc.CallOption) (*CreateHookEventResponse, error)
+	// ListAuditEventTypes returns the list of audit events using filters.
+	ListAuditEventTypes(ctx context.Context, in *ListAuditEventTypesRequest, opts ...grpc.CallOption) (*ListAuditEventTypesResponse, error)
 }
 
 type eventAPIClient struct {
@@ -57,9 +57,9 @@ func (c *eventAPIClient) ListAuditEvents(ctx context.Context, in *ListAuditEvent
 	return out, nil
 }
 
-func (c *eventAPIClient) CreateHookEvent(ctx context.Context, in *CreateHookEventRequest, opts ...grpc.CallOption) (*CreateHookEventResponse, error) {
-	out := new(CreateHookEventResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.event.v1.EventAPI/CreateHookEvent", in, out, opts...)
+func (c *eventAPIClient) ListAuditEventTypes(ctx context.Context, in *ListAuditEventTypesRequest, opts ...grpc.CallOption) (*ListAuditEventTypesResponse, error) {
+	out := new(ListAuditEventTypesResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.event.v1.EventAPI/ListAuditEventTypes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -74,8 +74,8 @@ type EventAPIServer interface {
 	CreateAuditEvent(context.Context, *CreateAuditEventRequest) (*CreateAuditEventResponse, error)
 	// ListAuditEvents returns the list of audit events using filters.
 	ListAuditEvents(context.Context, *ListAuditEventsRequest) (*ListAuditEventsResponse, error)
-	// CreateHookEvent submits an okta log event to server.
-	CreateHookEvent(context.Context, *CreateHookEventRequest) (*CreateHookEventResponse, error)
+	// ListAuditEventTypes returns the list of audit events using filters.
+	ListAuditEventTypes(context.Context, *ListAuditEventTypesRequest) (*ListAuditEventTypesResponse, error)
 	mustEmbedUnimplementedEventAPIServer()
 }
 
@@ -89,8 +89,8 @@ func (UnimplementedEventAPIServer) CreateAuditEvent(context.Context, *CreateAudi
 func (UnimplementedEventAPIServer) ListAuditEvents(context.Context, *ListAuditEventsRequest) (*ListAuditEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAuditEvents not implemented")
 }
-func (UnimplementedEventAPIServer) CreateHookEvent(context.Context, *CreateHookEventRequest) (*CreateHookEventResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateHookEvent not implemented")
+func (UnimplementedEventAPIServer) ListAuditEventTypes(context.Context, *ListAuditEventTypesRequest) (*ListAuditEventTypesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAuditEventTypes not implemented")
 }
 func (UnimplementedEventAPIServer) mustEmbedUnimplementedEventAPIServer() {}
 
@@ -141,20 +141,20 @@ func _EventAPI_ListAuditEvents_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EventAPI_CreateHookEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateHookEventRequest)
+func _EventAPI_ListAuditEventTypes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAuditEventTypesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EventAPIServer).CreateHookEvent(ctx, in)
+		return srv.(EventAPIServer).ListAuditEventTypes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.event.v1.EventAPI/CreateHookEvent",
+		FullMethod: "/percona.platform.event.v1.EventAPI/ListAuditEventTypes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventAPIServer).CreateHookEvent(ctx, req.(*CreateHookEventRequest))
+		return srv.(EventAPIServer).ListAuditEventTypes(ctx, req.(*ListAuditEventTypesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -175,8 +175,8 @@ var EventAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _EventAPI_ListAuditEvents_Handler,
 		},
 		{
-			MethodName: "CreateHookEvent",
-			Handler:    _EventAPI_CreateHookEvent_Handler,
+			MethodName: "ListAuditEventTypes",
+			Handler:    _EventAPI_ListAuditEventTypes_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
