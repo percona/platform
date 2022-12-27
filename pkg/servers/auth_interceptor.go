@@ -50,6 +50,9 @@ const (
 	// AuthHook indicates if the request authorized as hook request.
 	AuthHook = "Auth-Hook"
 
+	// OktaVerificationHeader header used by Okta to verify hook handlers.
+	OktaVerificationHeader = "X-Okta-Verification-Challenge"
+
 	// Keep for backward compatibility.
 
 	// AuthSessionHeader Okta authentication session ID.
@@ -101,6 +104,10 @@ func PerconaHeaderMatcher(key string) (string, bool) {
 	}
 
 	if tracing.OpenTracingHeadersMatcher(keyCanonical) {
+		return key, true
+	}
+
+	if keyCanonical == OktaVerificationHeader {
 		return key, true
 	}
 
@@ -334,6 +341,11 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthHook)
 	}
 
+	hookVerification, err := getStringFromMetadata(md, OktaVerificationHeader)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", OktaVerificationHeader)
+	}
+
 	// Keep for backward compatibility.
 	email, err := getStringFromMetadata(md, AuthEmailHeader)
 	if err != nil {
@@ -366,6 +378,7 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		UserEmail:          email,
 		SessionID:          sessionID,
 		Hook:               isHook,
+		HookVerification:   hookVerification,
 	}, nil
 }
 
