@@ -72,6 +72,74 @@
           "EventAPI"
         ]
       }
+    },
+    "/v1/hooks/events": {
+      "get": {
+        "summary": "Okta sends the one-time validation request to verify the hook handler ownership",
+        "description": "Hook handler validation",
+        "operationId": "EventAPI_ValidateHook",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Events management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.",
+        "operationId": "EventAPI_CreateHookEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "CreateHookEventRequest to be used to store okta event in persistent storage.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Events management"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -109,6 +177,136 @@
       ],
       "default": "UNSPECIFIED",
       "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE."
+    },
+    "ClientUserAgent": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "string"
+        },
+        "browser": {
+          "type": "string"
+        },
+        "rawUserAgent": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateHookEventRequestIdPEventData": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdPEventDataEvent"
+          }
+        }
+      }
+    },
+    "EventActor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "alternateId": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        }
+      }
+    },
+    "EventAuthContext": {
+      "type": "object",
+      "properties": {
+        "authenticationContext": {
+          "type": "string"
+        },
+        "externalSessionId": {
+          "type": "string"
+        }
+      }
+    },
+    "EventClient": {
+      "type": "object",
+      "properties": {
+        "zone": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "$ref": "#/definitions/ClientUserAgent"
+        }
+      }
+    },
+    "EventOutcome": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "EventTransaction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "IdPEventDataEvent": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "client": {
+          "$ref": "#/definitions/EventClient"
+        },
+        "actor": {
+          "$ref": "#/definitions/EventActor"
+        },
+        "outcome": {
+          "$ref": "#/definitions/EventOutcome"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "published": {
+          "type": "string"
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "displayMessage": {
+          "type": "string"
+        },
+        "transaction": {
+          "$ref": "#/definitions/EventTransaction"
+        },
+        "authenticationContext": {
+          "$ref": "#/definitions/EventAuthContext"
+        }
+      }
     },
     "fspField": {
       "type": "object",
@@ -348,6 +546,39 @@
     "v1CreateAuditEventResponse": {
       "type": "object"
     },
+    "v1CreateHookEventRequest": {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "type": "string"
+        },
+        "eventTypeVersion": {
+          "type": "string"
+        },
+        "cloudEventsVersion": {
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CreateHookEventRequestIdPEventData"
+        }
+      },
+      "description": "CreateHookEventRequest to be used to store okta event in persistent storage."
+    },
+    "v1CreateHookEventResponse": {
+      "type": "object"
+    },
     "v1ListAuditEventTypesResponse": {
       "type": "object",
       "properties": {
@@ -394,6 +625,14 @@
         }
       },
       "description": "ListAuditEventsResponse lists stored events."
+    },
+    "v1ValidateHookEventResponse": {
+      "type": "object",
+      "properties": {
+        "verification": {
+          "type": "string"
+        }
+      }
     }
   }
 }
