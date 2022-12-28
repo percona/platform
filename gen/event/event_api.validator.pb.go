@@ -108,17 +108,6 @@ func (this *ListAuditEventTypesResponse) Validate() error {
 	return nil
 }
 func (this *CreateHookEventRequest) Validate() error {
-	if this.Event != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Event); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Event", err)
-		}
-	}
-	return nil
-}
-func (this *CreateHookEventResponse) Validate() error {
-	return nil
-}
-func (this *IdpEvent) Validate() error {
 	if this.Data != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Data); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Data", err)
@@ -126,7 +115,7 @@ func (this *IdpEvent) Validate() error {
 	}
 	return nil
 }
-func (this *IdpEvent_IdPEventData) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData) Validate() error {
 	for _, item := range this.Events {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -136,7 +125,7 @@ func (this *IdpEvent_IdPEventData) Validate() error {
 	}
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event) Validate() error {
 	if this.Client != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Client); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("Client", err)
@@ -164,7 +153,7 @@ func (this *IdpEvent_IdPEventData_Event) Validate() error {
 	}
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_Client) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_Client) Validate() error {
 	if this.UserAgent != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.UserAgent); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("UserAgent", err)
@@ -172,19 +161,22 @@ func (this *IdpEvent_IdPEventData_Event_Client) Validate() error {
 	}
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_Client_UserAgent) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_Client_UserAgent) Validate() error {
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_Actor) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_Actor) Validate() error {
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_Outcome) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_Outcome) Validate() error {
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_Transaction) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_Transaction) Validate() error {
 	return nil
 }
-func (this *IdpEvent_IdPEventData_Event_AuthContext) Validate() error {
+func (this *CreateHookEventRequest_IdPEventData_Event_AuthContext) Validate() error {
+	return nil
+}
+func (this *CreateHookEventResponse) Validate() error {
 	return nil
 }
 func (this *ValidateHookEventRequest) Validate() error {

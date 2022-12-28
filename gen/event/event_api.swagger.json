@@ -192,6 +192,17 @@
         }
       }
     },
+    "CreateHookEventRequestIdPEventData": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdPEventDataEvent"
+          }
+        }
+      }
+    },
     "EventActor": {
       "type": "object",
       "properties": {
@@ -294,17 +305,6 @@
         },
         "authenticationContext": {
           "$ref": "#/definitions/EventAuthContext"
-        }
-      }
-    },
-    "IdpEventIdPEventData": {
-      "type": "object",
-      "properties": {
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IdPEventDataEvent"
-          }
         }
       }
     },
@@ -549,18 +549,6 @@
     "v1CreateHookEventRequest": {
       "type": "object",
       "properties": {
-        "event": {
-          "$ref": "#/definitions/v1IdpEvent"
-        }
-      },
-      "description": "CreateHookEventRequest to be used to store okta event in persistent storage."
-    },
-    "v1CreateHookEventResponse": {
-      "type": "object"
-    },
-    "v1IdpEvent": {
-      "type": "object",
-      "properties": {
         "eventType": {
           "type": "string"
         },
@@ -583,10 +571,13 @@
           "type": "string"
         },
         "data": {
-          "$ref": "#/definitions/IdpEventIdPEventData"
+          "$ref": "#/definitions/CreateHookEventRequestIdPEventData"
         }
       },
-      "title": "Okta event example https://developer.okta.com/docs/concepts/event-hooks/#sample-event-delivery-payload"
+      "description": "CreateHookEventRequest to be used to store okta event in persistent storage."
+    },
+    "v1CreateHookEventResponse": {
+      "type": "object"
     },
     "v1ListAuditEventTypesResponse": {
       "type": "object",

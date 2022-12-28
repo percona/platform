@@ -194,13 +194,6 @@ message ListAuditEventTypesResponse {
 }
 // CreateHookEventRequest to be used to store okta event in persistent storage.
 message CreateHookEventRequest {
-  IdpEvent event = 1;
-}
-
-message CreateHookEventResponse {}
-
-// Okta event example https://developer.okta.com/docs/concepts/event-hooks/#sample-event-delivery-payload
-message IdpEvent {
   string event_type = 1;
   string event_type_version = 2;
   string cloud_events_version = 3;
@@ -259,6 +252,8 @@ message IdpEvent {
     }
   }
 }
+
+message CreateHookEventResponse {}
 
 message ValidateHookEventRequest {}
 
