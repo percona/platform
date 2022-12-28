@@ -24,6 +24,12 @@ message ActionTypeMessage {
     UPDATE = 2;
     // DELETE represents action type = DELETE.
     DELETE = 3;
+    // LOG_IN represents action type = LOG_IN.
+    LOG_IN = 4;
+    // LOG_OUT represents action type = LOG_OUT.
+    LOG_OUT = 5;
+    // CHANGE_PASSWORD represents action type = CHANGE_PASSWORD.
+    CHANGE_PASSWORD = 6;
   }
 }
 

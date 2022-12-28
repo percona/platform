@@ -173,10 +173,13 @@
         "UNSPECIFIED",
         "CREATE",
         "UPDATE",
-        "DELETE"
+        "DELETE",
+        "LOG_IN",
+        "LOG_OUT",
+        "CHANGE_PASSWORD"
       ],
       "default": "UNSPECIFIED",
-      "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE."
+      "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE.\n - LOG_IN: LOG_IN represents action type = LOG_IN.\n - LOG_OUT: LOG_OUT represents action type = LOG_OUT.\n - CHANGE_PASSWORD: CHANGE_PASSWORD represents action type = CHANGE_PASSWORD."
     },
     "ClientUserAgent": {
       "type": "object",
