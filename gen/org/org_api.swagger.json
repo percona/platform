@@ -45,6 +45,9 @@
         "tags": [
           "DBaaS helpers"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -72,6 +75,9 @@
         },
         "tags": [
           "DBaaS helpers"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -112,6 +118,9 @@
         ],
         "tags": [
           "DBaaS helpers"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -160,6 +169,9 @@
         "tags": [
           "Organization Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -191,6 +203,9 @@
         },
         "tags": [
           "Organization Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -241,6 +256,9 @@
         "tags": [
           "Inventory Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -277,6 +295,9 @@
         ],
         "tags": [
           "Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -327,6 +348,9 @@
         "tags": [
           "Inventory Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -366,6 +390,9 @@
         ],
         "tags": [
           "Member Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -413,6 +440,9 @@
         "tags": [
           "Organization Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -446,6 +476,9 @@
         ],
         "tags": [
           "Organization Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -507,6 +540,9 @@
         "tags": [
           "Organization Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -552,6 +588,9 @@
         ],
         "tags": [
           "Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -607,6 +646,9 @@
         "tags": [
           "Member Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -650,6 +692,9 @@
         ],
         "tags": [
           "Member Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -716,6 +761,9 @@
         "tags": [
           "Member Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -761,6 +809,9 @@
         ],
         "tags": [
           "Member Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -829,6 +880,9 @@
         "tags": [
           "Member Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -892,6 +946,9 @@
         "tags": [
           "Member Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -944,6 +1001,9 @@
         ],
         "tags": [
           "Organization Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -1021,6 +1081,9 @@
         "tags": [
           "Organization Management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -1069,6 +1132,9 @@
         ],
         "tags": [
           "Organization Management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
