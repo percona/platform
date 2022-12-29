@@ -51,6 +51,9 @@
         "tags": [
           "ReporterAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -87,6 +90,9 @@
         ],
         "tags": [
           "ReporterAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
