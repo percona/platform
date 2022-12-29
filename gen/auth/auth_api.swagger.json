@@ -48,6 +48,9 @@
         "tags": [
           "AuthAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -84,6 +87,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -122,6 +128,9 @@
         "tags": [
           "AuthAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -158,6 +167,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -196,6 +208,9 @@
         "tags": [
           "AuthAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -232,6 +247,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -270,6 +288,9 @@
         "tags": [
           "AuthAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -306,6 +327,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
@@ -344,6 +368,9 @@
         "tags": [
           "AuthAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -380,6 +407,9 @@
         ],
         "tags": [
           "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"

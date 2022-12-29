@@ -48,6 +48,9 @@
         "tags": [
           "RetrievalAPI"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -84,6 +87,9 @@
         ],
         "tags": [
           "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
