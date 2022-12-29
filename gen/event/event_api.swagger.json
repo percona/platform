@@ -98,6 +98,9 @@
         "tags": [
           "Events management"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ]
@@ -135,6 +138,9 @@
         ],
         "tags": [
           "Events management"
+        ],
+        "consumes": [
+          "application/json"
         ],
         "produces": [
           "application/json"
