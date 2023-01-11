@@ -527,6 +527,27 @@ service OrgAPI {
       };
     };
   }
+  rpc GetCivoPMMDetails(GetCivoPMMDetailsRequest) returns (GetCivoPMMDetailsResponse) {
+    option (google.api.http) = {
+      get: "/v1/dbaas/cluster/civo/{cluster_id}/pmm"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns connection details of the PMM that was deployed inside the cluster from CIVO once it is ACTIVE.";
+      summary: "Get PMM detauls";
+      tags: "DBaaS helpers";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"kubeconfig": ""}'
+          }
+        };
+      };
+    };
+  }
 }
 
 message PMMServerSSODetails {
@@ -963,6 +984,17 @@ message GetCivoKubeconfigRequest {
 
 message GetCivoKubeconfigResponse {
   string kubeconfig = 1;
+}
+
+message GetCivoPMMDetailsRequest {
+  string cluster_id = 1;
+}
+message GetCivoPMMDetailsResponse {
+  string public_address = 1;
+  string username = 2;
+  string password = 3;
+  // This one is optional and you can get rid of it and move it to the FE side
+  string dbaas_url = 4;
 }
 
 message ReactivateMemberRequest {
