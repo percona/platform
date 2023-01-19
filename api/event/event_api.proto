@@ -24,6 +24,12 @@ message ActionTypeMessage {
     UPDATE = 2;
     // DELETE represents action type = DELETE.
     DELETE = 3;
+    // LOG_IN represents action type = LOG_IN.
+    LOG_IN = 4;
+    // LOG_OUT represents action type = LOG_OUT.
+    LOG_OUT = 5;
+    // CHANGE_PASSWORD represents action type = CHANGE_PASSWORD.
+    CHANGE_PASSWORD = 6;
   }
 }
 
@@ -110,6 +116,55 @@ service EventAPI {
       get: "/v1/events/types"
     };
   }
+
+  // CreateHookEvent submits an okta log event to server.
+  rpc CreateHookEvent(CreateHookEventRequest) returns (CreateHookEventResponse) {
+    option (google.api.http) = {
+      post: "/v1/hooks/events"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "";
+      summary: "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.";
+      tags: "Events management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+
+  // ValidateHook validates hook ownership.
+  rpc ValidateHook(ValidateHookEventRequest) returns (ValidateHookEventResponse) {
+    option (google.api.http) = {
+      get: "/v1/hooks/events"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Hook handler validation";
+      summary: "Okta sends the one-time validation request to verify the hook handler ownership";
+      tags: "Events management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
 }
 
 // CreateAuditEventRequest to be used to store event in persistent storage.
@@ -142,4 +197,72 @@ message ListAuditEventTypesResponse {
   repeated string action_types = 1;
   // list of known action_types.
   repeated string object_types = 2;
+}
+// CreateHookEventRequest to be used to store okta event in persistent storage.
+message CreateHookEventRequest {
+  string event_type = 1;
+  string event_type_version = 2;
+  string cloud_events_version = 3;
+  string content_type = 4;
+  string event_id = 5;
+  string event_time = 6;
+  string source = 7;
+  IdPEventData data = 8;
+
+  message IdPEventData {
+    repeated Event events = 1;
+
+    message Event {
+      string version = 1;
+      string severity = 2;
+      Client client = 3;
+      Actor actor = 4;
+      Outcome outcome = 5;
+      string uuid = 6;
+      string published = 7;
+      string event_type = 8;
+      string display_message = 9;
+      Transaction transaction = 10;
+      AuthContext authentication_context = 11;
+
+      message Client {
+        string zone = 1;
+        string device = 2;
+        string ip_address = 3;
+        UserAgent user_agent = 4;
+
+        message UserAgent {
+          string os = 1;
+          string browser = 2;
+          string rawUserAgent = 3;
+        }
+      }
+      message Actor {
+        string id = 1;
+        string type = 2;
+        string alternate_id = 3;
+        string display_name = 4;
+      }
+      message Outcome {
+        string result = 1;
+        string reason = 2;
+      }
+      message Transaction {
+        string type = 1;
+        string id = 2;
+      }
+      message AuthContext {
+        string authentication_context = 1;
+        string external_session_id = 2;
+      }
+    }
+  }
+}
+
+message CreateHookEventResponse {}
+
+message ValidateHookEventRequest {}
+
+message ValidateHookEventResponse {
+  string verification = 1;
 }
