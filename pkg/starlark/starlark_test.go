@@ -539,7 +539,6 @@ func TestCheckGlobals(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
 				Type:        check.MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "return 1",
@@ -553,7 +552,6 @@ func TestCheckGlobals(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
 				Type:        check.MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script: strings.TrimSpace(`
@@ -571,7 +569,6 @@ def check_context(rows, context):
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
 				Type:        check.MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script: strings.TrimSpace(`
@@ -588,7 +585,6 @@ def check(rows):
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
 				Type:        check.MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script: strings.TrimSpace(`
@@ -609,9 +605,7 @@ def check_context(rows, context):
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
 				Family:      check.MySQL,
-				Category:    "configuration",
 				Queries: []check.Query{
 					{
 						Type:  check.MySQLShow,
