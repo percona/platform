@@ -16,6 +16,46 @@
     "application/json"
   ],
   "paths": {
+    "/v1/check/GetAllAdvisors": {
+      "post": {
+        "summary": "Get all advisors",
+        "description": "Retrieves all advisors a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAllAdvisors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/check/GetAllAlertRuleTemplates": {
       "post": {
         "summary": "Get all alert rule templates",
@@ -122,6 +162,25 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "v1GetAllAdvisorsRequest": {
+      "type": "object"
+    },
+    "v1GetAllAdvisorsResponse": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "YAML formatted checks."
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Checks signatures."
         }
       }
     },
