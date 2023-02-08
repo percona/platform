@@ -252,8 +252,9 @@ type Check struct {
 	Summary     string   `yaml:"summary"`
 	Description string   `yaml:"description"`
 	Advisor     string   `yaml:"advisor"`
-	Type        Type     `yaml:"type,omitempty"`   // for v1
-	Family      Family   `yaml:"family,omitempty"` // for v2
+	Category    string   `yaml:"category,omitempty"` // deprecated
+	Type        Type     `yaml:"type,omitempty"`     // for v1
+	Family      Family   `yaml:"family,omitempty"`   // for v2
 	Interval    Interval `yaml:"interval,omitempty"`
 	Query       string   `yaml:"query,omitempty"`   // for v1
 	Queries     []Query  `yaml:"queries,omitempty"` // for v2
