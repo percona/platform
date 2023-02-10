@@ -7,8 +7,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	"github.com/percona-platform/platform/pkg/common"
 )
 
 func TestCheck_Parse(t *testing.T) {
@@ -20,7 +18,7 @@ checks:
     name: mysql_check
     summary: MYSQL Check
     description: Description of check.
-    tiers: [anonymous]
+    advisor: test_advisor
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -31,7 +29,7 @@ checks:
     name: postgresql_check
     summary: MYSQL Check
     description: Description of check.
-    tiers: [anonymous]
+    advisor: test_advisor
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -46,7 +44,7 @@ checks:
     name: mysql_check
     summary: MYSQL Check
     description: Description of check.
-    tiers: [anonymous]
+    advisor: test_advisor
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -58,7 +56,7 @@ checks:
     name: postgresql_check
     summary: PostgreSQL Check
     description: Description of check.
-    tiers: [anonymous]
+    advisor: test_advisor
     type: POSTGRESQL_SELECT
     query: id, name FROM table WHERE id=123;
     script: |
@@ -76,7 +74,7 @@ checks:
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			cs, err := Parse(bytes.NewReader([]byte(document)), params)
+			cs, err := ParseChecks(bytes.NewReader([]byte(document)), params)
 			require.NoError(t, err)
 
 			assert.Len(t, cs, 2)
@@ -104,7 +102,7 @@ checks:
     name: mysql_check
     summary: MYSQL Check
     description: Description of check.
-    tiers: [anonymous]
+    advisor: test_advisor
     type: MYSQL_SHOW
     query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
     script: |
@@ -118,7 +116,7 @@ checks:
 			DisallowUnknownFields: true,
 			DisallowInvalidChecks: false,
 		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
+		cs, err := ParseChecks(bytes.NewReader([]byte(data)), params)
 		require.NoError(t, err)
 
 		assert.Len(t, cs, 1)
@@ -128,123 +126,6 @@ checks:
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
 		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
-	})
-
-	t.Run("missing tiers", func(t *testing.T) {
-		t.Parallel()
-		data := strings.TrimSpace(`
----
-checks:
-  - version: 1
-    name: mysql_check
-    summary: MYSQL Check
-    description: Description of check.
-    type: MYSQL_SHOW
-    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
-    script: |
-        def function1(args):
-            pass
-`)
-
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 1)
-	})
-
-	t.Run("null tiers", func(t *testing.T) {
-		t.Parallel()
-		data := strings.TrimSpace(`
----
-checks:
-  - version: 1
-    name: mysql_check
-    summary: MYSQL Check
-    description: Description of check.
-    tiers: null
-    type: MYSQL_SHOW
-    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
-    script: |
-        def function1(args):
-            pass
-`)
-
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 1)
-
-		assert.Equal(t, "mysql_check", cs[0].Name)
-		assert.Equal(t, uint32(1), cs[0].Version)
-		assert.Equal(t, MySQLShow, cs[0].Type)
-		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
-	})
-
-	t.Run("zero tiers", func(t *testing.T) {
-		t.Parallel()
-		data := strings.TrimSpace(`
----
-checks:
-  - version: 1
-    name: mysql_check
-    summary: MYSQL Check
-    description: Description of check.
-    tiers: []
-    type: MYSQL_SHOW
-    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
-    script: |
-        def function1(args):
-            pass
-`)
-
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		cs, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.NoError(t, err)
-
-		assert.Len(t, cs, 1)
-
-		assert.Equal(t, "mysql_check", cs[0].Name)
-		assert.Equal(t, uint32(1), cs[0].Version)
-		assert.Equal(t, MySQLShow, cs[0].Type)
-		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass")
-	})
-
-	t.Run("duplicate tiers", func(t *testing.T) {
-		t.Parallel()
-		data := strings.TrimSpace(`
----
-checks:
-  - version: 1
-    name: mysql_check
-    summary: MYSQL Check
-    description: Description of check.
-    tiers: [anonymous, anonymous]
-    type: MYSQL_SHOW
-    query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
-    script: |
-        def function1(args):
-            pass
-`)
-
-		params := &ParseParams{
-			DisallowUnknownFields: true,
-			DisallowInvalidChecks: true,
-		}
-		_, err := Parse(bytes.NewReader([]byte(data)), params)
-		require.EqualError(t, err, "duplicate tier: \"anonymous\"")
 	})
 }
 
@@ -1013,57 +894,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			err := tt.check.Validate()
-
-			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
-				return
-			}
-
-			assert.NoError(t, err)
-		})
-	}
-}
-
-func TestCheck_ResultValidate(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct {
-		name   string
-		result *Result
-		errStr string
-	}{
-		{
-			name:   "normal",
-			result: &Result{Severity: common.Notice, Summary: "some text", ReadMoreURL: "https://www.percona.com/"},
-			errStr: "",
-		},
-		{
-			name:   "unknown_severity",
-			result: &Result{Severity: common.Severity(123), Summary: "some text"},
-			errStr: "unknown severity level: Severity(123)",
-		},
-		{
-			name:   "unhandled_severity",
-			result: &Result{Severity: common.Info, Summary: "some text"},
-			errStr: "unhandled result severity: info",
-		},
-		{
-			name:   "empty_summary",
-			result: &Result{Severity: common.Notice},
-			errStr: "summary is empty",
-		},
-		{
-			name:   "invalid_read_more_url",
-			result: &Result{Severity: common.Notice, Summary: "some text", ReadMoreURL: "percona.com"},
-			errStr: "read_more_url: percona.com is invalid",
-		},
-	}
-
-	for _, tt := range tests {
-		tt := tt
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-			err := tt.result.Validate()
 
 			if tt.errStr != "" {
 				assert.EqualError(t, err, tt.errStr)

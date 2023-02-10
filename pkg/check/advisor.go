@@ -89,6 +89,11 @@ func (a *Advisor) Validate() error {
 		if err := check.Validate(); err != nil {
 			return err
 		}
+
+		if check.Advisor != a.Name {
+			return errors.Errorf("advisor name '%s' doesn't match name '%s' specified in corresponding check '%s'",
+				a.Name, check.Advisor, check.Name)
+		}
 	}
 
 	return nil
