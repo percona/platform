@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCheck_Parse(t *testing.T) {
+func TestParseChecks(t *testing.T) {
 	t.Parallel()
 	monoDocument := strings.TrimSpace(`
 ---
@@ -144,6 +144,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -156,6 +157,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLSelect,
 				Query:       "id, name FROM table WHERE id=123;",
 				Script:      "def func(args): pass",
@@ -168,6 +170,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        PostgreSQLShow,
 				Query:       "",
 				Script:      "def func(args): pass",
@@ -180,6 +183,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        PostgreSQLSelect,
 				Query:       "id, name FROM table WHERE id=123;",
 				Script:      "def func(args): pass",
@@ -192,6 +196,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBGetParameter,
 				Script:      "def func(args): pass",
 			},
@@ -203,6 +208,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBBuildInfo,
 				Script:      "def func(args): pass",
 			},
@@ -214,6 +220,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBGetCmdLineOpts,
 				Script:      "def func(args): pass",
 			},
@@ -225,6 +232,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBReplSetGetStatus,
 				Script:      "def func(args): pass",
 			},
@@ -236,6 +244,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBGetDiagnosticData,
 				Script:      "def func(args): pass",
 			},
@@ -247,6 +256,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        "CLICKHOUSE_SHOW",
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -258,6 +268,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -270,6 +281,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -281,6 +293,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Version:     1,
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -293,6 +306,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -305,6 +319,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Interval:    Standard,
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
@@ -318,6 +333,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Interval:    "",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
@@ -331,6 +347,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Interval:    Interval("unknown"),
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
@@ -344,23 +361,12 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
 			},
 			errStr: "",
-		}, {
-			name: "invalid tier",
-			check: &Check{
-				Version:     1,
-				Name:        "test_check",
-				Summary:     "Test Check",
-				Description: "Check Description",
-				Type:        MySQLShow,
-				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
-				Script:      "def func(args): pass",
-			},
-			errStr: "unknown check tier: \"invalid\"",
 		}, {
 			name: "empty type",
 			check: &Check{
@@ -368,6 +374,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        "",
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -380,6 +387,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "",
 				Script:      "def func(args): pass",
@@ -392,6 +400,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        PostgreSQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -404,6 +413,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBGetParameter,
 				Query:       "some query",
 				Script:      "def func(args): pass",
@@ -416,6 +426,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBBuildInfo,
 				Query:       "some query",
 				Script:      "def func(args): pass",
@@ -429,6 +440,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Summary:     "Test Check",
 				Description: "Check Description",
 				Type:        MongoDBGetCmdLineOpts,
+				Advisor:     "test_advisor",
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
@@ -441,6 +453,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Summary:     "Test Check",
 				Description: "Check Description",
 				Type:        MongoDBReplSetGetStatus,
+				Advisor:     "test_advisor",
 				Query:       "some query",
 				Script:      "def func(args): pass",
 			},
@@ -452,6 +465,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MongoDBGetDiagnosticData,
 				Query:       "some query",
 				Script:      "def func(args): pass",
@@ -464,6 +478,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "",
@@ -476,18 +491,20 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
 			},
 			errStr: "summary is empty",
 		}, {
-			name: "empty summary",
+			name: "empty description",
 			check: &Check{
 				Version:     1,
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args): pass",
@@ -500,11 +517,25 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Script:      "def func(args):\tpass",
 			},
 			errStr: "script should use spaces for indentation, not tabs",
+		}, {
+			name: "missing advisor",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Advisor:     "",
+				Type:        MySQLShow,
+				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+				Script:      "def func(args): pass",
+			},
+			errStr: "advisor name is missing",
 		}, {
 			name: "mysql family check v2",
 			check: &Check{
@@ -512,6 +543,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MySQL,
 				Queries: []Query{
 					{
@@ -533,6 +565,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      PostgreSQL,
 				Queries: []Query{
 					{
@@ -553,6 +586,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -581,6 +615,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -598,6 +633,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -618,6 +654,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -639,6 +676,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -661,6 +699,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -683,6 +722,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -703,6 +743,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -723,6 +764,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -740,6 +782,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -761,6 +804,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MySQL,
 				Queries: []Query{
 					{
@@ -782,6 +826,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MySQL,
 				Queries:     []Query{},
 				Script:      "def func(args): pass",
@@ -794,6 +839,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      Family("unknown"),
 				Queries: []Query{
 					{
@@ -811,6 +857,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Family:      MySQL,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
@@ -824,6 +871,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Type:        MySQLShow,
 				Query:       "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 				Queries: []Query{
@@ -841,6 +889,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MySQL,
 				Type:        MySQLShow,
 				Queries: []Query{
@@ -859,6 +908,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
+				Advisor:     "test_advisor",
 				Family:      MySQL,
 				Query:       "some query",
 				Queries: []Query{
@@ -871,22 +921,27 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "field 'query' is part of check format version 1 and can't be used in version 2",
 		}, {
-			name: "category is empty for v2",
+			name: "missing advisor check v2",
 			check: &Check{
 				Version:     2,
 				Name:        "test_check",
 				Summary:     "Test Check",
-				Description: "Check description",
+				Description: "Check Description",
+				Advisor:     "",
 				Family:      MySQL,
 				Queries: []Query{
 					{
 						Type:  MySQLShow,
 						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
 					},
+					{
+						Type:  MySQLSelect,
+						Query: "id, name FROM table WHERE id=123;",
+					},
 				},
 				Script: "def func(args): pass",
 			},
-			errStr: "category is empty",
+			errStr: "advisor name is missing",
 		},
 	}
 	for _, tt := range tests {

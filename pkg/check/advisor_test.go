@@ -12,6 +12,8 @@ import (
 )
 
 func TestParseAdvisors(t *testing.T) {
+	t.Parallel()
+
 	monoDocument := strings.TrimSpace(`
 ---
 advisors:
@@ -196,6 +198,7 @@ advisors:
 	})
 
 	t.Run("wrong advisor name specified in check", func(t *testing.T) {
+		t.Parallel()
 		document := strings.TrimSpace(`
 ---
 advisors:
@@ -330,4 +333,7 @@ advisors:
 		_, err := ParseAdvisors(bytes.NewReader([]byte(data)), params)
 		require.EqualError(t, err, "duplicate tier: \"anonymous\"")
 	})
+}
+
+func TestAdvisor_Validate(t *testing.T) {
 }
