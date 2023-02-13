@@ -60,7 +60,7 @@ func ParseAdvisors(reader io.Reader, params *ParseParams) ([]Advisor, error) {
 }
 
 // Validate advisor.
-func (a *Advisor) Validate() error {
+func (a *Advisor) Validate() error { //nolint:cyclop
 	if a.Version != 1 {
 		return errors.Errorf("unexpected version %d", a.Version)
 	}
