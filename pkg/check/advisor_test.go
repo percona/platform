@@ -27,7 +27,7 @@ advisors:
       - version: 1
         name: mysql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: test_advisor
         type: MYSQL_SHOW
         query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -45,7 +45,7 @@ advisors:
       - version: 1
         name: postgresql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: another_test_advisor
         type: POSTGRESQL_SELECT
         query: id, name FROM table WHERE id=123;
@@ -67,7 +67,7 @@ advisors:
       - version: 1
         name: mysql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: test_advisor
         type: MYSQL_SHOW
         query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -86,7 +86,7 @@ advisors:
       - version: 1
         name: postgresql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: another_test_advisor
         type: POSTGRESQL_SELECT
         query: id, name FROM table WHERE id=123;
@@ -154,7 +154,7 @@ advisors:
       - version: 1
         name: mysql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: test_advisor
         type: MYSQL_SHOW
         query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -165,7 +165,7 @@ advisors:
       - version: 1
         name: postgresql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: test_advisor
         type: POSTGRESQL_SELECT
         query: id, name FROM table WHERE id=123;
@@ -197,7 +197,7 @@ advisors:
 		assert.Equal(t, as[0].Checks[1].Script, "def function2(args):\n    pass")
 	})
 
-	t.Run("wrong advisor name specified in check", func(t *testing.T) {
+	t.Run("wrong advisor name specified in advisor", func(t *testing.T) {
 		t.Parallel()
 		document := strings.TrimSpace(`
 ---
@@ -212,7 +212,7 @@ advisors:
       - version: 1
         name: mysql_check
         summary: MYSQL Check
-        description: Description of check.
+        description: Description of advisor.
         advisor: different_advisor
         type: MYSQL_SHOW
         query: VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');
@@ -221,7 +221,7 @@ advisors:
                 pass
 `)
 		_, err := ParseAdvisors(bytes.NewReader([]byte(document)), params)
-		require.EqualError(t, err, "advisor name 'test_advisor' doesn't match name 'different_advisor' specified in corresponding check 'mysql_check'")
+		require.EqualError(t, err, "advisor name 'test_advisor' doesn't match name 'different_advisor' specified in corresponding advisor 'mysql_check'")
 	})
 
 	t.Run("missing tiers", func(t *testing.T) {
@@ -336,4 +336,170 @@ advisors:
 }
 
 func TestAdvisor_Validate(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name    string
+		advisor *Advisor
+		errStr  string
+	}{
+		{
+			name: "normal",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "Test Advisor",
+				Description: "Check Description",
+				Category:    "test_category",
+				Tiers:       []common.Tier{common.Anonymous},
+				Checks: []Check{
+					{
+						Version:     1,
+						Name:        "test_check_1",
+						Summary:     "Test Check #1",
+						Description: "Check Description",
+						Advisor:     "test_advisor",
+						Type:        MySQLSelect,
+						Query:       "id, name FROM table WHERE id=123;",
+						Script:      "def func(args): pass",
+					},
+					{
+						Version:     2,
+						Name:        "test_check_2",
+						Summary:     "Test Check #2",
+						Description: "Check Description",
+						Advisor:     "test_advisor",
+						Family:      MongoDB,
+						Queries: []Query{
+							{
+								Type: MongoDBGetCmdLineOpts,
+							},
+							{
+								Type: MongoDBGetParameter,
+							},
+							{
+								Type: MongoDBBuildInfo,
+							},
+							{
+								Type: MongoDBGetDiagnosticData,
+							},
+							{
+								Type: MongoDBReplSetGetStatus,
+							},
+						},
+						Script: "def func(args): pass",
+					},
+				},
+			},
+			errStr: "",
+		},
+		{
+			name: "normal",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "Test Advisor",
+				Description: "Check Description",
+				Category:    "test_category",
+				Tiers:       []common.Tier{common.Anonymous},
+				Checks: []Check{
+					{
+						Version:     1,
+						Name:        "test_check",
+						Summary:     "Test Check",
+						Description: "Check Description",
+						Advisor:     "test_advisor",
+						Type:        MySQLSelect,
+						Query:       "id, name FROM table WHERE id=123;",
+						Script:      "def func(args): pass",
+					},
+					{
+						Version:     1,
+						Name:        "test_check",
+						Summary:     "Test Check",
+						Description: "Check Description",
+						Advisor:     "test_advisor",
+						Type:        MySQLSelect,
+						Query:       "id, name FROM table WHERE id=123;",
+						Script:      "def func(args): pass",
+					},
+				},
+			},
+			errStr: "check name collision `test_check` detected in 'test_advisor' advisor",
+		},
+		{
+			name: "normal missing tiers",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "Test Advisor",
+				Description: "Advisor Description",
+				Category:    "test_category",
+			},
+			errStr: "",
+		},
+		{
+			name: "missing name",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "",
+				Summary:     "Test Advisor",
+				Description: "Advisor Description",
+				Category:    "test_category",
+				Tiers:       []common.Tier{common.Anonymous},
+			},
+			errStr: "invalid advisor name",
+		},
+		{
+			name: "missing summary",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "",
+				Description: "Advisor Description",
+				Category:    "test_category",
+				Tiers:       []common.Tier{common.Anonymous},
+			},
+			errStr: "summary is empty",
+		},
+		{
+			name: "missing description",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "Test Advisor",
+				Description: "",
+				Category:    "test_category",
+				Tiers:       []common.Tier{common.Anonymous},
+			},
+			errStr: "description is empty",
+		},
+		{
+			name: "missing category",
+			advisor: &Advisor{
+				Version:     1,
+				Name:        "test_advisor",
+				Summary:     "Test Advisor",
+				Description: "Advisor Description",
+				Category:    "",
+				Tiers:       []common.Tier{common.Anonymous},
+			},
+			errStr: "category is empty",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			err := tt.advisor.Validate()
+
+			if tt.errStr != "" {
+				assert.EqualError(t, err, tt.errStr)
+				return
+			}
+
+			assert.NoError(t, err)
+		})
+	}
 }
