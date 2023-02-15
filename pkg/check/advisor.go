@@ -92,7 +92,7 @@ func (a *Advisor) Validate() error { //nolint:cyclop
 		}
 
 		if check.Advisor != a.Name {
-			return errors.Errorf("advisor name '%s' doesn't match name '%s' specified in corresponding advisor '%s'",
+			return errors.Errorf("advisor name '%s' doesn't match name '%s' specified in corresponding check '%s'",
 				a.Name, check.Advisor, check.Name,
 			)
 		}
