@@ -55,7 +55,7 @@ service RetrievalAPI {
       produces: ["application/json"];
     };
   }
-  // GetAllChecks returns all available advisors.
+  // GetAllAdvisors returns all available advisors.
   rpc GetAllAdvisors(GetAllAdvisorsRequest) returns (GetAllAdvisorsResponse) {
     option (google.api.http) = {
       post: "/v1/check/GetAllAdvisors"
@@ -95,9 +95,9 @@ message GetAllChecksResponse {
 message GetAllAdvisorsRequest {}
 
 message GetAllAdvisorsResponse {
-  // YAML formatted checks.
+  // YAML formatted advisors.
   string file = 1;
-  // Checks signatures.
+  // Advisors signatures.
   repeated string signatures = 2;
 }
 

@@ -221,10 +221,10 @@ advisors:
                 pass
 `)
 		_, err := ParseAdvisors(bytes.NewReader([]byte(document)), params)
-		require.EqualError(t, err, "advisor name 'test_advisor' doesn't match name 'different_advisor' specified in corresponding advisor 'mysql_check'")
+		require.EqualError(t, err, "advisor name 'test_advisor' doesn't match name 'different_advisor' specified in corresponding check 'mysql_check'")
 	})
 
-	t.Run("missing tiers", func(t *testing.T) {
+	t.Run("normal no tiers specified", func(t *testing.T) {
 		t.Parallel()
 		data := strings.TrimSpace(`
 ---
@@ -428,7 +428,7 @@ func TestAdvisor_Validate(t *testing.T) {
 			errStr: "check name collision `test_check` detected in 'test_advisor' advisor",
 		},
 		{
-			name: "normal missing tiers",
+			name: "normal no tiers specified",
 			advisor: &Advisor{
 				Version:     1,
 				Name:        "test_advisor",

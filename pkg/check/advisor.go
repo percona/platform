@@ -22,7 +22,7 @@ type Advisor struct {
 
 // ParseAdvisors returns a slice of validated advisors parsed from YAML passed via a reader.
 // It can handle multi-document YAMLs: parsing result will be a single slice
-// that contains advisors form every parsed document.
+// that contains advisors from every parsed document.
 func ParseAdvisors(reader io.Reader, params *ParseParams) ([]Advisor, error) {
 	if params == nil {
 		params = new(ParseParams)
