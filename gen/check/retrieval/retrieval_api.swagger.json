@@ -173,14 +173,14 @@
       "properties": {
         "file": {
           "type": "string",
-          "description": "YAML formatted checks."
+          "description": "YAML file that holds advisors."
         },
         "signatures": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Checks signatures."
+          "description": "File signatures."
         }
       }
     },
@@ -192,14 +192,14 @@
       "properties": {
         "file": {
           "type": "string",
-          "description": "YAML formatted rules."
+          "description": "YAML file that holds alert rule templates."
         },
         "signatures": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Rules signatures."
+          "description": "File signatures."
         }
       }
     },
@@ -211,14 +211,14 @@
       "properties": {
         "file": {
           "type": "string",
-          "description": "YAML formatted checks."
+          "description": "YAML file that holds advisor checks."
         },
         "signatures": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Checks signatures."
+          "description": "File signatures."
         }
       }
     }

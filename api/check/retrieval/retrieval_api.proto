@@ -86,26 +86,26 @@ service RetrievalAPI {
 message GetAllChecksRequest {}
 
 message GetAllChecksResponse {
-  // YAML formatted checks.
+  // YAML file that holds advisor checks.
   string file = 1;
-  // Checks signatures.
+  // File signatures.
   repeated string signatures = 2;
 }
 
 message GetAllAdvisorsRequest {}
 
 message GetAllAdvisorsResponse {
-  // YAML formatted advisors.
+  // YAML file that holds advisors.
   string file = 1;
-  // Advisors signatures.
+  // File signatures.
   repeated string signatures = 2;
 }
 
 message GetAllAlertRuleTemplatesRequest {}
 
 message GetAllAlertRuleTemplatesResponse {
-  // YAML formatted rules.
+  // YAML file that holds alert rule templates.
   string file = 1;
-  // Rules signatures.
+  // File signatures.
   repeated string signatures = 2;
 }
