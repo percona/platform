@@ -9,7 +9,7 @@ import (
 	"github.com/percona-platform/platform/pkg/common"
 )
 
-// Advisor represents advisor structure.
+// Advisor represents group of checks with the common idea.
 type Advisor struct {
 	Version     uint32        `yaml:"version"`
 	Name        string        `yaml:"name"`
