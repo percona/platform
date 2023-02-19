@@ -64,7 +64,8 @@ type OrgAPIClient interface {
 	CreateCivoCluster(ctx context.Context, in *CreateCivoClusterRequest, opts ...grpc.CallOption) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(ctx context.Context, in *GetCivoClusterStatusRequest, opts ...grpc.CallOption) (*GetCivoClusterStatusResponse, error)
 	GetCivoKubeconfig(ctx context.Context, in *GetCivoKubeconfigRequest, opts ...grpc.CallOption) (*GetCivoKubeconfigResponse, error)
-	GetCivoPMMDetails(ctx context.Context, in *GetCivoPMMDetailsRequest, opts ...grpc.CallOption) (*GetCivoPMMDetailsResponse, error)
+	// GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
+	GetRoleByUserID(ctx context.Context, in *GetRoleByUserIDRequest, opts ...grpc.CallOption) (*GetRoleByUserIDResponse, error)
 }
 
 type orgAPIClient struct {
@@ -264,9 +265,9 @@ func (c *orgAPIClient) GetCivoKubeconfig(ctx context.Context, in *GetCivoKubecon
 	return out, nil
 }
 
-func (c *orgAPIClient) GetCivoPMMDetails(ctx context.Context, in *GetCivoPMMDetailsRequest, opts ...grpc.CallOption) (*GetCivoPMMDetailsResponse, error) {
-	out := new(GetCivoPMMDetailsResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetCivoPMMDetails", in, out, opts...)
+func (c *orgAPIClient) GetRoleByUserID(ctx context.Context, in *GetRoleByUserIDRequest, opts ...grpc.CallOption) (*GetRoleByUserIDResponse, error) {
+	out := new(GetRoleByUserIDResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.org.v1.OrgAPI/GetRoleByUserID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -317,7 +318,8 @@ type OrgAPIServer interface {
 	CreateCivoCluster(context.Context, *CreateCivoClusterRequest) (*CreateCivoClusterResponse, error)
 	GetCivoClusterStatus(context.Context, *GetCivoClusterStatusRequest) (*GetCivoClusterStatusResponse, error)
 	GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error)
-	GetCivoPMMDetails(context.Context, *GetCivoPMMDetailsRequest) (*GetCivoPMMDetailsResponse, error)
+	// GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
+	GetRoleByUserID(context.Context, *GetRoleByUserIDRequest) (*GetRoleByUserIDResponse, error)
 	mustEmbedUnimplementedOrgAPIServer()
 }
 
@@ -388,8 +390,8 @@ func (UnimplementedOrgAPIServer) GetCivoClusterStatus(context.Context, *GetCivoC
 func (UnimplementedOrgAPIServer) GetCivoKubeconfig(context.Context, *GetCivoKubeconfigRequest) (*GetCivoKubeconfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCivoKubeconfig not implemented")
 }
-func (UnimplementedOrgAPIServer) GetCivoPMMDetails(context.Context, *GetCivoPMMDetailsRequest) (*GetCivoPMMDetailsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCivoPMMDetails not implemented")
+func (UnimplementedOrgAPIServer) GetRoleByUserID(context.Context, *GetRoleByUserIDRequest) (*GetRoleByUserIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoleByUserID not implemented")
 }
 func (UnimplementedOrgAPIServer) mustEmbedUnimplementedOrgAPIServer() {}
 
@@ -782,20 +784,20 @@ func _OrgAPI_GetCivoKubeconfig_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrgAPI_GetCivoPMMDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCivoPMMDetailsRequest)
+func _OrgAPI_GetRoleByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleByUserIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrgAPIServer).GetCivoPMMDetails(ctx, in)
+		return srv.(OrgAPIServer).GetRoleByUserID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/percona.platform.org.v1.OrgAPI/GetCivoPMMDetails",
+		FullMethod: "/percona.platform.org.v1.OrgAPI/GetRoleByUserID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgAPIServer).GetCivoPMMDetails(ctx, req.(*GetCivoPMMDetailsRequest))
+		return srv.(OrgAPIServer).GetRoleByUserID(ctx, req.(*GetRoleByUserIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -892,8 +894,8 @@ var OrgAPI_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrgAPI_GetCivoKubeconfig_Handler,
 		},
 		{
-			MethodName: "GetCivoPMMDetails",
-			Handler:    _OrgAPI_GetCivoPMMDetails_Handler,
+			MethodName: "GetRoleByUserID",
+			Handler:    _OrgAPI_GetRoleByUserID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

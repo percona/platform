@@ -38,6 +38,12 @@ type RequestData struct {
 	// HTTP header is removed by Traefik after request authentication.
 	AuthToken string
 
+	// Hook is a flag that shows if the request has Hook authorization
+	Hook bool
+
+	// HookVerification is a string sent by okta to verify hook handler
+	HookVerification string
+
 	// Keep for backward compatibility
 	UserEmail string
 	SessionID string

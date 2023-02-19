@@ -281,6 +281,15 @@ func (this *InviteMembersResponse_Error) Validate() error {
 func (this *OrganizationMember) Validate() error {
 	return nil
 }
+func (this *GetRoleByUserIDRequest) Validate() error {
+	if this.UserId == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("UserId", fmt.Errorf(`value '%v' must not be an empty string`, this.UserId))
+	}
+	return nil
+}
+func (this *GetRoleByUserIDResponse) Validate() error {
+	return nil
+}
 func (this *SearchMembersRequest) Validate() error {
 	if this.OrgId == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("OrgId", fmt.Errorf(`value '%v' must not be an empty string`, this.OrgId))

@@ -1216,3 +1216,26 @@ func TestGetReactivationInfo(t *testing.T) {
 		require.Empty(t, link)
 	})
 }
+
+func TestGetAppSecret(t *testing.T) {
+	t.Parallel()
+
+	s, err := createOktaService(t)
+	require.NoError(t, err)
+
+	ctx := context.Background()
+
+	params := new(MachineAuthAppParams)
+	// create some app
+	app, err := s.CreateMachineAuthApp(ctx, params)
+	require.NoError(t, err)
+	t.Cleanup(func() {
+		s.DeleteApp(ctx, app.AppID) //nolint:errcheck,gosec
+	})
+
+	secret, err := s.GetAppSecret(ctx, app.AppID)
+	require.NotEmpty(t, secret)
+	// check the secret is not empty
+	require.True(t, len(*secret) > 0)
+	require.Nil(t, err)
+}

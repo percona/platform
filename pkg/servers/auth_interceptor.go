@@ -47,6 +47,12 @@ const (
 	// HTTP header is removed by Traefik after request authentication.
 	AuthTokenHeader = "Auth-Token"
 
+	// AuthHook indicates if the request authorized as hook request.
+	AuthHook = "Auth-Hook"
+
+	// OktaVerificationHeader header used by Okta to verify hook handlers.
+	OktaVerificationHeader = "X-Okta-Verification-Challenge"
+
 	// Keep for backward compatibility.
 
 	// AuthSessionHeader Okta authentication session ID.
@@ -83,6 +89,7 @@ func AuthMetadata(r *rdata.RequestData) metadata.MD {
 		AuthTokenHeader, r.AuthToken,
 		AuthUsernameHeader, r.Username,
 		AuthSessionHeader, r.SessionID,
+		AuthHook, strconv.FormatBool(r.Hook),
 	)
 }
 
@@ -97,6 +104,10 @@ func PerconaHeaderMatcher(key string) (string, bool) {
 	}
 
 	if tracing.OpenTracingHeadersMatcher(keyCanonical) {
+		return key, true
+	}
+
+	if keyCanonical == OktaVerificationHeader {
 		return key, true
 	}
 
@@ -177,7 +188,12 @@ func unaryAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.UnaryS
 			zapAppID = zap.String(logger.AppIDAttr, authData.AppID)
 		}
 
-		ctx = logger.GetContextWithLogger(ctx, l.With(zapUserID, zapAppID))
+		zapHook := zap.Skip()
+		if authData.Hook {
+			zapHook = zap.Bool(logger.HookAttr, authData.Hook)
+		}
+
+		ctx = logger.GetContextWithLogger(ctx, l.With(zapUserID, zapAppID, zapHook))
 		return handler(ctx, req)
 	}
 }
@@ -320,6 +336,16 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthTokenHeader)
 	}
 
+	isHook, err := getBoolFromMetadata(md, AuthHook)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthHook)
+	}
+
+	hookVerification, err := getStringFromMetadata(md, OktaVerificationHeader)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get %s from request metadata", OktaVerificationHeader)
+	}
+
 	// Keep for backward compatibility.
 	email, err := getStringFromMetadata(md, AuthEmailHeader)
 	if err != nil {
@@ -331,14 +357,15 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		return nil, errors.Wrapf(err, "failed to get %s from request metadata", AuthSessionHeader)
 	}
 
-	// There are the following cases possible:
+	// The following cases possible:
 	// - Auth-Username header is not empty - it means this incoming request we are processing now
 	// is from real user (browser).
 	// - Auth-Portal-Org-ID header is not empty - it means this incoming request we are processing now
 	// is from PMM Server (machine-to-machine communication).
-	// Authorized incoming request must contain one of: username, portalOrgID, sessionID.
-	if len(username) == 0 && len(portalOrgID) == 0 && len(sessionID) == 0 {
-		return nil, fmt.Errorf("at least one of the auth headers [%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIDHeader, AuthSessionHeader)
+	// - Auth-Hook is true - it means that the request is from a Hook method
+	// Authorized incoming request must have the isHook=true or contain one of: username, portalOrgID, sessionID
+	if !isHook && len(username) == 0 && len(portalOrgID) == 0 && len(sessionID) == 0 {
+		return nil, fmt.Errorf("at least one of the auth headers [%s,%s,%s,%s] must be provided", AuthUsernameHeader, AuthPortalOrgIDHeader, AuthSessionHeader, AuthHook)
 	}
 
 	return &rdata.RequestData{
@@ -350,6 +377,8 @@ func getAuthData(md metadata.MD) (*rdata.RequestData, error) { //nolint: funlen,
 		AuthToken:          authToken,
 		UserEmail:          email,
 		SessionID:          sessionID,
+		Hook:               isHook,
+		HookVerification:   hookVerification,
 	}, nil
 }
 

@@ -229,7 +229,7 @@ service OrgAPI {
         value: {
           examples: {
             key: "application/json"
-            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "OrgAdmin", "status": "ACTIVE"}]}'
+            value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "Admin", "status": "ACTIVE"}]}'
           }
         };
       };
@@ -522,6 +522,26 @@ service OrgAPI {
           examples: {
             key: "application/json"
             value: '{"kubeconfig": ""}'
+          }
+        };
+      };
+    };
+  }
+
+  // GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
+  rpc GetRoleByUserID(GetRoleByUserIDRequest) returns (GetRoleByUserIDResponse) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
+      summary: "Search organization member by UserID";
+      tags: "Member Management";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{"org_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "role": "Admin"}'
           }
         };
       };
@@ -824,6 +844,23 @@ message OrganizationMember {
 
   // Okta Account Status of the organization member.
   string status = 6;
+}
+
+message GetRoleByUserIDRequest {
+  // Organization member userID.
+  string user_id = 1 [
+    (validator.field) = {
+      string_not_empty: true
+    }
+  ];
+}
+
+message GetRoleByUserIDResponse {
+  // Percona Portal organization id.
+  string org_id = 1;
+
+  // Percona Portal organization role of the member.
+  string role = 5;
 }
 
 message SearchMembersRequest {

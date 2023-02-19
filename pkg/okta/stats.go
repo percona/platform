@@ -56,11 +56,16 @@ func (c *Client) GetDeactivatedUsersCount(ctx context.Context, since, until time
 }
 
 // getTopLoginAttempts returns top 'limit' user login attempts.
-func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time, limit int, filter string) ([]Stat, error) {
+func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time, limit int, filter string, filterEmailDomains []string) ([]Stat, error) {
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
-	params.Add("filter", fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter))
+	filterParam := fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter)
+
+	if filterEmailDomainsString := buildEmailDomainsFilter(filterEmailDomains); len(filterEmailDomainsString) > 0 {
+		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
+	}
+	params.Add("filter", filterParam)
 	params.Add("limit", fmt.Sprintf("%d", limit))
 	params.Add("field", "actor.alternateId")
 
@@ -80,22 +85,26 @@ func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time
 }
 
 // GetTopLoginSuccessfulAttempts returns top 'limit' user login successful attempts.
-func (c *Client) GetTopLoginSuccessfulAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) {
-	return c.getTopLoginAttempts(ctx, since, until, limit, "SUCCESS")
+func (c *Client) GetTopLoginSuccessfulAttempts(ctx context.Context, since, until time.Time, limit int, filterEmailDomains []string) ([]Stat, error) {
+	return c.getTopLoginAttempts(ctx, since, until, limit, "SUCCESS", filterEmailDomains)
 }
 
 // GetTopLoginFailedAttempts returns top 'limit' user login failed attempts.
-func (c *Client) GetTopLoginFailedAttempts(ctx context.Context, since, until time.Time, limit int) ([]Stat, error) {
-	return c.getTopLoginAttempts(ctx, since, until, limit, "FAILURE")
+func (c *Client) GetTopLoginFailedAttempts(ctx context.Context, since, until time.Time, limit int, filterEmailDomains []string) ([]Stat, error) {
+	return c.getTopLoginAttempts(ctx, since, until, limit, "FAILURE", filterEmailDomains)
 }
 
 // getLoginTotalAttemptsCount returns total number of login attempts.
-func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until time.Time, filter string) (int, error) {
+func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until time.Time, filter string, filterEmailDomains []string) (int, error) {
 	params := url.Values{}
 	params.Add("since", since.Format(time.RFC3339))
 	params.Add("until", until.Format(time.RFC3339))
-	params.Add("filter", fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter))
+	filterParam := fmt.Sprintf("eventType eq \"user.session.start\" and outcome.result eq \"%s\"", filter)
 
+	if filterEmailDomainsString := buildEmailDomainsFilter(filterEmailDomains); len(filterEmailDomainsString) > 0 {
+		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
+	}
+	params.Add("filter", filterParam)
 	path := fmt.Sprintf("/sage/api/v1/logs/count?%s", params.Encode())
 	var result []Stat
 
@@ -112,13 +121,13 @@ func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until ti
 }
 
 // GetLoginSuccessfulTotalAttemptsCount returns total number of login successful attempts.
-func (c *Client) GetLoginSuccessfulTotalAttemptsCount(ctx context.Context, since, until time.Time) (int, error) {
-	return c.getLoginTotalAttemptsCount(ctx, since, until, "SUCCESS")
+func (c *Client) GetLoginSuccessfulTotalAttemptsCount(ctx context.Context, since, until time.Time, filterEmailDomains []string) (int, error) {
+	return c.getLoginTotalAttemptsCount(ctx, since, until, "SUCCESS", filterEmailDomains)
 }
 
 // GetLoginFailedTotalAttemptsCount returns total number of login failed attempts.
-func (c *Client) GetLoginFailedTotalAttemptsCount(ctx context.Context, since, until time.Time) (int, error) {
-	return c.getLoginTotalAttemptsCount(ctx, since, until, "FAILURE")
+func (c *Client) GetLoginFailedTotalAttemptsCount(ctx context.Context, since, until time.Time, filterEmailDomains []string) (int, error) {
+	return c.getLoginTotalAttemptsCount(ctx, since, until, "FAILURE", filterEmailDomains)
 }
 
 // GetTotalUsersCount returns total number of users.
@@ -160,4 +169,17 @@ func (c *Client) GetTotalUsersCount(ctx context.Context) (int, error) {
 	}
 
 	return groupStats.Count, nil
+}
+
+func buildEmailDomainsFilter(filterEmailDomains []string) string {
+	var filterEmailDomainsString string
+	if len(filterEmailDomains) != 0 {
+		for i, s := range filterEmailDomains {
+			if i != 0 {
+				filterEmailDomainsString += " or "
+			}
+			filterEmailDomainsString += fmt.Sprintf("actor.alternateId ew \"%s\"", s)
+		}
+	}
+	return filterEmailDomainsString
 }
