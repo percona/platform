@@ -1013,6 +1013,8 @@ message GetCivoClusterStatusResponse {
   // Timestamp at which the user can create another cluster.
   // This value is created_at + 24 hours.
   google.protobuf.Timestamp daily_limit_ends_at = 4;
+  // Public address of the PMM instance created in the cluster.
+  string pmm_demo_url = 5;
 }
 
 message GetCivoKubeconfigRequest {
