@@ -33,6 +33,11 @@ jobs:
         with:
           rdme: openapi ./gen/telemetry/reporter/reporter_api.swagger.json --id=6231a6332b447a002e8da843 --key=${{ secrets.README_TOKEN }}
 
+      - name: Sync Event API
+        uses: percona-platform/rdme@7.2.0
+        with:
+          rdme: openapi ./gen/event/event_api.swagger.json --id=6231a6332b447a002e8da843 --key=${{ secrets.README_TOKEN }}
+
       - name: Sync the folder with *.md files to Readme
         uses: percona-platform/rdme@7.2.0
         with:
