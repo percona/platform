@@ -956,6 +956,71 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unsupported query type 'POSTGRESQL_SELECT' for mySQL family",
 		}, {
+			name: "clickhouse query type is valid for MySQL",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Category:    "test",
+				Family:      MySQL,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "clickhouse query type is valid for MongoDB",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Category:    "test",
+				Family:      MongoDB,
+				Queries: []Query{
+					{
+						Type:  MongoDBGetParameter,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "clickhouse query type is valid for PostgreSQL",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Tiers:       []common.Tier{common.Anonymous},
+				Category:    "test",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
 			name: "missing queries",
 			check: &Check{
 				Version:     2,
