@@ -27,7 +27,7 @@ type RetrievalAPIClient interface {
 	GetAllChecks(ctx context.Context, in *GetAllChecksRequest, opts ...grpc.CallOption) (*GetAllChecksResponse, error)
 	// GetAllAdvisors returns all available advisors.
 	GetAllAdvisors(ctx context.Context, in *GetAllAdvisorsRequest, opts ...grpc.CallOption) (*GetAllAdvisorsResponse, error)
-	// GetAllAlertRuleTemplates returns all available IA rule templates.
+	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(ctx context.Context, in *GetAllAlertRuleTemplatesRequest, opts ...grpc.CallOption) (*GetAllAlertRuleTemplatesResponse, error)
 }
 
@@ -74,7 +74,7 @@ type RetrievalAPIServer interface {
 	GetAllChecks(context.Context, *GetAllChecksRequest) (*GetAllChecksResponse, error)
 	// GetAllAdvisors returns all available advisors.
 	GetAllAdvisors(context.Context, *GetAllAdvisorsRequest) (*GetAllAdvisorsResponse, error)
-	// GetAllAlertRuleTemplates returns all available IA rule templates.
+	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error)
 	mustEmbedUnimplementedRetrievalAPIServer()
 }
