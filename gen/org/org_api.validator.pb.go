@@ -423,12 +423,6 @@ func (this *GetCivoKubeconfigRequest) Validate() error {
 func (this *GetCivoKubeconfigResponse) Validate() error {
 	return nil
 }
-func (this *GetCivoPMMDetailsRequest) Validate() error {
-	return nil
-}
-func (this *GetCivoPMMDetailsResponse) Validate() error {
-	return nil
-}
 func (this *ReactivateMemberRequest) Validate() error {
 	return nil
 }

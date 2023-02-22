@@ -127,49 +127,6 @@
         ]
       }
     },
-    "/v1/dbaas/cluster/civo/{clusterId}/pmm": {
-      "get": {
-        "summary": "Get PMM detauls",
-        "description": "Returns connection details of the PMM that was deployed inside the cluster from CIVO once it is ACTIVE.",
-        "operationId": "OrgAPI_GetCivoPMMDetails",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1GetCivoPMMDetailsResponse"
-            },
-            "examples": {
-              "application/json": {
-                "kubeconfig": ""
-              }
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "clusterId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "DBaaS helpers"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
-    },
     "/v1/orgs": {
       "post": {
         "summary": "Create organization",
@@ -1391,24 +1348,6 @@
       "properties": {
         "kubeconfig": {
           "type": "string"
-        }
-      }
-    },
-    "v1GetCivoPMMDetailsResponse": {
-      "type": "object",
-      "properties": {
-        "publicAddress": {
-          "type": "string"
-        },
-        "username": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "dbaasUrl": {
-          "type": "string",
-          "title": "This one is optional and you can get rid of it and move it to the FE side"
         }
       }
     },
