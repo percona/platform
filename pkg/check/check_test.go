@@ -826,8 +826,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Category:    "test",
 				Family:      MySQL,
 				Queries: []Query{
 					{
@@ -849,8 +847,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Category:    "test",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
@@ -872,8 +868,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",
-				Tiers:       []common.Tier{common.Anonymous},
-				Category:    "test",
 				Family:      PostgreSQL,
 				Queries: []Query{
 					{
