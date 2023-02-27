@@ -825,6 +825,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Version:     2,
 				Name:        "test_check",
 				Summary:     "Test Check",
+				Advisor:     "test_advisor",
 				Description: "Check Description",
 				Family:      MySQL,
 				Queries: []Query{
@@ -845,13 +846,14 @@ func TestCheck_CheckValidate(t *testing.T) {
 			check: &Check{
 				Version:     2,
 				Name:        "test_check",
+				Advisor:     "test_advisor",
 				Summary:     "Test Check",
 				Description: "Check Description",
 				Family:      MongoDB,
 				Queries: []Query{
 					{
 						Type:  MongoDBGetParameter,
-						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+						Query: "",
 					},
 					{
 						Type:  ClickHouseSelect,
@@ -865,6 +867,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			name: "clickhouse query type is valid for PostgreSQL",
 			check: &Check{
 				Version:     2,
+				Advisor:     "test_advisor",
 				Name:        "test_check",
 				Summary:     "Test Check",
 				Description: "Check Description",

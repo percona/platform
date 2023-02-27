@@ -379,6 +379,7 @@ func validateQuery(typ Type, query string) error { //nolint:cyclop
 	case MySQLSelect:
 		fallthrough
 	case ClickHouseSelect:
+		fallthrough
 	case MetricsInstant:
 		fallthrough
 	case MetricsRange:
