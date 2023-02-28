@@ -882,6 +882,24 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
+			name: "fails on empty query for 'CLICKHOUSE_SELECT'",
+			check: &Check{
+				Version:     2,
+				Advisor:     "test_advisor",
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type:  ClickHouseSelect,
+						Query: "",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query is empty",
+		}, {
 			name: "missing queries",
 			check: &Check{
 				Version:     2,
