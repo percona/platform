@@ -53,7 +53,6 @@ message ActionStatusMessage {
   }
 }
 
-
 // AuditObject represents object with it's attributes that is affected by user action.
 message AuditObject {
   // Object ID.
@@ -99,8 +98,7 @@ message AuditEvent {
 // EventAPI provides API for creating and viewing events.
 service EventAPI {
   // CreateAuditEvent submits audit event to server.
-  rpc CreateAuditEvent(CreateAuditEventRequest) returns (CreateAuditEventResponse) {
-  }
+  rpc CreateAuditEvent(CreateAuditEventRequest) returns (CreateAuditEventResponse) {}
 
   // ListAuditEvents returns the list of audit events using filters.
   rpc ListAuditEvents(ListAuditEventsRequest) returns (ListAuditEventsResponse) {
@@ -112,9 +110,7 @@ service EventAPI {
 
   // ListAuditEventTypes returns the list of audit events using filters.
   rpc ListAuditEventTypes(ListAuditEventTypesRequest) returns (ListAuditEventTypesResponse) {
-    option (google.api.http) = {
-      get: "/v1/events/types"
-    };
+    option (google.api.http) = {get: "/v1/events/types"};
   }
 
   // CreateHookEvent submits an okta log event to server.
@@ -144,9 +140,7 @@ service EventAPI {
 
   // ValidateHook validates hook ownership.
   rpc ValidateHook(ValidateHookEventRequest) returns (ValidateHookEventResponse) {
-    option (google.api.http) = {
-      get: "/v1/hooks/events"
-    };
+    option (google.api.http) = {get: "/v1/hooks/events"};
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Hook handler validation";
@@ -198,6 +192,7 @@ message ListAuditEventTypesResponse {
   // list of known action_types.
   repeated string object_types = 2;
 }
+
 // CreateHookEventRequest to be used to store okta event in persistent storage.
 message CreateHookEventRequest {
   string event_type = 1;
