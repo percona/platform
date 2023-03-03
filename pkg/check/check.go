@@ -390,6 +390,8 @@ func validateQuery(typ Type, query string) error { //nolint:cyclop
 
 func validateQueryParameters(typ Type, params map[Parameter]string) error { //nolint:cyclop
 	switch typ {
+	case PostgreSQLShow:
+		fallthrough
 	case MongoDBGetParameter:
 		fallthrough
 	case MongoDBBuildInfo:
@@ -407,10 +409,8 @@ func validateQueryParameters(typ Type, params map[Parameter]string) error { //no
 			return errors.Errorf("query for '%s' type should not have any parameters", typ)
 		}
 
-	case PostgreSQLShow:
-		fallthrough
 	case PostgreSQLSelect:
-		return validateParametersForPostgreSQLQuery(params)
+		return validateParametersForPostgreSQLSelectQuery(params)
 
 	case MetricsInstant:
 		return validateParametersForMetricsInstantQuery(params)
@@ -421,7 +421,7 @@ func validateQueryParameters(typ Type, params map[Parameter]string) error { //no
 	return nil
 }
 
-func validateParametersForPostgreSQLQuery(params map[Parameter]string) error {
+func validateParametersForPostgreSQLSelectQuery(params map[Parameter]string) error {
 	for param, value := range params {
 		switch param {
 		case AllDBs:
