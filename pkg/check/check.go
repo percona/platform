@@ -423,13 +423,12 @@ func validateQueryParameters(typ Type, params map[Parameter]string) error { //no
 
 func validateParametersForPostgreSQLSelectQuery(params map[Parameter]string) error {
 	for param, value := range params {
-		switch param {
-		case AllDBs:
-			if _, err := strconv.ParseBool(value); err != nil {
-				return errors.Wrapf(err, "failed to parse '%s' parameter value %s, it should be a boolean", param, value)
-			}
-		default:
-			return errors.Errorf("unsupported parameter '%s' for postgreSQL query", param)
+		if param != AllDBs {
+			return errors.Errorf("unsupported parameter '%s' for postgreSQL select query", param)
+		}
+
+		if _, err := strconv.ParseBool(value); err != nil {
+			return errors.Wrapf(err, "failed to parse all_dbs parameter value %s, it should be a boolean", value)
 		}
 	}
 
