@@ -24,6 +24,7 @@ gen-code:                                  ## Generate code
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
 	bin/goimports -local github.com/percona-platform/platform -l -w .
+	bin/buf format api -w
 
 check:                                     ## Run checks/linters for the whole project
 	bin/go-consistent -exclude=tools -pedantic ./...
