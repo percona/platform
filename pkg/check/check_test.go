@@ -580,6 +580,50 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "",
 		}, {
+			name: "postgresql select query with params",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Advisor:     "test_advisor",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type: PostgreSQLShow,
+					},
+					{
+						Type:  PostgreSQLSelect,
+						Query: "id, name FROM table WHERE id=123;",
+						Parameters: map[Parameter]string{
+							AllDBs: "true",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "postgresql show query doesn't support all_dbs parameter",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Advisor:     "test_advisor",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type: PostgreSQLShow,
+						Parameters: map[Parameter]string{
+							AllDBs: "true",
+						},
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query for 'POSTGRESQL_SHOW' type should not have any parameters",
+		}, {
 			name: "mongodb family check v2",
 			check: &Check{
 				Version:     2,
