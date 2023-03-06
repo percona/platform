@@ -140,6 +140,7 @@ const (
 	MongoDBGetDiagnosticData = Type("MONGODB_GETDIAGNOSTICDATA")
 	MetricsInstant           = Type("METRICS_INSTANT")
 	MetricsRange             = Type("METRICS_RANGE")
+	ClickHouseSelect         = Type("CLICKHOUSE_SELECT")
 )
 
 // Type represents query type.
@@ -165,6 +166,8 @@ func (t Type) Validate() error { //nolint:cyclop
 	case MongoDBReplSetGetStatus:
 		fallthrough
 	case MongoDBGetDiagnosticData:
+		fallthrough
+	case ClickHouseSelect:
 		fallthrough
 	case MetricsInstant:
 		fallthrough
@@ -377,6 +380,8 @@ func validateQuery(typ Type, query string) error { //nolint:cyclop
 		fallthrough
 	case MySQLSelect:
 		fallthrough
+	case ClickHouseSelect:
+		fallthrough
 	case MetricsInstant:
 		fallthrough
 	case MetricsRange:
@@ -498,7 +503,7 @@ func (c *Check) validateQueries() error {
 	case PostgreSQL:
 		return checkQueryForCompatibilityWithPostgreSQLFamily(c.Queries)
 	case MongoDB:
-		return checkQueryForCompatibilityWithMonogDBFamily(c.Queries)
+		return checkQueryCompatibilityWithMongoDBFamily(c.Queries)
 	default:
 		return errors.Errorf("unknown check family: %s", c.Family)
 	}
@@ -511,6 +516,7 @@ func checkQueryForCompatibilityWithMySQLFamily(queries []Query) error {
 		case MySQLSelect:
 		case MetricsInstant:
 		case MetricsRange:
+		case ClickHouseSelect:
 		default:
 			return errors.Errorf("unsupported query type '%s' for mySQL family", q.Type)
 		}
@@ -526,6 +532,7 @@ func checkQueryForCompatibilityWithPostgreSQLFamily(queries []Query) error {
 		case PostgreSQLSelect:
 		case MetricsInstant:
 		case MetricsRange:
+		case ClickHouseSelect:
 		default:
 			return errors.Errorf("unsupported query type '%s' for postgreSQL family", q.Type)
 		}
@@ -534,7 +541,7 @@ func checkQueryForCompatibilityWithPostgreSQLFamily(queries []Query) error {
 	return nil
 }
 
-func checkQueryForCompatibilityWithMonogDBFamily(queries []Query) error {
+func checkQueryCompatibilityWithMongoDBFamily(queries []Query) error {
 	for _, q := range queries {
 		switch q.Type { //nolint:exhaustive
 		case MongoDBGetParameter:
@@ -544,6 +551,7 @@ func checkQueryForCompatibilityWithMonogDBFamily(queries []Query) error {
 		case MongoDBReplSetGetStatus:
 		case MetricsInstant:
 		case MetricsRange:
+		case ClickHouseSelect:
 		default:
 			return errors.Errorf("unsupported query type '%s' for mongoDB family", q.Type)
 		}
