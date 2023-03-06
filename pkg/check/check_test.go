@@ -820,6 +820,86 @@ func TestCheck_CheckValidate(t *testing.T) {
 			},
 			errStr: "unsupported query type 'POSTGRESQL_SELECT' for mySQL family",
 		}, {
+			name: "clickhouse query type is valid for MySQL",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Advisor:     "test_advisor",
+				Description: "Check Description",
+				Family:      MySQL,
+				Queries: []Query{
+					{
+						Type:  MySQLShow,
+						Query: "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');",
+					},
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "clickhouse query type is valid for MongoDB",
+			check: &Check{
+				Version:     2,
+				Name:        "test_check",
+				Advisor:     "test_advisor",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Family:      MongoDB,
+				Queries: []Query{
+					{
+						Type:  MongoDBGetParameter,
+						Query: "",
+					},
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "clickhouse query type is valid for PostgreSQL",
+			check: &Check{
+				Version:     2,
+				Advisor:     "test_advisor",
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type:  ClickHouseSelect,
+						Query: "id, name FROM metrics WHERE id=123;",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "",
+		}, {
+			name: "fails on empty query for 'CLICKHOUSE_SELECT'",
+			check: &Check{
+				Version:     2,
+				Advisor:     "test_advisor",
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Family:      PostgreSQL,
+				Queries: []Query{
+					{
+						Type:  ClickHouseSelect,
+						Query: "",
+					},
+				},
+				Script: "def func(args): pass",
+			},
+			errStr: "query is empty",
+		}, {
 			name: "missing queries",
 			check: &Check{
 				Version:     2,
