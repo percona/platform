@@ -19,6 +19,7 @@ type User struct {
 // UpdateUserParams parameters set to update a user.
 type UpdateUserParams struct {
 	PortalAdminOrgs *[]string
+	PMMDemoIDs      *[]string
 	Lastname        *string
 	Firstname       *string
 	Tos             *bool
