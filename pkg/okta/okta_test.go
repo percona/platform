@@ -910,7 +910,7 @@ func TestUpdateStringSlice(t *testing.T) {
 
 func TestValidateUpdateParams(t *testing.T) {
 	t.Parallel()
-	t.Run("", func(t *testing.T) {
+	t.Run("invalid admin orgs", func(t *testing.T) {
 		t.Parallel()
 		params := UpdateUserParams{
 			PortalAdminOrgs: &[]string{"aaa"},
@@ -921,7 +921,7 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.ErrorIs(t, ErrInvalidPortalAdminOrgs, err)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("valid no first and last name", func(t *testing.T) {
 		t.Parallel()
 		params := UpdateUserParams{
 			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002"},
@@ -932,12 +932,13 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.NoError(t, err)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("valid all", func(t *testing.T) {
 		t.Parallel()
 		firstName := "John"
 		lastName := "Doe"
 		params := UpdateUserParams{
 			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", "ebe890cc-800f-11ec-a8a3-0242ac120005"},
+			PMMDemoIDs:      &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", "ebe890cc-800f-11ec-a8a3-0242ac120005"},
 			Lastname:        &lastName,
 			Firstname:       &firstName,
 		}
@@ -945,7 +946,7 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.NoError(t, err)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("invalid PortalAdminOrgs not uuid", func(t *testing.T) {
 		t.Parallel()
 		firstName := "John"
 		lastName := "Doe"
@@ -958,7 +959,7 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("invalid PortalAdminOrgs empty string", func(t *testing.T) {
 		t.Parallel()
 		params := UpdateUserParams{
 			PortalAdminOrgs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", ""},
@@ -969,7 +970,7 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("empty last name", func(t *testing.T) {
 		t.Parallel()
 		lastName := ""
 		params := UpdateUserParams{
@@ -981,7 +982,7 @@ func TestValidateUpdateParams(t *testing.T) {
 		assert.ErrorIs(t, err, ErrEmptyLastName)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("empty first name", func(t *testing.T) {
 		t.Parallel()
 		firstName := ""
 		params := UpdateUserParams{
@@ -991,6 +992,28 @@ func TestValidateUpdateParams(t *testing.T) {
 		}
 		err := validateUpdateUserParams(params)
 		assert.ErrorIs(t, err, ErrEmptyFirstName)
+	})
+
+	t.Run("invalid PMM demo id", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PMMDemoIDs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", ""},
+			Lastname:   nil,
+			Firstname:  nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrInvalidPMMDemoID)
+	})
+
+	t.Run("duplicated pmm demo ID", func(t *testing.T) {
+		t.Parallel()
+		params := UpdateUserParams{
+			PMMDemoIDs: &[]string{"ebe890cc-800f-11ec-a8a3-0242ac120002", "ebe890cc-800f-11ec-a8a3-0242ac120002"},
+			Lastname:   nil,
+			Firstname:  nil,
+		}
+		err := validateUpdateUserParams(params)
+		assert.ErrorIs(t, err, ErrDuplicatedPMMDemoID)
 	})
 }
 
