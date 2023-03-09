@@ -93,11 +93,16 @@
       "properties": {
         "feedbackRate": {
           "type": "string",
-          "description": "Name of the metric requested by the client."
+          "title": "Feedback rate determine if user is happy or not"
         },
         "feedbackDescription": {
           "type": "string",
-          "description": "Value of the metric requested by the client."
+          "title": "feedback description from user"
+        },
+        "feedbackDate": {
+          "type": "string",
+          "format": "date-time",
+          "title": "date of feedback"
         }
       },
       "required": [
