@@ -85,9 +85,9 @@ type PMMServerSSODetails struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Deprecated: Do not use.
+	// Deprecated: Marked as deprecated in org/org_api.proto.
 	ClientId string `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
-	// Deprecated: Do not use.
+	// Deprecated: Marked as deprecated in org/org_api.proto.
 	ClientSecret           string `protobuf:"bytes,2,opt,name=client_secret,json=clientSecret,proto3" json:"client_secret,omitempty"`
 	IssuerUrl              string `protobuf:"bytes,3,opt,name=issuer_url,json=issuerUrl,proto3" json:"issuer_url,omitempty"`
 	Scope                  string `protobuf:"bytes,4,opt,name=scope,proto3" json:"scope,omitempty"`
@@ -128,7 +128,7 @@ func (*PMMServerSSODetails) Descriptor() ([]byte, []int) {
 	return file_org_org_api_proto_rawDescGZIP(), []int{0}
 }
 
-// Deprecated: Do not use.
+// Deprecated: Marked as deprecated in org/org_api.proto.
 func (x *PMMServerSSODetails) GetClientId() string {
 	if x != nil {
 		return x.ClientId
@@ -136,7 +136,7 @@ func (x *PMMServerSSODetails) GetClientId() string {
 	return ""
 }
 
-// Deprecated: Do not use.
+// Deprecated: Marked as deprecated in org/org_api.proto.
 func (x *PMMServerSSODetails) GetClientSecret() string {
 	if x != nil {
 		return x.ClientSecret
