@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package percona.platform.telemetry.onboarding.v1;
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "telemetry/events/pmm/server_uptime_event.proto";
+
+option go_package = "/telemetry/onboarding;onboardingv1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {title: "Onboarding API"};
+  extensions: {
+    key: "x-readme";
+    value: {
+      struct_value: {
+        fields: {
+          key: "samples-languages"
+          value: {
+            list_value: {
+              values: {string_value: "curl"}
+              values: {string_value: "go"}
+              values: {string_value: "node"}
+              values: {string_value: "python"}
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+// OnboardingAPI describes server API for onboarding telemetry events.
+service OnboardingAPI {
+  // Feedback rate about PMM product
+  rpc Feedback(FeedbackRequest) returns (FeedbackResponse) {
+    option (google.api.http) = {
+      post: "/v1/telemetry/onboarding/feedback"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Feedback is used to store users feedback about PMM.";
+      summary: "Feedback";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+}
+
+message FeedbackRequest {
+  // Name of the metric requested by the client.
+  string feedback_rate = 1 [
+    (validator.field) = {string_not_empty: true},
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      required: ['feedback_rate']
+    }
+  ];
+  // Value of the metric requested by the client.
+  string feedback_description = 2;
+}
+
+message FeedbackResponse {}

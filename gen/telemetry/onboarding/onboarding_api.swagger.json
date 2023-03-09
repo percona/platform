@@ -1,0 +1,119 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Onboarding API",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "OnboardingAPI"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/telemetry/onboarding/feedback": {
+      "post": {
+        "summary": "Feedback",
+        "description": "Feedback is used to store users feedback about PMM.",
+        "operationId": "OnboardingAPI_Feedback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1FeedbackResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1FeedbackRequest"
+            }
+          }
+        ],
+        "tags": [
+          "OnboardingAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1FeedbackRequest": {
+      "type": "object",
+      "properties": {
+        "feedbackRate": {
+          "type": "string",
+          "description": "Name of the metric requested by the client."
+        },
+        "feedbackDescription": {
+          "type": "string",
+          "description": "Value of the metric requested by the client."
+        }
+      },
+      "required": [
+        "feedbackRate"
+      ]
+    },
+    "v1FeedbackResponse": {
+      "type": "object"
+    }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
+  }
+}
