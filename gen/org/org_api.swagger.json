@@ -1340,6 +1340,10 @@
         "pmmDemoUrl": {
           "type": "string",
           "description": "Public address of the PMM instance created in the cluster."
+        },
+        "failed": {
+          "type": "boolean",
+          "description": "Indicates if the cluster creation has failed."
         }
       }
     },

@@ -840,6 +840,8 @@ message GetCivoClusterStatusResponse {
   google.protobuf.Timestamp daily_limit_ends_at = 4;
   // Public address of the PMM instance created in the cluster.
   string pmm_demo_url = 5;
+  // Indicates if the cluster creation has failed.
+  bool failed = 6;
 }
 
 message GetCivoKubeconfigRequest {
