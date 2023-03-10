@@ -12,10 +12,7 @@ import (
 	_ "github.com/mwitkow/go-proto-validators"
 	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
-	_ "google.golang.org/protobuf/types/known/durationpb"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
-
-	_ "github.com/percona-platform/platform/gen/telemetry/events/pmm"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -26,6 +23,9 @@ var _ = math.Inf
 func (this *FeedbackRequest) Validate() error {
 	if this.FeedbackRate == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackRate", fmt.Errorf(`value '%v' must not be an empty string`, this.FeedbackRate))
+	}
+	if nil == this.FeedbackDate {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackDate", fmt.Errorf("message must exist"))
 	}
 	if this.FeedbackDate != nil {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.FeedbackDate); err != nil {

@@ -103,6 +103,10 @@
           "type": "string",
           "format": "date-time",
           "title": "date of feedback"
+        },
+        "pmmServerId": {
+          "type": "string",
+          "title": "PMM server ID"
         }
       },
       "required": [
