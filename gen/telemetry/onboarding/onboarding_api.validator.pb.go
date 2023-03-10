@@ -24,13 +24,8 @@ func (this *FeedbackRequest) Validate() error {
 	if this.FeedbackRate == "" {
 		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackRate", fmt.Errorf(`value '%v' must not be an empty string`, this.FeedbackRate))
 	}
-	if nil == this.FeedbackDate {
-		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackDate", fmt.Errorf("message must exist"))
-	}
-	if this.FeedbackDate != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.FeedbackDate); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("FeedbackDate", err)
-		}
+	if this.FeedbackDate == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackDate", fmt.Errorf(`value '%v' must not be an empty string`, this.FeedbackDate))
 	}
 	return nil
 }

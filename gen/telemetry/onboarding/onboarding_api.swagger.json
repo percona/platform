@@ -101,7 +101,6 @@
         },
         "feedbackDate": {
           "type": "string",
-          "format": "date-time",
           "title": "date of feedback"
         },
         "pmmServerId": {
@@ -110,7 +109,8 @@
         }
       },
       "required": [
-        "feedbackRate"
+        "feedbackRate",
+        "feedbackDate"
       ]
     },
     "v1FeedbackResponse": {
