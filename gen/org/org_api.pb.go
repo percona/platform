@@ -2470,6 +2470,8 @@ type GetCivoClusterStatusResponse struct {
 	// Public address of the PMM instance created in the cluster.
 	PmmDemoUrl string `protobuf:"bytes,5,opt,name=pmm_demo_url,json=pmmDemoUrl,proto3" json:"pmm_demo_url,omitempty"`
 	// Indicates if the cluster creation has failed.
+	// It would be more flexible to have this field as an enum that shows the process health (InProgress, Failed, etc),
+	// but since it's not clear how long will the feature stay, decided to stick with the bool value.
 	Failed bool `protobuf:"varint,6,opt,name=failed,proto3" json:"failed,omitempty"`
 }
 
