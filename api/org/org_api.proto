@@ -840,6 +840,10 @@ message GetCivoClusterStatusResponse {
   google.protobuf.Timestamp daily_limit_ends_at = 4;
   // Public address of the PMM instance created in the cluster.
   string pmm_demo_url = 5;
+  // Indicates if the cluster creation has failed.
+  // It would be more flexible to have this field as an enum that shows the process health (InProgress, Failed, etc),
+  // but since it's not clear how long will the feature stay, decided to stick with the bool value.
+  bool failed = 6;
 }
 
 message GetCivoKubeconfigRequest {
