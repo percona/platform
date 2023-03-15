@@ -25,6 +25,10 @@ var (
 	ErrInvalidPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains invalid uuid"}
 	// ErrDuplicatedPortalAdminOrgs appears when the portalAdminOrgs contains duplicated values.
 	ErrDuplicatedPortalAdminOrgs = &AuthError{msg: "portalAdminOrgs contains duplicated values"}
+	// ErrInvalidPMMDemoID appears when the portalAdminOrgs contains invalid values.
+	ErrInvalidPMMDemoID = &AuthError{msg: "pmmDemoID contains invalid uuid"}
+	// ErrDuplicatedPMMDemoID appears when the portalAdminOrgs contains duplicated values.
+	ErrDuplicatedPMMDemoID = &AuthError{msg: "pmmDemoID contains duplicated values"}
 )
 
 // AuthError represents authentication/authorisation errors. It contains message that describes

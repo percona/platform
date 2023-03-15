@@ -34,7 +34,7 @@ type SignUpRequest struct {
 	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	// User password.
 	//
-	// Deprecated: Do not use.
+	// Deprecated: Marked as deprecated in auth/auth_api.proto.
 	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	// User first name.
 	FirstName string `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
@@ -81,7 +81,7 @@ func (x *SignUpRequest) GetEmail() string {
 	return ""
 }
 
-// Deprecated: Do not use.
+// Deprecated: Marked as deprecated in auth/auth_api.proto.
 func (x *SignUpRequest) GetPassword() string {
 	if x != nil {
 		return x.Password

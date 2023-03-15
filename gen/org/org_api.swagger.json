@@ -1340,6 +1340,10 @@
         "pmmDemoUrl": {
           "type": "string",
           "description": "Public address of the PMM instance created in the cluster."
+        },
+        "failed": {
+          "type": "boolean",
+          "description": "Indicates if the cluster creation has failed.\nIt would be more flexible to have this field as an enum that shows the process health (InProgress, Failed, etc),\nbut since it's not clear how long will the feature stay, decided to stick with the bool value."
         }
       }
     },

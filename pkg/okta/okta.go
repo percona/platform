@@ -38,6 +38,7 @@ const (
 	profileMobilePhone     = "mobilePhone"
 	profileLogin           = "login"
 	profilePortalAdminOrgs = "portalAdminOrgs"
+	profilePMMDemoIDs      = "pmmDemoIDs"
 	profileTos             = "tos"
 	profileMarketing       = "marketing"
 )
@@ -166,6 +167,7 @@ func (c *Client) registerUser(ctx context.Context, params RegisterUserParams, ac
 		profileFirstName:       params.FirstName,
 		profileLastName:        params.LastName,
 		profilePortalAdminOrgs: []string{},
+		profilePMMDemoIDs:      []string{},
 		profileSecondaryEmail:  "",
 		profileMobilePhone:     "",
 	}
@@ -1242,6 +1244,10 @@ func updatedProfile(profile okta.UserProfile, params UpdateUserParams) okta.User
 		profile[profilePortalAdminOrgs] = params.PortalAdminOrgs
 	}
 
+	if params.PMMDemoIDs != nil {
+		profile[profilePMMDemoIDs] = params.PMMDemoIDs
+	}
+
 	if params.Firstname != nil {
 		profile[profileFirstName] = params.Firstname
 	}
@@ -1271,6 +1277,15 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 		}
 	}
 
+	if params.PMMDemoIDs != nil {
+		ids := *params.PMMDemoIDs
+
+		err := validatePMMDemoIDs(ids)
+		if err != nil {
+			return err
+		}
+	}
+
 	if params.Firstname != nil && *params.Firstname == "" {
 		return ErrEmptyFirstName
 	}
@@ -1283,6 +1298,14 @@ func validateUpdateUserParams(params UpdateUserParams) error {
 }
 
 func validatePortalAdminOrgs(ids []string) error {
+	return validateSet(ids, ErrInvalidPortalAdminOrgs, ErrDuplicatedPortalAdminOrgs)
+}
+
+func validatePMMDemoIDs(ids []string) error {
+	return validateSet(ids, ErrInvalidPMMDemoID, ErrDuplicatedPMMDemoID)
+}
+
+func validateSet(ids []string, notUUIDErr, duplicationErr error) error {
 	// map to check duplicates
 	duplMap := make(map[string]struct{}, len(ids))
 	var err error
@@ -1290,11 +1313,11 @@ func validatePortalAdminOrgs(ids []string) error {
 	for _, val := range ids {
 		_, err = uuid.Parse(val)
 		if err != nil {
-			return ErrInvalidPortalAdminOrgs
+			return notUUIDErr
 		}
 
 		if _, ok := duplMap[val]; ok {
-			return ErrDuplicatedPortalAdminOrgs
+			return duplicationErr
 		}
 
 		duplMap[val] = struct{}{}
