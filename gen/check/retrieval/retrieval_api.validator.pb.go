@@ -9,7 +9,9 @@ import (
 
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -33,5 +35,26 @@ func (this *GetAllAlertRuleTemplatesRequest) Validate() error {
 	return nil
 }
 func (this *GetAllAlertRuleTemplatesResponse) Validate() error {
+	return nil
+}
+func (this *UpdateAdvisorsStatusRequest) Validate() error {
+	for _, item := range this.Checks {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checks", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Check) Validate() error {
+	if this.ExecutedAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ExecutedAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ExecutedAt", err)
+		}
+	}
+	return nil
+}
+func (this *UpdateAdvisorsStatusResponse) Validate() error {
 	return nil
 }
