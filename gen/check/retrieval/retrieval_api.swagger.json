@@ -135,6 +135,44 @@
           "application/json"
         ]
       }
+    },
+    "/v1/check/advisors/{tier}": {
+      "get": {
+        "summary": "Get all advisors",
+        "description": "Retrieves all advisors a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAdvisorsInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAdvisorsInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -161,6 +199,69 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Advisor": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Check"
+          }
+        }
+      }
+    },
+    "v1Check": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "interval": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetAdvisorsInfoResponse": {
+      "type": "object",
+      "properties": {
+        "anonymousAdvisors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
+          }
+        },
+        "registeredAdvisors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
+          }
+        },
+        "paidAdvisors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Advisor"
           }
         }
       }
