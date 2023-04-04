@@ -3,7 +3,6 @@ syntax = "proto3";
 package percona.platform.check.retrieval.v1;
 
 import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "/check/retrieval;retrievalv1";
