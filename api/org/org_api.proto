@@ -503,6 +503,19 @@ service OrgAPI {
       };
     };
   }
+
+  rpc UpdateChecks(UpdateChecksRequest) returns (UpdateChecksResponse) {
+    option (google.api.http) = {
+      post: "/v1/checks"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Accepts the information about the check runs and stores it into DB. The newer check replaces the older one.";
+      summary: "Updates the check results.";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+    };
+  }
 }
 
 message PMMServerSSODetails {
@@ -905,3 +918,30 @@ message AccountIDs {
 message OnboardMemberResponse {
   string platform_org_id = 1;
 }
+
+message UpdateChecksRequest {
+  repeated Check checks = 1;
+}
+
+message Check {
+  // PMMServerID of the PMM that sends the request.
+  string pmm_server_id = 1;
+  // name of the service that was checked.
+  string service_name = 2;
+  // name of the advisor that the check belongs to.
+  string advisor = 3;
+  // name of the executed check
+  string name = 4;
+  // version of the executed check
+  string version = 5;
+  // family of the executed check
+  string family = 6;
+  // category of the executed check
+  string category = 7;
+  // result of the executed check
+  bool success = 8;
+  // time the check was executed
+  google.protobuf.Timestamp executed_at = 9;
+}
+
+message UpdateChecksResponse {}

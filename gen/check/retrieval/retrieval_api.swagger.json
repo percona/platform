@@ -135,46 +135,6 @@
           "application/json"
         ]
       }
-    },
-    "/v1/check/checks": {
-      "post": {
-        "summary": "Updates the check results.",
-        "description": "Accepts the information about the check runs and stores it into DB. The newer check replaces the older one.",
-        "operationId": "RetrievalAPI_UpdateAdvisorsStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateAdvisorsStatusResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UpdateAdvisorsStatusRequest"
-            }
-          }
-        ],
-        "tags": [
-          "RetrievalAPI"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ]
-      }
     }
   },
   "definitions": {
@@ -202,48 +162,6 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "v1Check": {
-      "type": "object",
-      "properties": {
-        "pmmServerId": {
-          "type": "string",
-          "description": "PMMServerID of the PMM that sends the request."
-        },
-        "serviceName": {
-          "type": "string",
-          "description": "name of the service that was checked."
-        },
-        "advisor": {
-          "type": "string",
-          "description": "name of the advisor that the check belongs to."
-        },
-        "name": {
-          "type": "string",
-          "title": "name of the executed check"
-        },
-        "version": {
-          "type": "string",
-          "title": "version of the executed check"
-        },
-        "family": {
-          "type": "string",
-          "title": "family of the executed check"
-        },
-        "category": {
-          "type": "string",
-          "title": "category of the executed check"
-        },
-        "success": {
-          "type": "boolean",
-          "title": "result of the executed check"
-        },
-        "executedAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "time the check was executed"
         }
       }
     },
@@ -303,20 +221,6 @@
           "description": "File signatures."
         }
       }
-    },
-    "v1UpdateAdvisorsStatusRequest": {
-      "type": "object",
-      "properties": {
-        "checks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Check"
-          }
-        }
-      }
-    },
-    "v1UpdateAdvisorsStatusResponse": {
-      "type": "object"
     }
   },
   "x-readme": {

@@ -451,3 +451,24 @@ func (this *AccountIDs) Validate() error {
 func (this *OnboardMemberResponse) Validate() error {
 	return nil
 }
+func (this *UpdateChecksRequest) Validate() error {
+	for _, item := range this.Checks {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checks", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Check) Validate() error {
+	if this.ExecutedAt != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.ExecutedAt); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("ExecutedAt", err)
+		}
+	}
+	return nil
+}
+func (this *UpdateChecksResponse) Validate() error {
+	return nil
+}

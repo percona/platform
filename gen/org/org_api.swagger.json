@@ -17,6 +17,46 @@
     "application/json"
   ],
   "paths": {
+    "/v1/checks": {
+      "post": {
+        "summary": "Updates the check results.",
+        "description": "Accepts the information about the check runs and stores it into DB. The newer check replaces the older one.",
+        "operationId": "OrgAPI_UpdateChecks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateChecksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateChecksRequest"
+            }
+          }
+        ],
+        "tags": [
+          "OrgAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
     "/v1/dbaas/cluster/civo": {
       "get": {
         "summary": "Get cluster status",
@@ -1245,6 +1285,48 @@
       },
       "description": "ServiceNowAccountIDs lists IDs of an account (org) in different systems."
     },
+    "v1Check": {
+      "type": "object",
+      "properties": {
+        "pmmServerId": {
+          "type": "string",
+          "description": "PMMServerID of the PMM that sends the request."
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "name of the service that was checked."
+        },
+        "advisor": {
+          "type": "string",
+          "description": "name of the advisor that the check belongs to."
+        },
+        "name": {
+          "type": "string",
+          "title": "name of the executed check"
+        },
+        "version": {
+          "type": "string",
+          "title": "version of the executed check"
+        },
+        "family": {
+          "type": "string",
+          "title": "family of the executed check"
+        },
+        "category": {
+          "type": "string",
+          "title": "category of the executed check"
+        },
+        "success": {
+          "type": "boolean",
+          "title": "result of the executed check"
+        },
+        "executedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "time the check was executed"
+        }
+      }
+    },
     "v1ConnectPMMRequest": {
       "type": "object",
       "properties": {
@@ -1740,6 +1822,20 @@
       ],
       "default": "INVALID",
       "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
+    },
+    "v1UpdateChecksRequest": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Check"
+          }
+        }
+      }
+    },
+    "v1UpdateChecksResponse": {
+      "type": "object"
     },
     "v1UpdateMemberResponse": {
       "type": "object",

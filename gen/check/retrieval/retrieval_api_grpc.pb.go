@@ -29,7 +29,6 @@ type RetrievalAPIClient interface {
 	GetAllAdvisors(ctx context.Context, in *GetAllAdvisorsRequest, opts ...grpc.CallOption) (*GetAllAdvisorsResponse, error)
 	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(ctx context.Context, in *GetAllAlertRuleTemplatesRequest, opts ...grpc.CallOption) (*GetAllAlertRuleTemplatesResponse, error)
-	UpdateAdvisorsStatus(ctx context.Context, in *UpdateAdvisorsStatusRequest, opts ...grpc.CallOption) (*UpdateAdvisorsStatusResponse, error)
 }
 
 type retrievalAPIClient struct {
@@ -67,15 +66,6 @@ func (c *retrievalAPIClient) GetAllAlertRuleTemplates(ctx context.Context, in *G
 	return out, nil
 }
 
-func (c *retrievalAPIClient) UpdateAdvisorsStatus(ctx context.Context, in *UpdateAdvisorsStatusRequest, opts ...grpc.CallOption) (*UpdateAdvisorsStatusResponse, error) {
-	out := new(UpdateAdvisorsStatusResponse)
-	err := c.cc.Invoke(ctx, "/percona.platform.check.retrieval.v1.RetrievalAPI/UpdateAdvisorsStatus", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RetrievalAPIServer is the server API for RetrievalAPI service.
 // All implementations must embed UnimplementedRetrievalAPIServer
 // for forward compatibility
@@ -86,7 +76,6 @@ type RetrievalAPIServer interface {
 	GetAllAdvisors(context.Context, *GetAllAdvisorsRequest) (*GetAllAdvisorsResponse, error)
 	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error)
-	UpdateAdvisorsStatus(context.Context, *UpdateAdvisorsStatusRequest) (*UpdateAdvisorsStatusResponse, error)
 	mustEmbedUnimplementedRetrievalAPIServer()
 }
 
@@ -102,9 +91,6 @@ func (UnimplementedRetrievalAPIServer) GetAllAdvisors(context.Context, *GetAllAd
 }
 func (UnimplementedRetrievalAPIServer) GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAlertRuleTemplates not implemented")
-}
-func (UnimplementedRetrievalAPIServer) UpdateAdvisorsStatus(context.Context, *UpdateAdvisorsStatusRequest) (*UpdateAdvisorsStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateAdvisorsStatus not implemented")
 }
 func (UnimplementedRetrievalAPIServer) mustEmbedUnimplementedRetrievalAPIServer() {}
 
@@ -173,24 +159,6 @@ func _RetrievalAPI_GetAllAlertRuleTemplates_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RetrievalAPI_UpdateAdvisorsStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAdvisorsStatusRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RetrievalAPIServer).UpdateAdvisorsStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/percona.platform.check.retrieval.v1.RetrievalAPI/UpdateAdvisorsStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RetrievalAPIServer).UpdateAdvisorsStatus(ctx, req.(*UpdateAdvisorsStatusRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // RetrievalAPI_ServiceDesc is the grpc.ServiceDesc for RetrievalAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -209,10 +177,6 @@ var RetrievalAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllAlertRuleTemplates",
 			Handler:    _RetrievalAPI_GetAllAlertRuleTemplates_Handler,
-		},
-		{
-			MethodName: "UpdateAdvisorsStatus",
-			Handler:    _RetrievalAPI_UpdateAdvisorsStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
