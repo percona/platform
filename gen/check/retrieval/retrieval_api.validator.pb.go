@@ -9,6 +9,7 @@ import (
 
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	github_com_mwitkow_go_proto_validators "github.com/mwitkow/go-proto-validators"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 )
 
@@ -33,5 +34,45 @@ func (this *GetAllAlertRuleTemplatesRequest) Validate() error {
 	return nil
 }
 func (this *GetAllAlertRuleTemplatesResponse) Validate() error {
+	return nil
+}
+func (this *GetAdvisorsInfoRequest) Validate() error {
+	return nil
+}
+func (this *GetAdvisorsInfoResponse) Validate() error {
+	for _, item := range this.AnonymousAdvisors {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("AnonymousAdvisors", err)
+			}
+		}
+	}
+	for _, item := range this.RegisteredAdvisors {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("RegisteredAdvisors", err)
+			}
+		}
+	}
+	for _, item := range this.PaidAdvisors {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("PaidAdvisors", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Advisor) Validate() error {
+	for _, item := range this.Checks {
+		if item != nil {
+			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
+				return github_com_mwitkow_go_proto_validators.FieldError("Checks", err)
+			}
+		}
+	}
+	return nil
+}
+func (this *Check) Validate() error {
 	return nil
 }
