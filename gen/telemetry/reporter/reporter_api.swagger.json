@@ -1,7 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Reporter API",
+    "title": "Telemetry reporter API",
+    "description": "API for telemetryd service.",
     "version": "version not set"
   },
   "tags": [

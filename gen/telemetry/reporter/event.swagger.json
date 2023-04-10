@@ -1,7 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "telemetry/reporter/event.proto",
+    "title": "Telemetry reporter events API",
+    "description": "API describing serialized events received by telemetryd.",
     "version": "version not set"
   },
   "consumes": [

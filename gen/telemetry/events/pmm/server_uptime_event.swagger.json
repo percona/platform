@@ -1,7 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "telemetry/events/pmm/server_uptime_event.proto",
+    "title": "Telemetry PMM Events API",
+    "description": "API describing telemetry events sent by PMM servers.",
     "version": "version not set"
   },
   "consumes": [

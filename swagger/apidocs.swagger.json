@@ -1,0 +1,3490 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Auth API",
+    "description": "API for authed service.",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AuthAPI"
+    },
+    {
+      "name": "RetrievalAPI"
+    },
+    {
+      "name": "EventAPI"
+    },
+    {
+      "name": "OrgAPI"
+    },
+    {
+      "name": "ReporterAPI"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/auth/ActivateProfile": {
+      "post": {
+        "summary": "ActivateProfile",
+        "description": "ActivateProfile activates user account.",
+        "operationId": "AuthAPI_ActivateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/GetProfile": {
+      "post": {
+        "summary": "GetProfile",
+        "description": "GetProfile returns user's email, name and some additional information.",
+        "operationId": "AuthAPI_GetProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/RefreshSession": {
+      "post": {
+        "summary": "RefreshSession",
+        "description": "RefreshSession refreshes session timeout.",
+        "operationId": "AuthAPI_RefreshSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RefreshSessionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RefreshSessionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/ResetPassword": {
+      "post": {
+        "summary": "ResetPassword",
+        "description": "ResetPassword initiates user's password reset procedure.",
+        "operationId": "AuthAPI_ResetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/SignIn": {
+      "post": {
+        "summary": "SignIn",
+        "description": "SignIn checks user authentication, creates session and returns session ID.",
+        "operationId": "AuthAPI_SignIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SignInResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SignInRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/SignOut": {
+      "post": {
+        "summary": "SignOut",
+        "description": "SignOut terminates user session.",
+        "operationId": "AuthAPI_SignOut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SignOutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SignOutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/SignUp": {
+      "post": {
+        "summary": "SignUp",
+        "description": "SignUp creates new user with given email and password.",
+        "operationId": "AuthAPI_SignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SignUpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SignUpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/UpdateProfile": {
+      "post": {
+        "summary": "UpdateProfile",
+        "description": "UpdateProfile updates user's first name and last name.",
+        "operationId": "AuthAPI_UpdateProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/ValidateToken": {
+      "post": {
+        "summary": "ValidateToken",
+        "description": "Validates a one-time activationToken and returns 5-min living stateToken",
+        "operationId": "AuthAPI_ValidateToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ValidateTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/auth/users/profile:search": {
+      "post": {
+        "summary": "SearchUserProfile",
+        "description": "SearchUserProfile returns the requested user's profile data.",
+        "operationId": "AuthAPI_SearchUserProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/check/GetAllAdvisors": {
+      "post": {
+        "summary": "Get all advisors",
+        "description": "Retrieves all advisors a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAllAdvisors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAdvisorsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/check/GetAllAlertRuleTemplates": {
+      "post": {
+        "summary": "Get all alert rule templates",
+        "description": "Retrieves all alert rule templates a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAllAlertRuleTemplates",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAlertRuleTemplatesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetAllAlertRuleTemplatesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/check/GetAllChecks": {
+      "post": {
+        "summary": "Get all checks",
+        "description": "Retrieves all check scripts a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAllChecks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAllChecksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetAllChecksRequest"
+            }
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/dbaas/cluster/civo": {
+      "get": {
+        "summary": "Get cluster status",
+        "description": "Returns the status and ID of the CIVO cluster created by the current logged in user.",
+        "operationId": "OrgAPI_GetCivoClusterStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCivoClusterStatusResponse"
+            },
+            "examples": {
+              "application/json": {
+                "cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f",
+                "status": "ACTIVE"
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Orgd DBaaS Helpers"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "Create kubernetes cluster",
+        "description": "Creates a kubernetes cluster on Civo that can be used to run DBaaS.",
+        "operationId": "OrgAPI_CreateCivoCluster",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateCivoClusterResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Orgd DBaaS Helpers"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/dbaas/cluster/civo/{clusterId}/config": {
+      "get": {
+        "summary": "Get cluster kubeconfig",
+        "description": "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.",
+        "operationId": "OrgAPI_GetCivoKubeconfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCivoKubeconfigResponse"
+            },
+            "examples": {
+              "application/json": {
+                "kubeconfig": ""
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "clusterId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd DBaaS Helpers"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/events/types": {
+      "get": {
+        "summary": "ListAuditEventTypes returns the list of audit events using filters.",
+        "operationId": "EventAPI_ListAuditEventTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListAuditEventTypesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "EventAPI"
+        ]
+      }
+    },
+    "/v1/events:search": {
+      "post": {
+        "summary": "ListAuditEvents returns the list of audit events using filters.",
+        "operationId": "EventAPI_ListAuditEvents",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListAuditEventsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "ListAuditEventsRequest to view events that were previously saved.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ListAuditEventsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "EventAPI"
+        ]
+      }
+    },
+    "/v1/hooks/events": {
+      "get": {
+        "summary": "Okta sends the one-time validation request to verify the hook handler ownership",
+        "description": "Hook handler validation",
+        "operationId": "EventAPI_ValidateHook",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ValidateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Events management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "summary": "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.",
+        "operationId": "EventAPI_CreateHookEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "CreateHookEventRequest to be used to store okta event in persistent storage.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateHookEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Events management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs": {
+      "post": {
+        "summary": "Create organization",
+        "description": "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.",
+        "operationId": "OrgAPI_CreateOrganization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateOrganizationResponse"
+            },
+            "examples": {
+              "application/json": {
+                "org": {
+                  "id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef",
+                  "name": "Percona SANDBOX",
+                  "created_at": "2021-12-10T07:41:08.925367Z",
+                  "updated_at": "2021-12-10T07:41:08.925367Z"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateOrganizationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/company:search": {
+      "post": {
+        "summary": "Search user company",
+        "description": "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.",
+        "operationId": "OrgAPI_SearchUserCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchUserCompanyResponse"
+            },
+            "examples": {
+              "application/json": {
+                "name": "Percona SANDBOX"
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/inventory": {
+      "post": {
+        "summary": "Connect PMM Server",
+        "description": "Connect PMM Server to organization.",
+        "operationId": "OrgAPI_ConnectPMM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConnectPMMResponse"
+            },
+            "examples": {
+              "application/json": {
+                "sso_details": {
+                  "grafana_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
+                  "issuer_url": "https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1",
+                  "scope": "percona"
+                },
+                "org_id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConnectPMMRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/inventory/{pmmServerId}:disconnect": {
+      "post": {
+        "summary": "Disconnect PMM Server",
+        "description": "Disconnect PMM Server from organization.",
+        "operationId": "OrgAPI_DisconnectPMM",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pmmServerId",
+            "description": "PMM server ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/inventory:connect": {
+      "post": {
+        "summary": "Connect PMM Server",
+        "description": "Connect PMM Server to organization.",
+        "operationId": "OrgAPI_ConnectPMM2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConnectPMMResponse"
+            },
+            "examples": {
+              "application/json": {
+                "sso_details": {
+                  "grafana_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_id": "bdheuwort62379fwbeui",
+                  "pmm_managed_client_secret": "bvhjrfbwjrkfnbbrjeknfberjk",
+                  "issuer_url": "https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1",
+                  "scope": "percona"
+                },
+                "org_id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConnectPMMRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/members:onboard": {
+      "post": {
+        "summary": "Onboards a user to Platform.",
+        "description": "Onboards a user to Platform.",
+        "operationId": "OrgAPI_OnboardMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OnboardMemberResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1OnboardMemberRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}": {
+      "get": {
+        "summary": "Get organization info",
+        "description": "Get organization info by ID.",
+        "operationId": "OrgAPI_GetOrganization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetOrganizationResponse"
+            },
+            "examples": {
+              "application/json": {
+                "org": {
+                  "id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef",
+                  "name": "Percona SANDBOX",
+                  "created_at": "2021-12-10T07:41:08.925367Z",
+                  "updated_at": "2021-12-10T07:41:08.925367Z"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "summary": "Delete organization",
+        "description": "Delete organization by ID.",
+        "operationId": "OrgAPI_DeleteOrganization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteOrganizationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/entitlements:search": {
+      "post": {
+        "summary": "Search organization entitlements",
+        "description": "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.",
+        "operationId": "OrgAPI_SearchOrganizationEntitlements",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchOrganizationEntitlementsResponse"
+            },
+            "examples": {
+              "application/json": {
+                "entitlements": [
+                  {
+                    "number": "ENTLMT0001026",
+                    "name": "Unmeasured MySQL Support - Premium - ENTLMT0001026",
+                    "summary": "3 MySQL Servers",
+                    "tier": "",
+                    "total_units": "3",
+                    "unlimited_units": false,
+                    "support_level": "",
+                    "software_families": [
+                      "MySQL"
+                    ],
+                    "start_date": "2019-10-28T00:00:00Z",
+                    "end_date": "2021-07-01T00:00:00Z",
+                    "platform": {
+                      "security_advisor": "",
+                      "config_advisor": ""
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/inventory:search": {
+      "post": {
+        "summary": "Search connected PMM Servers",
+        "description": "Search all PMM servers connected to an organization.",
+        "operationId": "OrgAPI_SearchInventory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchInventoryResponse"
+            },
+            "examples": {
+              "application/json": {
+                "inventory": [
+                  {
+                    "pmm_server_id": "ded64cd9-2f9e-78ac-247a-d98ad1f95e85",
+                    "pmm_server_name": "Small Rubber Shoes",
+                    "pmm_server_url": "https://laverna.biz"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Inventory Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/members": {
+      "post": {
+        "summary": "Invite organization member",
+        "description": "Invite users to the organization and specify their member roles.",
+        "operationId": "OrgAPI_InviteMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InviteMemberResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal organization ID to which to invite the user to.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "description": "Percona Portal username to invite to the Organziation."
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Percona Portal organization role to be granted to the invited user."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/members/{memberId}": {
+      "delete": {
+        "summary": "Delete organization member",
+        "description": "Delete member from organization.",
+        "operationId": "OrgAPI_DeleteMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberId",
+            "description": "Percona Portal Member ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "summary": "Update organization member",
+        "description": "Update organization member's role.",
+        "operationId": "OrgAPI_UpdateMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateMemberResponse"
+            },
+            "examples": {
+              "application/json": {
+                "member": {
+                  "member_id": "1a8e7b33-59bc-42a5-b1a8-2180576badde",
+                  "username": "admin@org.com",
+                  "first_name": "First Name",
+                  "last_name": "Last Name",
+                  "role": "Admin",
+                  "status": "ACTIVE"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "type": "string",
+                  "description": "Organization member role."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/members/{memberId}:reactivate": {
+      "post": {
+        "summary": "ReactivateMember",
+        "description": "Reactivates an organization member that has been in Pending state",
+        "operationId": "OrgAPI_ReactivateMember",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReactivateMemberResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "memberId",
+            "description": "ID of the member to be reactivated.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/members:bulk": {
+      "post": {
+        "summary": "Bulk invite organization members",
+        "description": "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.",
+        "operationId": "OrgAPI_InviteMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InviteMembersResponse"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "username": "mark.doe@gmail.com",
+                    "error": "Invalid organization member role."
+                  },
+                  {
+                    "username": "john.doe@gmail.com",
+                    "error": "User is already a member of another organization."
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID to which to invite users to.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/InviteMembersRequestInvitee"
+                  },
+                  "description": "Array of users to invite to the Organization."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/members:search": {
+      "post": {
+        "summary": "Search organization members",
+        "description": "Search organization members.",
+        "operationId": "OrgAPI_SearchMembers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchMembersResponse"
+            },
+            "examples": {
+              "application/json": {
+                "members": [
+                  {
+                    "member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef",
+                    "username": "test@org.com",
+                    "first_name": "First Name",
+                    "last_name": "Last Name",
+                    "role": "Admin",
+                    "status": "ACTIVE"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/SearchMembersRequestUserFilter"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Member Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{orgId}/tickets:search": {
+      "post": {
+        "summary": "Search organization tickets",
+        "description": "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.",
+        "operationId": "OrgAPI_SearchOrganizationTickets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchOrganizationTicketsResponse"
+            },
+            "examples": {
+              "application/json": {
+                "tickets": [
+                  {
+                    "number": "TIME0001218",
+                    "short_description": "Percona SANDBOX Percona Managed Database Services for PostgreSQL - ENTLMT0003359",
+                    "priority": "P3 - Normal",
+                    "state": "Open",
+                    "create_time": "2022-01-14T20:53:22Z",
+                    "department": "Managed Services",
+                    "requester": "",
+                    "task_type": "Internal Tracking",
+                    "url": "https://perconadev.service-now.com/percona?id=percona_ticket\u0026table=u_internal_tracking\u0026sys_id=b2a175a587098d508d75c9d8cebb35a8"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orgId",
+            "description": "Percona Portal Organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs/{organization.id}": {
+      "put": {
+        "summary": "Update organization",
+        "description": "Update organization info.",
+        "operationId": "OrgAPI_UpdateOrganization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateOrganizationResponse"
+            },
+            "examples": {
+              "application/json": {
+                "org": {
+                  "id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef",
+                  "name": "Percona SANDBOX",
+                  "created_at": "2021-12-10T07:41:08.925367Z",
+                  "updated_at": "2021-12-10T07:41:08.925367Z"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "organization.id",
+            "description": "Percona Portal organization ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "organization",
+            "description": "Percona Portal Organization",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Percona Portal organization name."
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the organization was created."
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Timestamp when the organization was last updated."
+                },
+                "tier": {
+                  "$ref": "#/definitions/v1Tier",
+                  "description": "Tier of the client linked to the organization."
+                }
+              },
+              "title": "Percona Portal Organization"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/orgs:search": {
+      "post": {
+        "summary": "Search organizations",
+        "description": "Search for organizations that the user is a member of.",
+        "operationId": "OrgAPI_SearchOrganizations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchOrganizationsResponse"
+            },
+            "examples": {
+              "application/json": {
+                "orgs": [
+                  {
+                    "id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef",
+                    "name": "Percona SANDBOX",
+                    "created_at": "2021-12-10T07:41:08.925367Z",
+                    "updated_at": "2021-12-10T07:41:08.925367Z"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchOrganizationsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orgd Organization Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/telemetry/Report": {
+      "post": {
+        "summary": "Report",
+        "description": "Report is used to submit telemetry events to telemetryd service.",
+        "operationId": "ReporterAPI_Report",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReportResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReportRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v1/telemetry/events:search": {
+      "post": {
+        "summary": "SearchEvent",
+        "description": "SearchEvent searches for a specific metric in telemetry events and returns them to the client.",
+        "operationId": "ReporterAPI_SearchEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SearchEventRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ActionStatusMessageActionStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/ActionStatusMessageActionStatusCode",
+          "description": "Code assigned to this status."
+        },
+        "message": {
+          "type": "string",
+          "description": "Message to elaborate the reason of action failure or details of successful completion."
+        }
+      },
+      "description": "ActionStatus represents a result of an action."
+    },
+    "ActionStatusMessageActionStatusCode": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionStatusCode codifies result of an action.\n\n - UNSPECIFIED: UNSPECIFIED for non-passed value or ambiguous result of the operation.\n - SUCCESS: SUCCESS represents SUCCESS action status.\n - FAILURE: FAILURE represents FAILURE action status."
+    },
+    "ActionTypeMessageActionType": {
+      "type": "string",
+      "enum": [
+        "UNSPECIFIED",
+        "CREATE",
+        "UPDATE",
+        "DELETE",
+        "LOG_IN",
+        "LOG_OUT",
+        "CHANGE_PASSWORD"
+      ],
+      "default": "UNSPECIFIED",
+      "description": "ActionType represents audit events' action types.\n\n - UNSPECIFIED: UNSPECIFIED represents unknown action type.\n - CREATE: CREATE represents action type = CREATE.\n - UPDATE: UPDATE represents action type = UPDATE.\n - DELETE: DELETE represents action type = DELETE.\n - LOG_IN: LOG_IN represents action type = LOG_IN.\n - LOG_OUT: LOG_OUT represents action type = LOG_OUT.\n - CHANGE_PASSWORD: CHANGE_PASSWORD represents action type = CHANGE_PASSWORD."
+    },
+    "ActivateProfileRequestProfile": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
+    "ClientUserAgent": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "string"
+        },
+        "browser": {
+          "type": "string"
+        },
+        "rawUserAgent": {
+          "type": "string"
+        }
+      }
+    },
+    "ContactsCustomerSuccess": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateHookEventRequestIdPEventData": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreateHookEventRequestIdPEventDataEvent"
+          }
+        }
+      }
+    },
+    "CreateHookEventRequestIdPEventDataEvent": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "client": {
+          "$ref": "#/definitions/EventClient"
+        },
+        "actor": {
+          "$ref": "#/definitions/EventActor"
+        },
+        "outcome": {
+          "$ref": "#/definitions/EventOutcome"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "published": {
+          "type": "string"
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "displayMessage": {
+          "type": "string"
+        },
+        "transaction": {
+          "$ref": "#/definitions/EventTransaction"
+        },
+        "authenticationContext": {
+          "$ref": "#/definitions/EventAuthContext"
+        }
+      }
+    },
+    "EventActor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "alternateId": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        }
+      }
+    },
+    "EventAuthContext": {
+      "type": "object",
+      "properties": {
+        "authenticationContext": {
+          "type": "string"
+        },
+        "externalSessionId": {
+          "type": "string"
+        }
+      }
+    },
+    "EventClient": {
+      "type": "object",
+      "properties": {
+        "zone": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "$ref": "#/definitions/ClientUserAgent"
+        }
+      }
+    },
+    "EventOutcome": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "EventTransaction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "InviteMembersRequestInvitee": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username to invite to the Organziation."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal Organization Role to be granted to invited user."
+        }
+      }
+    },
+    "InviteMembersResponseError": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Percona Portal username that was attempted to invite to the Organization"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error message"
+        }
+      }
+    },
+    "OrganizationEntitlementPlatform": {
+      "type": "object",
+      "properties": {
+        "securityAdvisor": {
+          "type": "string",
+          "description": "Flag indicates that security advisors are covered by this entitlement."
+        },
+        "configAdvisor": {
+          "type": "string",
+          "description": "Flag indicates that config advisors are covered by this entitlement."
+        }
+      }
+    },
+    "SearchMembersRequestUserFilter": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Organization member username."
+        }
+      },
+      "description": "Optional filter that PMM uses to get information about the current user."
+    },
+    "ServerMetricMetric": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "fspField": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the field (name of the column when applicable to SQL).\nIf a filter exists then the name field must not be empty since that\ncan result in an invalid SQL query and lead to non-descriptive errors."
+        },
+        "value": {
+          "description": "Value of the field."
+        }
+      },
+      "description": "Field of an object."
+    },
+    "fspFilter": {
+      "type": "object",
+      "properties": {
+        "filterType": {
+          "$ref": "#/definitions/fspFilterType",
+          "description": "filter_type defines logic of the filter."
+        },
+        "field": {
+          "$ref": "#/definitions/fspField",
+          "description": "field defines based on which data filtering must occur."
+        }
+      },
+      "description": "Filter is used to filter results for endpoints that return list of values."
+    },
+    "fspFilterType": {
+      "type": "string",
+      "enum": [
+        "EQUAL",
+        "NOT_EQUAL",
+        "GREATER",
+        "GREATER_OR_EQUAL",
+        "LESS",
+        "LESS_OR_EQUAL"
+      ],
+      "default": "EQUAL",
+      "description": "FilterType represents type of filter that will be applied to SQL query.\n\n - EQUAL: In case single value is provided, EQUAL will trigger \"=\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"IN\" SQL behaviour.\n - NOT_EQUAL: In case single value is provided, NOT EQUAL will trigger \"\u003c\u003e\" SQL behaviour.\nIf array of values provided, EQUAL will trigger \"NOT IN\" SQL behaviour.\n - GREATER: GREATER is mapped to SQL '\u003e'.\n - GREATER_OR_EQUAL: GREATER_OR_EQUAL is mapped to SQL '\u003e='.\n - LESS: LESS is mapped to SQL '\u003c'.\n - LESS_OR_EQUAL: LESS_OR_EQUAL is mapped to SQL '\u003c='."
+    },
+    "fspFilteringSortingPagination": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fspFilter"
+          },
+          "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
+        },
+        "sortingParams": {
+          "$ref": "#/definitions/fspSortingParams",
+          "description": "sorting_params are optional. No sorting will be applied if absent."
+        },
+        "pageParams": {
+          "$ref": "#/definitions/fspPageParams",
+          "description": "page_params are optional. No pagination will be applied if absent."
+        }
+      },
+      "description": "FilteringSortingPagination aggregates params for filtering, sorting and pagination."
+    },
+    "fspPageParams": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum number of results per page."
+        },
+        "index": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Index of the requested page, starts from 0."
+        }
+      },
+      "description": "PageParams represents page request parameters for pagination."
+    },
+    "fspPageTotals": {
+      "type": "object",
+      "properties": {
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of results."
+        },
+        "totalPages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of pages."
+        }
+      },
+      "description": "PageTotals represents total values for pagination and are included in paginated responses."
+    },
+    "fspSortingOrder": {
+      "type": "string",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "default": "ASC",
+      "description": " - ASC: ASC is for ascending sorting order.\n - DESC: DESC is for descending sorting order."
+    },
+    "fspSortingParams": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string"
+        },
+        "order": {
+          "$ref": "#/definitions/fspSortingOrder"
+        }
+      },
+      "description": "SortingParams are used to sort results for endpoints that return list of values."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        }
+      },
+      "additionalProperties": {},
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\nExample 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\nExample 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "reporterv1Event": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "byte",
+          "description": "Event UUID."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was received by the sender."
+        },
+        "event": {
+          "$ref": "#/definitions/v1AnyEvent",
+          "description": "Original event with a well-known type URL."
+        }
+      },
+      "description": "Event contains original event and additional information added by the sender."
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AccountIDs": {
+      "type": "object",
+      "properties": {
+        "salesforce": {
+          "type": "string"
+        },
+        "servicenow": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        }
+      },
+      "description": "ServiceNowAccountIDs lists IDs of an account (org) in different systems."
+    },
+    "v1ActivateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/ActivateProfileRequestProfile"
+        },
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ActivateProfileResponse": {
+      "type": "object"
+    },
+    "v1AnyEvent": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message."
+        },
+        "binary": {
+          "type": "string",
+          "format": "byte",
+          "description": "Must be a valid serialized protobuf binary of the above specified type.\nOnly binary or json field must be set."
+        },
+        "json": {
+          "type": "string",
+          "description": "Must be a valid serialized protobuf JSON of the above specified type.\nOnly binary or json field must be set."
+        }
+      },
+      "description": "AnyEvent represents a serialized telemetry event from the events sub-packages.\nIt is similar to any.Any, but:\n* is not a well-known type, so no special support from the library (it is a good thing in our case);\n* may contain a JSON variant of serialization."
+    },
+    "v1AuditEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Audit event ID."
+        },
+        "oktaUserId": {
+          "type": "string",
+          "description": "User's okta ID is an ID that user has in Okta."
+        },
+        "requestId": {
+          "type": "string",
+          "description": "Unique ID assigned to each request."
+        },
+        "userIpAddress": {
+          "type": "string",
+          "description": "User's remote IP address."
+        },
+        "userAgent": {
+          "type": "string",
+          "description": "User agent of user's browser."
+        },
+        "userRole": {
+          "type": "string",
+          "description": "User's role in Portal."
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Organization ID that affected object belongs to."
+        },
+        "actionType": {
+          "$ref": "#/definitions/ActionTypeMessageActionType",
+          "title": "Action type"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the event occurred."
+        },
+        "eventSource": {
+          "type": "string",
+          "description": "The source module/service that triggered audit event (might be equal to account_id for events not related to user action)."
+        },
+        "actionStatus": {
+          "$ref": "#/definitions/ActionStatusMessageActionStatus",
+          "description": "The status of action execution."
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AuditObject"
+          },
+          "description": "The information about affected objects in the system."
+        }
+      },
+      "description": "Event represents full audit event."
+    },
+    "v1AuditObject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Object ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Object name."
+        },
+        "type": {
+          "type": "string",
+          "description": "Object type."
+        },
+        "initialState": {
+          "type": "object",
+          "description": "Object's initial attribute states that have been affected by user."
+        },
+        "resultState": {
+          "type": "object",
+          "description": "Object's resulted attribute states that have been affected by user."
+        }
+      },
+      "description": "AuditObject represents object with it's attributes that is affected by user action."
+    },
+    "v1ConnectPMMRequest": {
+      "type": "object",
+      "properties": {
+        "pmmServerId": {
+          "type": "string",
+          "description": "PMM Server unique ID."
+        },
+        "pmmServerName": {
+          "type": "string",
+          "description": "User-defined human-readable PMM Server name."
+        },
+        "pmmServerUrl": {
+          "type": "string",
+          "description": "PMM Server address accessible to users."
+        },
+        "pmmServerOauthCallbackUrl": {
+          "type": "string",
+          "description": "URL for oauth callback."
+        }
+      }
+    },
+    "v1ConnectPMMResponse": {
+      "type": "object",
+      "properties": {
+        "ssoDetails": {
+          "$ref": "#/definitions/v1PMMServerSSODetails"
+        },
+        "orgId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Contacts": {
+      "type": "object",
+      "properties": {
+        "customerSuccess": {
+          "$ref": "#/definitions/ContactsCustomerSuccess",
+          "description": "Contact information of the Customer Success employee assigned to a customer's account."
+        },
+        "newTicketUrl": {
+          "type": "string",
+          "description": "Ticket URL."
+        }
+      }
+    },
+    "v1CreateAuditEventResponse": {
+      "type": "object"
+    },
+    "v1CreateCivoClusterResponse": {
+      "type": "object"
+    },
+    "v1CreateHookEventRequest": {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "type": "string"
+        },
+        "eventTypeVersion": {
+          "type": "string"
+        },
+        "cloudEventsVersion": {
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CreateHookEventRequestIdPEventData"
+        }
+      },
+      "description": "CreateHookEventRequest to be used to store okta event in persistent storage."
+    },
+    "v1CreateHookEventResponse": {
+      "type": "object"
+    },
+    "v1CreateOrganizationRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Organization name."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "v1CreateOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "$ref": "#/definitions/v1Organization"
+        }
+      }
+    },
+    "v1DeleteOrganizationResponse": {
+      "type": "object"
+    },
+    "v1DistributionMethod": {
+      "type": "string",
+      "enum": [
+        "DISTRIBUTION_METHOD_INVALID",
+        "DOCKER",
+        "OVF",
+        "AMI",
+        "AZURE",
+        "DO"
+      ],
+      "default": "DISTRIBUTION_METHOD_INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - DISTRIBUTION_METHOD_INVALID: DISTRIBUTION_METHOD_INVALID represents unknown distribution method.\n - DOCKER: DOCKER represents Docker distribution method.\n - OVF: OVF represents Open Virtualization Format / Open Virtual Appliance distribution method.\n - AMI: AMI represents Amazon Machine Image distribution method.\n - AZURE: AZURE represents Azure distribution method.\n - DO: DO represents Digital Ocean distribution method."
+    },
+    "v1GetAllAdvisorsRequest": {
+      "type": "object"
+    },
+    "v1GetAllAdvisorsResponse": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "List of advisors in YAML format."
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File signatures."
+        }
+      }
+    },
+    "v1GetAllAlertRuleTemplatesRequest": {
+      "type": "object"
+    },
+    "v1GetAllAlertRuleTemplatesResponse": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "List of alert rule templates in YAML format."
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File signatures."
+        }
+      }
+    },
+    "v1GetAllChecksRequest": {
+      "type": "object"
+    },
+    "v1GetAllChecksResponse": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "List of advisor checks in YAML format."
+        },
+        "signatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File signatures."
+        }
+      }
+    },
+    "v1GetCivoClusterStatusResponse": {
+      "type": "object",
+      "properties": {
+        "clusterId": {
+          "type": "string",
+          "description": "ID of the Civo cluster."
+        },
+        "status": {
+          "type": "string",
+          "description": "Current status of the cluster."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp at which the cluster was created."
+        },
+        "dailyLimitEndsAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp at which the user can create another cluster.\nThis value is created_at + 24 hours."
+        },
+        "pmmDemoUrl": {
+          "type": "string",
+          "description": "Public address of the PMM instance created in the cluster."
+        },
+        "failed": {
+          "type": "boolean",
+          "description": "Indicates if the cluster creation has failed.\nIt would be more flexible to have this field as an enum that shows the process health (InProgress, Failed, etc),\nbut since it's not clear how long will the feature stay, decided to stick with the bool value."
+        }
+      }
+    },
+    "v1GetCivoKubeconfigResponse": {
+      "type": "object",
+      "properties": {
+        "kubeconfig": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "$ref": "#/definitions/v1Organization"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        }
+      }
+    },
+    "v1GetProfileRequest": {
+      "type": "object"
+    },
+    "v1GetProfileResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
+    "v1GetRoleByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "orgId": {
+          "type": "string",
+          "description": "Percona Portal organization id."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal organization role of the member."
+        }
+      }
+    },
+    "v1Inventory": {
+      "type": "object",
+      "properties": {
+        "pmmServerId": {
+          "type": "string",
+          "title": "PMM Server ID"
+        },
+        "pmmServerName": {
+          "type": "string",
+          "description": "User-defined, human-readable PMM Server name."
+        },
+        "pmmServerUrl": {
+          "type": "string",
+          "description": "PMM Server address accessible to the users."
+        }
+      }
+    },
+    "v1InviteMemberResponse": {
+      "type": "object"
+    },
+    "v1InviteMembersResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InviteMembersResponseError"
+          }
+        }
+      }
+    },
+    "v1ListAuditEventTypesResponse": {
+      "type": "object",
+      "properties": {
+        "actionTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "list of known action_types."
+        },
+        "objectTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "list of known action_types."
+        }
+      },
+      "title": "ListAuditEventTypesResponse lists known events and objects types"
+    },
+    "v1ListAuditEventsRequest": {
+      "type": "object",
+      "properties": {
+        "fsp": {
+          "$ref": "#/definitions/fspFilteringSortingPagination",
+          "description": "fsp used for filtering/sorting/paginating the request. Optional param."
+        }
+      },
+      "description": "ListAuditEventsRequest to view events that were previously saved."
+    },
+    "v1ListAuditEventsResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AuditEvent"
+          },
+          "description": "list of events."
+        },
+        "pageTotals": {
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
+        }
+      },
+      "description": "ListAuditEventsResponse lists stored events."
+    },
+    "v1OnboardMemberRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User's email."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User's last name."
+        },
+        "admin": {
+          "type": "boolean",
+          "description": "If user is org admin flag."
+        },
+        "technical": {
+          "type": "boolean",
+          "description": "If user is a technical user flag."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "If user is active in ServiceNow flag."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date when user was created in ServiceNow."
+        },
+        "account": {
+          "$ref": "#/definitions/v1ServiceNowAccount",
+          "description": "Information about ServiceNow account (org) of this user."
+        }
+      }
+    },
+    "v1OnboardMemberResponse": {
+      "type": "object",
+      "properties": {
+        "platformOrgId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Percona Portal organization ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Percona Portal organization name."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the organization was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the organization was last updated."
+        },
+        "tier": {
+          "$ref": "#/definitions/v1Tier",
+          "description": "Tier of the client linked to the organization."
+        }
+      }
+    },
+    "v1OrganizationEntitlement": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "description": "Entitlement number."
+        },
+        "name": {
+          "type": "string",
+          "description": "Entitlement name."
+        },
+        "summary": {
+          "type": "string",
+          "description": "Entitlement short summary."
+        },
+        "tier": {
+          "type": "string",
+          "description": "Entitlement tier."
+        },
+        "totalUnits": {
+          "type": "string",
+          "description": "Total units covered by this entitlement."
+        },
+        "unlimitedUnits": {
+          "type": "boolean",
+          "description": "Flag indicates that unlimited units are covered."
+        },
+        "supportLevel": {
+          "type": "string",
+          "description": "Support level covered by this entitlement."
+        },
+        "softwareFamilies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Percona product families covered by this entitlement."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Entitlement start data.\nNote: only date is used here but not time."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Entitlement end date.\nNote: only date is used here but not time."
+        },
+        "platform": {
+          "$ref": "#/definitions/OrganizationEntitlementPlatform",
+          "description": "Platform-specific options covered by this entitlement."
+        }
+      },
+      "description": "Contains information about the organization entitlement."
+    },
+    "v1OrganizationMember": {
+      "type": "object",
+      "properties": {
+        "memberId": {
+          "type": "string",
+          "description": "Percona Portal member UUID."
+        },
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username of the organization member."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the organization member."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the organization member."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal organization role of the member."
+        },
+        "status": {
+          "type": "string",
+          "description": "Okta Account Status of the organization member."
+        }
+      }
+    },
+    "v1OrganizationTicket": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "description": "Ticket number."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "Ticket short description."
+        },
+        "priority": {
+          "type": "string",
+          "description": "Ticket priority."
+        },
+        "state": {
+          "type": "string",
+          "description": "Ticket state."
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Ticket creation time."
+        },
+        "department": {
+          "type": "string",
+          "description": "Department."
+        },
+        "requester": {
+          "type": "string",
+          "description": "Ticket requester."
+        },
+        "taskType": {
+          "type": "string",
+          "description": "Task type."
+        },
+        "url": {
+          "type": "string",
+          "description": "Ticket URL."
+        }
+      },
+      "description": "Contains information about the ticket."
+    },
+    "v1PMMMetricEvent": {
+      "type": "object",
+      "properties": {
+        "pmmServerTelemetryId": {
+          "type": "string",
+          "description": "PMM Server UUID."
+        },
+        "portalOrgId": {
+          "type": "string",
+          "description": "Portal Organization UUID (Can be empty)."
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was created and received."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMServerMetric"
+          },
+          "description": "Array of server metrics requested by the client."
+        }
+      },
+      "description": "PMMMetricEvent represents telemetry event containing metrics sent by PMM."
+    },
+    "v1PMMServerMetric": {
+      "type": "object",
+      "properties": {
+        "metricName": {
+          "type": "string",
+          "description": "Name of the metric requested by the client."
+        },
+        "metricValue": {
+          "type": "string",
+          "description": "Value of the metric requested by the client."
+        }
+      }
+    },
+    "v1PMMServerSSODetails": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        },
+        "issuerUrl": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "grafanaClientId": {
+          "type": "string"
+        },
+        "pmmManagedClientId": {
+          "type": "string"
+        },
+        "pmmManagedClientSecret": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ReactivateMemberResponse": {
+      "type": "object"
+    },
+    "v1RefreshSessionRequest": {
+      "type": "object"
+    },
+    "v1RefreshSessionResponse": {
+      "type": "object",
+      "properties": {
+        "expireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Session expiration time."
+        },
+        "email": {
+          "type": "string",
+          "description": "User email."
+        }
+      }
+    },
+    "v1ReportRequest": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/reporterv1Event"
+          },
+          "description": "One or more events to report."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1ServerMetric"
+          },
+          "description": "One or more metrics events to report.\nOnly 'events' or 'metrics' field must be set."
+        }
+      }
+    },
+    "v1ReportResponse": {
+      "type": "object"
+    },
+    "v1ResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email."
+        }
+      }
+    },
+    "v1ResetPasswordResponse": {
+      "type": "object"
+    },
+    "v1SearchEventRequest": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of metrics requested by the client."
+        },
+        "startsAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time range of events to search between."
+        },
+        "endsAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pageParams": {
+          "$ref": "#/definitions/fspPageParams"
+        }
+      }
+    },
+    "v1SearchEventResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PMMMetricEvent"
+          },
+          "description": "PMM metric events."
+        },
+        "pageTotals": {
+          "$ref": "#/definitions/fspPageTotals",
+          "description": "pagination details."
+        }
+      }
+    },
+    "v1SearchInventoryResponse": {
+      "type": "object",
+      "properties": {
+        "inventory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Inventory"
+          }
+        }
+      }
+    },
+    "v1SearchMembersResponse": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrganizationMember"
+          }
+        }
+      }
+    },
+    "v1SearchOrganizationEntitlementsResponse": {
+      "type": "object",
+      "properties": {
+        "entitlements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrganizationEntitlement"
+          }
+        }
+      }
+    },
+    "v1SearchOrganizationTicketsResponse": {
+      "type": "object",
+      "properties": {
+        "tickets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrganizationTicket"
+          },
+          "description": "Organization tickets matching the request."
+        }
+      }
+    },
+    "v1SearchOrganizationsRequest": {
+      "type": "object"
+    },
+    "v1SearchOrganizationsResponse": {
+      "type": "object",
+      "properties": {
+        "orgs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Organization"
+          }
+        }
+      }
+    },
+    "v1SearchUserCompanyResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Percona Customer name."
+        }
+      }
+    },
+    "v1SearchUserProfileRequest": {
+      "type": "object",
+      "properties": {
+        "oktaUserId": {
+          "type": "string",
+          "description": "Okta user ID whose profile is requested."
+        }
+      }
+    },
+    "v1SearchUserProfileResponse": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username which is the user's primary email."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "primaryEmail": {
+          "type": "string",
+          "description": "User primary email."
+        },
+        "secondaryEmail": {
+          "type": "string",
+          "description": "User secondary email."
+        },
+        "mobilePhone": {
+          "type": "string",
+          "description": "User mobile phone number."
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
+    "v1ServerMetric": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "byte",
+          "description": "Event UUID."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was received by the sender."
+        },
+        "pmmServerTelemetryId": {
+          "type": "string",
+          "format": "byte",
+          "description": "PMM Server unique Telemetry identifier.\nMandatory."
+        },
+        "pmmServerVersion": {
+          "type": "string",
+          "description": "PMM Server version.\nMandatory."
+        },
+        "upDuration": {
+          "type": "string",
+          "description": "PMM Server uptime.\nMandatory."
+        },
+        "distributionMethod": {
+          "$ref": "#/definitions/v1DistributionMethod",
+          "description": "PMM Server distribution method.\nMandatory."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServerMetricMetric"
+          },
+          "description": "PMM server metrics collection.\nOptional."
+        }
+      },
+      "description": "ServerMetrics contains PMM Server metrics.\nThere are mandatory metrics and optional metric pairs.\nThe exact metrics pairs (metric name, metric value) is defined by PMM Server."
+    },
+    "v1ServiceNowAccount": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "$ref": "#/definitions/v1AccountIDs"
+        },
+        "active": {
+          "type": "boolean",
+          "description": "If account (org) is active."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of an account (org)."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Date when account was created in ServiceNow."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Date when account was last updated in ServiceNow."
+        }
+      },
+      "description": "ServiceNowAccount describes an account (organization) in ServiceNow."
+    },
+    "v1SignInRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email."
+        },
+        "password": {
+          "type": "string",
+          "description": "User password."
+        }
+      }
+    },
+    "v1SignInResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "description": "Session ID."
+        },
+        "expireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Session expiration time."
+        },
+        "tokenType": {
+          "type": "string",
+          "description": "OAuth token type."
+        },
+        "expiresIn": {
+          "type": "integer",
+          "format": "int32",
+          "description": "OAuth token expiration period (sec).\nThis field is applicable to access_token only."
+        },
+        "accessToken": {
+          "type": "string",
+          "description": "OAuth token."
+        }
+      }
+    },
+    "v1SignOutRequest": {
+      "type": "object"
+    },
+    "v1SignOutResponse": {
+      "type": "object"
+    },
+    "v1SignUpRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User email."
+        },
+        "password": {
+          "type": "string",
+          "description": "User password."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        }
+      }
+    },
+    "v1SignUpResponse": {
+      "type": "object"
+    },
+    "v1Tier": {
+      "type": "string",
+      "enum": [
+        "INVALID",
+        "REGISTERED",
+        "PAID"
+      ],
+      "default": "INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - INVALID: INVALID used for unsupported values.\n - REGISTERED: REGISTERED represents account that is registered on Portal.\n - PAID: PAID represents paid account."
+    },
+    "v1UpdateMemberResponse": {
+      "type": "object",
+      "properties": {
+        "member": {
+          "$ref": "#/definitions/v1OrganizationMember"
+        }
+      }
+    },
+    "v1UpdateOrganizationResponse": {
+      "type": "object",
+      "properties": {
+        "org": {
+          "$ref": "#/definitions/v1Organization"
+        }
+      }
+    },
+    "v1UpdateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "User first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User last name."
+        },
+        "tos": {
+          "type": "boolean",
+          "title": "Flag shows if the Terms of Service are accepted"
+        },
+        "marketing": {
+          "type": "boolean",
+          "title": "Flag shows if the Marketing consent is given"
+        }
+      }
+    },
+    "v1UpdateProfileResponse": {
+      "type": "object"
+    },
+    "v1ValidateHookEventResponse": {
+      "type": "object",
+      "properties": {
+        "verification": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ValidateTokenRequest": {
+      "type": "object",
+      "properties": {
+        "activationToken": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ValidateTokenResponse": {
+      "type": "object",
+      "properties": {
+        "stateToken": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
+  }
+}

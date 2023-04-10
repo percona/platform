@@ -2,6 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Auth API",
+    "description": "API for authed service.",
     "version": "version not set"
   },
   "tags": [

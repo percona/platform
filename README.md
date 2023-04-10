@@ -21,3 +21,12 @@ The `/api` directory has a `buf.yaml` file to make our protofiles discoverable t
 By default buf downloads the latest version of the dependency, if you want a specific version you can pin a dependency using a commit hash or tag. [More info here](https://docs.buf.build/tour/add-a-dependency#pin-your-dependencies)
 
 The `buf.gen.yaml` file defines code generation options for all the protoc plugins used by the project. The `buf.work.yaml` file defines the buf workspace. Buf generates a single descriptor binary (named `platform.bin`) as opposed to individual descriptors for each API.
+
+### Swagger
+
+We use Swagger UI to serve API docs locally. To view the API docs do the following:
+- Checkout to your desired branch
+- Run `make serve`, this will run swagger UI using nginx on port 8080
+- Go to `localhost:8080` to view the API docs
+
+To update swagger you can run `make update-swagger` but make sure the url param in swagger-initializer.js file points to the locally generated swagger file. It should look like this `url: 'apidocs.swagger.json'`

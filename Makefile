@@ -21,6 +21,15 @@ gen-code:                                  ## Generate code
 	go generate ./...
 	go install ./...
 
+update-swagger:
+	cd swagger
+	curl https://codeload.github.com/swagger-api/swagger-ui/tar.gz/master | \
+	tar -xz --strip=2 -C ./swagger swagger-ui-master/dist
+	cd ..
+
+serve:                ## Serve API documentation with nginx
+	nginx -p . -c nginx/nginx.conf
+
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
 	bin/goimports -local github.com/percona-platform/platform -l -w .
