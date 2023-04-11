@@ -136,9 +136,9 @@
         ]
       }
     },
-    "/v1/check/advisors/{tier}": {
+    "/v1/check/advisors": {
       "get": {
-        "summary": "Get all advisors",
+        "summary": "Get all advisors info",
         "description": "Retrieves all advisors a user is entitled to according to the tier.",
         "operationId": "RetrievalAPI_GetAdvisorsInfo",
         "responses": {
@@ -157,10 +157,10 @@
         },
         "parameters": [
           {
-            "name": "tier",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "name": "limitByTier",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -203,7 +203,7 @@
         }
       }
     },
-    "v1Advisor": {
+    "v1AdvisorInfo": {
       "type": "object",
       "properties": {
         "name": {
@@ -221,12 +221,23 @@
         "checks": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/v1Check"
+            "$ref": "#/definitions/v1CheckInfo"
           }
         }
       }
     },
-    "v1Check": {
+    "v1Advisors": {
+      "type": "object",
+      "properties": {
+        "advisors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AdvisorInfo"
+          }
+        }
+      }
+    },
+    "v1CheckInfo": {
       "type": "object",
       "properties": {
         "name": {
@@ -237,31 +248,16 @@
         },
         "description": {
           "type": "string"
-        },
-        "interval": {
-          "type": "string"
         }
       }
     },
     "v1GetAdvisorsInfoResponse": {
       "type": "object",
       "properties": {
-        "anonymousAdvisors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Advisor"
-          }
-        },
-        "registeredAdvisors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Advisor"
-          }
-        },
-        "paidAdvisors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Advisor"
+        "advisors": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1Advisors"
           }
         }
       }

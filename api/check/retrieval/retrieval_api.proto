@@ -73,10 +73,10 @@ service RetrievalAPI {
   // GetAdvisorsInfo returns all available advisors information grouped by tiers.
   // It will only return advisors for a specific tier if requested by the client.
   rpc GetAdvisorsInfo(GetAdvisorsInfoRequest) returns (GetAdvisorsInfoResponse) {
-    option (google.api.http) = {get: "/v1/check/advisors/{tier}"};
+    option (google.api.http) = {get: "/v1/check/advisors"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Retrieves all advisors a user is entitled to according to the tier.";
-      summary: "Get all advisors";
+      summary: "Get all advisors info";
       consumes: ["application/json"];
       produces: ["application/json"];
     };
@@ -111,26 +111,27 @@ message GetAllAlertRuleTemplatesResponse {
 }
 
 message GetAdvisorsInfoRequest {
-  string tier = 1;
+  bool limit_by_tier = 1;
 }
 
 message GetAdvisorsInfoResponse {
-  repeated Advisor anonymous_advisors = 1;
-  repeated Advisor registered_advisors = 2;
-  repeated Advisor paid_advisors = 3;
+  map<string, Advisors> advisors = 1;
 }
 
-message Advisor {
+message Advisors {
+  repeated AdvisorInfo advisors = 1;
+}
+
+message AdvisorInfo {
   string name = 1;
   string summary = 2;
   string description = 3;
   string category = 4;
-  repeated Check checks = 5;
+  repeated CheckInfo checks = 5;
 }
 
-message Check {
+message CheckInfo {
   string name = 1;
   string summary = 2;
   string description = 3;
-  string interval = 4;
 }

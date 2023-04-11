@@ -40,30 +40,20 @@ func (this *GetAdvisorsInfoRequest) Validate() error {
 	return nil
 }
 func (this *GetAdvisorsInfoResponse) Validate() error {
-	for _, item := range this.AnonymousAdvisors {
+	// Validation of proto3 map<> fields is unsupported.
+	return nil
+}
+func (this *Advisors) Validate() error {
+	for _, item := range this.Advisors {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("AnonymousAdvisors", err)
-			}
-		}
-	}
-	for _, item := range this.RegisteredAdvisors {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("RegisteredAdvisors", err)
-			}
-		}
-	}
-	for _, item := range this.PaidAdvisors {
-		if item != nil {
-			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("PaidAdvisors", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Advisors", err)
 			}
 		}
 	}
 	return nil
 }
-func (this *Advisor) Validate() error {
+func (this *AdvisorInfo) Validate() error {
 	for _, item := range this.Checks {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
@@ -73,6 +63,6 @@ func (this *Advisor) Validate() error {
 	}
 	return nil
 }
-func (this *Check) Validate() error {
+func (this *CheckInfo) Validate() error {
 	return nil
 }
