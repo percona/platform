@@ -1221,3 +1221,67 @@ Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxm
 		})
 	}
 }
+
+func TestCheck_GetFamily(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name  string
+		check Check
+		want  Family
+	}{
+		{
+			name:  "version 1, mysql select",
+			check: Check{Version: 1, Type: MySQLSelect},
+			want:  MySQL,
+		},
+		{
+			name:  "version 1, mysql show",
+			check: Check{Version: 1, Type: MySQLShow},
+			want:  MySQL,
+		},
+		{
+			name:  "version 1, postgreSQL select",
+			check: Check{Version: 1, Type: PostgreSQLSelect},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 1, postgreSQL show",
+			check: Check{Version: 1, Type: PostgreSQLShow},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 1, mongoDB getParameter",
+			check: Check{Version: 1, Type: MongoDBGetParameter},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB buildInfo",
+			check: Check{Version: 1, Type: MongoDBBuildInfo},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getDiagnosticData",
+			check: Check{Version: 1, Type: MongoDBGetDiagnosticData},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getCmdLineOpts",
+			check: Check{Version: 1, Type: MongoDBGetCmdLineOpts},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getReplSetGetSatus",
+			check: Check{Version: 1, Type: MongoDBReplSetGetStatus},
+			want:  MongoDB,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			assert.Equalf(t, tt.want, tt.check.GetFamily(), "GetFamily()")
+		})
+	}
+}
