@@ -95,7 +95,7 @@
           "type": "string",
           "title": "Feedback rate determine if user is happy or not"
         },
-        "feedbackDescription": {
+        "description": {
           "type": "string",
           "title": "Feedback description from user"
         },
