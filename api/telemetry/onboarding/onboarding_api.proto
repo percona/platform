@@ -67,7 +67,7 @@ message FeedbackRequest {
   // Feedback description from user
   string feedback_description = 2;
   // PMM server ID
-  string pmm_server_id = 4;
+  string pmm_server_id = 3;
 }
 
 message FeedbackResponse {}
