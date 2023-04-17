@@ -91,17 +91,13 @@
     "v1FeedbackRequest": {
       "type": "object",
       "properties": {
-        "feedbackRate": {
+        "rate": {
           "type": "string",
           "title": "Feedback rate determine if user is happy or not"
         },
         "feedbackDescription": {
           "type": "string",
-          "title": "feedback description from user"
-        },
-        "feedbackDate": {
-          "type": "string",
-          "title": "date of feedback"
+          "title": "Feedback description from user"
         },
         "pmmServerId": {
           "type": "string",
@@ -109,8 +105,7 @@
         }
       },
       "required": [
-        "feedbackRate",
-        "feedbackDate"
+        "rate"
       ]
     },
     "v1FeedbackResponse": {

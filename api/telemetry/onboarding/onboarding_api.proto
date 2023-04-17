@@ -58,21 +58,14 @@ service OnboardingAPI {
 
 message FeedbackRequest {
   // Feedback rate determine if user is happy or not
-  string feedback_rate = 1 [
+  string rate = 1 [
     (validator.field) = {string_not_empty: true},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ['feedback_rate']
+      required: ['rate']
     }
   ];
-  // feedback description from user
+  // Feedback description from user
   string feedback_description = 2;
-  // date of feedback
-  string feedback_date = 3 [
-    (validator.field) = {string_not_empty: true},
-    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ['feedback_date']
-    }
-  ];
   // PMM server ID
   string pmm_server_id = 4;
 }

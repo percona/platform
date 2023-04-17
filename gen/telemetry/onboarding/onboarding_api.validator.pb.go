@@ -21,11 +21,8 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func (this *FeedbackRequest) Validate() error {
-	if this.FeedbackRate == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackRate", fmt.Errorf(`value '%v' must not be an empty string`, this.FeedbackRate))
-	}
-	if this.FeedbackDate == "" {
-		return github_com_mwitkow_go_proto_validators.FieldError("FeedbackDate", fmt.Errorf(`value '%v' must not be an empty string`, this.FeedbackDate))
+	if this.Rate == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Rate", fmt.Errorf(`value '%v' must not be an empty string`, this.Rate))
 	}
 	return nil
 }
