@@ -115,6 +115,7 @@ message GetAdvisorsInfoRequest {
 }
 
 message GetAdvisorsInfoResponse {
+  // List of advisors mapped to their respective tiers.
   map<string, Advisors> advisors = 1;
 }
 
