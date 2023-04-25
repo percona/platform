@@ -139,7 +139,7 @@
     "/v1/check/advisors": {
       "get": {
         "summary": "Get all advisors info",
-        "description": "Retrieves all advisors a user is entitled to according to the tier.",
+        "description": "Retrieves info about advisors. If `limit_by_tier` parameter is set result will contain info only about advisors a user is entitled to according to the tier.",
         "operationId": "RetrievalAPI_GetAdvisorsInfo",
         "responses": {
           "200": {
@@ -258,7 +258,8 @@
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/v1Advisors"
-          }
+          },
+          "description": "List of advisors mapped to their respective tiers."
         }
       }
     },

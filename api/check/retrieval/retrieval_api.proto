@@ -75,7 +75,7 @@ service RetrievalAPI {
   rpc GetAdvisorsInfo(GetAdvisorsInfoRequest) returns (GetAdvisorsInfoResponse) {
     option (google.api.http) = {get: "/v1/check/advisors"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Retrieves all advisors a user is entitled to according to the tier.";
+      description: "Retrieves info about advisors. If `limit_by_tier` parameter is set result will contain info only about advisors a user is entitled to according to the tier.";
       summary: "Get all advisors info";
       consumes: ["application/json"];
       produces: ["application/json"];
@@ -115,6 +115,7 @@ message GetAdvisorsInfoRequest {
 }
 
 message GetAdvisorsInfoResponse {
+  // List of advisors mapped to their respective tiers.
   map<string, Advisors> advisors = 1;
 }
 
