@@ -135,6 +135,44 @@
           "application/json"
         ]
       }
+    },
+    "/v1/check/advisors": {
+      "get": {
+        "summary": "Get all advisors info",
+        "description": "Retrieves info about advisors. If `limit_by_tier` parameter is set result will contain info only about advisors a user is entitled to according to the tier.",
+        "operationId": "RetrievalAPI_GetAdvisorsInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetAdvisorsInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limitByTier",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "RetrievalAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
     }
   },
   "definitions": {
@@ -163,6 +201,66 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "v1AdvisorInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1CheckInfo"
+          }
+        }
+      }
+    },
+    "v1Advisors": {
+      "type": "object",
+      "properties": {
+        "advisors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1AdvisorInfo"
+          }
+        }
+      }
+    },
+    "v1CheckInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetAdvisorsInfoResponse": {
+      "type": "object",
+      "properties": {
+        "advisors": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1Advisors"
+          },
+          "description": "List of advisors mapped to their respective tiers."
         }
       }
     },
