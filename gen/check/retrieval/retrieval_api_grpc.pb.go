@@ -29,6 +29,9 @@ type RetrievalAPIClient interface {
 	GetAllAdvisors(ctx context.Context, in *GetAllAdvisorsRequest, opts ...grpc.CallOption) (*GetAllAdvisorsResponse, error)
 	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(ctx context.Context, in *GetAllAlertRuleTemplatesRequest, opts ...grpc.CallOption) (*GetAllAlertRuleTemplatesResponse, error)
+	// GetAdvisorsInfo returns all available advisors information grouped by tiers.
+	// It will only return advisors for a specific tier if requested by the client.
+	GetAdvisorsInfo(ctx context.Context, in *GetAdvisorsInfoRequest, opts ...grpc.CallOption) (*GetAdvisorsInfoResponse, error)
 }
 
 type retrievalAPIClient struct {
@@ -66,6 +69,15 @@ func (c *retrievalAPIClient) GetAllAlertRuleTemplates(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *retrievalAPIClient) GetAdvisorsInfo(ctx context.Context, in *GetAdvisorsInfoRequest, opts ...grpc.CallOption) (*GetAdvisorsInfoResponse, error) {
+	out := new(GetAdvisorsInfoResponse)
+	err := c.cc.Invoke(ctx, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RetrievalAPIServer is the server API for RetrievalAPI service.
 // All implementations must embed UnimplementedRetrievalAPIServer
 // for forward compatibility
@@ -76,6 +88,9 @@ type RetrievalAPIServer interface {
 	GetAllAdvisors(context.Context, *GetAllAdvisorsRequest) (*GetAllAdvisorsResponse, error)
 	// GetAllAlertRuleTemplates returns all available alert rule templates.
 	GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error)
+	// GetAdvisorsInfo returns all available advisors information grouped by tiers.
+	// It will only return advisors for a specific tier if requested by the client.
+	GetAdvisorsInfo(context.Context, *GetAdvisorsInfoRequest) (*GetAdvisorsInfoResponse, error)
 	mustEmbedUnimplementedRetrievalAPIServer()
 }
 
@@ -91,6 +106,9 @@ func (UnimplementedRetrievalAPIServer) GetAllAdvisors(context.Context, *GetAllAd
 }
 func (UnimplementedRetrievalAPIServer) GetAllAlertRuleTemplates(context.Context, *GetAllAlertRuleTemplatesRequest) (*GetAllAlertRuleTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAlertRuleTemplates not implemented")
+}
+func (UnimplementedRetrievalAPIServer) GetAdvisorsInfo(context.Context, *GetAdvisorsInfoRequest) (*GetAdvisorsInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdvisorsInfo not implemented")
 }
 func (UnimplementedRetrievalAPIServer) mustEmbedUnimplementedRetrievalAPIServer() {}
 
@@ -159,6 +177,24 @@ func _RetrievalAPI_GetAllAlertRuleTemplates_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RetrievalAPI_GetAdvisorsInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdvisorsInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RetrievalAPIServer).GetAdvisorsInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RetrievalAPIServer).GetAdvisorsInfo(ctx, req.(*GetAdvisorsInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RetrievalAPI_ServiceDesc is the grpc.ServiceDesc for RetrievalAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -177,6 +213,10 @@ var RetrievalAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllAlertRuleTemplates",
 			Handler:    _RetrievalAPI_GetAllAlertRuleTemplates_Handler,
+		},
+		{
+			MethodName: "GetAdvisorsInfo",
+			Handler:    _RetrievalAPI_GetAdvisorsInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
