@@ -20,14 +20,14 @@ require (
 	github.com/percona/promconfig v0.2.5
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	go.starlark.net v0.0.0-20210312235212-74c10e2c17dc
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.7.0
 	golang.org/x/sys v0.6.0
 	google.golang.org/genproto v0.0.0-20230223222841-637eb2293923
 	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.30.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.5.1
 	gopkg.in/yaml.v3 v3.0.1
