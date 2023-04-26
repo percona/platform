@@ -14,7 +14,7 @@ require (
 	github.com/reviewdog/reviewdog v0.14.1
 	golang.org/x/tools v0.7.0
 	google.golang.org/grpc v1.53.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.30.0
 	mvdan.cc/gofumpt v0.4.0
 )
