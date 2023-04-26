@@ -207,6 +207,7 @@
         "events": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/IdPEventDataEvent"
           }
         }
@@ -363,6 +364,7 @@
         "filters": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/fspFilter"
           },
           "description": "filters are optional. No filters will be applied if absent. If multiple provided - will be joined using AND logic."
@@ -463,6 +465,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -519,6 +522,7 @@
         "objects": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1AuditObject"
           },
           "description": "The information about affected objects in the system."
@@ -624,6 +628,7 @@
         "events": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1AuditEvent"
           },
           "description": "list of events."
