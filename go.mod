@@ -20,7 +20,7 @@ require (
 	github.com/percona/promconfig v0.2.5
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	go.starlark.net v0.0.0-20210312235212-74c10e2c17dc
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.7.0
