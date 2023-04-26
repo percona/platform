@@ -145,7 +145,7 @@ func oktaAPIRequest(oktaClient *okta.Client, method, path string, body, v interf
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close() //nolint:errcheck
+	defer closeResponseBody(resp)
 
 	return err
 }
