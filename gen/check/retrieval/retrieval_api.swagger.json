@@ -198,6 +198,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -221,6 +222,7 @@
         "checks": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1CheckInfo"
           }
         }
@@ -232,6 +234,7 @@
         "advisors": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1AdvisorInfo"
           }
         }
