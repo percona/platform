@@ -13,7 +13,7 @@ require (
 	github.com/quasilyte/go-consistent v0.0.0-20200404105227-766526bf1e96
 	github.com/reviewdog/reviewdog v0.14.1
 	golang.org/x/tools v0.7.0
-	google.golang.org/grpc v1.53.0
+	google.golang.org/grpc v1.54.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.30.0
 	mvdan.cc/gofumpt v0.4.0
