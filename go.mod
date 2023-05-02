@@ -5,7 +5,7 @@ go 1.20
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/Masterminds/squirrel v1.5.3
+	github.com/Masterminds/squirrel v1.5.4
 	github.com/aws/aws-sdk-go v1.44.250
 	github.com/brianvoe/gofakeit/v6 v6.21.0
 	github.com/golang/protobuf v1.5.3
