@@ -91,8 +91,8 @@
     "v1FeedbackRequest": {
       "type": "object",
       "properties": {
-        "rate": {
-          "type": "string",
+        "rating": {
+          "$ref": "#/definitions/v1RatingType",
           "title": "Feedback rate determine if user is happy or not"
         },
         "description": {
@@ -110,6 +110,17 @@
     },
     "v1FeedbackResponse": {
       "type": "object"
+    },
+    "v1RatingType": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "BAD",
+        "FAIR",
+        "GOOD"
+      ],
+      "default": "UNDEFINED",
+      "description": "RatingType represents type of user rating their experience with PMM.\n\n - UNDEFINED: Unsupported value, should not be used directly.\n - BAD: Negative experience with PMM.\n - FAIR: An avarage experience with PMM.\n - GOOD: Positive experience with PMM."
     }
   },
   "x-readme": {

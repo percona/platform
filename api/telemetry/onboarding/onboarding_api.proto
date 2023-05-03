@@ -30,6 +30,18 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   }
 };
 
+// RatingType represents type of user rating their experience with PMM.
+enum RatingType {
+  // Unsupported value, should not be used directly.
+  UNDEFINED = 0;
+  // Negative experience with PMM.
+  BAD = 1;
+  // An avarage experience with PMM.
+  FAIR = 5;
+  // Positive experience with PMM.
+  GOOD = 10;
+}
+
 // OnboardingAPI describes server API for onboarding telemetry events.
 service OnboardingAPI {
   // Feedback rate about PMM product
@@ -58,7 +70,7 @@ service OnboardingAPI {
 
 message FeedbackRequest {
   // Feedback rate determine if user is happy or not
-  string rate = 1 [
+  RatingType rating = 1 [
     (validator.field) = {string_not_empty: true},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       required: ['rate']
