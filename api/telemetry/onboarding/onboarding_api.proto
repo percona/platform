@@ -73,13 +73,13 @@ message FeedbackRequest {
   RatingType rating = 1 [
     (validator.field) = {string_not_empty: true},
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      required: ['rate']
+      required: ['rating']
     }
   ];
   // Feedback description from user
   string description = 2;
   // PMM server ID
-  string pmm_server_id = 3;
+  string pmm_server_id = 3 [(validator.field) = {string_not_empty: true}];
 }
 
 message FeedbackResponse {}

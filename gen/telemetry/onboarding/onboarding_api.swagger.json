@@ -105,7 +105,7 @@
         }
       },
       "required": [
-        "rate"
+        "rating"
       ]
     },
     "v1FeedbackResponse": {
