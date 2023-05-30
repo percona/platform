@@ -104,7 +104,7 @@ func (r *Template) validateParams() error {
 	var err error
 	for _, param := range r.Params {
 		if err = param.Validate(); err != nil {
-			return err
+			return errors.Wrapf(err, "parameter '%s' is invalid", param.Name)
 		}
 	}
 
