@@ -427,7 +427,7 @@ func validateQuery(typ Type, query string) error { //nolint:cyclop
 }
 
 func validateQueryParameters(typ Type, params map[Parameter]string) error { //nolint:cyclop
-	switch typ {
+	switch typ { //nolint:exhaustive
 	case PostgreSQLShow:
 		fallthrough
 	case MongoDBGetParameter:
@@ -497,7 +497,7 @@ func validateParametersForMetricsRangeQuery(params map[Parameter]string) error {
 	}
 
 	for param, value := range params {
-		switch param {
+		switch param { //nolint:exhaustive
 		case Lookback, Range, Step:
 			if _, err := time.ParseDuration(value); err != nil {
 				return errors.Wrapf(err, "failed to parse '%s' parameter value %s, it should be a duration", param, value)
@@ -574,7 +574,7 @@ func checkQueryForCompatibilityWithPostgreSQLFamily(queries []Query) error {
 	return nil
 }
 
-func checkQueryCompatibilityWithMongoDBFamily(queries []Query) error {
+func checkQueryCompatibilityWithMongoDBFamily(queries []Query) error { //nolint:cyclop
 	for _, q := range queries {
 		switch q.Type { //nolint:exhaustive
 		case MongoDBGetParameter:

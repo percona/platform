@@ -1107,9 +1107,15 @@ func (c *Client) DoRequest(ctx context.Context, method, path string, body, v int
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close() //nolint:errcheck
+	defer closeResponseBody(resp)
 
 	return err
+}
+
+func closeResponseBody(resp *okta.Response) {
+	if resp != nil && resp.Body != nil {
+		_ = resp.Body.Close()
+	}
 }
 
 func getValue[T string | bool](profile okta.UserProfile, fieldName string) (*T, error) {
