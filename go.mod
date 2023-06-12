@@ -24,7 +24,7 @@ require (
 	go.starlark.net v0.0.0-20230302034142-4b1e35fe2254
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.9.0
-	golang.org/x/sys v0.8.0
+	golang.org/x/sys v0.9.0
 	google.golang.org/genproto v0.0.0-20230526203410-71b5a4ffd15e // indirect
 	google.golang.org/grpc v1.55.0
 	google.golang.org/protobuf v1.30.0
