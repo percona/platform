@@ -1288,6 +1288,26 @@ func TestCheck_GetFamily(t *testing.T) {
 			check: Check{Version: 1, Type: MongoDBReplSetGetStatus},
 			want:  MongoDB,
 		},
+		{
+			name:  "version1, empty family for invalid check",
+			check: Check{Version: 1, Type: ClickHouseSelect},
+			want:  "",
+		},
+		{
+			name:  "version 2, mySQL",
+			check: Check{Version: 2, Family: MySQL},
+			want:  MySQL,
+		},
+		{
+			name:  "version 2, postgreSQL",
+			check: Check{Version: 2, Family: PostgreSQL},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 2, mongoDB",
+			check: Check{Version: 2, Family: MongoDB},
+			want:  MongoDB,
+		},
 	}
 	for _, tt := range tests {
 		tt := tt
