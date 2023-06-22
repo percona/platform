@@ -146,7 +146,7 @@ const (
 // Type represents query type.
 type Type string
 
-// Validate validates query type for format V1.
+// Validate validates query type.
 func (t Type) Validate() error {
 	switch t {
 	case MySQLShow, MySQLSelect, PostgreSQLShow, PostgreSQLSelect,
