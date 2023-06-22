@@ -27,7 +27,7 @@ checks:
 
   - version: 1
     name: postgresql_check
-    summary: MYSQL Check
+    summary: PostgreSQL Check
     description: Description of check.
     advisor: test_advisor
     type: POSTGRESQL_SELECT
@@ -536,6 +536,19 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "advisor name is missing",
+		}, {
+			name: "unsupported query type for V1",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Advisor:     "test_advisor",
+				Type:        MetricsInstant,
+				Query:       "instant query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "check type 'METRICS_INSTANT' is not supprted in V1",
 		}, {
 			name: "mysql family check v2",
 			check: &Check{
