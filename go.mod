@@ -6,32 +6,34 @@ go 1.20
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
-	github.com/aws/aws-sdk-go v1.44.259
-	github.com/brianvoe/gofakeit/v6 v6.21.0
+	github.com/aws/aws-sdk-go v1.44.281
+	github.com/brianvoe/gofakeit/v6 v6.22.0
 	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/okta/okta-sdk-golang/v2 v2.18.0
+	github.com/okta/okta-sdk-golang/v2 v2.19.0
 	github.com/percona/promconfig v0.2.5
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.15.1
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.4
 	go.starlark.net v0.0.0-20230302034142-4b1e35fe2254
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.9.0
-	golang.org/x/sys v0.8.0
-	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1
+	golang.org/x/sys v0.9.0
+	google.golang.org/genproto v0.0.0-20230526203410-71b5a4ffd15e // indirect
 	google.golang.org/grpc v1.55.0
 	google.golang.org/protobuf v1.30.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.5.1
 	gopkg.in/yaml.v3 v3.0.1
 )
+
+require google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
@@ -56,5 +58,6 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )
