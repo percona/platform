@@ -7,7 +7,7 @@ go 1.20
 require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/aws/aws-sdk-go v1.44.299
-	github.com/brianvoe/gofakeit/v6 v6.22.0
+	github.com/brianvoe/gofakeit/v6 v6.23.0
 	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
