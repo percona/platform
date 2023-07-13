@@ -27,7 +27,7 @@ checks:
 
   - version: 1
     name: postgresql_check
-    summary: MYSQL Check
+    summary: PostgreSQL Check
     description: Description of check.
     advisor: test_advisor
     type: POSTGRESQL_SELECT
@@ -536,6 +536,19 @@ func TestCheck_CheckValidate(t *testing.T) {
 				Script:      "def func(args): pass",
 			},
 			errStr: "advisor name is missing",
+		}, {
+			name: "unsupported query type for V1",
+			check: &Check{
+				Version:     1,
+				Name:        "test_check",
+				Summary:     "Test Check",
+				Description: "Check Description",
+				Advisor:     "test_advisor",
+				Type:        MetricsInstant,
+				Query:       "instant query",
+				Script:      "def func(args): pass",
+			},
+			errStr: "check type 'METRICS_INSTANT' is not supprted in V1",
 		}, {
 			name: "mysql family check v2",
 			check: &Check{
@@ -1218,6 +1231,90 @@ Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxm
 			} else {
 				assert.NoError(t, err)
 			}
+		})
+	}
+}
+
+func TestCheck_GetFamily(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name  string
+		check Check
+		want  Family
+	}{
+		{
+			name:  "version 1, mysql select",
+			check: Check{Version: 1, Type: MySQLSelect},
+			want:  MySQL,
+		},
+		{
+			name:  "version 1, mysql show",
+			check: Check{Version: 1, Type: MySQLShow},
+			want:  MySQL,
+		},
+		{
+			name:  "version 1, postgreSQL select",
+			check: Check{Version: 1, Type: PostgreSQLSelect},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 1, postgreSQL show",
+			check: Check{Version: 1, Type: PostgreSQLShow},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 1, mongoDB getParameter",
+			check: Check{Version: 1, Type: MongoDBGetParameter},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB buildInfo",
+			check: Check{Version: 1, Type: MongoDBBuildInfo},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getDiagnosticData",
+			check: Check{Version: 1, Type: MongoDBGetDiagnosticData},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getCmdLineOpts",
+			check: Check{Version: 1, Type: MongoDBGetCmdLineOpts},
+			want:  MongoDB,
+		},
+		{
+			name:  "version 1, mongoDB getReplSetGetSatus",
+			check: Check{Version: 1, Type: MongoDBReplSetGetStatus},
+			want:  MongoDB,
+		},
+		{
+			name:  "version1, empty family for invalid check",
+			check: Check{Version: 1, Type: ClickHouseSelect},
+			want:  "",
+		},
+		{
+			name:  "version 2, mySQL",
+			check: Check{Version: 2, Family: MySQL},
+			want:  MySQL,
+		},
+		{
+			name:  "version 2, postgreSQL",
+			check: Check{Version: 2, Family: PostgreSQL},
+			want:  PostgreSQL,
+		},
+		{
+			name:  "version 2, mongoDB",
+			check: Check{Version: 2, Family: MongoDB},
+			want:  MongoDB,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			assert.Equalf(t, tt.want, tt.check.GetFamily(), "GetFamily()")
 		})
 	}
 }
