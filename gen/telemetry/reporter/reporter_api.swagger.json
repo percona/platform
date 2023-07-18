@@ -167,6 +167,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -243,6 +244,7 @@
         "metrics": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1PMMServerMetric"
           },
           "description": "Array of server metrics requested by the client."
@@ -269,6 +271,7 @@
         "events": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Event"
           },
           "description": "One or more events to report."
@@ -276,6 +279,7 @@
         "metrics": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1ServerMetric"
           },
           "description": "One or more metrics events to report.\nOnly 'events' or 'metrics' field must be set."
@@ -315,6 +319,7 @@
         "events": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1PMMMetricEvent"
           },
           "description": "PMM metric events."
@@ -358,6 +363,7 @@
         "metrics": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/ServerMetricMetric"
           },
           "description": "PMM server metrics collection.\nOptional."
