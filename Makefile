@@ -21,14 +21,14 @@ gen-code:                                  ## Generate code
 	go generate ./...
 	go install ./...
 
-update-swagger:
-	cd swagger
-	curl https://codeload.github.com/swagger-api/swagger-ui/tar.gz/master | \
-	tar -xz --strip=2 -C ./swagger swagger-ui-master/dist
-	cd ..
-
-serve:                ## Serve API documentation with nginx
-	nginx -p . -c nginx/nginx.conf
+swagger-ui                                 ## Serve API documentation with SwaggerUI
+	docker run -p 8080:8080 -e URLS='[ \
+		{name:"authed", url:"/gen/auth/auth_api.swagger.json"}, \
+		{name:"checked", url:"/gen/check/retrieval/retrieval_api.swagger.json"}, \
+		{name:"eventd", url:"/gen/event/event_api.swagger.json"}, \
+		{name:"orgd", url:"/gen/org/org_api.swagger.json"}, \
+		{name:"telemetryd", url:"/gen/telemetry/reporter/reporter_api.swagger.json"}, \
+]' -v ./gen:/usr/share/nginx/html/gen swaggerapi/swagger-ui
 
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
