@@ -21,7 +21,7 @@ gen-code:                                  ## Generate code
 	go generate ./...
 	go install ./...
 
-swagger-ui                                 ## Serve API documentation with SwaggerUI
+swagger-ui:                                ## Serve API documentation with SwaggerUI
 	docker run -p 8080:8080 -e URLS='[ \
 		{name:"authed", url:"/gen/auth/auth_api.swagger.json"}, \
 		{name:"checked", url:"/gen/check/retrieval/retrieval_api.swagger.json"}, \

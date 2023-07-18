@@ -26,7 +26,5 @@ The `buf.gen.yaml` file defines code generation options for all the protoc plugi
 
 We use Swagger UI to serve API docs locally. To view the API docs do the following:
 - Checkout to your desired branch
-- Run `make serve`, this will run swagger UI using nginx on port 8080
+- Run `make swagger-ui`, this will run swagger UI on the port 8080
 - Go to `localhost:8080` to view the API docs
-
-To update swagger you can run `make update-swagger` but make sure the url param in swagger-initializer.js file points to the locally generated swagger file. It should look like this `url: 'apidocs.swagger.json'`
