@@ -12,6 +12,30 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "utils/fsp/fsp.proto";
 
 option go_package = "/event;eventv1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Event API",
+    description: "API for eventd service.",
+  };
+  extensions: {
+    key: "x-readme";
+    value: {
+      struct_value: {
+        fields: {
+          key: "samples-languages"
+          value: {
+            list_value: {
+              values: {string_value: "curl"}
+              values: {string_value: "go"}
+              values: {string_value: "node"}
+              values: {string_value: "python"}
+            }
+          }
+        }
+      }
+    }
+  }
+};
 
 message ActionTypeMessage {
   // ActionType represents audit events' action types.

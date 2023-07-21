@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Organization API",
+    "title": "Org API",
+    "description": "API for orgd service.",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "OrgAPI",
-      "description": "Provides API to manage the organizations available for your Percona services."
+      "name": "OrgAPI"
     }
   ],
   "consumes": [
@@ -43,7 +43,7 @@
           }
         },
         "tags": [
-          "DBaaS helpers"
+          "Orgd DBaaS Helpers"
         ],
         "consumes": [
           "application/json"
@@ -74,7 +74,7 @@
           }
         },
         "tags": [
-          "DBaaS helpers"
+          "Orgd DBaaS Helpers"
         ],
         "consumes": [
           "application/json"
@@ -117,7 +117,7 @@
           }
         ],
         "tags": [
-          "DBaaS helpers"
+          "Orgd DBaaS Helpers"
         ],
         "consumes": [
           "application/json"
@@ -167,7 +167,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -202,7 +202,7 @@
           }
         },
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -254,7 +254,7 @@
           }
         ],
         "tags": [
-          "Inventory Management"
+          "Orgd Inventory Management"
         ],
         "consumes": [
           "application/json"
@@ -294,7 +294,7 @@
           }
         ],
         "tags": [
-          "Inventory Management"
+          "Orgd Inventory Management"
         ],
         "consumes": [
           "application/json"
@@ -346,7 +346,7 @@
           }
         ],
         "tags": [
-          "Inventory Management"
+          "Orgd Inventory Management"
         ],
         "consumes": [
           "application/json"
@@ -389,7 +389,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -438,7 +438,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -475,7 +475,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -538,7 +538,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -587,7 +587,7 @@
           }
         ],
         "tags": [
-          "Inventory Management"
+          "Orgd Inventory Management"
         ],
         "consumes": [
           "application/json"
@@ -644,7 +644,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -691,7 +691,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -759,7 +759,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -808,7 +808,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -879,7 +879,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -945,7 +945,7 @@
           }
         ],
         "tags": [
-          "Member Management"
+          "Orgd Member Management"
         ],
         "consumes": [
           "application/json"
@@ -1001,7 +1001,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -1080,7 +1080,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
@@ -1132,7 +1132,7 @@
           }
         ],
         "tags": [
-          "Organization Management"
+          "Orgd Organization Management"
         ],
         "consumes": [
           "application/json"
