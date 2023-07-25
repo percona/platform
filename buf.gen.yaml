@@ -33,3 +33,4 @@ plugins:
   - name: openapiv2
     out: gen
     path: bin/protoc-gen-openapiv2
+

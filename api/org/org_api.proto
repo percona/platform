@@ -11,7 +11,10 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "/org;orgv1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
-  info: {title: "Organization API"};
+  info: {
+    title: "Org API",
+    description: "API for orgd service.",
+  };
   extensions: {
     key: "x-readme";
     value: {
@@ -44,8 +47,6 @@ enum Tier {
 
 // OrgAPI provides API for organization management for Percona services.
 service OrgAPI {
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {description: "Provides API to manage the organizations available for your Percona services."};
-
   // CreateOrganization creates new organization with the given name and adds the user as org admin.
   rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
     option (google.api.http) = {
@@ -55,7 +56,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.";
       summary: "Create organization";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -79,7 +80,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Update organization info.";
       summary: "Update organization";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -100,7 +101,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Get organization info by ID.";
       summary: "Get organization info";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -124,7 +125,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search for organizations that the user is a member of.";
       summary: "Search organizations";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -145,7 +146,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Delete organization by ID.";
       summary: "Delete organization";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {key: "200"};
@@ -161,7 +162,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Invite users to the organization and specify their member roles.";
       summary: "Invite organization member";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {key: "200"};
@@ -177,7 +178,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.";
       summary: "Bulk invite organization members";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -201,7 +202,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search organization members.";
       summary: "Search organization members";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -225,7 +226,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Update organization member's role.";
       summary: "Update organization member";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -246,7 +247,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Delete member from organization.";
       summary: "Delete organization member";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {key: "200"};
@@ -259,7 +260,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Reactivates an organization member that has been in Pending state";
       summary: "ReactivateMember";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -280,7 +281,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
       summary: "Search organization entitlements";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -301,7 +302,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
       summary: "Search organization tickets";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -322,7 +323,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.";
       summary: "Search user company";
-      tags: "Organization Management";
+      tags: "Orgd Organization Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -345,7 +346,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Onboards a user to Platform.";
       summary: "Onboards a user to Platform.";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -374,7 +375,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Connect PMM Server to organization.";
       summary: "Connect PMM Server";
-      tags: "Inventory Management";
+      tags: "Orgd Inventory Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -396,7 +397,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Disconnect PMM Server from organization.";
       summary: "Disconnect PMM Server";
-      tags: "Inventory Management";
+      tags: "Orgd Inventory Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {key: "200"};
@@ -409,7 +410,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Search all PMM servers connected to an organization.";
       summary: "Search connected PMM Servers";
-      tags: "Inventory Management";
+      tags: "Orgd Inventory Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -429,7 +430,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Creates a kubernetes cluster on Civo that can be used to run DBaaS.";
       summary: "Create kubernetes cluster";
-      tags: "DBaaS helpers";
+      tags: "Orgd DBaaS Helpers";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -449,7 +450,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the status and ID of the CIVO cluster created by the current logged in user.";
       summary: "Get cluster status";
-      tags: "DBaaS helpers";
+      tags: "Orgd DBaaS Helpers";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -469,7 +470,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
       summary: "Get cluster kubeconfig";
-      tags: "DBaaS helpers";
+      tags: "Orgd DBaaS Helpers";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {
@@ -489,7 +490,7 @@ service OrgAPI {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
       summary: "Search organization member by UserID";
-      tags: "Member Management";
+      tags: "Orgd Member Management";
       consumes: ["application/json"];
       produces: ["application/json"];
       responses: {

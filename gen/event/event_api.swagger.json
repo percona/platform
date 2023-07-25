@@ -1,7 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "event/event_api.proto",
+    "title": "Event API",
+    "description": "API for eventd service.",
     "version": "version not set"
   },
   "tags": [
@@ -648,5 +649,13 @@
         }
       }
     }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
   }
 }

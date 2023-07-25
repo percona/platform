@@ -21,6 +21,15 @@ gen-code:                                  ## Generate code
 	go generate ./...
 	go install ./...
 
+swagger-ui:                                ## Serve API documentation with SwaggerUI
+	docker run -p 8081:8080 -e URLS='[ \
+		{name:"authed", url:"/gen/auth/auth_api.swagger.json"}, \
+		{name:"checked", url:"/gen/check/retrieval/retrieval_api.swagger.json"}, \
+		{name:"eventd", url:"/gen/event/event_api.swagger.json"}, \
+		{name:"orgd", url:"/gen/org/org_api.swagger.json"}, \
+		{name:"telemetryd", url:"/gen/telemetry/reporter/reporter_api.swagger.json"}, \
+]' -v ./gen:/usr/share/nginx/html/gen swaggerapi/swagger-ui
+
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
 	bin/goimports -local github.com/percona-platform/platform -l -w .
