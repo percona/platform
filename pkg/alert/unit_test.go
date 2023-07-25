@@ -26,7 +26,7 @@ func TestUnit_Validate(t *testing.T) {
 		},
 		{
 			name:   "empty",
-			unit:   Seconds,
+			unit:   Unit(""),
 			errStr: "",
 		},
 		{
