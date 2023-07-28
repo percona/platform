@@ -17,48 +17,45 @@ func TestTemplate_Parse(t *testing.T) {
 	t.Parallel()
 
 	document := strings.TrimSpace(`
----
 templates:
-  # adopted from https://awesome-prometheus-alerts.grep.to/rules#mysql 1.2
-  - version: 1
-    name: mysql_too_many_connections
-    summary: MySQL connections in use
-    tiers: [anonymous, registered]
-    expr: |-
-      max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)
-      mysql_global_variables_max_connections
-      * 100
-      > [[ .threshold ]]
-    params:
-      - name: threshold
-        summary: A percentage from configured maximum
-        unit: "%"
-        type: float
-        range: [0, 100]
-        value: 80
-      - name: duration
-        summary: A duration parameter for testing
-        unit: s
-        type: float
-      - name: boolean
-        summary: A boolean parameter for testing
-        type: bool
-        value: false
-      - name: string
-        summary: A string parameter for testing
-        type: string
-        value: foo
-    for: 5m
-    severity: warning
-    labels:
-      foo: bar
-    annotations:
-      summary: "MySQL too many connections (instance {{ $labels.instance }})"
-      description: |-
-        More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}
-        VALUE = {{ $value }}
-        LABELS: {{ $labels }}
-`)
+    - name: mysql_too_many_connections
+      version: 1
+      summary: MySQL connections in use
+      tiers: [anonymous, registered]
+      expr: |-
+        max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)
+        mysql_global_variables_max_connections
+        * 100
+        > [[ .threshold ]]
+      params:
+        - name: threshold
+          summary: A percentage from configured maximum
+          unit: '%'
+          type: float
+          range: [0, 100]
+          value: 80
+        - name: duration
+          summary: A duration parameter for testing
+          unit: s
+          type: float
+        - name: boolean
+          summary: A boolean parameter for testing
+          type: bool
+          value: false
+        - name: string
+          summary: A string parameter for testing
+          type: string
+          value: foo
+      for: 5m
+      severity: warning
+      labels:
+        foo: bar
+      annotations:
+        description: |-
+            More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}
+            VALUE = {{ $value }}
+            LABELS: {{ $labels }}
+        summary: MySQL too many connections (instance {{ $labels.instance }})`)
 
 	params := &ParseParams{
 		DisallowUnknownFields:    true,
@@ -124,6 +121,10 @@ templates:
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)
 	assert.Equal(t, "foo", sv)
+
+	nd, err := ToYAML(rs)
+	require.NoError(t, err)
+	assert.Equal(t, strings.TrimSpace(document), strings.TrimSpace(nd))
 }
 
 func TestTemplate_Validate(t *testing.T) {
@@ -287,7 +288,7 @@ func TestTemplate_Validate(t *testing.T) {
 		},
 		"duplicate tier: \"anonymous\"",
 	}, {
-		"normal",
+		"empty expression",
 		Template{
 			Name:    "some_name",
 			Version: 1,
@@ -308,6 +309,94 @@ func TestTemplate_Validate(t *testing.T) {
 			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
 		},
 		"template expression is empty",
+	}, {
+		"missing parameter name",
+		Template{
+			Name:    "some_name",
+			Version: 1,
+			Summary: "Some summary message",
+			Tiers:   []common.Tier{common.Anonymous},
+			Expr:    "some_expression[5m]",
+			Params: []Parameter{{
+				Name:    "",
+				Summary: "Some expression parameter",
+				Unit:    Seconds,
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
+			}},
+			For:         promconfig.Duration(10 * time.Minute),
+			Severity:    common.Warning,
+			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
+			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
+		},
+		"parameter '' is invalid: parameter name is empty",
+	}, {
+		"invalid parameter type",
+		Template{
+			Name:    "some_name",
+			Version: 1,
+			Summary: "Some summary message",
+			Tiers:   []common.Tier{common.Anonymous},
+			Expr:    "some_expression[5m]",
+			Params: []Parameter{{
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    Seconds,
+				Type:    "unknown",
+				Range:   []interface{}{10, 90},
+				Value:   50,
+			}},
+			For:         promconfig.Duration(10 * time.Minute),
+			Severity:    common.Warning,
+			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
+			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
+		},
+		"parameter 'param' is invalid: unhandled parameter type 'unknown'",
+	}, {
+		"parameter summary is empty",
+		Template{
+			Name:    "some_name",
+			Version: 1,
+			Summary: "Some summary message",
+			Tiers:   []common.Tier{common.Anonymous},
+			Expr:    "some_expression[5m]",
+			Params: []Parameter{{
+				Name:    "param",
+				Summary: "",
+				Unit:    Seconds,
+				Type:    "float",
+				Range:   []interface{}{10, 90},
+				Value:   50,
+			}},
+			For:         promconfig.Duration(10 * time.Minute),
+			Severity:    common.Warning,
+			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
+			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
+		},
+		"parameter 'param' is invalid: parameter summary is empty",
+	}, {
+		"missing parameter type",
+		Template{
+			Name:    "some_name",
+			Version: 1,
+			Summary: "Some summary message",
+			Tiers:   []common.Tier{common.Anonymous},
+			Expr:    "some_expression[5m]",
+			Params: []Parameter{{
+				Name:    "param",
+				Summary: "Some expression parameter",
+				Unit:    Seconds,
+				Type:    "",
+				Range:   []interface{}{10, 90},
+				Value:   50,
+			}},
+			For:         promconfig.Duration(10 * time.Minute),
+			Severity:    common.Warning,
+			Labels:      map[string]string{"label1": "foo", "label2": "bar"},
+			Annotations: map[string]string{"annotation1": "faz", "annotation2": "baz"},
+		},
+		"parameter 'param' is invalid: unhandled parameter type ''",
 	}, {
 		"invalid severity",
 		Template{
