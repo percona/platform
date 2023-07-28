@@ -17,48 +17,45 @@ func TestTemplate_Parse(t *testing.T) {
 	t.Parallel()
 
 	document := strings.TrimSpace(`
----
 templates:
-  # adopted from https://awesome-prometheus-alerts.grep.to/rules#mysql 1.2
-  - version: 1
-    name: mysql_too_many_connections
-    summary: MySQL connections in use
-    tiers: [anonymous, registered]
-    expr: |-
-      max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)
-      mysql_global_variables_max_connections
-      * 100
-      > [[ .threshold ]]
-    params:
-      - name: threshold
-        summary: A percentage from configured maximum
-        unit: "%"
-        type: float
-        range: [0, 100]
-        value: 80
-      - name: duration
-        summary: A duration parameter for testing
-        unit: s
-        type: float
-      - name: boolean
-        summary: A boolean parameter for testing
-        type: bool
-        value: false
-      - name: string
-        summary: A string parameter for testing
-        type: string
-        value: foo
-    for: 5m
-    severity: warning
-    labels:
-      foo: bar
-    annotations:
-      summary: "MySQL too many connections (instance {{ $labels.instance }})"
-      description: |-
-        More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}
-        VALUE = {{ $value }}
-        LABELS: {{ $labels }}
-`)
+    - name: mysql_too_many_connections
+      version: 1
+      summary: MySQL connections in use
+      tiers: [anonymous, registered]
+      expr: |-
+        max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)
+        mysql_global_variables_max_connections
+        * 100
+        > [[ .threshold ]]
+      params:
+        - name: threshold
+          summary: A percentage from configured maximum
+          unit: '%'
+          type: float
+          range: [0, 100]
+          value: 80
+        - name: duration
+          summary: A duration parameter for testing
+          unit: s
+          type: float
+        - name: boolean
+          summary: A boolean parameter for testing
+          type: bool
+          value: false
+        - name: string
+          summary: A string parameter for testing
+          type: string
+          value: foo
+      for: 5m
+      severity: warning
+      labels:
+        foo: bar
+      annotations:
+        description: |-
+            More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}
+            VALUE = {{ $value }}
+            LABELS: {{ $labels }}
+        summary: MySQL too many connections (instance {{ $labels.instance }})`)
 
 	params := &ParseParams{
 		DisallowUnknownFields:    true,
@@ -124,6 +121,10 @@ templates:
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)
 	assert.Equal(t, "foo", sv)
+
+	nd, err := ToYAML(rs)
+	require.NoError(t, err)
+	assert.Equal(t, strings.TrimSpace(document), strings.TrimSpace(nd))
 }
 
 func TestTemplate_Validate(t *testing.T) {
