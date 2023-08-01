@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.2
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.9.0 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
@@ -33,7 +33,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require google.golang.org/genproto/googleapis/api v0.0.0-20230724170836-66ad5b6ff146
+require google.golang.org/genproto/googleapis/api v0.0.0-20230726155614-23370e0ffb3e
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
@@ -59,5 +59,5 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20230724170836-66ad5b6ff146 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230726155614-23370e0ffb3e // indirect
 )
