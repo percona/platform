@@ -22,7 +22,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	go.starlark.net v0.0.0-20230302034142-4b1e35fe2254
 	go.uber.org/zap v1.25.0
-	golang.org/x/crypto v0.11.0
+	golang.org/x/crypto v0.12.0
 	golang.org/x/sys v0.11.0
 	google.golang.org/genproto v0.0.0-20230706204954-ccb25ca9f130 // indirect
 	google.golang.org/grpc v1.57.0
@@ -56,6 +56,6 @@ require (
 	github.com/prometheus/procfs v0.10.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/text v0.12.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230726155614-23370e0ffb3e // indirect
 )
