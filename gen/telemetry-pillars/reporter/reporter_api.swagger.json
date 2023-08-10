@@ -1,0 +1,142 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Telemetry reporter API for Pillars",
+    "description": "API for Pillars telemetryd service.",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ReporterAPI"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/telemetry/pillars/Report": {
+      "post": {
+        "summary": "Report",
+        "description": "Report is used to submit pillars telemetry events to telemetryd service.",
+        "operationId": "ReporterAPI_Report",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReportResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReportRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Metric": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Event UUID."
+        },
+        "pillarServerId": {
+          "type": "string",
+          "description": "Pillar Server UUID."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was received by the sender."
+        },
+        "metrics": {
+          "type": "string",
+          "format": "byte",
+          "description": "Original event with serialized json format."
+        }
+      },
+      "description": "Event contains original event and additional information added by the sender."
+    },
+    "v1ReportRequest": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Metric"
+          },
+          "description": "One or more metrics to report."
+        }
+      }
+    },
+    "v1ReportResponse": {
+      "type": "object"
+    }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
+  }
+}
