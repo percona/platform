@@ -5,7 +5,7 @@ go 1.20
 // some dependecies should be synced with Dockerfile
 
 require (
-	github.com/bufbuild/buf v1.25.1
+	github.com/bufbuild/buf v1.26.1
 	github.com/dvyukov/go-fuzz v0.0.0-20220726122315-1d375ef9f9f6
 	github.com/golangci/golangci-lint v1.53.3
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.2
