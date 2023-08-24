@@ -34,12 +34,12 @@ func (this *ReportResponse) Validate() error {
 	return nil
 }
 func (this *Metric) Validate() error {
-	if nil == this.Time {
-		return github_com_mwitkow_go_proto_validators.FieldError("Time", fmt.Errorf("message must exist"))
+	if nil == this.CreateTime {
+		return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", fmt.Errorf("message must exist"))
 	}
-	if this.Time != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Time); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Time", err)
+	if this.CreateTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", err)
 		}
 	}
 	return nil

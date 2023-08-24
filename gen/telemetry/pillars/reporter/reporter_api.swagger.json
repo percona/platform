@@ -101,10 +101,10 @@
           "type": "string",
           "description": "Pillar Server UUID."
         },
-        "time": {
+        "createTime": {
           "type": "string",
           "format": "date-time",
-          "description": "Time when this event was received by the sender."
+          "description": "Time when this event was created."
         },
         "metrics": {
           "type": "string",

@@ -72,8 +72,8 @@ message Metric {
   string id = 1;
   // Pillar Server UUID.
   string instance_id = 2;
-  // Time when this event was received by the sender.
-  google.protobuf.Timestamp time = 3 [(validator.field) = {msg_exists: true}];
+  // Time when this event was created.
+  google.protobuf.Timestamp create_time = 3 [(validator.field) = {msg_exists: true}];
   // Original event with serialized json format.
   bytes metrics = 4 [(validator.field) = {string_not_empty: true}];
 }
