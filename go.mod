@@ -6,6 +6,7 @@ go 1.20
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
+	github.com/alecthomas/kingpin/v2 v2.3.2
 	github.com/aws/aws-sdk-go v1.44.323
 	github.com/brianvoe/gofakeit/v6 v6.23.1
 	github.com/golang/protobuf v1.5.3
@@ -25,18 +26,15 @@ require (
 	golang.org/x/crypto v0.12.0
 	golang.org/x/sys v0.11.0
 	google.golang.org/genproto v0.0.0-20230706204954-ccb25ca9f130 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20230726155614-23370e0ffb3e
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
-	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	gopkg.in/reform.v1 v1.5.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-require google.golang.org/genproto/googleapis/api v0.0.0-20230726155614-23370e0ffb3e
-
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
-	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -54,6 +52,7 @@ require (
 	github.com/prometheus/client_model v0.4.0 // indirect
 	github.com/prometheus/common v0.43.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
+	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
