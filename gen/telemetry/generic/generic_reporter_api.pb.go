@@ -88,7 +88,7 @@ func (ProductFamily) EnumDescriptor() ([]byte, []int) {
 // ServerMetrics contains PMM Server metrics.
 // There are mandatory metrics and optional metric pairs.
 // The exact metrics pairs (metric name, metric value) is defined by PMM Server.
-type GenericMetric struct {
+type GenericReport struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -105,11 +105,11 @@ type GenericMetric struct {
 	ProductFamily ProductFamily `protobuf:"varint,4,opt,name=product_family,json=productFamily,proto3,enum=percona.platform.telemetry.generic.reporter.v1.ProductFamily" json:"product_family,omitempty"`
 	// Metrics collection.
 	// Optional.
-	Metrics []*GenericMetric_Metric `protobuf:"bytes,7,rep,name=metrics,proto3" json:"metrics,omitempty"`
+	Metrics []*GenericReport_Metric `protobuf:"bytes,7,rep,name=metrics,proto3" json:"metrics,omitempty"`
 }
 
-func (x *GenericMetric) Reset() {
-	*x = GenericMetric{}
+func (x *GenericReport) Reset() {
+	*x = GenericReport{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_telemetry_generic_generic_reporter_api_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -117,13 +117,13 @@ func (x *GenericMetric) Reset() {
 	}
 }
 
-func (x *GenericMetric) String() string {
+func (x *GenericReport) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GenericMetric) ProtoMessage() {}
+func (*GenericReport) ProtoMessage() {}
 
-func (x *GenericMetric) ProtoReflect() protoreflect.Message {
+func (x *GenericReport) ProtoReflect() protoreflect.Message {
 	mi := &file_telemetry_generic_generic_reporter_api_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -135,40 +135,40 @@ func (x *GenericMetric) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GenericMetric.ProtoReflect.Descriptor instead.
-func (*GenericMetric) Descriptor() ([]byte, []int) {
+// Deprecated: Use GenericReport.ProtoReflect.Descriptor instead.
+func (*GenericReport) Descriptor() ([]byte, []int) {
 	return file_telemetry_generic_generic_reporter_api_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GenericMetric) GetId() []byte {
+func (x *GenericReport) GetId() []byte {
 	if x != nil {
 		return x.Id
 	}
 	return nil
 }
 
-func (x *GenericMetric) GetTime() *timestamppb.Timestamp {
+func (x *GenericReport) GetTime() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Time
 	}
 	return nil
 }
 
-func (x *GenericMetric) GetInstanceId() []byte {
+func (x *GenericReport) GetInstanceId() []byte {
 	if x != nil {
 		return x.InstanceId
 	}
 	return nil
 }
 
-func (x *GenericMetric) GetProductFamily() ProductFamily {
+func (x *GenericReport) GetProductFamily() ProductFamily {
 	if x != nil {
 		return x.ProductFamily
 	}
 	return ProductFamily_PRODUCT_FAMILY_INVALID
 }
 
-func (x *GenericMetric) GetMetrics() []*GenericMetric_Metric {
+func (x *GenericReport) GetMetrics() []*GenericReport_Metric {
 	if x != nil {
 		return x.Metrics
 	}
@@ -182,7 +182,7 @@ type ReportRequest struct {
 
 	// One or more metrics events to report.
 	// Only 'events' or 'metrics' field must be set.
-	Metrics []*GenericMetric `protobuf:"bytes,1,rep,name=metrics,proto3" json:"metrics,omitempty"`
+	Reports []*GenericReport `protobuf:"bytes,1,rep,name=reports,proto3" json:"reports,omitempty"`
 }
 
 func (x *ReportRequest) Reset() {
@@ -217,9 +217,9 @@ func (*ReportRequest) Descriptor() ([]byte, []int) {
 	return file_telemetry_generic_generic_reporter_api_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ReportRequest) GetMetrics() []*GenericMetric {
+func (x *ReportRequest) GetReports() []*GenericReport {
 	if x != nil {
-		return x.Metrics
+		return x.Reports
 	}
 	return nil
 }
@@ -262,7 +262,7 @@ func (*ReportResponse) Descriptor() ([]byte, []int) {
 	return file_telemetry_generic_generic_reporter_api_proto_rawDescGZIP(), []int{2}
 }
 
-type GenericMetric_Metric struct {
+type GenericReport_Metric struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -271,8 +271,8 @@ type GenericMetric_Metric struct {
 	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *GenericMetric_Metric) Reset() {
-	*x = GenericMetric_Metric{}
+func (x *GenericReport_Metric) Reset() {
+	*x = GenericReport_Metric{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_telemetry_generic_generic_reporter_api_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -280,13 +280,13 @@ func (x *GenericMetric_Metric) Reset() {
 	}
 }
 
-func (x *GenericMetric_Metric) String() string {
+func (x *GenericReport_Metric) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GenericMetric_Metric) ProtoMessage() {}
+func (*GenericReport_Metric) ProtoMessage() {}
 
-func (x *GenericMetric_Metric) ProtoReflect() protoreflect.Message {
+func (x *GenericReport_Metric) ProtoReflect() protoreflect.Message {
 	mi := &file_telemetry_generic_generic_reporter_api_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -298,19 +298,19 @@ func (x *GenericMetric_Metric) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GenericMetric_Metric.ProtoReflect.Descriptor instead.
-func (*GenericMetric_Metric) Descriptor() ([]byte, []int) {
+// Deprecated: Use GenericReport_Metric.ProtoReflect.Descriptor instead.
+func (*GenericReport_Metric) Descriptor() ([]byte, []int) {
 	return file_telemetry_generic_generic_reporter_api_proto_rawDescGZIP(), []int{0, 0}
 }
 
-func (x *GenericMetric_Metric) GetKey() string {
+func (x *GenericReport_Metric) GetKey() string {
 	if x != nil {
 		return x.Key
 	}
 	return ""
 }
 
-func (x *GenericMetric_Metric) GetValue() string {
+func (x *GenericReport_Metric) GetValue() string {
 	if x != nil {
 		return x.Value
 	}
@@ -337,7 +337,7 @@ var file_telemetry_generic_generic_reporter_api_proto_rawDesc = []byte{
 	0x6e, 0x2d, 0x6f, 0x70, 0x65, 0x6e, 0x61, 0x70, 0x69, 0x76, 0x32, 0x2f, 0x6f, 0x70, 0x74, 0x69,
 	0x6f, 0x6e, 0x73, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x8b, 0x03, 0x0a, 0x0d, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
-	0x63, 0x4d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x63, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x12, 0x17, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x0c, 0x42, 0x07, 0xe2, 0xdf, 0x1f, 0x03, 0x80, 0x01, 0x10, 0x52, 0x02, 0x69, 0x64,
 	0x12, 0x36, 0x0a, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
 	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
@@ -356,18 +356,18 @@ var file_telemetry_generic_generic_reporter_api_proto_rawDesc = []byte{
 	0x28, 0x0b, 0x32, 0x44, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e, 0x61, 0x2e, 0x70, 0x6c, 0x61,
 	0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x74, 0x65, 0x6c, 0x65, 0x6d, 0x65, 0x74, 0x72, 0x79, 0x2e,
 	0x67, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x2e, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65, 0x72,
-	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x4d, 0x65, 0x74, 0x72, 0x69,
-	0x63, 0x2e, 0x4d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x52, 0x07, 0x6d, 0x65, 0x74, 0x72, 0x69, 0x63,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x70, 0x6f, 0x72,
+	0x74, 0x2e, 0x4d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x52, 0x07, 0x6d, 0x65, 0x74, 0x72, 0x69, 0x63,
 	0x73, 0x1a, 0x30, 0x0a, 0x06, 0x4d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x12, 0x10, 0x0a, 0x03, 0x6b,
 	0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a,
 	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61,
 	0x6c, 0x75, 0x65, 0x22, 0x68, 0x0a, 0x0d, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x57, 0x0a, 0x07, 0x6d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x73, 0x18,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x57, 0x0a, 0x07, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x18,
 	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x3d, 0x2e, 0x70, 0x65, 0x72, 0x63, 0x6f, 0x6e, 0x61, 0x2e,
 	0x70, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2e, 0x74, 0x65, 0x6c, 0x65, 0x6d, 0x65, 0x74,
 	0x72, 0x79, 0x2e, 0x67, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x2e, 0x72, 0x65, 0x70, 0x6f, 0x72,
-	0x74, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x4d, 0x65,
-	0x74, 0x72, 0x69, 0x63, 0x52, 0x07, 0x6d, 0x65, 0x74, 0x72, 0x69, 0x63, 0x73, 0x22, 0x10, 0x0a,
+	0x74, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65,
+	0x70, 0x6f, 0x72, 0x74, 0x52, 0x07, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x73, 0x22, 0x10, 0x0a,
 	0x0e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2a,
 	0xbc, 0x01, 0x0a, 0x0d, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x46, 0x61, 0x6d, 0x69, 0x6c,
 	0x79, 0x12, 0x1a, 0x0a, 0x16, 0x50, 0x52, 0x4f, 0x44, 0x55, 0x43, 0x54, 0x5f, 0x46, 0x41, 0x4d,
@@ -455,17 +455,17 @@ var file_telemetry_generic_generic_reporter_api_proto_enumTypes = make([]protoim
 var file_telemetry_generic_generic_reporter_api_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_telemetry_generic_generic_reporter_api_proto_goTypes = []interface{}{
 	(ProductFamily)(0),            // 0: percona.platform.telemetry.generic.reporter.v1.ProductFamily
-	(*GenericMetric)(nil),         // 1: percona.platform.telemetry.generic.reporter.v1.GenericMetric
+	(*GenericReport)(nil),         // 1: percona.platform.telemetry.generic.reporter.v1.GenericReport
 	(*ReportRequest)(nil),         // 2: percona.platform.telemetry.generic.reporter.v1.ReportRequest
 	(*ReportResponse)(nil),        // 3: percona.platform.telemetry.generic.reporter.v1.ReportResponse
-	(*GenericMetric_Metric)(nil),  // 4: percona.platform.telemetry.generic.reporter.v1.GenericMetric.Metric
+	(*GenericReport_Metric)(nil),  // 4: percona.platform.telemetry.generic.reporter.v1.GenericReport.Metric
 	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
 }
 var file_telemetry_generic_generic_reporter_api_proto_depIdxs = []int32{
-	5, // 0: percona.platform.telemetry.generic.reporter.v1.GenericMetric.time:type_name -> google.protobuf.Timestamp
-	0, // 1: percona.platform.telemetry.generic.reporter.v1.GenericMetric.product_family:type_name -> percona.platform.telemetry.generic.reporter.v1.ProductFamily
-	4, // 2: percona.platform.telemetry.generic.reporter.v1.GenericMetric.metrics:type_name -> percona.platform.telemetry.generic.reporter.v1.GenericMetric.Metric
-	1, // 3: percona.platform.telemetry.generic.reporter.v1.ReportRequest.metrics:type_name -> percona.platform.telemetry.generic.reporter.v1.GenericMetric
+	5, // 0: percona.platform.telemetry.generic.reporter.v1.GenericReport.time:type_name -> google.protobuf.Timestamp
+	0, // 1: percona.platform.telemetry.generic.reporter.v1.GenericReport.product_family:type_name -> percona.platform.telemetry.generic.reporter.v1.ProductFamily
+	4, // 2: percona.platform.telemetry.generic.reporter.v1.GenericReport.metrics:type_name -> percona.platform.telemetry.generic.reporter.v1.GenericReport.Metric
+	1, // 3: percona.platform.telemetry.generic.reporter.v1.ReportRequest.reports:type_name -> percona.platform.telemetry.generic.reporter.v1.GenericReport
 	2, // 4: percona.platform.telemetry.generic.reporter.v1.ReporterAPI.GenericReport:input_type -> percona.platform.telemetry.generic.reporter.v1.ReportRequest
 	3, // 5: percona.platform.telemetry.generic.reporter.v1.ReporterAPI.GenericReport:output_type -> percona.platform.telemetry.generic.reporter.v1.ReportResponse
 	5, // [5:6] is the sub-list for method output_type
@@ -482,7 +482,7 @@ func file_telemetry_generic_generic_reporter_api_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_telemetry_generic_generic_reporter_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GenericMetric); i {
+			switch v := v.(*GenericReport); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -518,7 +518,7 @@ func file_telemetry_generic_generic_reporter_api_proto_init() {
 			}
 		}
 		file_telemetry_generic_generic_reporter_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GenericMetric_Metric); i {
+			switch v := v.(*GenericReport_Metric); i {
 			case 0:
 				return &v.state
 			case 1:

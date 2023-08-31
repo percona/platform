@@ -47,7 +47,7 @@ enum ProductFamily {
 // ServerMetrics contains PMM Server metrics.
 // There are mandatory metrics and optional metric pairs.
 // The exact metrics pairs (metric name, metric value) is defined by PMM Server.
-message GenericMetric {
+message GenericReport {
   // Event UUID.
   bytes id = 1 [(validator.field) = {length_eq: 16}];
   // Time when this event was received by the sender.
@@ -71,7 +71,7 @@ message GenericMetric {
 message ReportRequest {
   // One or more metrics events to report.
   // Only 'events' or 'metrics' field must be set.
-  repeated GenericMetric metrics = 1;
+  repeated GenericReport reports = 1;
 }
 
 message ReportResponse {}

@@ -20,7 +20,7 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
-func (this *GenericMetric) Validate() error {
+func (this *GenericReport) Validate() error {
 	if !(len(this.Id) == 16) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must have a length equal to '16'`, this.Id))
 	}
@@ -47,14 +47,14 @@ func (this *GenericMetric) Validate() error {
 	}
 	return nil
 }
-func (this *GenericMetric_Metric) Validate() error {
+func (this *GenericReport_Metric) Validate() error {
 	return nil
 }
 func (this *ReportRequest) Validate() error {
-	for _, item := range this.Metrics {
+	for _, item := range this.Reports {
 		if item != nil {
 			if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(item); err != nil {
-				return github_com_mwitkow_go_proto_validators.FieldError("Metrics", err)
+				return github_com_mwitkow_go_proto_validators.FieldError("Reports", err)
 			}
 		}
 	}

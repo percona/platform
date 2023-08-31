@@ -62,7 +62,7 @@
     }
   },
   "definitions": {
-    "GenericMetricMetric": {
+    "GenericReportMetric": {
       "type": "object",
       "properties": {
         "key": {
@@ -101,7 +101,7 @@
         }
       }
     },
-    "v1GenericMetric": {
+    "v1GenericReport": {
       "type": "object",
       "properties": {
         "id": {
@@ -127,7 +127,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/GenericMetricMetric"
+            "$ref": "#/definitions/GenericReportMetric"
           },
           "description": "Metrics collection.\nOptional."
         }
@@ -150,11 +150,11 @@
     "v1ReportRequest": {
       "type": "object",
       "properties": {
-        "metrics": {
+        "reports": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/v1GenericMetric"
+            "$ref": "#/definitions/v1GenericReport"
           },
           "description": "One or more metrics events to report.\nOnly 'events' or 'metrics' field must be set."
         }
