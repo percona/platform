@@ -1,9 +1,6 @@
 ---
 name: CI
 on:
-  schedule:
-    # run every Sunday to re-populate caches after they are cleaned on Saturday
-    - cron: "0 12 * * 0"
   push:
     branches:
       - main
@@ -19,18 +16,7 @@ jobs:
   test:
     name: Test
     timeout-minutes: 15
-
-    strategy:
-      fail-fast: false
-      matrix:
-        go-version:
-          - 1.20.x
-        may-fail: [false]
-        include:
-          - go-version: tip
-            may-fail: true
-
-    continue-on-error: ${{ matrix.may-fail }}
+    continue-on-error: false
     runs-on: ubuntu-20.04
 
     env:
@@ -44,56 +30,22 @@ jobs:
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
         run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
 
-      - name: Set up Go release
-        if: matrix.go-version != 'tip'
-        uses: percona-platform/setup-go@v4
-        with:
-          go-version: ${{ matrix.go-version }}
-
-      - name: Set up Go tip
-        if: matrix.go-version == 'tip'
-        run: |
-          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
-          cd $HOME/gotip/src
-          ./make.bash
-          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
-          echo "$HOME/gotip/bin" >> $GITHUB_PATH
-
-      - name: Set GO_VERSION environment variable
-        run: |
-          go version
-          echo "GO_VERSION=$(go version)" >> $GITHUB_ENV
-
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+        uses: actions/checkout@v3
 
-      - name: Enable Go modules cache
-        uses: percona-platform/cache@v3
+      - name: Set up Go release
+        uses: actions/setup-go@v4
         with:
-          path: ~/go/pkg/mod
-          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-
+          go-version-file: go.mod
+          cache-dependency-path: "**/go.sum"
 
-      - name: Enable Go build cache
-        uses: percona-platform/cache@v3
-        with:
-          path: ~/.cache/go-build
-          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
-          restore-keys: |
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-
-
-      - name: Enable experimental Docker features for --squash flag
-        run: sudo .github/workflows/enable-docker-experimental.sh
+      - name: Download Go modules
+        run: |
+          pushd tools && go mod download -x
+          popd        && go mod download -x
 
       - name: Login in Docker registry
         run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
-
-      - name: Download Go modules
-        run: go mod download
 
       - name: Install development tools
         run: make init
@@ -116,12 +68,11 @@ jobs:
           make test-crosscover
 
       - name: Upload coverage results
-        uses: percona-platform/codecov-action@v3
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: crosscover.out
           flags: crosscover
-          env_vars: GO_VERSION
           fail_ci_if_error: false
 
       - name: Check that there are no source code changes
@@ -147,14 +98,7 @@ jobs:
     name: Check
     timeout-minutes: 10
     if: github.event_name == 'pull_request'
-
-    strategy:
-      fail-fast: false
-      matrix:
-        go-version: [1.20.x]
-        may-fail: [false]
-
-    continue-on-error: ${{ matrix.may-fail }}
+    continue-on-error: false
     runs-on: ubuntu-20.04
 
     env:
@@ -168,53 +112,25 @@ jobs:
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
         run: git config --global url."https://percona-platform-robot:${ROBOT_TOKEN}@github.com".insteadOf "https://github.com"
 
-      - name: Set up Go release
-        if: matrix.go-version != 'tip'
-        uses: percona-platform/setup-go@v4
-        with:
-          go-version: ${{ matrix.go-version }}
-
-      - name: Set up Go tip
-        if: matrix.go-version == 'tip'
-        run: |
-          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
-          cd $HOME/gotip/src
-          ./make.bash
-          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
-          echo "$HOME/gotip/bin" >> $GITHUB_PATH
-
-      - name: Set GO_VERSION environment variable
-        run: |
-          go version
-          echo "GO_VERSION=$(go version)" >> $GITHUB_ENV
-
       - name: Check out code into the Go module directory
-        uses: percona-platform/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+        uses: actions/checkout@v3
 
-      - name: Enable Go modules cache
-        uses: percona-platform/cache@v3
+      - name: Set up Go release
+        uses: actions/setup-go@v4
         with:
-          path: ~/go/pkg/mod
-          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-modules-
-
-      - name: Enable Go build cache
-        uses: percona-platform/cache@v3
-        with:
-          path: ~/.cache/go-build
-          key: ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-${{ hashFiles('**') }}
-          restore-keys: |
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-${{ github.ref }}-
-            ${{ matrix.os }}-go-${{ matrix.go-version }}-build-
+          go-version-file: go.mod
+          cache-dependency-path: "**/go.sum"
 
       - name: Download Go modules
-        run: go mod download
+        run: |
+          pushd tools && go mod download -x
+          popd        && go mod download -x
 
       - name: Install tools
         run: make init
+
+      - name: Format sources
+        run: make format
 
       - name: Run checks/linters
         run: |
