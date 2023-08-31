@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package percona.platform.telemetry.generic.reporter.v1;
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "/telemetry/generic/reporter;reporterv1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Generic Telemetry reporter API",
+    description: "Generic API for telemetryd service.",
+  };
+  extensions: {
+    key: "x-readme";
+    value: {
+      struct_value: {
+        fields: {
+          key: "samples-languages"
+          value: {
+            list_value: {
+              values: {string_value: "curl"}
+              values: {string_value: "go"}
+              values: {string_value: "node"}
+              values: {string_value: "python"}
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+// DistributionMethod represents PMM Server distribution method.
+enum ProductFamily {
+  // DISTRIBUTION_METHOD_INVALID represents unknown distribution method.
+  PRODUCT_FAMILY_INVALID = 0;
+  PRODUCT_FAMILY_MYSQL = 1;
+  PRODUCT_FAMILY_MONGODB = 2;
+  PRODUCT_FAMILY_POSTGRESQL = 3;
+  PRODUCT_FAMILY_PMM = 4;
+  PRODUCT_FAMILY_PERCONA_TOOLKIT = 5;
+}
+
+// ServerMetrics contains PMM Server metrics.
+// There are mandatory metrics and optional metric pairs.
+// The exact metrics pairs (metric name, metric value) is defined by PMM Server.
+message GenericMetric {
+  // Event UUID.
+  bytes id = 1 [(validator.field) = {length_eq: 16}];
+  // Time when this event was received by the sender.
+  google.protobuf.Timestamp time = 2 [(validator.field) = {msg_exists: true}];
+  // PMM Server unique Telemetry identifier.
+  // Mandatory.
+  bytes instance_id = 3 [(validator.field) = {length_eq: 16}];
+  // PMM Server version.
+  // Mandatory.
+  ProductFamily product_family = 4 [(validator.field) = {is_in_enum: true}];
+
+  message Metric {
+    string key = 1;
+    string value = 2;
+  }
+  // Metrics collection.
+  // Optional.
+  repeated Metric metrics = 7;
+}
+
+message ReportRequest {
+  // One or more metrics events to report.
+  // Only 'events' or 'metrics' field must be set.
+  repeated GenericMetric metrics = 1;
+}
+
+message ReportResponse {}
+
+// ReporterAPI describes server API for reporting telemetry events.
+service ReporterAPI {
+  // Report submits several telemetry events to the server.
+  rpc GenericReport(ReportRequest) returns (ReportResponse) {
+    option (google.api.http) = {
+      post: "/v1/telemetry/GenericReport"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "GenericReport is used to submit telemetry events to telemetryd service.";
+      summary: "GenericReport";
+      consumes: ["application/json"];
+      produces: ["application/json"];
+      responses: {
+        key: "200";
+        value: {
+          examples: {
+            key: "application/json"
+            value: '{}'
+          }
+        };
+      };
+    };
+  }
+}

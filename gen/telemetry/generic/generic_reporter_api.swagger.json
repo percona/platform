@@ -1,0 +1,175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Generic Telemetry reporter API",
+    "description": "Generic API for telemetryd service.",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ReporterAPI"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/telemetry/GenericReport": {
+      "post": {
+        "summary": "GenericReport",
+        "description": "GenericReport is used to submit telemetry events to telemetryd service.",
+        "operationId": "ReporterAPI_GenericReport",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReportResponse"
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ReportRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ReporterAPI"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GenericMetricMetric": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1GenericMetric": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "byte",
+          "description": "Event UUID."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time when this event was received by the sender."
+        },
+        "instanceId": {
+          "type": "string",
+          "format": "byte",
+          "description": "PMM Server unique Telemetry identifier.\nMandatory."
+        },
+        "productFamily": {
+          "$ref": "#/definitions/v1ProductFamily",
+          "description": "PMM Server version.\nMandatory."
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/GenericMetricMetric"
+          },
+          "description": "Metrics collection.\nOptional."
+        }
+      },
+      "description": "ServerMetrics contains PMM Server metrics.\nThere are mandatory metrics and optional metric pairs.\nThe exact metrics pairs (metric name, metric value) is defined by PMM Server."
+    },
+    "v1ProductFamily": {
+      "type": "string",
+      "enum": [
+        "PRODUCT_FAMILY_INVALID",
+        "PRODUCT_FAMILY_MYSQL",
+        "PRODUCT_FAMILY_MONGODB",
+        "PRODUCT_FAMILY_POSTGRESQL",
+        "PRODUCT_FAMILY_PMM",
+        "PRODUCT_FAMILY_PERCONA_TOOLKIT"
+      ],
+      "default": "PRODUCT_FAMILY_INVALID",
+      "description": "DistributionMethod represents PMM Server distribution method.\n\n - PRODUCT_FAMILY_INVALID: DISTRIBUTION_METHOD_INVALID represents unknown distribution method."
+    },
+    "v1ReportRequest": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1GenericMetric"
+          },
+          "description": "One or more metrics events to report.\nOnly 'events' or 'metrics' field must be set."
+        }
+      }
+    },
+    "v1ReportResponse": {
+      "type": "object"
+    }
+  },
+  "x-readme": {
+    "samples-languages": [
+      "curl",
+      "go",
+      "node",
+      "python"
+    ]
+  }
+}
