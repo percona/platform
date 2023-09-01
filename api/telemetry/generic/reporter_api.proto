@@ -40,7 +40,8 @@ enum ProductFamily {
   PRODUCT_FAMILY_MONGODB = 2;
   PRODUCT_FAMILY_POSTGRESQL = 3;
   PRODUCT_FAMILY_PMM = 4;
-  PRODUCT_FAMILY_PERCONA_TOOLKIT = 5;
+  PRODUCT_FAMILY_EVEREST = 5;
+  PRODUCT_FAMILY_PERCONA_TOOLKIT = 6;
 }
 
 // GenericReport contains set of metrics and service information.
