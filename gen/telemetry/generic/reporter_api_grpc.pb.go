@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: telemetry/generic/generic_reporter_api.proto
+// source: telemetry/generic/reporter_api.proto
 
 package reporterv1
 
@@ -27,7 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReporterAPIClient interface {
-	// Report submits several telemetry events to the server.
+	// Report submits telemetry reports to the server.
 	GenericReport(ctx context.Context, in *ReportRequest, opts ...grpc.CallOption) (*ReportResponse, error)
 }
 
@@ -52,7 +52,7 @@ func (c *reporterAPIClient) GenericReport(ctx context.Context, in *ReportRequest
 // All implementations must embed UnimplementedReporterAPIServer
 // for forward compatibility
 type ReporterAPIServer interface {
-	// Report submits several telemetry events to the server.
+	// Report submits telemetry reports to the server.
 	GenericReport(context.Context, *ReportRequest) (*ReportResponse, error)
 	mustEmbedUnimplementedReporterAPIServer()
 }
@@ -108,5 +108,5 @@ var ReporterAPI_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "telemetry/generic/generic_reporter_api.proto",
+	Metadata: "telemetry/generic/reporter_api.proto",
 }
