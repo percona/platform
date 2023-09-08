@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package percona.platform.telemetry.generic.reporter.v1;
+package percona.platform.telemetry.generic.v1;
 
 import "github.com/mwitkow/go-proto-validators/validator.proto";
 import "google/api/annotations.proto";

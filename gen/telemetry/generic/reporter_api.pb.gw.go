@@ -2,11 +2,11 @@
 // source: telemetry/generic/reporter_api.proto
 
 /*
-Package reporterv1 is a reverse proxy.
+Package genericv1 is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package reporterv1
+package genericv1
 
 import (
 	"context"
@@ -79,7 +79,7 @@ func RegisterReporterAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.telemetry.generic.reporter.v1.ReporterAPI/GenericReport", runtime.WithHTTPPathPattern("/v1/telemetry/GenericReport"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.telemetry.generic.v1.ReporterAPI/GenericReport", runtime.WithHTTPPathPattern("/v1/telemetry/GenericReport"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -143,7 +143,7 @@ func RegisterReporterAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.telemetry.generic.reporter.v1.ReporterAPI/GenericReport", runtime.WithHTTPPathPattern("/v1/telemetry/GenericReport"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.telemetry.generic.v1.ReporterAPI/GenericReport", runtime.WithHTTPPathPattern("/v1/telemetry/GenericReport"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

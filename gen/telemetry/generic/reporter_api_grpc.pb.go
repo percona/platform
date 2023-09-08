@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: telemetry/generic/reporter_api.proto
 
-package reporterv1
+package genericv1
 
 import (
 	context "context"
@@ -20,7 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ReporterAPI_GenericReport_FullMethodName = "/percona.platform.telemetry.generic.reporter.v1.ReporterAPI/GenericReport"
+	ReporterAPI_GenericReport_FullMethodName = "/percona.platform.telemetry.generic.v1.ReporterAPI/GenericReport"
 )
 
 // ReporterAPIClient is the client API for ReporterAPI service.
@@ -99,7 +99,7 @@ func _ReporterAPI_GenericReport_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ReporterAPI_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "percona.platform.telemetry.generic.reporter.v1.ReporterAPI",
+	ServiceName: "percona.platform.telemetry.generic.v1.ReporterAPI",
 	HandlerType: (*ReporterAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
