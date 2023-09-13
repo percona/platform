@@ -76,7 +76,7 @@ message ReportRequest {
 
 message ReportResponse {}
 
-// ReporterAPI describes server API for reporting telemetry events.
+// ReporterAPI describes server API for reporting generic telemetry reports.
 service ReporterAPI {
   // Report submits telemetry reports to the server.
   rpc GenericReport(ReportRequest) returns (ReportResponse) {
@@ -85,7 +85,7 @@ service ReporterAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "GenericReport is used to submit telemetry events to telemetryd service.";
+      description: "GenericReport is used to submit generic telemetry reports to telemetryd service.";
       summary: "GenericReport";
       consumes: ["application/json"];
       produces: ["application/json"];
