@@ -20,7 +20,7 @@
     "/v1/telemetry/GenericReport": {
       "post": {
         "summary": "GenericReport",
-        "description": "GenericReport is used to submit telemetry events to telemetryd service.",
+        "description": "GenericReport is used to submit generic telemetry reports to telemetryd service.",
         "operationId": "ReporterAPI_GenericReport",
         "responses": {
           "200": {
