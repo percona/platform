@@ -24,12 +24,12 @@ func (this *GenericReport) Validate() error {
 	if !(len(this.Id) == 16) {
 		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must have a length equal to '16'`, this.Id))
 	}
-	if nil == this.Time {
-		return github_com_mwitkow_go_proto_validators.FieldError("Time", fmt.Errorf("message must exist"))
+	if nil == this.CreateTime {
+		return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", fmt.Errorf("message must exist"))
 	}
-	if this.Time != nil {
-		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.Time); err != nil {
-			return github_com_mwitkow_go_proto_validators.FieldError("Time", err)
+	if this.CreateTime != nil {
+		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {
+			return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", err)
 		}
 	}
 	if !(len(this.InstanceId) == 16) {
