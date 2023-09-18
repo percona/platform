@@ -106,7 +106,6 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "byte",
           "description": "Report UUID.\nRequired."
         },
         "createTime": {

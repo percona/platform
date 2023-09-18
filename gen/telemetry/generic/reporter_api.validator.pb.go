@@ -6,6 +6,7 @@ package genericv1
 import (
 	fmt "fmt"
 	math "math"
+	regexp "regexp"
 
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
@@ -20,9 +21,15 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+var _regex_GenericReport_Id = regexp.MustCompile(`^([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[1-5][a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12})?$`)
+var _regex_GenericReport_InstanceId = regexp.MustCompile(`^([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[1-5][a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12})?$`)
+
 func (this *GenericReport) Validate() error {
-	if !(len(this.Id) == 16) {
-		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must have a length equal to '16'`, this.Id))
+	if !_regex_GenericReport_Id.MatchString(this.Id) {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must be a string conforming to regex "^([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[1-5][a-fA-F0-9]{3}-[8|9|aA|bB][a-fA-F0-9]{3}-[a-fA-F0-9]{12})?$"`, this.Id))
+	}
+	if this.Id == "" {
+		return github_com_mwitkow_go_proto_validators.FieldError("Id", fmt.Errorf(`value '%v' must not be an empty string`, this.Id))
 	}
 	if nil == this.CreateTime {
 		return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", fmt.Errorf("message must exist"))
@@ -31,9 +38,6 @@ func (this *GenericReport) Validate() error {
 		if err := github_com_mwitkow_go_proto_validators.CallValidatorIfExists(this.CreateTime); err != nil {
 			return github_com_mwitkow_go_proto_validators.FieldError("CreateTime", err)
 		}
-	}
-	if !(len(this.InstanceId) == 16) {
-		return github_com_mwitkow_go_proto_validators.FieldError("InstanceId", fmt.Errorf(`value '%v' must have a length equal to '16'`, this.InstanceId))
 	}
 	if _, ok := ProductFamily_name[int32(this.ProductFamily)]; !ok {
 		return github_com_mwitkow_go_proto_validators.FieldError("ProductFamily", fmt.Errorf(`value '%v' must be a valid ProductFamily field`, this.ProductFamily))
