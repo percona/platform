@@ -58,7 +58,7 @@ message GenericReport {
   google.protobuf.Timestamp create_time = 2 [(validator.field) = {msg_exists: true}];
   // Product instance unique identifier. UUID.
   // Required.
-  bytes instance_id = 3 [(validator.field) = {
+  string instance_id = 3 [(validator.field) = {
     uuid_ver: 0,
     string_not_empty: true
   }];
