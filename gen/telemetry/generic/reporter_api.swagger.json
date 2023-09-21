@@ -136,12 +136,15 @@
       "type": "string",
       "enum": [
         "PRODUCT_FAMILY_INVALID",
-        "PRODUCT_FAMILY_MYSQL",
-        "PRODUCT_FAMILY_MONGODB",
+        "PRODUCT_FAMILY_PS",
+        "PRODUCT_FAMILY_PXC",
+        "PRODUCT_FAMILY_PSMDB",
+        "PRODUCT_FAMILY_PBM",
         "PRODUCT_FAMILY_POSTGRESQL",
         "PRODUCT_FAMILY_PMM",
         "PRODUCT_FAMILY_EVEREST",
-        "PRODUCT_FAMILY_PERCONA_TOOLKIT"
+        "PRODUCT_FAMILY_PERCONA_TOOLKIT",
+        "PRODUCT_FAMILY_PXB"
       ],
       "default": "PRODUCT_FAMILY_INVALID",
       "description": "ProductFamily represents Percona product family."

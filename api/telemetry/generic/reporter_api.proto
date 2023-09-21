@@ -36,12 +36,15 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 // ProductFamily represents Percona product family.
 enum ProductFamily {
   PRODUCT_FAMILY_INVALID = 0;
-  PRODUCT_FAMILY_MYSQL = 1;
-  PRODUCT_FAMILY_MONGODB = 2;
-  PRODUCT_FAMILY_POSTGRESQL = 3;
-  PRODUCT_FAMILY_PMM = 4;
-  PRODUCT_FAMILY_EVEREST = 5;
-  PRODUCT_FAMILY_PERCONA_TOOLKIT = 6;
+  PRODUCT_FAMILY_PS = 1;
+  PRODUCT_FAMILY_PXC = 2;
+  PRODUCT_FAMILY_PSMDB = 3;
+  PRODUCT_FAMILY_PBM = 4;
+  PRODUCT_FAMILY_POSTGRESQL = 5;
+  PRODUCT_FAMILY_PMM = 6;
+  PRODUCT_FAMILY_EVEREST = 7;
+  PRODUCT_FAMILY_PERCONA_TOOLKIT = 8;
+  PRODUCT_FAMILY_PXB = 9;
 }
 
 // GenericReport contains set of metrics and service information.
