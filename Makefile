@@ -28,6 +28,7 @@ swagger-ui:                                ## Serve API documentation with Swagg
 		{name:"eventd", url:"/gen/event/event_api.swagger.json"}, \
 		{name:"orgd", url:"/gen/org/org_api.swagger.json"}, \
 		{name:"telemetryd", url:"/gen/telemetry/reporter/reporter_api.swagger.json"}, \
+		{name:"generic-telemetryd", url:"/gen/telemetry/generic/reporter_api.swagger.json"}, \
 ]' -v ./gen:/usr/share/nginx/html/gen swaggerapi/swagger-ui
 
 format:                                    ## Format source code
