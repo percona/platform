@@ -33,7 +33,7 @@ swagger-ui:                                ## Serve API documentation with Swagg
 
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
-	bin/goimports -local github.com/percona-platform/platform -l -w .
+	bin/goimports -local github.com/percona/platform -l -w .
 	bin/buf format api -w
 
 check:                                     ## Run checks/linters for the whole project
@@ -56,7 +56,7 @@ saas:                                      ## Extract public APIs and generated 
 	go run post-processing.go -project saas
 
 fuzz-check-build:
-	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona-platform/platform/pkg/check
+	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona/platform/pkg/check
 
 fuzz-check-data: fuzz-check-build          ## Fuzz data tests
 	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzData
@@ -68,8 +68,8 @@ fuzz-check-pubkey: fuzz-check-build        ## Fuzz public key tests
 	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzPublicKey
 
 fuzz-starlark:                             ## Fuzz starlark package
-	go test -count=1 github.com/percona-platform/platform/pkg/starlark
-	bin/go-fuzz-build -o pkg/starlark/starlark-fuzz.zip github.com/percona-platform/platform/pkg/starlark
+	go test -count=1 github.com/percona/platform/pkg/starlark
+	bin/go-fuzz-build -o pkg/starlark/starlark-fuzz.zip github.com/percona/platform/pkg/starlark
 	bin/go-fuzz -workdir pkg/starlark/fuzzdata -bin pkg/starlark/starlark-fuzz.zip
 
 .PHONY: gen
