@@ -20,7 +20,7 @@ jobs:
       - name: Collect stale package versions
         env:
           ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
-        uses: percona-platform/get-stale-packages-action@v1
+        uses: percona/gh-action-get-stale-packages-action@v1
 
       - name: Clean stale packages
         if: env.STALE_VERSIONS

@@ -22,7 +22,7 @@ jobs:
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
       # `git diff --exit-code` step below still checks what we need
-      GOPRIVATE: github.com/percona-platform
+      GOPRIVATE: github.com/percona
 
     steps:
       - name: Configure git for private modules
@@ -62,7 +62,7 @@ jobs:
 
       - name: Run tests
         env:
-          OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
+          OKTA_TOKEN: ${{ secrets.PLATF_SAAS_OKTA_TOKEN }}
         run: |
           go clean -testcache
           make test-crosscover
@@ -70,7 +70,7 @@ jobs:
       - name: Upload coverage results
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.PLATF_SAAS_CODECOV_TOKEN }}
           file: crosscover.out
           flags: crosscover
           fail_ci_if_error: false
@@ -104,7 +104,7 @@ jobs:
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
       # `git diff --exit-code` step below still checks what we need
-      GOPRIVATE: github.com/percona-platform
+      GOPRIVATE: github.com/percona
 
     steps:
       - name: Configure git for private modules
