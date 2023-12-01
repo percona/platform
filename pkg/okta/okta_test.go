@@ -294,13 +294,19 @@ func TestSessionRefresh(t *testing.T) {
 
 		sessionID, expiresAt, err := s.CreateSession(context.Background(), token)
 		require.NoError(t, err)
+		assert.NotEmpty(t, expiresAt)
 
 		time.Sleep(time.Second)
 
 		newExpirationTime, err := s.RefreshSession(context.Background(), sessionID)
 		require.NoError(t, err)
+		assert.NotEmpty(t, newExpirationTime)
 
-		require.Greater(t, newExpirationTime.Unix(), expiresAt.Unix())
+		// TODO: https://jira.percona.com/browse/PMM-12756
+		// Requires investigation, it seems that Okta changed the behavior of refresh tokens:
+		// https://developer.okta.com/docs/guides/refresh-tokens/main/#enable-refresh-token-rotation
+		// > Note: When a refresh token is rotated, the new refresh_token string in the response has a different value than the previous refresh_token string due to security concerns with single-page apps. However, the expiration date remains the same. The lifetime is inherited from the initial refresh token minted when the user first authenticates.
+		// require.Greater(t, newExpirationTime.Unix(), expiresAt.Unix())
 	})
 
 	t.Run("invalid session", func(t *testing.T) {
