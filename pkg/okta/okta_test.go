@@ -302,6 +302,7 @@ func TestSessionRefresh(t *testing.T) {
 		require.NoError(t, err)
 		assert.NotEmpty(t, newExpirationTime)
 
+		//nolint:godox
 		// TODO: https://jira.percona.com/browse/PMM-12756
 		// Requires investigation, it seems that Okta changed the behavior of refresh tokens:
 		// https://developer.okta.com/docs/guides/refresh-tokens/main/#enable-refresh-token-rotation
