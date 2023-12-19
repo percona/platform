@@ -10,7 +10,7 @@ require (
 	github.com/aws/aws-sdk-go v1.49.4
 	github.com/brianvoe/gofakeit/v6 v6.26.3
 	github.com/golang/protobuf v1.5.3
-	github.com/google/uuid v1.3.1
+	github.com/google/uuid v1.5.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
