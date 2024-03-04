@@ -33,6 +33,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
+require github.com/go-resty/resty/v2 v2.11.0
+
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect

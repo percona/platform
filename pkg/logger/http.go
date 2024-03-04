@@ -1,10 +1,12 @@
 package logger
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
 
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
 
@@ -42,7 +44,7 @@ type roundTripper struct {
 	logFullRequest bool
 }
 
-func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) { //nolint:cyclop
 	rl := GetLoggerFromContext(req.Context())
 	if rt.loggerName != "" {
 		rl = rl.Named(rt.loggerName)
@@ -59,12 +61,13 @@ func (rt *roundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 
 	resp, err := rt.rt.RoundTrip(req)
 
-	if err != nil { //nolint: nestif
-		rl.Error("Received error", zap.Error(err))
+	if err != nil { //nolint:nestif
+		if !errors.Is(err, context.Canceled) {
+			rl.Error("Received error", zap.Error(err))
+		}
 	} else if resp != nil {
 		if rl.Core().Enabled(zap.DebugLevel) && rt.logFullRequest {
-			b, _ := httputil.DumpResponse(resp, true)
-			if len(b) != 0 {
+			if b, _ := httputil.DumpResponse(resp, true); len(b) != 0 {
 				rl.Debug(fmt.Sprintf("Received response:\n%s", b))
 			}
 		} else {
