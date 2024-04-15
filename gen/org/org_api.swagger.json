@@ -629,17 +629,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "description": "Percona Portal username to invite to the Organziation."
-                },
-                "role": {
-                  "type": "string",
-                  "description": "Percona Portal organization role to be granted to the invited user."
-                }
-              }
+              "$ref": "#/definitions/OrgAPIInviteMemberBody"
             }
           }
         ],
@@ -748,13 +738,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "role": {
-                  "type": "string",
-                  "description": "Organization member role."
-                }
-              }
+              "$ref": "#/definitions/OrgAPIUpdateMemberBody"
             }
           }
         ],
@@ -864,17 +848,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "users": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "$ref": "#/definitions/InviteMembersRequestInvitee"
-                  },
-                  "description": "Array of users to invite to the Organization."
-                }
-              }
+              "$ref": "#/definitions/OrgAPIInviteMembersBody"
             }
           }
         ],
@@ -935,12 +909,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "$ref": "#/definitions/SearchMembersRequestUserFilter"
-                }
-              }
+              "$ref": "#/definitions/OrgAPISearchMembersBody"
             }
           }
         ],
@@ -1178,6 +1147,49 @@
         "error": {
           "type": "string",
           "title": "Error message"
+        }
+      }
+    },
+    "OrgAPIInviteMemberBody": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Percona Portal username to invite to the Organziation."
+        },
+        "role": {
+          "type": "string",
+          "description": "Percona Portal organization role to be granted to the invited user."
+        }
+      }
+    },
+    "OrgAPIInviteMembersBody": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/InviteMembersRequestInvitee"
+          },
+          "description": "Array of users to invite to the Organization."
+        }
+      }
+    },
+    "OrgAPISearchMembersBody": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/SearchMembersRequestUserFilter"
+        }
+      }
+    },
+    "OrgAPIUpdateMemberBody": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "Organization member role."
         }
       }
     },
