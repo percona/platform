@@ -2,11 +2,13 @@ package okta
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"os"
 	"os/user"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/okta/okta-sdk-golang/v2/okta"
@@ -93,7 +95,7 @@ func createTestUser(t *testing.T, email, password, firstName, lastName string, a
 
 	qp := query.NewQueryParams(query.WithActivate(activate))
 	testUser, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
-	require.NoError(t, err)
+	require.NoError(t, err, fmt.Sprintf("failed to create test user with password: %s", password))
 
 	converterUser, err := convertUser(testUser)
 	require.NoError(t, err)
@@ -112,10 +114,34 @@ func GenCredentials(t *testing.T) (string, string, string, string) {
 	require.NoError(t, err)
 
 	email := strings.Join([]string{u.Username, hostname, gofakeit.Email(), "test"}, ".")
-	password := gofakeit.Password(true, true, true, false, false, 14)
+	password := GenPassword(t)
 	firstName := gofakeit.FirstName()
 	lastName := gofakeit.LastName()
 	return email, password, firstName, lastName
+}
+
+// GenPassword generates a password with at least one lowercase, uppercase, special character, and digit.
+func GenPassword(t *testing.T) string {
+	t.Helper()
+
+	const lowerStr = "abcdefghijklmnopqrstuvwxyz"
+	const upperStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	const specialSafeStr = "!@#$%^&*"
+	const numericStr = "0123456789"
+
+	faker := gofakeit.New(time.Now().UnixNano())
+	// All params set to true in faker.Password() call are optional
+	// and do not guarantee that password will contain requested characters.
+	password := faker.Password(true, true, true, true, false, 14)
+	// make sure that password contains at least one lowercase character.
+	password += string(lowerStr[faker.Rand.Int63()%int64(len(lowerStr))])
+	// make sure that password contains at least one uppercase character.
+	password += string(upperStr[faker.Rand.Int63()%int64(len(upperStr))])
+	// make sure that password contains at least one special character.
+	password += string(specialSafeStr[faker.Rand.Int63()%int64(len(specialSafeStr))])
+	// make sure that password contains at least one digit.
+	password += string(numericStr[faker.Rand.Int63()%int64(len(numericStr))])
+	return password
 }
 
 // DeleteUser delete user from Okta by UserID.
