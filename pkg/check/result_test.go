@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/percona-platform/platform/pkg/common"
+	"github.com/percona/platform/pkg/common"
 )
 
 func TestCheck_ResultValidate(t *testing.T) {

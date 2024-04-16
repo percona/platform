@@ -13,8 +13,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/percona-platform/platform/pkg/logger"
-	"github.com/percona-platform/platform/pkg/tracing"
+	"github.com/percona/platform/pkg/logger"
+	"github.com/percona/platform/pkg/tracing"
 )
 
 // logGRPCRequest wraps f (gRPC handler) invocation with logging and panic recovery.

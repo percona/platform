@@ -33,7 +33,7 @@ swagger-ui:                                ## Serve API documentation with Swagg
 
 format:                                    ## Format source code
 	bin/gofumpt -l -w .
-	bin/goimports -local github.com/percona-platform/platform -l -w .
+	bin/goimports -local github.com/percona/platform -l -w .
 	bin/buf format api -w
 
 check:                                     ## Run checks/linters for the whole project

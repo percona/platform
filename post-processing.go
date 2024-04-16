@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	platformRepo = "github.com/percona-platform/platform"
+	platformRepo = "github.com/percona/platform"
 	saasRepo     = "github.com/percona-platform/saas"
 	saasRoot     = "../saas"
 )

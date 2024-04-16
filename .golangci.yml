@@ -14,7 +14,7 @@ linters-settings:
             desc:  Use "gopkg.in/yaml.v3" instead
 
   goimports:
-    local-prefixes: github.com/percona-platform/platform
+    local-prefixes: github.com/percona/platform
 
   unused:
     check-exported: false

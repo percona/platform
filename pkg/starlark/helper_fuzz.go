@@ -3,7 +3,7 @@ package starlark
 import (
 	"encoding/json"
 
-	"github.com/percona-platform/platform/pkg/fuzz"
+	"github.com/percona/platform/pkg/fuzz"
 )
 
 // Those helpers are shared by tests and fuzz code,

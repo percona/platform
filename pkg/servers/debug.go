@@ -18,7 +18,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
 
-	"github.com/percona-platform/platform/pkg/logger"
+	"github.com/percona/platform/pkg/logger"
 )
 
 // RunDebugServerOpts configure debug server.

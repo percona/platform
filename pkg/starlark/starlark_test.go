@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.starlark.net/starlark"
 
-	"github.com/percona-platform/platform/pkg/check"
-	"github.com/percona-platform/platform/pkg/common"
+	"github.com/percona/platform/pkg/check"
+	"github.com/percona/platform/pkg/common"
 )
 
 func TestRunValidScript(t *testing.T) {

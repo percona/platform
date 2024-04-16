@@ -11,7 +11,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/sys/unix"
 
-	"github.com/percona-platform/platform/pkg/logger"
+	"github.com/percona/platform/pkg/logger"
 )
 
 // Context returns main application context with set logger

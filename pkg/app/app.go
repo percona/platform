@@ -10,7 +10,7 @@ import (
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/pkg/errors"
 
-	"github.com/percona-platform/platform/pkg/logger"
+	"github.com/percona/platform/pkg/logger"
 )
 
 // Config is basic Percona Platform application configuration.
@@ -31,7 +31,7 @@ func version() string {
 
 	var platform *debug.Module
 	for _, d := range info.Deps {
-		if d.Path == "github.com/percona-platform/platform" {
+		if d.Path == "github.com/percona/platform" {
 			platform = d
 			if d.Replace != nil {
 				platform = d.Replace

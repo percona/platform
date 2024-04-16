@@ -8,8 +8,8 @@ import (
 	"go.starlark.net/resolve"
 	"go.starlark.net/starlark"
 
-	"github.com/percona-platform/platform/pkg/check"
-	"github.com/percona-platform/platform/pkg/common"
+	"github.com/percona/platform/pkg/check"
+	"github.com/percona/platform/pkg/common"
 )
 
 // PrintFunc represents fmt.Println-like function that is used by Starlark 'print' function implementation.

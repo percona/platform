@@ -11,8 +11,8 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	pmmv1 "github.com/percona-platform/platform/gen/telemetry/events/pmm"
-	reporterv1 "github.com/percona-platform/platform/gen/telemetry/reporter"
+	pmmv1 "github.com/percona/platform/gen/telemetry/events/pmm"
+	reporterv1 "github.com/percona/platform/gen/telemetry/reporter"
 )
 
 func TestValidators(t *testing.T) {
