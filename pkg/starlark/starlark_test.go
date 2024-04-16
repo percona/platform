@@ -219,10 +219,8 @@ def check_context(rows, context):
 
 		addToFuzzCorpus(t.Name(), script, nil)
 		env, err := NewEnv(t.Name(), script, nil)
-		require.NoError(t, err)
-
-		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: unhandled type *starlark.Set`)
+		require.ErrorContains(t, err, `this Starlark dialect does not support sets`)
+		require.Empty(t, env)
 	})
 
 	t.Run("InvalidOutputNotList", func(t *testing.T) {
