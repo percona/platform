@@ -15,9 +15,9 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"github.com/percona-platform/platform/pkg/logger"
-	"github.com/percona-platform/platform/pkg/rdata"
-	"github.com/percona-platform/platform/pkg/tracing"
+	"github.com/percona/platform/pkg/logger"
+	"github.com/percona/platform/pkg/rdata"
+	"github.com/percona/platform/pkg/tracing"
 )
 
 type authMethodType int

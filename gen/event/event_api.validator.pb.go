@@ -17,7 +17,7 @@ import (
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 
-	_ "github.com/percona-platform/platform/gen/utils/fsp"
+	_ "github.com/percona/platform/gen/utils/fsp"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

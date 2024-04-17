@@ -15,8 +15,8 @@ import (
 	_ "google.golang.org/protobuf/types/known/durationpb"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 
-	_ "github.com/percona-platform/platform/gen/telemetry/events/pmm"
-	_ "github.com/percona-platform/platform/gen/utils/fsp"
+	_ "github.com/percona/platform/gen/telemetry/events/pmm"
+	_ "github.com/percona/platform/gen/utils/fsp"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

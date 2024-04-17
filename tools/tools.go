@@ -1,7 +1,7 @@
 //go:build tools
 // +build tools
 
-package tools // import "github.com/percona-platform/platform/tools"
+package tools // import "github.com/percona/platform/tools"
 
 // direct dependencies
 import (

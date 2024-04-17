@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/percona-platform/platform/pkg/logger"
+	"github.com/percona/platform/pkg/logger"
 )
 
 // getCtxForRequest returns derived context with request-scoped logger set, and the logger itself.

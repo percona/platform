@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/percona-platform/platform/pkg/common"
+	"github.com/percona/platform/pkg/common"
 )
 
 func TestParseAdvisors(t *testing.T) {

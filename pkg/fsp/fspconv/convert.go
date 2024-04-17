@@ -3,8 +3,8 @@
 package fspconv
 
 import (
-	api "github.com/percona-platform/platform/gen/utils/fsp"
-	"github.com/percona-platform/platform/pkg/fsp"
+	api "github.com/percona/platform/gen/utils/fsp"
+	"github.com/percona/platform/pkg/fsp"
 )
 
 // NewPageTotals is a constructor of *api.PageTotals for paginated response.
