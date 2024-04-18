@@ -110,7 +110,7 @@ templates:
 	assert.Empty(t, param.Range)
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
-	assert.Equal(t, false, bv)
+	assert.False(t, bv)
 
 	param = r.Params[3]
 	assert.Equal(t, "string", param.Name)
@@ -432,7 +432,7 @@ func TestTemplate_Validate(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }

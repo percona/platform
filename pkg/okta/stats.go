@@ -25,7 +25,7 @@ func (c *Client) getUsersCount(ctx context.Context, since, until time.Time, filt
 	params.Add("until", until.Format(time.RFC3339))
 	params.Add("filter", filter)
 
-	path := fmt.Sprintf("/sage/api/v1/logs/count?%s", params.Encode())
+	path := "/sage/api/v1/logs/count?" + params.Encode()
 	var result []Stat
 
 	err := c.DoRequest(ctx, "GET", path, nil, &result)
@@ -66,10 +66,10 @@ func (c *Client) getTopLoginAttempts(ctx context.Context, since, until time.Time
 		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
 	}
 	params.Add("filter", filterParam)
-	params.Add("limit", fmt.Sprintf("%d", limit))
+	params.Add("limit", fmt.Sprintf("%d", limit)) //nolint:perfsprint
 	params.Add("field", "actor.alternateId")
 
-	path := fmt.Sprintf("/sage/api/v1/logs/count?%s", params.Encode())
+	path := "/sage/api/v1/logs/count?" + params.Encode()
 	var result []Stat
 
 	err := c.DoRequest(ctx, "GET", path, nil, &result)
@@ -105,7 +105,7 @@ func (c *Client) getLoginTotalAttemptsCount(ctx context.Context, since, until ti
 		filterParam += fmt.Sprintf(" and not (%s)", filterEmailDomainsString)
 	}
 	params.Add("filter", filterParam)
-	path := fmt.Sprintf("/sage/api/v1/logs/count?%s", params.Encode())
+	path := "/sage/api/v1/logs/count?" + params.Encode()
 	var result []Stat
 
 	err := c.DoRequest(ctx, "GET", path, nil, &result)

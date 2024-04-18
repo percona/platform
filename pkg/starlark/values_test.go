@@ -26,7 +26,6 @@ func TestConvert(t *testing.T) {
 			[]interface{}{int64(500), "Test", float64(30.555555555555)},
 			map[string]interface{}{"ka": "a", "kb": "b", "kc": "c", "kd": "d"},
 		} {
-			v := v
 			t.Run(fmt.Sprint(v), func(t *testing.T) {
 				t.Parallel()
 

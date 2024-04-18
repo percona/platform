@@ -6,6 +6,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/pkg/errors"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.starlark.net/starlark"
@@ -382,9 +384,9 @@ func TestRegisterFunc(t *testing.T) {
 		l := len(args)
 		switch {
 		case l == 0:
-			return nil, fmt.Errorf("zero arguments")
+			return nil, errors.New("zero arguments")
 		case l%2 == 1:
-			return nil, fmt.Errorf("odd number of arguments")
+			return nil, errors.New("odd number of arguments")
 		}
 
 		res := make([]interface{}, l/2)
@@ -482,11 +484,11 @@ func TestRegisterAdditionalContext(t *testing.T) {
 	concat := func(args ...interface{}) (interface{}, error) {
 		l := len(args)
 		if l == 0 {
-			return nil, fmt.Errorf("zero arguments")
+			return nil, errors.New("zero arguments")
 		}
 
 		res := ""
-		for i := 0; i < l; i++ {
+		for i := range l {
 			row := args[i].(map[string]interface{}) //nolint:forcetypeassert
 			for k, v := range row {
 				res += fmt.Sprintf("%s:%s", k, v)
@@ -631,7 +633,7 @@ def check_context(rows, context):
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }

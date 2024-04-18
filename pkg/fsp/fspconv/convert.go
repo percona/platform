@@ -13,7 +13,7 @@ func NewPageTotals(apiModel *api.FilteringSortingPagination, totalItems uint32) 
 		return nil
 	}
 
-	pt := fsp.NewPageTotals(apiModel.GetPageParams().PageSize, totalItems)
+	pt := fsp.NewPageTotals(apiModel.GetPageParams().GetPageSize(), totalItems)
 
 	return &api.PageTotals{
 		TotalItems: pt.TotalItems,

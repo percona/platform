@@ -621,7 +621,7 @@ func (c *Client) GroupExists(ctx context.Context, name string) (bool, error) {
 	params.Add("q", name)
 	params.Add("limit", "1")
 
-	err := c.DoRequest(ctx, "GET", fmt.Sprintf("/api/v1/groups?%s", params.Encode()), nil, &g)
+	err := c.DoRequest(ctx, "GET", "/api/v1/groups?"+params.Encode(), nil, &g)
 	if err != nil {
 		var oErr *okta.Error
 		if errors.As(err, &oErr) {
@@ -735,7 +735,7 @@ var ErrOriginNotFound error = errors.New("trusted origin was not found")
 // GetTrustedOriginID returns origin's id if it exists, nil and error when it does not.
 func (c *Client) GetTrustedOriginID(ctx context.Context, origin string) (string, error) {
 	var origins []*okta.TrustedOrigin
-	err := c.DoRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/trustedOrigins?q=%s", url.QueryEscape(origin)), nil, &origins)
+	err := c.DoRequest(ctx, http.MethodGet, "/api/v1/trustedOrigins?q="+url.QueryEscape(origin), nil, &origins)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to get origin")
 	}

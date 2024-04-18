@@ -188,7 +188,7 @@ advisors:
 		assert.Equal(t, uint32(1), as[0].Checks[0].Version)
 		assert.Equal(t, MySQLShow, as[0].Checks[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", as[0].Checks[0].Query)
-		assert.Equal(t, as[0].Checks[0].Script, "def function1(args):\n    pass\n")
+		assert.Equal(t, "def function1(args):\n    pass\n", as[0].Checks[0].Script)
 
 		assert.Equal(t, "postgresql_check", as[0].Checks[1].Name)
 		assert.Equal(t, uint32(1), as[0].Checks[1].Version)
@@ -250,7 +250,7 @@ advisors:
 		assert.Equal(t, "Test advisor description.", as[0].Description)
 		assert.Equal(t, "test", as[0].Category)
 		assert.Empty(t, as[0].Tiers)
-		assert.Len(t, as[0].Checks, 0)
+		assert.Empty(t, as[0].Checks)
 	})
 
 	t.Run("null tiers", func(t *testing.T) {
@@ -280,7 +280,7 @@ advisors:
 		assert.Equal(t, "Test advisor description.", as[0].Description)
 		assert.Equal(t, "test", as[0].Category)
 		assert.Empty(t, as[0].Tiers)
-		assert.Len(t, as[0].Checks, 0)
+		assert.Empty(t, as[0].Checks)
 	})
 
 	t.Run("zero tiers", func(t *testing.T) {
@@ -310,7 +310,7 @@ advisors:
 		assert.Equal(t, "Test advisor description.", as[0].Description)
 		assert.Equal(t, "test", as[0].Category)
 		assert.Empty(t, as[0].Tiers)
-		assert.Len(t, as[0].Checks, 0)
+		assert.Empty(t, as[0].Checks)
 	})
 
 	t.Run("duplicate tiers", func(t *testing.T) {
@@ -499,7 +499,7 @@ func TestAdvisor_Validate(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }
