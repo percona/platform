@@ -830,7 +830,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"2", "3", "4"})
+		assert.Equal(t, []string{"2", "3", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -839,7 +839,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"3"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "4"})
+		assert.Equal(t, []string{"1", "2", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -848,7 +848,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1", "2", "3"}
 		toAdd := []string{"3"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"3"})
+		assert.Equal(t, []string{"3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -857,7 +857,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toAdd := []string{"3"}
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -866,7 +866,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -875,7 +875,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -884,7 +884,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "3"})
+		assert.Equal(t, []string{"1", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -893,7 +893,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{})
+		assert.Equal(t, []string{}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -902,7 +902,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"2"}
 		toAdd := []string{"1", "2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2"})
+		assert.Equal(t, []string{"1", "2"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -911,7 +911,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toRemove []string
 		var toAdd []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{})
+		assert.Equal(t, []string{}, result)
 	})
 }
 

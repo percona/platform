@@ -101,7 +101,6 @@ advisors:
 	}
 
 	for name, document := range map[string]string{"mono-document": monoDocument, "multi-document": multiDocument} {
-		name, document := name, document
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
@@ -121,7 +120,7 @@ advisors:
 			assert.Equal(t, uint32(1), as[0].Checks[0].Version)
 			assert.Equal(t, MySQLShow, as[0].Checks[0].Type)
 			assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", as[0].Checks[0].Query)
-			assert.Equal(t, as[0].Checks[0].Script, "def function1(args):\n    pass\n")
+			assert.Equal(t, "def function1(args):\n    pass\n", as[0].Checks[0].Script)
 
 			assert.Equal(t, "another_test_advisor", as[1].Name)
 			assert.Equal(t, "Another test advisors", as[1].Summary)
@@ -134,7 +133,7 @@ advisors:
 			assert.Equal(t, uint32(1), as[1].Checks[0].Version)
 			assert.Equal(t, PostgreSQLSelect, as[1].Checks[0].Type)
 			assert.Equal(t, "id, name FROM table WHERE id=123;", as[1].Checks[0].Query)
-			assert.Equal(t, as[1].Checks[0].Script, "def function2(args):\n    pass")
+			assert.Equal(t, "def function2(args):\n    pass", as[1].Checks[0].Script)
 		})
 	}
 
@@ -194,7 +193,7 @@ advisors:
 		assert.Equal(t, uint32(1), as[0].Checks[1].Version)
 		assert.Equal(t, PostgreSQLSelect, as[0].Checks[1].Type)
 		assert.Equal(t, "id, name FROM table WHERE id=123;", as[0].Checks[1].Query)
-		assert.Equal(t, as[0].Checks[1].Script, "def function2(args):\n    pass")
+		assert.Equal(t, "def function2(args):\n    pass", as[0].Checks[1].Script)
 	})
 
 	t.Run("wrong advisor name specified in advisor", func(t *testing.T) {
@@ -489,7 +488,6 @@ func TestAdvisor_Validate(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			err := tt.advisor.Validate()
