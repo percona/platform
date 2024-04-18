@@ -106,7 +106,7 @@ func ParseChecks(reader io.Reader, params *ParseParams) ([]Check, error) {
 	var res []Check
 	for {
 		var c checks
-		if err := d.Decode(&c); err != nil {
+		if err := d.Decode(&c); err != nil { //nolint:musttag
 			if errors.Is(err, io.EOF) {
 				return res, nil
 			}
