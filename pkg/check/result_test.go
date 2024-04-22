@@ -3,7 +3,6 @@ package check
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/percona/platform/pkg/common"
@@ -50,7 +49,7 @@ func TestCheck_ResultValidate(t *testing.T) {
 			err := tt.result.Validate()
 
 			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
+				require.EqualError(t, err, tt.errStr)
 				return
 			}
 

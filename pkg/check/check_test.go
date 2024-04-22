@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -76,19 +75,19 @@ checks:
 			cs, err := ParseChecks(bytes.NewReader([]byte(document)), params)
 			require.NoError(t, err)
 
-			assert.Len(t, cs, 2)
+			require.Len(t, cs, 2)
 
-			assert.Equal(t, "mysql_check", cs[0].Name)
-			assert.Equal(t, uint32(1), cs[0].Version)
-			assert.Equal(t, MySQLShow, cs[0].Type)
-			assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-			assert.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
+			require.Equal(t, "mysql_check", cs[0].Name)
+			require.Equal(t, uint32(1), cs[0].Version)
+			require.Equal(t, MySQLShow, cs[0].Type)
+			require.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+			require.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
 
-			assert.Equal(t, "postgresql_check", cs[1].Name)
-			assert.Equal(t, uint32(1), cs[1].Version)
-			assert.Equal(t, PostgreSQLSelect, cs[1].Type)
-			assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
-			assert.Equal(t, "def function2(args):\n    pass", cs[1].Script)
+			require.Equal(t, "postgresql_check", cs[1].Name)
+			require.Equal(t, uint32(1), cs[1].Version)
+			require.Equal(t, PostgreSQLSelect, cs[1].Type)
+			require.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
+			require.Equal(t, "def function2(args):\n    pass", cs[1].Script)
 		})
 	}
 
@@ -118,13 +117,13 @@ checks:
 		cs, err := ParseChecks(bytes.NewReader([]byte(data)), params)
 		require.NoError(t, err)
 
-		assert.Len(t, cs, 1)
+		require.Len(t, cs, 1)
 
-		assert.Equal(t, "mysql_check", cs[0].Name)
-		assert.Equal(t, uint32(1), cs[0].Version)
-		assert.Equal(t, MySQLShow, cs[0].Type)
-		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
+		require.Equal(t, "mysql_check", cs[0].Name)
+		require.Equal(t, uint32(1), cs[0].Version)
+		require.Equal(t, MySQLShow, cs[0].Type)
+		require.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
+		require.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
 	})
 }
 
@@ -1086,7 +1085,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 			err := tt.check.Validate()
 
 			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
+				require.EqualError(t, err, tt.errStr)
 				return
 			}
 
@@ -1224,7 +1223,7 @@ Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxm
 			err := Verify([]byte(tt.data), tt.key, tt.signature)
 
 			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
+				require.EqualError(t, err, tt.errStr)
 			} else {
 				require.NoError(t, err)
 			}
@@ -1310,7 +1309,7 @@ func TestCheck_GetFamily(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			assert.Equalf(t, tt.want, tt.check.GetFamily(), "GetFamily()")
+			require.Equalf(t, tt.want, tt.check.GetFamily(), "GetFamily()")
 		})
 	}
 }

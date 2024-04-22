@@ -14,7 +14,6 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/google/uuid"
 	"github.com/pkg/errors"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -212,7 +211,7 @@ func TestSignInByStateToken(t *testing.T) {
 		client := createOktaClient(t)
 		err = oktaAPIRequest(client, "POST", "/api/v1/authn", data, &resp)
 		require.NoError(t, err)
-		assert.NotEmpty(t, resp.StateToken)
+		require.NotEmpty(t, resp.StateToken)
 
 		authInfo, err := s.SignInByStateToken(context.Background(), resp.StateToken)
 		require.NoError(t, err)
@@ -294,13 +293,13 @@ func TestSessionRefresh(t *testing.T) {
 
 		sessionID, expiresAt, err := s.CreateSession(context.Background(), token)
 		require.NoError(t, err)
-		assert.NotEmpty(t, expiresAt)
+		require.NotEmpty(t, expiresAt)
 
 		time.Sleep(time.Second)
 
 		newExpirationTime, err := s.RefreshSession(context.Background(), sessionID)
 		require.NoError(t, err)
-		assert.NotEmpty(t, newExpirationTime)
+		require.NotEmpty(t, newExpirationTime)
 
 		//nolint:godox
 		// TODO: https://jira.percona.com/browse/PMM-12756
@@ -531,11 +530,11 @@ func TestGroups(t *testing.T) {
 
 	exists, err := s.GroupExists(context.Background(), name)
 	require.NoError(t, err)
-	assert.True(t, exists)
+	require.True(t, exists)
 
 	exists, err = s.GroupExists(context.Background(), "non-existent-group")
 	require.NoError(t, err)
-	assert.False(t, exists)
+	require.False(t, exists)
 }
 
 func TestFindGroup(t *testing.T) {
@@ -727,10 +726,10 @@ func TestAppLifecycle(t *testing.T) {
 		s.DeleteApp(ctx, app.AppID) //nolint:errcheck,gosec
 	})
 	require.NotNil(t, app)
-	assert.NotEmpty(t, app.AppID)
+	require.NotEmpty(t, app.AppID)
 	require.NotNil(t, app.Credentials)
 	require.NotNil(t, app.Credentials.OAuthClient)
-	assert.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
+	require.NotEmpty(t, app.Credentials.OAuthClient.ClientID)
 
 	name, err := randomHex(8)
 	require.NoError(t, err)
@@ -746,7 +745,7 @@ func TestAppLifecycle(t *testing.T) {
 	})
 
 	assigned := s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
-	assert.False(t, assigned)
+	require.False(t, assigned)
 
 	err = s.AddAppToGroup(ctx, app.AppID, group.ID)
 	require.NoError(t, err)
@@ -755,13 +754,13 @@ func TestAppLifecycle(t *testing.T) {
 	})
 
 	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
-	assert.True(t, assigned)
+	require.True(t, assigned)
 
 	err = s.RemoveAppFromGroup(ctx, app.AppID, group.ID)
 	require.NoError(t, err)
 
 	assigned = s.IsAppAssignedToGroup(ctx, app.AppID, group.ID)
-	assert.False(t, assigned)
+	require.False(t, assigned)
 
 	err = s.DeleteGroup(ctx, group.ID)
 	require.NoError(t, err)
@@ -807,7 +806,7 @@ func TestTrustedOrigin(t *testing.T) {
 
 	id, err := s.CreateTrustedOrigin(ctx, origin)
 	require.NoError(t, err)
-	assert.NotEmpty(t, id)
+	require.NotEmpty(t, id)
 
 	t.Cleanup(func() {
 		s.DeleteTrustedOrigin(ctx, id) //nolint:errcheck,gosec
@@ -818,7 +817,7 @@ func TestTrustedOrigin(t *testing.T) {
 
 	id, err = s.GetTrustedOriginID(ctx, origin)
 	require.ErrorIs(t, err, ErrOriginNotFound)
-	assert.Empty(t, id)
+	require.Empty(t, id)
 }
 
 func TestUpdateStringSlice(t *testing.T) {
@@ -830,7 +829,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"2", "3", "4"}, result)
+		require.Equal(t, []string{"2", "3", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -839,7 +838,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"3"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "2", "4"}, result)
+		require.Equal(t, []string{"1", "2", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -848,7 +847,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1", "2", "3"}
 		toAdd := []string{"3"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"3"}, result)
+		require.Equal(t, []string{"3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -857,7 +856,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toAdd := []string{"3"}
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "2", "3"}, result)
+		require.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -866,7 +865,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "2", "3"}, result)
+		require.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -875,7 +874,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "2", "3"}, result)
+		require.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -884,7 +883,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "3"}, result)
+		require.Equal(t, []string{"1", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -893,7 +892,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{}, result)
+		require.Equal(t, []string{}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -902,7 +901,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"2"}
 		toAdd := []string{"1", "2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{"1", "2"}, result)
+		require.Equal(t, []string{"1", "2"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -911,7 +910,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toRemove []string
 		var toAdd []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, []string{}, result)
+		require.Equal(t, []string{}, result)
 	})
 }
 
@@ -1094,7 +1093,7 @@ func TestGetActivationLink(t *testing.T) {
 
 		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		require.NoError(t, err)
-		assert.NotEmpty(t, info)
+		require.NotEmpty(t, info)
 	})
 
 	t.Run("activated user", func(t *testing.T) {
@@ -1113,7 +1112,7 @@ func TestGetActivationLink(t *testing.T) {
 
 		info, err := s.GetActivationInfo(ctx, testUser.ID)
 		require.Error(t, err)
-		assert.Empty(t, info)
+		require.Empty(t, info)
 	})
 }
 
@@ -1180,7 +1179,7 @@ func TestGetReactivationInfo(t *testing.T) {
 
 		link, err := s.GetReactivationInfo(ctx, testUser.ID)
 		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
-		assert.Empty(t, link)
+		require.Empty(t, link)
 	})
 
 	t.Run("success: user status PROVISIONED", func(t *testing.T) {

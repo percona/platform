@@ -8,7 +8,6 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.starlark.net/starlark"
 
@@ -66,7 +65,7 @@ def check_context(rows, context):
 		addToFuzzCorpus(t.Name(), script, input)
 		res, err := env.Run("id", input, nil, t.Log)
 		require.NoError(t, err)
-		assert.Empty(t, res)
+		require.Empty(t, res)
 	})
 
 	t.Run("SingleResult", func(t *testing.T) {
@@ -87,7 +86,7 @@ def check_context(rows, context):
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
-		assert.Equal(t, expected, res)
+		require.Equal(t, expected, res)
 	})
 
 	t.Run("MultipleResults", func(t *testing.T) {
@@ -114,7 +113,7 @@ def check_context(rows, context):
 			Severity:    common.Warning,
 			Labels:      map[string]string{"have_openssl": "NO"},
 		}}
-		assert.Equal(t, expected, res)
+		require.Equal(t, expected, res)
 	})
 
 	t.Run("Error", func(t *testing.T) {
@@ -134,10 +133,10 @@ func TestRunInvalidScript(t *testing.T) {
 		script := `def foo(): parse_version("2.6.0")`
 		addToFuzzCorpus(t.Name(), script, nil)
 		env, err := NewEnv(t.Name(), script, nil)
-		assert.Nil(t, env)
+		require.Nil(t, env)
 
 		expected := `failed to parse script: TestRunInvalidScript/Parse:1:12: undefined: parse_version`
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 
 	t.Run("Init", func(t *testing.T) {
@@ -149,14 +148,14 @@ func TestRunInvalidScript(t *testing.T) {
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
-		assert.Nil(t, res)
+		require.Nil(t, res)
 
 		expected := strings.TrimSpace(`
 thread id: failed to init script: index 1 out of range: empty string
 Traceback (most recent call last):
   TestRunInvalidScript/Init:1:3: in <toplevel>
 		`) + "\n"
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 
 	t.Run("Undefined", func(t *testing.T) {
@@ -168,10 +167,10 @@ Traceback (most recent call last):
 		require.NoError(t, err)
 
 		res, err := env.run("bar", nil, "id", t.Log)
-		assert.Nil(t, res)
+		require.Nil(t, res)
 
 		expected := `thread id: function bar is not defined`
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 
 	t.Run("Execute", func(t *testing.T) {
@@ -183,14 +182,14 @@ Traceback (most recent call last):
 		require.NoError(t, err)
 
 		res, err := env.run("foo", nil, "id", t.Log)
-		assert.Nil(t, res)
+		require.Nil(t, res)
 
 		expected := strings.TrimSpace(`
 thread id: failed to execute function foo: floating-point division by zero
 Traceback (most recent call last):
   TestRunInvalidScript/Execute:1:13: in foo
 		`) + "\n"
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 
 	t.Run("Hang", func(t *testing.T) {
@@ -205,7 +204,7 @@ Traceback (most recent call last):
 		t.Skip("https://jira.percona.com/browse/SAAS-63")
 
 		_, err = env.run("foo", nil, "id", t.Log)
-		assert.EqualError(t, err, `context timeout or something`)
+		require.EqualError(t, err, `context timeout or something`)
 	})
 
 	t.Run("InvalidOutputValue", func(t *testing.T) {
@@ -241,7 +240,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: map[summary:foo] (map[string]interface {})`)
+		require.EqualError(t, err, `thread id: failed to parse script output: map[summary:foo] (map[string]interface {})`)
 	})
 
 	t.Run("InvalidOutputNotDict", func(t *testing.T) {
@@ -260,7 +259,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: result 0 has wrong type: int64`)
+		require.EqualError(t, err, `thread id: failed to parse script output: result 0 has wrong type: int64`)
 	})
 
 	t.Run("InvalidOutputNotString", func(t *testing.T) {
@@ -279,7 +278,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: "summary" has wrong type: int64 (1)`)
+		require.EqualError(t, err, `thread id: failed to parse script output: "summary" has wrong type: int64 (1)`)
 	})
 
 	t.Run("InvalidResult", func(t *testing.T) {
@@ -298,7 +297,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: summary is empty`)
+		require.EqualError(t, err, `thread id: failed to parse script output: summary is empty`)
 	})
 
 	t.Run("InvalidLabels", func(t *testing.T) {
@@ -317,7 +316,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: labels field has wrong type: int64 (1)`)
+		require.EqualError(t, err, `thread id: failed to parse script output: labels field has wrong type: int64 (1)`)
 	})
 
 	t.Run("InvalidLabel", func(t *testing.T) {
@@ -336,7 +335,7 @@ def check_context(rows, context):
 		require.NoError(t, err)
 
 		_, err = env.Run("id", nil, nil, t.Log)
-		assert.EqualError(t, err, `thread id: failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
+		require.EqualError(t, err, `thread id: failed to parse script output: labels: "foo" has wrong type: int64 (1)`)
 	})
 }
 
@@ -365,14 +364,14 @@ print("hello from main")
 
 	res, err := env.run("test1", nil, "id", printFunc)
 	require.NoError(t, err)
-	assert.Equal(t, starlark.None, res)
+	require.Equal(t, starlark.None, res)
 
 	expected := strings.TrimSpace(`
 thread id: TestPrint:8:6: in <toplevel>: hello from main
 thread id: TestPrint:5:10: in test1: hello from test1
 thread id: TestPrint:2:10: in test2: hello from test2
 	`) + "\n"
-	assert.Equal(t, expected, buf.String())
+	require.Equal(t, expected, buf.String())
 }
 
 func TestRegisterFunc(t *testing.T) {
@@ -422,7 +421,7 @@ def check_context(rows, context):
 			Summary:  `[[{"foo": "bar"}, {"foo": "baz"}]]`,
 			Severity: common.Notice,
 		}}
-		assert.Equal(t, expected, res)
+		require.Equal(t, expected, res)
 	})
 
 	t.Run("Error", func(t *testing.T) {
@@ -449,7 +448,7 @@ Traceback (most recent call last):
   TestRegisterFunc/Error:5:35: in check_context
   <builtin>: in pairs
 		`) + "\n"
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 
 	t.Run("Kwargs", func(t *testing.T) {
@@ -474,7 +473,7 @@ Traceback (most recent call last):
   TestRegisterFunc/Kwargs:5:35: in check_context
   <builtin>: in pairs
 		`) + "\n"
-		assert.EqualError(t, err, expected)
+		require.EqualError(t, err, expected)
 	})
 }
 
@@ -489,7 +488,7 @@ func TestRegisterAdditionalContext(t *testing.T) {
 
 		res := ""
 		for i := range l {
-			row := args[i].(map[string]interface{}) //nolint:forcetypeassert
+			row := args[i].(map[string]interface{}) //nolint:forcetyperequire
 			for k, v := range row {
 				res += fmt.Sprintf("%s:%s", k, v)
 			}
@@ -521,7 +520,7 @@ def check_context(rows, context):
 		Summary:  `foo:barfoo:baz`,
 		Severity: common.Notice,
 	}}
-	assert.Equal(t, expected, res)
+	require.Equal(t, expected, res)
 }
 
 func TestCheckGlobals(t *testing.T) {
@@ -628,7 +627,7 @@ def check_context(rows, context):
 			t.Parallel()
 			err := CheckGlobals(tt.check, nil)
 			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
+				require.EqualError(t, err, tt.errStr)
 				return
 			}
 

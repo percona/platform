@@ -3,7 +3,6 @@ package alert
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -44,7 +43,7 @@ func TestUnit_Validate(t *testing.T) {
 			err := tt.unit.Validate()
 
 			if tt.errStr != "" {
-				assert.EqualError(t, err, tt.errStr)
+				require.EqualError(t, err, tt.errStr)
 				return
 			}
 
