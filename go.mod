@@ -21,7 +21,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.19.0
 	github.com/stretchr/testify v1.9.0
-	go.starlark.net v0.0.0-20240411212711-9b43f0afd521
+	go.starlark.net v0.0.0-20230717150657-8a3343210976
 	go.uber.org/zap v1.27.0
 	golang.org/x/crypto v0.22.0
 	golang.org/x/sys v0.19.0

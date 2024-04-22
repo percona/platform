@@ -2,7 +2,6 @@ package okta
 
 import (
 	"context"
-	"fmt"
 	"net/url"
 	"os"
 	"os/user"
@@ -13,7 +12,6 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/okta/okta-sdk-golang/v2/okta"
 	"github.com/okta/okta-sdk-golang/v2/okta/query"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -95,7 +93,7 @@ func createTestUser(t *testing.T, email, password, firstName, lastName string, a
 
 	qp := query.NewQueryParams(query.WithActivate(activate))
 	testUser, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
-	require.NoError(t, err, fmt.Sprintf("failed to create test user with password: %s", password))
+	require.NoError(t, err, "failed to create test user with password: "+password)
 
 	converterUser, err := convertUser(testUser)
 	require.NoError(t, err)
@@ -149,7 +147,7 @@ func DeleteUser(t *testing.T, userID string) {
 	t.Helper()
 
 	_, err := createOktaClient(t).User.DeactivateOrDeleteUser(context.Background(), userID, nil)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 }
 
 // DeleteGroup delete group from Okta by GroupID.
@@ -157,7 +155,7 @@ func DeleteGroup(t *testing.T, groupID string) {
 	t.Helper()
 
 	_, err := createOktaClient(t).Group.DeleteGroup(context.Background(), groupID)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 }
 
 func oktaAPIRequest(oktaClient *okta.Client, method, path string, body, v interface{}) error {

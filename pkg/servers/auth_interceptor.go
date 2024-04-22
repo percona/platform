@@ -213,7 +213,7 @@ func streamAuthInterceptor(noAuthMethods, mayUseAuthMethods []string) grpc.Strea
 		mayUseAuthMethodsSet[m] = struct{}{}
 	}
 
-	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	return func(_ interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		ctx := ss.Context()
 		l := logger.GetLoggerFromContext(ctx)
 

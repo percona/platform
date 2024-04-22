@@ -3,7 +3,7 @@ package common
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParseSeverity(t *testing.T) {
@@ -29,14 +29,13 @@ func TestParseSeverity(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.input, func(t *testing.T) {
 			t.Parallel()
 
 			actual := ParseSeverity(tt.input)
 
-			assert.Equal(t, tt.severity, actual)
-			assert.Equal(t, tt.canonical, actual.String())
+			require.Equal(t, tt.severity, actual)
+			require.Equal(t, tt.canonical, actual.String())
 		})
 	}
 }
