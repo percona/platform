@@ -62,7 +62,7 @@ func TestConvert(t *testing.T) {
 		sv, err := goToStarlark(time.Date(2020, 4, 28, 13, 48, 42, 0, time.UTC))
 		require.NoError(t, err)
 		expected := starlark.MakeInt64(1588081722000000000).BigInt()
-		actual := sv.(starlark.Int).BigInt() //nolint: forcetyperequire
+		actual := sv.(starlark.Int).BigInt() //nolint: forcetypeassert
 		require.Equal(t, expected, actual)
 	})
 
