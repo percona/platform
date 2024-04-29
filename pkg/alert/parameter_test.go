@@ -3,6 +3,7 @@ package alert
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -198,7 +199,7 @@ func TestParameter_Validate(t *testing.T) {
 			err := tt.parameter.Validate()
 
 			if tt.errStr != "" {
-				require.EqualError(t, err, tt.errStr)
+				assert.EqualError(t, err, tt.errStr)
 				return
 			}
 

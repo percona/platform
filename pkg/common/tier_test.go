@@ -3,6 +3,7 @@ package common
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -44,7 +45,7 @@ func TestValidateTier(t *testing.T) {
 			err := test.tier.Validate()
 
 			if test.error != "" {
-				require.EqualError(t, err, test.error)
+				assert.EqualError(t, err, test.error)
 				return
 			}
 
@@ -91,7 +92,7 @@ func TestValidateTiers(t *testing.T) {
 			err := ValidateTiers(test.tiers)
 
 			if test.error != "" {
-				require.EqualError(t, err, test.error)
+				assert.EqualError(t, err, test.error)
 				return
 			}
 

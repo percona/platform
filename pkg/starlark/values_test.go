@@ -5,6 +5,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.starlark.net/starlark"
 )
@@ -32,7 +33,7 @@ func TestConvert(t *testing.T) {
 				require.NoError(t, err)
 				gv, err := starlarkToGo(sv)
 				require.NoError(t, err)
-				require.Equal(t, v, gv, "sv = %#[1]v %[1]T", sv)
+				assert.Equal(t, v, gv, "sv = %#[1]v %[1]T", sv)
 			})
 		}
 	})
@@ -54,7 +55,7 @@ func TestConvert(t *testing.T) {
 
 				sv, err := goToStarlark(v)
 				require.NoError(t, err)
-				require.Equal(t, expected, sv)
+				assert.Equal(t, expected, sv)
 			})
 		}
 
@@ -85,7 +86,7 @@ func TestConvert(t *testing.T) {
 
 				gv, err := starlarkToGo(v)
 				require.NoError(t, err)
-				require.Equal(t, expected, gv)
+				assert.Equal(t, expected, gv)
 			})
 		}
 
@@ -94,7 +95,7 @@ func TestConvert(t *testing.T) {
 			err := dict.SetKey(starlark.MakeInt(1), starlark.MakeInt(2))
 			require.NoError(t, err)
 			_, err = starlarkToGo(dict)
-			require.EqualError(t, err, "unhandled dict key type starlark.Int (1)")
+			assert.EqualError(t, err, "unhandled dict key type starlark.Int (1)")
 		})
 	})
 }

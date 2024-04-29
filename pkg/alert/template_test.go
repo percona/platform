@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/percona/promconfig"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/percona/platform/pkg/common"
@@ -63,67 +64,67 @@ templates:
 
 	rs, err := Parse(bytes.NewReader([]byte(document)), params)
 	require.NoError(t, err)
-	require.Len(t, rs, 1)
+	assert.Len(t, rs, 1)
 
 	r := rs[0]
-	require.Equal(t, "mysql_too_many_connections", r.Name)
-	require.Equal(t, uint32(1), r.Version)
-	require.Equal(t, []common.Tier{common.Anonymous, common.Registered}, r.Tiers)
-	require.Equal(t, common.Warning, r.Severity)
-	require.Equal(t, "MySQL connections in use", r.Summary)
-	require.Equal(t, "max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)\nmysql_global_variables_max_connections\n* 100\n> [[ .threshold ]]", r.Expr)
-	require.Equal(t, map[string]string{"foo": "bar"}, r.Labels)
-	require.Len(t, r.Annotations, 2)
-	require.Equal(t, "MySQL too many connections (instance {{ $labels.instance }})", r.Annotations["summary"])
-	require.Equal(t, "More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}\nVALUE = {{ $value }}\nLABELS: {{ $labels }}", r.Annotations["description"])
-	require.Len(t, r.Params, 4)
+	assert.Equal(t, "mysql_too_many_connections", r.Name)
+	assert.Equal(t, uint32(1), r.Version)
+	assert.Equal(t, []common.Tier{common.Anonymous, common.Registered}, r.Tiers)
+	assert.Equal(t, common.Warning, r.Severity)
+	assert.Equal(t, "MySQL connections in use", r.Summary)
+	assert.Equal(t, "max_over_time(mysql_global_status_threads_connected[5m]) / ignoring (job)\nmysql_global_variables_max_connections\n* 100\n> [[ .threshold ]]", r.Expr)
+	assert.Equal(t, map[string]string{"foo": "bar"}, r.Labels)
+	assert.Len(t, r.Annotations, 2)
+	assert.Equal(t, "MySQL too many connections (instance {{ $labels.instance }})", r.Annotations["summary"])
+	assert.Equal(t, "More than [[ .threshold ]]% of MySQL connections are in use on {{ $labels.instance }}\nVALUE = {{ $value }}\nLABELS: {{ $labels }}", r.Annotations["description"])
+	assert.Len(t, r.Params, 4)
 
 	param := r.Params[0]
-	require.Equal(t, "threshold", param.Name)
-	require.Equal(t, "A percentage from configured maximum", param.Summary)
-	require.Equal(t, Percentage, param.Unit)
-	require.Equal(t, Float, param.Type)
+	assert.Equal(t, "threshold", param.Name)
+	assert.Equal(t, "A percentage from configured maximum", param.Summary)
+	assert.Equal(t, Percentage, param.Unit)
+	assert.Equal(t, Float, param.Type)
 
-	require.NotEmpty(t, param.Range)
+	assert.NotEmpty(t, param.Range)
 	lower, higher, err := param.GetRangeForFloat()
 	require.NoError(t, err)
-	require.InDelta(t, float64(0), lower, 0)
-	require.InDelta(t, float64(100), higher, 0)
+	assert.InDelta(t, float64(0), lower, 0)
+	assert.InDelta(t, float64(100), higher, 0)
 	fv, err := param.GetValueForFloat()
 	require.NoError(t, err)
-	require.InDelta(t, float64(80), fv, 0)
+	assert.InDelta(t, float64(80), fv, 0)
 
 	param = r.Params[1]
-	require.Equal(t, "duration", param.Name)
-	require.Equal(t, "A duration parameter for testing", param.Summary)
-	require.Equal(t, Seconds, param.Unit)
-	require.Equal(t, Float, param.Type)
-	require.Empty(t, param.Range)
-	require.Nil(t, param.Value)
+	assert.Equal(t, "duration", param.Name)
+	assert.Equal(t, "A duration parameter for testing", param.Summary)
+	assert.Equal(t, Seconds, param.Unit)
+	assert.Equal(t, Float, param.Type)
+	assert.Empty(t, param.Range)
+	assert.Nil(t, param.Value)
 
 	param = r.Params[2]
-	require.Equal(t, "boolean", param.Name)
-	require.Equal(t, "A boolean parameter for testing", param.Summary)
-	require.Empty(t, param.Unit)
-	require.Equal(t, Bool, param.Type)
-	require.Empty(t, param.Range)
+	assert.Equal(t, "boolean", param.Name)
+	assert.Equal(t, "A boolean parameter for testing", param.Summary)
+	assert.Empty(t, param.Unit)
+	assert.Equal(t, Bool, param.Type)
+	assert.Empty(t, param.Range)
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
-	require.False(t, bv)
+	assert.False(t, bv)
 
 	param = r.Params[3]
-	require.Equal(t, "string", param.Name)
-	require.Equal(t, "A string parameter for testing", param.Summary)
-	require.Empty(t, param.Unit)
-	require.Equal(t, String, param.Type)
-	require.Empty(t, param.Range)
+	assert.Equal(t, "string", param.Name)
+	assert.Equal(t, "A string parameter for testing", param.Summary)
+	assert.Empty(t, param.Unit)
+	assert.Equal(t, String, param.Type)
+	assert.Empty(t, param.Range)
 	sv, err := param.GetValueForString()
 	require.NoError(t, err)
-	require.Equal(t, "foo", sv)
+	assert.Equal(t, "foo", sv)
 
 	nd, err := ToYAML(rs)
 	require.NoError(t, err)
-	require.Equal(t, strings.TrimSpace(document), strings.TrimSpace(nd))
+	assert.Equal(t, strings.TrimSpace(document), strings.TrimSpace(nd))
 }
 
 func TestTemplate_Validate(t *testing.T) {
@@ -426,7 +427,7 @@ func TestTemplate_Validate(t *testing.T) {
 			err := tt.template.Validate()
 
 			if tt.errStr != "" {
-				require.EqualError(t, err, tt.errStr)
+				assert.EqualError(t, err, tt.errStr)
 				return
 			}
 

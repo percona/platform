@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -26,7 +27,7 @@ func TestValidators(t *testing.T) {
 	}
 	err := event.Validate()
 	require.NoError(t, err)
-	require.NotContains(t, event.ProtoReflect().Descriptor().FullName(), "beta")
+	assert.NotContains(t, event.ProtoReflect().Descriptor().FullName(), "beta")
 
 	eventB, err := proto.Marshal(event)
 	require.NoError(t, err)
@@ -44,5 +45,5 @@ func TestValidators(t *testing.T) {
 	}
 	err = req.Validate()
 	require.NoError(t, err)
-	require.NotContains(t, req.ProtoReflect().Descriptor().FullName(), "beta")
+	assert.NotContains(t, req.ProtoReflect().Descriptor().FullName(), "beta")
 }
