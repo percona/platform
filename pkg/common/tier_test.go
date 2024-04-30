@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestValidateTier(t *testing.T) {
@@ -38,8 +39,6 @@ func TestValidateTier(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		test := test
-
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -50,7 +49,7 @@ func TestValidateTier(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }
@@ -87,8 +86,6 @@ func TestValidateTiers(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		test := test
-
 		t.Run(test.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -99,7 +96,7 @@ func TestValidateTiers(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }

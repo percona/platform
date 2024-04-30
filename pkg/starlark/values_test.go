@@ -26,7 +26,6 @@ func TestConvert(t *testing.T) {
 			[]interface{}{int64(500), "Test", float64(30.555555555555)},
 			map[string]interface{}{"ka": "a", "kb": "b", "kc": "c", "kd": "d"},
 		} {
-			v := v
 			t.Run(fmt.Sprint(v), func(t *testing.T) {
 				t.Parallel()
 
@@ -65,7 +64,7 @@ func TestConvert(t *testing.T) {
 		require.NoError(t, err)
 		expected := starlark.MakeInt64(1588081722000000000).BigInt()
 		actual := sv.(starlark.Int).BigInt() //nolint: forcetypeassert
-		assert.Equal(t, expected, actual)
+		require.Equal(t, expected, actual)
 	})
 
 	t.Run("starlarkToGo", func(t *testing.T) {

@@ -70,7 +70,6 @@ checks:
 	}
 
 	for name, document := range map[string]string{"mono-document": monoDocument, "multi-document": multiDocument} {
-		name, document := name, document
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
@@ -83,13 +82,13 @@ checks:
 			assert.Equal(t, uint32(1), cs[0].Version)
 			assert.Equal(t, MySQLShow, cs[0].Type)
 			assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-			assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+			assert.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
 
 			assert.Equal(t, "postgresql_check", cs[1].Name)
 			assert.Equal(t, uint32(1), cs[1].Version)
 			assert.Equal(t, PostgreSQLSelect, cs[1].Type)
 			assert.Equal(t, "id, name FROM table WHERE id=123;", cs[1].Query)
-			assert.Equal(t, cs[1].Script, "def function2(args):\n    pass")
+			assert.Equal(t, "def function2(args):\n    pass", cs[1].Script)
 		})
 	}
 
@@ -125,7 +124,7 @@ checks:
 		assert.Equal(t, uint32(1), cs[0].Version)
 		assert.Equal(t, MySQLShow, cs[0].Type)
 		assert.Equal(t, "VARIABLES WHERE Variable_name IN ('have_ssl', 'have_openssl');", cs[0].Query)
-		assert.Equal(t, cs[0].Script, "def function1(args):\n    pass\n")
+		assert.Equal(t, "def function1(args):\n    pass\n", cs[0].Script)
 	})
 }
 
@@ -1082,7 +1081,6 @@ func TestCheck_CheckValidate(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			err := tt.check.Validate()
@@ -1092,7 +1090,7 @@ func TestCheck_CheckValidate(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }
@@ -1220,7 +1218,6 @@ Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxm
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -1229,7 +1226,7 @@ Ev7cLRh4ftaZMS+97g3U3/9Ic4QpNGtB55AFa33Bwf0V6psv69U7K3nzq+2/j2tz8EqqXCE0iAlAnUxm
 			if tt.errStr != "" {
 				assert.EqualError(t, err, tt.errStr)
 			} else {
-				assert.NoError(t, err)
+				require.NoError(t, err)
 			}
 		})
 	}
@@ -1310,7 +1307,6 @@ func TestCheck_GetFamily(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 

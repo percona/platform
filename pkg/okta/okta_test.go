@@ -181,7 +181,7 @@ func TestSignInByToken(t *testing.T) {
 		t.Parallel()
 
 		authInfo, err := s.SignInByToken(context.Background(), gofakeit.UUID())
-		require.NotNil(t, err)
+		require.Error(t, err)
 		require.ErrorContains(t, err, "authentication error")
 		require.Empty(t, authInfo)
 	})
@@ -211,7 +211,7 @@ func TestSignInByStateToken(t *testing.T) {
 		resp := AuthenticatedInfo{}
 		client := createOktaClient(t)
 		err = oktaAPIRequest(client, "POST", "/api/v1/authn", data, &resp)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.NotEmpty(t, resp.StateToken)
 
 		authInfo, err := s.SignInByStateToken(context.Background(), resp.StateToken)
@@ -224,7 +224,7 @@ func TestSignInByStateToken(t *testing.T) {
 		t.Parallel()
 
 		authInfo, err := s.SignInByStateToken(context.Background(), gofakeit.UUID())
-		require.NotNil(t, err)
+		require.Error(t, err)
 		require.ErrorContains(t, err, "Invalid token provided")
 		require.Empty(t, authInfo)
 	})
@@ -550,7 +550,7 @@ func TestFindGroup(t *testing.T) {
 
 	groups, err := s.FindGroupByName(ctx, name)
 	require.NoError(t, err)
-	require.Equal(t, 0, len(groups))
+	require.Empty(t, groups)
 
 	group, err := s.CreateGroup(ctx, name, description)
 	t.Cleanup(func() {
@@ -560,7 +560,7 @@ func TestFindGroup(t *testing.T) {
 
 	groups, err = s.FindGroupByName(ctx, name)
 	require.NoError(t, err)
-	require.Equal(t, 1, len(groups))
+	require.Len(t, groups, 1)
 	require.Equal(t, name, groups[0].Name)
 	require.Equal(t, description, groups[0].Description)
 }
@@ -800,7 +800,7 @@ func TestTrustedOrigin(t *testing.T) {
 		err = s.DeleteTrustedOrigin(ctx, origin)
 		require.NoError(t, err)
 		_, err = s.GetTrustedOriginID(ctx, origin)
-		assert.ErrorIs(t, err, ErrOriginNotFound)
+		require.ErrorIs(t, err, ErrOriginNotFound)
 	} else if !errors.Is(err, ErrOriginNotFound) {
 		t.Fatalf("failed to get origin ID from the API: %s", err)
 	}
@@ -830,7 +830,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"2", "3", "4"})
+		assert.Equal(t, []string{"2", "3", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -839,7 +839,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"3"}
 		toAdd := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "4"})
+		assert.Equal(t, []string{"1", "2", "4"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -848,7 +848,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"1", "2", "3"}
 		toAdd := []string{"3"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"3"})
+		assert.Equal(t, []string{"3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -857,7 +857,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toAdd := []string{"3"}
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -866,7 +866,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		var toRemove []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -875,7 +875,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"4"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2", "3"})
+		assert.Equal(t, []string{"1", "2", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -884,7 +884,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "3"})
+		assert.Equal(t, []string{"1", "3"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -893,7 +893,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toAdd []string
 		toRemove := []string{"2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{})
+		assert.Equal(t, []string{}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -902,7 +902,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		toRemove := []string{"2"}
 		toAdd := []string{"1", "2"}
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{"1", "2"})
+		assert.Equal(t, []string{"1", "2"}, result)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -911,7 +911,7 @@ func TestUpdateStringSlice(t *testing.T) {
 		var toRemove []string
 		var toAdd []string
 		result := UpdateStringsSet(source, toRemove, toAdd)
-		assert.Equal(t, result, []string{})
+		assert.Equal(t, []string{}, result)
 	})
 }
 
@@ -925,7 +925,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, ErrInvalidPortalAdminOrgs, err)
+		require.ErrorIs(t, ErrInvalidPortalAdminOrgs, err)
 	})
 
 	t.Run("valid no first and last name", func(t *testing.T) {
@@ -936,7 +936,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 
 	t.Run("valid all", func(t *testing.T) {
@@ -950,7 +950,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       &firstName,
 		}
 		err := validateUpdateUserParams(params)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 	})
 
 	t.Run("invalid PortalAdminOrgs not uuid", func(t *testing.T) {
@@ -963,7 +963,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       &firstName,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+		require.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
 	})
 
 	t.Run("invalid PortalAdminOrgs empty string", func(t *testing.T) {
@@ -974,7 +974,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
+		require.ErrorIs(t, err, ErrInvalidPortalAdminOrgs)
 	})
 
 	t.Run("empty last name", func(t *testing.T) {
@@ -986,7 +986,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrEmptyLastName)
+		require.ErrorIs(t, err, ErrEmptyLastName)
 	})
 
 	t.Run("empty first name", func(t *testing.T) {
@@ -998,7 +998,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:       &firstName,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrEmptyFirstName)
+		require.ErrorIs(t, err, ErrEmptyFirstName)
 	})
 
 	t.Run("invalid PMM demo id", func(t *testing.T) {
@@ -1009,7 +1009,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:  nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrInvalidPMMDemoID)
+		require.ErrorIs(t, err, ErrInvalidPMMDemoID)
 	})
 
 	t.Run("duplicated pmm demo ID", func(t *testing.T) {
@@ -1020,7 +1020,7 @@ func TestValidateUpdateParams(t *testing.T) {
 			Firstname:  nil,
 		}
 		err := validateUpdateUserParams(params)
-		assert.ErrorIs(t, err, ErrDuplicatedPMMDemoID)
+		require.ErrorIs(t, err, ErrDuplicatedPMMDemoID)
 	})
 }
 
@@ -1093,7 +1093,7 @@ func TestGetActivationLink(t *testing.T) {
 		})
 
 		info, err := s.GetActivationInfo(ctx, testUser.ID)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.NotEmpty(t, info)
 	})
 
@@ -1112,7 +1112,7 @@ func TestGetActivationLink(t *testing.T) {
 		})
 
 		info, err := s.GetActivationInfo(ctx, testUser.ID)
-		assert.NotNil(t, err)
+		require.Error(t, err)
 		assert.Empty(t, info)
 	})
 }
@@ -1136,7 +1136,7 @@ func TestGetValue(t *testing.T) {
 
 		valueBool, err := getValue[bool](profile, profileMarketing)
 		require.NoError(t, err)
-		require.Equal(t, true, *valueBool)
+		require.True(t, *valueBool)
 
 		valueStr, err = getValue[string](profile, profileFirstName)
 		require.ErrorIs(t, err, errNotFound)
@@ -1179,7 +1179,7 @@ func TestGetReactivationInfo(t *testing.T) {
 		require.Equal(t, UserStatusActive, testUser.Status)
 
 		link, err := s.GetReactivationInfo(ctx, testUser.ID)
-		assert.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
+		require.ErrorContains(t, err, "This operation is not allowed in the user's current status.")
 		assert.Empty(t, link)
 	})
 
@@ -1217,7 +1217,7 @@ func TestGetReactivationInfo(t *testing.T) {
 		require.NoError(t, err)
 
 		link, err := s.GetReactivationInfo(ctx, user.Id)
-		require.Nil(t, err)
+		require.NoError(t, err)
 		require.NotEmpty(t, link)
 
 		user, _, err = s.c.User.GetUser(ctx, user.Id)
@@ -1266,6 +1266,6 @@ func TestGetAppSecret(t *testing.T) {
 	secret, err := s.GetAppSecret(ctx, app.AppID)
 	require.NotEmpty(t, secret)
 	// check the secret is not empty
-	require.True(t, len(*secret) > 0)
-	require.Nil(t, err)
+	require.NotEmpty(t, *secret)
+	require.NoError(t, err)
 }

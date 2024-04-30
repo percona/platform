@@ -88,11 +88,11 @@ templates:
 	assert.NotEmpty(t, param.Range)
 	lower, higher, err := param.GetRangeForFloat()
 	require.NoError(t, err)
-	assert.Equal(t, float64(0), lower)
-	assert.Equal(t, float64(100), higher)
+	assert.InDelta(t, float64(0), lower, 0)
+	assert.InDelta(t, float64(100), higher, 0)
 	fv, err := param.GetValueForFloat()
 	require.NoError(t, err)
-	assert.Equal(t, float64(80), fv)
+	assert.InDelta(t, float64(80), fv, 0)
 
 	param = r.Params[1]
 	assert.Equal(t, "duration", param.Name)
@@ -110,7 +110,7 @@ templates:
 	assert.Empty(t, param.Range)
 	bv, err := param.GetValueForBool()
 	require.NoError(t, err)
-	assert.Equal(t, false, bv)
+	assert.False(t, bv)
 
 	param = r.Params[3]
 	assert.Equal(t, "string", param.Name)
@@ -422,7 +422,6 @@ func TestTemplate_Validate(t *testing.T) {
 	}}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			err := tt.template.Validate()
@@ -432,7 +431,7 @@ func TestTemplate_Validate(t *testing.T) {
 				return
 			}
 
-			assert.NoError(t, err)
+			require.NoError(t, err)
 		})
 	}
 }

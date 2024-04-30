@@ -35,13 +35,13 @@ func Verify(data []byte, publicKey, sig string) error { //nolint: cyclop
 	if err != nil || len(gBin) != 64 {
 		return errors.New("invalid global signature")
 	}
-	kBin, err := base64.StdEncoding.DecodeString(publicKey) //nolint:revive
+	kBin, err := base64.StdEncoding.DecodeString(publicKey)
 	if err != nil || len(kBin) != 42 {
 		return errors.New("invalid public key")
 	}
 
 	sAlg, sKeyID, sSig := sBin[0:2], sBin[2:10], sBin[10:74]
-	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42] //nolint:revive
+	kAlg, kKeyID, kKey := kBin[0:2], kBin[2:10], kBin[10:42]
 
 	// Key algorithm should be `Ed`.
 	if kAlg[0] != 0x45 || kAlg[1] != 0x64 {
@@ -106,7 +106,7 @@ func ParseChecks(reader io.Reader, params *ParseParams) ([]Check, error) {
 	var res []Check
 	for {
 		var c checks
-		if err := d.Decode(&c); err != nil {
+		if err := d.Decode(&c); err != nil { //nolint:musttag
 			if errors.Is(err, io.EOF) {
 				return res, nil
 			}
