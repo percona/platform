@@ -7,7 +7,7 @@ go 1.22
 require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/alecthomas/kingpin/v2 v2.4.0
-	github.com/aws/aws-sdk-go v1.51.31
+	github.com/aws/aws-sdk-go v1.53.1
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/golang/protobuf v1.5.4
 	github.com/google/uuid v1.6.0
