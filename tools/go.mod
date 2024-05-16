@@ -15,7 +15,7 @@ require (
 	golang.org/x/tools v0.21.0
 	google.golang.org/grpc v1.63.2
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/protobuf v1.34.1
 	mvdan.cc/gofumpt v0.6.0
 )
 
