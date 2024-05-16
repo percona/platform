@@ -130,7 +130,7 @@ func GenPassword(t *testing.T) string {
 	faker := gofakeit.New(time.Now().UnixNano())
 	// All params set to true in faker.Password() call are optional
 	// and do not guarantee that password will contain requested characters.
-	password := faker.Password(true, true, true, true, false, 14)
+	password := faker.Password(true, true, true, true, false, 14) //nolint:mnd
 	// make sure that password contains at least one lowercase character.
 	password += string(lowerStr[faker.Rand.Int63()%int64(len(lowerStr))])
 	// make sure that password contains at least one uppercase character.
