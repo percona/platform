@@ -39,7 +39,7 @@ func RunHTTPServer(ctx context.Context, opts *RunHTTPServerOpts) {
 		opts.Handler = http.NotFoundHandler()
 	}
 	if opts.ShutdownTimeout == 0 {
-		opts.ShutdownTimeout = 3 * time.Second
+		opts.ShutdownTimeout = 3 * time.Second //nolint:mnd
 	}
 
 	l.Infof("Starting server on http://%s/", opts.Addr)

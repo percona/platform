@@ -371,7 +371,7 @@ func (c *Client) DeleteUser(ctx context.Context, userID string) error {
 	}
 
 	if err == nil {
-		nCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+		nCtx, cancel := context.WithTimeout(ctx, 10*time.Second) //nolint:mnd
 		defer cancel()
 		if err := c.waitForDeactivation(nCtx, userID); err != nil {
 			l.Error("User deactivation failed.", zap.Error(err))

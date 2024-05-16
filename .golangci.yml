@@ -31,7 +31,7 @@ linters:
     - exhaustruct      # verbose style
     - funlen           # annoying
     - gci              # works poorly
-    - goerr113         # we use pkg/errors for stack traces
+    - err113           # we use pkg/errors for stack traces
     - golint           # deprecated
     - gomnd            # too annoying
     - ifshort          # irrelevant; short syntax is sometimes profitable

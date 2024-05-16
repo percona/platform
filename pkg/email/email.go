@@ -17,7 +17,7 @@ type Client struct {
 // New returns an instance of Client.
 func New(iamUserAcessKey, iamUserAccessSecret, region, senderEmail string) *Client {
 	cfg := &aws.Config{
-		MaxRetries:  aws.Int(3),
+		MaxRetries:  aws.Int(3), //nolint:mnd
 		Credentials: credentials.NewStaticCredentials(iamUserAcessKey, iamUserAccessSecret, ""),
 		Region:      aws.String(region),
 	}

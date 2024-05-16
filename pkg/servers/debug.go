@@ -44,7 +44,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		l.Panic("No Addr set.")
 	}
 	if opts.ShutdownTimeout == 0 {
-		opts.ShutdownTimeout = 3 * time.Second
+		opts.ShutdownTimeout = 3 * time.Second //nolint:mnd
 	}
 	if opts.Healthz == nil {
 		opts.Healthz = func() error { return nil }

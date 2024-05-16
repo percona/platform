@@ -68,7 +68,7 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 	}
 
 	if opts.ShutdownTimeout == 0 {
-		opts.ShutdownTimeout = 3 * time.Second
+		opts.ShutdownTimeout = 3 * time.Second //nolint:mnd
 	}
 
 	unaryInterceptors := []grpc.UnaryServerInterceptor{
@@ -88,8 +88,8 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 
 	serverOpts := []grpc.ServerOption{
-		grpc.ConnectionTimeout(5 * time.Second),
-		grpc.MaxRecvMsgSize(10 * 1024 * 1024), //nolint:gomnd
+		grpc.ConnectionTimeout(5 * time.Second), //nolint:mnd
+		grpc.MaxRecvMsgSize(10 * 1024 * 1024),   //nolint:mnd
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(unaryInterceptors...)),
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(streamInterceptors...)),
 	}
