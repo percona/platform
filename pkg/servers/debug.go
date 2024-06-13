@@ -58,7 +58,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		if err != nil {
 			l.Errorf("Healthz: %+v.", err)
 			rw.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(rw, err)
+			fmt.Fprint(rw, err) //nolint:errcheck
 			return
 		}
 
@@ -72,7 +72,7 @@ func RunDebugServer(ctx context.Context, opts *RunDebugServerOpts) { //nolint:fu
 		if err != nil {
 			l.Warnf("Readyz: %+v.", err)
 			rw.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(rw, err)
+			fmt.Fprint(rw, err) //nolint:errcheck
 			return
 		}
 
