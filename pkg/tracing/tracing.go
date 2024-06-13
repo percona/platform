@@ -37,7 +37,7 @@ func GetRequestIDFromGRPCIncomingContext(ctx context.Context) string {
 
 // GetRequestIDFromHTTPRequest extracts from trace-id value from incoming HTTP request.
 func GetRequestIDFromHTTPRequest(r *http.Request) string {
-	if reqID := r.Header.Get(tracingHeaderName); len(reqID) > 0 {
+	if reqID := r.Header.Get(tracingHeaderName); len(reqID) > 0 { //nolint:canonicalheader
 		return reqID
 	}
 	return ""
