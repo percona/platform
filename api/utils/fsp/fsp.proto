@@ -9,9 +9,9 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "/utils/fsp;fspv1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Utils API",
-    description: "Common types shared across services.",
-  };
+    title: "Utils API"
+    description: "Common types shared across services."
+  }
 };
 
 // FilterType represents type of filter that will be applied to SQL query.

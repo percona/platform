@@ -14,11 +14,11 @@ import "utils/fsp/fsp.proto";
 option go_package = "/event;eventv1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Event API",
-    description: "API for eventd service.",
-  };
+    title: "Event API"
+    description: "API for eventd service."
+  }
   extensions: {
-    key: "x-readme";
+    key: "x-readme"
     value: {
       struct_value: {
         fields: {
@@ -145,20 +145,20 @@ service EventAPI {
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "";
-      summary: "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly.";
-      tags: "Events management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: ""
+      summary: "Creates an event. The method requires Hook authentication, it's optimized for hooks to respond quickly."
+      tags: "Events management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -167,20 +167,20 @@ service EventAPI {
     option (google.api.http) = {get: "/v1/hooks/events"};
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Hook handler validation";
-      summary: "Okta sends the one-time validation request to verify the hook handler ownership";
-      tags: "Events management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Hook handler validation"
+      summary: "Okta sends the one-time validation request to verify the hook handler ownership"
+      tags: "Events management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{}'
           }
-        };
-      };
+        }
+      }
     };
   }
 }
