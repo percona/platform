@@ -12,11 +12,11 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "/org;orgv1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
-    title: "Org API",
-    description: "API for orgd service.",
-  };
+    title: "Org API"
+    description: "API for orgd service."
+  }
   extensions: {
-    key: "x-readme";
+    key: "x-readme"
     value: {
       struct_value: {
         fields: {
@@ -54,20 +54,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal.";
-      summary: "Create organization";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Create a new organization with the given name and add the user as organization administrator. If the email belongs to an existing Percona customer, the new organization is automatically linked to their existing organization on Percona Customer Portal."
+      summary: "Create organization"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -78,20 +78,20 @@ service OrgAPI {
       body: "organization"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Update organization info.";
-      summary: "Update organization";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Update organization info."
+      summary: "Update organization"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -99,20 +99,20 @@ service OrgAPI {
   rpc GetOrganization(GetOrganizationRequest) returns (GetOrganizationResponse) {
     option (google.api.http) = {get: "/v1/orgs/{org_id}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Get organization info by ID.";
-      summary: "Get organization info";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Get organization info by ID."
+      summary: "Get organization info"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"org": {"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -123,20 +123,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search for organizations that the user is a member of.";
-      summary: "Search organizations";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search for organizations that the user is a member of."
+      summary: "Search organizations"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"orgs": [{"id": "b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef", "name": "Percona SANDBOX", "created_at": "2021-12-10T07:41:08.925367Z", "updated_at": "2021-12-10T07:41:08.925367Z"}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -144,12 +144,12 @@ service OrgAPI {
   rpc DeleteOrganization(DeleteOrganizationRequest) returns (DeleteOrganizationResponse) {
     option (google.api.http) = {delete: "/v1/orgs/{org_id}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Delete organization by ID.";
-      summary: "Delete organization";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {key: "200"};
+      description: "Delete organization by ID."
+      summary: "Delete organization"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      responses: {key: "200"}
     };
   }
 
@@ -160,12 +160,12 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Invite users to the organization and specify their member roles.";
-      summary: "Invite organization member";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {key: "200"};
+      description: "Invite users to the organization and specify their member roles."
+      summary: "Invite organization member"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      responses: {key: "200"}
     };
   }
 
@@ -176,20 +176,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty.";
-      summary: "Bulk invite organization members";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Invite users to the organization and specify their member roles. If the request validation succeeded, return 200 OK and the array of errors for the failed invites only. If all invites were successful, the errors array is empty."
+      summary: "Bulk invite organization members"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"errors":[{"username":"mark.doe@gmail.com","error":"Invalid organization member role."},{"username":"john.doe@gmail.com","error":"User is already a member of another organization."}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -200,20 +200,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search organization members.";
-      summary: "Search organization members";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search organization members."
+      summary: "Search organization members"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"members": [{"member_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "username": "test@org.com", "first_name": "First Name", "last_name": "Last Name", "role": "Admin", "status": "ACTIVE"}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -224,20 +224,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Update organization member's role.";
-      summary: "Update organization member";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Update organization member's role."
+      summary: "Update organization member"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"member": {"member_id":"1a8e7b33-59bc-42a5-b1a8-2180576badde","username":"admin@org.com","first_name":"First Name","last_name":"Last Name","role":"Admin","status":"ACTIVE"}}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -245,12 +245,12 @@ service OrgAPI {
   rpc DeleteMember(DeleteMemberRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {delete: "/v1/orgs/{org_id}/members/{member_id}"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Delete member from organization.";
-      summary: "Delete organization member";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {key: "200"};
+      description: "Delete member from organization."
+      summary: "Delete organization member"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      responses: {key: "200"}
     };
   }
 
@@ -258,20 +258,20 @@ service OrgAPI {
   rpc ReactivateMember(ReactivateMemberRequest) returns (ReactivateMemberResponse) {
     option (google.api.http) = {post: "/v1/orgs/{org_id}/members/{member_id}:reactivate"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Reactivates an organization member that has been in Pending state";
-      summary: "ReactivateMember";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Reactivates an organization member that has been in Pending state"
+      summary: "ReactivateMember"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -279,20 +279,20 @@ service OrgAPI {
   rpc SearchOrganizationEntitlements(SearchOrganizationEntitlementsRequest) returns (SearchOrganizationEntitlementsResponse) {
     option (google.api.http) = {post: "/v1/orgs/{org_id}/entitlements:search"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
-      summary: "Search organization entitlements";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search organization entitlements. This method only returns information if the organization is linked to an existing Percona Customer Portal account."
+      summary: "Search organization entitlements"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"entitlements":[{"number":"ENTLMT0001026","name":"Unmeasured MySQL Support - Premium - ENTLMT0001026","summary":"3 MySQL Servers","tier":"","total_units":"3","unlimited_units":false,"support_level":"","software_families":["MySQL"],"start_date":"2019-10-28T00:00:00Z","end_date":"2021-07-01T00:00:00Z","platform":{"security_advisor":"","config_advisor":""}}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -300,20 +300,20 @@ service OrgAPI {
   rpc SearchOrganizationTickets(SearchOrganizationTicketsRequest) returns (SearchOrganizationTicketsResponse) {
     option (google.api.http) = {post: "/v1/orgs/{org_id}/tickets:search"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account.";
-      summary: "Search organization tickets";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search organization tickets. This method only returns information if the organization is linked to an existing Percona Customer Portal account."
+      summary: "Search organization tickets"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"tickets":[{"number":"TIME0001218","short_description":"Percona SANDBOX Percona Managed Database Services for PostgreSQL - ENTLMT0003359","priority":"P3 - Normal","state":"Open","create_time":"2022-01-14T20:53:22Z","department":"Managed Services","requester":"","task_type":"Internal Tracking","url":"https://perconadev.service-now.com/percona?id=percona_ticket&table=u_internal_tracking&sys_id=b2a175a587098d508d75c9d8cebb35a8"}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -321,20 +321,20 @@ service OrgAPI {
   rpc SearchUserCompany(SearchUserCompanyRequest) returns (SearchUserCompanyResponse) {
     option (google.api.http) = {post: "/v1/orgs/company:search"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account.";
-      summary: "Search user company";
-      tags: "Orgd Organization Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search by Percona customer email. This method only returns information if the user email is linked to an existing Percona Customer Portal account."
+      summary: "Search user company"
+      tags: "Orgd Organization Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"name":"Percona SANDBOX"}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -344,20 +344,20 @@ service OrgAPI {
       body: "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Onboards a user to Platform.";
-      summary: "Onboards a user to Platform.";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Onboards a user to Platform."
+      summary: "Onboards a user to Platform."
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -373,20 +373,20 @@ service OrgAPI {
       }
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Connect PMM Server to organization.";
-      summary: "Connect PMM Server";
-      tags: "Orgd Inventory Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Connect PMM Server to organization."
+      summary: "Connect PMM Server"
+      tags: "Orgd Inventory Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"sso_details":{"grafana_client_id":"bdheuwort62379fwbeui","pmm_managed_client_id":"bdheuwort62379fwbeui","pmm_managed_client_secret":"bvhjrfbwjrkfnbbrjeknfberjk","issuer_url":"https://id.percona.com/oauth2/bfewhukfgweyurgwyu/v1","scope":"percona"},"org_id":"b0e2e3d6-b909-43f0-9871-f9bcbf4a02ef"}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
@@ -395,12 +395,12 @@ service OrgAPI {
   rpc DisconnectPMM(DisconnectPMMRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {post: "/v1/orgs/inventory/{pmm_server_id}:disconnect"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Disconnect PMM Server from organization.";
-      summary: "Disconnect PMM Server";
-      tags: "Orgd Inventory Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
-      responses: {key: "200"};
+      description: "Disconnect PMM Server from organization."
+      summary: "Disconnect PMM Server"
+      tags: "Orgd Inventory Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
+      responses: {key: "200"}
     };
   }
 
@@ -408,100 +408,100 @@ service OrgAPI {
   rpc SearchInventory(SearchInventoryRequest) returns (SearchInventoryResponse) {
     option (google.api.http) = {post: "/v1/orgs/{org_id}/inventory:search"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Search all PMM servers connected to an organization.";
-      summary: "Search connected PMM Servers";
-      tags: "Orgd Inventory Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Search all PMM servers connected to an organization."
+      summary: "Search connected PMM Servers"
+      tags: "Orgd Inventory Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"inventory": [{"pmm_server_id":"ded64cd9-2f9e-78ac-247a-d98ad1f95e85","pmm_server_name":"Small Rubber Shoes","pmm_server_url":"https://laverna.biz"}]}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
   rpc CreateCivoCluster(CreateCivoClusterRequest) returns (CreateCivoClusterResponse) {
     option (google.api.http) = {post: "/v1/dbaas/cluster/civo"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Creates a kubernetes cluster on Civo that can be used to run DBaaS.";
-      summary: "Create kubernetes cluster";
-      tags: "Orgd DBaaS Helpers";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Creates a kubernetes cluster on Civo that can be used to run DBaaS."
+      summary: "Create kubernetes cluster"
+      tags: "Orgd DBaaS Helpers"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
   rpc GetCivoClusterStatus(GetCivoClusterStatusRequest) returns (GetCivoClusterStatusResponse) {
     option (google.api.http) = {get: "/v1/dbaas/cluster/civo"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the status and ID of the CIVO cluster created by the current logged in user.";
-      summary: "Get cluster status";
-      tags: "Orgd DBaaS Helpers";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Returns the status and ID of the CIVO cluster created by the current logged in user."
+      summary: "Get cluster status"
+      tags: "Orgd DBaaS Helpers"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"cluster_id": "35d38758-c6b6-4abf-b297-a6e463862f9f", "status": "ACTIVE"}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
   rpc GetCivoKubeconfig(GetCivoKubeconfigRequest) returns (GetCivoKubeconfigResponse) {
     option (google.api.http) = {get: "/v1/dbaas/cluster/civo/{cluster_id}/config"};
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE.";
-      summary: "Get cluster kubeconfig";
-      tags: "Orgd DBaaS Helpers";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Returns the kubeconfig of the cluster from CIVO once it is ACTIVE."
+      summary: "Get cluster kubeconfig"
+      tags: "Orgd DBaaS Helpers"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"kubeconfig": ""}'
           }
-        };
-      };
+        }
+      }
     };
   }
 
   // GetRoleByUserID returns the Percona Portal Organization member information corresponding to the given UserID
   rpc GetRoleByUserID(GetRoleByUserIDRequest) returns (GetRoleByUserIDResponse) {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user.";
-      summary: "Search organization member by UserID";
-      tags: "Orgd Member Management";
-      consumes: ["application/json"];
-      produces: ["application/json"];
+      description: "Returns the Percona Portal Organization member information corresponding to the given UserID. Since no org_id is required, the method is assumed to be performed by a SuperAdmin user."
+      summary: "Search organization member by UserID"
+      tags: "Orgd Member Management"
+      consumes: ["application/json"]
+      produces: ["application/json"]
       responses: {
-        key: "200";
+        key: "200"
         value: {
           examples: {
             key: "application/json"
             value: '{"org_id": "c1ede3d6-ce34-1234-9871-7af2bf4a02ef", "role": "Admin"}'
           }
-        };
-      };
+        }
+      }
     };
   }
 }
