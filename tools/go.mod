@@ -1,18 +1,19 @@
 module github.com/percona/platform/tools
 
-go 1.22.0
-toolchain go1.22.5
+go 1.22.1
+
+toolchain go1.23.2
 
 // some dependecies should be synced with Dockerfile
 
 require (
 	github.com/bufbuild/buf v1.45.0
-	github.com/dvyukov/go-fuzz v0.0.0-20220726122315-1d375ef9f9f6
+	github.com/dvyukov/go-fuzz v0.0.0-20240924070022-e577bee5275c
 	github.com/golangci/golangci-lint v1.61.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/quasilyte/go-consistent v0.6.1
-	github.com/reviewdog/reviewdog v0.20.1
+	github.com/reviewdog/reviewdog v0.20.2
 	golang.org/x/tools v0.26.0
 	google.golang.org/grpc v1.67.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
@@ -31,7 +32,7 @@ require (
 	buf.build/go/bufplugin v0.5.0 // indirect
 	buf.build/go/protoyaml v0.2.0 // indirect
 	buf.build/go/spdx v0.2.0 // indirect
-	code.gitea.io/sdk/gitea v0.18.0 // indirect
+	code.gitea.io/sdk/gitea v0.19.0 // indirect
 	connectrpc.com/connect v1.17.0 // indirect
 	connectrpc.com/otelconnect v0.7.1 // indirect
 	github.com/4meepo/tagalign v1.3.4 // indirect
@@ -135,7 +136,7 @@ require (
 	github.com/google/cel-go v0.21.0 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/go-containerregistry v0.20.2 // indirect
-	github.com/google/go-github/v62 v62.0.0 // indirect
+	github.com/google/go-github/v64 v64.0.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/pprof v0.0.0-20241001023024-f4c0cfd0cf1d // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -267,7 +268,7 @@ require (
 	github.com/ultraware/whitespace v0.1.1 // indirect
 	github.com/uudashr/gocognit v1.1.3 // indirect
 	github.com/vbatts/tar-split v0.11.6 // indirect
-	github.com/xanzy/go-gitlab v0.106.0 // indirect
+	github.com/xanzy/go-gitlab v0.109.0 // indirect
 	github.com/xen0n/gosmopolitan v1.2.2 // indirect
 	github.com/yagipy/maintidx v1.0.0 // indirect
 	github.com/yeya24/promlinter v0.3.0 // indirect
@@ -292,13 +293,13 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.uber.org/zap/exp v0.1.1-0.20240913022758-ede8e1888f83 // indirect
-	golang.org/x/build v0.0.0-20240712162709-0b82a206aadf // indirect
+	golang.org/x/build v0.0.0-20240906172953-ad8de1aafeaf // indirect
 	golang.org/x/crypto v0.28.0 // indirect
 	golang.org/x/exp v0.0.0-20241004190924-225e2abe05e6 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20240314144324-c7f7c6466f7f // indirect
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.30.0 // indirect
-	golang.org/x/oauth2 v0.22.0 // indirect
+	golang.org/x/oauth2 v0.23.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/term v0.25.0 // indirect

@@ -155,7 +155,7 @@ func streamLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.St
 
 		err := logGRPCRequest(l, "stream", warnDuration, func() error {
 			wrapped := grpc_middleware.WrapServerStream(ss)
-			wrapped.WrappedContext = ctx
+			wrapped.WrappedContext = ctx //nolint:fatcontext
 			return handler(srv, ss)
 		})
 
