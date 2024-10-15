@@ -295,6 +295,7 @@ func local_request_AuthAPI_ValidateToken_0(ctx context.Context, marshaler runtim
 // UnaryRPC     :call AuthAPIServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterAuthAPIHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterAuthAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server AuthAPIServer) error {
 
 	mux.Handle("POST", pattern_AuthAPI_SignUp_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -585,7 +586,7 @@ func RegisterAuthAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "AuthAPIClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "AuthAPIClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "AuthAPIClient" to call the correct interceptors.
+// "AuthAPIClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterAuthAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client AuthAPIClient) error {
 
 	mux.Handle("POST", pattern_AuthAPI_SignUp_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
