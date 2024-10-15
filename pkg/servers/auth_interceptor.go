@@ -394,7 +394,7 @@ func getAuthStatusFromMetadata(md metadata.MD) (codes.Code, error) {
 		return 0, errors.Wrap(err, "failed to parse auth status code")
 	}
 
-	return codes.Code(c), nil
+	return codes.Code(c), nil //nolint: gosec
 }
 
 // getAuthErrorFromMetadata extracts auth error message set by proxy from metadata.
