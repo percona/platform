@@ -1,7 +1,6 @@
 module github.com/percona/platform/tools
 
 go 1.22.1
-
 toolchain go1.23.2
 
 // some dependecies should be synced with Dockerfile
@@ -15,7 +14,7 @@ require (
 	github.com/quasilyte/go-consistent v0.6.1
 	github.com/reviewdog/reviewdog v0.20.2
 	golang.org/x/tools v0.27.0
-	google.golang.org/grpc v1.67.1
+	google.golang.org/grpc v1.68.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 	google.golang.org/protobuf v1.35.1
 	mvdan.cc/gofumpt v0.7.0
