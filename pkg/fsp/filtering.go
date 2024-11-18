@@ -70,7 +70,7 @@ func (f *Filter) Attach(builder sq.SelectBuilder) sq.SelectBuilder {
 	return builder.Where(f.generateSQLizer())
 }
 
-func (f Filter) generateSQLizer() sq.Sqlizer {
+func (f *Filter) generateSQLizer() sq.Sqlizer {
 	generateFn, ok := filterToGenerateSQLizerFunc[f.FilterType]
 	if !ok {
 		return nil
