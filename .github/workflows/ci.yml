@@ -66,7 +66,7 @@ jobs:
           make test-crosscover
 
       - name: Upload coverage results
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.PLATF_SAAS_CODECOV_TOKEN }}
           file: crosscover.out
