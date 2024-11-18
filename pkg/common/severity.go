@@ -10,7 +10,7 @@ import (
 //go:generate ../../bin/stringer -type=Severity -linecomment
 
 // Severity represents alert severity level as present in STT checks, IA templates, IA rules labels, etc.
-type Severity int
+type Severity int //nolint:recvcheck
 
 // Supported severity levels.
 const (

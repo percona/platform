@@ -25,12 +25,10 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - execinquery      # annoing
     - exhaustruct      # verbose style
     - funlen           # annoying
     - gci              # works poorly
     - err113           # we use pkg/errors for stack traces
-    - gomnd            # too annoying
     - ireturn          # incompatible with the codebase
     - lll              # gRPC types are long
     - maintidx         # disable for compatability
