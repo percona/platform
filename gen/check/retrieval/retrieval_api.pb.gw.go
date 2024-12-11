@@ -10,6 +10,7 @@ package retrievalv1
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,125 +25,118 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllChecksRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllChecksRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetAllChecks(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_RetrievalAPI_GetAllChecks_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllChecksRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllChecksRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetAllChecks(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_RetrievalAPI_GetAllAdvisors_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllAdvisorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllAdvisorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetAllAdvisors(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_RetrievalAPI_GetAllAdvisors_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllAdvisorsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllAdvisorsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetAllAdvisors(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllAlertRuleTemplatesRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllAlertRuleTemplatesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetAllAlertRuleTemplates(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_RetrievalAPI_GetAllAlertRuleTemplates_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAllAlertRuleTemplatesRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq GetAllAlertRuleTemplatesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetAllAlertRuleTemplates(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
-var (
-	filter_RetrievalAPI_GetAdvisorsInfo_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
+var filter_RetrievalAPI_GetAdvisorsInfo_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 
 func request_RetrievalAPI_GetAdvisorsInfo_0(ctx context.Context, marshaler runtime.Marshaler, client RetrievalAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAdvisorsInfoRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetAdvisorsInfoRequest
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RetrievalAPI_GetAdvisorsInfo_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.GetAdvisorsInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_RetrievalAPI_GetAdvisorsInfo_0(ctx context.Context, marshaler runtime.Marshaler, server RetrievalAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetAdvisorsInfoRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetAdvisorsInfoRequest
+		metadata runtime.ServerMetadata
+	)
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_RetrievalAPI_GetAdvisorsInfo_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.GetAdvisorsInfo(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterRetrievalAPIHandlerServer registers the http handlers for service RetrievalAPI to "mux".
@@ -151,16 +145,13 @@ func local_request_RetrievalAPI_GetAdvisorsInfo_0(ctx context.Context, marshaler
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterRetrievalAPIHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server RetrievalAPIServer) error {
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllChecks", runtime.WithHTTPPathPattern("/v1/check/GetAllChecks"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllChecks", runtime.WithHTTPPathPattern("/v1/check/GetAllChecks"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -172,20 +163,15 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllChecks_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllAdvisors_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllAdvisors_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAdvisors", runtime.WithHTTPPathPattern("/v1/check/GetAllAdvisors"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAdvisors", runtime.WithHTTPPathPattern("/v1/check/GetAllAdvisors"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -197,20 +183,15 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllAdvisors_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates", runtime.WithHTTPPathPattern("/v1/check/GetAllAlertRuleTemplates"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates", runtime.WithHTTPPathPattern("/v1/check/GetAllAlertRuleTemplates"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -222,20 +203,15 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllAlertRuleTemplates_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_RetrievalAPI_GetAdvisorsInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_RetrievalAPI_GetAdvisorsInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo", runtime.WithHTTPPathPattern("/v1/check/advisors"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo", runtime.WithHTTPPathPattern("/v1/check/advisors"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -247,9 +223,7 @@ func RegisterRetrievalAPIHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAdvisorsInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -276,7 +250,6 @@ func RegisterRetrievalAPIHandlerFromEndpoint(ctx context.Context, mux *runtime.S
 			}
 		}()
 	}()
-
 	return RegisterRetrievalAPIHandler(ctx, mux, conn)
 }
 
@@ -292,14 +265,11 @@ func RegisterRetrievalAPIHandler(ctx context.Context, mux *runtime.ServeMux, con
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "RetrievalAPIClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client RetrievalAPIClient) error {
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllChecks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllChecks", runtime.WithHTTPPathPattern("/v1/check/GetAllChecks"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllChecks", runtime.WithHTTPPathPattern("/v1/check/GetAllChecks"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -310,18 +280,13 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllChecks_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllAdvisors_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllAdvisors_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAdvisors", runtime.WithHTTPPathPattern("/v1/check/GetAllAdvisors"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAdvisors", runtime.WithHTTPPathPattern("/v1/check/GetAllAdvisors"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -332,18 +297,13 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllAdvisors_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_RetrievalAPI_GetAllAlertRuleTemplates_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates", runtime.WithHTTPPathPattern("/v1/check/GetAllAlertRuleTemplates"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAllAlertRuleTemplates", runtime.WithHTTPPathPattern("/v1/check/GetAllAlertRuleTemplates"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -354,18 +314,13 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAllAlertRuleTemplates_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_RetrievalAPI_GetAdvisorsInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_RetrievalAPI_GetAdvisorsInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo", runtime.WithHTTPPathPattern("/v1/check/advisors"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.check.retrieval.v1.RetrievalAPI/GetAdvisorsInfo", runtime.WithHTTPPathPattern("/v1/check/advisors"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -376,30 +331,21 @@ func RegisterRetrievalAPIHandlerClient(ctx context.Context, mux *runtime.ServeMu
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_RetrievalAPI_GetAdvisorsInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
-	pattern_RetrievalAPI_GetAllChecks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllChecks"}, ""))
-
-	pattern_RetrievalAPI_GetAllAdvisors_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllAdvisors"}, ""))
-
+	pattern_RetrievalAPI_GetAllChecks_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllChecks"}, ""))
+	pattern_RetrievalAPI_GetAllAdvisors_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllAdvisors"}, ""))
 	pattern_RetrievalAPI_GetAllAlertRuleTemplates_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "GetAllAlertRuleTemplates"}, ""))
-
-	pattern_RetrievalAPI_GetAdvisorsInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "advisors"}, ""))
+	pattern_RetrievalAPI_GetAdvisorsInfo_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "check", "advisors"}, ""))
 )
 
 var (
-	forward_RetrievalAPI_GetAllChecks_0 = runtime.ForwardResponseMessage
-
-	forward_RetrievalAPI_GetAllAdvisors_0 = runtime.ForwardResponseMessage
-
+	forward_RetrievalAPI_GetAllChecks_0             = runtime.ForwardResponseMessage
+	forward_RetrievalAPI_GetAllAdvisors_0           = runtime.ForwardResponseMessage
 	forward_RetrievalAPI_GetAllAlertRuleTemplates_0 = runtime.ForwardResponseMessage
-
-	forward_RetrievalAPI_GetAdvisorsInfo_0 = runtime.ForwardResponseMessage
+	forward_RetrievalAPI_GetAdvisorsInfo_0          = runtime.ForwardResponseMessage
 )
