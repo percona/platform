@@ -10,6 +10,7 @@ package orgv1
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 
@@ -24,1023 +25,770 @@ import (
 )
 
 // Suppress "imported and not used" errors
-var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+var (
+	_ codes.Code
+	_ io.Reader
+	_ status.Status
+	_ = errors.New
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_OrgAPI_CreateOrganization_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateOrganizationRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateOrganizationRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.CreateOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_CreateOrganization_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateOrganizationRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq CreateOrganizationRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.CreateOrganization(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_UpdateOrganization_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateOrganizationRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Organization); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Organization); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["organization.id"]
+	val, ok := pathParams["organization.id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "organization.id")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "organization.id", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "organization.id", err)
 	}
-
 	msg, err := client.UpdateOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_UpdateOrganization_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateOrganizationRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Organization); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.Organization); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["organization.id"]
+	val, ok := pathParams["organization.id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "organization.id")
 	}
-
 	err = runtime.PopulateFieldFromPath(&protoReq, "organization.id", val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "organization.id", err)
 	}
-
 	msg, err := server.UpdateOrganization(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_GetOrganization_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetOrganizationRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.GetOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_GetOrganization_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetOrganizationRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.GetOrganization(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchOrganizations_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SearchOrganizationsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.SearchOrganizations(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchOrganizations_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationsRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SearchOrganizationsRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.SearchOrganizations(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_DeleteOrganization_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteOrganizationRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.DeleteOrganization(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_DeleteOrganization_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteOrganizationRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteOrganizationRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.DeleteOrganization(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_InviteMember_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InviteMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq InviteMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.InviteMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_InviteMember_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InviteMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq InviteMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.InviteMember(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_InviteMembers_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InviteMembersRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq InviteMembersRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.InviteMembers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_InviteMembers_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq InviteMembersRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq InviteMembersRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.InviteMembers(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchMembers_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchMembersRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SearchMembersRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.SearchMembers(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchMembers_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchMembersRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq SearchMembersRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.SearchMembers(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_UpdateMember_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := client.UpdateMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_UpdateMember_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq UpdateMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := server.UpdateMember(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_DeleteMember_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteMemberRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := client.DeleteMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_DeleteMember_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteMemberRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DeleteMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := server.DeleteMember(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_ReactivateMember_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReactivateMemberRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ReactivateMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := client.ReactivateMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_ReactivateMember_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReactivateMemberRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq ReactivateMemberRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	val, ok = pathParams["member_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "member_id")
 	}
-
 	protoReq.MemberId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "member_id", err)
 	}
-
 	msg, err := server.ReactivateMember(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchOrganizationEntitlements_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationEntitlementsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchOrganizationEntitlementsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.SearchOrganizationEntitlements(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchOrganizationEntitlements_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationEntitlementsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchOrganizationEntitlementsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.SearchOrganizationEntitlements(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchOrganizationTickets_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationTicketsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchOrganizationTicketsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.SearchOrganizationTickets(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchOrganizationTickets_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchOrganizationTicketsRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchOrganizationTicketsRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.SearchOrganizationTickets(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchUserCompany_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchUserCompanyRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq SearchUserCompanyRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.SearchUserCompany(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchUserCompany_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchUserCompanyRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq SearchUserCompanyRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.SearchUserCompany(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_OnboardMember_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq OnboardMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq OnboardMemberRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.OnboardMember(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_OnboardMember_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq OnboardMemberRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq OnboardMemberRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.OnboardMember(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_ConnectPMM_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConnectPMMRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ConnectPMMRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ConnectPMM(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_ConnectPMM_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConnectPMMRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ConnectPMMRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ConnectPMM(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_ConnectPMM_1(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConnectPMMRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ConnectPMMRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := client.ConnectPMM(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_ConnectPMM_1(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ConnectPMMRequest
-	var metadata runtime.ServerMetadata
-
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
+	var (
+		protoReq ConnectPMMRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
 	msg, err := server.ConnectPMM(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_DisconnectPMM_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DisconnectPMMRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DisconnectPMMRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["pmm_server_id"]
+	val, ok := pathParams["pmm_server_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "pmm_server_id")
 	}
-
 	protoReq.PmmServerId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "pmm_server_id", err)
 	}
-
 	msg, err := client.DisconnectPMM(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_DisconnectPMM_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DisconnectPMMRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq DisconnectPMMRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["pmm_server_id"]
+	val, ok := pathParams["pmm_server_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "pmm_server_id")
 	}
-
 	protoReq.PmmServerId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "pmm_server_id", err)
 	}
-
 	msg, err := server.DisconnectPMM(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_SearchInventory_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchInventoryRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchInventoryRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := client.SearchInventory(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_SearchInventory_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq SearchInventoryRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq SearchInventoryRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["org_id"]
+	val, ok := pathParams["org_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "org_id")
 	}
-
 	protoReq.OrgId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "org_id", err)
 	}
-
 	msg, err := server.SearchInventory(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_CreateCivoCluster_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateCivoClusterRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq CreateCivoClusterRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.CreateCivoCluster(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_CreateCivoCluster_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateCivoClusterRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq CreateCivoClusterRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.CreateCivoCluster(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_GetCivoClusterStatus_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCivoClusterStatusRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetCivoClusterStatusRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := client.GetCivoClusterStatus(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_GetCivoClusterStatus_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCivoClusterStatusRequest
-	var metadata runtime.ServerMetadata
-
+	var (
+		protoReq GetCivoClusterStatusRequest
+		metadata runtime.ServerMetadata
+	)
 	msg, err := server.GetCivoClusterStatus(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_OrgAPI_GetCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, client OrgAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCivoKubeconfigRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetCivoKubeconfigRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["cluster_id"]
+	val, ok := pathParams["cluster_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cluster_id")
 	}
-
 	protoReq.ClusterId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cluster_id", err)
 	}
-
 	msg, err := client.GetCivoKubeconfig(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_OrgAPI_GetCivoKubeconfig_0(ctx context.Context, marshaler runtime.Marshaler, server OrgAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetCivoKubeconfigRequest
-	var metadata runtime.ServerMetadata
-
 	var (
-		val string
-		ok  bool
-		err error
-		_   = err
+		protoReq GetCivoKubeconfigRequest
+		metadata runtime.ServerMetadata
+		err      error
 	)
-
-	val, ok = pathParams["cluster_id"]
+	val, ok := pathParams["cluster_id"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cluster_id")
 	}
-
 	protoReq.ClusterId, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cluster_id", err)
 	}
-
 	msg, err := server.GetCivoKubeconfig(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterOrgAPIHandlerServer registers the http handlers for service OrgAPI to "mux".
@@ -1049,16 +797,13 @@ func local_request_OrgAPI_GetCivoKubeconfig_0(ctx context.Context, marshaler run
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterOrgAPIHandlerFromEndpoint instead.
 // GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, server OrgAPIServer) error {
-
-	mux.Handle("POST", pattern_OrgAPI_CreateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_CreateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1070,20 +815,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_CreateOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_OrgAPI_UpdateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_OrgAPI_UpdateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1095,20 +835,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_UpdateOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1120,20 +855,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizations_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizations_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1145,20 +875,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizations_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_OrgAPI_DeleteOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_OrgAPI_DeleteOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1170,20 +895,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DeleteOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_InviteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_InviteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1195,20 +915,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_InviteMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_InviteMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_InviteMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:bulk"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:bulk"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1220,20 +935,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_InviteMembers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1245,20 +955,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchMembers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_OrgAPI_UpdateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_OrgAPI_UpdateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1270,20 +975,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_UpdateMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_OrgAPI_DeleteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_OrgAPI_DeleteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1295,20 +995,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DeleteMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ReactivateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ReactivateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ReactivateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}:reactivate"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ReactivateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}:reactivate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1320,20 +1015,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ReactivateMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizationEntitlements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizationEntitlements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1345,20 +1035,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizationEntitlements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizationTickets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizationTickets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1370,20 +1055,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizationTickets_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchUserCompany_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchUserCompany_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1395,20 +1075,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchUserCompany_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_OnboardMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_OnboardMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/OnboardMember", runtime.WithHTTPPathPattern("/v1/orgs/members:onboard"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/OnboardMember", runtime.WithHTTPPathPattern("/v1/orgs/members:onboard"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1420,20 +1095,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_OnboardMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ConnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ConnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1445,20 +1115,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ConnectPMM_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ConnectPMM_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ConnectPMM_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1470,20 +1135,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ConnectPMM_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_DisconnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_DisconnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1495,20 +1155,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DisconnectPMM_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchInventory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchInventory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1520,20 +1175,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchInventory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_CreateCivoCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_CreateCivoCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateCivoCluster", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateCivoCluster", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1545,20 +1195,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_CreateCivoCluster_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetCivoClusterStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetCivoClusterStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1570,20 +1215,15 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetCivoClusterStatus_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1595,9 +1235,7 @@ func RegisterOrgAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetCivoKubeconfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -1624,7 +1262,6 @@ func RegisterOrgAPIHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMu
 			}
 		}()
 	}()
-
 	return RegisterOrgAPIHandler(ctx, mux, conn)
 }
 
@@ -1640,14 +1277,11 @@ func RegisterOrgAPIHandler(ctx context.Context, mux *runtime.ServeMux, conn *grp
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "OrgAPIClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, client OrgAPIClient) error {
-
-	mux.Handle("POST", pattern_OrgAPI_CreateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_CreateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateOrganization", runtime.WithHTTPPathPattern("/v1/orgs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1658,18 +1292,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_CreateOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_OrgAPI_UpdateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_OrgAPI_UpdateOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{organization.id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1680,18 +1309,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_UpdateOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1702,18 +1326,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizations_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizations_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizations", runtime.WithHTTPPathPattern("/v1/orgs:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1724,18 +1343,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizations_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_OrgAPI_DeleteOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_OrgAPI_DeleteOrganization_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteOrganization", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1746,18 +1360,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DeleteOrganization_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_InviteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_InviteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1768,18 +1377,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_InviteMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_InviteMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_InviteMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:bulk"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/InviteMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:bulk"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1790,18 +1394,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_InviteMembers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchMembers_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchMembers", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1812,18 +1411,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchMembers_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("PUT", pattern_OrgAPI_UpdateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPut, pattern_OrgAPI_UpdateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/UpdateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1834,18 +1428,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_UpdateMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("DELETE", pattern_OrgAPI_DeleteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodDelete, pattern_OrgAPI_DeleteMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DeleteMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1856,18 +1445,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DeleteMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ReactivateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ReactivateMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ReactivateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}:reactivate"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ReactivateMember", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/members/{member_id}:reactivate"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1878,18 +1462,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ReactivateMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizationEntitlements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizationEntitlements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationEntitlements", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/entitlements:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1900,18 +1479,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizationEntitlements_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchOrganizationTickets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchOrganizationTickets_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchOrganizationTickets", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/tickets:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1922,18 +1496,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchOrganizationTickets_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchUserCompany_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchUserCompany_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchUserCompany", runtime.WithHTTPPathPattern("/v1/orgs/company:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1944,18 +1513,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchUserCompany_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_OnboardMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_OnboardMember_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/OnboardMember", runtime.WithHTTPPathPattern("/v1/orgs/members:onboard"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/OnboardMember", runtime.WithHTTPPathPattern("/v1/orgs/members:onboard"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1966,18 +1530,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_OnboardMember_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ConnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ConnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1988,18 +1547,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ConnectPMM_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_ConnectPMM_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_ConnectPMM_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/ConnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory:connect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2010,18 +1564,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_ConnectPMM_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_DisconnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_DisconnectPMM_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/DisconnectPMM", runtime.WithHTTPPathPattern("/v1/orgs/inventory/{pmm_server_id}:disconnect"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2032,18 +1581,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_DisconnectPMM_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_SearchInventory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_SearchInventory_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/SearchInventory", runtime.WithHTTPPathPattern("/v1/orgs/{org_id}/inventory:search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2054,18 +1598,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_SearchInventory_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("POST", pattern_OrgAPI_CreateCivoCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodPost, pattern_OrgAPI_CreateCivoCluster_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateCivoCluster", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/CreateCivoCluster", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2076,18 +1615,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_CreateCivoCluster_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetCivoClusterStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetCivoClusterStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoClusterStatus", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2098,18 +1632,13 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetCivoClusterStatus_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
-	mux.Handle("GET", pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle(http.MethodGet, pattern_OrgAPI_GetCivoKubeconfig_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/percona.platform.org.v1.OrgAPI/GetCivoKubeconfig", runtime.WithHTTPPathPattern("/v1/dbaas/cluster/civo/{cluster_id}/config"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -2120,102 +1649,57 @@ func RegisterOrgAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
-
 		forward_OrgAPI_GetCivoKubeconfig_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
-
 	return nil
 }
 
 var (
-	pattern_OrgAPI_CreateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, ""))
-
-	pattern_OrgAPI_UpdateOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "organization.id"}, ""))
-
-	pattern_OrgAPI_GetOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, ""))
-
-	pattern_OrgAPI_SearchOrganizations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, "search"))
-
-	pattern_OrgAPI_DeleteOrganization_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, ""))
-
-	pattern_OrgAPI_InviteMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, ""))
-
-	pattern_OrgAPI_InviteMembers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "bulk"))
-
-	pattern_OrgAPI_SearchMembers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "search"))
-
-	pattern_OrgAPI_UpdateMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
-
-	pattern_OrgAPI_DeleteMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
-
-	pattern_OrgAPI_ReactivateMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, "reactivate"))
-
+	pattern_OrgAPI_CreateOrganization_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, ""))
+	pattern_OrgAPI_UpdateOrganization_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "organization.id"}, ""))
+	pattern_OrgAPI_GetOrganization_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, ""))
+	pattern_OrgAPI_SearchOrganizations_0            = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "orgs"}, "search"))
+	pattern_OrgAPI_DeleteOrganization_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "orgs", "org_id"}, ""))
+	pattern_OrgAPI_InviteMember_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, ""))
+	pattern_OrgAPI_InviteMembers_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "bulk"))
+	pattern_OrgAPI_SearchMembers_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "members"}, "search"))
+	pattern_OrgAPI_UpdateMember_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
+	pattern_OrgAPI_DeleteMember_0                   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, ""))
+	pattern_OrgAPI_ReactivateMember_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "orgs", "org_id", "members", "member_id"}, "reactivate"))
 	pattern_OrgAPI_SearchOrganizationEntitlements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "entitlements"}, "search"))
-
-	pattern_OrgAPI_SearchOrganizationTickets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "tickets"}, "search"))
-
-	pattern_OrgAPI_SearchUserCompany_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "company"}, "search"))
-
-	pattern_OrgAPI_OnboardMember_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "members"}, "onboard"))
-
-	pattern_OrgAPI_ConnectPMM_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "inventory"}, ""))
-
-	pattern_OrgAPI_ConnectPMM_1 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "inventory"}, "connect"))
-
-	pattern_OrgAPI_DisconnectPMM_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "orgs", "inventory", "pmm_server_id"}, "disconnect"))
-
-	pattern_OrgAPI_SearchInventory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "inventory"}, "search"))
-
-	pattern_OrgAPI_CreateCivoCluster_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "dbaas", "cluster", "civo"}, ""))
-
-	pattern_OrgAPI_GetCivoClusterStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "dbaas", "cluster", "civo"}, ""))
-
-	pattern_OrgAPI_GetCivoKubeconfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "dbaas", "cluster", "civo", "cluster_id", "config"}, ""))
+	pattern_OrgAPI_SearchOrganizationTickets_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "tickets"}, "search"))
+	pattern_OrgAPI_SearchUserCompany_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "company"}, "search"))
+	pattern_OrgAPI_OnboardMember_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "members"}, "onboard"))
+	pattern_OrgAPI_ConnectPMM_0                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "inventory"}, ""))
+	pattern_OrgAPI_ConnectPMM_1                     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "orgs", "inventory"}, "connect"))
+	pattern_OrgAPI_DisconnectPMM_0                  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "orgs", "inventory", "pmm_server_id"}, "disconnect"))
+	pattern_OrgAPI_SearchInventory_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"v1", "orgs", "org_id", "inventory"}, "search"))
+	pattern_OrgAPI_CreateCivoCluster_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "dbaas", "cluster", "civo"}, ""))
+	pattern_OrgAPI_GetCivoClusterStatus_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "dbaas", "cluster", "civo"}, ""))
+	pattern_OrgAPI_GetCivoKubeconfig_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"v1", "dbaas", "cluster", "civo", "cluster_id", "config"}, ""))
 )
 
 var (
-	forward_OrgAPI_CreateOrganization_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_UpdateOrganization_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_GetOrganization_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_SearchOrganizations_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_DeleteOrganization_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_InviteMember_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_InviteMembers_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_SearchMembers_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_UpdateMember_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_DeleteMember_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_ReactivateMember_0 = runtime.ForwardResponseMessage
-
+	forward_OrgAPI_CreateOrganization_0             = runtime.ForwardResponseMessage
+	forward_OrgAPI_UpdateOrganization_0             = runtime.ForwardResponseMessage
+	forward_OrgAPI_GetOrganization_0                = runtime.ForwardResponseMessage
+	forward_OrgAPI_SearchOrganizations_0            = runtime.ForwardResponseMessage
+	forward_OrgAPI_DeleteOrganization_0             = runtime.ForwardResponseMessage
+	forward_OrgAPI_InviteMember_0                   = runtime.ForwardResponseMessage
+	forward_OrgAPI_InviteMembers_0                  = runtime.ForwardResponseMessage
+	forward_OrgAPI_SearchMembers_0                  = runtime.ForwardResponseMessage
+	forward_OrgAPI_UpdateMember_0                   = runtime.ForwardResponseMessage
+	forward_OrgAPI_DeleteMember_0                   = runtime.ForwardResponseMessage
+	forward_OrgAPI_ReactivateMember_0               = runtime.ForwardResponseMessage
 	forward_OrgAPI_SearchOrganizationEntitlements_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_SearchOrganizationTickets_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_SearchUserCompany_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_OnboardMember_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_ConnectPMM_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_ConnectPMM_1 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_DisconnectPMM_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_SearchInventory_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_CreateCivoCluster_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_GetCivoClusterStatus_0 = runtime.ForwardResponseMessage
-
-	forward_OrgAPI_GetCivoKubeconfig_0 = runtime.ForwardResponseMessage
+	forward_OrgAPI_SearchOrganizationTickets_0      = runtime.ForwardResponseMessage
+	forward_OrgAPI_SearchUserCompany_0              = runtime.ForwardResponseMessage
+	forward_OrgAPI_OnboardMember_0                  = runtime.ForwardResponseMessage
+	forward_OrgAPI_ConnectPMM_0                     = runtime.ForwardResponseMessage
+	forward_OrgAPI_ConnectPMM_1                     = runtime.ForwardResponseMessage
+	forward_OrgAPI_DisconnectPMM_0                  = runtime.ForwardResponseMessage
+	forward_OrgAPI_SearchInventory_0                = runtime.ForwardResponseMessage
+	forward_OrgAPI_CreateCivoCluster_0              = runtime.ForwardResponseMessage
+	forward_OrgAPI_GetCivoClusterStatus_0           = runtime.ForwardResponseMessage
+	forward_OrgAPI_GetCivoKubeconfig_0              = runtime.ForwardResponseMessage
 )
