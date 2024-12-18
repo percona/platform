@@ -13,7 +13,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.24.0
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/quasilyte/go-consistent v0.6.1
-	github.com/reviewdog/reviewdog v0.20.2
+	github.com/reviewdog/reviewdog v0.20.3
 	golang.org/x/tools v0.27.0
 	google.golang.org/grpc v1.69.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
@@ -272,7 +272,7 @@ require (
 	github.com/uudashr/gocognit v1.1.3 // indirect
 	github.com/uudashr/iface v1.2.1 // indirect
 	github.com/vbatts/tar-split v0.11.6 // indirect
-	github.com/xanzy/go-gitlab v0.109.0 // indirect
+	github.com/xanzy/go-gitlab v0.114.0 // indirect
 	github.com/xen0n/gosmopolitan v1.2.2 // indirect
 	github.com/yagipy/maintidx v1.0.0 // indirect
 	github.com/yeya24/promlinter v0.3.0 // indirect
@@ -307,7 +307,7 @@ require (
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	golang.org/x/time v0.6.0 // indirect
+	golang.org/x/time v0.7.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241118233622-e639e219e697 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241118233622-e639e219e697 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
