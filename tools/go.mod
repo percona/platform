@@ -10,7 +10,7 @@ require (
 	github.com/bufbuild/buf v1.49.0
 	github.com/dvyukov/go-fuzz v0.0.0-20240924070022-e577bee5275c
 	github.com/golangci/golangci-lint v1.62.2
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.24.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.25.1
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/quasilyte/go-consistent v0.6.1
 	github.com/reviewdog/reviewdog v0.20.3
