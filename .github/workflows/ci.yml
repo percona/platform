@@ -17,7 +17,7 @@ jobs:
     name: Test
     timeout-minutes: 15
     continue-on-error: false
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     env:
       # no `-mod=readonly` to test PRs made by @dependabot;
@@ -31,7 +31,7 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
 
-      - name: Set up Go release
+      - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
@@ -42,7 +42,7 @@ jobs:
           pushd tools && go mod download -x
           popd        && go mod download -x
 
-      - name: Login in Docker registry
+      - name: Log in to Docker registry
         run: docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
 
       - name: Install development tools
@@ -86,10 +86,8 @@ jobs:
       - name: Run debug commands on failure
         if: ${{ failure() }}
         run: |
-          env
-          go version
-          go env
-          pwd
+          env | sort
+          go env | sort
           git status
 
   check:
@@ -111,11 +109,10 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
 
-      - name: Set up Go release
+      - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-          cache-dependency-path: "**/go.sum"
 
       - name: Download Go modules
         run: |
