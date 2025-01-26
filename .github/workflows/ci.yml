@@ -69,7 +69,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.PLATF_SAAS_CODECOV_TOKEN }}
-          file: crosscover.out
+          files: crosscover.out
           flags: crosscover
           fail_ci_if_error: false
 
