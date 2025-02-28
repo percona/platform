@@ -1,7 +1,6 @@
 module github.com/percona/platform
 
 go 1.23
-
 // some dependecies should be synced with Dockerfile
 
 require (
@@ -23,7 +22,7 @@ require (
 	github.com/stretchr/testify v1.10.0
 	go.starlark.net v0.0.0-20230717150657-8a3343210976
 	go.uber.org/zap v1.27.0
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.35.0
 	golang.org/x/sys v0.30.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20250204164813-702378808489
 	google.golang.org/grpc v1.70.0
