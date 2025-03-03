@@ -1,6 +1,9 @@
 module github.com/percona/platform
 
-go 1.23
+go 1.23.0
+
+toolchain go1.23.6
+
 // some dependecies should be synced with Dockerfile
 
 require (
