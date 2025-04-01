@@ -2,7 +2,7 @@ module github.com/percona/platform
 
 go 1.23.0
 
-toolchain go1.23.6
+toolchain go1.24.1
 
 // some dependecies should be synced with Dockerfile
 
@@ -21,7 +21,7 @@ require (
 	github.com/okta/okta-sdk-golang/v2 v2.20.0
 	github.com/percona/promconfig v0.2.5
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.21.0
+	github.com/prometheus/client_golang v1.21.1
 	github.com/stretchr/testify v1.10.0
 	go.starlark.net v0.0.0-20230717150657-8a3343210976
 	go.uber.org/zap v1.27.0
