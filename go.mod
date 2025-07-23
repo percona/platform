@@ -15,7 +15,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/okta/okta-sdk-golang/v2 v2.20.0
