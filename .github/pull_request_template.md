@@ -1,3 +1,3 @@
 SAAS-0
 
-- [ ] Links to other linked pull requests (optional).
+- [ ] Links to other related issues or pull requests (optional).
