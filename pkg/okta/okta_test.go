@@ -1,7 +1,6 @@
 package okta
 
 import (
-	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"testing"
@@ -28,7 +27,7 @@ func init() { //nolint:gochecknoinits
 
 func createOktaService(t *testing.T) (*Client, error) {
 	t.Helper()
-	return New(context.Background(), OktaDevHost, GetOktaToken(t))
+	return New(t.Context(), OktaDevHost, GetOktaToken(t))
 }
 
 func TestSignUp(t *testing.T) {
@@ -41,7 +40,7 @@ func TestSignUp(t *testing.T) {
 		t.Parallel()
 
 		_, _, firstName, lastName := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), "not email", firstName, lastName)
+		user, err := s.SignUp(t.Context(), "not email", firstName, lastName)
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
 		require.IsType(t, authErrorType, err)
 		require.Nil(t, user)
@@ -51,7 +50,7 @@ func TestSignUp(t *testing.T) {
 		t.Parallel()
 
 		_, _, firstName, lastName := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), "", firstName, lastName)
+		user, err := s.SignUp(t.Context(), "", firstName, lastName)
 		require.Equal(t, err, ErrEmptyLogin)
 		require.IsType(t, authErrorType, err)
 		require.Nil(t, user)
@@ -61,7 +60,7 @@ func TestSignUp(t *testing.T) {
 		t.Parallel()
 
 		email, _, _, lastName := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), email, "", lastName)
+		user, err := s.SignUp(t.Context(), email, "", lastName)
 		require.Equal(t, err, ErrEmptyFirstName)
 		require.IsType(t, authErrorType, err)
 		require.Nil(t, user)
@@ -71,7 +70,7 @@ func TestSignUp(t *testing.T) {
 		t.Parallel()
 
 		email, _, firstName, _ := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), email, firstName, "")
+		user, err := s.SignUp(t.Context(), email, firstName, "")
 		require.Equal(t, err, ErrEmptyLastName)
 		require.IsType(t, authErrorType, err)
 		require.Nil(t, user)
@@ -81,7 +80,7 @@ func TestSignUp(t *testing.T) {
 		t.Parallel()
 
 		email, _, firstName, lastName := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), email, firstName, lastName)
+		user, err := s.SignUp(t.Context(), email, firstName, lastName)
 		require.NoError(t, err)
 		defer DeleteUser(t, user.ID)
 
@@ -106,7 +105,7 @@ func TestSignIn(t *testing.T) {
 	t.Run("invalid password", func(t *testing.T) {
 		t.Parallel()
 
-		userID, sessionToken, err := s.SignIn(context.Background(), email, "wrong")
+		userID, sessionToken, err := s.SignIn(t.Context(), email, "wrong")
 		require.Equal(t, ErrAuthentication, err)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, sessionToken)
@@ -116,7 +115,7 @@ func TestSignIn(t *testing.T) {
 	t.Run("empty password", func(t *testing.T) {
 		t.Parallel()
 
-		userID, sessionToken, err := s.SignIn(context.Background(), email, "")
+		userID, sessionToken, err := s.SignIn(t.Context(), email, "")
 		require.Equal(t, ErrEmptyPassword, err)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, sessionToken)
@@ -126,7 +125,7 @@ func TestSignIn(t *testing.T) {
 	t.Run("invalid login", func(t *testing.T) {
 		t.Parallel()
 
-		userID, sessionToken, err := s.SignIn(context.Background(), "wrong", password)
+		userID, sessionToken, err := s.SignIn(t.Context(), "wrong", password)
 		require.Equal(t, ErrAuthentication, err)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, sessionToken)
@@ -136,7 +135,7 @@ func TestSignIn(t *testing.T) {
 	t.Run("empty login", func(t *testing.T) {
 		t.Parallel()
 
-		userID, sessionToken, err := s.SignIn(context.Background(), "", password)
+		userID, sessionToken, err := s.SignIn(t.Context(), "", password)
 		require.Equal(t, err, ErrEmptyLogin)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, sessionToken)
@@ -146,7 +145,7 @@ func TestSignIn(t *testing.T) {
 	t.Run("valid sign in", func(t *testing.T) {
 		t.Parallel()
 
-		userID, sessionToken, err := s.SignIn(context.Background(), email, password)
+		userID, sessionToken, err := s.SignIn(t.Context(), email, password)
 		require.NoError(t, err)
 		require.NotEmpty(t, sessionToken)
 		require.NotEmpty(t, userID)
@@ -171,7 +170,7 @@ func TestSignInByToken(t *testing.T) {
 
 		token := ActivateUser(t, user.ID)
 
-		authInfo, err := s.SignInByToken(context.Background(), token)
+		authInfo, err := s.SignInByToken(t.Context(), token)
 		require.NoError(t, err)
 		require.NotEmpty(t, authInfo)
 		require.Equal(t, user.ID, authInfo.Embedded.User.ID)
@@ -180,7 +179,7 @@ func TestSignInByToken(t *testing.T) {
 	t.Run("wrong token", func(t *testing.T) {
 		t.Parallel()
 
-		authInfo, err := s.SignInByToken(context.Background(), gofakeit.UUID())
+		authInfo, err := s.SignInByToken(t.Context(), gofakeit.UUID())
 		require.Error(t, err)
 		require.ErrorContains(t, err, "authentication error")
 		require.Empty(t, authInfo)
@@ -214,7 +213,7 @@ func TestSignInByStateToken(t *testing.T) {
 		require.NoError(t, err)
 		assert.NotEmpty(t, resp.StateToken)
 
-		authInfo, err := s.SignInByStateToken(context.Background(), resp.StateToken)
+		authInfo, err := s.SignInByStateToken(t.Context(), resp.StateToken)
 		require.NoError(t, err)
 		require.NotEmpty(t, authInfo)
 		require.Equal(t, user.ID, authInfo.Embedded.User.ID)
@@ -223,7 +222,7 @@ func TestSignInByStateToken(t *testing.T) {
 	t.Run("wrong token", func(t *testing.T) {
 		t.Parallel()
 
-		authInfo, err := s.SignInByStateToken(context.Background(), gofakeit.UUID())
+		authInfo, err := s.SignInByStateToken(t.Context(), gofakeit.UUID())
 		require.Error(t, err)
 		require.ErrorContains(t, err, "Invalid token provided")
 		require.Empty(t, authInfo)
@@ -245,7 +244,7 @@ func TestSessions(t *testing.T) {
 	t.Run("invalid session", func(t *testing.T) {
 		t.Parallel()
 
-		login, err := s.CheckSession(context.Background(), "invalid-session-oktaAPIToken")
+		login, err := s.CheckSession(t.Context(), "invalid-session-oktaAPIToken")
 		require.Equal(t, err, ErrNotFound)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, login)
@@ -254,21 +253,21 @@ func TestSessions(t *testing.T) {
 	t.Run("valid session", func(t *testing.T) {
 		t.Parallel()
 
-		userID, token, err := s.SignIn(context.Background(), email, password)
+		userID, token, err := s.SignIn(t.Context(), email, password)
 		require.NoError(t, err)
 		require.NotEmpty(t, token)
 		require.NotEmpty(t, userID)
 
 		ts := time.Now()
 		timeError := 5 * time.Second
-		sessionID, expiresAt, err := s.CreateSession(context.Background(), token)
+		sessionID, expiresAt, err := s.CreateSession(t.Context(), token)
 		require.NoError(t, err)
 		require.NotEmpty(t, sessionID)
 		require.NotEmpty(t, expiresAt)
 		require.GreaterOrEqual(t, expiresAt.Unix(), ts.Add(sessionTTL-timeError).Unix())
 		require.LessOrEqual(t, expiresAt.Unix(), time.Now().Add(sessionTTL+timeError).Unix())
 
-		userEmail, err := s.CheckSession(context.Background(), sessionID)
+		userEmail, err := s.CheckSession(t.Context(), sessionID)
 		require.NoError(t, err)
 		require.Equal(t, email, userEmail)
 	})
@@ -289,16 +288,16 @@ func TestSessionRefresh(t *testing.T) {
 	t.Run("normal", func(t *testing.T) {
 		t.Parallel()
 
-		_, token, err := s.SignIn(context.Background(), email, password)
+		_, token, err := s.SignIn(t.Context(), email, password)
 		require.NoError(t, err)
 
-		sessionID, expiresAt, err := s.CreateSession(context.Background(), token)
+		sessionID, expiresAt, err := s.CreateSession(t.Context(), token)
 		require.NoError(t, err)
 		assert.NotEmpty(t, expiresAt)
 
 		time.Sleep(time.Second)
 
-		newExpirationTime, err := s.RefreshSession(context.Background(), sessionID)
+		newExpirationTime, err := s.RefreshSession(t.Context(), sessionID)
 		require.NoError(t, err)
 		assert.NotEmpty(t, newExpirationTime)
 
@@ -313,7 +312,7 @@ func TestSessionRefresh(t *testing.T) {
 	t.Run("invalid session", func(t *testing.T) {
 		t.Parallel()
 
-		expTime, err := s.RefreshSession(context.Background(), "invalid-session-id")
+		expTime, err := s.RefreshSession(t.Context(), "invalid-session-id")
 		require.Equal(t, err, ErrNotFound)
 		require.Zero(t, expTime)
 	})
@@ -334,16 +333,16 @@ func TestCloseSession(t *testing.T) {
 	t.Run("normal", func(t *testing.T) {
 		t.Parallel()
 
-		_, token, err := s.SignIn(context.Background(), email, password)
+		_, token, err := s.SignIn(t.Context(), email, password)
 		require.NoError(t, err)
 
-		sessionID, _, err := s.CreateSession(context.Background(), token)
+		sessionID, _, err := s.CreateSession(t.Context(), token)
 		require.NoError(t, err)
 
-		err = s.CloseSession(context.Background(), sessionID)
+		err = s.CloseSession(t.Context(), sessionID)
 		require.NoError(t, err)
 
-		_, err = s.CheckSession(context.Background(), sessionID)
+		_, err = s.CheckSession(t.Context(), sessionID)
 		require.Equal(t, err, ErrNotFound)
 		require.IsType(t, authErrorType, err)
 	})
@@ -351,23 +350,23 @@ func TestCloseSession(t *testing.T) {
 	t.Run("invalid session", func(t *testing.T) {
 		t.Parallel()
 
-		err = s.CloseSession(context.Background(), "invalid-session-id")
+		err = s.CloseSession(t.Context(), "invalid-session-id")
 		require.Equal(t, err, ErrNotFound)
 	})
 
 	t.Run("already closed session", func(t *testing.T) {
 		t.Parallel()
 
-		_, token, err := s.SignIn(context.Background(), email, password)
+		_, token, err := s.SignIn(t.Context(), email, password)
 		require.NoError(t, err)
 
-		sessionID, _, err := s.CreateSession(context.Background(), token)
+		sessionID, _, err := s.CreateSession(t.Context(), token)
 		require.NoError(t, err)
 
-		err = s.CloseSession(context.Background(), sessionID)
+		err = s.CloseSession(t.Context(), sessionID)
 		require.NoError(t, err)
 
-		err = s.CloseSession(context.Background(), sessionID)
+		err = s.CloseSession(t.Context(), sessionID)
 		require.Equal(t, err, ErrNotFound)
 	})
 }
@@ -387,7 +386,7 @@ func TestFindUser(t *testing.T) {
 	t.Run("user doesn't exists", func(t *testing.T) {
 		t.Parallel()
 
-		userID, err := s.FindUser(context.Background(), "invalid@example.com")
+		userID, err := s.FindUser(t.Context(), "invalid@example.com")
 		require.Equal(t, ErrNotFound, err)
 		require.Empty(t, userID)
 	})
@@ -395,7 +394,7 @@ func TestFindUser(t *testing.T) {
 	t.Run("user exists", func(t *testing.T) {
 		t.Parallel()
 
-		foundUser, err := s.FindUser(context.Background(), email)
+		foundUser, err := s.FindUser(t.Context(), email)
 		require.NoError(t, err)
 		require.NotEmpty(t, foundUser)
 		require.Equal(t, []string{}, foundUser.PortalAdminOrgs)
@@ -414,7 +413,7 @@ func TestRegisterUser(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		u, err := s.RegisterUser(ctx, RegisterUserParams{Login: email})
 		require.NoError(t, err)
@@ -432,7 +431,7 @@ func TestRegisterUser(t *testing.T) {
 	t.Run("invalid email", func(t *testing.T) {
 		t.Parallel()
 
-		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: "not_an_email"})
+		_, err := s.RegisterUser(t.Context(), RegisterUserParams{Login: "not_an_email"})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
 	})
 
@@ -445,7 +444,7 @@ func TestRegisterUser(t *testing.T) {
 			DeleteUser(t, user.ID)
 		})
 
-		_, err := s.RegisterUser(context.Background(), RegisterUserParams{Login: email})
+		_, err := s.RegisterUser(t.Context(), RegisterUserParams{Login: email})
 		require.EqualError(t, err, "invalid login: Api validation failed: login")
 	})
 }
@@ -459,7 +458,7 @@ func TestRegisterInactiveUser(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		t.Parallel()
 		email, _, _, _ := GenCredentials(t)
-		ctx := context.Background()
+		ctx := t.Context()
 
 		u, err := s.RegisterInactiveUser(ctx, RegisterUserParams{Login: email})
 		require.NoError(t, err)
@@ -487,13 +486,13 @@ func TestPasswordReset(t *testing.T) {
 		DeleteUser(t, user.ID)
 	})
 
-	u, err := s.FindUser(context.Background(), email)
+	u, err := s.FindUser(t.Context(), email)
 	require.NoError(t, err)
 
-	err = s.ResetPassword(context.Background(), u.ID)
+	err = s.ResetPassword(t.Context(), u.ID)
 	require.NoError(t, err)
 
-	_, _, err = s.SignIn(context.Background(), email, password)
+	_, _, err = s.SignIn(t.Context(), email, password)
 	require.Equal(t, ErrAuthentication, err)
 }
 
@@ -511,7 +510,7 @@ func TestGroups(t *testing.T) {
 
 	name := gofakeit.LastName() + ", " + gofakeit.LastName() + " and " + gofakeit.LastName()
 	description := "Test group"
-	group, err := s.CreateGroup(context.Background(), name, description)
+	group, err := s.CreateGroup(t.Context(), name, description)
 	t.Cleanup(func() {
 		DeleteGroup(t, group.ID)
 	})
@@ -520,28 +519,28 @@ func TestGroups(t *testing.T) {
 	require.Equal(t, description, group.Description)
 	require.NotEmpty(t, group.ID)
 
-	err = s.AddUserToGroup(context.Background(), user.ID, group.ID)
+	err = s.AddUserToGroup(t.Context(), user.ID, group.ID)
 	require.NoError(t, err)
 
-	users, err := s.GetGroupMembers(context.Background(), group.ID, 0, "")
+	users, err := s.GetGroupMembers(t.Context(), group.ID, 0, "")
 	require.NoError(t, err)
 
 	// Due to ifra changes, we no longer get this user.
 	require.Empty(t, users)
 	// require.Equal(t, *user, users[0])
 
-	exists, err := s.GroupExists(context.Background(), name)
+	exists, err := s.GroupExists(t.Context(), name)
 	require.NoError(t, err)
 	assert.True(t, exists)
 
-	exists, err = s.GroupExists(context.Background(), "non-existent-group")
+	exists, err = s.GroupExists(t.Context(), "non-existent-group")
 	require.NoError(t, err)
 	assert.False(t, exists)
 }
 
 func TestFindGroup(t *testing.T) {
 	t.Parallel()
-	ctx := context.Background()
+	ctx := t.Context()
 
 	s, err := createOktaService(t)
 	require.NoError(t, err)
@@ -576,20 +575,20 @@ func TestDeleteUser(t *testing.T) {
 		t.Parallel()
 
 		email, _, firstName, lastName := GenCredentials(t)
-		user, err := s.SignUp(context.Background(), email, firstName, lastName)
+		user, err := s.SignUp(t.Context(), email, firstName, lastName)
 		require.NoError(t, err)
 
-		err = s.DeleteUser(context.Background(), user.ID)
+		err = s.DeleteUser(t.Context(), user.ID)
 		require.NoError(t, err)
 
-		_, err = s.FindUser(context.Background(), user.Login)
+		_, err = s.FindUser(t.Context(), user.Login)
 		require.Equal(t, ErrNotFound, err)
 	})
 
 	t.Run("missing user", func(t *testing.T) {
 		t.Parallel()
 
-		err = s.DeleteUser(context.Background(), "unknown-id")
+		err = s.DeleteUser(t.Context(), "unknown-id")
 		require.Equal(t, ErrNotFound, err)
 	})
 }
@@ -609,10 +608,10 @@ func TestSuspendUser(t *testing.T) {
 			DeleteUser(t, user.ID)
 		})
 
-		err = s.SuspendUser(context.Background(), user.ID)
+		err = s.SuspendUser(t.Context(), user.ID)
 		require.NoError(t, err)
 
-		usr, err := s.FindUser(context.Background(), user.Login)
+		usr, err := s.FindUser(t.Context(), user.Login)
 		require.NoError(t, err)
 		require.Equal(t, UserStatusSuspended, usr.Status)
 	})
@@ -626,10 +625,10 @@ func TestSuspendUser(t *testing.T) {
 			DeleteUser(t, user.ID)
 		})
 
-		err = s.SuspendUser(context.Background(), user.ID)
+		err = s.SuspendUser(t.Context(), user.ID)
 		require.NoError(t, err)
 
-		userID, sessionToken, err := s.SignIn(context.Background(), email, password)
+		userID, sessionToken, err := s.SignIn(t.Context(), email, password)
 		require.Equal(t, ErrAuthentication, err)
 		require.IsType(t, authErrorType, err)
 		require.Empty(t, sessionToken)
@@ -639,7 +638,7 @@ func TestSuspendUser(t *testing.T) {
 	t.Run("non existing user can't be suspended", func(t *testing.T) {
 		t.Parallel()
 
-		err = s.SuspendUser(context.Background(), "unknown-id")
+		err = s.SuspendUser(t.Context(), "unknown-id")
 		require.Equal(t, ErrNotFound, err)
 	})
 }
@@ -661,20 +660,20 @@ func TestUpdateUser(t *testing.T) {
 
 		otherFirstName := "firstName"
 		otherLastName := "lastName"
-		_, err := s.UpdateUser(context.Background(), "unknown", UpdateUserParams{Firstname: &otherFirstName, Lastname: &otherLastName})
+		_, err := s.UpdateUser(t.Context(), "unknown", UpdateUserParams{Firstname: &otherFirstName, Lastname: &otherLastName})
 		require.EqualError(t, err, "not found")
 	})
 
 	t.Run("user exists update lastname firstname successful", func(t *testing.T) {
 		t.Parallel()
 
-		user, err := s.FindUser(context.Background(), testUser.Login)
+		user, err := s.FindUser(t.Context(), testUser.Login)
 		require.NoError(t, err)
 		t.Log(user.FirstName, user.LastName, user.Login, user.ID)
 
 		newFirstName := gofakeit.FirstName()
 		newLastName := gofakeit.LastName()
-		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{Firstname: &newFirstName, Lastname: &newLastName})
+		updatedUser, err := s.UpdateUser(t.Context(), user.ID, UpdateUserParams{Firstname: &newFirstName, Lastname: &newLastName})
 		require.NoError(t, err)
 
 		require.Equal(t, user.ID, updatedUser.ID)
@@ -685,13 +684,13 @@ func TestUpdateUser(t *testing.T) {
 	t.Run("user exists update portalAdminOrgs successful", func(t *testing.T) {
 		t.Parallel()
 
-		user, err := s.FindUser(context.Background(), testUser.Login)
+		user, err := s.FindUser(t.Context(), testUser.Login)
 		require.NoError(t, err)
 		t.Log(user.FirstName, user.LastName, user.Login, user.ID)
 
 		newID := uuid.NewString()
 		ids := []string{newID}
-		updatedUser, err := s.UpdateUser(context.Background(), user.ID, UpdateUserParams{PortalAdminOrgs: &ids})
+		updatedUser, err := s.UpdateUser(t.Context(), user.ID, UpdateUserParams{PortalAdminOrgs: &ids})
 		require.NoError(t, err)
 		require.Equal(t, ids, updatedUser.PortalAdminOrgs)
 		require.Equal(t, user.ID, updatedUser.ID)
@@ -704,7 +703,7 @@ func TestGetRegisteredUsersCount(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	usersCount, err := s.GetRegisteredUsersCount(context.Background())
+	usersCount, err := s.GetRegisteredUsersCount(t.Context())
 	require.NoError(t, err)
 	require.NotEmpty(t, usersCount)
 }
@@ -715,7 +714,7 @@ func TestAppLifecycle(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	ctx := t.Context()
 
 	app, err := s.CreateOAuthApp(ctx, &OAuthAppParams{
 		PMMServerCallbackURL: "https://localhost/graph/login/generic_oauth",
@@ -789,7 +788,7 @@ func TestTrustedOrigin(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	ctx := t.Context()
 	// Let's create a random domain to be able to run multiple instances of tests in parallel.
 	subdomain, err := randomHex(8)
 	require.NoError(t, err)
@@ -1031,7 +1030,7 @@ func TestCreateOAuthApp(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	ctx := t.Context()
 	pmmServerID := gofakeit.UUID()
 
 	params := &OAuthAppParams{
@@ -1057,7 +1056,7 @@ func TestCreateMachineAuthApp(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	ctx := t.Context()
 	pmmServerID := uuid.NewString()
 
 	params := &MachineAuthAppParams{
@@ -1085,7 +1084,7 @@ func TestGetActivationLink(t *testing.T) {
 		s, err := createOktaService(t)
 		require.NoError(t, err)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		email, password, firstName, lastName := GenCredentials(t)
 		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
@@ -1104,7 +1103,7 @@ func TestGetActivationLink(t *testing.T) {
 		s, err := createOktaService(t)
 		require.NoError(t, err)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		email, password, firstName, lastName := GenCredentials(t)
 		testUser := CreateTestUser(t, email, password, firstName, lastName)
@@ -1170,7 +1169,7 @@ func TestGetReactivationInfo(t *testing.T) {
 		s, err := createOktaService(t)
 		require.NoError(t, err)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		email, password, firstName, lastName := GenCredentials(t)
 		testUser := CreateTestUser(t, email, password, firstName, lastName)
@@ -1190,7 +1189,7 @@ func TestGetReactivationInfo(t *testing.T) {
 		s, err := createOktaService(t)
 		require.NoError(t, err)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		email, _, _, _ := GenCredentials(t)
 
@@ -1201,7 +1200,7 @@ func TestGetReactivationInfo(t *testing.T) {
 			},
 		}
 		qp := query.NewQueryParams(query.WithActivate(false))
-		user, _, err := createOktaClient(t).User.CreateUser(context.Background(), u, qp)
+		user, _, err := createOktaClient(t).User.CreateUser(t.Context(), u, qp)
 		require.NoError(t, err)
 
 		t.Cleanup(func() {
@@ -1232,7 +1231,7 @@ func TestGetReactivationInfo(t *testing.T) {
 		s, err := createOktaService(t)
 		require.NoError(t, err)
 
-		ctx := context.Background()
+		ctx := t.Context()
 
 		email, password, firstName, lastName := GenCredentials(t)
 		testUser := CreateInactivatedTestUser(t, email, password, firstName, lastName)
@@ -1254,7 +1253,7 @@ func TestGetAppSecret(t *testing.T) {
 	s, err := createOktaService(t)
 	require.NoError(t, err)
 
-	ctx := context.Background()
+	ctx := t.Context()
 
 	params := new(MachineAuthAppParams)
 	// create some app
