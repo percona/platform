@@ -1380,19 +1380,6 @@
         }
       }
     },
-    "v1GetRoleByUserIDResponse": {
-      "type": "object",
-      "properties": {
-        "orgId": {
-          "type": "string",
-          "description": "Percona Portal organization id."
-        },
-        "role": {
-          "type": "string",
-          "description": "Percona Portal organization role of the member."
-        }
-      }
-    },
     "v1Inventory": {
       "type": "object",
       "properties": {
