@@ -557,9 +557,6 @@
       },
       "description": "AuditObject represents object with it's attributes that is affected by user action."
     },
-    "v1CreateAuditEventResponse": {
-      "type": "object"
-    },
     "v1CreateHookEventRequest": {
       "type": "object",
       "properties": {

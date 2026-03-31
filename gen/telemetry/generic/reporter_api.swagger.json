@@ -73,7 +73,7 @@
         }
       }
     },
-    "genericv1GenericReport": {
+    "genericV1GenericReport": {
       "type": "object",
       "properties": {
         "id": {
@@ -160,7 +160,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/genericv1GenericReport"
+            "$ref": "#/definitions/genericV1GenericReport"
           },
           "description": "One or more metric reports."
         }
