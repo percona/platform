@@ -13,7 +13,7 @@ require (
 	github.com/quasilyte/go-consistent v0.6.1
 	github.com/reviewdog/reviewdog v0.20.3
 	golang.org/x/tools v0.42.0
-	google.golang.org/grpc v1.79.1
+	google.golang.org/grpc v1.79.3
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 	google.golang.org/protobuf v1.36.11
 	mvdan.cc/gofumpt v0.7.0
@@ -87,7 +87,7 @@ require (
 	github.com/davidmz/go-pageant v1.0.2 // indirect
 	github.com/denis-tingaikin/go-header v0.5.0 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
-	github.com/docker/cli v29.3.0+incompatible // indirect
+	github.com/docker/cli v29.3.1+incompatible // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
 	github.com/docker/docker v28.5.2+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.9.5 // indirect
@@ -115,7 +115,7 @@ require (
 	github.com/go-toolsmith/pkgload v1.2.2 // indirect
 	github.com/go-toolsmith/strparse v1.1.0 // indirect
 	github.com/go-toolsmith/typep v1.1.0 // indirect
-	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
+	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/go-xmlfmt/xmlfmt v1.1.3 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gofrs/flock v0.13.0 // indirect
