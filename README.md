@@ -2,12 +2,12 @@
 
 [![CI GitHub Action status](https://github.com/percona/platform/workflows/CI/badge.svg?branch=main)](https://github.com/percona/platform/actions?query=workflow%3ACI+branch%3Amain)
 
-Percona Platform private API definitions and common code.
+Percona Platform private API definitions and shared code.
 
 ## Contributing
 
 - All the API definitions are contained inside `/api` directory.
-- `/pkg` contains common code used by other platform projects.
+- `/pkg` contains shared code used by other platform projects.
 - Run `make init` to install development tools, and `make gen` to format, check, and generate code from API definitions.
 - Run `make` to see all targets.
 - Please run `make test` and `make check` before submitting a PR.

@@ -6,7 +6,6 @@ go 1.25.8
 
 require (
 	github.com/bufbuild/buf v1.50.0
-	github.com/dvyukov/go-fuzz v0.0.0-20240924070022-e577bee5275c
 	github.com/golangci/golangci-lint v1.63.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.0
 	github.com/mwitkow/go-proto-validators v0.3.2
@@ -96,7 +95,6 @@ require (
 	github.com/docker/docker-credential-helpers v0.8.2 // indirect
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
-	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/ettle/strcase v0.2.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
@@ -259,7 +257,6 @@ require (
 	github.com/spf13/viper v1.15.0 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
 	github.com/stbenjam/no-sprintf-host-port v0.2.0 // indirect
-	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect

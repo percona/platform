@@ -118,10 +118,9 @@ func processSaas() {
 	processDirsFunc := makeProcessDirsFunc(saasRoot, saasFilePatch, []string{".go", ".proto"}, []string{"_test.go", "_fuzz.go"})
 
 	walk(processDirsFunc,
-		"api/auth", "api/check", "api/telemetry",
-		"gen/auth", "gen/check", "gen/telemetry", "gen/utils/",
-		"pkg/check", "pkg/logger", "pkg/starlark",
-		"pkg/alert", "pkg/common",
+		"api/telemetry",
+		"gen/telemetry", "gen/utils/",
+		"pkg/logger",
 	)
 
 	// install and tidy to check if we have anything
