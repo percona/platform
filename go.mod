@@ -17,7 +17,7 @@ require (
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/okta/okta-sdk-golang/v2 v2.20.0
-	github.com/percona/promconfig v0.2.5
+	github.com/percona/promconfig v0.3.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/stretchr/testify v1.11.1
