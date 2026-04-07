@@ -23,10 +23,6 @@ gen-code:                                  ## Generate code
 
 swagger-ui:                                ## Serve API documentation with SwaggerUI
 	docker run -p 8081:8080 -e URLS='[ \
-		{name:"authed", url:"/gen/auth/auth_api.swagger.json"}, \
-		{name:"checked", url:"/gen/check/retrieval/retrieval_api.swagger.json"}, \
-		{name:"eventd", url:"/gen/event/event_api.swagger.json"}, \
-		{name:"orgd", url:"/gen/org/org_api.swagger.json"}, \
 		{name:"telemetryd", url:"/gen/telemetry/reporter/reporter_api.swagger.json"}, \
 		{name:"generic-telemetryd", url:"/gen/telemetry/generic/reporter_api.swagger.json"}, \
 ]' -v ./gen:/usr/share/nginx/html/gen swaggerapi/swagger-ui
@@ -55,21 +51,4 @@ descriptors:                               ## Update files used for breaking cha
 saas:                                      ## Extract public APIs and generated files into ../saas
 	go run post-processing.go -project saas
 
-fuzz-check-build:
-	bin/go-fuzz-build -o pkg/check/check-fuzz.zip github.com/percona/platform/pkg/check
-
-fuzz-check-data: fuzz-check-build          ## Fuzz data tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzData
-
-fuzz-check-signature: fuzz-check-build     ## Fuzz signature tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzSign
-
-fuzz-check-pubkey: fuzz-check-build        ## Fuzz public key tests
-	bin/go-fuzz -workdir pkg/check/fuzzdata -bin pkg/check/check-fuzz.zip -func FuzzPublicKey
-
-fuzz-starlark:                             ## Fuzz starlark package
-	go test -count=1 github.com/percona/platform/pkg/starlark
-	bin/go-fuzz-build -o pkg/starlark/starlark-fuzz.zip github.com/percona/platform/pkg/starlark
-	bin/go-fuzz -workdir pkg/starlark/fuzzdata -bin pkg/starlark/starlark-fuzz.zip
-
-.PHONY: gen
+.PHONY: $(MAKECMDGOALS)

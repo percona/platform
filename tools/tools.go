@@ -1,5 +1,4 @@
 //go:build tools
-// +build tools
 
 package tools // import "github.com/percona/platform/tools"
 
@@ -9,8 +8,6 @@ import (
 	_ "github.com/bufbuild/buf/cmd/buf"
 	_ "github.com/bufbuild/buf/cmd/protoc-gen-buf-breaking"
 	_ "github.com/bufbuild/buf/cmd/protoc-gen-buf-lint"
-	_ "github.com/dvyukov/go-fuzz/go-fuzz"
-	_ "github.com/dvyukov/go-fuzz/go-fuzz-build"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2"
@@ -29,8 +26,6 @@ import (
 
 // tools
 //go:generate go build -o ../bin/go-consistent github.com/quasilyte/go-consistent
-//go:generate go build -o ../bin/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz
-//go:generate go build -o ../bin/go-fuzz-build github.com/dvyukov/go-fuzz/go-fuzz-build
 //go:generate go build -o ../bin/gofumpt mvdan.cc/gofumpt
 //go:generate go build -o ../bin/goimports golang.org/x/tools/cmd/goimports
 //go:generate go build -o ../bin/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
