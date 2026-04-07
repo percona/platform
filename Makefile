@@ -51,4 +51,4 @@ descriptors:                               ## Update files used for breaking cha
 saas:                                      ## Extract public APIs and generated files into ../saas
 	go run post-processing.go -project saas
 
-.PHONY: gen
+.PHONY: $(MAKECMDGOALS)
