@@ -10,7 +10,7 @@ require (
 	github.com/golangci/golangci-lint v1.64.8
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/quasilyte/go-consistent v0.6.1
+	github.com/quasilyte/go-consistent v0.6.2
 	github.com/reviewdog/reviewdog v0.20.3
 	golang.org/x/tools v0.43.0
 	google.golang.org/grpc v1.79.3
