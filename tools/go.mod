@@ -5,7 +5,7 @@ go 1.25.8
 require (
 	github.com/bufbuild/buf v1.68.3
 	github.com/golangci/golangci-lint v1.64.8
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0
 	github.com/mwitkow/go-proto-validators v0.3.2
 	github.com/quasilyte/go-consistent v0.6.2
 	github.com/reviewdog/reviewdog v0.21.0
