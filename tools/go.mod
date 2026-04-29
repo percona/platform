@@ -3,7 +3,7 @@ module github.com/percona/platform/tools
 go 1.25.8
 
 require (
-	github.com/bufbuild/buf v1.68.3
+	github.com/bufbuild/buf v1.68.4
 	github.com/golangci/golangci-lint v1.64.8
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.29.0
 	github.com/mwitkow/go-proto-validators v0.3.2
@@ -64,7 +64,7 @@ require (
 	github.com/bombsimon/wsl/v4 v4.5.0 // indirect
 	github.com/breml/bidichk v0.3.2 // indirect
 	github.com/breml/errchkjson v0.4.0 // indirect
-	github.com/bufbuild/protocompile v0.14.2-0.20260420203553-9e5399662822 // indirect
+	github.com/bufbuild/protocompile v0.14.2-0.20260422150859-0395838fcd3c // indirect
 	github.com/bufbuild/protoplugin v0.0.0-20260414125817-25d1d281b46b // indirect
 	github.com/butuzov/ireturn v0.3.1 // indirect
 	github.com/butuzov/mirror v1.3.0 // indirect
