@@ -40,25 +40,29 @@ func logGRPCRequest(l *zap.Logger, suffix string, warnD time.Duration, f func() 
 		switch {
 		case err == nil:
 			if warnD == 0 || dur < warnD {
-				l.Info("Finished "+suffix,
+				l.Info(
+					"Finished "+suffix,
 					zap.String("code", gRPCStatus.Code().String()),
 					zap.Duration("duration", dur),
 				)
 			} else {
-				l.Warn("Finished "+suffix,
+				l.Warn(
+					"Finished "+suffix,
 					zap.String("code", gRPCStatus.Code().String()),
 					zap.Duration("duration", dur),
 					zap.Duration("warn_duration", warnD),
 				)
 			}
 		case isGRPCError:
-			l.Warn("Finished "+suffix,
+			l.Warn(
+				"Finished "+suffix,
 				zap.String("code", gRPCStatus.Code().String()),
 				zap.Duration("duration", dur),
 				zap.Error(err),
 			)
 		default:
-			l.Error("Finished "+suffix,
+			l.Error(
+				"Finished "+suffix,
 				zap.String("code", gRPCStatus.Code().String()),
 				zap.Duration("duration", dur),
 				zap.Error(err),
@@ -96,7 +100,8 @@ func unaryLoggingInterceptor(l *zap.Logger, warnDuration time.Duration) grpc.Una
 			zapReq = zap.Object("request", logger.NewGRPCMessageDumper(ctx, req, info, true))
 		}
 
-		rl.Info("Received unary call.",
+		rl.Info(
+			"Received unary call.",
 			zap.String("method", info.FullMethod),
 			zapReq,
 		)
