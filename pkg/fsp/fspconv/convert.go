@@ -60,7 +60,8 @@ func newPageParamsWithMaxLimit(apiModel *api.PageParams, maxLimit uint32) *fsp.P
 }
 
 func newSortingParams(apiModel *api.SortingParams, allowedColumns map[string]struct{}) (*fsp.SortingParams, error) {
-	return fsp.NewSortingParams(apiModel.GetFieldName(),
+	return fsp.NewSortingParams(
+		apiModel.GetFieldName(),
 		fsp.SortingOrder(apiModel.GetOrder().String()),
 		allowedColumns,
 	)

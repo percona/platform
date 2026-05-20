@@ -109,7 +109,8 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 				msg = fmt.Sprintf("Received request:\n%s", b)
 			}
 		}
-		rl.Info(msg,
+		rl.Info(
+			msg,
 			zap.String("method", r.Method),
 			zap.String("url", r.RequestURI),
 		)
@@ -119,7 +120,8 @@ func RequestLoggerMiddleware(l *zap.Logger, next http.Handler) http.Handler {
 		lrw := newLoggingResponseWriter(w)
 		next.ServeHTTP(lrw, r)
 
-		rl.Info("Request was processed.",
+		rl.Info(
+			"Request was processed.",
 			zap.Int("code", lrw.StatusCode),
 			zap.Duration("duration", time.Since(startTime)),
 		)
