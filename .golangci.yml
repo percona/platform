@@ -1,50 +1,77 @@
 ---
 # Almost all linters; some of them are optional.
 
-linters-settings:
-  depguard:
-    rules:
-      main:
-        deny:
-          - pkg: errors
-            desc:  Use "github.com/pkg/errors" instead
-          - pkg: github.com/gogo/protobuf/proto
-            desc: Use "github.com/golang/protobuf/proto" instead
-          - pkg: gopkg.in/yaml.v2
-            desc:  Use "gopkg.in/yaml.v3" instead
-
-  goimports:
-    local-prefixes: github.com/percona/platform
-
-  unused:
-    check-exported: false
-
-  unparam:
-    check-exported: true
-
+version: "2"
 linters:
-  enable-all: true
+  default: all
   disable:
-    - exhaustruct      # verbose style
-    - funlen           # annoying
-    - gci              # works poorly
-    - err113           # we use pkg/errors for stack traces
-    - ireturn          # incompatible with the codebase
-    - lll              # gRPC types are long
-    - maintidx         # disable for compatability
-    - nlreturn         # conflicts with formatter
-    - nonamedreturns   # named returns improves readability
-    - tagliatelle      # json syntax used in different packages varies
-    - varnamelen       # doesn't match the go codestyle
-    - wrapcheck        # forces to wrap errors everywhere
-    - wsl              # too annoying
-    - exportloopref   #deprecated
-
-issues:
-  exclude-use-default: false
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - funlen       # tests may be long
-        - testpackage  # senseless
-        - unused       # very annoying false positive: https://github.com/golangci/golangci-lint/issues/791
+    - err113          # we use pkg/errors for stack traces
+    - exhaustruct     # verbose style
+    - funlen          # annoying
+    - ireturn         # incompatible with the codebase
+    - lll             # gRPC types are long
+    - maintidx        # disable for compatability
+    - nlreturn        # conflicts with formatter
+    - noinlineerr     # TODO: enable post-migration
+    - nonamedreturns  # named returns improves readability
+    - tagliatelle     # json syntax used in different packages varies
+    - varnamelen      # doesn't match the go codestyle
+    - wrapcheck       # forces to wrap errors everywhere
+    - wsl             # too annoying
+    - wsl_v5          # too annoying
+    - embeddedstructfieldcheck # TODO: enable post-migration
+    - iotamixing      # TODO: enable post-migration
+    - modernize       # TODO: enable post-migration
+  settings:
+    depguard:
+      rules:
+        main:
+          deny:
+            - pkg: errors
+              desc: Use "github.com/pkg/errors" instead
+            - pkg: github.com/gogo/protobuf/proto
+              desc: Use "github.com/golang/protobuf/proto" instead
+            - pkg: gopkg.in/yaml.v2
+              desc: Use "gopkg.in/yaml.v3" instead
+    unparam:
+      check-exported: true
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - funlen       # tests may be long
+          - testpackage  # senseless
+          - unused       # very annoying false positive: https://github.com/golangci/golangci-lint/issues/791
+        path: _test\.go
+      # TODO: address findings newly surfaced by golangci-lint v2 and remove these exclusions.
+      - path: pkg/email/email\.go
+        linters: [staticcheck]
+        text: "SA1019.*aws-sdk-go"
+      - path: pkg/fsp/sorting\.go
+        linters: [staticcheck]
+        text: "QF1003"
+      - path: pkg/grpcutils/dial\.go
+        linters: [nolintlint]
+      - path: pkg/servers/logging_interceptor\.go
+        linters: [nolintlint]
+      - path: pkg/servers/grpc\.go
+        linters: [noctx, prealloc]
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/percona/platform
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
