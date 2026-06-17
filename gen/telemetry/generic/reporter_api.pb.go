@@ -44,6 +44,7 @@ const (
 	ProductFamily_PRODUCT_FAMILY_OPERATOR_POSTGRESQL ProductFamily = 11
 	ProductFamily_PRODUCT_FAMILY_OPERATOR_PSMDB      ProductFamily = 12
 	ProductFamily_PRODUCT_FAMILY_OPERATOR_PS         ProductFamily = 13
+	ProductFamily_PRODUCT_FAMILY_PBS                 ProductFamily = 14
 )
 
 // Enum value maps for ProductFamily.
@@ -63,6 +64,7 @@ var (
 		11: "PRODUCT_FAMILY_OPERATOR_POSTGRESQL",
 		12: "PRODUCT_FAMILY_OPERATOR_PSMDB",
 		13: "PRODUCT_FAMILY_OPERATOR_PS",
+		14: "PRODUCT_FAMILY_PBS",
 	}
 	ProductFamily_value = map[string]int32{
 		"PRODUCT_FAMILY_INVALID":             0,
@@ -79,6 +81,7 @@ var (
 		"PRODUCT_FAMILY_OPERATOR_POSTGRESQL": 11,
 		"PRODUCT_FAMILY_OPERATOR_PSMDB":      12,
 		"PRODUCT_FAMILY_OPERATOR_PS":         13,
+		"PRODUCT_FAMILY_PBS":                 14,
 	}
 )
 
@@ -348,7 +351,7 @@ const file_telemetry_generic_reporter_api_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\tR\x05value\"_\n" +
 	"\rReportRequest\x12N\n" +
 	"\areports\x18\x01 \x03(\v24.percona.platform.telemetry.generic.v1.GenericReportR\areports\"\x10\n" +
-	"\x0eReportResponse*\xa7\x03\n" +
+	"\x0eReportResponse*\xbf\x03\n" +
 	"\rProductFamily\x12\x1a\n" +
 	"\x16PRODUCT_FAMILY_INVALID\x10\x00\x12\x15\n" +
 	"\x11PRODUCT_FAMILY_PS\x10\x01\x12\x16\n" +
@@ -364,7 +367,8 @@ const file_telemetry_generic_reporter_api_proto_rawDesc = "" +
 	"\x12&\n" +
 	"\"PRODUCT_FAMILY_OPERATOR_POSTGRESQL\x10\v\x12!\n" +
 	"\x1dPRODUCT_FAMILY_OPERATOR_PSMDB\x10\f\x12\x1e\n" +
-	"\x1aPRODUCT_FAMILY_OPERATOR_PS\x10\r2\xdf\x02\n" +
+	"\x1aPRODUCT_FAMILY_OPERATOR_PS\x10\r\x12\x16\n" +
+	"\x12PRODUCT_FAMILY_PBS\x10\x0e2\xdf\x02\n" +
 	"\vReporterAPI\x12\xcf\x02\n" +
 	"\rGenericReport\x124.percona.platform.telemetry.generic.v1.ReportRequest\x1a5.percona.platform.telemetry.generic.v1.ReportResponse\"\xd0\x01\x92A\xa6\x01\x12\rGenericReport\x1aPGenericReport is used to submit generic telemetry reports to telemetryd service.2\x10application/json:\x10application/jsonJ\x1f\n" +
 	"\x03200\x12\x18\"\x16\n" +
