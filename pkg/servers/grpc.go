@@ -75,7 +75,6 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		unaryLoggingInterceptor(l.Desugar(), opts.WarnDuration),
 		grpc_prometheus.UnaryServerInterceptor,
 		grpc_validator.UnaryServerInterceptor(),
-		unaryAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
 	}
 	unaryInterceptors = append(unaryInterceptors, opts.ExtraUnaryInterceptors...)
 
@@ -83,7 +82,6 @@ func NewGRPCServer(opts *NewGRPCServerOpts) GRPCServer {
 		streamLoggingInterceptor(l.Desugar(), opts.WarnDuration),
 		grpc_prometheus.StreamServerInterceptor,
 		grpc_validator.StreamServerInterceptor(),
-		streamAuthInterceptor(opts.NoAuthMethods, opts.MayUseAuthMethods),
 	}
 	streamInterceptors = append(streamInterceptors, opts.ExtraStreamInterceptors...)
 
