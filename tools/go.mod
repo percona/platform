@@ -1,6 +1,6 @@
 module github.com/percona/platform/tools
 
-go 1.25.8
+go 1.26.4
 
 require (
 	github.com/bufbuild/buf v1.69.0
