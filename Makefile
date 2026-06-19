@@ -33,7 +33,6 @@ format:                                    ## Format source code
 	bin/buf format api -w
 
 check:                                     ## Run checks/linters for the whole project
-	bin/go-consistent -exclude=tools -pedantic ./...
 	LOG_LEVEL=error bin/golangci-lint run
 
 test:                                      ## Run tests
