@@ -7,8 +7,6 @@ Shared Go module (`github.com/percona/platform`) providing:
 - **Generated Go code** from those protos (under `gen/`, committed to the repo)
 - **Shared Go libraries** consumed across all platform services (under `pkg/`)
 
-The sibling repo `github.com/percona/saas` is a public mirror — `make saas` extracts a subset of this repo there, rewriting all import paths.
-
 ---
 
 ## Directory structure
@@ -46,14 +44,12 @@ Mirrors `api/` structure. Regenerate with `make gen`.
 make init            # Build all dev tools into bin/ (run once after checkout)
 make gen             # Regenerate all protobuf code (rm -rf gen, buf generate, format, breaking check)
 make descriptors     # Update platform.bin used for breaking-change detection (run before make gen when removing protos)
-make gen-code        # go generate + go install
 make format          # gofumpt + goimports + buf format
 make check           # go-consistent + golangci-lint
 make test            # go test -race ./...
 make test-cover      # Per-package coverage → cover.out
 make test-crosscover # Cross-package coverage → crosscover.out
 make swagger-ui      # Serve Swagger docs locally on :8081 (Docker required)
-make saas            # Extract public subset to ../saas with import path rewrite
 ```
 
 ---
@@ -92,5 +88,5 @@ Generated code is **committed to the repo**.
 
 ## CI
 
-- **ci.yml**: on push to `main` and all PRs — runs `make gen`, `make gen-code`, cross-coverage tests, then `make format` + `make check` with reviewdog annotations on PRs
+- **ci.yml**: on push to `main` and all PRs — runs `make gen`, cross-coverage tests, then `make format` + `make check` with reviewdog annotations on PRs
 - **Verification step**: CI asserts no uncommitted source changes after gen (go.sum tidying is the only allowed diff)
