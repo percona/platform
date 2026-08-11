@@ -78,7 +78,7 @@ Generated code is **committed to the repo**.
 
 ## Dependency notes
 
-- Module: `github.com/percona/platform`, Go 1.25.8
+- Module: `github.com/percona/platform`
 - gRPC: `google.golang.org/grpc` + `grpc-gateway/v2` for HTTP/JSON transcoding
 - Logging: `go.uber.org/zap`
 - Validation: `github.com/mwitkow/go-proto-validators`
