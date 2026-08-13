@@ -7,7 +7,8 @@
   },
   "tags": [
     {
-      "name": "ReporterAPI"
+      "name": "ReporterAPI",
+      "description": "ReporterAPI describes server API for reporting telemetry events."
     }
   ],
   "consumes": [
