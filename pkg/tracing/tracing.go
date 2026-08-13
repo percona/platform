@@ -7,6 +7,7 @@ import (
 	"net/textproto"
 	"strings"
 
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
@@ -23,6 +24,17 @@ const (
 // NOTE: key parameter must be in a Canonical format.
 func OpenTracingHeadersMatcher(key string) bool {
 	return strings.HasPrefix(key, tracingHeaderPrefix)
+}
+
+// PerconaHeaderMatcher preserves tracing headers after the HTTP request is received
+// by grpc-gateway so they are forwarded as-is to the grpc server.
+func PerconaHeaderMatcher(key string) (string, bool) {
+	keyCanonical := textproto.CanonicalMIMEHeaderKey(key)
+	if OpenTracingHeadersMatcher(keyCanonical) {
+		return key, true
+	}
+
+	return runtime.DefaultHeaderMatcher(key)
 }
 
 // GetRequestIDFromGRPCIncomingContext extracts from trace-id value from gRPC incoming metadata.

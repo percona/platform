@@ -17,10 +17,6 @@ gen:                                       ## Format, check, and generate code u
 	make format
 	bin/buf breaking --against platform.bin api
 
-gen-code:                                  ## Generate code
-	go generate ./...
-	go install ./...
-
 swagger-ui:                                ## Serve API documentation with SwaggerUI
 	docker run -p 8081:8080 -e URLS='[ \
 		{name:"telemetryd", url:"/gen/telemetry/reporter/reporter_api.swagger.json"}, \
@@ -46,8 +42,5 @@ test-crosscover:                           ## Run tests and collect cross-packag
 
 descriptors:                               ## Update files used for breaking changes detection
 	bin/buf build -o platform.bin --as-file-descriptor-set api
-
-saas:                                      ## Extract public APIs and generated files into ../saas
-	go run post-processing.go -project saas
 
 .PHONY: $(MAKECMDGOALS)
