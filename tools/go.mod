@@ -10,7 +10,7 @@ require (
 	golang.org/x/tools v0.48.0
 	google.golang.org/grpc v1.83.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.6.2
-	google.golang.org/protobuf v1.36.11
+	google.golang.org/protobuf v1.36.12
 	mvdan.cc/gofumpt v0.11.0
 )
 
